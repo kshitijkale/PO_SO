@@ -14,6 +14,7 @@ from gepa.core.callbacks import (
     MinibatchSampledEvent,
     ProposalEndEvent,
     ProposalStartEvent,
+    ProposalTraceEvent,
     ReflectiveDatasetBuiltEvent,
     notify_callbacks,
 )
@@ -25,6 +26,7 @@ from gepa.proposer.reflective_mutation.base import (
     LanguageModel,
     ReflectionComponentSelector,
 )
+from gepa.proposer.reflective_mutation.memory import ReflectionMemory, ReflectionMemoryEntry, summarize_change
 from gepa.strategies.batch_sampler import BatchSampler
 from gepa.strategies.instruction_proposal import InstructionProposalSignature
 
@@ -56,6 +58,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         reflection_prompt_template: str | dict[str, str] | None = None,
         custom_candidate_proposer: ProposalFn | None = None,
         callbacks: list[GEPACallback] | None = None,
+        reflection_memory: ReflectionMemory | None = None,
     ):
         self.logger = logger
         self.trainset = ensure_loader(trainset)
@@ -69,6 +72,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         self.reflection_lm = reflection_lm
         self.custom_candidate_proposer = custom_candidate_proposer
         self.callbacks = callbacks
+        self.reflection_memory = reflection_memory
 
         self.reflection_prompt_template = reflection_prompt_template
         # Track parameters for which we've already logged missing template warnings
@@ -91,6 +95,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         candidate: dict[str, str],
         reflective_dataset: Mapping[str, Sequence[Mapping[str, Any]]],
         components_to_update: list[str],
+        iteration: int = 0,
     ) -> dict[str, str]:
         if self.adapter.propose_new_texts is not None:
             return self.adapter.propose_new_texts(candidate, reflective_dataset, components_to_update)
@@ -125,18 +130,51 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                 # Use the single template for all parameters
                 prompt_template = self.reflection_prompt_template
 
-            new_texts[name] = InstructionProposalSignature.run(
+            # Inject reflection memory into the prompt template if available
+            effective_template = prompt_template
+            memory_was_injected = False
+            if self.reflection_memory is not None:
+                memory_text = self.reflection_memory.format_for_prompt(component_name=name)
+                if memory_text:
+                    base_template = effective_template or InstructionProposalSignature.default_prompt_template
+                    effective_template = base_template + "\n\n" + memory_text
+                    memory_was_injected = True
+
+            result, trace = InstructionProposalSignature.run_with_trace(
                 lm=self.reflection_lm,
                 input_dict={
                     "current_instruction_doc": base_instruction,
                     "dataset_with_feedback": dataset_with_feedback,
-                    "prompt_template": prompt_template,
+                    "prompt_template": effective_template,
                 },
-            )["new_instruction"]
+            )
+            new_texts[name] = result["new_instruction"]
+
+            # Fire proposal trace event
+            notify_callbacks(
+                self.callbacks,
+                "on_proposal_trace",
+                ProposalTraceEvent(
+                    iteration=iteration,
+                    component_name=name,
+                    prompt_template=effective_template or InstructionProposalSignature.default_prompt_template,
+                    rendered_prompt=trace["rendered_prompt"],
+                    raw_response=trace["raw_response"],
+                    extracted_instruction=result["new_instruction"],
+                    model_id=getattr(self.reflection_lm, "__name__", str(self.reflection_lm)),
+                    latency_ms=trace["latency_ms"],
+                    memory_was_injected=memory_was_injected,
+                ),
+            )
         return new_texts
 
     def propose(self, state: GEPAState) -> CandidateProposal | None:
         i = state.i + 1
+
+        # Update memory iteration and fire snapshot
+        if self.reflection_memory is not None:
+            self.reflection_memory.set_iteration(i)
+            self.reflection_memory.fire_snapshot_event("before_proposal")
 
         curr_prog_id = self.candidate_selector.select_candidate_idx(state)
         curr_prog = state.program_candidates[curr_prog_id]
@@ -205,6 +243,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                 candidate_idx=curr_prog_id,
                 scores=eval_curr.scores,
                 has_trajectories=bool(eval_curr.trajectories),
+                capture_traces=True,
                 parent_ids=curr_parent_ids,
                 outputs=eval_curr.outputs,
                 trajectories=eval_curr.trajectories,
@@ -296,7 +335,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                 ),
             )
 
-            new_texts = self.propose_new_texts(curr_prog, reflective_dataset, predictor_names_to_update)
+            new_texts = self.propose_new_texts(curr_prog, reflective_dataset, predictor_names_to_update, iteration=i)
 
             # Notify proposal end
             notify_callbacks(
@@ -307,7 +346,6 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                     new_instructions=new_texts,
                 ),
             )
-
 
             for pname, text in new_texts.items():
                 self.logger.log(f"Iteration {i}: Proposed new text for {pname}: {text}")
@@ -360,6 +398,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                 candidate_idx=None,
                 scores=new_scores,
                 has_trajectories=False,
+                capture_traces=False,
                 parent_ids=[curr_prog_id],
                 outputs=outputs,
                 trajectories=None,
@@ -375,6 +414,34 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         self.experiment_tracker.log_metrics(
             {"new_subsample_score": new_sum, "total_metric_calls": state.total_num_evals}, step=i
         )
+
+        # Record this reflection attempt in memory
+        if self.reflection_memory is not None:
+            old_sum = sum(eval_curr.scores)
+            for comp_name in predictor_names_to_update:
+                # Extract failure modes from the reflective dataset for failed examples
+                failure_modes: list[str] = []
+                if comp_name in reflective_dataset:
+                    for idx, record in enumerate(reflective_dataset[comp_name]):
+                        if idx < len(eval_curr.scores) and eval_curr.scores[idx] < (self.perfect_score or 1.0):
+                            feedback = record.get("Feedback") or record.get("feedback") or ""
+                            if isinstance(feedback, str) and feedback:
+                                # Truncate long feedback to keep memory compact
+                                failure_modes.append(feedback[:150])
+
+                self.reflection_memory.add(
+                    ReflectionMemoryEntry(
+                        iteration=i,
+                        component_name=comp_name,
+                        change_summary=summarize_change(curr_prog.get(comp_name, ""), new_candidate.get(comp_name, "")),
+                        score_before=old_sum,
+                        score_after=new_sum,
+                        accepted=new_sum > old_sum,
+                        failure_modes=failure_modes,
+                    )
+                )
+
+            self.reflection_memory.fire_snapshot_event("after_proposal")
 
         return CandidateProposal(
             candidate=new_candidate,

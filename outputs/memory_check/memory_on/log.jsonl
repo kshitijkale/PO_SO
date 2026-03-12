@@ -1,0 +1,95 @@
+{"timestamp": "2026-03-12T09:04:54", "event_type": "optimization_start", "seed_candidate": {"current_candidate": "Identify this word."}, "trainset_size": 3, "valset_size": 3, "config": {"perfect_score": null, "seed": 0, "track_best_outputs": false}}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "valset_evaluated", "iteration": 0, "candidate_idx": 0, "average_score": 0.0, "num_examples": 3, "is_best_program": true}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "state_saved", "iteration": 0, "run_dir": "outputs/memory_check/memory_on"}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "iteration_start", "iteration": 1, "num_candidates": 1, "total_evals": 3}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "memory_state_snapshot", "iteration": 1, "phase": "before_proposal", "total_entries": 0, "max_entries": 10, "accepted_ratio": 0.0}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "candidate_selected", "iteration": 1, "candidate_idx": 0, "score": 0.0}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "minibatch_sampled", "iteration": 1, "minibatch_ids": [2, 0], "trainset_size": 3}
+{"timestamp": "2026-03-12T09:04:54", "event_type": "evaluation_start", "iteration": 1, "candidate_idx": 0, "batch_size": 2, "capture_traces": true, "is_seed_candidate": true}
+{"timestamp": "2026-03-12T09:04:57", "event_type": "evaluation_end", "iteration": 1, "candidate_idx": 0, "scores": [0.0, 0.0], "has_trajectories": true, "capture_traces": true}
+{"timestamp": "2026-03-12T09:04:57", "event_type": "reflective_dataset_built", "iteration": 1, "candidate_idx": 0, "components": ["current_candidate"], "dataset_sizes": {"current_candidate": 2}}
+{"timestamp": "2026-03-12T09:04:57", "event_type": "proposal_start", "iteration": 1, "components": ["current_candidate"]}
+{"timestamp": "2026-03-12T09:04:57", "event_type": "memory_queried", "iteration": 1, "component": "current_candidate", "entries_returned": 0, "formatted_text_length": 0}
+{"timestamp": "2026-03-12T09:04:58", "event_type": "proposal_trace", "iteration": 1, "component_name": "current_candidate", "model_id": "_lm", "latency_ms": 1045.5, "memory_was_injected": false, "prompt_length": 2711, "response_length": 194}
+{"timestamp": "2026-03-12T09:04:58", "event_type": "proposal_end", "iteration": 1, "new_instructions": {"current_candidate": "Output exactly one word identifying the part of speech category of the given word. Choose only one word from: noun, verb, adjective, or adverb. Provide no additional explanation or text."}}
+{"timestamp": "2026-03-12T09:04:58", "event_type": "evaluation_start", "iteration": 1, "candidate_idx": null, "batch_size": 2, "capture_traces": false, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:04:59", "event_type": "evaluation_end", "iteration": 1, "candidate_idx": null, "scores": [1.0, 1.0], "has_trajectories": false, "capture_traces": false}
+{"timestamp": "2026-03-12T09:04:59", "event_type": "memory_entry_added", "iteration": 1, "component_name": "current_candidate", "entry": {"iteration": 1, "component_name": "current_candidate", "change_summary": "Added: 'Choose only one word from: noun, verb, adjective, or adverb. Provide no additional explanation or text.'", "score_before": 0.0, "score_after": 2.0, "accepted": true, "failure_modes": ["Expected exactly 'adverb' but got 'The word \"quickly\" is an adverb that means to do something with speed or in a fast manner. It describes the manner ", "Expected exactly 'adjective' but got 'The word is \"happy.\" It is an adjective that describes a feeling of pleasure, contentment, or joy.'. Output must"]}, "memory_size_before": 0, "memory_size_after": 1, "evicted_entry": null, "memory_utilization": 0.1}
+{"timestamp": "2026-03-12T09:04:59", "event_type": "memory_state_snapshot", "iteration": 1, "phase": "after_proposal", "total_entries": 1, "max_entries": 10, "accepted_ratio": 1.0}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "pareto_front_updated", "iteration": 1, "new_front": [1], "displaced_candidates": [0]}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "valset_evaluated", "iteration": 1, "candidate_idx": 1, "average_score": 1.0, "num_examples": 3, "is_best_program": true}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "candidate_accepted", "iteration": 1, "new_candidate_idx": 1, "new_score": 2.0, "parent_ids": [0]}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "iteration_end", "iteration": 1, "accepted": true, "iter_elapsed_s": 6.57}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "state_saved", "iteration": 1, "run_dir": "outputs/memory_check/memory_on"}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "iteration_start", "iteration": 2, "num_candidates": 2, "total_evals": 10}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "memory_state_snapshot", "iteration": 2, "phase": "before_proposal", "total_entries": 1, "max_entries": 10, "accepted_ratio": 1.0}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "candidate_selected", "iteration": 2, "candidate_idx": 1, "score": 1.0}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "minibatch_sampled", "iteration": 2, "minibatch_ids": [1, 1], "trainset_size": 3}
+{"timestamp": "2026-03-12T09:05:01", "event_type": "evaluation_start", "iteration": 2, "candidate_idx": 1, "batch_size": 2, "capture_traces": true, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:03", "event_type": "evaluation_end", "iteration": 2, "candidate_idx": 1, "scores": [1.0, 1.0], "has_trajectories": true, "capture_traces": true}
+{"timestamp": "2026-03-12T09:05:03", "event_type": "reflective_dataset_built", "iteration": 2, "candidate_idx": 1, "components": ["current_candidate"], "dataset_sizes": {"current_candidate": 2}}
+{"timestamp": "2026-03-12T09:05:03", "event_type": "proposal_start", "iteration": 2, "components": ["current_candidate"]}
+{"timestamp": "2026-03-12T09:05:03", "event_type": "memory_queried", "iteration": 2, "component": "current_candidate", "entries_returned": 1, "formatted_text_length": 602}
+{"timestamp": "2026-03-12T09:05:04", "event_type": "proposal_trace", "iteration": 2, "component_name": "current_candidate", "model_id": "_lm", "latency_ms": 1155.4, "memory_was_injected": true, "prompt_length": 2410, "response_length": 188}
+{"timestamp": "2026-03-12T09:05:04", "event_type": "proposal_end", "iteration": 2, "new_instructions": {"current_candidate": "Output exactly one word from noun, verb, adjective, or adverb that identifies the part of speech of the given word. Do not include any additional text, explanation, or punctuation."}}
+{"timestamp": "2026-03-12T09:05:04", "event_type": "evaluation_start", "iteration": 2, "candidate_idx": null, "batch_size": 2, "capture_traces": false, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "evaluation_end", "iteration": 2, "candidate_idx": null, "scores": [1.0, 1.0], "has_trajectories": false, "capture_traces": false}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "memory_entry_added", "iteration": 2, "component_name": "current_candidate", "entry": {"iteration": 2, "component_name": "current_candidate", "change_summary": "Removed: 'identifying the part of speech category of the given word. Choose only one word'", "score_before": 2.0, "score_after": 2.0, "accepted": false, "failure_modes": []}, "memory_size_before": 1, "memory_size_after": 2, "evicted_entry": null, "memory_utilization": 0.2}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "memory_state_snapshot", "iteration": 2, "phase": "after_proposal", "total_entries": 2, "max_entries": 10, "accepted_ratio": 0.5}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "candidate_rejected", "iteration": 2, "old_score": 2.0, "new_score": 2.0, "reason": "New subsample score 2.0 not better than old score 2.0"}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "iteration_end", "iteration": 2, "accepted": false, "iter_elapsed_s": 4.84}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "state_saved", "iteration": 2, "run_dir": "outputs/memory_check/memory_on"}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "iteration_start", "iteration": 3, "num_candidates": 2, "total_evals": 14}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "memory_state_snapshot", "iteration": 3, "phase": "before_proposal", "total_entries": 2, "max_entries": 10, "accepted_ratio": 0.5}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "candidate_selected", "iteration": 3, "candidate_idx": 1, "score": 1.0}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "minibatch_sampled", "iteration": 3, "minibatch_ids": [0, 2], "trainset_size": 3}
+{"timestamp": "2026-03-12T09:05:06", "event_type": "evaluation_start", "iteration": 3, "candidate_idx": 1, "batch_size": 2, "capture_traces": true, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:07", "event_type": "evaluation_end", "iteration": 3, "candidate_idx": 1, "scores": [1.0, 1.0], "has_trajectories": true, "capture_traces": true}
+{"timestamp": "2026-03-12T09:05:07", "event_type": "reflective_dataset_built", "iteration": 3, "candidate_idx": 1, "components": ["current_candidate"], "dataset_sizes": {"current_candidate": 2}}
+{"timestamp": "2026-03-12T09:05:07", "event_type": "proposal_start", "iteration": 3, "components": ["current_candidate"]}
+{"timestamp": "2026-03-12T09:05:07", "event_type": "memory_queried", "iteration": 3, "component": "current_candidate", "entries_returned": 2, "formatted_text_length": 733}
+{"timestamp": "2026-03-12T09:05:08", "event_type": "proposal_trace", "iteration": 3, "component_name": "current_candidate", "model_id": "_lm", "latency_ms": 1024.5, "memory_was_injected": true, "prompt_length": 2568, "response_length": 105}
+{"timestamp": "2026-03-12T09:05:08", "event_type": "proposal_end", "iteration": 3, "new_instructions": {"current_candidate": "Output exactly one word: noun, verb, adjective, or adverb. Do not add explanations or extra text."}}
+{"timestamp": "2026-03-12T09:05:08", "event_type": "evaluation_start", "iteration": 3, "candidate_idx": null, "batch_size": 2, "capture_traces": false, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "evaluation_end", "iteration": 3, "candidate_idx": null, "scores": [1.0, 1.0], "has_trajectories": false, "capture_traces": false}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "memory_entry_added", "iteration": 3, "component_name": "current_candidate", "entry": {"iteration": 3, "component_name": "current_candidate", "change_summary": "Removed: 'identifying the part of speech category of the given word. Choose only one word from'", "score_before": 2.0, "score_after": 2.0, "accepted": false, "failure_modes": []}, "memory_size_before": 2, "memory_size_after": 3, "evicted_entry": null, "memory_utilization": 0.3}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "memory_state_snapshot", "iteration": 3, "phase": "after_proposal", "total_entries": 3, "max_entries": 10, "accepted_ratio": 0.333}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "candidate_rejected", "iteration": 3, "old_score": 2.0, "new_score": 2.0, "reason": "New subsample score 2.0 not better than old score 2.0"}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "iteration_end", "iteration": 3, "accepted": false, "iter_elapsed_s": 3.64}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "state_saved", "iteration": 3, "run_dir": "outputs/memory_check/memory_on"}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "iteration_start", "iteration": 4, "num_candidates": 2, "total_evals": 18}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "memory_state_snapshot", "iteration": 4, "phase": "before_proposal", "total_entries": 3, "max_entries": 10, "accepted_ratio": 0.333}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "candidate_selected", "iteration": 4, "candidate_idx": 1, "score": 1.0}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "minibatch_sampled", "iteration": 4, "minibatch_ids": [1, 1], "trainset_size": 3}
+{"timestamp": "2026-03-12T09:05:09", "event_type": "evaluation_start", "iteration": 4, "candidate_idx": 1, "batch_size": 2, "capture_traces": true, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:11", "event_type": "evaluation_end", "iteration": 4, "candidate_idx": 1, "scores": [1.0, 1.0], "has_trajectories": true, "capture_traces": true}
+{"timestamp": "2026-03-12T09:05:11", "event_type": "reflective_dataset_built", "iteration": 4, "candidate_idx": 1, "components": ["current_candidate"], "dataset_sizes": {"current_candidate": 2}}
+{"timestamp": "2026-03-12T09:05:11", "event_type": "proposal_start", "iteration": 4, "components": ["current_candidate"]}
+{"timestamp": "2026-03-12T09:05:11", "event_type": "memory_queried", "iteration": 4, "component": "current_candidate", "entries_returned": 3, "formatted_text_length": 869}
+{"timestamp": "2026-03-12T09:05:12", "event_type": "proposal_trace", "iteration": 4, "component_name": "current_candidate", "model_id": "_lm", "latency_ms": 1044.7, "memory_was_injected": true, "prompt_length": 2677, "response_length": 171}
+{"timestamp": "2026-03-12T09:05:12", "event_type": "proposal_end", "iteration": 4, "new_instructions": {"current_candidate": "Output exactly one word: noun, verb, adjective, or adverb. Use only one of these four words as your answer. Provide no additional explanation, definition, or text."}}
+{"timestamp": "2026-03-12T09:05:12", "event_type": "evaluation_start", "iteration": 4, "candidate_idx": null, "batch_size": 2, "capture_traces": false, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "evaluation_end", "iteration": 4, "candidate_idx": null, "scores": [1.0, 1.0], "has_trajectories": false, "capture_traces": false}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "memory_entry_added", "iteration": 4, "component_name": "current_candidate", "entry": {"iteration": 4, "component_name": "current_candidate", "change_summary": "Removed: 'identifying the part of speech category of the given word. Choose only one word from'", "score_before": 2.0, "score_after": 2.0, "accepted": false, "failure_modes": []}, "memory_size_before": 3, "memory_size_after": 4, "evicted_entry": null, "memory_utilization": 0.4}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "memory_state_snapshot", "iteration": 4, "phase": "after_proposal", "total_entries": 4, "max_entries": 10, "accepted_ratio": 0.25}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "candidate_rejected", "iteration": 4, "old_score": 2.0, "new_score": 2.0, "reason": "New subsample score 2.0 not better than old score 2.0"}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "iteration_end", "iteration": 4, "accepted": false, "iter_elapsed_s": 3.84}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "state_saved", "iteration": 4, "run_dir": "outputs/memory_check/memory_on"}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "iteration_start", "iteration": 5, "num_candidates": 2, "total_evals": 22}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "memory_state_snapshot", "iteration": 5, "phase": "before_proposal", "total_entries": 4, "max_entries": 10, "accepted_ratio": 0.25}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "candidate_selected", "iteration": 5, "candidate_idx": 1, "score": 1.0}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "minibatch_sampled", "iteration": 5, "minibatch_ids": [2, 0], "trainset_size": 3}
+{"timestamp": "2026-03-12T09:05:13", "event_type": "evaluation_start", "iteration": 5, "candidate_idx": 1, "batch_size": 2, "capture_traces": true, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:14", "event_type": "evaluation_end", "iteration": 5, "candidate_idx": 1, "scores": [1.0, 1.0], "has_trajectories": true, "capture_traces": true}
+{"timestamp": "2026-03-12T09:05:14", "event_type": "reflective_dataset_built", "iteration": 5, "candidate_idx": 1, "components": ["current_candidate"], "dataset_sizes": {"current_candidate": 2}}
+{"timestamp": "2026-03-12T09:05:14", "event_type": "proposal_start", "iteration": 5, "components": ["current_candidate"]}
+{"timestamp": "2026-03-12T09:05:14", "event_type": "memory_queried", "iteration": 5, "component": "current_candidate", "entries_returned": 4, "formatted_text_length": 1005}
+{"timestamp": "2026-03-12T09:05:16", "event_type": "proposal_trace", "iteration": 5, "component_name": "current_candidate", "model_id": "_lm", "latency_ms": 1089.7, "memory_was_injected": true, "prompt_length": 2840, "response_length": 211}
+{"timestamp": "2026-03-12T09:05:16", "event_type": "proposal_end", "iteration": 5, "new_instructions": {"current_candidate": "Output exactly one word from the following set indicating the part of speech of the given word: noun, verb, adjective, or adverb. Respond with only that single word and no additional text or explanation."}}
+{"timestamp": "2026-03-12T09:05:16", "event_type": "evaluation_start", "iteration": 5, "candidate_idx": null, "batch_size": 2, "capture_traces": false, "is_seed_candidate": false}
+{"timestamp": "2026-03-12T09:05:17", "event_type": "evaluation_end", "iteration": 5, "candidate_idx": null, "scores": [1.0, 1.0], "has_trajectories": false, "capture_traces": false}
+{"timestamp": "2026-03-12T09:05:17", "event_type": "memory_entry_added", "iteration": 5, "component_name": "current_candidate", "entry": {"iteration": 5, "component_name": "current_candidate", "change_summary": "Changed: 'P' \u2192 'Respond with only that single wo'", "score_before": 2.0, "score_after": 2.0, "accepted": false, "failure_modes": []}, "memory_size_before": 4, "memory_size_after": 5, "evicted_entry": null, "memory_utilization": 0.5}
+{"timestamp": "2026-03-12T09:05:17", "event_type": "memory_state_snapshot", "iteration": 5, "phase": "after_proposal", "total_entries": 5, "max_entries": 10, "accepted_ratio": 0.2}
+{"timestamp": "2026-03-12T09:05:17", "event_type": "candidate_rejected", "iteration": 5, "old_score": 2.0, "new_score": 2.0, "reason": "New subsample score 2.0 not better than old score 2.0"}
+{"timestamp": "2026-03-12T09:05:17", "event_type": "iteration_end", "iteration": 5, "accepted": false, "iter_elapsed_s": 3.85}
+{"timestamp": "2026-03-12T09:05:17", "event_type": "optimization_end", "best_candidate_idx": 1, "total_iterations": 4, "total_metric_calls": 26, "elapsed": "00m 22s"}

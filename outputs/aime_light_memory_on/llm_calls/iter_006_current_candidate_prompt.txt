@@ -1,0 +1,1000 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## problem
+Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+107
+
+## reasoning
+Let's analyze the problem step-by-step:
+
+1. We have two rectangles \(ABCD\) and \(EFGH\).
+2. Points \(D, E, C, F\) are collinear.
+3. Points \(A, D, H, G\) lie on a circle.
+4. Given side lengths:
+   - For rectangle \(ABCD\), \(BC = 16\) and \(AB = 107\).
+   - For rectangle \(EFGH\), \(FG = 17\) and \(EF = 184\).
+5. We want to find the length \(CE\).
+
+---
+
+### Step 1: Understand the rectangles and their sides
+
+Since \(ABCD\) and \(EFGH\) are rectangles, their sides are perpendicular and opposite sides are equal:
+
+- \(ABCD\): \(AB = DC = 107\), \(BC = AD = 16\).
+- \(EFGH\): \(EF = GH = 184\), \(FG = EH = 17\).
+
+---
+
+### Step 2: Place the rectangles in coordinate space for easier visualization
+
+Let's place rectangle \(ABCD\) in the coordinate plane:
+
+- Let \(A = (0,0)\).
+- Since \(AB = 107\) along the x-axis, let \(B = (107, 0)\).
+- \(BC = 16\) along the y-axis, so \(C = (107, 16)\).
+- \(D = (0, 16)\).
+
+---
+
+### Step 3: Coordinates of points \(D, E, C, F\) are collinear
+
+Points \(D, E, C, F\) lie on the same line.
+
+From Step 2, \(D = (0,16)\) and \(C = (107,16)\), so the line through \(D\) and \(C\) is horizontal at \(y=16\).
+
+Therefore, points \(E\) and \(F\) also lie on the line \(y=16\).
+
+---
+
+### Step 4: Rectangle \(EFGH\)
+
+Because \(EFGH\) is a rectangle with sides \(EF = 184\) and \(FG = 17\), and \(E\) and \(F\) lie on \(y=16\), we can place \(E\) and \(F\) on this line.
+
+Let:
+
+- \(E = (x, 16)\)
+- \(F = (x + 184, 16)\)
+
+Since \(EF = 184\), this makes sense.
+
+---
+
+### Step 5: Find the coordinates of \(G\) and \(H\)
+
+\(EFGH\) is a rectangle, so sides \(FG\) and \(EH\) are perpendicular to \(EF\) (which is horizontal), so they are vertical segments of length 17.
+
+Hence:
+
+- \(G = (x + 184, 16 - 17) = (x + 184, -1)\)
+- \(H = (x, 16 - 17) = (x, -1)\)
+
+---
+
+### Step 6: Points \(A, D, H, G\) lie on a circle
+
+Recall:
+
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x, -1)\)
+- \(G = (x + 184, -1)\)
+
+These four points lie on the same circle.
+
+---
+
+### Step 7: Find the circle through points \(A, D, H, G\)
+
+Since \(A, D, H, G\) are concyclic, the distances from the center \((h, k)\) to these points are equal.
+
+Let circle center be \((h, k)\) and radius \(r\).
+
+Write equations for equal distances:
+
+\[
+\begin{cases}
+(h - 0)^2 + (k - 0)^2 = r^2 \\
+(h - 0)^2 + (k - 16)^2 = r^2 \\
+(h - x)^2 + (k + 1)^2 = r^2 \\
+(h - (x + 184))^2 + (k + 1)^2 = r^2 \\
+\end{cases}
+\]
+
+From the first two:
+
+\[
+h^2 + k^2 = h^2 + (k - 16)^2 \implies k^2 = (k - 16)^2
+\]
+
+Expanding:
+
+\[
+k^2 = k^2 - 32k + 256 \implies 0 = -32k + 256 \implies 32k = 256 \implies k = 8
+\]
+
+So the center's y-coordinate is \(k=8\).
+
+---
+
+### Step 8: Use the last two equations with \(k=8\):
+
+Set distances equal:
+
+\[
+(h - x)^2 + (8 + 1)^2 = (h - (x + 184))^2 + (8 + 1)^2
+\]
+
+Since \((8 + 1)^2 = 9^2 = 81\), subtract 81 from both sides:
+
+\[
+(h - x)^2 = (h - (x + 184))^2
+\]
+
+Expand:
+
+\[
+(h - x)^2 = (h - x - 184)^2
+\]
+
+Take square roots:
+
+\[
+|h - x| = |h - x - 184|
+\]
+
+This implies:
+
+\[
+h - x = -(h - x - 184) \quad \text{or} \quad h - x = h - x - 184
+\]
+
+The second case gives \(0 = -184\), impossible.
+
+The first case:
+
+\[
+h - x = -h + x + 184 \implies 2h - 2x = 184 \implies h - x = 92
+\]
+
+So:
+
+\[
+h = x + 92
+\]
+
+---
+
+### Step 9: Use the first equation for \(r^2\):
+
+\[
+r^2 = h^2 + k^2 = (x + 92)^2 + 8^2 = (x + 92)^2 + 64
+\]
+
+Use the distance from \(D = (0,16)\):
+
+\[
+r^2 = (h - 0)^2 + (k - 16)^2 = (x + 92)^2 + (8 - 16)^2 = (x + 92)^2 + (-8)^2 = (x + 92)^2 + 64
+\]
+
+This matches the previous \(r^2\), so no new information here.
+
+---
+
+### Step 10: Use distance from \(H = (x, -1)\):
+
+\[
+r^2 = (h - x)^2 + (k + 1)^2 = (x + 92 - x)^2 + (8 + 1)^2 = 92^2 + 9^2 = 8464 + 81 = 8545
+\]
+
+Check if this matches the previous \(r^2\):
+
+\[
+r^2 = (x + 92)^2 + 64
+\]
+
+Set equal:
+
+\[
+(x + 92)^2 + 64 = 8545 \implies (x + 92)^2 = 8545 - 64 = 8481
+\]
+
+Take square root:
+
+\[
+x + 92 = \pm \sqrt{8481}
+\]
+
+Calculate \(\sqrt{8481}\):
+
+- \(92^2 = 8464\), so \(\sqrt{8481} \approx 92.07\).
+
+Taking the positive root:
+
+\[
+x + 92 = 92.07 \implies x = 0.07
+\]
+
+Negative root would give \(x = -184.07\), which is less plausible since \(E\) lies near \(D\) and \(C\).
+
+---
+
+### Step 11: Find \(CE\)
+
+Recall:
+
+- \(C = (107, 16)\)
+- \(E = (x, 16) = (0.07, 16)\)
+
+Distance:
+
+\[
+CE = |107 - 0.07| = 106.93 \approx 107
+\]
+
+---
+
+### Step 12: Final answer
+
+\[
+CE \approx 107
+\]
+
+---
+
+### Summary:
+
+- The length \(CE\) is approximately \(107\).
+- This matches \(AB\) and \(DC\) lengths, reinforcing the answer.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 104. Here's the step-by-step solution:
+We use simple geometry to solve this problem. 
+
+We are given that $A$, $D$, $H$, and $G$ are concyclic; call the circle that they all pass through circle $\omega$ with center $O$. We know that, given any chord on a circle, the perpendicular bisector to the chord passes through the center; thus, given two chords, taking the intersection of their perpendicular bisectors gives the center. We therefore consider chords $HG$ and $AD$ and take the midpoints of $HG$ and $AD$ to be $P$ and $Q$, respectively. 
+
+We could draw the circumcircle, but actually it does not matter for our solution; all that matters is that $OA=OH=r$, where $r$ is the circumradius. 
+By the Pythagorean Theorem, $OQ^2+QA^2=OA^2$. Also, $OP^2+PH^2=OH^2$. We know that $OQ=DE+HP$, and $HP=\dfrac{184}2=92$; $QA=\dfrac{16}2=8$; $OP=DQ+HE=8+17=25$; and finally, $PH=92$. Let $DE=x$. We now know that $OA^2=(x+92)^2+8^2$ and $OH^2=25^2+92^2$. Recall that $OA=OH$; thus, $OA^2=OH^2$. We solve for $x$: 
+\begin{align*}
+(x+92)^2+8^2&=25^2+92^2 \\
+(x+92)^2&=625+(100-8)^2-8^2 \\
+&=625+10000-1600+64-64 \\
+&=9025 \\
+x+92&=95 \\
+x&=3. \\
+\end{align*}
+The question asks for $CE$, which is $CD-x=107-3=\boxed{104}$.
+~Technodoggo
+Suppose $DE=x$. Extend $AD$ and $GH$ until they meet at $P$. From the [Power of a Point Theorem](https://artofproblemsolving.com/wiki/index.php/Power_of_a_Point_Theorem), we have $(PH)(PG)=(PD)(PA)$. Substituting in these values, we get $(x)(x+184)=(17)(33)=561$. We can use guess and check to find that $x=3$, so $EC=\boxed{104}$.
+
+~alexanderruan
+~diagram by Technodoggo
+We find that \[\angle GAB = 90-\angle DAG = 90 - (180 - \angle GHD) = \angle DHE.\]
+Let $x = DE$ and $T = FG \cap AB$. By similar triangles $\triangle DHE \sim \triangle GAB$ we have $\frac{DE}{EH} = \frac{GT}{AT}$. Substituting lengths we have $\frac{x}{17} = \frac{16 + 17}{184 + x}.$ Solving, we find $x = 3$ and thus $CE = 107 - 3 = \boxed{104}.$
+~AtharvNaphade ~coolruler ~eevee9406
+One liner: $107-\sqrt{92^2+25^2-8^2}+92=\boxed{104}$
+~Bluesoul
+
+Explanation
+Let $OP$ intersect $DF$ at $T$ (using the same diagram as Solution 2).
+The formula calculates the distance from $O$ to $H$ (or $G$), $\sqrt{92^2+25^2}$, then shifts it to $OD$ and the finds the distance from $O$ to $Q$, $\sqrt{92^2+25^2-8^2}$. $107$ minus that gives $CT$, and when added to $92$, half of $FE=TE$, gives $CT+TE=CE$
+Let $\angle{DHE} = \theta.$ This means that $DE = 17\tan{\theta}.$ Since quadrilateral $ADHG$ is cyclic, $\angle{DAG} = 180 - \angle{DHG} = 90 - \theta.$
+Let $X = AG \cap DF.$ Then, $\Delta DXA \sim \Delta FXG,$ with side ratio $16:17.$ Also, since $\angle{DAG} = 90 - \theta, \angle{DXA} = \angle{FXG} = \theta.$ Using the similar triangles, we have $\tan{\theta} = \frac{16}{DX} = \frac{17}{FX}$ and $DX + FX = DE + EF = 17\tan{\theta} + 184.$
+Since we want $CE = CD - DE = 107 - 17\tan{\theta},$ we only need to solve for $\tan{\theta}$ in this system of equations. Solving yields $\tan{\theta} = \frac{3}{17},$ so $CE = \boxed{104.}$
+~PureSwag
+Using a ruler (also acting as a straight edge), draw the figure to scale with one unit = 1mm. With a compass, draw circles until you get one such that $A,D,H,G$ are on the edge of the drawn circle. From here, measuring with your ruler should give $CE = \boxed{104.}$
+Note: 1 mm is probably the best unit to use here just for convenience (drawing all required parts of the figure fits into a normal-sized scrap paper 8.5 x 11); also all lines can be drawn with a standard 12-inch ruler 
+~kipper
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+
+# Example 2
+## problem
+A right square pyramid with volume $54$ has a base with side length $6.$ The five vertices of the pyramid all lie on a sphere with radius $\frac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+21
+
+## reasoning
+We are given a right square pyramid with volume 54 and base side length 6. The five vertices (4 base corners + apex) lie on a sphere of radius \( \frac{m}{n} \), where \(m\) and \(n\) are relatively prime positive integers. We need to find \(m + n\).
+
+Step 1: Find the height \(h\) of the pyramid.
+
+The volume \(V\) of a pyramid is given by:
+\[
+V = \frac{1}{3} \times \text{(base area)} \times h
+\]
+
+Given:
+\[
+V = 54, \quad \text{base side length} = 6 \implies \text{base area} = 6^2 = 36
+\]
+
+Substitute:
+\[
+54 = \frac{1}{3} \times 36 \times h \implies 54 = 12h \implies h = \frac{54}{12} = 4.5
+\]
+
+Step 2: Set up coordinates.
+
+Place the square base in the xy-plane centered at the origin for convenience. The base has side length 6, so the vertices are at:
+\[
+A = (3, 3, 0), \quad B = (-3, 3, 0), \quad C = (-3, -3, 0), \quad D = (3, -3, 0)
+\]
+
+The apex is right above the center of the base, so:
+\[
+E = (0, 0, h) = (0, 0, 4.5)
+\]
+
+Step 3: Find the center \(O\) and radius \(R\) of the circumscribing sphere.
+
+All five points lie on the sphere, so their distances to the center \(O = (x, y, z)\) are equal.
+
+Since the base is symmetric and the apex is centered, the sphere's center should be on the z-axis to maintain symmetry:
+\[
+O = (0, 0, t)
+\]
+
+Step 4: Write the distance equations.
+
+Distance from \(O\) to a base vertex, say \(A = (3,3,0)\):
+\[
+OA = \sqrt{(3-0)^2 + (3-0)^2 + (0 - t)^2} = \sqrt{9 + 9 + t^2} = \sqrt{18 + t^2}
+\]
+
+Distance from \(O\) to apex \(E = (0,0,4.5)\):
+\[
+OE = |4.5 - t|
+\]
+
+Since all points lie on the sphere:
+\[
+OA = OE \implies \sqrt{18 + t^2} = |4.5 - t|
+\]
+
+Step 5: Solve the equation.
+
+Square both sides:
+\[
+18 + t^2 = (4.5 - t)^2 = 20.25 - 9t + t^2
+\]
+
+Cancel \(t^2\) from both sides:
+\[
+18 = 20.25 - 9t
+\]
+\[
+9t = 20.25 - 18 = 2.25
+\]
+\[
+t = \frac{2.25}{9} = 0.25
+\]
+
+Step 6: Find the radius \(R\).
+
+Calculate \(R = OA\) or \(OE\):
+
+\[
+R = OA = \sqrt{18 + (0.25)^2} = \sqrt{18 + 0.0625} = \sqrt{18.0625}
+\]
+
+Simplify \(\sqrt{18.0625}\):
+
+Note that \(18.0625 = 18 + \frac{1}{16} = \frac{288}{16} + \frac{1}{16} = \frac{289}{16}\).
+
+So:
+\[
+R = \sqrt{\frac{289}{16}} = \frac{17}{4}
+\]
+
+Step 7: Find \(m + n\).
+
+Given:
+\[
+R = \frac{m}{n} = \frac{17}{4}
+\]
+\[
+m + n = 17 + 4 = 21
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 21. Here's the step-by-step solution:
+[2022 AIME II 3.png](https://artofproblemsolving.com/wiki/index.php/File:2022_AIME_II_3.png)
+Although I can't draw the exact picture of this problem, but it is quite easy to imagine that four vertices of the base of this pyramid is on a circle (Radius $\frac{6}{\sqrt{2}} = 3\sqrt{2}$). Since all five vertices are on the sphere, the distances of the spherical center and the vertices are the same: $l$. Because of the symmetrical property of the pyramid,
+we can imagine that the line of the apex and the (sphere's) center will intersect the square at the (base's) center.
+Since the volume is $54 = \frac{1}{3} \cdot S \cdot h = \frac{1}{3} \cdot 6^2 \cdot h$, where $h=\frac{9}{2}$ is the height of this pyramid, we have: $l^2=\left(\frac{9}{2}-l\right)^2+\left(3\sqrt{2}\right)^2$ according to the Pythagorean theorem.
+Solve this equation will give us $l = \frac{17}{4},$ therefore $m+n=\boxed{021}.$
+To start, we find the height of the pyramid. By the volume of a pyramid formula, we have \[\frac13 \cdot 6^2 \cdot h=54 \implies h=\frac92.\] Next, let us find the length of the non-base sides of the pyramid. By the Pythagorean Theorem, noting that the distance from one vertex of the base to the center of the base is $\frac12 \cdot 6\sqrt2=3\sqrt2$, we have \[x=\sqrt{\left(\frac92\right)^2+(3\sqrt2)^2}=\sqrt{\frac{153}4}=\frac{3\sqrt{17}}2.\] Taking the cross section of the pyramid and transforming the problem into $2$-d, it suffices to find the radius of the circumcircle of a triangle of side lengths $\frac{3\sqrt{17}}2$, $\frac{3\sqrt{17}}2$, $6\sqrt2$. This turns out to be easy by the formula $R=\frac{abc}{4A}$, and through computing this value (the work has been left out) we find that $R=\frac{17}4$, so our answer is $\boxed{\textbf{021}}$.
+~A1001
+By the volume of a pyramid formula, we have that the height of the pyramid is $\frac{9}{2}$. Since the base is a square with side length 6, the simplest way to place it in the coordinate plane is to put the center of the square at the origin and let the base be on the $xy$ plane. Then, the vertices of the base would be $(3,3,0), (3,-3,0), (-3,3,0), (-3,-3,0)$ in some order. Also, let the vertex be  $(0,0,\frac{9}{2})$. Recall that the formula for a sphere is $(x-a)^2+(y-b)^2+(z-c)^2=r^2$ where the center is $(a,b,c)$ and the radius is $r$. Symmetry gives that $a=b=0$. Plug in $(3,3,0)$ and $(0,0,\frac{9}{2})$ and you get the system of equation 
+$18+c^2=r^2$
+$(\frac{9}{2}-c)^2=r^2$
+Solving gives $c=1/4$ and $r=17/4$, so our answer is $17+4=\boxed{021}$.~[Ddk001](https://artofproblemsolving.com/wiki/index.php/Ddk001)
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+
+# Example 3
+## problem
+Each face of two noncongruent parallelepipeds is a rhombus whose diagonals have lengths $\sqrt{21}$ and $\sqrt{31}$.
+The ratio of the volume of the larger of the two polyhedra to the volume of the smaller is $\frac{m}{n}$, where $m$ and $n$
+are relatively prime positive integers. Find $m + n$. A parallelepiped is a solid with six parallelogram faces
+such as the one shown below.
+[asy] unitsize(2cm); pair o = (0, 0), u = (1, 0), v = 0.8*dir(40), w = dir(70);  draw(o--u--(u+v)); draw(o--v--(u+v), dotted); draw(shift(w)*(o--u--(u+v)--v--cycle)); draw(o--w); draw(u--(u+w)); draw(v--(v+w), dotted); draw((u+v)--(u+v+w)); [/asy]
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+125
+
+## reasoning
+We are given two noncongruent parallelepipeds whose faces are all rhombi with diagonals \(\sqrt{21}\) and \(\sqrt{31}\). We want the ratio of the volumes of the larger to the smaller, expressed in lowest terms, and then the sum of numerator and denominator.
+
+**Step 1: Understand the problem setup**
+
+A parallelepiped has six faces, each a parallelogram. Here, each face is a rhombus with diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+The parallelepiped is determined by three vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\). Each pair \(\mathbf{a}, \mathbf{b}\), \(\mathbf{b}, \mathbf{c}\), and \(\mathbf{c}, \mathbf{a}\) defines a face. All these faces are rhombi with the same diagonals.
+
+Since each face is a rhombus, the pairs of vectors have equal lengths and equal diagonals.
+
+**Step 2: Properties of the rhombus faces**
+
+If each face is a rhombus with diagonals \(d_1 = \sqrt{21}\) and \(d_2 = \sqrt{31}\), then the side length \(s\) of the rhombus is given by
+
+\[
+s^2 = \frac{d_1^2 + d_2^2}{4} = \frac{21 + 31}{4} = \frac{52}{4} = 13
+\]
+
+So all edges \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) have length \(\sqrt{13}\).
+
+**Step 3: Expressing the edges and the parallelepiped**
+
+Let
+
+\[
+|\mathbf{a}| = |\mathbf{b}| = |\mathbf{c}| = \sqrt{13}
+\]
+
+Denote the angles between the vectors as:
+
+\[
+\theta = \text{angle between } \mathbf{a} \text{ and } \mathbf{b}
+\]
+\[
+\phi = \text{angle between } \mathbf{b} \text{ and } \mathbf{c}
+\]
+\[
+\psi = \text{angle between } \mathbf{c} \text{ and } \mathbf{a}
+\]
+
+Each pair \((\mathbf{u}, \mathbf{v})\) forms a rhombus with diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+**Step 4: Relation between diagonals and angle in a rhombus**
+
+For a rhombus with side length \(s\) and angle \(\alpha\), the diagonals are 
+
+\[
+d_1 = 2s \cos(\alpha/2), \quad d_2 = 2s \sin(\alpha/2)
+\]
+
+or vice versa (order does not matter).
+
+Then:
+
+\[
+d_1^2 = 4s^2 \cos^2(\alpha/2)
+\]
+\[
+d_2^2 = 4s^2 \sin^2(\alpha/2)
+\]
+
+Sum:
+
+\[
+d_1^2 + d_2^2 = 4s^2 (\cos^2(\alpha/2) + \sin^2(\alpha/2)) = 4s^2
+\]
+
+which matches the previous calculation.
+
+Also, difference:
+
+\[
+d_1^2 - d_2^2 = 4s^2 (\cos^2(\alpha/2) - \sin^2(\alpha/2)) = 4s^2 \cos \alpha
+\]
+
+since \(\cos^2 x - \sin^2 x = \cos 2x\), and here \(2x = \alpha\).
+
+Therefore,
+
+\[
+\cos \alpha = \frac{d_1^2 - d_2^2}{4s^2}
+\]
+
+**Step 5: Calculate the angle \(\alpha\) for each face**
+
+Recall \(s^2 = 13\), \(d_1^2 = 21\), \(d_2^2 = 31\).
+
+\[
+\cos \alpha = \frac{21 - 31}{4 \times 13} = \frac{-10}{52} = -\frac{5}{26}
+\]
+
+Thus,
+
+\[
+\cos \alpha = -\frac{5}{26}
+\]
+
+Each face has side length \(\sqrt{13}\) and angle \(\alpha\) with cosine \(-\frac{5}{26}\).
+
+**Step 6: Apply this to each pair of vectors**
+
+Since the three faces formed by pairs \((\mathbf{a},\mathbf{b})\), \((\mathbf{b}, \mathbf{c})\), and \((\mathbf{c}, \mathbf{a})\) are all rhombi with the same diagonals, the angle between each pair is an angle \(\alpha\) with cosine either \(-\frac{5}{26}\) or possibly the supplement \(180^\circ - \alpha\).
+
+However, the angle between two vectors \(\mathbf{u}, \mathbf{v}\) is between 0 and 180 degrees, and the cosine function is symmetric about 180 degrees.
+
+Therefore, for each pair, the angle \(\theta, \phi, \psi\) satisfies
+
+\[
+\cos \theta = \cos \phi = \cos \psi = -\frac{5}{26}
+\]
+
+or possibly \(\cos \theta = -\frac{5}{26}\) or \(+\frac{5}{26}\), but this contradicts the diagonals found, because the cosine came from the difference of squares of the diagonals, which is negative, so the angle is obtuse.
+
+So the angle between each pair of edges is the same, equal to \(\alpha = \arccos(-5/26)\).
+
+**Step 7: Volume of the parallelepiped**
+
+The volume \(V\) is
+
+\[
+V = |\mathbf{a} \cdot (\mathbf{b} \times \mathbf{c})|
+\]
+
+Given the lengths and angles, we can express this in terms of \(\mathbf{a}, \mathbf{b}, \mathbf{c}\).
+
+Let the angle between \(\mathbf{a}\) and \(\mathbf{b}\) be \(\theta\), between \(\mathbf{b}\) and \(\mathbf{c}\) be \(\phi\), and between \(\mathbf{c}\) and \(\mathbf{a}\) be \(\psi\).
+
+We know \( |\mathbf{a}| = |\mathbf{b}| = |\mathbf{c}| = \sqrt{13} \).
+
+We want to find the possible volumes given these constraints.
+
+**Step 8: Use the Gram matrix**
+
+The volume squared is the determinant of the Gram matrix \(G\) of the vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\):
+
+\[
+V^2 = \det(G)
+\]
+
+where
+
+\[
+G = \begin{pmatrix}
+\mathbf{a} \cdot \mathbf{a} & \mathbf{a} \cdot \mathbf{b} & \mathbf{a} \cdot \mathbf{c} \\
+\mathbf{b} \cdot \mathbf{a} & \mathbf{b} \cdot \mathbf{b} & \mathbf{b} \cdot \mathbf{c} \\
+\mathbf{c} \cdot \mathbf{a} & \mathbf{c} \cdot \mathbf{b} & \mathbf{c} \cdot \mathbf{c}
+\end{pmatrix}
+\]
+
+Since \( |\mathbf{a}|^2 = |\mathbf{b}|^2 = |\mathbf{c}|^2 = 13 \), and \(\mathbf{a} \cdot \mathbf{b} = 13 \cos \theta\), etc., we have
+
+\[
+G = \begin{pmatrix}
+13 & 13 \cos \theta & 13 \cos \psi \\
+13 \cos \theta & 13 & 13 \cos \phi \\
+13 \cos \psi & 13 \cos \phi & 13
+\end{pmatrix}
+\]
+
+Factor out 13:
+
+\[
+G = 13 \begin{pmatrix}
+1 & \cos \theta & \cos \psi \\
+\cos \theta & 1 & \cos \phi \\
+\cos \psi & \cos \phi & 1
+\end{pmatrix}
+\]
+
+Therefore,
+
+\[
+V^2 = \det(G) = 13^3 \cdot \det \begin{pmatrix}
+1 & \cos \theta & \cos \psi \\
+\cos \theta & 1 & \cos \phi \\
+\cos \psi & \cos \phi & 1
+\end{pmatrix}
+\]
+
+**Step 9: The faces are rhombi with the same diagonal lengths**
+
+From the problem, the faces are all rhombi with the same diagonals. The three faces correspond to pairs \((\mathbf{a}, \mathbf{b})\), \((\mathbf{b}, \mathbf{c})\), and \((\mathbf{c}, \mathbf{a})\).
+
+From Step 5, for each pair:
+
+\[
+\cos \alpha = \frac{d_1^2 - d_2^2}{4s^2} = -\frac{5}{26}
+\]
+
+So the angle between each pair is either \(\alpha\) or \(180^\circ - \alpha\), but the cosine value is fixed.
+
+Thus, the three cosines \(\cos \theta, \cos \phi, \cos \psi\) are each either \(-\frac{5}{26}\) or possibly the other root if the parallelepiped is noncongruent.
+
+**Step 10: Two noncongruent parallelepipeds mean two distinct sets \((\cos \theta, \cos \phi, \cos \psi)\) satisfying the "face is rhombus with given diagonals" condition**
+
+We need to find the condition that the three pairs \((\mathbf{a}, \mathbf{b})\), \((\mathbf{b}, \mathbf{c})\), \((\mathbf{c}, \mathbf{a})\) each form rhombi with diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+We can express the diagonal squared lengths of the parallelogram formed by vectors \(\mathbf{u}\) and \(\mathbf{v}\) as:
+
+\[
+|\mathbf{u} + \mathbf{v}|^2 = |\mathbf{u}|^2 + |\mathbf{v}|^2 + 2 \mathbf{u} \cdot \mathbf{v}
+\]
+\[
+|\mathbf{u} - \mathbf{v}|^2 = |\mathbf{u}|^2 + |\mathbf{v}|^2 - 2 \mathbf{u} \cdot \mathbf{v}
+\]
+
+Since each face is a rhombus with fixed diagonals \(\sqrt{21}\) and \(\sqrt{31}\), these two values correspond to
+
+\[
+|\mathbf{u} + \mathbf{v}|^2 = 31, \quad |\mathbf{u} - \mathbf{v}|^2 = 21
+\]
+
+or vice versa.
+
+Given \(|\mathbf{u}|^2 = |\mathbf{v}|^2 = 13\), and \(\mathbf{u} \cdot \mathbf{v} = 13 \cos \theta\), we have
+
+\[
+|\mathbf{u} + \mathbf{v}|^2 = 26 + 2 \cdot 13 \cos \theta = 26 + 26 \cos \theta
+\]
+\[
+|\mathbf{u} - \mathbf{v}|^2 = 26 - 26 \cos \theta
+\]
+
+These must be 21 and 31 in some order:
+
+Either
+
+\[
+26 + 26 \cos \theta = 31 \quad \Rightarrow \quad \cos \theta = \frac{5}{26}
+\]
+and
+\[
+26 - 26 \cos \theta = 21 \quad \Rightarrow \quad \cos \theta = \frac{5}{26}
+\]
+
+which is consistent.
+
+Or
+
+\[
+26 + 26 \cos \theta = 21 \quad \Rightarrow \quad \cos \theta = -\frac{5}{26}
+\]
+and
+\[
+26 - 26 \cos \theta = 31 \quad \Rightarrow \quad \cos \theta = -\frac{5}{26}
+\]
+
+which is also consistent.
+
+Thus, for each face, the cosine of the angle between the edges is either \(\frac{5}{26}\) or \(-\frac{5}{26}\).
+
+**Step 11: Therefore, for the three pairs \((\theta, \phi, \psi)\), each \(\cos\) is either \(5/26\) or \(-5/26\).**
+
+But the problem states two noncongruent parallelepipeds with the same face diagonals.
+
+So the two parallelepipeds correspond to the two distinct choices of \((\cos \theta, \cos \phi, \cos \psi)\) satisfying the conditions.
+
+**Step 12: Find the possible triples \((x,y,z) = (\cos \theta, \cos \phi, \cos \psi)\), each \(x,y,z \in \{\frac{5}{26}, -\frac{5}{26}\}\), such that the volume is positive**
+
+We have 8 possible combinations (each coordinate is plus or minus). But the parallelepiped is nondegenerate only if the Gram matrix determinant is positive.
+
+Recall the Gram matrix
+
+\[
+M = \begin{pmatrix}
+1 & x & z \\
+x & 1 & y \\
+z & y & 1
+\end{pmatrix}
+\]
+
+with \(x,y,z \in \{\frac{5}{26}, -\frac{5}{26}\}\).
+
+Calculate the determinant:
+
+\[
+\det M = 1(1 - y^2) - x(x - y z) + z(x y - z)
+\]
+
+Expanding:
+
+\[
+\det M = (1 - y^2) - x^2 + x y z + x y z - z^2 = 1 - y^2 - x^2 - z^2 + 2 x y z
+\]
+
+Since \(x^2 = y^2 = z^2 = \left(\frac{5}{26}\right)^2 = \frac{25}{676}\), we have
+
+\[
+\det M = 1 - 3 \cdot \frac{25}{676} + 2 x y z = 1 - \frac{75}{676} + 2 x y z = \frac{676 - 75}{676} + 2 x y z = \frac{601}{676} + 2 x y z
+\]
+
+Note \(x y z = \pm \left(\frac{5}{26}\right)^3 = \pm \frac{125}{17576}\).
+
+Thus,
+
+\[
+\det M = \frac{601}{676} \pm 2 \cdot \frac{125}{17576} = \frac{601}{676} \pm \frac{250}{17576}
+\]
+
+Find common denominator \(17576 = 26^3\).
+
+Convert \(\frac{601}{676}\) to denominator 17576:
+
+\[
+\frac{601}{676} = \frac{601 \times 26}{676 \times 26} = \frac{15626}{17576}
+\]
+
+Therefore,
+
+\[
+\det M = \frac{15626}{17576} \pm \frac{250}{17576} = \frac{15626 \pm 250}{17576}
+\]
+
+So the two possible determinants are:
+
+\[
+\frac{15876}{17576} \quad \text{or} \quad \frac{15376}{17576}
+\]
+
+Simplify numerator and denominator:
+
+- \(15876 = 4 \times 3969\)
+- \(15376 = 4 \times 3844\)
+- \(17576 = 4 \times 4394\)
+
+Divide numerator and denominator by 4:
+
+\[
+\frac{15876}{17576} = \frac{3969}{4394}, \quad \frac{15376}{17576} = \frac{3844}{4394}
+\]
+
+Note:
+
+- \(3969 = 63^2\)
+- \(3844 = 62^2\)
+- \(4394\) is not a perfect square.
+
+So the volume squared is:
+
+\[
+V^2 = 13^3 \cdot \det M = 2197 \cdot \det M
+\]
+
+Thus the two volumes squared are:
+
+\[
+V_1^2 = 2197 \times \frac{3969}{4394} = \frac{2197 \times 3969}{4394}
+\]
+\[
+V_2^2 = 2197 \times \frac{3844}{4394} = \frac{2197 \times 3844}{4394}
+\]
+
+Notice \(2197 = 13^3\).
+
+**Step 13: Compute the ratio of volumes**
+
+Let the larger volume be \(V_1\), smaller \(V_2\).
+
+Ratio of volumes:
+
+\[
+\frac{V_1}{V_2} = \sqrt{\frac{V_1^2}{V_2^2}} = \sqrt{\frac{2197 \cdot 3969 / 4394}{2197 \cdot 3844 / 4394}} = \sqrt{\frac{3969}{3844}} = \frac{63}{62}
+\]
+
+Because \(3969 = 63^2\), \(3844 = 62^2\).
+
+**Step 14: Final answer**
+
+The ratio of volumes is \(\frac{63}{62}\).
+
+We are asked for \(m + n\), where \(\frac{m}{n} = \frac{63}{62}\).
+
+Therefore,
+
+\[
+m + n = 63 + 62 = 125
+\]
+
+**Answer: 125**
+
+## Feedback
+Your answer is correct. The correct answer is 125. Here's the step-by-step solution:
+Denote $\alpha = \tan^{-1} \frac{\sqrt{21}}{\sqrt{31}}$.
+Denote by $d$ the length of each side of a rhombus.
+Now, we put the solid to the 3-d coordinate space.
+We put the bottom face on the $x-O-y$ plane.
+For this bottom face, we put a vertex with an acute angle $2 \alpha$ at the origin, denoted as $O$.
+For two edges that are on the bottom face and meet at $O$, we put one edge on the positive side of the $x$-axis. The endpoint is denoted as $A$. Hence, $A = \left( d , 0 , 0 \right)$.
+We put the other edge in the first quadrant of the $x-O-y$ plane. The endpoint is denoted as $B$. Hence, $B = \left( d \cos 2 \alpha , d \sin 2 \alpha , 0 \right)$.
+For the third edge that has one endpoint $O$, we denote by $C$ its second endpoint.
+We denote $C = \left( u , v , w \right)$.
+Without loss of generality, we set $w > 0$.
+Hence,
+\[ u^2 + v^2 + w^2 = d^2 . \hspace{1cm} (1) \]
+We have
+\begin{align*} \cos \angle AOC & = \frac{\overrightarrow{OA} \cdot \overrightarrow{OC}}{|OA| \cdot |OC|} \\ & = \frac{u}{d} , \hspace{1cm} (2) \end{align*}
+and
+\begin{align*} \cos \angle BOC & = \frac{\overrightarrow{OB} \cdot \overrightarrow{OC}}{|OB| \cdot |OC|} \\ & = \frac{u \cos 2 \alpha + v \sin 2 \alpha}{d} . \hspace{1cm} (3) \end{align*}
+Case 1: $\angle AOC = \angle BOC = 2 \alpha$ or $2 \left( 90^\circ - \alpha \right)$.
+By solving (2) and (3), we get
+\begin{align*} u & = \pm d \cos 2 \alpha , \\ v & = \pm d \cos 2 \alpha \frac{1 - \cos 2 \alpha}{\sin 2 \alpha} \\ & = \pm d \cos 2 \alpha \tan \alpha . \end{align*}
+Plugging these into (1), we get
+\begin{align*} w & = d \sqrt{1 - \cos^2 2 \alpha - \cos^2 2 \alpha \tan^2 \alpha} \\ & = d \sqrt{\sin^2 2 \alpha - \cos^2 2 \alpha \tan^2 \alpha} . \hspace{1cm} (4) \end{align*}
+Case 2: $\angle AOC = 2 \alpha$ and $\angle BOC = 2 \left( 90^\circ - \alpha \right)$, or $\angle BOC = 2 \alpha$ and $\angle AOC = 2 \left( 90^\circ - \alpha \right)$.
+By solving (2) and (3), we get
+\begin{align*} u & = \pm d \cos 2 \alpha , \\ v & = \mp d \cos 2 \alpha \frac{1 + \cos 2 \alpha}{\sin 2 \alpha} \\ & = \mp d \cos 2 \alpha \cot \alpha . \end{align*}
+Plugging these into (1), we get
+\begin{align*} w & = d \sqrt{1 - \cos^2 2 \alpha - \cos^2 2 \alpha \cot^2 \alpha} \\ & = d \sqrt{\sin^2 2 \alpha - \cos^2 2 \alpha \cot^2 \alpha} . \hspace{1cm} (5) \end{align*}
+We notice that $(4) > (5)$. Thus, (4) (resp. (5)) is the parallelepiped with a larger (resp. smaller) height.
+Therefore, the ratio of the volume of the larger parallelepiped to the smaller one is
+\begin{align*} \frac{(4)}{(5)} & = \frac{\sqrt{\sin^2 2 \alpha - \cos^2 2 \alpha \tan^2 \alpha}} {\sqrt{\sin^2 2 \alpha - \cos^2 2 \alpha \cot^2 \alpha}} \\ & = \sqrt{\frac{\tan^2 2 \alpha - \tan^2 \alpha}{\tan^2 2 \alpha - \cot^2 \alpha}} . \end{align*}
+Recall that $\tan \alpha = \frac{\sqrt{21}}{\sqrt{31}}$.
+Thus, $\tan 2 \alpha = \frac{2 \tan \alpha}{1 - \tan^2 \alpha} = \frac{\sqrt{21 \cdot 31}}{5}$.
+Plugging this into the equation above, we get
+\begin{align*} \frac{(4)}{(5)} & = \frac{63}{62}. \end{align*}
+Therefore, the answer is $63 + 62 = \boxed{\textbf{(125) }}$.
+~Steven Chen (Professor Chen Education Palace, www.professorchenedu.com)
+Let one of the vertices be at the origin and the three adjacent vertices be $u$, $v$, and $w$. For one of the parallelepipeds, the three diagonals involving the origin have length $\sqrt {21}$. Hence, $(u+v)\cdot (u+v)=u\cdot u+v\cdot v+2u\cdot v=21$ and $(u-v)\cdot (u-v)=u\cdot u+v\cdot v-2u\cdot v=31$. Since all of $u$, $v$, and $w$ have equal length, $u\cdot u=13$, $v\cdot v=13$, and $u\cdot v=-2.5$. Symmetrically, $w\cdot w=13$, $u\cdot w=-2.5$, and $v\cdot w=-2.5$. Hence the volume of the parallelepiped is given by $\sqrt{\operatorname{det}\begin{pmatrix}13&-2.5&-2.5\\-2.5&13&-2.5\\-2.5&-2.5&13\end{pmatrix}}=\sqrt{\operatorname{det}\begin{pmatrix}15.5&-15.5&0\\-2.5&13&-2.5\\0&-15.5&15.5\end{pmatrix}}=\sqrt{15.5^2\operatorname\det\begin{pmatrix}1&-1&0\\-2.5&13&-2.5\\0&-1&1\end{pmatrix}}=\sqrt{15.5^2\cdot 8}$.
+For the other parallelepiped, the three diagonals involving the origin are of length $\sqrt{31}$ and the volume is $\sqrt{\operatorname{det}\begin{pmatrix}13&2.5&2.5\\2.5&13&2.5\\2.5&2.5&13\end{pmatrix}}=\sqrt{\operatorname{det}\begin{pmatrix}10.5&-10.5&0\\2.5&13&2.5\\0&-10.5&10.5\end{pmatrix}}=\sqrt{10.5^2\operatorname\det\begin{pmatrix}1&-1&0\\2.5&13&2.5\\0&-1&1\end{pmatrix}}=\sqrt{10.5^2\cdot 18}$.
+Consequently, the answer is $\sqrt\frac{10.5^2\cdot 18}{15.5^2\cdot 8}=\frac{63}{62}$, giving $\boxed{125}$.
+~EVIN-
+Observe that both parallelepipeds have two vertices (one on each base) that have three congruent angles meeting at them. Denote the parallelepiped with three acute angles meeting $P$, and the one with three obtuse angles meeting $P'$.
+The area of a parallelepiped is simply the base area times the height, but because both parallelepipeds have the same base, what we want is just the ratio of the heights.
+Denote the point with three acute angles meeting at it in $P$ as $A$, and its neighbors $B$, $C$, and $D$. Similarly, denote the point with three obtuse angles meeting at it in $P'$ as $A'$, and its neighbors $B'$, $C'$, and $D'$.
+We have the following equations:
+\[\textrm{Height of }P\textrm{ from }ACD = \frac{\textrm{Vol}(ABCD) \cdot 3}{[ACD]},\]
+\[\textrm{Height of }P'\textrm{ from }A'C'D' = \frac{\textrm{Vol}(A'B'C'D') \cdot 3}{[A'C'D']}.\]
+However, $ACD$ and $A'C'D'$ are both half the area of a rhombus with diagonals $\sqrt{31}$ and $\sqrt{21}$, so our ratio is really
+\[\frac{P}{P'} = \frac{\textrm{Vol}(ABCD)}{\textrm{Vol}(A'B'C'D')}.\]
+Because the diagonals of all of the faces are $\sqrt{31}$ and $\sqrt{21}$, each edge of the parallelepipeds is $\sqrt{13}$ by the Pythagorean theorem. 
+We have $AB = AC = AD = \sqrt{13}$, and $BC = CD = BD = \sqrt{21}$. When we drop a perpendicular to the centroid of $BCD$ from $A$ (let's call this point $O$), we have $BO = \frac{\sqrt{21}}{\sqrt{3}} = \sqrt{7}$. Thus, 
+\[AB^2 - BO^2 = AO^2\]
+\[13 - 7 = AO^2 = 6\]
+\[AO = \sqrt{6}.\]
+The area of base $BCD$ is $\frac{21\sqrt{3}}{4}$. Hence, 
+\[\textrm{Vol}(ABCD) = \frac{\sqrt{6}\cdot\frac{21\sqrt{3}}{4}}{3}\]
+\[= \frac{63\sqrt{2}}{12}.\]
+We can apply a similar approach to $A'B'C'D'$.
+$A'B' = A'C' = A'D' = \sqrt{13}$, and $B'C' = C'D' = B'D' = \sqrt{31}$. When we drop a perpendicular to the centroid of $B'C'D'$ from $A'$ (let's call this point $O'$), we have $B'O' = \frac{\sqrt{31}}{\sqrt{3}} = \sqrt{\frac{31}{3}}$. Thus, 
+\[A'B'^2 - B'O'^2 = A'O'^2\]
+\[13 - \frac{31}{3} = A'O'^2\]
+\[A'O' = \sqrt{8}{3} = \frac{2\sqrt{6}}{3}.\]
+The area of base $B'C'D'$ is $\frac{31\sqrt{3}}{4}$. Hence, 
+\[\textrm{Vol}(A'B'C'D') = \frac{\frac{2\sqrt{6}}{3}\cdot\frac{31\sqrt{3}}{4}}{3}\]
+\[= \frac{186\sqrt{2}}{36}\]
+\[= \frac{62\sqrt{2}}{12}.\]
+Finally, 
+\[\frac{P}{P'} = \frac{\textrm{Vol}(ABCD)}{\textrm{Vol}(A'B'C'D')} = \frac{\frac{63\sqrt{2}}{12}}{\frac{62\sqrt{2}}{12}} = \frac{63}{62}.\]
+Our answer is $63 + 62 = \boxed{125}$.
+~mathboy100
+Since the two parallelepipeds have the same base, all we need to do is to find their respective heights.
+
+As illustrated in the above diagram, drop a perpendicular from $D$ onto the base at $P$. Denote the center of the base by $O$. By symmetry, $P$ must be on $AO$. Now we need to find $DP$.
+Apply Pythagorean theorem to $\triangle DPA$ we have
+\[DP^2 = AD^2 - AP^2.\]
+Apply Pythagorean theorem to $\triangle DPC$ and then $\triangle CPO$ we have
+\[DP^2 = DC^2 - CP^2 = DC^2 - (CO^2 + OP^2) = DC^2 - (CO^2 + (AO-AP)^2) = DC^2 - CO^2 - (AO-AP)^2.\]
+Combining the above two, we have
+\[AD^2 - AP^2 = DC^2 - CO^2 - (AO-AP)^2.\]
+Since $AD=\sqrt{13}$, $DC=\sqrt{21}$, $CO=\frac{\sqrt{21}}{2}$, $AO=\frac{\sqrt{31}}{2}$, plug them into the above equation and solve for the only unknown variable $AP$, we get $AP=\frac{5}{\sqrt{31}}.$
+Thus the height
+\[DP = \sqrt{AD^2 - AP^2} = \sqrt{13 - \frac{25}{31}} = \sqrt{\frac{378}{31}}.\]
+[asy] unitsize(2cm); pair a = (0, 0), b = (1, 0), c = 0.8*dir(40), d = 0.7*dir(80), e = c+d, p = 0.9*dir(10), o = (b+c)/2;  label("A'",a,S); label("B'",b,S); label("C'",c,W); label("E'",e,N); label("P'",p,S); label("O'",o,W);  draw(a--b--(b+c)); draw(a--c--(b+c), dotted); draw(shift(d)*(a--b--(b+c)--c--cycle)); draw(a--d); draw(b--(b+d)); draw(c--(c+d), dotted); draw((b+c)--(b+c+d));  draw(e--p, dotted); draw(c--b, dotted); draw(a--(b+c), dotted); draw(p--a, dotted); draw(e--a, dotted); [/asy]
+For the other parallelepiped, using the same approach and drop a perpendicular from $E'$ onto the base at $P'$. Similarly applying Pythagorean theorem to $\triangle E'P'C'$, $\triangle E'P'A'$ and $\triangle A'P'O'$ we have
+\[C'E'^2 - C'P'^2 = A'E'^2 - A'O'^2 - (C'P'-C'O')^2.\]
+Plugging known values into the above equation and solve for the only unknown variable $C'P'$, we get $C'P'=\frac{5}{\sqrt{21}}.$
+Thus the height
+\[E'P' = \sqrt{C'E'^2 - C'P'^2} = \sqrt{13 - \frac{25}{21}} = \sqrt{\frac{248}{21}}.\]
+The ratio between the two is therefore
+\[\frac{DP}{E'P'} = \frac{\sqrt{\frac{378}{31}}}{\sqrt{\frac{248}{21}}} = \sqrt{\frac{2\cdot3^3\cdot7}{31}\cdot\frac{3\cdot7}{2^3\cdot31}} = \frac{3^2\cdot7}{2\cdot31} = \frac{63}{62}\], giving $\boxed{125}$.
+~sgdzw
+[2023 AIME I 13a.png](https://artofproblemsolving.com/wiki/index.php/File:2023_AIME_I_13a.png)
+Let us inscribe a tetrahedron $ACB'D'$ in given parallelepiped so that its edges coincide with the diagonals of the faces of the parallelepiped. Note that the three edges outgoing from the vertex $B'$ have the same length $b$, and the three edges at the base have a different length $a.$
+The volume of the tetrahedron $V= \frac {a^2}{12}\sqrt{3b^2 - a^2}$ is three times less than the volume of the parallelepiped.
+In second parallelepiped $a$ and $b$ change the positions.
+Required ratio is $\frac {a^2 \cdot \sqrt {3b^2 - a^2}}{b^2 \cdot \sqrt {3a^2 - b^2}} = \frac {21 \sqrt {3 \cdot 31 - 21}}{31 \cdot \sqrt{3 \cdot 21 - 31}} = \frac {21 \sqrt {72}}{31 \sqrt {32}}= \frac {63}{62}.$
+Claim
+
+[2023 AIME I 13.png](https://artofproblemsolving.com/wiki/index.php/File:2023_AIME_I_13.png)
+Let $ABCD$ be the regular pyramid, $AB = AC = AD = b, BC = BD = CD = a.$
+The area of $\triangle BCD = \frac {a^2 \sqrt {3}}{4}.$
+Height $AO^2 = AB^2 - OB^2 = {b^2 - \frac {a^2}{3}}.$
+Volume $V= \frac {a^2}{12}\sqrt{3b^2 - a^2}.$
+vladimir.shelomovskii@gmail.com, vvsss
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+Iter 1: Added: 'Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before conc...'. Score: 2.00 → 3.00 (ACCEPTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 601. Here's the step-by-step solution:
+$a^2(b+c)+b^2(a+c)+c^2(a+b) = 6000000$, thus $a^2(300-a)+b^2(30"
+
+Iter 2: Added: 'ns, theorems, or lemmas used. When algebraic or geometric manipulations are involved, explicitly verify each transformat...'. Score: 2.00 → 2.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 315. Here's the step-by-step solution:
+By Furaken
+There are two kinds of such rectangles: those whose "
+
+Iter 3: Added: 'xplicitly state all necessary definitions, assumptions, and intermediate results. When algebraic or geometric manipulati...'. Score: 2.00 → 2.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 751. Here's the step-by-step solution:
+Let's first view the cube from a direction perpendicular to $AB"
+
+Iter 4: Added: 'each transformation or calculation carefully. When dealing with constraints or optimization, consider and justify any sy...'. Score: 2.00 → 1.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 902. Here's the step-by-step solution:
+The problem says "some", so not all cells must be occupied.
+We "
+
+Iter 5: Added: 'stating all assumptions, definitions, and intermediate conclusions. Carefully verify each algebraic manipulation, logica...'. Score: 1.00 → 0.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 81. Here's the step-by-step solution:
+Denote by $\mathcal C$ a collection of 16 distinct subsets of $\"; "Your answer is incorrect. The correct answer is 228. Here's the step-by-step solution:
+Since $3,4,5,a$ and $3,4,5,b$ cannot be an arithmetic progressi"
+
+IMPORTANT: Do not repeat strategies that were REJECTED. Build on strategies that were ACCEPTED.

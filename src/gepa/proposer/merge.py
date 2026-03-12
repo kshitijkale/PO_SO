@@ -376,6 +376,7 @@ class MergeProposer(ProposeNewCandidate[DataId]):
                 candidate_idx=None,
                 scores=new_sub_scores,
                 has_trajectories=False,
+                capture_traces=False,
                 parent_ids=[id1, id2],
                 outputs=outputs,
                 trajectories=None,

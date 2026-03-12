@@ -131,6 +131,18 @@ class RecordingCallback:
     def on_valset_evaluated(self, event):
         self._record("on_valset_evaluated", event)
 
+    def on_memory_entry_added(self, event):
+        self._record("on_memory_entry_added", event)
+
+    def on_memory_queried(self, event):
+        self._record("on_memory_queried", event)
+
+    def on_memory_state_snapshot(self, event):
+        self._record("on_memory_state_snapshot", event)
+
+    def on_proposal_trace(self, event):
+        self._record("on_proposal_trace", event)
+
 
 class FailingCallback:
     """A callback that raises exceptions for testing error handling.

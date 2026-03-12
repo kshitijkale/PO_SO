@@ -1,0 +1,52 @@
+{
+  "iteration": 5,
+  "phase": "before_proposal",
+  "all_entries": [
+    {
+      "iteration": 1,
+      "component_name": "current_candidate",
+      "change_summary": "Added: 'Choose only one word from: noun, verb, adjective, or adverb. Provide no additional explanation or text.'",
+      "score_before": 0.0,
+      "score_after": 2.0,
+      "accepted": true,
+      "failure_modes": [
+        "Expected exactly 'adverb' but got 'The word \"quickly\" is an adverb that means to do something with speed or in a fast manner. It describes the manner ",
+        "Expected exactly 'adjective' but got 'The word is \"happy.\" It is an adjective that describes a feeling of pleasure, contentment, or joy.'. Output must"
+      ]
+    },
+    {
+      "iteration": 2,
+      "component_name": "current_candidate",
+      "change_summary": "Removed: 'identifying the part of speech category of the given word. Choose only one word'",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": []
+    },
+    {
+      "iteration": 3,
+      "component_name": "current_candidate",
+      "change_summary": "Removed: 'identifying the part of speech category of the given word. Choose only one word from'",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": []
+    },
+    {
+      "iteration": 4,
+      "component_name": "current_candidate",
+      "change_summary": "Removed: 'identifying the part of speech category of the given word. Choose only one word from'",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": []
+    }
+  ],
+  "total_entries": 4,
+  "max_entries": 10,
+  "entries_by_component": {
+    "current_candidate": 4
+  },
+  "accepted_ratio": 0.25,
+  "rejected_ratio": 0.75
+}

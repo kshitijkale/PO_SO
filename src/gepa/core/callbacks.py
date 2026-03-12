@@ -116,6 +116,7 @@ class EvaluationEndEvent(TypedDict):
     candidate_idx: int | None
     scores: list[float]
     has_trajectories: bool
+    capture_traces: bool
     parent_ids: Sequence[ProgramIdx]
     outputs: list[Any]
     trajectories: list[Any] | None
@@ -245,6 +246,66 @@ class ErrorEvent(TypedDict):
     iteration: int
     exception: Exception
     will_continue: bool
+
+
+# =============================================================================
+# Memory Events
+# =============================================================================
+
+
+class MemoryEntryAddedEvent(TypedDict):
+    """Fired when a ReflectionMemoryEntry is added to memory."""
+
+    iteration: int
+    component_name: str
+    entry: dict[str, Any]
+    memory_size_before: int
+    memory_size_after: int
+    evicted_entry: dict[str, Any] | None
+    memory_utilization: float
+
+
+class MemoryQueriedEvent(TypedDict):
+    """Fired when memory is queried during prompt construction."""
+
+    iteration: int
+    component_name: str
+    query_n: int
+    entries_returned: list[dict[str, Any]]
+    formatted_text: str
+    formatted_text_length: int
+
+
+class MemoryStateSnapshotEvent(TypedDict):
+    """Fired at the start/end of each iteration with full memory state."""
+
+    iteration: int
+    phase: str
+    all_entries: list[dict[str, Any]]
+    total_entries: int
+    max_entries: int
+    entries_by_component: dict[str, int]
+    accepted_ratio: float
+    rejected_ratio: float
+
+
+# =============================================================================
+# Proposal Trace Event
+# =============================================================================
+
+
+class ProposalTraceEvent(TypedDict):
+    """Fired with the complete LLM interaction for a proposal."""
+
+    iteration: int
+    component_name: str
+    prompt_template: str
+    rendered_prompt: str
+    raw_response: str
+    extracted_instruction: str
+    model_id: str
+    latency_ms: float
+    memory_was_injected: bool
 
 
 @runtime_checkable
@@ -383,6 +444,30 @@ class GEPACallback(Protocol):
         """Called when an error occurs during optimization."""
         ...
 
+    # =========================================================================
+    # Memory Events
+    # =========================================================================
+
+    def on_memory_entry_added(self, event: MemoryEntryAddedEvent) -> None:
+        """Called when an entry is added to reflection memory."""
+        ...
+
+    def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
+        """Called when reflection memory is queried for prompt injection."""
+        ...
+
+    def on_memory_state_snapshot(self, event: MemoryStateSnapshotEvent) -> None:
+        """Called with a full snapshot of memory state."""
+        ...
+
+    # =========================================================================
+    # Proposal Trace Events
+    # =========================================================================
+
+    def on_proposal_trace(self, event: ProposalTraceEvent) -> None:
+        """Called with the complete LLM interaction for a proposal."""
+        ...
+
 
 class CompositeCallback:
     """A callback that delegates to multiple child callbacks.
@@ -516,6 +601,18 @@ class CompositeCallback:
 
     def on_error(self, event: ErrorEvent) -> None:
         self._notify("on_error", event)
+
+    def on_memory_entry_added(self, event: MemoryEntryAddedEvent) -> None:
+        self._notify("on_memory_entry_added", event)
+
+    def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
+        self._notify("on_memory_queried", event)
+
+    def on_memory_state_snapshot(self, event: MemoryStateSnapshotEvent) -> None:
+        self._notify("on_memory_state_snapshot", event)
+
+    def on_proposal_trace(self, event: ProposalTraceEvent) -> None:
+        self._notify("on_proposal_trace", event)
 
 
 def notify_callbacks(

@@ -132,6 +132,7 @@ from gepa.logging.experiment_tracker import create_experiment_tracker
 from gepa.logging.logger import LoggerProtocol, StdOutLogger
 from gepa.proposer.merge import MergeProposer
 from gepa.proposer.reflective_mutation.base import CandidateSelector, LanguageModel, ReflectionComponentSelector
+from gepa.proposer.reflective_mutation.memory import ReflectionMemory
 from gepa.proposer.reflective_mutation.reflective_mutation import ReflectiveMutationProposer
 from gepa.strategies.batch_sampler import BatchSampler, EpochShuffledBatchSampler
 from gepa.strategies.candidate_selector import (
@@ -714,6 +715,8 @@ class ReflectionConfig:
     reflection_lm: LanguageModel | str | None = "openai/gpt-5.1"
     reflection_prompt_template: str | dict[str, str] | None = optimize_anything_reflection_prompt_template
     custom_candidate_proposer: ProposalFn | None = None
+    use_reflection_memory: bool = False
+    reflection_memory_max_entries: int = 10
 
 
 @dataclass
@@ -784,6 +787,8 @@ class TrackingConfig:
     use_mlflow: bool = False
     mlflow_tracking_uri: str | None = None
     mlflow_experiment_name: str | None = None
+    callbacks: list[Any] | None = None
+    research_mode: bool = False
 
 
 @dataclass
@@ -1402,7 +1407,27 @@ def optimize_anything(
         else:
             InstructionProposalSignature.validate_prompt_template(config.reflection.reflection_prompt_template)
 
+    # --- 10b. Build research mode callbacks if enabled ---
+    active_callbacks = list(config.tracking.callbacks) if config.tracking.callbacks else []
+    if config.tracking.research_mode:
+        from gepa.callbacks import LineageTracker, LiveDisplay, ResearchLogger, StateLogger
+
+        research_dir = config.engine.run_dir or "./gepa_research_logs"
+        active_callbacks.extend([
+            ResearchLogger(output_dir=research_dir),
+            StateLogger(output_dir=research_dir),
+            LineageTracker(output_dir=research_dir),
+            LiveDisplay(),
+        ])
+    effective_callbacks: list[Any] | None = active_callbacks if active_callbacks else None
+
     # --- 11. Build reflective proposer from ReflectionConfig ---
+    reflection_memory: ReflectionMemory | None = None
+    if config.reflection.use_reflection_memory:
+        reflection_memory = ReflectionMemory(
+            max_entries=config.reflection.reflection_memory_max_entries,
+            callbacks=effective_callbacks,
+        )
     reflective_proposer = ReflectiveMutationProposer(
         logger=config.tracking.logger,
         trainset=train_loader,
@@ -1416,6 +1441,8 @@ def optimize_anything(
         reflection_lm=config.reflection.reflection_lm,
         reflection_prompt_template=config.reflection.reflection_prompt_template,
         custom_candidate_proposer=config.reflection.custom_candidate_proposer,
+        reflection_memory=reflection_memory,
+        callbacks=effective_callbacks,
     )
 
     # Define evaluator function for merge proposer
@@ -1436,6 +1463,7 @@ def optimize_anything(
             max_merge_invocations=config.merge.max_merge_invocations,
             rng=rng,
             val_overlap_floor=config.merge.merge_val_overlap_floor,
+            callbacks=effective_callbacks,
         )
 
     # --- 13. Create evaluation cache if enabled ---
@@ -1456,6 +1484,7 @@ def optimize_anything(
         frontier_type=config.engine.frontier_type,
         logger=config.tracking.logger,
         experiment_tracker=experiment_tracker,
+        callbacks=effective_callbacks,
         track_best_outputs=config.engine.track_best_outputs,
         display_progress_bar=config.engine.display_progress_bar,
         raise_on_exception=config.engine.raise_on_exception,

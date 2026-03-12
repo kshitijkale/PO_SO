@@ -1,0 +1,1081 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## problem
+Let $\mathcal{B}$ be the set of rectangular boxes with surface area $54$ and volume $23$. Let $r$ be the radius of the smallest sphere that can contain each of the rectangular boxes that are elements of $\mathcal{B}$. The value of $r^2$ can be written as $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+721
+
+## reasoning
+We have a set \(\mathcal{B}\) of rectangular boxes with dimensions \(x,y,z > 0\) such that:
+\[
+2(xy + yz + zx) = 54 \implies xy + yz + zx = 27,
+\]
+and
+\[
+xyz = 23.
+\]
+
+We want to find the smallest radius \(r\) of a sphere that can contain any such box. The smallest sphere containing a rectangular box will be the one that contains its diagonal, so the radius \(r\) must be at least half the length of the space diagonal of the box.
+
+The space diagonal length is:
+\[
+d = \sqrt{x^2 + y^2 + z^2}.
+\]
+So,
+\[
+r = \frac{d}{2} = \frac{\sqrt{x^2 + y^2 + z^2}}{2}.
+\]
+
+We want the smallest radius \(r\) such that for all boxes with \(xy+yz+zx=27\) and \(xyz=23\), the diagonal is at most \(2r\).
+
+Equivalently, we want to find the maximal diagonal length \(d\) over all boxes with the given constraints, then set
+\[
+r = \frac{d}{2}.
+\]
+
+**Step 1: Express \(x^2 + y^2 + z^2\) in terms of \(xy+yz+zx\)**
+
+Recall:
+\[
+(x + y + z)^2 = x^2 + y^2 + z^2 + 2(xy + yz + zx).
+\]
+Thus,
+\[
+x^2 + y^2 + z^2 = (x + y + z)^2 - 2(xy + yz + zx) = (x + y + z)^2 - 54,
+\]
+since \(xy + yz + zx = 27\).
+
+So the diagonal squared is:
+\[
+d^2 = x^2 + y^2 + z^2 = (x + y + z)^2 - 54.
+\]
+
+We want to maximize \(d^2\), which is equivalent to maximizing \(x + y + z\) because 54 is fixed.
+
+**Step 2: Maximize \(S = x + y + z\) given:**
+- \(xy + yz + zx = 27\),
+- \(xyz = 23\).
+
+We consider the symmetric polynomial equations:
+
+Let the cubic polynomial be:
+\[
+t^3 - S t^2 + 27 t - 23 = 0,
+\]
+where the roots are \(x,y,z\).
+
+To have all positive roots, the roots must be positive real numbers.
+
+**Step 3: Use inequalities to estimate \(S\)**
+
+We know from AM-GM on three positive numbers:
+\[
+\frac{x + y + z}{3} \geq \sqrt[3]{xyz} = \sqrt[3]{23} \approx 2.8439,
+\]
+so
+\[
+S = x + y + z \geq 3 \times 2.8439 \approx 8.53.
+\]
+
+We want to find the maximum possible \(S\) given the constraints.
+
+**Step 4: Use Lagrange multipliers or substitute for two variables**
+
+Alternatively, to find the maximum \(S\), note that by the Cauchy-Schwarz inequality:
+\[
+(x + y + z)^2 \leq 3(x^2 + y^2 + z^2),
+\]
+so
+\[
+d^2 = (x + y + z)^2 - 54 \leq 3 d^2 - 54,
+\]
+which is not directly helpful.
+
+Instead, consider the symmetric sums:
+\[
+S = x + y + z,
+\]
+\[
+P = xy + yz + zx = 27,
+\]
+\[
+Q = xyz = 23.
+\]
+
+We want to maximize \(S\) given fixed \(P\) and \(Q\).
+
+**Step 5: Using inequality on sums of roots**
+
+Given the symmetric nature, the problem reduces to maximizing \(S\) under constraints on \(P\) and \(Q\).
+
+One way is to consider the function:
+\[
+f(x,y,z) = x + y + z,
+\]
+subject to
+\[
+g(x,y,z) = xy + yz + zx - 27 = 0,
+\]
+\[
+h(x,y,z) = xyz - 23 = 0.
+\]
+
+Using Lagrange multipliers:
+
+\[
+\nabla f = \lambda \nabla g + \mu \nabla h,
+\]
+with
+\[
+\nabla f = (1,1,1),
+\]
+\[
+\nabla g = (y+z, x+z, x+y),
+\]
+\[
+\nabla h = (yz, xz, xy).
+\]
+
+Set up the system:
+\[
+1 = \lambda (y + z) + \mu (yz),
+\]
+\[
+1 = \lambda (x + z) + \mu (xz),
+\]
+\[
+1 = \lambda (x + y) + \mu (xy).
+\]
+
+Because the equations are symmetric, and the problem is symmetric in \(x,y,z\), the solution for maximum/minimum will likely have at least two equal variables.
+
+Suppose \(x = y\). Then
+\[
+x = y, \quad z = z.
+\]
+
+Then the constraints become:
+\[
+xy + yz + zx = x^2 + 2xz = 27,
+\]
+\[
+xyz = x \cdot x \cdot z = x^2 z = 23.
+\]
+
+From the second,
+\[
+z = \frac{23}{x^2}.
+\]
+
+Substitute into the first:
+\[
+x^2 + 2 x \cdot \frac{23}{x^2} = x^2 + \frac{46}{x} = 27.
+\]
+
+Multiply both sides by \(x\):
+\[
+x^3 + 46 = 27 x,
+\]
+or
+\[
+x^3 - 27 x + 46 = 0.
+\]
+
+We want to find positive roots \(x\) of this cubic.
+
+Try to find roots:
+
+Test \(x=2\):
+\[
+8 - 54 + 46 = 0,
+\]
+which is
+\[
+8 - 54 + 46 = 0,
+\]
+so yes, \(x=2\) is a root.
+
+Divide the cubic by \((x-2)\):
+\[
+x^3 - 27 x + 46 = (x - 2)(x^2 + 2 x - 23).
+\]
+
+Solve \(x^2 + 2x - 23 = 0\):
+\[
+x = \frac{-2 \pm \sqrt{4 + 92}}{2} = \frac{-2 \pm \sqrt{96}}{2} = \frac{-2 \pm 4\sqrt{6}}{2} = -1 \pm 2\sqrt{6}.
+\]
+
+Only positive root is
+\[
+-1 + 2\sqrt{6} \approx -1 + 4.89898 = 3.89898,
+\]
+and the other root is negative.
+
+So the roots of the cubic are \(2\), \(3.89898\), and \(-5.89898\).
+
+Since \(x > 0\), and we supposed \(x = y\), take \(x = y = 2\) or \(x = y = 3.89898\).
+
+Check which makes sense:
+
+If \(x = y = 2\), then
+\[
+z = \frac{23}{x^2} = \frac{23}{4} = 5.75.
+\]
+
+Check sum:
+\[
+S = x + y + z = 2 + 2 + 5.75 = 9.75.
+\]
+
+Check product sum:
+\[
+xy + yz + zx = 4 + 2 \times 5.75 + 2 \times 5.75 = 4 + 11.5 + 11.5 = 27,
+\]
+which matches.
+
+Now, if \(x = y = 3.89898\), then
+\[
+z = \frac{23}{3.89898^2} \approx \frac{23}{15.2} \approx 1.513.
+\]
+
+Sum:
+\[
+S = 3.89898 + 3.89898 + 1.513 \approx 9.31,
+\]
+which is less than 9.75.
+
+So the maximum sum is approximately 9.75 when \(x = y = 2\).
+
+**Step 6: Calculate \(d^2\) and \(r^2\)**
+
+Recall:
+\[
+d^2 = (x + y + z)^2 - 54,
+\]
+with
+\[
+S = 9.75,
+\]
+so
+\[
+d^2 = (9.75)^2 - 54 = 95.0625 - 54 = 41.0625.
+\]
+
+Thus,
+\[
+r^2 = \left(\frac{d}{2}\right)^2 = \frac{d^2}{4} = \frac{41.0625}{4} = 10.265625.
+\]
+
+Convert to fraction:
+
+\[
+41.0625 = 41 + 0.0625 = 41 + \frac{1}{16} = \frac{656}{16} + \frac{1}{16} = \frac{657}{16}.
+\]
+
+Therefore,
+\[
+r^2 = \frac{657/16}{4} = \frac{657}{16 \times 4} = \frac{657}{64}.
+\]
+
+Check if 657 and 64 are relatively prime:
+
+- 64 is a power of 2, prime factors \(2^6\).
+- 657 factors: \(657 ÷ 3 = 219\), \(219 ÷ 3 = 73\), 73 is prime.
+
+So \(657 = 3^2 \times 73\), no factor 2, so numerator and denominator are relatively prime.
+
+Therefore,
+\[
+r^2 = \frac{657}{64},
+\]
+and
+\[
+p + q = 657 + 64 = 721.
+\]
+
+**Final answer:**
+\[
+\boxed{721}.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 721. Here's the step-by-step solution:
+Observe that the "worst" possible box is one of the maximum possible length. 
+By symmetry, the height and the width are the same in this antioptimal box. (If the height and width weren't the same, the extra difference between them could be used to make the length longer.) Thus, let the width and height be of length $a$ and the length be $L$. 
+We're given that the volume is $23$; thus, $a^2L=23$. We're also given that the surface area is $54=2\cdot27$; thus, $a^2+2aL=27$. 
+From the first equation, we can get $L=\dfrac{23}{a^2}$. We do a bunch of algebra: 
+\begin{align*}
+L&=\dfrac{23}{a^2} \\
+27&=a^2+2aL \\
+&=a^2+2a\left(\dfrac{23}{a^2}\right) \\
+&=a^2+\dfrac{46}a \\
+27a&=a^3+46 \\
+a^3-27a+46&=0. \\
+\end{align*}
+We can use the Rational Root Theorem and test a few values. It turns out that $a=2$ works. We use synthetic division to divide by $a-2$: 
+[Asdf.png](https://artofproblemsolving.com/wiki/index.php/File:Asdf.png)
+As we expect, the remainder is $0$, and we are left with the polynomial $x^2+2x-23$. We can now simply use the quadratic formula and find that the remaining roots are $\dfrac{-2\pm\sqrt{4-4(-23)}}2=\dfrac{-2\pm\sqrt{96}}2=\dfrac{-2\pm4\sqrt{6}}2=-1\pm2\sqrt6$. We want the smallest $a$ to maximize $L$, and it turns out that $a=2$ is in fact the smallest root. Thus, we let $a=2$. Substituting this into $L=\dfrac{23}{a^2}$, we find that $L=\dfrac{23}4$. However, this is not our answer! This is simply the length of the box; we want the radius of the sphere enclosing it. We know that the diameter of the sphere is the diagonal of the box, and the 3D Pythagorean Theorem can give us the space diagonal. Applying it, we find that the diagonal has length $\sqrt{2^2+2^2+\left(\dfrac{23}4\right)^2}=\sqrt{8+\dfrac{529}{16}}=\sqrt{\dfrac{128+529}{16}}=\dfrac{\sqrt{657}}4$. This is the diameter; we halve it to find the radius, $\dfrac{\sqrt{657}}8$. We then square this and end up with $\dfrac{657}{64}$, giving us an answer of $657+64=\boxed{721}$. 
+~Technodoggo
+Denote by $x$, $y$, $z$ the length, width, and height of a rectangular box.
+We have
+\begin{align*}
+xy + yz + zx & = \frac{54}{2}  \hspace{1cm} (1) \\
+xyz & = 23 \hspace{1cm} (2)
+\end{align*}
+We have
+\begin{align*}
+4 r^2 & = x^2 + y^2 + z^2 \\
+& = \left( x + y + z \right)^2 - 2 \cdot \left( xy + yz + zx \right) \\
+& = \left( x + y + z \right)^2 - 54 .
+\end{align*}
+Therefore, we solve the following constrained optimization problem:
+\begin{align*}
+\max_{x,y,z} \ & x + y + z \\
+\mbox{subject to } & (1), (2) 
+\end{align*}
+First, we prove that an optimal solution must have at least two out of $x$, $y$, $z$ that are the same.
+Denote by $\lambda$ and $\eta$ lagrangian multipliers of constraints (1) and (2), respectively. 
+Consider the following Lagrangian:
+\begin{align*}
+\max_{x,y,z, \lambda, \eta} & x + y + z + \lambda \left( xy + yz + zx - 27 \right)
++ \eta \left( xyz - 23 \right) .
+\end{align*}
+Taking first-order-condition with respect to $x$, $y$, $z$, respectively, we get
+\begin{align*}
+1 + \lambda \left( y + z \right) + \eta yz & = 0 \hspace{1cm} (3) \\
+1 + \lambda \left( z + x \right) + \eta zx & = 0 \hspace{1cm} (4) \\
+1 + \lambda \left( x + y \right) + \eta xy & = 0 \hspace{1cm} (5)
+\end{align*}
+Suppose there is an optimal solution with $x$, $y$, $z$ that are all distinct.
+Taking $(4)-(3)$, we get
+\[ \left( x - y \right) \left( \lambda + \eta z \right) = 0 . \]
+Because $x \neq y$, we have
+\[ \lambda + \eta z = 0 \hspace{1cm} (6) \]
+Analogously, we have
+\begin{align*}
+\lambda + \eta x & = 0 \hspace{1cm} (7) 
+\end{align*} 
+Taking $(6) - (7)$, we get $\eta \left( z - x \right) = 0$.
+Because $z \neq x$, we have $\eta = 0$. Plugging this into (6), we get $\lambda = 0$.
+However, the solution that $\lambda = \eta = 0$ is a contradiction with (3).
+Therefore, in an optimal solution, we cannot have $x$, $y$, and $z$ to be all distinct.
+W.L.O.G, in our remaining analysis, we assume an optimal solution satisfies $y = z$.
+Therefore, we need to solve the following two-variable optimization problem:
+\begin{align*}
+\max_{x,y} \ & x + 2y \\
+\mbox{subject to } & 2 xy + y^2 = 27 \\
+& xy^2 = 23
+\end{align*}
+Replacing $x$ with $y$ by using the constraint $xy^2 = 23$, we solve the following single-variable optimization problem:
+\begin{align*}
+\max_y \ &  \frac{23}{y^2} + 2y \hspace{1cm} (8) \\
+\mbox{subject to } & \frac{46}{y} + y^2 = 27 \hspace{1cm} (9)
+\end{align*}
+By solving (9), we get $y = 2$ and $-1 + 2 \sqrt{6}$.
+Plugging $y = 2$ into (8), we get $\frac{23}{y^2} + 2y = \frac{39}{4}$.
+Plugging $y = -1 + 2 \sqrt{6}$ into (8), we get $\frac{23}{y^2} + 2y = \frac{96 \sqrt{6} - 21}{23}$.
+We have $\frac{96 \sqrt{6} - 21}{23} < \frac{39}{4}$.
+Therefore, the maximum value of $x + y + z$ is $\frac{39}{4}$.
+Therefore,
+\begin{align*}
+r^2 & = \frac{1}{4} \left( \left( x + y + z \right)^2 - 54 \right) \\
+& = \frac{1}{4} \left( \left( \frac{39}{4} \right)^2 - 54 \right) \\
+& = \frac{657}{64} .
+\end{align*}
+Therefore, the answer is
+$657 + 64 = \boxed{\textbf{(721) }}$.
+~Steven Chen (Professor Chen Education Palace, www.professorchenedu.com)
+First, let's list the conditions:
+Denote by $l$, $w$, $h$ the length, width, and height of a rectangular box.
+\[lwh=23\]
+\begin{align*}
+2(lw+wh+hl)&=54\\
+lw+wh+hl&=27.
+\end{align*}
+Applying the Pythagorean theorem, we can establish that
+\begin{align*}
+(2r)^2&=(l^2+w^2+h^2)\\
+4r^2&=(l^2+w^2+h^2)\\
+4r^2&=(l+w+h)^2-2(lw+wh+hl)\\
+4r^2&=(l+w+h)^2-54.
+\end{align*}
+We can spot Vieta's formula hidden inside this equation and call this $m$. Now we have three equations:
+\[lwh=23\]
+\[lw+wh+hl)=27\]
+\[l+w+h=m\]
+Let there be a cubic equation. $x^3+bx^2+cx+d=0$. Its roots are $l$, $w$ and $h$. We can use our formulas from before to derive $c$ and $d$.
+\[-b=l+w+h=m\]
+\[c=lw+wh+lh=27\]
+\[-d=lwh=23\]
+We can now rewrite the equation from before:
+$x^3-mx^2+27x-23=0$
+To find the maximum $r$ we need the maximum $m$. This only occurs when this equation has double roots illustrated with graph below.
+
+[AIME 2024 I P15 Pic1.PNG](https://artofproblemsolving.com/wiki/index.php/File:AIME_2024_I_P15_Pic1.PNG) [](https://artofproblemsolving.com/wiki/index.php/File:AIME_2024_I_P15_Pic1.PNG)
+WLOG we can set $h=w$.
+Thus:
+\[lw+w^2+wl=27\]
+\[lw^2=23\]
+We can substitute $l$ and form a depressed cubic equation with $w$.
+\begin{align*}
+lw^2&=23\\
+l&=\frac{23}{w^2}\\
+2\left(\frac{23}{w^2}\right)w+w^2&=27\\
+\frac{46}{w}+w^2&=27\\
+w^2+\frac{46}{w}-27&=0\\
+w^3 -27w+46&=0.
+\end{align*}
+Based on Rational Root Theorem the possible rational roots are $\pm1, \pm2, \pm23$
+A quick test reveals that $2$ is a root of the equation. Comparing coefficients we can factorize the equation into:
+$(w-2)(w^2+2w-23)=0$
+Besides $2$, we derive another positive root using the quadratic formula, $2\sqrt{6}-1$
+But to maximize the $m$ we need to pick the smaller $w$, which is $2$.
+Substituting this into $l=\frac{23}{w^2}$, we find that $l=\dfrac{23}4$.
+Applying it to our equation above:
+\begin{align*}
+4r^2&=(l+w+h)^2-54\\
+4r^2&=(l+2w)^2-54\\
+4r^2&=\left(\dfrac{23}4+2\cdot2\right)^2-54\\
+4r^2&=\left(\dfrac{39}4\right)^2-54\\
+4r^2&=\left(\dfrac{1521}{16}\right)-54\\
+4r^2&=\left(\dfrac{657}{16}\right)\\
+r^2&=\left(\dfrac{657}{64}\right). 
+\end{align*}
+$657+64=\boxed{721}$.
+~[luckuso](https://artofproblemsolving.comhttps://artofproblemsolving.com/wiki/index.php/User:Cyantist)
+to find the maximum m for $x^3-mx^2+27x-23=0$
+rewrite m as function of x and calculate derivatives to get maximum value, \[m(x) =-x + 27x^{-1} - 23x^{-2}\]
+\[m'(x) = -1 - 27x^{-2} -46x^{-3} = 0\]
+\[x^3 -27x+46=0\]
+\[(x-2)(x^2+2x-23)=0\]
+when x = 2, \[m= 2 + \frac{27}{2}  - \frac{23}{4}  = \frac{39}{4}\]
+the rest is similar to solution 3
+~[luckuso](https://artofproblemsolving.comhttps://artofproblemsolving.com/wiki/index.php/User:Cyantist)
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+
+# Example 2
+## problem
+There is a collection of $25$ indistinguishable white chips and $25$ indistinguishable black chips. Find the number of ways to place some of these chips in the $25$ unit cells of a $5\times5$ grid such that: 
+
+each cell contains at most one chip
+all chips in the same row and all chips in the same column have the same colour
+any additional chip placed on the grid would violate one or more of the previous two conditions.
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+1022
+
+## reasoning
+We have a \(5 \times 5\) grid with 25 cells. We want to place some chips—each cell can have at most one chip—from a collection of 25 white and 25 black indistinguishable chips. The conditions are:
+
+1. Each cell contains at most one chip.
+2. All chips in the same row have the same color.
+3. All chips in the same column have the same color.
+4. Any additional chip placed would violate one or more of the previous conditions.
+
+We want to count the number of valid ways to place chips meeting all these conditions.
+
+---
+
+**Step 1: Understanding the conditions**
+
+- Since the chips are indistinguishable within colors, the arrangement depends only on which cells are occupied and their colors.
+- Each row's chips must be all the same color (if any chip in that row).
+- Each column's chips must be all the same color (if any chip in that column).
+- Because chips in the same row are the same color and chips in the same column are the same color, the color of a chip in cell \((i,j)\) is determined both by the row \(i\) and the column \(j\). This implies the color of row \(i\) and column \(j\) must be consistent wherever they intersect and have chips.
+
+---
+
+**Step 2: Consequence of row and column color uniformity**
+
+- Let’s assign a color to each row: each row is either black or white, or empty (no chips).
+- Similarly, each column is either black or white, or empty (no chips).
+- But if a cell \((i,j)\) is occupied, the color of the chip there must agree with both the color of row \(i\) and column \(j\).
+- Therefore, for any occupied cell \((i,j)\), the color assigned to row \(i\) must be the same as the color assigned to column \(j\).
+
+---
+
+**Step 3: Structure of the pattern of chips**
+
+- Let \(R\) be the set of rows that have chips.
+- Let \(C\) be the set of columns that have chips.
+- Each row in \(R\) is assigned a color (black or white).
+- Each column in \(C\) is assigned a color (black or white).
+- For each occupied cell \((i,j)\), the color of row \(i\) equals the color of column \(j\).
+
+Since each cell can contain at most one chip and the color must match, the set of occupied cells is exactly the intersection of the rows \(R\) and columns \(C\) with the same color.
+
+---
+
+**Step 4: Determining the chips placed**
+
+- Suppose we have:
+
+  - \(R_b\): rows colored black,
+  - \(R_w\): rows colored white,
+  - \(C_b\): columns colored black,
+  - \(C_w\): columns colored white.
+
+- Rows and columns not in \(R_b \cup R_w\) or \(C_b \cup C_w\) have no chips.
+
+- The chips placed are at the intersections:
+
+  - Black chips at cells \((i,j)\) with \(i \in R_b\), \(j \in C_b\).
+  - White chips at cells \((i,j)\) with \(i \in R_w\), \(j \in C_w\).
+
+- No other cells have chips.
+
+---
+
+**Step 5: Feasibility with chip counts**
+
+- Number of black chips placed is \(|R_b| \times |C_b|\).
+- Number of white chips placed is \(|R_w| \times |C_w|\).
+- Total black chips used \(\leq 25\).
+- Total white chips used \(\leq 25\).
+
+---
+
+**Step 6: Maximality condition**
+
+- "Any additional chip placed would violate one or more conditions."
+
+- This means we cannot add any chip to any empty cell without violating conditions.
+
+- Which cells are empty?
+
+  - The cells outside \(R \times C\) (rows and columns with chips) are empty because their row or column has no chips, so adding a chip there would mean a row or column with mixed colors (since it would be the only chip, that row or column would have a color; but adding a chip there might be possible).
+
+  - Cells inside \(R \times C\) but not in black or white intersection sets are empty.
+
+- To be maximal, the set of chips must be such that no additional chip can be added.
+
+---
+
+**Step 7: Implication of maximality**
+
+- For any cell outside \(R \times C\), adding a chip would add a new row or column with chips.
+
+- Since all chips in a row have the same color, a new row with one chip is allowed; similarly for a column.
+
+- But the problem states "Any additional chip placed would violate one or more conditions."
+
+- Therefore, to prevent adding chips outside \(R \times C\), all rows and columns not in \(R\) or \(C\) must be empty, and adding a chip to any of those rows or columns would violate maximality.
+
+- Because adding a chip in a row or column that currently has no chips would create a new row or column with chips, which is allowed unless it violates the other conditions.
+
+- To prevent adding chips outside, it must be impossible to add a chip in any empty cell.
+
+- This implies that every empty cell is in a row or column that already has chips, or the chip counts would exceed 25.
+
+- Since the chip counts are limited, we must have \(R \cup C = \{1,...,5\}\), i.e., all rows and columns have chips.
+
+- Otherwise, if a row or column has no chips, we could add a chip there without violating color consistency (since no chips in that row or column), contradicting maximality.
+
+- So, all rows and columns have chips: \(R = C = \{1,...,5\}\).
+
+---
+
+**Step 8: With all rows and columns having chips**
+
+- Each row and column is assigned a color (black or white).
+
+- The color of the chip at \((i,j)\) is the color assigned to both row \(i\) and column \(j\).
+
+- If the colors differ at \((i,j)\), no chip can be placed there.
+
+- So the occupied cells are the pairs \((i,j)\) where the row color and column color agree.
+
+---
+
+**Step 9: Counting chips**
+
+- Number of chips = number of cells where row and column colors are the same.
+
+- Black chips = number of \((i,j)\) with row \(i\) black and column \(j\) black = \(|R_b| \times |C_b|\).
+
+- White chips = number of \((i,j)\) with row \(i\) white and column \(j\) white = \(|R_w| \times |C_w|\).
+
+- Total chips = \(|R_b|\cdot|C_b| + |R_w|\cdot|C_w|\).
+
+- Must have \(\leq 25\) black chips and \(\leq 25\) white chips.
+
+---
+
+**Step 10: Maximality again**
+
+- Any cell where row and column colors differ has no chip.
+
+- Could we add a chip there without violating conditions?
+
+- Adding a chip in such a cell would require the row and column colors to match.
+
+- Since they differ, adding a chip there would violate condition 2 or 3 (row or column uniformity).
+
+- So, no chip can be added in cells with conflicting colors.
+
+- Thus, the configuration is maximal.
+
+---
+
+**Step 11: Summary**
+
+- The configuration is determined by:
+
+  - Choosing a color (black or white) for each of the 5 rows.
+  - Choosing a color (black or white) for each of the 5 columns.
+  - The chips are placed at the intersections where row and column colors agree.
+  - Chip counts must satisfy \(|R_b| \times |C_b| \leq 25\) and \(|R_w| \times |C_w| \leq 25\).
+  - Since the grid is \(5 \times 5\), maximum product is 25, so all are allowed.
+
+- The only restriction is that total chips placed do not exceed the available chips (25 black, 25 white). Since maximum is 25 for each, no problem.
+
+---
+
+**Step 12: Counting the number of such configurations**
+
+- Number of ways to assign colors to rows: \(2^5 = 32\).
+- Number of ways to assign colors to columns: \(2^5 = 32\).
+- Total number of color assignments: \(32 \times 32 = 1024\).
+
+- The empty configuration (no chips) corresponds to rows and columns all assigned the same color? No, if all rows are black and all columns are white, no intersection cells match colors, so no chips placed.
+
+- Is the empty configuration allowed?
+
+- No chips placed means no chips in any row or column, violating condition 4 (maximality), because we could add chips.
+
+- So the empty configuration is not allowed.
+
+- Similarly, configurations with zero chips are not allowed.
+
+- Let's check if zero chip configurations exist:
+
+  - For zero chips, no \(i,j\) with matching colors.
+
+  - This happens if the row color vector and column color vector have no positions with the same color.
+
+  - For instance, rows all black, columns all white: no chips.
+
+- So configurations with zero chips are possible, but not allowed because maximality condition says any additional chip would violate conditions, but here it's possible to add chips.
+
+- So exclude zero-chip configurations.
+
+---
+
+**Step 13: Counting zero-chip configurations**
+
+- The zero-chip configurations occur when \(R_b \times C_b = 0\) and \(R_w \times C_w = 0\).
+
+- For zero black chips, one of \(R_b\) or \(C_b\) is zero.
+
+- For zero white chips, one of \(R_w\) or \(C_w\) is zero.
+
+- Since total chips = 0, both products zero.
+
+- So either all rows black and all columns white, or all rows white and all columns black, or one side all black and the other side all white, etc.
+
+- Let's count zero-chip configurations:
+
+  - Number of row colorings with all rows black: 1
+  - Number of row colorings with all rows white: 1
+  - Similarly for columns.
+
+- Total zero-chip configurations are those where no black-black or white-white intersections occur.
+
+- Since 5 rows and 5 columns, total 4 zero-chip configurations:
+
+  - Rows all black, columns all white
+  - Rows all white, columns all black
+  - Rows all black, columns all black but with no white rows or columns (this yields chips, so not zero-chip)
+  - Rows all white, columns all white (chips exist)
+
+- Only the first two give zero chips.
+
+- What about other combinations?
+
+- For zero chips, the sets \(R_b\) and \(C_b\) cannot both be non-empty, similarly \(R_w\) and \(C_w\) cannot both be non-empty.
+
+- So zero-chip configurations are when the row colors and column colors are complementary (one is all black, the other all white, or vice versa).
+
+- So zero-chip configurations = 2.
+
+---
+
+**Step 14: Final answer**
+
+- Total configurations: 1024
+- Exclude zero-chip configurations: 2
+- So valid configurations = \(1024 - 2 = 1022\).
+
+---
+
+**Step 15: Verify chip count constraints**
+
+- Since the maximum chips placed is 25 for each color, and 25 chips are available, no chip count constraints exclude any configuration.
+
+---
+
+**Step 16: Conclusion**
+
+- Number of valid configurations is 1022.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 902. Here's the step-by-step solution:
+The problem says "some", so not all cells must be occupied.
+We start by doing casework on the column on the left. There can be 5,4,3,2, or 1 black chip. The same goes for white chips, so we will multiply by 2 at the end. There is $1$ way to select $5$ cells with black chips. Because of the 2nd condition, there can be no white, and the grid must be all black- $1$ way . There are $5$ ways to select 4 cells with black chips. We now consider the row that does not contain a black chip. The first cell must be blank, and the remaining $4$ cells have $2^4-1$ different ways($-1$ comes from all blank). This gives us $75$ ways. Notice that for 3,2 or 1 black chips on the left there is a pattern. Once the first blank row is chosen, the rest of the blank rows must be ordered similarly. For example, with 2 black chips on the left, there will be 3 blank rows. There are 15 ways for the first row to be chosen, and the following 2 rows must have the same order. Thus, The number of ways for 3,2,and 1 black chips is $10*15$, $10*15$, $5*15$. Adding these up, we have $1+75+150+150+75 = 451$. Multiplying this by 2, we get $\boxed{902}$.
+~westwoodmonster
+Note that the answer is equivalent to the number of ways to choose rows and columns that the white chips occupy, as once those are chosen, there is only one way to place the chips, and every way to place the chips corresponds to a set of rows and columns occupied by the white pieces.
+If the white pieces occupy none of the rows, then because they don't appear on the board, they will not occupy any of the columns. Similar logic can be applied to show that if white pieces occupy all of the rows, they will also occupy all of the columns.
+The number of sets of rows and columns that white can occupy are $2^{5} - 2 = 30$ each, accounting for the empty and full set.
+So, including the board with 25 white pieces and the board with 25 black pieces, the answer is $30^{2}+2 = \boxed{902}$
+Case 1: All chips on the grid have the same color.
+In this case, all cells are occupied with chips with the same color.
+Therefore, the number of configurations in this case is 2.
+Case 2: Both black and white chips are on the grid.
+Observation 1: Each colored chips must occupy at least one column and one row.
+This is because, for each given color, there must be at least one chip. Therefore, all chips placed in the cells that are in the same row or the same column with this given chip must have the same color with this chip.
+Observation 2: Each colored chips occupy at most 4 rows and 4 columns.
+This directly follows from Observation 1.
+Observation 3: For each color, if all chips in this color occupy columns with $x$-coordinates $\left\{ x_1, \cdots, x_m \right\}$ and rows with $y$-coordinates $\left\{ y_1, \cdots, y_n \right\}$, then every cell $\left( x, y \right)$ with $x \in \left\{ x_1, \cdots , x_m \right\}$ and $y \in \left\{ y_1, \cdots , y_n \right\}$ is occupied by a chip with the same color.
+This is because, if there is any cell in this region occupied by a chip with a different color, it violates Condition 2.
+If there is any cell in this region that is empty, then it violates Condition 3.
+Observation 4: For each color, if all chips in this color occupy columns with $x$-coordinates $\left\{ x_1, \cdots, x_m \right\}$ and rows with $y$-coordinates $\left\{ y_1, \cdots, y_n \right\}$, then every cell $\left( x, y \right)$ with $x \notin \left\{ x_1, \cdots , x_m \right\}$ and $y \in \left\{ y_1, \cdots , y_n \right\}$, or $x \in \left\{ x_1, \cdots , x_m \right\}$ and $y \notin \left\{ y_1, \cdots , y_n \right\}$ is empty.
+This is because, if there is any cell in this region occupied by a chip with a different color, it violates Condition 2.
+Observation 5: For each color, if all chips in this color occupy columns with $x$-coordinates $\left\{ x_1, \cdots, x_m \right\}$ and rows with $y$-coordinates $\left\{ y_1, \cdots, y_n \right\}$, then every cell $\left( x, y \right)$ with $x \notin \left\{ x_1, \cdots , x_m \right\}$ and $y \notin \left\{ y_1, \cdots , y_n \right\}$ is occupied by chips with the different color.
+This follows from Condition 3.
+By using the above observations, the number of feasible configurations in this case is given by
+\begin{align*}
+\sum_{n=1}^4 \sum_{m=1}^4 \binom{5}{n} \binom{5}{m}
+& = \left( \sum_{n=1}^4 \binom{5}{n} \right)
+\left( \sum_{m=1}^4 \binom{5}{m} \right) \\
+& = \left( 2^5 - 2 \right)^2 \\
+& = 900 .
+\end{align*}
+Putting all cases together, the total number of feasible configurations is $2 + 900 =  \boxed{\textbf{(902) }}$.
+
+~Steven Chen (Professor Chen Education Palace, www.professorchenedu.com)
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+
+# Example 3
+## problem
+Ellina has twelve blocks, two each of red ($\textbf{R}$), blue ($\textbf{B}$), yellow ($\textbf{Y}$), green ($\textbf{G}$), orange ($\textbf{O}$), and purple ($\textbf{P}$). Call an arrangement of blocks $\textit{even}$ if there is an even number of blocks between each pair of blocks of the same color. For example, the arrangement
+\[\textbf{R B B Y G G Y R O P P O}\]
+is even. Ellina arranges her blocks in a row in random order. The probability that her arrangement is even is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+247
+
+## reasoning
+We have 12 blocks: 2 each of 6 colors \(\{R, B, Y, G, O, P\}\).
+
+An arrangement is called *even* if for each pair of identical colored blocks, the number of blocks between them is even.
+
+**Step 1: Understanding the condition**
+
+For each color, there are two identical blocks. Call their positions \(i\) and \(j\) with \(i < j\).
+
+The number of blocks between them is \(j - i - 1\).
+
+The condition is that \(j - i - 1\) is even, which means:
+\[
+j - i - 1 \equiv 0 \pmod{2} \implies j - i \equiv 1 \pmod{2}.
+\]
+
+So \(j - i\) is odd.
+
+This means the two blocks of the same color must be placed at positions with indices differing by an odd number.
+
+**Step 2: Index parity analysis**
+
+Positions are labeled from 1 to 12.
+
+Since \(j - i\) is odd, one of \(i\), \(j\) is even and the other is odd.
+
+Therefore, for each pair of identical blocks, one block is placed in an odd position, and the other in an even position.
+
+**Step 3: Position counts**
+
+There are 12 positions: 6 odd positions (1, 3, 5, 7, 9, 11) and 6 even positions (2, 4, 6, 8, 10, 12).
+
+For each color, one block is in an odd position, the other in an even position.
+
+Since there are 6 colors, each with 2 blocks, the 12 blocks must be split with exactly 6 blocks in odd positions and 6 blocks in even positions.
+
+**Step 4: Assigning blocks to positions**
+
+- Assign for each color: one block in an odd position and one block in an even position.
+
+- We must assign the 6 colors to the 6 odd positions and 6 colors to the 6 even positions, with no overlaps.
+
+**Step 5: Counting the number of even arrangements**
+
+- Total number of arrangements without restriction:
+\[
+\frac{12!}{2! \cdot 2! \cdot 2! \cdot 2! \cdot 2! \cdot 2!} = \frac{12!}{(2!)^6}.
+\]
+
+- Number of even arrangements:
+
+We proceed in steps:
+
+1. Choose which block of each color goes to odd positions and which to even positions.
+
+Since the two blocks are identical, swapping them does not create a new arrangement. So for counting arrangements, the two blocks per color are indistinct.
+
+2. Assign colors to odd positions: There are 6 odd positions and 6 colors, each color's one block must be assigned to an odd position.
+
+Number of ways to assign colors to odd positions (each position gets a color block, no repeats):
+
+\[
+6! = 720.
+\]
+
+3. Similarly, assign colors to even positions:
+
+\[
+6! = 720.
+\]
+
+4. Since the two blocks of each color are identical, no further division is needed; the arrangement is determined by which colors go to which odd and even positions.
+
+**Step 6: Verify no double counting**
+
+Each arrangement corresponds to a unique pairing of:
+
+- an assignment of colors to odd positions (permutation of 6 colors on 6 positions),
+
+- an assignment of colors to even positions (another permutation of 6 colors on 6 positions).
+
+Therefore, number of even arrangements is \(6! \times 6! = 720 \times 720 = 518400\).
+
+**Step 7: Calculate the total number of arrangements**
+
+Total arrangements of 12 blocks with 2 identical blocks of each of 6 colors:
+
+\[
+\frac{12!}{(2!)^6} = \frac{479001600}{64} = 7,484,400.
+\]
+
+**Step 8: Probability**
+
+\[
+\text{Probability} = \frac{\text{even arrangements}}{\text{total arrangements}} = \frac{518400}{7,484,400} = \frac{518400 / 7200}{7,484,400 / 7200} = \frac{72}{1040.6111...}
+\]
+
+Let's simplify exactly:
+
+Divide numerator and denominator by 7200:
+
+- Numerator: \(518400 \div 7200 = 72\).
+
+- Denominator: \(7,484,400 \div 7200 = \frac{7,484,400}{7200}\).
+
+Calculate denominator:
+
+\[
+7,484,400 \div 7200 = \frac{7,484,400}{7200} = \frac{7,484,400}{7200} = 1040.6111...
+\]
+
+Not an integer, so better to factor numerator and denominator to get fraction in lowest terms.
+
+**Step 9: Factor numerator and denominator**
+
+First, write numerator and denominator prime factorization:
+
+- \(12! = 479001600\).
+
+- \(2! = 2\), so \((2!)^6 = 2^6 = 64\).
+
+So total arrangements:
+
+\[
+\frac{12!}{64} = \frac{479001600}{64} = 7,484,400.
+\]
+
+Number of even arrangements: \(6! \times 6! = 720 \times 720 = 518,400\).
+
+Now, find \(\gcd(518400, 7,484,400)\).
+
+Calculate:
+\[
+\gcd(518,400, 7,484,400).
+\]
+
+Divide both by 100:
+\[
+\gcd(5184, 74844).
+\]
+
+Calculate \(\gcd(5184, 74844)\):
+
+- \(74844 \div 5184 = 14\) remainder \(74844 - 14 \times 5184 = 74844 - 72576 = 2268\).
+
+Now \(\gcd(5184, 2268)\):
+
+- \(5184 \div 2268 = 2\) remainder \(5184 - 2 \times 2268 = 5184 - 4536 = 648\).
+
+Now \(\gcd(2268, 648)\):
+
+- \(2268 \div 648 = 3\) remainder \(2268 - 3 \times 648 = 2268 - 1944 = 324\).
+
+Now \(\gcd(648, 324)\):
+
+- \(648 \div 324 = 2\) remainder 0.
+
+So \(\gcd = 324\).
+
+Divide numerator and denominator by 324:
+
+- Numerator: \(518,400 \div 324 = \frac{518400}{324}\).
+
+Calculate:
+
+\(324 \times 1600 = 518,400\). So numerator becomes 1600.
+
+- Denominator: \(7,484,400 \div 324\).
+
+Calculate:
+
+\(324 \times 23,100 = ?\)
+
+Calculate \(324 \times 23,100\):
+
+- \(324 \times 23,000 = 7,452,000\)
+
+- \(324 \times 100 = 32,400\)
+
+Sum: \(7,452,000 + 32,400 = 7,484,400\)
+
+Perfect.
+
+So denominator becomes 23,100.
+
+Therefore, the probability in lowest terms is:
+\[
+\frac{1600}{23,100}.
+\]
+
+We can simplify further:
+
+Calculate \(\gcd(1600, 23,100)\):
+
+- \(23,100 \div 1600 = 14\) remainder \(23,100 - 14 \times 1600 = 23,100 - 22,400 = 700\).
+
+Now \(\gcd(1600, 700)\):
+
+- \(1600 \div 700 = 2\) remainder \(1600 - 2 \times 700 = 1600 - 1400 = 200\).
+
+\(\gcd(700, 200)\):
+
+- \(700 \div 200 = 3\) remainder \(700 - 600 = 100\).
+
+\(\gcd(200, 100) = 100\).
+
+\(\gcd(700, 200) = 100\), so \(\gcd(1600, 700) = 100\).
+
+Therefore, \(\gcd(1600, 23,100) = 100\).
+
+Divide numerator and denominator by 100:
+\[
+\frac{1600}{23,100} = \frac{16}{231}.
+\]
+
+**Step 10: Final answer**
+
+Probability \(= \frac{16}{231}\).
+
+Sum \(m + n = 16 + 231 = 247\).
+
+**Answer:**
+\[
+\boxed{247}
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 247. Here's the step-by-step solution:
+Consider this position chart: \[\textbf{1 2 3 4 5 6 7 8 9 10 11 12}\]
+Since there has to be an even number of spaces between each pair of the same color, spots $1$, $3$, $5$, $7$, $9$, and $11$ contain some permutation of all $6$ colored balls. Likewise, so do the even spots, so the number of even configurations is $6! \cdot 6!$ (after putting every pair of colored balls in opposite parity positions, the configuration can be shown to be even). This is out of $\frac{12!}{(2!)^6}$ possible arrangements, so the probability is: \[\frac{6!\cdot6!}{\frac{12!}{(2!)^6}} = \frac{6!\cdot2^6}{7\cdot8\cdot9\cdot10\cdot11\cdot12} = \frac{2^4}{7\cdot11\cdot3} = \frac{16}{231},\]
+which is in simplest form. So, $m + n = 16 + 231 = \boxed{247}$.
+~Oxymoronic15
+We can simply use constructive counting. First, let us place the red blocks; choose the first slot in $12$ ways, and the second in $6$ ways, because the number is cut in half due to the condition in the problem. This gives $12 \cdot 6$ ways to place the red blocks. Similarly, there are $10 \cdot 5$ ways to place the blue blocks, and so on, until there are $2 \cdot 1$ ways to place the purple blocks. Thus, the probability is \[\frac{12 \cdot 6 \cdot 10 \cdot 5 \cdot 8 \cdot 4 \cdot 6 \cdot 3 \cdot 4 \cdot 2 \cdot 2 \cdot 1}{12!}=\frac{16}{231},\] and the desired answer is $16+231=\boxed{247}$.
+~A1001
+Use constructive counting, as per above. WLOG, place the red blocks first. There are 11 ways to place them with distance 0, 9 ways them to place with distance 2, so on, so the way to place red blocks is $11+9+7+5+3+1=36$. Then place any other block similarly, with $25$ ways (basic counting). You get then $6!^2$ ways to place the blocks evenly, and $12!/64$ ways to place the blocks in any way, so you get $\frac{16}{231}=247$ by simplifying.
+-drag00n
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+Iter 1: Added: 'Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before conc...'. Score: 2.00 → 3.00 (ACCEPTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 601. Here's the step-by-step solution:
+$a^2(b+c)+b^2(a+c)+c^2(a+b) = 6000000$, thus $a^2(300-a)+b^2(30"
+
+Iter 2: Added: 'ns, theorems, or lemmas used. When algebraic or geometric manipulations are involved, explicitly verify each transformat...'. Score: 2.00 → 2.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 315. Here's the step-by-step solution:
+By Furaken
+There are two kinds of such rectangles: those whose "
+
+Iter 3: Added: 'xplicitly state all necessary definitions, assumptions, and intermediate results. When algebraic or geometric manipulati...'. Score: 2.00 → 2.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 751. Here's the step-by-step solution:
+Let's first view the cube from a direction perpendicular to $AB"
+
+IMPORTANT: Do not repeat strategies that were REJECTED. Build on strategies that were ACCEPTED.

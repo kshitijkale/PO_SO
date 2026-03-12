@@ -1,0 +1,1681 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## problem
+Two externally tangent circles $\omega_1$ and $\omega_2$ have centers $O_1$ and $O_2$, respectively. A third circle $\Omega$ passing through $O_1$ and $O_2$ intersects $\omega_1$ at $B$ and $C$ and $\omega_2$ at $A$ and $D$, as shown. Suppose that $AB = 2$, $O_1O_2 = 15$, $CD = 16$, and $ABO_1CDO_2$ is a convex hexagon. Find the area of this hexagon.
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+135
+
+## reasoning
+We are given two circles \(\omega_1\) and \(\omega_2\) with centers \(O_1\) and \(O_2\), tangent externally at a point not explicitly mentioned, but we know the distance between the centers \(O_1O_2 = 15\).
+
+A third circle \(\Omega\) passes through \(O_1\) and \(O_2\) and intersects \(\omega_1\) at points \(B\) and \(C\), and \(\omega_2\) at points \(A\) and \(D\).
+
+Given:
+- \(AB = 2\)
+- \(CD = 16\)
+- \(O_1O_2 = 15\)
+- The hexagon formed by the points \(A, B, O_1, C, D, O_2\) is convex.
+
+We want to find the area of the hexagon \(ABO_1CDO_2\).
+
+---
+
+**Step 1: Understanding the configuration**
+
+- \(\omega_1\) and \(\omega_2\) are tangent externally, so the distance between their centers is \(O_1O_2 = 15\).
+- The third circle \(\Omega\) passes through \(O_1\) and \(O_2\) and intersects \(\omega_1\) at \(B\) and \(C\), and \(\omega_2\) at \(A\) and \(D\).
+- Points \(A\) and \(D\) lie on \(\omega_2\), and points \(B\) and \(C\) lie on \(\omega_1\).
+- The hexagon is convex and ordered as \(A, B, O_1, C, D, O_2\).
+
+---
+
+**Step 2: Use power of point or chord properties**
+
+Since \(A\) and \(D\) lie on \(\omega_2\) and also on \(\Omega\), and \(B\) and \(C\) lie on \(\omega_1\) and \(\Omega\), and since \(O_1\) and \(O_2\) lie on \(\Omega\), we can think about the chords on each circle cut by \(\Omega\).
+
+---
+
+**Step 3: Label radii and chords**
+
+Let:
+- Radius of \(\omega_1\) be \(r_1\).
+- Radius of \(\omega_2\) be \(r_2\).
+
+Since \(\omega_1\) and \(\omega_2\) are tangent externally,
+\[
+r_1 + r_2 = O_1O_2 = 15.
+\]
+
+---
+
+**Step 4: Analyze chords on \(\omega_1\)**
+
+On \(\omega_1\), the chord \(BC\) lies on \(\Omega\).
+
+Points \(B\) and \(C\) lie on both \(\omega_1\) and \(\Omega\).
+
+Similarly, on \(\omega_2\), chord \(AD\) lies on \(\Omega\).
+
+---
+
+**Step 5: Consider the intersection lengths on each circle**
+
+Given:
+- \(AB = 2\) (segment on \(\omega_2\)),
+- \(CD = 16\) (segment on \(\omega_1\)).
+
+But \(AB\) is on \(\omega_2\), \(CD\) is on \(\omega_1\).
+
+Wait, the problem states:
+- \(\Omega\) intersects \(\omega_1\) at \(B\) and \(C\),
+- and intersects \(\omega_2\) at \(A\) and \(D\),
+- \(AB = 2\),
+- \(CD = 16\).
+
+But \(AB\) connects \(A \in \omega_2\) and \(B \in \omega_1\), so \(AB\) is a segment between the two circles on \(\Omega\).
+
+Similarly, \(CD\) connects \(C \in \omega_1\) and \(D \in \omega_2\).
+
+So \(AB\) and \(CD\) are chords of \(\Omega\) that connect \(\omega_1\) and \(\omega_2\).
+
+---
+
+**Step 6: Key insight: Points \(A, B, C, D\) lie on \(\Omega\), with \(A, D\) on \(\omega_2\), \(B, C\) on \(\omega_1\)**
+
+The hexagon is:
+\[
+A \to B \to O_1 \to C \to D \to O_2 \to A
+\]
+
+The vertices alternate between points on the circles and the centers.
+
+---
+
+**Step 7: Coordinates setup**
+
+Set a coordinate system on the line \(O_1O_2\) along the x-axis.
+
+Place \(O_1\) at \((0,0)\), and \(O_2\) at \((15,0)\).
+
+---
+
+**Step 8: Circle equations**
+
+- \(\omega_1: (x)^2 + y^2 = r_1^2\)
+- \(\omega_2: (x - 15)^2 + y^2 = r_2^2\)
+
+with
+\[
+r_1 + r_2 = 15.
+\]
+
+---
+
+**Step 9: Circle \(\Omega\) passes through \(O_1 = (0,0)\) and \(O_2 = (15,0)\).**
+
+Let \(\Omega\) have center \(O = (h,k)\) and radius \(R\).
+
+Since \(O_1\) and \(O_2\) lie on \(\Omega\), the distances from \(O\) to \(O_1\) and \(O_2\) are equal to \(R\):
+\[
+R^2 = h^2 + k^2 = (15 - h)^2 + k^2.
+\]
+
+Subtract:
+\[
+h^2 = (15 - h)^2 \implies h^2 = 225 - 30h + h^2 \implies 0 = 225 - 30h \implies h = 7.5.
+\]
+
+So the center of \(\Omega\) lies on the vertical line \(x = 7.5\). The radius is:
+\[
+R^2 = (7.5)^2 + k^2 = 56.25 + k^2.
+\]
+
+---
+
+**Step 10: Parametrize points \(A, B, C, D\).**
+
+\(\Omega\) intersects \(\omega_1\) at \(B\) and \(C\).
+
+\(\omega_1\): \(x^2 + y^2 = r_1^2\).
+
+\(\Omega\): \((x - 7.5)^2 + (y - k)^2 = R^2 = 56.25 + k^2\).
+
+Subtract the two to find the intersection:
+
+\[
+(x - 7.5)^2 + (y - k)^2 = 56.25 + k^2
+\]
+\[
+x^2 + y^2 = r_1^2
+\]
+
+Subtract:
+\[
+(x - 7.5)^2 + (y - k)^2 - x^2 - y^2 = 56.25 + k^2 - r_1^2.
+\]
+
+Expand:
+\[
+(x^2 - 15x + 56.25) + (y^2 - 2ky + k^2) - x^2 - y^2 = 56.25 + k^2 - r_1^2.
+\]
+
+Simplify:
+\[
+-15x - 2ky + 56.25 + k^2 = 56.25 + k^2 - r_1^2,
+\]
+\[
+-15x - 2ky = - r_1^2,
+\]
+\[
+15x + 2ky = r_1^2.
+\]
+
+This is a line equation representing the chord \(BC\) on \(\omega_1\).
+
+---
+
+**Step 11: Similarly, for \(\omega_2\):**
+
+\[
+(x - 15)^2 + y^2 = r_2^2.
+\]
+
+Subtract with \(\Omega\):
+
+\[
+(x - 7.5)^2 + (y - k)^2 = 56.25 + k^2,
+\]
+\[
+(x - 15)^2 + y^2 = r_2^2.
+\]
+
+Subtract:
+\[
+(x - 7.5)^2 + (y - k)^2 - (x - 15)^2 - y^2 = 56.25 + k^2 - r_2^2.
+\]
+
+Expand:
+\[
+(x^2 - 15x + 56.25) + (y^2 - 2ky + k^2) - (x^2 - 30x + 225) - y^2 = 56.25 + k^2 - r_2^2,
+\]
+
+Simplify:
+\[
+-15x - 2ky + 56.25 + k^2 + 30x - 225 = 56.25 + k^2 - r_2^2,
+\]
+\[
+15x - 2ky - 168.75 = - r_2^2,
+\]
+\[
+15x - 2ky = 168.75 - r_2^2.
+\]
+
+This line is the chord \(AD\) on \(\omega_2\).
+
+---
+
+**Step 12: Find points \(A\) and \(D\) on \(\omega_2\):**
+
+- \(A\) and \(D\) lie on \(\omega_2\) and satisfy:
+\[
+15x - 2ky = 168.75 - r_2^2,
+\]
+\[
+(x - 15)^2 + y^2 = r_2^2.
+\]
+
+---
+
+**Step 13: Find points \(B\) and \(C\) on \(\omega_1\):**
+
+- \(B\) and \(C\) lie on \(\omega_1\) and satisfy:
+\[
+15x + 2ky = r_1^2,
+\]
+\[
+x^2 + y^2 = r_1^2.
+\]
+
+---
+
+**Step 14: Lengths of chords \(AB = 2\) and \(CD = 16\)**
+
+Note that \(AB\) and \(CD\) are chords on \(\Omega\), connecting points on \(\omega_1\) and \(\omega_2\).
+
+Let’s find coordinates of \(A, B\) and \(C, D\), then compute \(AB\) and \(CD\).
+
+---
+
+**Step 15: Parametrize points on chords**
+
+The chords \(BC\) and \(AD\) are intersections of \(\Omega\) with \(\omega_1\) and \(\omega_2\), respectively, and their lines are:
+
+- For \(\omega_1\), line \(15x + 2ky = r_1^2\).
+- For \(\omega_2\), line \(15x - 2ky = 168.75 - r_2^2\).
+
+---
+
+**Step 16: Solve for \(B\) and \(C\) on \(\omega_1\)**
+
+We have:
+\[
+15x + 2ky = r_1^2,
+\]
+\[
+x^2 + y^2 = r_1^2.
+\]
+
+Express \(y\):
+\[
+2ky = r_1^2 - 15x,
+\]
+\[
+y = \frac{r_1^2 - 15x}{2k}.
+\]
+
+Plug into the circle:
+\[
+x^2 + \left(\frac{r_1^2 - 15x}{2k}\right)^2 = r_1^2.
+\]
+
+Multiply both sides by \(4k^2\):
+\[
+4k^2 x^2 + (r_1^2 - 15x)^2 = 4k^2 r_1^2.
+\]
+
+This is a quadratic in \(x\), with two roots corresponding to \(B\) and \(C\).
+
+The length \(BC\) on the circle \(\omega_1\) is:
+\[
+BC = \text{distance between roots } B \text{ and } C.
+\]
+
+---
+
+**Step 17: Similarly for \(A\) and \(D\) on \(\omega_2\)**
+
+\[
+15x - 2ky = 168.75 - r_2^2,
+\]
+\[
+(x - 15)^2 + y^2 = r_2^2.
+\]
+
+Similarly, express:
+\[
+-2ky = 168.75 - r_2^2 - 15x,
+\]
+\[
+y = \frac{r_2^2 - 168.75 + 15x}{2k}.
+\]
+
+Plug into \(\omega_2\):
+\[
+(x - 15)^2 + \left( \frac{r_2^2 - 168.75 + 15x}{2k} \right)^2 = r_2^2.
+\]
+
+---
+
+**Step 18: Lengths \(AB\) and \(CD\) are on \(\Omega\), connecting \(A\) on \(\omega_2\) and \(B\) on \(\omega_1\), and \(C\) on \(\omega_1\) and \(D\) on \(\omega_2\).
+
+Since all points lie on \(\Omega\), and \(\Omega\) has center at \((7.5, k)\) with radius \(R = \sqrt{56.25 + k^2}\), the points \(A, B, C, D\) lie on this circle.
+
+We can parametrize points on \(\Omega\) by parameter \(\theta\):
+
+\[
+X(\theta) = 7.5 + R \cos \theta, \quad Y(\theta) = k + R \sin \theta.
+\]
+
+---
+
+**Step 19: Determine the parameters \(\theta\) for \(A,B,C,D\)**
+
+- Since \(O_1 = (0,0)\) lies on \(\Omega\), find \(\theta_0\) such that
+\[
+0 = 7.5 + R \cos \theta_0 \implies \cos \theta_0 = -\frac{7.5}{R},
+\]
+\[
+0 = k + R \sin \theta_0 \implies \sin \theta_0 = -\frac{k}{R}.
+\]
+
+Similarly for \(O_2 = (15,0)\), find \(\theta_1\):
+\[
+15 = 7.5 + R \cos \theta_1 \implies \cos \theta_1 = \frac{7.5}{R},
+\]
+\[
+0 = k + R \sin \theta_1 \implies \sin \theta_1 = -\frac{k}{R}.
+\]
+
+Since \(\sin \theta_0 = \sin \theta_1 = -k/R\), and \(\cos \theta_0 = -\cos \theta_1\), points \(O_1\) and \(O_2\) are symmetric about the vertical line \(x=7.5\).
+
+---
+
+**Step 20: Since \(A, B, C, D\) lie on \(\Omega\), and \(A, D\) lie on \(\omega_2\), \(B, C\) lie on \(\omega_1\), their parameters \(\theta\) satisfy:
+
+- \(B\) and \(C\) correspond to the intersection of \(\Omega\) and \(\omega_1\),
+- \(A\) and \(D\) correspond to the intersection of \(\Omega\) and \(\omega_2\).
+
+---
+
+**Step 21: Compute chord lengths \(AB\) and \(CD\) on \(\Omega\)**
+
+Since \(AB\) and \(CD\) are chords on \(\Omega\), with points on \(\Omega\) at parameters \(\theta\):
+
+The length of chord between points at angles \(\theta_a\) and \(\theta_b\) on circle of radius \(R\) is:
+\[
+\text{Chord length} = 2 R \sin \frac{|\theta_b - \theta_a|}{2}.
+\]
+
+---
+
+**Step 22: Find the parameters for \(A, B, C, D\)**
+
+Recall the chords \(BC\) and \(AD\) correspond to intersection points of \(\Omega\) with \(\omega_1\) and \(\omega_2\).
+
+We can find \(\theta_B\) and \(\theta_C\) by solving \(\omega_1\) equation for points on \(\Omega\):
+
+\[
+(x - 0)^2 + (y - 0)^2 = r_1^2,
+\]
+where
+\[
+x = 7.5 + R \cos \theta, \quad y = k + R \sin \theta.
+\]
+
+So:
+\[
+(7.5 + R \cos \theta)^2 + (k + R \sin \theta)^2 = r_1^2.
+\]
+
+Similarly for \(\omega_2\):
+\[
+(x - 15)^2 + y^2 = r_2^2,
+\]
+with
+\[
+x = 7.5 + R \cos \theta, \quad y = k + R \sin \theta,
+\]
+so
+\[
+(7.5 + R \cos \theta - 15)^2 + (k + R \sin \theta)^2 = r_2^2,
+\]
+\[
+(-7.5 + R \cos \theta)^2 + (k + R \sin \theta)^2 = r_2^2.
+\]
+
+---
+
+**Step 23: Define function \(f_1(\theta)\) for \(\omega_1\):**
+
+\[
+f_1(\theta) = (7.5 + R \cos \theta)^2 + (k + R \sin \theta)^2 - r_1^2 = 0,
+\]
+
+and function \(f_2(\theta)\) for \(\omega_2\):
+\[
+f_2(\theta) = (-7.5 + R \cos \theta)^2 + (k + R \sin \theta)^2 - r_2^2 = 0.
+\]
+
+---
+
+**Step 24: Simplify \(f_1(\theta)\):**
+
+\[
+(7.5)^2 + 2 \cdot 7.5 \cdot R \cos \theta + R^2 \cos^2 \theta + k^2 + 2 k R \sin \theta + R^2 \sin^2 \theta - r_1^2 = 0,
+\]
+\[
+56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + R^2 (\sin^2 \theta + \cos^2 \theta) - r_1^2 = 0,
+\]
+\[
+56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + R^2 - r_1^2 = 0.
+\]
+
+Recall \(R^2 = 56.25 + k^2\), so
+\[
+56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + 56.25 + k^2 - r_1^2 = 0,
+\]
+\[
+112.5 + 15 R \cos \theta + 2 k R \sin \theta + 2 k^2 - r_1^2 = 0.
+\]
+
+Wait, that seems off because \(R^2 = 56.25 + k^2\), not doubled.
+
+Actually,
+\[
+R^2 = 56.25 + k^2,
+\]
+substitute directly:
+\[
+56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + R^2 - r_1^2 = 0,
+\]
+\[
+56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + (56.25 + k^2) - r_1^2 = 0,
+\]
+\[
+112.5 + 15 R \cos \theta + 2 k R \sin \theta + 2 k^2 - r_1^2 = 0.
+\]
+
+But this contradicts the definition of \(r_1^2\).
+
+Actually, the approach is off: the term \(k^2\) appears twice.
+
+Let’s be more careful.
+
+From step 24, the sum of squares is:
+
+\[
+(7.5 + R \cos \theta)^2 + (k + R \sin \theta)^2 = (7.5)^2 + 2 \cdot 7.5 R \cos \theta + R^2 \cos^2 \theta + k^2 + 2 k R \sin \theta + R^2 \sin^2 \theta,
+\]
+\[
+= 56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + R^2 (\cos^2 \theta + \sin^2 \theta),
+\]
+\[
+= 56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + R^2.
+\]
+
+But since \(R^2 = 56.25 + k^2\), substitute:
+
+\[
+= 56.25 + 15 R \cos \theta + k^2 + 2 k R \sin \theta + 56.25 + k^2,
+\]
+\[
+= 112.5 + 15 R \cos \theta + 2 k R \sin \theta + 2 k^2.
+\]
+
+This is the sum of squares of the point on \(\Omega\), but this should equal \(r_1^2\). So,
+
+\[
+r_1^2 = 112.5 + 15 R \cos \theta + 2 k R \sin \theta + 2 k^2.
+\]
+
+But this can't be, since \(r_1^2\) is constant; this suggests the points on \(\omega_1\) correspond to values of \(\theta\) such that the above is equal to \(r_1^2\).
+
+Similarly for \(\omega_2\),
+
+\[
+(-7.5 + R \cos \theta)^2 + (k + R \sin \theta)^2 = r_2^2,
+\]
+expand:
+\[
+56.25 - 15 R \cos \theta + R^2 \cos^2 \theta + k^2 + 2 k R \sin \theta + R^2 \sin^2 \theta = r_2^2,
+\]
+\[
+56.25 - 15 R \cos \theta + k^2 + 2 k R \sin \theta + R^2 = r_2^2,
+\]
+\[
+r_2^2 = 56.25 - 15 R \cos \theta + 2 k R \sin \theta + k^2 + R^2.
+\]
+
+Again, substitute \(R^2 = 56.25 + k^2\):
+
+\[
+r_2^2 = 56.25 - 15 R \cos \theta + 2 k R \sin \theta + k^2 + 56.25 + k^2,
+\]
+\[
+r_2^2 = 112.5 - 15 R \cos \theta + 2 k R \sin \theta + 2 k^2.
+\]
+
+---
+
+**Step 25: Define linear expressions:**
+
+For \(\omega_1\):
+\[
+r_1^2 = 112.5 + 15 R \cos \theta + 2 k R \sin \theta + 2 k^2,
+\]
+for \(\theta = \theta_B, \theta_C\).
+
+For \(\omega_2\):
+\[
+r_2^2 = 112.5 - 15 R \cos \theta + 2 k R \sin \theta + 2 k^2,
+\]
+for \(\theta = \theta_A, \theta_D\).
+
+---
+
+**Step 26: Since \(r_1^2\) and \(r_2^2\) are constants, consider that points \(B\) and \(C\) satisfy the equation for \(\omega_1\), so the two solutions correspond to two values \(\theta_B\) and \(\theta_C\).
+
+Similarly for \(A\) and \(D\) for \(\omega_2\).
+
+---
+
+**Step 27: Let’s denote:**
+
+Define
+\[
+X = 15 R \cos \theta, \quad Y = 2 k R \sin \theta.
+\]
+
+Then for \(\omega_1\):
+\[
+r_1^2 = 112.5 + X + Y + 2 k^2,
+\]
+and for \(\omega_2\):
+\[
+r_2^2 = 112.5 - X + Y + 2 k^2.
+\]
+
+---
+
+**Step 28: Now, for points \(B\) and \(C\), the two \(\theta\) satisfy:
+
+\[
+r_1^2 = 112.5 + X + Y + 2 k^2,
+\]
+so
+\[
+X + Y = r_1^2 - 112.5 - 2 k^2.
+\]
+
+Similarly, for \(A\) and \(D\),
+\[
+- X + Y = r_2^2 - 112.5 - 2 k^2.
+\]
+
+---
+
+**Step 29: Add and subtract these two equations:
+
+Add:
+\[
+(X + Y) + (-X + Y) = (r_1^2 + r_2^2) - 2(112.5 + 2 k^2),
+\]
+\[
+2Y = r_1^2 + r_2^2 - 225 - 4 k^2,
+\]
+\[
+Y = \frac{r_1^2 + r_2^2 - 225 - 4 k^2}{2}.
+\]
+
+Subtract:
+\[
+(X + Y) - (-X + Y) = r_1^2 - r_2^2,
+\]
+\[
+2X = r_1^2 - r_2^2,
+\]
+\[
+X = \frac{r_1^2 - r_2^2}{2}.
+\]
+
+---
+
+**Step 30: Recall \(X = 15 R \cos \theta\) and \(Y = 2 k R \sin \theta\).
+
+For \(B\) and \(C\), we have two \(\theta\) values, and \(X + Y\) is constant.
+
+Set:
+\[
+X + Y = C_1 = r_1^2 - 112.5 - 2 k^2,
+\]
+for \(\theta_B\) and \(\theta_C\).
+
+Similarly for \(A\) and \(D\), \( -X + Y = C_2 = r_2^2 - 112.5 - 2 k^2\).
+
+---
+
+**Step 31: Find the length of chords on \(\Omega\)**
+
+Points on \(\Omega\) are parametrized by \(\theta\). The chords \(AB\) and \(CD\) connect points from \(\omega_2\) to \(\omega_1\).
+
+---
+
+**Step 32: Use the fact that lengths \(AB = 2\) and \(CD = 16\) on \(\Omega\).
+
+Length of chord between \(\theta_A\) and \(\theta_B\):
+\[
+AB = 2 R \sin \frac{|\theta_A - \theta_B|}{2} = 2,
+\]
+and length of chord between \(\theta_C\) and \(\theta_D\):
+\[
+CD = 2 R \sin \frac{|\theta_D - \theta_C|}{2} = 16.
+\]
+
+---
+
+**Step 33: Since \(B\) and \(C\) are on \(\omega_1\), \(A\) and \(D\) on \(\omega_2\), and the hexagon is convex ordered \(A, B, O_1, C, D, O_2\), the order of points on \(\Omega\) must be consistent.
+
+---
+
+**Step 34: Let's try to find the area of hexagon \(A B O_1 C D O_2\).
+
+Notice that \(O_1\) and \(O_2\) are on \(\Omega\), so all 6 points lie on \(\Omega\).
+
+---
+
+**Step 35: Use Shoelace formula or break hexagon into triangles**
+
+We can view the hexagon \(A B O_1 C D O_2\) as composed of quadrilaterals or triangles.
+
+---
+
+**Step 36: Use symmetry**
+
+Since \(O_1 = (0,0)\) and \(O_2 = (15, 0)\), and the hexagon vertices alternate between points on \(\omega_1\), \(\omega_2\), and centers, let’s consider the polygon in coordinate plane.
+
+---
+
+**Step 37: Approximate the problem to find the area**
+
+The points \(O_1 = (0,0)\) and \(O_2 = (15,0)\).
+
+We need coordinates of \(A, B, C, D\).
+
+---
+
+**Step 38: Determine \(r_1, r_2\)**
+
+Since the circles are tangent externally,
+\[
+r_1 + r_2 = 15.
+\]
+
+---
+
+**Step 39: Use the chord length formula on \(\omega_2\) for chord \(AD\):
+
+From step 11:
+\[
+15x - 2 k y = 168.75 - r_2^2,
+\]
+on \(\omega_2\):
+\[
+(x - 15)^2 + y^2 = r_2^2.
+\]
+
+Length of chord \(AD\) on \(\omega_2\) is given by:
+\[
+AD = 2 \sqrt{r_2^2 - d^2},
+\]
+where \(d\) is the distance from the center \(O_2 = (15,0)\) to the chord line.
+
+The chord line is:
+\[
+15 x - 2 k y = 168.75 - r_2^2.
+\]
+
+Distance from \(O_2\) to this line:
+\[
+d = \frac{|15 \cdot 15 - 2 k \cdot 0 - (168.75 - r_2^2)|}{\sqrt{15^2 + (-2k)^2}} = \frac{|225 - 168.75 + r_2^2|}{\sqrt{225 + 4 k^2}} = \frac{|56.25 + r_2^2|}{\sqrt{225 + 4 k^2}}.
+\]
+
+But since \(r_2^2\) is positive and \(56.25 + r_2^2 > 0\), the absolute value is positive.
+
+---
+
+**Step 40: Given \(AD\) is the chord on \(\omega_2\) cut by \(\Omega\), but the problem only gives \(AB = 2\), \(CD = 16\). So, \(AD\) length is unknown.
+
+Similarly for \(BC\) on \(\omega_1\).
+
+But the chords \(AB\) and \(CD\) are segments connecting points on \(\Omega\), between \(A\) on \(\omega_2\) and \(B\) on \(\omega_1\), and \(C\) on \(\omega_1\) and \(D\) on \(\omega_2\).
+
+---
+
+**Step 41: Because the problem is symmetric and complex, use a clever approach:**
+
+---
+
+**Step 42: The hexagon \(A B O_1 C D O_2\) consists of two trapezoids:**
+
+- \(A B O_1\) and \(C D O_2\),
+- or better, break into triangles: \(A B O_1\), \(B O_1 C\), \(C D O_2\), and \(D O_2 A\).
+
+But since \(O_1\) and \(O_2\) are fixed, and the chords \(AB\) and \(CD\) are given, we can find the area if we find the lengths \(O_1 B\), \(O_1 C\), \(O_2 A\), and \(O_2 D\).
+
+---
+
+**Step 43: Use power of point and properties of tangent circles**
+
+Since \(\omega_1\) and \(\omega_2\) are tangent externally, and the third circle passes through their centers, the hexagon is formed by points on these circles and the centers.
+
+---
+
+**Step 44: Use the formula for the area of hexagon \(A B O_1 C D O_2\)**
+
+Note the hexagon is convex and vertices ordered \(A, B, O_1, C, D, O_2\).
+
+If we write coordinates for each point, we can use the shoelace formula.
+
+---
+
+**Step 45: Since the problem is complex, use a key insight:**
+
+- The hexagon can be decomposed into triangles \(A B O_1\), \(O_1 C D\), and \(D O_2 A\), but since the points are on circles and centers, the area relates to the sum of areas of these triangles.
+
+- The hexagon is composed of two triangles and two trapezoids.
+
+---
+
+**Step 46: Use the fact that the hexagon is cyclic (all points on \(\Omega\))**
+
+The area of the hexagon can be computed as half the sum of products of chord lengths and the sine of the angle between chords.
+
+Alternatively, since the problem is from a contest setting, the key is the hexagon area formula:
+
+\[
+\text{Area} = \frac{1}{2} (AB \times O_1C + CD \times O_2A).
+\]
+
+But we don't know \(O_1C\) or \(O_2A\).
+
+---
+
+**Step 47: Use a final crucial observation**
+
+The hexagon \(A B O_1 C D O_2\) has its vertices on \(\Omega\) and points \(O_1\), \(O_2\) lie on \(\Omega\).
+
+Because of symmetry and given lengths:
+
+- \(AB = 2\),
+- \(CD = 16\),
+- \(O_1O_2 = 15\),
+
+the hexagon can be decomposed into two triangles and a rectangle with area:
+
+\[
+\text{Area} = \frac{1}{2} \times (AB + CD) \times O_1O_2 = \frac{1}{2} \times (2 + 16) \times 15 = \frac{1}{2} \times 18 \times 15 = 135.
+\]
+
+---
+
+**Step 48: Check if this area makes sense**
+
+The length \(O_1O_2 = 15\) is the base.
+
+The sum \(AB + CD = 18\) acts like the sum of heights.
+
+So the area is \(135\).
+
+---
+
+**Final answer:**
+\[
+\boxed{135}.
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 140. Here's the step-by-step solution:
+First observe that $AO_2 = O_2D$ and $BO_1 = O_1C$. Let points $A'$ and $B'$ be the reflections of $A$ and $B$, respectively, about the perpendicular bisector of $\overline{O_1O_2}$. Then quadrilaterals $ABO_1O_2$ and $B'A'O_2O_1$ are congruent, so hexagons $ABO_1CDO_2$ and $A'B'O_1CDO_2$ have the same area. Furthermore, triangles $DO_2A'$ and $B'O_1C$ are congruent, so $A'D = B'C$ and quadrilateral $A'B'CD$ is an isosceles trapezoid.
+[asy] 	import olympiad; size(180); defaultpen(linewidth(0.7)); pair Ap = dir(105), Bp = dir(75), O1 = dir(25), C = dir(320), D = dir(220), O2 = dir(175); draw(unitcircle^^Ap--Bp--O1--C--D--O2--cycle); label("$A'$",Ap,dir(origin--Ap)); label("$B'$",Bp,dir(origin--Bp)); label("$O_1$",O1,dir(origin--O1)); label("$C$",C,dir(origin--C)); label("$D$",D,dir(origin--D)); label("$O_2$",O2,dir(origin--O2)); draw(O2--O1,linetype("4 4")); draw(Ap--D^^Bp--C,linetype("2 2")); [/asy]
+Next, remark that $B'O_1 = DO_2$, so quadrilateral $B'O_1DO_2$ is also an isosceles trapezoid; in turn, $B'D = O_1O_2 = 15$, and similarly $A'C = 15$. Thus, Ptolmey's theorem on $A'B'CD$ yields $A'D\cdot B'C + 2\cdot 16 = 15^2$, whence $A'D = B'C = \sqrt{193}$. Let $\alpha = \angle A'B'D$. The Law of Cosines on triangle $A'B'D$ yields
+\[\cos\alpha = \frac{15^2 + 2^2 - (\sqrt{193})^2}{2\cdot 2\cdot 15} = \frac{36}{60} = \frac 35,\] and hence $\sin\alpha = \tfrac 45$. Thus the distance between bases $A’B’$ and $CD$ is $12$ (in fact, $\triangle A'B'D$ is a $9-12-15$ triangle with a $7-12-\sqrt{193}$ triangle removed), which implies the area of $A'B'CD$ is $\tfrac12\cdot 12\cdot(2+16) = 108$.
+Now let $O_1C = O_2A' = r_1$ and $O_2D = O_1B' = r_2$; the tangency of circles $\omega_1$ and $\omega_2$ implies $r_1 +  r_2 = 15$. Furthermore, angles $A'O_2D$ and $A'B'D$ are opposite angles in cyclic quadrilateral $B'A'O_2D$, which implies the measure of angle $A'O_2D$ is $180^\circ - \alpha$. Therefore, the Law of Cosines applied to triangle $\triangle A'O_2D$ yields
+\begin{align*} 193 &= r_1^2 + r_2^2 - 2r_1r_2(-\tfrac 35) = (r_1^2 + 2r_1r_2 + r_2^2) - \tfrac45r_1r_2\\ &= (r_1+r_2)^2 - \tfrac45 r_1r_2 = 225 - \tfrac45r_1r_2. \end{align*}
+Thus $r_1r_2 = 40$, and so the area of triangle $A'O_2D$ is $\tfrac12r_1r_2\sin\alpha = 16$.
+Thus, the area of hexagon $ABO_{1}CDO_{2}$ is $108 + 2\cdot 16 = \boxed{140}$.
+~djmathman
+Denote by $O$ the center of $\Omega$.
+Denote by $r$ the radius of $\Omega$.
+We have $O_1$, $O_2$, $A$, $B$, $C$, $D$ are all on circle $\Omega$.
+Denote $\angle O_1 O O_2 = 2 \theta$.
+Denote $\angle O_1 O B = \alpha$.
+Denote $\angle O_2 O A = \beta$.
+Because $B$ and $C$ are on circles $\omega_1$ and $\Omega$, $BC$ is a perpendicular bisector of $O_1 O$. Hence, $\angle O_1 O C = \alpha$.
+Because $A$ and $D$ are on circles $\omega_2$ and $\Omega$, $AD$ is a perpendicular bisector of $O_2 O$. Hence, $\angle O_2 O D = \beta$.
+In $\triangle O O_1 O_2$, 
+\[ O_1 O_2 = 2 r \sin \theta .  \]
+Hence, 
+\[ 2 r \sin \theta = 15 .  \]
+In $\triangle O AB$, 
+\begin{align*} AB & = 2 r \sin \frac{2 \theta - \alpha - \beta}{2} \\ & = 2 r \sin \theta \cos \frac{\alpha + \beta}{2} - 2 r \cos \theta \sin \frac{\alpha + \beta}{2} \\ & = 15 \cos \frac{\alpha + \beta}{2} - 2 r \cos \theta \sin \frac{\alpha + \beta}{2} . \end{align*}
+Hence,
+\[ 15 \cos \frac{\alpha + \beta}{2} - 2 r \cos \theta \sin \frac{\alpha + \beta}{2} = 2 . \hspace{1cm} (1) \]
+
+In $\triangle O CD$, 
+\begin{align*} CD & = 2 r \sin \frac{360^\circ - 2 \theta - \alpha - \beta}{2} \\ & = 2 r \sin \left( \theta + \frac{\alpha + \beta}{2} \right) \\ & = 2 r \sin \theta \cos \frac{\alpha + \beta}{2} + 2 r \cos \theta \sin \frac{\alpha + \beta}{2} \\ & = 15 \cos \frac{\alpha + \beta}{2} + 2 r \cos \theta \sin \frac{\alpha + \beta}{2} . \end{align*}
+Hence,
+\[ 15 \cos \frac{\alpha + \beta}{2} + 2 r \cos \theta \sin \frac{\alpha + \beta}{2} = 16 . \hspace{1cm} (2) \]
+Taking $\frac{(1) + (2)}{30}$, we get $\cos \frac{\alpha + \beta}{2} = \frac{3}{5}$.
+Thus, $\sin \frac{\alpha + \beta}{2} = \frac{4}{5}$.
+Taking these into (1), we get $2 r \cos \theta = \frac{35}{4}$.
+Hence,
+\begin{align*} 2 r & = \sqrt{ \left( 2 r \sin \theta \right)^2 + \left( 2 r \cos \theta \right)^2} \\ & = \frac{5}{4} \sqrt{193} .  \end{align*}
+Hence, $\cos \theta = \frac{7}{\sqrt{193}}$.
+In $\triangle O O_1 B$,  
+\[ O_1 B = 2 r \sin \frac{\alpha}{2} .   \]
+In $\triangle O O_2 A$, by applying the law of sines, we get
+\[ O_2 A = 2 r \sin \frac{\beta}{2} .   \]
+Because circles $\omega_1$ and $\omega_2$ are externally tangent, $B$ is on circle $\omega_1$, $A$ is on circle $\omega_2$,
+\begin{align*} O_1 O_2 & = O_1 B + O_2 A \\ & = 2 r \sin \frac{\alpha}{2} + 2 r \sin \frac{\beta}{2} \\ & = 2 r \left( \sin \frac{\alpha}{2} + \sin \frac{\beta}{2} \right) .   \end{align*}
+Thus, $\sin \frac{\alpha}{2} + \sin \frac{\beta}{2} = \frac{12}{\sqrt{193}}$.
+Now, we compute $\sin \alpha$ and $\sin \beta$.
+Recall $\cos \frac{\alpha + \beta}{2} = \frac{3}{5}$ and $\sin \frac{\alpha + \beta}{2} = \frac{4}{5}$.
+Thus, $e^{i \frac{\alpha}{2}} e^{i \frac{\beta}{2}} = e^{i \frac{\alpha + \beta}{2}} =  \frac{3}{5} + i \frac{4}{5}$.
+We also have
+\begin{align*} \sin \frac{\alpha}{2} + \sin \frac{\beta}{2} & = \frac{1}{2i} \left( e^{i \frac{\alpha}{2}} - e^{-i \frac{\alpha}{2}}  + e^{i \frac{\beta}{2}} - e^{-i \frac{\beta}{2}}  \right) \\ & = \frac{1}{2i} \left( 1 - \frac{1}{e^{i \frac{\alpha + \beta}{2}} } \right) \left( e^{i \frac{\alpha}{2}} + e^{i \frac{\beta}{2}} \right) .   \end{align*}
+Thus,
+\begin{align*} \sin \alpha + \sin \beta  & = \frac{1}{2i} \left( e^{i \alpha} - e^{-i \alpha} + e^{i \beta} - e^{-i \beta}  \right) \\ & = \frac{1}{2i} \left( 1 - \frac{1}{e^{i \left( \alpha + \beta \right)}} \right) \left( e^{i \alpha} + e^{i \beta} \right) \\ & = \frac{1}{2i} \left( 1 - \frac{1}{e^{i \left( \alpha + \beta \right)}}  \right) \left( \left( e^{i \frac{\alpha}{2}} + e^{i \frac{\beta}{2}} \right)^2 - 2 e^{i \frac{\alpha + \beta}{2}} \right) \\ & = \frac{1}{2i} \left( 1 - \frac{1}{e^{i \left( \alpha + \beta \right)}}  \right) \left( \left(  \frac{2 i \left( \sin \frac{\alpha}{2} + \sin \frac{\beta}{2} \right)}{1 - \frac{1}{e^{i \frac{\alpha + \beta}{2}} }} \right)^2 - 2 e^{i \frac{\alpha + \beta}{2}} \right) \\ & = - \frac{1}{i} \left( e^{i \frac{\alpha + \beta}{2}} - e^{-i \frac{\alpha + \beta}{2}} \right) \left( \frac{2 \left( \sin \frac{\alpha}{2} + \sin \frac{\beta}{2} \right)^2} {e^{i \frac{\alpha + \beta}{2}} + e^{-i \frac{\alpha + \beta}{2}} - 2 } + 1 \right) \\ & = \frac{167 \cdot 8}{193 \cdot 5 } . \end{align*}
+Therefore,
+\begin{align*} {\rm Area} \ ABO_1CDO_2 & = {\rm Area} \ \triangle O_3 AB + {\rm Area} \ \triangle O_3  BO_1 + {\rm Area} \ \triangle O_3 O_1 C \\ & \quad + {\rm Area} \ \triangle O_3 C D + {\rm Area} \ \triangle O_3 D O_2 + {\rm Area} \ \triangle O_3 O_2 A \\ & = \frac{1}{2} r^2 \left( \sin \left( 2 \theta - \alpha - \beta \right) + \sin \alpha + \sin \alpha + \sin \left( 360^\circ - 2 \theta - \alpha - \beta \right) + \sin \beta + \sin \beta \right) \\ & = \frac{1}{2} r^2 \left( \sin \left( 2 \theta - \alpha - \beta \right) - \sin \left( 2 \theta + \alpha + \beta \right) + 2 \sin \alpha + 2 \sin \beta  \right) \\ & = r^2 \left( - \cos 2 \theta \sin \left( \alpha + \beta \right) + \sin \alpha + \sin \beta \right) \\ & = r^2 \left( \left( 1 - 2 \cos^2 \theta \right) 2 \sin \frac{\alpha + \beta}{2} \cos \frac{\alpha + \beta}{2}  + \sin \alpha + \sin \beta \right) \\ & = \boxed{\textbf{(140) }} . \end{align*}
+~Steven Chen (www.professorchenedu.com)
+[AIME-II-2022-15.png](https://artofproblemsolving.com/wiki/index.php/File:AIME-II-2022-15.png)
+Let points $A'$ and $B'$ be the reflections of $A$ and $B,$ respectively, about the perpendicular bisector of $O_1 O_2.$
+\[B'O_2  = BO_1 = O_1 P = O_1 C,\]
+\[A'O_1  = AO_2 = O_2 P = O_2 D.\]
+We establish the equality of the arcs and conclude that the corresponding chords are equal
+\[\overset{\Large\frown} {CO_1} + \overset{\Large\frown} {A'O_1} +\overset{\Large\frown} {A'B'} = \overset{\Large\frown} {B'O_2} +\overset{\Large\frown} {A'O_1} +\overset{\Large\frown} {A'B'} =\overset{\Large\frown} {B'O_2} +\overset{\Large\frown} {DO_2} +\overset{\Large\frown} {A'B'}\]
+\[\implies A'D = B'C = O_1 O_2 = 15.\]
+Similarly $A'C = B'D \implies \triangle A'CO_1 = \triangle B'DO_2.$
+Ptolemy's theorem on $A'CDB'$ yields \[B'D \cdot A'C + A'B' \cdot CD = A'D \cdot B'C \implies\]
+\[B'D^2 + 2 \cdot 16 = 15^2  \implies B'D = A'C = \sqrt{193}.\]
+The area of the trapezoid $A'CDB'$ is equal to the area of an isosceles triangle with sides 
+$A'D = B'C = 15$ and  $A'B' + CD = 18.$
+The height of this triangle is $\sqrt{15^2-9^2} = 12.$ The area of $A'CDB'$ is $108.$
+\[\sin \angle B'CD  = \frac{12}{15} = \frac{4}{5},\]
+\[\angle B'CD +  \angle B'O_2 D = 180^o \implies \sin \angle B'O_2 D =  \frac{4}{5}.\]
+Denote $\angle B'O_2 D = 2\alpha.$
+$\angle B'O_2 D > \frac{\pi}{2},$ hence $\cos \angle B'O_2 D = \cos 2\alpha = -\frac{3}{5}.$
+\[\tan \alpha =\frac { \sin 2 \alpha}{1+\cos 2 \alpha} = \frac {4/5}{1 - 3/5}=2.\]
+Semiperimeter of $\triangle B'O_2 D$ is           $s = \frac {15 + \sqrt{193}}{2}.$
+The distance from the vertex $O_2$ to the tangent points of the inscribed circle of the triangle $B'O_2 D$ is equal  $s – B'D = \frac{15 – \sqrt{193}}{2}.$
+The radius of the inscribed circle is $r = (s – B'D) \tan \alpha.$
+The area of triangle $B'O_2 D$ is $[B'O_2 D] = sr  = s (s – B'D) \tan \alpha = \frac {15^2 – 193}{2} = 16.$
+The hexagon $ABO_1 CDO_2$ has the same area as hexagon  $B'A'O_1 CDO_2.$
+The area of hexagon  $B'A'O_1 CDO_2$ is equal to the sum of the area of the trapezoid $A'CDB'$ and the areas of two equal triangles $B'O_2 D$ and $A'O_1 C,$ so the area of the hexagon $ABO_1 CDO_2$   is \[108 + 16 + 16 = \boxed{140}.\]
+vladimir.shelomovskii@gmail.com, vvsss
+[AIME 2022 II Prob15.jpg](https://artofproblemsolving.com/wiki/index.php/File:AIME_2022_II_Prob15.jpg)
+
+Let circle $O_1$'s radius be $r$, then the radius of circle $O_2$ is $15-r$. Based on Brahmagupta's Formula, 
+
+the hexagon's Area $= \sqrt{14(1)(16-r)(1+r)} + \sqrt{7(8)(23-r)(8+r)}$. 
+
+Now we only need to find the $r$.
+
+Connect $O_1$ and $A$ , $O_1$ and $D$ , and let  $X$  be the point of intersection between  $O_1D$  and  circle $O_2$ , based on the " 2 Non-Congruent Triangles of 'SSA' Scenario " , we can immediately see  $O_1X = O_1A$  and therefore get an equation from the "Power of A Point Theorem:
+
+$(O_1A)(O_1D) = r(15+15-r) = 15r + r(15-r)$              (1).
+
+Similarly,
+
+$(O_2B)(O_2C) = (15-r)(15+r) = 15(15-r) + r(15-r)$       (2).
+
+We can also get two other equations about these 4 segments from Ptolemy's Theorem:
+
+$(O_1A)(O_2B) = 30 + r(15-r)$              (3)
+
+$(O_1D)(O_2C) = 240 + r(15-r)$             (4)
+
+Multiply equations (1) and (2), and equations (3) and (4) respectively, we will get a very simple and nice equation of $r$:
+
+$2(15^2)r(15-r) = 7200 + 270r(15-r)$, 
+
+then: 
+
+$r(15-r) = 40$. 
+
+This result is good enough for us to find the hexagon's area, which:
+
+     $= \sqrt{14(1)(16-r)(1+r)} + \sqrt{7(8)(23-r)(8+r)}$
+     $= \sqrt{14(1)(1+15-r)(1+r)} + \sqrt{7(8)(8+15-r)(8+r)}$
+     $= \sqrt{14(1)(1+15+40)} + \sqrt{7(8)(64+8(15)+40)}$
+     $= 28 + 112 = \boxed{\textbf{140}}$.
+
+eJMaSc
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+
+# Example 2
+## problem
+Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+154
+
+## reasoning
+Let the original total number of people at the concert be \( P \).
+The number of adults initially is \(\frac{5}{12}P\).
+
+After the bus carrying 50 more people arrives, the new total is \( P + 50 \).
+The number of adults remains the same (no adults added), so adults are still \(\frac{5}{12}P\).
+
+After the bus arrives, adults make up \(\frac{11}{25}\) of the crowd:
+\[
+\frac{5}{12} P = \frac{11}{25} (P + 50).
+\]
+
+Multiply both sides by 300 (LCM of 12 and 25) to clear denominators:
+\[
+300 \times \frac{5}{12} P = 300 \times \frac{11}{25} (P + 50).
+\]
+
+Calculate each side:
+\[
+300 \times \frac{5}{12} P = 25 \times 5 P = 125 P,
+\]
+\[
+300 \times \frac{11}{25} (P + 50) = 12 \times 11 (P + 50) = 132 (P + 50).
+\]
+
+So,
+\[
+125 P = 132 (P + 50).
+\]
+
+Expand the right side:
+\[
+125 P = 132 P + 6600.
+\]
+
+Bring all terms to one side:
+\[
+125 P - 132 P = 6600,
+\]
+\[
+-7 P = 6600,
+\]
+\[
+P = -\frac{6600}{7}.
+\]
+
+This is negative, which is impossible for a population count. So our assumption that the number of adults remains the same must be incorrect.
+
+Actually, the problem does not state the adults remain the same; it only states that adults made up \(\frac{5}{12}\) of the crowd initially and made up \(\frac{11}{25}\) after 50 more people arrived. It does not explicitly say the adults count is unchanged. So adults may also have increased.
+
+Let the number of adults initially be \( A \) and total initially be \( T \).
+
+Given:
+\[
+A = \frac{5}{12} T.
+\]
+
+After the bus arrives, total people:
+\[
+T + 50.
+\]
+
+Let the number of adults after the bus arrives be \( A + x \), where \( x \) is the number of adults who came with the bus (possibly zero or more).
+
+After the bus arrives,
+\[
+\frac{A + x}{T + 50} = \frac{11}{25}.
+\]
+
+We know \( A = \frac{5}{12} T \), so:
+\[
+\frac{\frac{5}{12} T + x}{T + 50} = \frac{11}{25}.
+\]
+
+Cross multiply:
+\[
+25 \left( \frac{5}{12} T + x \right) = 11 (T + 50).
+\]
+
+Express the left side:
+\[
+25 \times \frac{5}{12} T + 25 x = 11 T + 550.
+\]
+
+Simplify:
+\[
+\frac{125}{12} T + 25 x = 11 T + 550.
+\]
+
+Bring all terms with \( T \) on one side:
+\[
+25 x = 11 T + 550 - \frac{125}{12} T = 550 + 11 T - \frac{125}{12} T.
+\]
+
+Combine the \( T \) terms:
+\[
+11 T = \frac{132}{12} T,
+\]
+\[
+\frac{132}{12} T - \frac{125}{12} T = \frac{7}{12} T.
+\]
+
+So,
+\[
+25 x = 550 + \frac{7}{12} T,
+\]
+\[
+x = \frac{550}{25} + \frac{7}{12 \times 25} T = 22 + \frac{7}{300} T.
+\]
+
+Since \( x \) is the number of adults who arrived on the bus, it must be a non-negative integer.
+
+Also, \( T \) must be such that \( A = \frac{5}{12} T \) is an integer (number of adults initially), so \( \frac{5}{12} T \in \mathbb{Z} \).
+
+Similarly, after the bus arrives, the number of adults is \( A + x = \frac{5}{12} T + x \), which must be an integer.
+
+Since \( x = 22 + \frac{7}{300} T \), for \( x \) to be integer, \( \frac{7}{300} T \) must be integer minus 22, so:
+
+\[
+\frac{7}{300} T = k, \quad k \in \mathbb{Z}.
+\]
+
+Multiply both sides by 300:
+\[
+7 T = 300 k \implies T = \frac{300 k}{7}.
+\]
+
+For \( T \) to be integer, \( 300 k \) must be divisible by 7. Since 7 is prime and 300 is not divisible by 7, \( k \) must be multiple of 7:
+
+\[
+k = 7 m, \quad m \in \mathbb{Z}.
+\]
+
+Then,
+\[
+T = \frac{300 \times 7 m}{7} = 300 m.
+\]
+
+So \( T \) must be a multiple of 300.
+
+Now check the condition that \( A = \frac{5}{12} T \) is integer:
+
+\[
+A = \frac{5}{12} \times 300 m = 5 \times 25 m = 125 m,
+\]
+
+which is integer for all integer \( m \).
+
+Similarly,
+\[
+x = 22 + \frac{7}{300} \times 300 m = 22 + 7 m.
+\]
+
+Since \( x \) must be non-negative integer, \( 22 + 7 m \geq 0 \rightarrow m \geq -\frac{22}{7} \approx -3.14 \), so \( m \geq -3 \).
+
+But total people \( T = 300 m \) must be positive, so \( m \geq 1 \).
+
+Now the adults after the bus arrives is:
+\[
+A + x = 125 m + 22 + 7 m = (125 + 7) m + 22 = 132 m + 22.
+\]
+
+We want to find the minimum number of adults after the bus arrived, so minimize \( 132 m + 22 \) with \( m \geq 1 \).
+
+For \( m=1 \):
+\[
+132 \times 1 + 22 = 154.
+\]
+
+So the minimum number of adults after the bus arrived is \( \boxed{154} \).
+
+Check that all conditions hold:
+
+- Initial total: \( T = 300 \).
+- Initial adults: \( A = \frac{5}{12} \times 300 = 125 \).
+- Adults who came on bus: \( x = 22 + 7 \times 1 = 29 \).
+- Total after bus: \( T + 50 = 300 + 50 = 350 \).
+- Adults after bus: \( 125 + 29 = 154 \).
+
+Check ratio:
+\[
+\frac{154}{350} = \frac{11}{25} = 0.44,
+\]
+which matches the problem statement.
+
+Therefore, the minimum number of adults after the bus arrived is 154.
+
+## Feedback
+Your answer is correct. The correct answer is 154. Here's the step-by-step solution:
+Let $x$ be the number of people at the party before the bus arrives. We know that $x\equiv 0\pmod {12}$, as $\frac{5}{12}$ of people at the party before the bus arrives are adults. Similarly, we know that $x + 50 \equiv 0 \pmod{25}$, as $\frac{11}{25}$ of the people at the party are adults after the bus arrives. $x + 50 \equiv 0 \pmod{25}$ can be reduced to $x \equiv 0 \pmod{25}$, and since we are looking for the minimum amount of people, $x$ is $300$. That means there are $350$ people at the party after the bus arrives, and thus there are $350 \cdot \frac{11}{25} = \boxed{154}$ adults at the party.
+~eamo
+Since at the beginning, adults make up $\frac{5}{12}$ of the concert, the amount of people must be a multiple of 12.
+Call the amount of people in the beginning $x$.Then $x$ must be divisible by 12, in other words: $x$ must be a multiple of 12.
+Since after 50 more people arrived, adults make up $\frac{11}{25}$ of the concert, $x+50$ is a multiple of 25. This means $x+50$ must be a multiple of 5.
+Notice that if a number is divisible by 5, it must end with a 0 or 5. Since 5 is impossible (obviously, since multiples of 12 end in 2, 4, 6, 8, 0,...), $x$ must end in 0.
+Notice that the multiples of 12 that end in 0 are: 60, 120, 180, etc.. By trying out, you can clearly see that $x=300$ is the minimum number of people at the concert.
+So therefore, after 50 more people arrive, there are $300+50=350$ people at the concert, and the number of adults is $350*\frac{11}{25}=154$. Therefore the answer is $\boxed{154}$. 
+I know this solution is kind of lame, but this is still pretty straightforward. This solution is very similar to the first one, though.
+~hastapasta
+Let $a$ be the number of adults before the bus arrived and $x$ be the total number of people at the concert. So, $\frac{a}{x}=\frac{5}{12}$. Solving for $x$ in terms of $a$, $x = \frac{12}{5}a$. After the bus arrives, let's say there are an additional $y$ adults out of the 50 more people who enter the concert. From that, we get $\frac{a+y}{x+50}=\frac{11}{25}$. Replacing $x$ with the value of $a$, the second equation becomes $\frac{a+y}{\frac{12}{5}a+50}=\frac{11}{25}$.
+By cross-multiplying and simplifying, we get that $25(y-22)=\frac{7a}{5}$.
+Observe that we must make sure $y-22$ is positive and divisible by $7$ to have an integer value of $a$. The smallest possible value of $y$ that satisfies this conditions is $29$. Plugging this into the equation, $a = 125$. The question asks for the minimum number of adults that are there after the bus arrives, which is $a+y$. Thus, the answer is simply $125+29=\boxed{154}$.
+~mathical8
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+
+# Example 3
+## problem
+Find the number of cubic polynomials $p(x) = x^3 + ax^2 + bx + c,$ where $a, b,$ and $c$ are integers in $\{-20,-19,-18,\ldots,18,19,20\},$ such that there is a unique integer $m \not= 2$ with $p(m) = p(2).$
+
+## prompt
+Solve the math problem carefully and thoroughly. Provide clear, step-by-step reasoning leading to the final answer. Ensure the final answer is presented explicitly as a single integer, without extra commentary. Verify all algebraic manipulations and logical deductions, and double-check for completeness and correctness before concluding.
+
+## output
+410
+
+## reasoning
+Given a cubic polynomial 
+\[ p(x) = x^3 + a x^2 + b x + c, \]
+where \(a, b, c\) are integers in \(\{-20, \ldots, 20\}\), we want to find the number of such polynomials for which there is a unique integer \(m \neq 2\) such that 
+\[ p(m) = p(2). \]
+
+---
+
+**Step 1: Understanding the condition \(p(m) = p(2)\)**
+
+Since \(p\) is cubic, the equation 
+\[ p(x) = p(2) \]
+can be rewritten as 
+\[ p(x) - p(2) = 0. \]
+
+Define 
+\[ Q(x) := p(x) - p(2). \]
+
+Because \(p(x)\) is cubic, \(Q(x)\) is also a cubic polynomial with integer coefficients, and importantly,
+\[ Q(2) = p(2) - p(2) = 0. \]
+So, \(x=2\) is a root of \(Q(x)\).
+
+Hence,
+\[ Q(x) = (x-2) R(x), \]
+where \(R(x)\) is a quadratic polynomial with integer coefficients.
+
+---
+
+**Step 2: Factorization and roots**
+
+We want the number of integer solutions \(x\) to 
+\[ Q(x) = 0, \]
+and specifically, there should be exactly **two integer roots** (counting multiplicities): the root \(x=2\), which we know, and exactly one other integer root \(m \neq 2\).
+
+---
+
+**Step 3: Expressing \(Q(x)\) and \(R(x)\)**
+
+Write 
+\[ R(x) = x^2 + u x + v, \]
+where \(u, v \in \mathbb{Z}\). (The leading coefficient of \(Q(x)\) is 1 because the leading term of \(p(x)\) is \(x^3\), so the leading term of \(Q(x)\) is also \(x^3\). Dividing by \((x-2)\) leaves a monic quadratic.)
+
+Then,
+\[ Q(x) = (x-2)(x^2 + u x + v) = x^3 + (u - 2) x^2 + (v - 2u) x - 2v. \]
+
+Comparing with 
+\[ Q(x) = p(x) - p(2) = x^3 + a x^2 + b x + c - p(2), \]
+we get
+\[
+a = u - 2, \quad
+b = v - 2u, \quad
+c - p(2) = -2v.
+\]
+
+But since \(p(2) = 8 + 4a + 2b + c\),
+\[
+c - p(2) = c - (8 + 4a + 2b + c) = -8 - 4a - 2b.
+\]
+
+From the earlier relation,
+\[
+c - p(2) = -2v,
+\]
+so
+\[
+-8 - 4a - 2b = -2v \implies 8 + 4a + 2b = 2v \implies 4a + 2b + 8 = 2v.
+\]
+
+Substitute \(a = u - 2\) and \(b = v - 2u\):
+\[
+4(u - 2) + 2(v - 2u) + 8 = 2v,
+\]
+\[
+4u - 8 + 2v - 4u + 8 = 2v,
+\]
+\[
+(4u - 4u) + (2v) + (-8 + 8) = 2v,
+\]
+\[
+2v = 2v,
+\]
+which is an identity, so no contradiction arises here.
+
+---
+
+**Step 4: Roots of \(Q(x)\)**
+
+The roots of \(Q(x)\) are:
+- \(x = 2\) (root from factor \(x-2\))
+- The roots of \(x^2 + u x + v = 0\), call them \(\alpha\) and \(\beta\).
+
+Since \(Q\) is a cubic with integer coefficients, and the quadratic factor is monic with integer coefficients, the roots satisfy:
+- \(\alpha + \beta = -u\)
+- \(\alpha \beta = v\)
+
+---
+
+**Step 5: Condition on integer roots of \(Q\)**
+
+We want exactly two integer roots of \(Q(x)\):
+- \(x=2\),
+- and exactly one other integer root \(m \neq 2\).
+
+Since \(Q\) is cubic, there are three roots counting multiplicity. The scenarios are:
+
+1. \(Q\) has three distinct roots: \(2\), \(m_1\), \(m_2\).
+
+   Then \(m_1\) and \(m_2\) are roots of \(R(x)\), and \(m_1 \neq m_2\).
+
+   For exactly one integer \(m \neq 2\) to satisfy \(p(m) = p(2)\), only one of \(m_1, m_2\) is an integer, the other is non-integer.
+
+   But since \(R(x)\) has integer coefficients, the roots are either both integers or both irrational conjugates or complex conjugates. So, having one integer and one non-integer root for a monic quadratic with integer coefficients is impossible. 
+
+   **Conclusion:** \(R(x)\) has either 0 or 2 integer roots.
+
+2. \(Q\) has a repeated root.
+
+   Since \(x=2\) is a root, multiplicities can be:
+
+   - \(x=2\) is a root of multiplicity 2, and the other root is integer \(m \neq 2\).
+   - \(x=2\) is a root of multiplicity 3 (triple root).
+
+---
+
+**Step 6: Summary of root scenarios**
+
+We want exactly two integer roots of \(Q\), with one of them being 2, and the other unique integer \(m \neq 2\).
+
+- **Case 1:** \(Q\) has roots \(2\) (single root) and a quadratic \(R(x)\) with roots \(m\) and \(\gamma\), where \(m\) is integer \(\neq 2\) and \(\gamma\) is non-integer. Impossible by integer coefficient argument.
+
+- **Case 2:** \(Q\) has root \(2\) with multiplicity 2, and one other integer root \(m \neq 2\).
+
+- **Case 3:** \(Q\) has root \(2\) with multiplicity 3. Then the only integer root is 2, so no \(m \neq 2\).
+
+---
+
+**Step 7: Case 2 in detail**
+
+If \(x=2\) is a root of multiplicity 2 for \(Q(x)\), then \((x-2)^2\) divides \(Q(x)\), so
+\[ Q(x) = (x-2)^2 (x - m), \]
+where \(m \neq 2\) is an integer.
+
+Expand:
+\[
+Q(x) = (x-2)^2 (x - m) = (x^2 - 4 x + 4)(x - m) = x^3 - (m + 4) x^2 + (4 m + 4) x - 4 m.
+\]
+
+Since 
+\[
+Q(x) = p(x) - p(2) = x^3 + a x^2 + b x + c - p(2),
+\]
+compare coefficients:
+\[
+a = -(m + 4),
+\]
+\[
+b = 4 m + 4,
+\]
+\[
+c - p(2) = -4 m.
+\]
+
+Recall:
+\[
+p(2) = 8 + 4a + 2b + c,
+\]
+so
+\[
+c - p(2) = c - (8 + 4a + 2b + c) = -8 - 4a - 2b.
+\]
+
+From above,
+\[
+c - p(2) = -4 m,
+\]
+so
+\[
+-8 - 4a - 2b = -4 m,
+\]
+\[
+8 + 4a + 2b = 4 m.
+\]
+
+Substitute \(a = -(m + 4)\) and \(b = 4 m + 4\):
+\[
+8 + 4 (-(m+4)) + 2 (4 m + 4) = 4 m,
+\]
+\[
+8 - 4 m - 16 + 8 m + 8 = 4 m,
+\]
+\[
+(8 - 16 + 8) + (-4 m + 8 m) = 4 m,
+\]
+\[
+0 + 4 m = 4 m,
+\]
+which is true.
+
+---
+
+**Step 8: Constraints on \(a, b, c\)**
+
+From above:
+\[
+a = -(m + 4), \quad b = 4 m + 4,
+\]
+with \(a, b, c \in \{-20, \ldots, 20\}\).
+
+We must find all integers \(m \neq 2\) such that \(a, b, c\) are integers in the range.
+
+First, \(a\) and \(b\) depend on \(m\):
+
+\[
+a = -(m + 4), \quad b = 4 m + 4.
+\]
+
+Check ranges:
+\[
+-20 \leq a \leq 20 \implies -20 \leq -(m + 4) \leq 20 \implies -20 \leq -m - 4 \leq 20.
+\]
+
+Multiply inequalities by -1 (reverse inequalities):
+\[
+20 \geq m + 4 \geq -20,
+\]
+\[
+16 \geq m \geq -24.
+\]
+
+Since \(m\) is integer, 
+\[
+-24 \leq m \leq 16.
+\]
+
+Similarly for \(b\):
+\[
+-20 \leq 4 m + 4 \leq 20,
+\]
+\[
+-24 \leq 4 m \leq 16,
+\]
+\[
+-6 \leq m \leq 4.
+\]
+
+Taking intersection for \(a\) and \(b\):
+\[
+-6 \leq m \leq 4,
+\]
+and from \(a\), \(m \geq -24\), so the combined range is
+\[
+-6 \leq m \leq 4.
+\]
+
+Also, \(m \neq 2\) (problem statement).
+
+---
+
+**Step 9: Determining \(c\)**
+
+We know \(c\) must be in \(\{-20, \ldots, 20\}\).
+
+Recall
+\[
+p(2) = 8 + 4a + 2b + c,
+\]
+and
+\[
+Q(x) = p(x) - p(2) = (x-2)^2 (x - m).
+\]
+
+Evaluate \(p(2)\):
+\[
+p(2) = 8 + 4 a + 2 b + c.
+\]
+
+From the expression for \(Q(x)\), the constant term is
+\[
+Q(0) = p(0) - p(2) = c - p(2) = -4 m.
+\]
+
+So,
+\[
+c - p(2) = -4 m \implies p(2) = c + 4 m.
+\]
+
+Using definition of \(p(2)\):
+\[
+p(2) = 8 + 4a + 2b + c = c + 4 m,
+\]
+\[
+8 + 4a + 2b + c = c + 4 m,
+\]
+\[
+8 + 4a + 2b = 4 m.
+\]
+
+This is consistent with previous relations, so \(c\) is a free integer in \(\{-20, \ldots, 20\}\).
+
+---
+
+**Step 10: Counting all valid polynomials**
+
+For each integer \(m \in [-6, 4]\), \(m \neq 2\), the values of \(a\) and \(b\) are fixed by
+\[
+a = -(m + 4), \quad b = 4 m + 4,
+\]
+and \(c\) can be any integer in \(\{-20, \ldots, 20\}\).
+
+Number of possible \(c\) values: \(41\) (from -20 to 20 inclusive).
+
+Number of valid \(m\): integers from -6 to 4 excluding 2.
+
+Count integers from -6 to 4:
+\[
+-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4,
+\]
+which is 11 integers.
+
+Exclude \(m=2\), so 10 valid \(m\).
+
+Each gives 41 possible \(c\) values.
+
+Total number of polynomials in this case is
+\[
+10 \times 41 = 410.
+\]
+
+---
+
+**Step 11: Checking for other cases**
+
+- **Case 3:** \(Q\) has triple root at 2, i.e., \(Q(x) = (x-2)^3\).
+
+Then:
+\[
+p(x) - p(2) = (x-2)^3 = x^3 - 6 x^2 + 12 x - 8.
+\]
+
+Matching forms:
+\[
+p(x) = x^3 + a x^2 + b x + c,
+\]
+then
+\[
+p(x) - p(2) = x^3 + a x^2 + b x + c - p(2) = (x-2)^3.
+\]
+
+Compare coefficients:
+\[
+a = -6, \quad b = 12, \quad c - p(2) = -8.
+\]
+
+Calculate \(p(2)\):
+\[
+p(2) = 8 + 4a + 2b + c = 8 + 4(-6) + 2(12) + c = 8 - 24 + 24 + c = 8 + c.
+\]
+
+Then,
+\[
+c - p(2) = c - (8 + c) = -8,
+\]
+which matches the constant term in \((x-2)^3\).
+
+Check if \(a, b, c\) in range:
+\[
+a = -6 \in [-20,20], \quad b=12 \in [-20,20], \quad c \in [-20,20].
+\]
+
+Since \(c\) cancels out, \(c\) can be any integer in \([-20,20]\), so 41 possible \(c\) values.
+
+However, in this case, the only integer root of \(Q\) is 2 (triple root), so no other integer \(m \neq 2\) with \(p(m) = p(2)\).
+
+Hence, this case does **not** satisfy the problem condition.
+
+---
+
+**Step 12: Case 1 revisited**
+
+No \(m\) such that \(R(x)\) has exactly one integer root and one non-integer root.
+
+So no polynomials come from this case.
+
+---
+
+**Step 13: Final answer**
+
+From step 10, total number of polynomials satisfying the condition is
+\[
+\boxed{410}.
+\]
+
+---
+
+**Verification of ranges:**
+
+- \(a = -(m+4)\)
+- \(b = 4m + 4\)
+
+For \(m = -6\):
+\[
+a = -(-6 + 4) = -(-2) = 2, \quad b = 4(-6) + 4 = -24 + 4 = -20,
+\]
+both in range.
+
+For \(m = 4\):
+\[
+a = -(4 + 4) = -8, \quad b = 4(4) + 4 = 16 + 4 = 20,
+\]
+both in range.
+
+All intermediate values are within \([-20,20]\).
+
+So the counting is correct.
+
+---
+
+**Summary:**
+
+Number of polynomials \(p(x) = x^3 + a x^2 + b x + c\) with \(a,b,c \in \{-20,\ldots,20\}\) for which there is a unique integer \(m \neq 2\) with \(p(m) = p(2)\) is 
+\[
+\boxed{410}.
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 738. Here's the step-by-step solution:
+Plugging $2$ and $m$ into $P(x)$ and equating them, we get $8+4a+2b+c = m^3+am^2+bm+c$. Rearranging, we have \[(m^3-8) + (m^2 - 4)a + (m-2)b = 0.\] Note that the value of $c$ won't matter as it can be anything in the provided range, giving a total of $41$ possible choices for $c.$ So what we just need to do is to just find the number of ordered pairs $(a, b)$ that work, and multiply it by $41.$
+We can start by first dividing both sides by $m-2.$ (Note that this is valid since $m\neq2:$ \[m^2 + 2m + 4 + (m+2)a + b = 0.\] We can rearrange this so it is a quadratic in $m$: \[m^2 + (a+2)m + (4 + 2a + b) = 0.\] Remember that $m$ has to be unique and not equal to $2.$ We can split this into two cases: case $1$ being that $m$ has exactly one solution, and it isn't equal to $2$; case $2$ being that $m$ has two solutions, one being equal to $2,$ but the other is a unique solution not equal to $2.$
+
+$\textbf{Case 1:}$
+There is exactly one solution for $m,$ and that solution is not $2.$ This means that the discriminant of the quadratic equation is $0,$ using that, we have $(a+2)^2 = 4(4 + 2a + b),$ rearranging in a neat way, we have \[(a-2)^2 = 4(4 + b)\Longrightarrow a = 2\pm2\sqrt{4+b}.\] Using the fact that $4+b$ must be a perfect square, we can easily see that the values for $b$ can be $-4, -3, 0, 5,$ and $12.$ Also since it's a "$\pm$" there will usually be $2$ solutions for $a$ for each value of $b.$ The two exceptions for this would be if $b = -4$ and $b = 12.$ For $b=-4$ because it would be a $\pm0,$ which only gives one solution, instead of two. And for $b=12$ because then $a = -6$ and the solution for $m$ would equal to $2,$ and we don't want this. (We can know this by putting the solutions back into the quadratic formula). 
+So we have $5$ solutions for $b,$ each of which give $2$ values for $a,$ except for $2,$ which only give one. So in total, there are $5*2 - 2 = 8$ ordered pairs of $(a,b)$ in this case.
+
+$\textbf{Case 2:}$
+$m$ has two solutions, but exactly one of them isn't equal to $2.$ This ensures that $1$ of the solutions is equal to $2.$
+Let $r$ be the other value of $m$ that isn't $2.$ By Vieta: 
+\begin{align*} r+2 &= -a-2\\ 2r &= 4+2a+b. \end{align*} From the first equation, we subtract both sides by $2$ and double both sides to get $2r = -2a - 8$ which also equals to $4+2a+b$ from the second equation. Equating both, we have $4a + b + 12 = 0.$ We can easily count that there would be $11$ ordered pairs $(a,b)$ that satisfy that.
+However, there's an outlier case in which $r$ happens to also equal to $2,$ and we don't want that. We can reverse engineer and find out that $r=2$ when $(a,b) = (-6, 12),$ which we overcounted. So we subtract by one and we conclude that there are $10$ ordered pairs of $(a,b)$ that satisfy this case.
+
+This all shows that there are a total of $8+10 = 18$ amount of ordered pairs $(a,b).$ Multiplying this by $41$ (the amount of values for $c$) we get $18\cdot41=\boxed{738}$ as our final answer.
+~s214425
+$p(x)-p(2)$ is a cubic with at least two integral real roots, therefore it has three real roots, which are all integers.
+There are exactly two distinct roots, so either $p(x)=p(2)+(x-2)^2(x-m)$ or $p(x)=p(2)+(x-2)(x-m)^2$, with $m\neq 2$.
+In the first case $p(x)=x^3-(4+m)x^2+(4+4m)x-4m+p(2)$, with $|4+4m|\leq 20$ (which entails $|4+m|\leq 20$), so $m$ can be $-6,-5,-4,-3,-2,-1,0,1, (\textbf{not 2}!), 3,4$ and $-4m+p(2)$ can be any integer from $-20$ to $20$, giving $410$ polynomials (since the coefficients are given by linear functions of $m$ and thus are distinct). 
+In the second case $p(x)=x^3-(2+2m)x^2+(4m+m^2)x-2m^2+p(2)$, and $m$ can be $-6,-5,-4,-3,-2,-1,0,1$ and $-4m+p(2)$ can be any integer from $-20$ to $20$, giving $328$ polynomials.
+The total is $\boxed{738}$.
+~EVIN-
+
+Think about what takeaways you can learn from this to improve future answers.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+Iter 3: Added: 'xplicitly state all necessary definitions, assumptions, and intermediate results. When algebraic or geometric manipulati...'. Score: 2.00 → 2.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 751. Here's the step-by-step solution:
+Let's first view the cube from a direction perpendicular to $AB"
+
+Iter 4: Added: 'each transformation or calculation carefully. When dealing with constraints or optimization, consider and justify any sy...'. Score: 2.00 → 1.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 902. Here's the step-by-step solution:
+The problem says "some", so not all cells must be occupied.
+We "
+
+Iter 5: Added: 'stating all assumptions, definitions, and intermediate conclusions. Carefully verify each algebraic manipulation, logica...'. Score: 1.00 → 0.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 81. Here's the step-by-step solution:
+Denote by $\mathcal C$ a collection of 16 distinct subsets of $\"; "Your answer is incorrect. The correct answer is 228. Here's the step-by-step solution:
+Since $3,4,5,a$ and $3,4,5,b$ cannot be an arithmetic progressi"
+
+Iter 6: Added: 'solution, explicitly justifying each transformation, theorem, or deduction used. Where algebraic or geometric manipulati...'. Score: 2.00 → 3.00 (ACCEPTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 104. Here's the step-by-step solution:
+We use simple geometry to solve this problem. 
+
+We are given th"
+
+Iter 7: Added: 'State all relevant definitions, assumptions, and intermediate results explicitly. When algebraic, geometric, or trigonom...'. Score: 1.00 → 1.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 247. Here's the step-by-step solution:
+Because $M$ is the midpoint of $BC$, following from the Stewart"; "Your answer is incorrect. The correct answer is 33. Here's the step-by-step solution:
+Denote by $O_1$ and $O_2$ the centers of $\omega_1$ and $\omega_"
+
+Iter 8: Added: ', cross-check the solution for consistency, correctness, and completeness to maximize accuracy on AIME-level problems'. Score: 3.00 → 2.00 (REJECTED)
+
+Iter 9: Added: 'rly state all definitions, assumptions, and intermediate results. For every algebraic, geometric, or logical step, expli...'. Score: 1.00 → 1.00 (REJECTED)
+  Failures addressed: "Your answer is incorrect. The correct answer is 392. Here's the step-by-step solution:
+$0.\overline{abcd}=\frac{abcd}{9999} = \frac{x}{y}$, $9999=9\ti"; "Your answer is incorrect. The correct answer is 944. Here's the step-by-step solution:
+Define $\left\{ x \right\} = x - \left\lfloor x \right\rfloor$."
+
+IMPORTANT: Do not repeat strategies that were REJECTED. Build on strategies that were ACCEPTED.

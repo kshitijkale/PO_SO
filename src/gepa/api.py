@@ -4,10 +4,7 @@
 import os
 import random
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, cast
-
-if TYPE_CHECKING:
-    from gepa.core.callbacks import GEPACallback
+from typing import Any, Literal, cast
 
 from gepa.adapters.default_adapter.default_adapter import (
     ChatCompletionCallable,
@@ -15,6 +12,7 @@ from gepa.adapters.default_adapter.default_adapter import (
     Evaluator,
 )
 from gepa.core.adapter import DataInst, GEPAAdapter, ProposalFn, RolloutOutput, Trajectory
+from gepa.core.callbacks import GEPACallback
 from gepa.core.data_loader import DataId, DataLoader, ensure_loader
 from gepa.core.engine import GEPAEngine
 from gepa.core.result import GEPAResult
@@ -23,6 +21,7 @@ from gepa.logging.experiment_tracker import create_experiment_tracker
 from gepa.logging.logger import LoggerProtocol, StdOutLogger
 from gepa.proposer.merge import MergeProposer
 from gepa.proposer.reflective_mutation.base import CandidateSelector, LanguageModel, ReflectionComponentSelector
+from gepa.proposer.reflective_mutation.memory import ReflectionMemory
 from gepa.proposer.reflective_mutation.reflective_mutation import ReflectiveMutationProposer
 from gepa.strategies.batch_sampler import BatchSampler, EpochShuffledBatchSampler
 from gepa.strategies.candidate_selector import (
@@ -67,7 +66,7 @@ def optimize(
     # Logging and Callbacks
     logger: LoggerProtocol | None = None,
     run_dir: str | None = None,
-    callbacks: "list[GEPACallback] | None" = None,
+    callbacks: list[GEPACallback] | None = None,
     use_wandb: bool = False,
     wandb_api_key: str | None = None,
     wandb_init_kwargs: dict[str, Any] | None = None,
@@ -79,6 +78,11 @@ def optimize(
     use_cloudpickle: bool = False,
     # Evaluation caching
     cache_evaluation: bool = False,
+    # Reflection memory
+    use_reflection_memory: bool = False,
+    reflection_memory_max_entries: int = 10,
+    # Research observability
+    research_mode: bool = False,
     # Reproducibility
     seed: int = 0,
     raise_on_exception: bool = True,
@@ -250,7 +254,6 @@ def optimize(
             + "GEPA will use the default proposer, which requires a reflection_lm to be specified."
         )
 
-
     reflection_lm_callable: LanguageModel | None = None
     if isinstance(reflection_lm, str):
         import litellm
@@ -345,6 +348,28 @@ def optimize(
     if cache_evaluation:
         evaluation_cache = EvaluationCache[RolloutOutput, DataId]()
 
+    # Build research mode callbacks if enabled
+    active_callbacks = list(callbacks) if callbacks else []
+    if research_mode:
+        from gepa.callbacks import LineageTracker, LiveDisplay, ResearchLogger, StateLogger
+
+        research_dir = run_dir or "./gepa_research_logs"
+        active_callbacks.extend([
+            ResearchLogger(output_dir=research_dir),
+            StateLogger(output_dir=research_dir),
+            LineageTracker(output_dir=research_dir),
+            LiveDisplay(),
+        ])
+    effective_callbacks: list[GEPACallback] | None = active_callbacks if active_callbacks else None
+
+    # Create reflection memory if enabled
+    reflection_memory: ReflectionMemory | None = None
+    if use_reflection_memory:
+        reflection_memory = ReflectionMemory(
+            max_entries=reflection_memory_max_entries,
+            callbacks=effective_callbacks,
+        )
+
     reflective_proposer = ReflectiveMutationProposer(
         logger=logger,
         trainset=train_loader,
@@ -358,7 +383,8 @@ def optimize(
         reflection_lm=reflection_lm_callable,
         reflection_prompt_template=reflection_prompt_template,
         custom_candidate_proposer=custom_candidate_proposer,
-        callbacks=callbacks,
+        callbacks=effective_callbacks,
+        reflection_memory=reflection_memory,
     )
 
     def evaluator_fn(
@@ -377,7 +403,7 @@ def optimize(
             max_merge_invocations=max_merge_invocations,
             rng=rng,
             val_overlap_floor=merge_val_overlap_floor,
-            callbacks=callbacks,
+            callbacks=effective_callbacks,
         )
 
     engine = GEPAEngine(
@@ -392,7 +418,7 @@ def optimize(
         frontier_type=frontier_type,
         logger=logger,
         experiment_tracker=experiment_tracker,
-        callbacks=callbacks,
+        callbacks=effective_callbacks,
         track_best_outputs=track_best_outputs,
         display_progress_bar=display_progress_bar,
         raise_on_exception=raise_on_exception,
