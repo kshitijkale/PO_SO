@@ -38,7 +38,7 @@ from gepa.optimize_anything import (
 )
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
-load_dotenv(_REPO_ROOT / ".claude" / ".env")
+load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
 
 MODEL = "openai/gpt-4.1-mini"
 RUN_DIR = "outputs/aime_light_memory_on"
@@ -49,8 +49,7 @@ TRAIN_SIZE = 45
 VAL_SIZE = 10
 
 INITIAL_PROMPT = (
-    "Solve the math problem carefully. "
-    "Break down the steps and provide the final answer as a single integer."
+    "Solve the problem and provide the answer provide the final answer as a single integer."
 )
 
 
@@ -159,7 +158,11 @@ def print_memory_report(run_dir: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    api_key = os.environ.get("OPENAI_API_KEY", "")
+    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError(
+            "OPENAI_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
+        )
 
     # --- Dataset: 45 train, 10 val ---
     print("Loading AIME dataset…")

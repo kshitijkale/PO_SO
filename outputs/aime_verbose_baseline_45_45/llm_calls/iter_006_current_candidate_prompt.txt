@@ -1,0 +1,812 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+104
+
+## reasoning
+Let's analyze the problem step-by-step.
+
+Given:
+- Rectangles \(ABCD\) and \(EFGH\).
+- Points \(D, E, C, F\) are collinear.
+- Points \(A, D, H, G\) lie on a circle.
+- Side lengths:
+  - \(BC = 16\)
+  - \(AB = 107\)
+  - \(FG = 17\)
+  - \(EF = 184\)
+
+We want to find the length \(CE\).
+
+Step 1: Understand the rectangles and notation.
+
+Since \(ABCD\) is a rectangle with sides \(AB\) and \(BC\), and since the rectangle's sides are perpendicular, the lengths are:
+- \(AB = 107\) (horizontal or vertical)
+- \(BC = 16\) (the other dimension)
+
+Similarly, for rectangle \(EFGH\):
+- \(EF = 184\)
+- \(FG = 17\)
+
+Step 2: Place the points on coordinate axes for clarity.
+
+Let's place rectangle \(ABCD\) on the coordinate plane for convenience.
+
+Place point \(A\) at the origin \((0,0)\).
+
+Since \(AB = 107\), let \(B = (107,0)\).
+
+Since \(BC = 16\), and \(ABCD\) is a rectangle, \(C = (107,16)\), and \(D = (0,16)\).
+
+So:
+- \(A = (0,0)\)
+- \(B = (107,0)\)
+- \(C = (107,16)\)
+- \(D = (0,16)\)
+
+Step 3: Analyze rectangle \(EFGH\).
+
+We know \(EFGH\) is a rectangle with sides:
+- \(EF = 184\)
+- \(FG = 17\)
+
+We don't know the orientation or location of \(EFGH\), but we know points \(D, E, C, F\) are collinear.
+
+We also know points \(A, D, H, G\) lie on a circle.
+
+Step 4: Use collinearity of \(D, E, C, F\).
+
+Points \(D, E, C, F\) lie on the same line in that order (not stated order, but they are collinear).
+
+From our coordinates:
+- \(D = (0,16)\)
+- \(C = (107,16)\)
+
+Both lie on the horizontal line \(y=16\).
+
+Since \(D\) and \(C\) are on \(y=16\), and \(E\) and \(F\) are also on this line, all four points lie on the horizontal line \(y=16\).
+
+Step 5: Assign coordinates to \(E\) and \(F\).
+
+Let the points \(D, E, C, F\) lie on \(y=16\).
+
+We know \(D = (0,16)\) and \(C = (107,16)\).
+
+Now, \(E\) and \(F\) are points on this line.
+
+Since \(EFGH\) is a rectangle with side \(EF = 184\), and \(FG = 17\).
+
+Step 6: Find the coordinates of \(E, F, G, H\).
+
+Since \(EF = 184\), segment \(EF\) lies on line \(y=16\).
+
+Let:
+- \(E = (x_E, 16)\)
+- \(F = (x_F, 16)\)
+
+Since \(EF = 184\), \(|x_F - x_E| = 184\).
+
+Similarly, \(FG = 17\). Since \(EFGH\) is a rectangle, sides \(EF\) and \(FG\) are perpendicular.
+
+Thus, if \(EF\) is horizontal, then \(FG\) is vertical.
+
+So, starting from \(E\) to \(F\) is horizontal, so \(E\) and \(F\) have the same \(y\)-coordinate.
+
+Then, \(G\) is at:
+- \(G = (x_F, 16 + 17)\) or \(G = (x_F, 16 - 17)\).
+
+Similarly, \(H\) is at:
+- \(H = (x_E, 16 + 17)\) or \(H = (x_E, 16 - 17)\).
+
+Step 7: Use the circle condition.
+
+Points \(A, D, H, G\) lie on a circle.
+
+Recall:
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x_E, 16 \pm 17)\)
+- \(G = (x_F, 16 \pm 17)\)
+
+Step 8: Find \(x_E\) and \(x_F\).
+
+Since \(E\) and \(F\) lie on the horizontal line \(y=16\), and \(EF=184\), we have:
+
+\[
+|x_F - x_E| = 184
+\]
+
+The points \(D, E, C, F\) are collinear and lie on \(y=16\). We know \(D = 0\), \(C = 107\), so \(D\) and \(C\) are between \(E\) and \(F\) or \(E\) and \(F\) are between \(D\) and \(C\).
+
+Because \(E, F\) are points of the other rectangle \(EFGH\), and they are collinear with \(D\) and \(C\), the order along the line is important.
+
+Either the order is \(D, E, C, F\) or \(D, C, E, F\), or some other order.
+
+Try to determine the order.
+
+Step 9: Try order \(D, E, C, F\).
+
+If the order is \(D (0), E(x_E), C(107), F(x_F)\), then:
+
+- \(0 < x_E < 107 < x_F\), and \(x_F - x_E = 184\).
+
+Since \(x_F = x_E + 184\), and \(x_E < 107 < x_F\), then:
+
+\[
+x_E < 107 < x_E + 184
+\]
+
+This is true for any \(x_E < 107\).
+
+Similarly, \(E\) must be to the left of \(C\), and \(F\) to the right of \(C\).
+
+Step 10: Use the circle condition on points \(A, D, H, G\).
+
+Recall:
+
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x_E, 16 + 17) = (x_E, 33)\)
+- \(G = (x_F, 33)\)
+
+The four points \(A, D, H, G\) lie on a circle.
+
+Step 11: Find the circle passing through \(A\) and \(D\).
+
+Points \(A(0,0)\) and \(D(0,16)\) lie on the circle.
+
+Step 12: Use the fact that \(H\) and \(G\) also lie on the same circle.
+
+Let the circle have center \((h,k)\) and radius \(r\).
+
+Then,
+
+\[
+(0 - h)^2 + (0 - k)^2 = r^2 \quad (1)
+\]
+\[
+(0 - h)^2 + (16 - k)^2 = r^2 \quad (2)
+\]
+
+Subtract (1) from (2):
+
+\[
+(0 - h)^2 + (16 - k)^2 - \left[(0 - h)^2 + (0 - k)^2\right] = 0
+\]
+\[
+(16 - k)^2 - (0 - k)^2 = 0
+\]
+\[
+(16 - k)^2 - k^2 = 0
+\]
+\[
+(16 - k)^2 = k^2
+\]
+\[
+256 - 32k + k^2 = k^2
+\]
+\[
+256 - 32k = 0 \implies 32k = 256 \implies k = 8
+\]
+
+So the center has \(y\)-coordinate \(k=8\).
+
+Step 13: Use \(k=8\) in (1):
+
+\[
+h^2 + (0 - 8)^2 = r^2 \implies h^2 + 64 = r^2
+\]
+
+Similarly, points \(H\) and \(G\) are on the circle:
+
+\[
+(x_E - h)^2 + (33 - 8)^2 = r^2 \implies (x_E - h)^2 + 25^2 = r^2
+\]
+\[
+(x_F - h)^2 + 25^2 = r^2
+\]
+
+Since \(r^2 = h^2 + 64\), from above:
+
+\[
+(x_E - h)^2 + 625 = h^2 + 64
+\]
+\[
+(x_F - h)^2 + 625 = h^2 + 64
+\]
+
+Subtract 64 from both sides:
+
+\[
+(x_E - h)^2 + 561 = h^2
+\]
+\[
+(x_F - h)^2 + 561 = h^2
+\]
+
+Or:
+
+\[
+(x_E - h)^2 = h^2 - 561
+\]
+\[
+(x_F - h)^2 = h^2 - 561
+\]
+
+Therefore,
+
+\[
+(x_E - h)^2 = (x_F - h)^2
+\]
+
+Which implies:
+
+\[
+x_E - h = \pm (x_F - h)
+\]
+
+Two cases:
+
+1. \(x_E - h = x_F - h \implies x_E = x_F\) (impossible since \(EF=184\))
+
+2. \(x_E - h = - (x_F - h) \implies x_E + x_F = 2h\)
+
+Step 14: Use \(x_F = x_E + 184\), so:
+
+\[
+x_E + (x_E + 184) = 2h \implies 2x_E + 184 = 2h \implies h = x_E + 92
+\]
+
+Step 15: Recall from earlier:
+
+\[
+(x_E - h)^2 = h^2 - 561
+\]
+
+Using \(h = x_E + 92\):
+
+\[
+(x_E - (x_E + 92))^2 = (x_E + 92)^2 - 561
+\]
+\[
+(-92)^2 = (x_E + 92)^2 - 561
+\]
+\[
+8464 = (x_E + 92)^2 - 561
+\]
+\[
+(x_E + 92)^2 = 8464 + 561 = 9025
+\]
+
+\[
+x_E + 92 = \pm 95
+\]
+
+Two possibilities:
+
+- \(x_E + 92 = 95 \implies x_E = 3\)
+- \(x_E + 92 = -95 \implies x_E = -187\)
+
+Step 16: Check which makes sense.
+
+If \(x_E=3\), then \(x_F = 3 + 184 = 187\).
+
+Recall points on the line \(y=16\):
+
+- \(D = (0,16)\)
+- \(E = (3,16)\)
+- \(C = (107,16)\)
+- \(F = (187,16)\)
+
+Order along the line: \(D, E, C, F\) which is consistent.
+
+If \(x_E = -187\), then \(x_F = -3\), which is to the left of \(D\), inconsistent with the order.
+
+Thus, \(x_E = 3\), \(x_F = 187\).
+
+Step 17: Find \(CE\).
+
+We want length \(CE\).
+
+\(C = (107,16)\), \(E = (3,16)\), so
+
+\[
+CE = |107 - 3| = 104
+\]
+
+Step 18: Final answer: \(CE = 104\).
+
+## Feedback
+Your answer is correct. The correct answer is 104.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+A right square pyramid with volume $54$ has a base with side length $6.$ The five vertices of the pyramid all lie on a sphere with radius $\frac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+21
+
+## reasoning
+We are given a right square pyramid with volume 54 and a base side length 6. The five vertices (4 base vertices + 1 apex) lie on a sphere of radius \(\frac{m}{n}\), where \(m\) and \(n\) are relatively prime positive integers. We need to find \(m+n\).
+
+Step 1: Find the height of the pyramid.
+
+The volume \(V\) of a pyramid is given by:
+\[
+V = \frac{1}{3} \times (\text{area of base}) \times h
+\]
+
+The base is a square of side length 6, so its area is:
+\[
+6 \times 6 = 36
+\]
+
+Given \(V = 54\):
+\[
+54 = \frac{1}{3} \times 36 \times h \implies 54 = 12h \implies h = \frac{54}{12} = 4.5
+\]
+
+Step 2: Determine coordinates of base and apex.
+
+Place the square base in the xy-plane, centered at the origin for symmetry:
+
+- The base vertices are at:
+\[
+(3, 3, 0), (3, -3, 0), (-3, 3, 0), (-3, -3, 0)
+\]
+
+- The apex is directly above the center at:
+\[
+(0, 0, 4.5)
+\]
+
+Step 3: Find the radius of the sphere circumscribing the pyramid.
+
+The sphere passes through all five points: the apex and the four base vertices.
+
+The sphere's center will lie somewhere on the vertical line through the center of the square base (the z-axis), because of symmetry.
+
+Let the center be at \(O = (0,0,z_0)\) and radius \(R\).
+
+Step 4: Set up equations for the radius.
+
+The distance from the center to any of the base vertices must be equal to \(R\):
+\[
+R^2 = (3 - 0)^2 + (3 - 0)^2 + (0 - z_0)^2 = 9 + 9 + z_0^2 = 18 + z_0^2
+\]
+
+The distance from the center to the apex must also be \(R\):
+\[
+R^2 = (0 - 0)^2 + (0 - 0)^2 + (4.5 - z_0)^2 = (4.5 - z_0)^2
+\]
+
+Equate these two expressions for \(R^2\):
+\[
+18 + z_0^2 = (4.5 - z_0)^2 = (4.5)^2 - 2 \cdot 4.5 \cdot z_0 + z_0^2 = 20.25 - 9 z_0 + z_0^2
+\]
+
+Cancel \(z_0^2\) from both sides:
+\[
+18 = 20.25 - 9 z_0
+\]
+
+Solve for \(z_0\):
+\[
+-9 z_0 = 18 - 20.25 = -2.25 \implies z_0 = \frac{2.25}{9} = 0.25
+\]
+
+Step 5: Find \(R^2\):
+\[
+R^2 = 18 + z_0^2 = 18 + (0.25)^2 = 18 + 0.0625 = 18.0625
+\]
+
+Step 6: Simplify \(R\):
+\[
+R = \sqrt{18.0625} = \sqrt{\frac{289}{16}} = \frac{17}{4}
+\]
+
+Because:
+\[
+18.0625 = 18 + \frac{1}{16} = \frac{288}{16} + \frac{1}{16} = \frac{289}{16}
+\]
+
+The radius is \(\frac{17}{4}\).
+
+Step 7: Find \(m + n\):
+\[
+m = 17, \quad n = 4 \implies m + n = 17 + 4 = 21
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 21.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Each face of two noncongruent parallelepipeds is a rhombus whose diagonals have lengths $\sqrt{21}$ and $\sqrt{31}$.
+The ratio of the volume of the larger of the two polyhedra to the volume of the smaller is $\frac{m}{n}$, where $m$ and $n$
+are relatively prime positive integers. Find $m + n$. A parallelepiped is a solid with six parallelogram faces
+such as the one shown below.
+[asy] unitsize(2cm); pair o = (0, 0), u = (1, 0), v = 0.8*dir(40), w = dir(70);  draw(o--u--(u+v)); draw(o--v--(u+v), dotted); draw(shift(w)*(o--u--(u+v)--v--cycle)); draw(o--w); draw(u--(u+w)); draw(v--(v+w), dotted); draw((u+v)--(u+v+w)); [/asy]
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+125
+
+## reasoning
+We are given two noncongruent parallelepipeds, each with all faces rhombi, and each rhombus face has diagonals of lengths \(\sqrt{21}\) and \(\sqrt{31}\). We want the ratio of their volumes.
+
+Step 1: Understand the problem setting.
+
+Each parallelepiped has 6 faces, all rhombi with the same diagonal lengths \(\sqrt{21}\) and \(\sqrt{31}\). Since the faces are parallelograms, the parallelepiped is determined by three vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) in \(\mathbb{R}^3\).
+
+Each face is a parallelogram formed by pairs of these vectors:
+- Faces formed by \(\mathbf{a}\) and \(\mathbf{b}\),
+- Faces formed by \(\mathbf{b}\) and \(\mathbf{c}\),
+- Faces formed by \(\mathbf{c}\) and \(\mathbf{a}\).
+
+Given that all faces are congruent rhombi with diagonal lengths \(\sqrt{21}\) and \(\sqrt{31}\), each of these three parallelograms has diagonals of those same lengths.
+
+Step 2: Relations for rhombus diagonals.
+
+For a rhombus with side length \(s\) and diagonals \(d_1, d_2\), we know:
+\[
+d_1^2 + d_2^2 = 4s^2.
+\]
+
+Here, the diagonals are \(\sqrt{21}\) and \(\sqrt{31}\), so:
+\[
+21 + 31 = 4s^2 \implies 52 = 4s^2 \implies s^2 = 13.
+\]
+Hence, each edge vector \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) has length \(\sqrt{13}\).
+
+Step 3: Use notation and variables.
+
+Let:
+\[
+|\mathbf{a}| = |\mathbf{b}| = |\mathbf{c}| = \sqrt{13}.
+\]
+
+We denote the angles between these vectors:
+\[
+\theta = \text{angle between } \mathbf{a} \text{ and } \mathbf{b},
+\]
+\[
+\phi = \text{angle between } \mathbf{b} \text{ and } \mathbf{c},
+\]
+\[
+\psi = \text{angle between } \mathbf{c} \text{ and } \mathbf{a}.
+\]
+
+Step 4: Diagonal lengths of each face.
+
+The diagonals of a parallelogram with sides \(\mathbf{u}\) and \(\mathbf{v}\) are \(\mathbf{u} + \mathbf{v}\) and \(\mathbf{u} - \mathbf{v}\).
+
+Their squared lengths are:
+\[
+|\mathbf{u} + \mathbf{v}|^2 = |\mathbf{u}|^2 + |\mathbf{v}|^2 + 2 \mathbf{u} \cdot \mathbf{v},
+\]
+\[
+|\mathbf{u} - \mathbf{v}|^2 = |\mathbf{u}|^2 + |\mathbf{v}|^2 - 2 \mathbf{u} \cdot \mathbf{v}.
+\]
+
+For our case, each face is a rhombus with diagonals \(\sqrt{21}\) and \(\sqrt{31}\). So the squared diagonal lengths are 21 and 31.
+
+Then the sum of the squares of the diagonals is:
+\[
+21 + 31 = 52 = 2(|\mathbf{u}|^2 + |\mathbf{v}|^2).
+\]
+Since \( |\mathbf{u}| = |\mathbf{v}| = \sqrt{13} \), we have:
+\[
+2(13 + 13) = 2 \times 26 = 52,
+\]
+which matches perfectly.
+
+Therefore, the diagonal lengths squared are:
+\[
+d_1^2 = 21, \quad d_2^2 = 31,
+\]
+or vice versa, for each face.
+
+Step 5: Find relation between \(\mathbf{u} \cdot \mathbf{v}\) and the diagonals.
+
+For a face formed by \(\mathbf{u}\) and \(\mathbf{v}\), the two diagonal squares are:
+\[
+D_1 = |\mathbf{u} + \mathbf{v}|^2 = 2s^2 + 2 \mathbf{u} \cdot \mathbf{v},
+\]
+\[
+D_2 = |\mathbf{u} - \mathbf{v}|^2 = 2s^2 - 2 \mathbf{u} \cdot \mathbf{v}.
+\]
+
+Since \(s^2 = 13\), we have:
+\[
+D_1 = 26 + 2 \mathbf{u} \cdot \mathbf{v}, \quad D_2 = 26 - 2 \mathbf{u} \cdot \mathbf{v}.
+\]
+
+The diagonals are 21 and 31 in some order, so:
+\[
+\{ D_1, D_2 \} = \{21, 31\}.
+\]
+
+Thus,
+\[
+26 + 2 \mathbf{u} \cdot \mathbf{v} = 31, \quad 26 - 2 \mathbf{u} \cdot \mathbf{v} = 21,
+\]
+or
+\[
+26 + 2 \mathbf{u} \cdot \mathbf{v} = 21, \quad 26 - 2 \mathbf{u} \cdot \mathbf{v} = 31.
+\]
+
+From the first case:
+\[
+26 + 2 \mathbf{u} \cdot \mathbf{v} = 31 \implies 2 \mathbf{u} \cdot \mathbf{v} = 5 \implies \mathbf{u} \cdot \mathbf{v} = \frac{5}{2} = 2.5,
+\]
+and
+\[
+26 - 2 \mathbf{u} \cdot \mathbf{v} = 21 \implies 26 - 5 = 21,
+\]
+which is consistent.
+
+From the second case:
+\[
+26 + 2 \mathbf{u} \cdot \mathbf{v} = 21 \implies 2 \mathbf{u} \cdot \mathbf{v} = -5 \implies \mathbf{u} \cdot \mathbf{v} = -2.5,
+\]
+and
+\[
+26 - 2 \mathbf{u} \cdot \mathbf{v} = 31 \implies 26 + 5 = 31,
+\]
+also consistent.
+
+Hence, for each pair of vectors \(\mathbf{a}, \mathbf{b}\), \(\mathbf{b}, \mathbf{c}\), \(\mathbf{c}, \mathbf{a}\), the dot product is either \(2.5\) or \(-2.5\).
+
+Step 6: Set the dot products for the three pairs.
+
+There are two options for each dot product: \(+2.5\) or \(-2.5\).
+
+Because the parallelepiped is determined by \(\mathbf{a}, \mathbf{b}, \mathbf{c}\), and the faces must be rhombi with diagonals \(\sqrt{21}\) and \(\sqrt{31}\), the three dot products must be from \(\{2.5, -2.5\}\).
+
+We want the two noncongruent parallelepipeds, so the sets of dot products differ.
+
+Step 7: Volume of parallelepiped.
+
+The volume is:
+\[
+V = |\mathbf{a} \cdot (\mathbf{b} \times \mathbf{c})| = |\det(\mathbf{a}, \mathbf{b}, \mathbf{c})|.
+\]
+
+We can express the volume squared as:
+\[
+V^2 = |\mathbf{a} \cdot (\mathbf{b} \times \mathbf{c})|^2 = \det G,
+\]
+where \(G\) is the Gram matrix with entries \(G_{ij} = \mathbf{v}_i \cdot \mathbf{v}_j\).
+
+Step 8: Write the Gram matrix.
+
+We know:
+\[
+|\mathbf{a}|^2 = |\mathbf{b}|^2 = |\mathbf{c}|^2 = 13,
+\]
+and the dot products between different vectors are \(\pm 2.5\).
+
+Let:
+\[
+A = \mathbf{a} \cdot \mathbf{b} = \alpha,
+\]
+\[
+B = \mathbf{b} \cdot \mathbf{c} = \beta,
+\]
+\[
+C = \mathbf{c} \cdot \mathbf{a} = \gamma,
+\]
+with each of \(\alpha, \beta, \gamma\) equal to \(2.5\) or \(-2.5\).
+
+The Gram matrix is:
+\[
+G = \begin{pmatrix}
+13 & \alpha & \gamma \\
+\alpha & 13 & \beta \\
+\gamma & \beta & 13
+\end{pmatrix}.
+\]
+
+Step 9: Compute \(\det G\).
+
+We use the formula for determinant of a symmetric \(3 \times 3\) matrix:
+
+\[
+\det G = 13(13 \cdot 13 - \beta^2) - \alpha (\alpha \cdot 13 - \beta \gamma) + \gamma (\alpha \beta - 13 \gamma).
+\]
+
+Calculate stepwise:
+
+\[
+\det G = 13(169 - \beta^2) - \alpha (13 \alpha - \beta \gamma) + \gamma (\alpha \beta - 13 \gamma).
+\]
+
+Simplify:
+
+\[
+= 13 \times 169 - 13 \beta^2 - 13 \alpha^2 + \alpha \beta \gamma + \alpha \beta \gamma - 13 \gamma^2,
+\]
+but note the signs carefully:
+
+\[
+- \alpha (13 \alpha - \beta \gamma) = -13 \alpha^2 + \alpha \beta \gamma,
+\]
+\[
+\gamma (\alpha \beta - 13 \gamma) = \alpha \beta \gamma - 13 \gamma^2.
+\]
+
+Therefore,
+\[
+\det G = 2197 - 13 \beta^2 - 13 \alpha^2 - 13 \gamma^2 + 2 \alpha \beta \gamma.
+\]
+
+Step 10: Substitute \(\alpha, \beta, \gamma \in \{2.5, -2.5\}\).
+
+First, compute squares:
+\[
+(2.5)^2 = 6.25.
+\]
+
+So,
+\[
+\det G = 2197 - 13(6.25 + 6.25 + 6.25) + 2 \alpha \beta \gamma.
+\]
+
+Sum inside parentheses:
+\[
+6.25 \times 3 = 18.75.
+\]
+
+So,
+\[
+\det G = 2197 - 13 \times 18.75 + 2 \alpha \beta \gamma.
+\]
+
+Calculate \(13 \times 18.75\):
+\[
+13 \times 18.75 = 13 \times (18 + 0.75) = 13 \times 18 + 13 \times 0.75 = 234 + 9.75 = 243.75.
+\]
+
+Therefore,
+\[
+\det G = 2197 - 243.75 + 2 \alpha \beta \gamma = 1953.25 + 2 \alpha \beta \gamma.
+\]
+
+Step 11: Possible values of \(2 \alpha \beta \gamma\).
+
+\(\alpha, \beta, \gamma\) are each \(\pm 2.5\).
+
+The product \(\alpha \beta \gamma\) is either:
+\[
+2.5 \times 2.5 \times 2.5 = 15.625,
+\]
+or
+\[
+-15.625,
+\]
+depending on the number of negative signs.
+
+Step 12: Determine possible determinants.
+
+Case 1: \(\alpha \beta \gamma = 15.625\)
+\[
+\det G = 1953.25 + 2 \times 15.625 = 1953.25 + 31.25 = 1984.5.
+\]
+
+Case 2: \(\alpha \beta \gamma = -15.625\)
+\[
+\det G = 1953.25 - 31.25 = 1922.0.
+\]
+
+Step 13: Volume ratio.
+
+The volumes squared are these determinants, so volumes are:
+\[
+V_1 = \sqrt{1984.5}, \quad V_2 = \sqrt{1922}.
+\]
+
+The ratio of volumes (larger/smaller) is:
+\[
+\frac{\sqrt{1984.5}}{\sqrt{1922}} = \sqrt{\frac{1984.5}{1922}}.
+\]
+
+Step 14: Simplify the fraction \(\frac{1984.5}{1922}\).
+
+Multiply numerator and denominator by 2 to clear decimal:
+\[
+\frac{1984.5}{1922} = \frac{3969}{3844}.
+\]
+
+Check if 3969 and 3844 are perfect squares or simplify:
+
+- \(3969 = 63^2\) since \(63^2 = 3969\).
+- \(3844 = 62^2\) since \(62^2 = 3844\).
+
+Therefore,
+\[
+\frac{1984.5}{1922} = \frac{63^2}{62^2} = \left(\frac{63}{62}\right)^2.
+\]
+
+Hence,
+\[
+\frac{V_1}{V_2} = \frac{63}{62}.
+\]
+
+Step 15: Final answer.
+
+The ratio of volumes is \(\frac{63}{62}\), and the problem asks for \(m + n\) where \(\frac{m}{n} = \frac{63}{62}\) and \(m,n\) are relatively prime positive integers.
+
+Therefore,
+\[
+m + n = 63 + 62 = 125.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

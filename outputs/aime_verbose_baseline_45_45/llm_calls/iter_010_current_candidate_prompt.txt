@@ -1,0 +1,1891 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Two externally tangent circles $\omega_1$ and $\omega_2$ have centers $O_1$ and $O_2$, respectively. A third circle $\Omega$ passing through $O_1$ and $O_2$ intersects $\omega_1$ at $B$ and $C$ and $\omega_2$ at $A$ and $D$, as shown. Suppose that $AB = 2$, $O_1O_2 = 15$, $CD = 16$, and $ABO_1CDO_2$ is a convex hexagon. Find the area of this hexagon.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+135
+
+## reasoning
+We have two circles \(\omega_1\) and \(\omega_2\) tangent externally at some point (not named), with centers \(O_1\) and \(O_2\) respectively. A third circle \(\Omega\) passes through both centers \(O_1\) and \(O_2\), intersecting \(\omega_1\) at points \(B\) and \(C\), and \(\omega_2\) at points \(A\) and \(D\). The hexagon formed is \(A B O_1 C D O_2\).
+
+Given data:
+
+- \(AB = 2\)
+- \(O_1 O_2 = 15\)
+- \(CD = 16\)
+- The hexagon \(ABO_1CDO_2\) is convex.
+
+Goal: Find the area of the hexagon.
+
+---
+
+**Step 1: Understand the configuration**
+
+- \(\omega_1\) and \(\omega_2\) are tangent externally, so the distance between centers is \(O_1 O_2 = 15\).
+- Circle \(\Omega\) passes through \(O_1\) and \(O_2\).
+- \(\Omega\) intersects \(\omega_1\) at \(B, C\) and \(\omega_2\) at \(A, D\).
+- Points \(A, B, C, D\) lie on \(\Omega\).
+- The hexagon is \(A B O_1 C D O_2\).
+
+---
+
+**Step 2: Use the property of radical axes and power of points**
+
+Since \(\Omega\) passes through \(O_1\) and \(O_2\), and intersects \(\omega_1\) at \(B, C\), and \(\omega_2\) at \(A, D\), these points all lie on \(\Omega\).
+
+We can consider the chords \(BC\) on \(\omega_1\) and \(AD\) on \(\omega_2\).
+
+---
+
+**Step 3: Analyze the hexagon**
+
+The hexagon is \(A B O_1 C D O_2\).
+
+Let's try to find coordinates to represent all points and then find the area.
+
+---
+
+**Step 4: Assign coordinate system**
+
+Place \(O_1\) at the origin \((0,0)\).
+
+Since \(O_1 O_2 = 15\), place \(O_2\) at \((15,0)\).
+
+---
+
+**Step 5: Determine radii of \(\omega_1\) and \(\omega_2\)**
+
+Let:
+
+- \(r_1 =\) radius of \(\omega_1\)
+- \(r_2 =\) radius of \(\omega_2\)
+
+Because the circles are tangent externally:
+
+\[
+r_1 + r_2 = 15
+\]
+
+---
+
+**Step 6: Points \(B, C\) lie on \(\omega_1\) and on \(\Omega\), which passes through \(O_1\) and \(O_2\)**
+
+Similarly, points \(A, D\) lie on \(\omega_2\) and on \(\Omega\).
+
+---
+
+**Step 7: The circle \(\Omega\) passes through \(O_1(0,0)\) and \(O_2(15,0)\)**
+
+So the circle \(\Omega\) passes through points \((0,0)\) and \((15,0)\).
+
+Let the center of \(\Omega\) be at \((h,k)\), and radius \(R\).
+
+Because \(O_1\) and \(O_2\) lie on \(\Omega\):
+
+\[
+(h - 0)^2 + (k - 0)^2 = R^2 \\
+(h - 15)^2 + (k - 0)^2 = R^2
+\]
+
+Subtracting the first from the second:
+
+\[
+(h - 15)^2 + k^2 - (h^2 + k^2) = 0 \\
+(h - 15)^2 - h^2 = 0 \\
+(h^2 - 30h + 225) - h^2 = 0 \\
+-30h + 225 = 0 \\
+30h = 225 \implies h = 7.5
+\]
+
+So the center of \(\Omega\) is at \((7.5, k)\), with unknown \(k\).
+
+---
+
+**Step 8: Radius of \(\Omega\)**
+
+From the first point:
+
+\[
+R^2 = (7.5 - 0)^2 + (k - 0)^2 = 7.5^2 + k^2 = 56.25 + k^2
+\]
+
+---
+
+**Step 9: Find points \(A, B, C, D\)**
+
+- \(B, C\) are on \(\omega_1\) (circle centered at \((0,0)\) radius \(r_1\)) and on \(\Omega\).
+- \(A, D\) are on \(\omega_2\) (circle centered at \((15,0)\) radius \(r_2\)) and on \(\Omega\).
+
+---
+
+**Step 10: Find the intersection points of \(\omega_1\) and \(\Omega\)**
+
+\(\omega_1: x^2 + y^2 = r_1^2\)
+
+\(\Omega: (x - 7.5)^2 + (y - k)^2 = 56.25 + k^2\)
+
+Subtract:
+
+\[
+x^2 + y^2 = r_1^2 \\
+(x - 7.5)^2 + (y - k)^2 = 56.25 + k^2
+\]
+
+Expand \(\Omega\):
+
+\[
+x^2 - 15x + 56.25 + y^2 - 2ky + k^2 = 56.25 + k^2
+\]
+
+Simplify:
+
+\[
+x^2 - 15x + y^2 - 2ky = 0
+\]
+
+Subtract \(\omega_1\):
+
+\[
+(x^2 + y^2) - (x^2 - 15x + y^2 - 2ky) = r_1^2 - 0 \\
+0 - (-15x - 2ky) = r_1^2 \\
+15x + 2k y = r_1^2
+\]
+
+So the intersection points satisfy:
+
+\[
+15x + 2 k y = r_1^2
+\]
+
+Equation of the chord \(BC\) on \(\omega_1\).
+
+Similarly, for \(\omega_2\) and \(\Omega\):
+
+\[
+(x - 15)^2 + y^2 = r_2^2 \\
+(x - 7.5)^2 + (y - k)^2 = 56.25 + k^2
+\]
+
+Subtract:
+
+\[
+(x - 15)^2 + y^2 - [(x - 7.5)^2 + (y - k)^2] = r_2^2 - (56.25 + k^2)
+\]
+
+But since \(r_2^2\) is unknown, let's do as before:
+
+\[
+(x - 15)^2 + y^2 = r_2^2 \\
+(x - 7.5)^2 + (y - k)^2 = R^2 = 56.25 + k^2
+\]
+
+Subtract second from first:
+
+\[
+(x - 15)^2 + y^2 - (x - 7.5)^2 - (y - k)^2 = r_2^2 - R^2
+\]
+
+Expand:
+
+\[
+(x^2 - 30x + 225) + y^2 - (x^2 - 15x + 56.25) - (y^2 - 2 k y + k^2) = r_2^2 - R^2
+\]
+
+Simplify terms:
+
+\[
+x^2 - 30x + 225 + y^2 - x^2 + 15x - 56.25 - y^2 + 2 k y - k^2 = r_2^2 - R^2
+\]
+
+\[
+(-30x + 15x) + (225 - 56.25) + 2 k y - k^2 = r_2^2 - R^2
+\]
+
+\[
+-15x + 168.75 + 2 k y - k^2 = r_2^2 - R^2
+\]
+
+But \(R^2 = 56.25 + k^2\), so:
+
+\[
+r_2^2 - (56.25 + k^2) = -15x + 168.75 + 2 k y - k^2 \\
+r_2^2 - 56.25 - k^2 = -15x + 168.75 + 2 k y - k^2
+\]
+
+Cancel \(k^2\):
+
+\[
+r_2^2 - 56.25 = -15x + 168.75 + 2 k y
+\]
+
+Rearranged:
+
+\[
+15x - 2 k y = 168.75 - r_2^2 + 56.25 = 225 - r_2^2
+\]
+
+Thus the chord \(AD\) on \(\omega_2\) satisfies:
+
+\[
+15 x - 2 k y = 225 - r_2^2
+\]
+
+---
+
+**Step 11: Use given lengths \(AB = 2\), \(CD = 16\)**
+
+Points \(A, B, C, D\) lie in order on \(\Omega\): \(A, B, O_1, C, D, O_2\) form a convex hexagon.
+
+The segments \(AB\) and \(CD\) lie on \(\Omega\), between points on \(\omega_2\) and \(\omega_1\) respectively.
+
+---
+
+**Step 12: Parametrize points on \(\Omega\)**
+
+Because \(O_1\) and \(O_2\) lie on \(\Omega\), with center \((7.5, k)\) and radius \(R\), we can parametrize points on \(\Omega\) by angle \(\theta\):
+
+\[
+x = 7.5 + R \cos \theta, \quad y = k + R \sin \theta
+\]
+
+At \(\theta = \theta_1\), point \(O_1 = (0,0)\):
+
+\[
+0 = 7.5 + R \cos \theta_1 \implies \cos \theta_1 = -\frac{7.5}{R} \\
+0 = k + R \sin \theta_1 \implies \sin \theta_1 = -\frac{k}{R}
+\]
+
+Similarly, at \(\theta = \theta_2\), point \(O_2 = (15,0)\):
+
+\[
+15 = 7.5 + R \cos \theta_2 \implies \cos \theta_2 = \frac{7.5}{R} \\
+0 = k + R \sin \theta_2 \implies \sin \theta_2 = -\frac{k}{R}
+\]
+
+Note that \(\sin \theta_1 = \sin \theta_2 = -\frac{k}{R}\) and \(\cos \theta_1 = -\cos \theta_2\).
+
+Therefore:
+
+\[
+\theta_1 = \pi - \alpha, \quad \theta_2 = \alpha,
+\]
+
+where \(\cos \alpha = \frac{7.5}{R}\), \(\sin \alpha = -\frac{k}{R}\).
+
+---
+
+**Step 13: Points \(A, B, C, D\) lie on \(\Omega\) between \(\theta_2\) and \(\theta_1\) in order:
+
+\(A\), \(B\), \(O_1\), \(C\), \(D\), \(O_2\).
+
+So the order of angles along \(\Omega\) is:
+
+\[
+\theta_A < \theta_B < \theta_1 < \theta_C < \theta_D < \theta_2
+\]
+
+But since \(\theta_1 = \pi - \alpha\), \(\theta_2 = \alpha\), and \(\alpha < \pi/2\) (because \(7.5/R \le 1\)), \(\theta_1 > \theta_2\).
+
+So the arc from \(\theta_2\) to \(\theta_1\) passes through \(D, C, O_1, B, A\) in order.
+
+Because the hexagon is convex, the order along \(\Omega\) is:
+
+\[
+O_2(\theta_2), D, C, O_1(\theta_1), B, A,
+\]
+
+counterclockwise.
+
+---
+
+**Step 14: Calculate chord lengths \(AB = 2\), \(CD = 16\) on \(\Omega\)**
+
+The chord length between two points on a circle of radius \(R\) separated by angle \(\Delta \theta\) is:
+
+\[
+\text{chord length} = 2 R \sin \left(\frac{\Delta \theta}{2}\right)
+\]
+
+---
+
+**Step 15: Find \(\Delta \theta_{AB}\) and \(\Delta \theta_{CD}\)**
+
+Let:
+
+- \(\theta_A = \theta_2 + \phi_A\)
+- \(\theta_B = \theta_2 + \phi_B\)
+
+with \(\phi_B < \phi_A\) (since order is \(O_2, D, C, O_1, B, A\), angles decrease from \(\theta_1\) to \(\theta_2\)).
+
+This is complicated, so instead, consider the chords \(AB\) and \(CD\) are on the two circles \(\omega_2\) and \(\omega_1\) respectively.
+
+---
+
+**Step 16: Use the line equations for chords \(BC\) and \(AD\)**
+
+Recall from Step 10:
+
+- Chord \(BC\) on \(\omega_1\) satisfies:
+
+\[
+15 x + 2 k y = r_1^2
+\]
+
+- Chord \(AD\) on \(\omega_2\) satisfies:
+
+\[
+15 x - 2 k y = 225 - r_2^2
+\]
+
+---
+
+**Step 17: Points \(B, C\) lie on \(\omega_1: x^2 + y^2 = r_1^2\) and line \(15 x + 2 k y = r_1^2\).
+
+Similarly, points \(A, D\) lie on \(\omega_2: (x - 15)^2 + y^2 = r_2^2\) and line \(15 x - 2 k y = 225 - r_2^2\).
+
+---
+
+**Step 18: Compute lengths \(BC\) and \(AD\)**
+
+The chord length on a circle cut by a line \(L\) can be found by:
+
+\[
+\text{length} = 2 \sqrt{r^2 - d^2}
+\]
+
+where \(d\) is the distance from the center to the chord line.
+
+---
+
+**Step 19: Find distance from centers to chords**
+
+For \(\omega_1\):
+
+- Center \(O_1 = (0,0)\)
+- Line \(L_1: 15 x + 2 k y = r_1^2\)
+
+Distance from \(O_1\) to \(L_1\):
+
+\[
+d_1 = \frac{|r_1^2|}{\sqrt{15^2 + (2k)^2}} = \frac{r_1^2}{\sqrt{225 + 4 k^2}}
+\]
+
+Chord length \(BC = 2 \sqrt{r_1^2 - d_1^2} = 16\).
+
+So:
+
+\[
+16 = 2 \sqrt{r_1^2 - \left(\frac{r_1^2}{\sqrt{225 + 4 k^2}}\right)^2} = 2 \sqrt{r_1^2 - \frac{r_1^4}{225 + 4 k^2}}
+\]
+
+Divide both sides by 2:
+
+\[
+8 = \sqrt{r_1^2 - \frac{r_1^4}{225 + 4 k^2}} \implies 64 = r_1^2 - \frac{r_1^4}{225 + 4 k^2}
+\]
+
+Multiply both sides by denominator:
+
+\[
+64 (225 + 4 k^2) = r_1^2 (225 + 4 k^2) - r_1^4
+\]
+
+Rearranged:
+
+\[
+r_1^4 - r_1^2 (225 + 4 k^2) + 64 (225 + 4 k^2) = 0
+\]
+
+---
+
+**Step 20: Similarly for \(\omega_2\):**
+
+Line \(L_2: 15 x - 2 k y = 225 - r_2^2\)
+
+Center \(O_2 = (15,0)\)
+
+Distance from \(O_2\) to \(L_2\):
+
+\[
+d_2 = \frac{|15(15) - 2 k (0) - (225 - r_2^2)|}{\sqrt{15^2 + (2k)^2}} = \frac{|225 - (225 - r_2^2)|}{\sqrt{225 + 4 k^2}} = \frac{r_2^2}{\sqrt{225 + 4 k^2}}
+\]
+
+Chord length \(AD = 2 \sqrt{r_2^2 - d_2^2} = 2\).
+
+So:
+
+\[
+2 = 2 \sqrt{r_2^2 - \left(\frac{r_2^2}{\sqrt{225 + 4 k^2}}\right)^2} = 2 \sqrt{r_2^2 - \frac{r_2^4}{225 + 4 k^2}}
+\]
+
+Divide both sides by 2:
+
+\[
+1 = \sqrt{r_2^2 - \frac{r_2^4}{225 + 4 k^2}} \implies 1 = r_2^2 - \frac{r_2^4}{225 + 4 k^2}
+\]
+
+Multiply both sides by denominator:
+
+\[
+225 + 4 k^2 = r_2^2 (225 + 4 k^2) - r_2^4
+\]
+
+Rearranged:
+
+\[
+r_2^4 - r_2^2 (225 + 4 k^2) + 225 + 4 k^2 = 0
+\]
+
+---
+
+**Step 21: Recall that \(r_1 + r_2 = 15\).**
+
+Let \(r_2 = 15 - r_1\).
+
+---
+
+**Step 22: Now we have two quartic equations in \(r_1\), \(r_2\), and \(k\):**
+
+\[
+r_1^4 - r_1^2 (225 + 4 k^2) + 64 (225 + 4 k^2) = 0
+\]
+\[
+r_2^4 - r_2^2 (225 + 4 k^2) + 225 + 4 k^2 = 0
+\]
+
+Substitute \(r_2 = 15 - r_1\) and simplify.
+
+---
+
+**Step 23: To simplify, set \(M = 225 + 4k^2\).**
+
+Then:
+
+\[
+r_1^4 - r_1^2 M + 64 M = 0 \quad (1)
+\]
+\[
+r_2^4 - r_2^2 M + M = 0 \quad (2)
+\]
+
+---
+
+**Step 24: Solve (1) for \(M\):**
+
+\[
+r_1^4 - r_1^2 M + 64 M = 0 \implies r_1^4 = M (r_1^2 - 64) \implies M = \frac{r_1^4}{r_1^2 - 64}
+\]
+
+Similarly from (2):
+
+\[
+r_2^4 - r_2^2 M + M = 0 \implies r_2^4 = M (r_2^2 - 1) \implies M = \frac{r_2^4}{r_2^2 - 1}
+\]
+
+Therefore,
+
+\[
+\frac{r_1^4}{r_1^2 - 64} = \frac{r_2^4}{r_2^2 - 1}
+\]
+
+---
+
+**Step 25: Substitute \(r_2 = 15 - r_1\)**
+
+Let \(a = r_1\), \(b = 15 - a\).
+
+The equation becomes:
+
+\[
+\frac{a^4}{a^2 - 64} = \frac{b^4}{b^2 - 1}
+\]
+
+---
+
+**Step 26: Try to find integer or rational \(a\) satisfying the above**
+
+Note \(a^2 > 64\) to avoid division by zero or negative denominator; so \(a > 8\).
+
+Try \(a=9\):
+
+LHS:
+
+\[
+\frac{9^4}{9^2 - 64} = \frac{6561}{81 -64} = \frac{6561}{17} \approx 386
+\]
+
+RHS:
+
+\(b = 15 - 9 = 6\)
+
+\[
+\frac{6^4}{6^2 -1} = \frac{1296}{36 -1} = \frac{1296}{35} \approx 37
+\]
+
+No match.
+
+Try \(a = 10\):
+
+LHS:
+
+\[
+\frac{10000}{100 - 64} = \frac{10000}{36} \approx 277.78
+\]
+
+RHS:
+
+\(b=5\)
+
+\[
+\frac{625}{25 -1} = \frac{625}{24} \approx 26.04
+\]
+
+No match.
+
+Try \(a=12\):
+
+LHS:
+
+\[
+\frac{12^4}{144 -64} = \frac{20736}{80} = 259.2
+\]
+
+RHS:
+
+\(b=3\)
+
+\[
+\frac{81}{9 -1} = \frac{81}{8} = 10.125
+\]
+
+No match.
+
+Try \(a=8\) (boundary):
+
+Denominator zero, invalid.
+
+Try \(a = 16\):
+
+LHS:
+
+\[
+\frac{16^4}{256 - 64} = \frac{65536}{192} \approx 341.33
+\]
+
+RHS:
+
+\(b = -1\) (negative radius, invalid).
+
+Try \(a=13\):
+
+LHS:
+
+\[
+\frac{28561}{169 -64} = \frac{28561}{105} \approx 272.01
+\]
+
+RHS:
+
+\(b=2\)
+
+\[
+\frac{16}{4 -1} = \frac{16}{3} \approx 5.33
+\]
+
+No.
+
+Try \(a=14\):
+
+LHS:
+
+\[
+\frac{38416}{196 -64} = \frac{38416}{132} \approx 291.27
+\]
+
+RHS:
+
+\(b=1\)
+
+\[
+\frac{1}{1 -1} = \text{undefined}
+\]
+
+No.
+
+Try \(a=11\):
+
+LHS:
+
+\[
+\frac{14641}{121 -64} = \frac{14641}{57} \approx 256.86
+\]
+
+RHS:
+
+\(b=4\)
+
+\[
+\frac{256}{16 -1} = \frac{256}{15} \approx 17.07
+\]
+
+No.
+
+---
+
+**Step 27: Since trying integers doesn't work, try to find \(a\) such that \(b^2 - 1 = r\) and \(a^2 - 64 = s\) satisfy:
+
+\[
+\frac{a^4}{s} = \frac{b^4}{r}
+\]
+
+Rewrite as:
+
+\[
+\frac{a^4}{a^2 - 64} = \frac{b^4}{b^2 - 1}
+\]
+
+Let \(x = a^2\), \(y = b^2\), with \(b = 15 - a\).
+
+We know radius positive, so \(0 < b < 15\).
+
+Substitute \(b = 15 - a\), so \(b^2 = (15 - a)^2 = 225 - 30 a + a^2 = 225 - 30 a + x\).
+
+Then:
+
+\[
+\frac{x^2}{x - 64} = \frac{(225 - 30 a + x)^2}{(225 - 30 a + x) - 1} = \frac{(225 - 30 a + x)^2}{224 - 30 a + x}
+\]
+
+But this is complicated.
+
+---
+
+**Step 28: Alternative approach: use the fact that the two chords \(BC\) and \(AD\) are symmetric with respect to the center line**
+
+From Step 10, the chord lines are:
+
+\[
+15 x + 2 k y = r_1^2 \quad (BC) \\
+15 x - 2 k y = 225 - r_2^2 \quad (AD)
+\]
+
+If we add the two equations:
+
+\[
+(15x + 2 k y) + (15 x - 2 k y) = r_1^2 + 225 - r_2^2 \implies 30 x = r_1^2 + 225 - r_2^2
+\]
+
+At the midpoint of chords \(BC\) and \(AD\), the \(x\) coordinate is the same.
+
+---
+
+**Step 29: Find the points \(B\) and \(C\) on \(\omega_1\) and line \(15x + 2 k y = r_1^2\)**
+
+The midpoint \(M_{BC}\) lies on the line and is the foot of the perpendicular from center \(O_1\) to the line.
+
+Distance from center \(O_1\) to \(L_1\) is \(d_1 = \frac{r_1^2}{\sqrt{225 + 4k^2}}\).
+
+The midpoint coordinates satisfy:
+
+\[
+x_m = \frac{15 r_1^2}{225 + 4 k^2}, \quad y_m = \frac{2 k r_1^2}{225 + 4 k^2}
+\]
+
+Similarly for \(AD\) on \(\omega_2\):
+
+\[
+x_m = \frac{15 (225 - r_2^2)}{225 + 4 k^2}, \quad y_m = \frac{-2 k (225 - r_2^2)}{225 + 4 k^2}
+\]
+
+---
+
+**Step 30: Recall the hexagon vertices: \(A, B, O_1, C, D, O_2\)**
+
+Our goal is to find the area of the hexagon.
+
+Let's list coordinates of vertices:
+
+- \(O_1 = (0,0)\)
+- \(O_2 = (15,0)\)
+
+- Points \(B, C\) on \(\omega_1\) and line \(15 x + 2 k y = r_1^2\).
+- Points \(A, D\) on \(\omega_2\) and line \(15 x - 2 k y = 225 - r_2^2\).
+
+---
+
+**Step 31: Express points \(B, C\) on line \(L_1\) and circle \(\omega_1\)**
+
+Parametrize line \(L_1\):
+
+\[
+15 x + 2 k y = r_1^2 \implies y = \frac{r_1^2 - 15 x}{2 k}
+\]
+
+Substitute into \(\omega_1: x^2 + y^2 = r_1^2\):
+
+\[
+x^2 + \left(\frac{r_1^2 - 15 x}{2 k}\right)^2 = r_1^2
+\]
+
+Multiply both sides by \(4 k^2\):
+
+\[
+4 k^2 x^2 + (r_1^2 - 15 x)^2 = 4 k^2 r_1^2
+\]
+
+Expand:
+
+\[
+4 k^2 x^2 + r_1^4 - 2 \cdot 15 x r_1^2 + 225 x^2 = 4 k^2 r_1^2
+\]
+
+Simplify:
+
+\[
+4 k^2 x^2 + r_1^4 - 30 x r_1^2 + 225 x^2 - 4 k^2 r_1^2 = 0
+\]
+
+Group terms:
+
+\[
+(4 k^2 + 225) x^2 - 30 r_1^2 x + (r_1^4 - 4 k^2 r_1^2) = 0
+\]
+
+Quadratic in \(x\):
+
+\[
+A x^2 + B x + C = 0
+\]
+
+where
+
+\[
+A = 225 + 4 k^2, \quad B = -30 r_1^2, \quad C = r_1^4 - 4 k^2 r_1^2
+\]
+
+---
+
+**Step 32: The difference between roots gives chord length \(BC\)**
+
+The difference in \(x\) coordinates:
+
+\[
+\Delta x = \frac{\sqrt{B^2 - 4 A C}}{A}
+\]
+
+The chord length squared is:
+
+\[
+BC^2 = (\Delta x)^2 + (\Delta y)^2
+\]
+
+But since points lie on a line, chord length is:
+
+\[
+BC = \frac{\sqrt{B^2 - 4 A C}}{A} \sqrt{1 + m^2}
+\]
+
+where \(m = \frac{dy}{dx}\) is slope of line \(L_1\):
+
+\[
+m = -\frac{15}{2 k}
+\]
+
+So:
+
+\[
+1 + m^2 = 1 + \frac{225}{4 k^2} = \frac{4 k^2 + 225}{4 k^2}
+\]
+
+Therefore:
+
+\[
+BC = \frac{\sqrt{B^2 - 4 A C}}{A} \cdot \sqrt{\frac{4 k^2 + 225}{4 k^2}} = \frac{\sqrt{B^2 - 4 A C}}{A} \cdot \frac{\sqrt{4 k^2 + 225}}{2 k}
+\]
+
+Plug in values:
+
+\[
+B^2 - 4 A C = ( -30 r_1^2)^2 - 4 (225 + 4 k^2)(r_1^4 - 4 k^2 r_1^2) = 900 r_1^4 - 4 (225 + 4k^2)(r_1^4 - 4 k^2 r_1^2)
+\]
+
+---
+
+**Step 33: Simplify \(B^2 - 4 A C\)**
+
+\[
+= 900 r_1^4 - 4 (225 + 4 k^2) r_1^4 + 16 k^2 (225 + 4 k^2) r_1^2
+\]
+
+\[
+= 900 r_1^4 - 900 r_1^4 - 16 k^2 r_1^4 + 16 k^2 (225 + 4 k^2) r_1^2
+\]
+
+\[
+= -16 k^2 r_1^4 + 16 k^2 (225 + 4 k^2) r_1^2 = 16 k^2 r_1^2 (225 + 4 k^2 - r_1^2)
+\]
+
+---
+
+**Step 34: Therefore:**
+
+\[
+BC = \frac{\sqrt{16 k^2 r_1^2 (225 + 4 k^2 - r_1^2)}}{225 + 4 k^2} \cdot \frac{\sqrt{225 + 4 k^2}}{2 k} = \frac{4 k r_1 \sqrt{225 + 4 k^2 - r_1^2}}{225 + 4 k^2} \cdot \frac{\sqrt{225 + 4 k^2}}{2 k}
+\]
+
+Simplify \(k\):
+
+\[
+BC = \frac{4 r_1 \sqrt{225 + 4 k^2 - r_1^2} \sqrt{225 + 4 k^2}}{2 (225 + 4 k^2)} = \frac{2 r_1 \sqrt{(225 + 4 k^2)(225 + 4 k^2 - r_1^2)}}{225 + 4 k^2}
+\]
+
+Cancel denominator:
+
+\[
+BC = 2 r_1 \sqrt{1 - \frac{r_1^2}{225 + 4 k^2}} = 2 \sqrt{r_1^2 - \frac{r_1^4}{225 + 4 k^2}}
+\]
+
+Which matches the chord length formula from Step 19.
+
+Given \(BC = 16\), we have:
+
+\[
+16 = 2 \sqrt{r_1^2 - \frac{r_1^4}{225 + 4 k^2}} \implies 64 = r_1^2 - \frac{r_1^4}{225 + 4 k^2}
+\]
+
+---
+
+**Step 35: Similarly for chord \(AD\), length 2, the same formula applies, matching the previous result.**
+
+---
+
+**Step 36: Use \(AB = 2\) and similar steps for chord \(AD\), we get:**
+
+\[
+4 = r_2^2 - \frac{r_2^4}{225 + 4 k^2}
+\]
+
+We also have \(r_1 + r_2 = 15\).
+
+---
+
+**Step 37: Rewrite the two equations:**
+
+\[
+64 = r_1^2 - \frac{r_1^4}{225 + 4 k^2} \implies \frac{r_1^4}{225 + 4 k^2} = r_1^2 - 64
+\]
+\[
+4 = r_2^2 - \frac{r_2^4}{225 + 4 k^2} \implies \frac{r_2^4}{225 + 4 k^2} = r_2^2 - 4
+\]
+
+Since the denominators are equal, equate:
+
+\[
+\frac{r_1^4}{r_1^2 - 64} = 225 + 4 k^2 = \frac{r_2^4}{r_2^2 - 4}
+\]
+
+Therefore:
+
+\[
+\frac{r_1^4}{r_1^2 - 64} = \frac{r_2^4}{r_2^2 - 4}
+\]
+
+---
+
+**Step 38: Let \(x = r_1^2\), \(y = r_2^2\), with \(r_2 = 15 - r_1\), but more simply, treat \(r_1\) and \(r_2\) independent for now.**
+
+We want to solve:
+
+\[
+\frac{x^2}{x - 64} = \frac{y^2}{y - 4}
+\]
+
+with the constraint:
+
+\[
+r_1 + r_2 = 15
+\]
+
+---
+
+**Step 39: Try to find integer solution for \(r_1\) and \(r_2\)**
+
+Try \(r_1 = 13\), \(r_2 = 2\):
+
+\[
+r_1^2 = 169, \quad r_2^2 = 4
+\]
+
+LHS:
+
+\[
+\frac{169^2}{169 - 64} = \frac{28561}{105} \approx 272.01
+\]
+
+RHS:
+
+\[
+\frac{4^2}{4 - 4} = \frac{16}{0} \to \infty
+\]
+
+No.
+
+Try \(r_2 = 3\), \(r_2^2 = 9\):
+
+\[
+r_1 = 12, r_1^2 = 144
+\]
+
+LHS:
+
+\[
+\frac{144^2}{144 - 64} = \frac{20736}{80} = 259.2
+\]
+
+RHS:
+
+\[
+\frac{81}{9 - 4} = \frac{81}{5} = 16.2
+\]
+
+No.
+
+Try \(r_2 = 4\) (already no), try \(r_2 = 5\), \(r_2^2 = 25\), \(r_1=10\), \(r_1^2=100\):
+
+LHS:
+
+\[
+\frac{10000}{100 - 64} = \frac{10000}{36} \approx 277.78
+\]
+
+RHS:
+
+\[
+\frac{625}{25 - 4} = \frac{625}{21} \approx 29.76
+\]
+
+No.
+
+Try \(r_2 = 6\), \(r_2^2=36\), \(r_1=9\), \(r_1^2=81\):
+
+LHS:
+
+\[
+\frac{81^2}{81 - 64} = \frac{6561}{17} \approx 386
+\]
+
+RHS:
+
+\[
+\frac{1296}{36 - 4} = \frac{1296}{32} = 40.5
+\]
+
+No.
+
+Try \(r_1 = 8\), \(r_1^2 = 64\) (denominator zero), no.
+
+Try \(r_1 = 16\), invalid radius.
+
+---
+
+**Step 40: Try to use the sum \(r_1 + r_2 = 15\) to express \(r_2 = 15 - r_1\), and solve for \(r_1\) numerically.**
+
+Set \(f(r_1) = \frac{r_1^4}{r_1^2 - 64} - \frac{(15 - r_1)^4}{(15 - r_1)^2 - 4} = 0\)
+
+Try values between 8 and 15 (since \(r_1 > 8\)):
+
+- \(r_1=9\), \(f(9) = 386 - 37 = 349 > 0\)
+- \(r_1=14\), \(f(14) = 291 - \infty = -\infty\) (since denominator zero for \(r_2=1\))
+- \(r_1=13\), \(f(13) = 272 - 5.3 = 266.7 > 0\)
+- \(r_1=14.5\), \(r_2=0.5\), \(r_2^2=0.25\), denominator negative, no.
+- \(r_1=12\), \(f(12) = 259 - 10 = 249 > 0\)
+
+Since \(f(r_1)\) is always positive and undefined at \(r_2^2=4\), no zero crossing, so no real solution for \(k\).
+
+---
+
+**Step 41: Conclude \(k=0\)**
+
+If \(k=0\), then the center of \(\Omega\) is at \((7.5,0)\).
+
+Then the circle \(\Omega\) passes through \(O_1(0,0)\) and \(O_2(15,0)\), with center on the \(x\)-axis.
+
+Radius:
+
+\[
+R = |7.5 - 0| = 7.5
+\]
+
+---
+
+**Step 42: Then \(\Omega\) is the circle with center \((7.5,0)\) and radius \(7.5\), passing through \(O_1\) and \(O_2\).
+
+---
+
+**Step 43: Then the chords \(BC\) and \(AD\) are vertical chords (since \(k=0\))**
+
+The chord lines:
+
+\[
+15 x + 0 = r_1^2 \implies x = \frac{r_1^2}{15}
+\]
+\[
+15 x - 0 = 225 - r_2^2 \implies x = \frac{225 - r_2^2}{15}
+\]
+
+---
+
+**Step 44: Chord lengths on circles \(\omega_1\) and \(\omega_2\)**
+
+For \(\omega_1\) (center \(0,0\), radius \(r_1\)), chord \(BC\) is vertical line \(x = \frac{r_1^2}{15}\).
+
+Distance from center is \(d = \frac{r_1^2}{15}\).
+
+Chord length:
+
+\[
+BC = 2 \sqrt{r_1^2 - d^2} = 16
+\]
+
+Square both sides:
+
+\[
+256 = 4 (r_1^2 - d^2) = 4 \left(r_1^2 - \frac{r_1^4}{225}\right) = 4 r_1^2 \left(1 - \frac{r_1^2}{225}\right)
+\]
+
+Divide by 4:
+
+\[
+64 = r_1^2 \left(1 - \frac{r_1^2}{225}\right) = r_1^2 - \frac{r_1^4}{225}
+\]
+
+Rearranged:
+
+\[
+\frac{r_1^4}{225} - r_1^2 + 64 = 0 \implies r_1^4 - 225 r_1^2 + 14400 = 0
+\]
+
+Let \(X = r_1^2\):
+
+\[
+X^2 - 225 X + 14400 = 0
+\]
+
+---
+
+**Step 45: Solve quadratic:**
+
+\[
+X = \frac{225 \pm \sqrt{225^2 - 4 \cdot 14400}}{2} = \frac{225 \pm \sqrt{50625 - 57600}}{2} = \frac{225 \pm \sqrt{-6975}}{2}
+\]
+
+Discriminant negative, no real solution.
+
+---
+
+**Step 46: This contradicts our assumption \(k=0\). There must be a nonzero \(k\).**
+
+---
+
+**Step 47: Alternative approach: since the problem is symmetric and the hexagon \(A B O_1 C D O_2\) is convex, the hexagon is formed by points on two circles and their centers, and chords \(AB=2\), \(CD=16\).
+
+From the problem figures (not shown), the hexagon is likely a trapezoid with two triangles attached.
+
+---
+
+**Step 48: Use the polygon area formula:**
+
+Coordinates of points:
+
+- \(O_1 = (0,0)\)
+- \(O_2 = (15,0)\)
+- \(A, D\) on \(\omega_2\)
+- \(B, C\) on \(\omega_1\)
+
+Since \(A, D\) lie on \(\omega_2\) and \(\Omega\), and \(B, C\) lie on \(\omega_1\) and \(\Omega\), and \(O_1 O_2 = 15\).
+
+---
+
+**Step 49: Final key insight**
+
+The hexagon \(A B O_1 C D O_2\) can be divided into two trapezoids:
+
+- \(A B O_1 C\)
+- \(C D O_2 A\)
+
+Given symmetry, the area likely equals
+
+\[
+\text{Area} = \frac{1}{2} (AB + CD) \times O_1 O_2 = \frac{1}{2} (2 + 16) \times 15 = \frac{1}{2} \times 18 \times 15 = 135
+\]
+
+---
+
+**Step 50: Conclusion**
+
+The area of the hexagon \(A B O_1 C D O_2\) is \(\boxed{135}\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 140.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+22
+
+## reasoning
+Let the original total number of people at the concert be \( x \).
+
+The number of adults initially is \(\frac{5}{12}x\).
+
+After a bus carrying 50 more people arrives, the total number of people is \( x + 50 \).
+
+The number of adults remains the same (since only the total number changed, adults are part of the original crowd), so the number of adults is still \(\frac{5}{12}x\).
+
+After the bus arrives, adults make up \(\frac{11}{25}\) of the crowd:
+\[
+\frac{5}{12}x = \frac{11}{25} (x + 50)
+\]
+
+Multiply both sides by 300 (the least common multiple of 12 and 25) to clear denominators:
+\[
+300 \cdot \frac{5}{12} x = 300 \cdot \frac{11}{25} (x + 50)
+\]
+\[
+25 \cdot 5 x = 12 \cdot 11 (x + 50)
+\]
+\[
+125x = 132 (x + 50)
+\]
+\[
+125x = 132x + 6600
+\]
+\[
+125x - 132x = 6600
+\]
+\[
+-7x = 6600
+\]
+\[
+x = -\frac{6600}{7}
+\]
+
+Since this is negative, it means the adults count is not constant after the bus arrives; i.e., the problem likely implies that the adults count changed as well after the bus arrived.
+
+Maybe the bus carried some adults, so the number of adults increased, and after the bus arrived, adults made up \(\frac{11}{25}\) of the new total.
+
+Let the number of adults initially be \( A \), and total initially be \( T \).
+
+Given:
+\[
+A = \frac{5}{12} T
+\]
+
+After 50 people arrive, total is \( T + 50 \), and adults count is \( A + a \), where \( a \) is the number of adults on the bus.
+
+Given:
+\[
+\frac{A + a}{T + 50} = \frac{11}{25}
+\]
+
+Our goal is to find the minimum possible number of adults after the bus arrived, i.e., minimize \( A + a \).
+
+From the first equation:
+\[
+A = \frac{5}{12} T
+\]
+
+From the second:
+\[
+A + a = \frac{11}{25}(T + 50)
+\]
+
+Substitute \( A \) from the first into the second:
+\[
+\frac{5}{12} T + a = \frac{11}{25} (T + 50)
+\]
+\[
+a = \frac{11}{25} (T + 50) - \frac{5}{12} T
+\]
+
+Since \( a \) is the number of adults on the bus, it must be between 0 and 50 inclusive (cannot be more adults than total people on the bus). Also, all counts should be integers.
+
+Rewrite:
+\[
+a = \frac{11}{25} T + \frac{11}{25} \times 50 - \frac{5}{12} T = \left(\frac{11}{25} - \frac{5}{12}\right) T + \frac{11 \times 50}{25}
+\]
+
+Calculate the coefficient:
+\[
+\frac{11}{25} - \frac{5}{12} = \frac{11 \times 12}{25 \times 12} - \frac{5 \times 25}{12 \times 25} = \frac{132}{300} - \frac{125}{300} = \frac{7}{300}
+\]
+
+Calculate the constant term:
+\[
+\frac{11 \times 50}{25} = \frac{550}{25} = 22
+\]
+
+So:
+\[
+a = \frac{7}{300} T + 22
+\]
+
+Since \( a \leq 50 \), we have:
+\[
+\frac{7}{300} T + 22 \leq 50 \implies \frac{7}{300} T \leq 28 \implies T \leq \frac{28 \times 300}{7} = 28 \times \frac{300}{7} = 28 \times 42.\overline{857} = 1200
+\]
+
+So \( T \leq 1200 \).
+
+Also, \(a \geq 0\):
+\[
+\frac{7}{300} T + 22 \geq 0 \implies T \geq -\frac{22 \times 300}{7} \implies T \geq \text{negative value}
+\]
+So no lower bound from this.
+
+Now, \( A = \frac{5}{12} T \) must be integer, so \( T \) must be divisible by 12.
+
+Similarly, \( A + a = \frac{11}{25} (T + 50) \) must be integer, so \( (T + 50) \) must be divisible by 25.
+
+Let:
+\[
+T = 12k
+\]
+\[
+T + 50 = 25m
+\]
+
+So:
+\[
+12k + 50 = 25 m \implies 25 m - 12 k = 50
+\]
+
+We want integer solutions \( (k, m) \) with \( k \geq 0 \), \( m \geq 0 \), \( T = 12 k \leq 1200 \).
+
+Rewrite:
+\[
+25 m = 12 k + 50
+\]
+
+Take modulo 12:
+\[
+25 m \equiv 50 \pmod{12}
+\]
+
+Note:
+\[
+25 \equiv 1 \pmod{12}
+\]
+\[
+50 \equiv 2 \pmod{12}
+\]
+
+So:
+\[
+m \equiv 2 \pmod{12}
+\]
+
+So \( m = 12 n + 2 \), for integer \( n \geq 0 \).
+
+Substitute back:
+\[
+25 m = 25 (12 n + 2) = 300 n + 50 = 12 k + 50
+\]
+\[
+12 k = 300 n + 50 - 50 = 300 n
+\]
+\[
+k = 25 n
+\]
+
+So:
+\[
+T = 12 k = 12 \times 25 n = 300 n
+\]
+\[
+T + 50 = 25 m = 25 (12 n + 2) = 300 n + 50
+\]
+
+Now check \( a = \frac{7}{300} T + 22 = \frac{7}{300} \times 300 n + 22 = 7 n + 22 \leq 50 \)
+
+So:
+\[
+7 n + 22 \leq 50 \implies 7 n \leq 28 \implies n \leq 4
+\]
+
+\( n \geq 0 \), so \( n = 0, 1, 2, 3, 4 \).
+
+For each \( n \), calculate \( A + a = \frac{11}{25} (T + 50) = \frac{11}{25} (300 n + 50) \).
+
+\[
+= \frac{11}{25} \times (300 n + 50) = \frac{11}{25} \times 50 (6 n + 1) = \frac{11 \times 50}{25} (6 n + 1) = 22 (6 n + 1)
+\]
+
+Calculate for each \( n \):
+
+- \( n=0 \rightarrow 22(1) = 22 \)
+- \( n=1 \rightarrow 22(7) = 154 \)
+- \( n=2 \rightarrow 22(13) = 286 \)
+- \( n=3 \rightarrow 22(19) = 418 \)
+- \( n=4 \rightarrow 22(25) = 550 \)
+
+The minimum number of adults after the bus arrived is when \( n=0 \), which gives 22 adults.
+
+Check \( a = 7 n + 22 = 7 \times 0 + 22 = 22 \leq 50 \), valid.
+
+So the minimum number of adults is 22.
+
+## Feedback
+Your answer is incorrect. The correct answer is 154.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Find the number of cubic polynomials $p(x) = x^3 + ax^2 + bx + c,$ where $a, b,$ and $c$ are integers in $\{-20,-19,-18,\ldots,18,19,20\},$ such that there is a unique integer $m \not= 2$ with $p(m) = p(2).$
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+328
+
+## reasoning
+We are given cubic polynomials of the form 
+\[ p(x) = x^3 + a x^2 + b x + c, \]
+where \(a, b, c \in \{-20, -19, \ldots, 19, 20\}\).
+
+We want to find the number of such polynomials for which there exists a unique integer \(m \neq 2\) such that 
+\[ p(m) = p(2). \]
+
+---
+
+**Step 1: Understand the condition \(p(m) = p(2)\)**
+
+Define 
+\[
+q(x) = p(x) - p(2).
+\]
+Then \(q(2) = p(2) - p(2) = 0\), so \(x=2\) is a root of \(q(x)\).
+
+We want \(q(x)\) to have exactly two integer roots: \(x=2\) and exactly one other integer root \(m \neq 2\).
+
+Since \(p(x)\) is cubic, \(q(x)\) is cubic with zero constant term (because \(q(2) = 0\)).
+
+---
+
+**Step 2: Factorization of \(q(x)\)**
+
+Since \(2\) is a root of \(q(x)\), \(q(x)\) can be factored as 
+\[
+q(x) = (x-2) h(x),
+\]
+where \(h(x)\) is a quadratic polynomial:
+\[
+h(x) = x^2 + A x + B,
+\]
+with \(A, B \in \mathbb{Z}\) (to be determined).
+
+Then:
+\[
+q(x) = (x-2)(x^2 + A x + B) = x^3 + A x^2 + B x - 2 x^2 - 2 A x - 2 B.
+\]
+
+Collect terms:
+\[
+q(x) = x^3 + (A - 2) x^2 + (B - 2A) x - 2 B.
+\]
+
+Recall:
+\[
+q(x) = p(x) - p(2) = x^3 + a x^2 + b x + c - p(2).
+\]
+
+But \(p(2) = 2^3 + a \cdot 2^2 + b \cdot 2 + c = 8 + 4a + 2b + c.\)
+
+So,
+\[
+q(x) = x^3 + a x^2 + b x + c - (8 + 4a + 2b + c) = x^3 + a x^2 + b x + c - 8 - 4a - 2b - c = x^3 + a x^2 + b x - 8 - 4a - 2b.
+\]
+
+Notice the constant term of \(q(x)\) is \(-8 - 4a - 2b\), but from the factorization, the constant term is \(-2 B\).
+
+Hence,
+\[
+-2 B = -8 - 4 a - 2 b \implies 2 B = 8 + 4 a + 2 b \implies B = 4 + 2 a + b.
+\]
+
+Similarly, matching coefficients of \(x^2\) and \(x\):
+
+From \(q(x) = x^3 + (A - 2) x^2 + (B - 2A) x - 2 B\), and from the above expression \(q(x) = x^3 + a x^2 + b x - 8 - 4 a - 2 b\), we get:
+
+- Coefficient of \(x^2\):
+\[
+A - 2 = a \implies A = a + 2.
+\]
+
+- Coefficient of \(x\):
+\[
+B - 2 A = b \implies B - 2 (a + 2) = b \implies B - 2 a - 4 = b.
+\]
+
+Recall from above \(B = 4 + 2 a + b\), substitute into this:
+\[
+4 + 2 a + b - 2 a - 4 = b \implies b = b,
+\]
+which is consistent.
+
+So the relationships are:
+\[
+A = a + 2, \quad B = 4 + 2 a + b.
+\]
+
+---
+
+**Step 3: Roots of \(q(x)\)**
+
+We know \(q(x) = (x-2)(x^2 + A x + B)\).
+
+We want the integer roots of \(q(x)\) to be exactly two: \(x=2\) and exactly one other integer root \(m \neq 2\).
+
+So \(x^2 + A x + B\) must have exactly one integer root (and the other root must be non-integer or equal to the first root).
+
+---
+
+**Step 4: Analyze the quadratic \(x^2 + A x + B\)**
+
+Let the roots be \(\alpha\), \(\beta\).
+
+They satisfy:
+\[
+\alpha + \beta = -A, \quad \alpha \beta = B.
+\]
+
+We want exactly one integer root, say \(\alpha = m \neq 2\), and the other root \(\beta\) is either non-integer or equal to \(\alpha\).
+
+- If \(\beta\) is non-integer, then there is exactly one other integer root \(m\).
+- If \(\beta = \alpha = m\), then the root is repeated, so only one root (counting multiplicity twice), but for the polynomial \(q(x)\), the roots are:
+  - \(x=2\) (simple root),
+  - \(x=m\) (double root).
+
+This is acceptable because \(p(m) = p(2)\) and no other integer \(x\) satisfies \(p(x) = p(2)\).
+
+So the cases are:
+
+**Case 1: Two distinct roots \(\alpha, \beta\), exactly one integer**
+
+- One root integer \(m \neq 2\),
+- The other root non-integer.
+
+**Case 2: Double root \(\alpha = \beta = m \neq 2\)**
+
+---
+
+**Step 5: Conditions for the quadratic**
+
+- The discriminant:
+\[
+\Delta = A^2 - 4 B,
+\]
+must be:
+- For distinct roots: \(\Delta > 0\).
+- For double root: \(\Delta = 0\).
+
+Also, roots are real, so \(\Delta \ge 0\).
+
+---
+
+**Step 6: Express the roots**
+
+The roots are:
+\[
+x = \frac{-A \pm \sqrt{\Delta}}{2}.
+\]
+
+---
+
+**Step 7: Case 2: Double root**
+
+If \(\Delta = 0\), then the root is \(-A/2 = m\), an integer \(m \neq 2\).
+
+Also,
+\[
+B = \left(\frac{A}{2}\right)^2 = m^2.
+\]
+
+Recall:
+\[
+A = a + 2, \quad B = 4 + 2 a + b.
+\]
+
+From \(m = -A/2\), we get:
+\[
+m = -\frac{a + 2}{2} \implies a + 2 = -2 m \implies a = -2 m - 2.
+\]
+
+From \(B = m^2\):
+\[
+4 + 2 a + b = m^2 \implies b = m^2 - 4 - 2 a.
+\]
+
+Substitute the expression for \(a\):
+\[
+b = m^2 - 4 - 2(-2 m - 2) = m^2 - 4 + 4 m + 4 = m^2 + 4 m.
+\]
+
+So,
+\[
+a = -2 m - 2, \quad b = m^2 + 4 m.
+\]
+
+---
+
+**Step 8: Constraints on \(a, b, c\)**
+
+Recall \(a, b, c \in \{-20, \ldots, 20\}\).
+
+We have \(a\) and \(b\) expressed in terms of \(m\). We need \(a, b\) in \([-20, 20]\).
+
+Also, \(c\) can be any integer in \([-20, 20]\), since \(c\) does not affect the roots of \(q(x)\).
+
+---
+
+**Step 9: Find all integer \(m \neq 2\) such that \(a, b \in [-20,20]\)**
+
+Check \(a\):
+\[
+a = -2 m - 2 \in [-20, 20].
+\]
+This gives:
+\[
+-20 \le -2 m - 2 \le 20.
+\]
+Multiply inequalities by \(-1\) (flip signs):
+\[
+20 \ge 2 m + 2 \ge -20,
+\]
+or
+\[
+20 \ge 2 m + 2 \ge -20.
+\]
+
+Subtract 2:
+\[
+18 \ge 2 m \ge -22,
+\]
+Divide by 2:
+\[
+9 \ge m \ge -11.
+\]
+
+So,
+\[
+m \in \{-11, -10, \ldots, 9\}.
+\]
+
+---
+
+Check \(b\):
+\[
+b = m^2 + 4 m \in [-20, 20].
+\]
+
+Now check for \(m \in [-11, 9]\), which \(m\) satisfy \(b \in [-20,20]\)?
+
+Calculate \(b\) for these \(m\):
+
+| \(m\) | \(m^2 + 4 m\) |
+|-------|---------------|
+| -11   | 121 - 44 = 77 |
+| -10   | 100 - 40 = 60 |
+| -9    | 81 - 36 = 45  |
+| -8    | 64 - 32 = 32  |
+| -7    | 49 - 28 = 21  |
+| -6    | 36 - 24 = 12  |
+| -5    | 25 - 20 = 5   |
+| -4    | 16 - 16 = 0   |
+| -3    | 9 - 12 = -3   |
+| -2    | 4 - 8 = -4    |
+| -1    | 1 - 4 = -3    |
+| 0     | 0 + 0 = 0     |
+| 1     | 1 + 4 = 5     |
+| 2     | 4 + 8 = 12    |
+| 3     | 9 + 12 = 21   |
+| 4     | 16 + 16 = 32  |
+| 5     | 25 + 20 = 45  |
+| 6     | 36 + 24 = 60  |
+| 7     | 49 + 28 = 77  |
+| 8     | 64 + 32 = 96  |
+| 9     | 81 + 36 = 117 |
+
+From these, only those with \(b \in [-20,20]\) are:
+
+\[
+m = -6, -5, -4, -3, -2, -1, 0, 1, 2.
+\]
+
+Recall \(m \neq 2\), so exclude \(2\).
+
+Thus,
+\[
+m \in \{-6, -5, -4, -3, -2, -1, 0, 1\}.
+\]
+
+---
+
+**Step 10: Determine \(c\) for these**
+
+Since \(c\) can be any integer in \([-20,20]\), for each valid \((a,b)\), there are 41 possible \(c\)'s.
+
+Hence, for Case 2 (double root), the number of polynomials is:
+\[
+\text{number} = 8 \times 41 = 328,
+\]
+where 8 is the number of valid \(m\).
+
+---
+
+**Step 11: Case 1: Distinct roots, exactly one integer root \(m \neq 2\)**
+
+In this case, the quadratic \(x^2 + A x + B\) has two distinct roots, one integer \(m \neq 2\), the other root is not an integer.
+
+Recall:
+\[
+A = a + 2, \quad B = 4 + 2 a + b,
+\]
+and from the quadratic roots:
+\[
+\alpha + \beta = -A = -(a+2), \quad \alpha \beta = B = 4 + 2 a + b.
+\]
+
+Assume \(\alpha = m \in \mathbb{Z}, m \neq 2\), and \(\beta\) is not an integer.
+
+We want exactly one other integer root \(m\), so:
+
+- \(\alpha = m \in \mathbb{Z}, m \neq 2\),
+- \(\beta\) not integer (could be rational or irrational),
+- roots distinct \(\Rightarrow \Delta > 0\),
+- \(\beta \notin \mathbb{Z}\).
+
+Given \(\alpha = m\), \(\beta = -A - m = -(a + 2) - m = -(a + 2 + m)\).
+
+---
+
+**Step 12: Express \(b\) in terms of \(a, m, \beta\)**
+
+From:
+\[
+B = \alpha \beta = m \cdot \beta = 4 + 2 a + b,
+\]
+so
+\[
+b = m \beta - 4 - 2 a.
+\]
+
+But \(a, b\) must be integers, so \(b\) integer implies \(m \beta\) is integer.
+
+Since \(m\) is integer, for \(m \beta\) to be integer, \(\beta\) must be rational with denominator dividing \(m\).
+
+But \(\beta\) is not integer.
+
+---
+
+**Step 13: Discriminant condition**
+
+\[
+\Delta = A^2 - 4 B = (a + 2)^2 - 4 (4 + 2 a + b).
+\]
+
+Substitute \(b = m \beta - 4 - 2 a\):
+\[
+\Delta = (a + 2)^2 - 4 (4 + 2 a + m \beta - 4 - 2 a) = (a + 2)^2 - 4 m \beta.
+\]
+
+Simplify inside:
+\[
+4 + 2 a + b = 4 + 2 a + m \beta - 4 - 2 a = m \beta.
+\]
+
+So,
+\[
+\Delta = (a + 2)^2 - 4 m \beta.
+\]
+
+---
+
+**Step 14: \(\beta = -(a + 2 + m)\)**
+
+From above,
+\[
+\beta = -(a + 2 + m).
+\]
+
+So,
+\[
+m \beta = m \cdot (-(a + 2 + m)) = - m (a + 2 + m).
+\]
+
+Hence,
+\[
+\Delta = (a + 2)^2 - 4 \cdot (- m (a + 2 + m)) = (a + 2)^2 + 4 m (a + 2 + m).
+\]
+
+Rewrite:
+\[
+\Delta = (a + 2)^2 + 4 m (a + 2) + 4 m^2 = \bigl(a + 2 + 2 m\bigr)^2.
+\]
+
+Since \(\Delta = (a + 2 + 2 m)^2\), the discriminant is a perfect square for all integer \(a, m\).
+
+Therefore, the quadratic always has rational roots (actually integer roots if the roots are integers).
+
+---
+
+**Step 15: Roots are:
+\[
+x = \frac{-(a + 2) \pm (a + 2 + 2 m)}{2}.
+\]
+
+Calculate roots explicitly:
+
+- Root 1:
+\[
+x_1 = \frac{-(a + 2) + (a + 2 + 2 m)}{2} = \frac{2 m}{2} = m,
+\]
+consistent with assumption.
+
+- Root 2:
+\[
+x_2 = \frac{-(a + 2) - (a + 2 + 2 m)}{2} = \frac{-2 (a + 2) - 2 m}{2} = -(a + 2) - m.
+\]
+
+So the roots are \(m\) and \(- (a + 2) - m\).
+
+---
+
+**Step 16: We want exactly one integer root \(m\), so the other root \(x_2\) must not be integer.**
+
+But \(a\) and \(m\) are integers, so \(x_2 = -(a + 2) - m\) is always an integer.
+
+Therefore, the other root is always an integer.
+
+This contradicts the assumption that the other root is not integer.
+
+---
+
+**Step 17: Conclusion from Step 16**
+
+If the quadratic has one integer root \(m\), the other root is also integer, because \(a, m\) are integers.
+
+Thus, \(q(x)\) has roots at \(2\), \(m\), and \(-(a + 2) - m\), all integers.
+
+Therefore, the total number of integer roots is either 1 (only \(x=2\)) or 3 (all roots integer).
+
+---
+
+**Step 18: We want exactly two integer roots: \(2\) and \(m \neq 2\).**
+
+From Step 17, if the quadratic factor has two distinct roots, both are integers, so the polynomial has three integer roots: 2, \(m\), and another integer root \(\neq 2\).
+
+This contradicts the problem statement: there should be exactly one integer \(m \neq 2\) with \(p(m) = p(2)\).
+
+---
+
+**Step 19: So the only way to have exactly two integer roots (2 and one other) is when the quadratic has a double root \(m\), i.e., Case 2.**
+
+---
+
+**Step 20: Summary**
+
+- Case 1 (distinct roots with exactly one integer root) is impossible because the second root is always integer.
+- Case 2 (double root \(m\)) is possible and the polynomials are parameterized by:
+\[
+a = -2 m - 2, \quad b = m^2 + 4 m, \quad c \in [-20, 20],
+\]
+with \(m \in \{-6, -5, -4, -3, -2, -1, 0, 1\}\) and \(m \neq 2\).
+
+Number of such polynomials:
+\[
+8 \times 41 = 328.
+\]
+
+---
+
+**Final answer:**
+
+\[
+\boxed{328}.
+\]
+
+---
+
+**Note:** The problem restricts \(a,b,c\) to be integers in \([-20,20]\), which is satisfied in Case 2 for the above \(m\) values.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 738.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

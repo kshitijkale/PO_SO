@@ -24,38 +24,44 @@ def math_metric(example, prediction) -> tuple[float, str]:
     feedback_text is shown to the reflection LLM as side_info.
     """
     correct_answer = int(example.answer)
-    solution = getattr(example, "solution", "")
-    solution_suffix = (
-        f" Here's the step-by-step solution:\n{solution}\n\n"
-        "Think about what takeaways you can learn from this to improve future answers."
-        if solution
-        else ""
-    )
 
     try:
         llm_answer = int(prediction.answer)
     except (ValueError, TypeError):
         return 0.0, (
             f"Your answer '{prediction.answer}' could not be parsed as an integer. "
-            f"The correct answer is {correct_answer}.{solution_suffix}"
+            f"The correct answer is {correct_answer}."
         )
 
     score = float(correct_answer == llm_answer)
     status = "correct" if score == 1.0 else "incorrect"
-    return score, f"Your answer is {status}. The correct answer is {correct_answer}.{solution_suffix}"
+    return score, f"Your answer is {status}. The correct answer is {correct_answer}."
 
 
-def evaluate_on_dataset(prompt: str, dataset: list) -> float:
-    """Evaluate `prompt` on `dataset` with dspy.Evaluate. Returns accuracy in [0, 1]."""
+def evaluate_on_dataset(prompt: str, dataset: list, print_examples: bool = False) -> float:
+    """Evaluate `prompt` on `dataset`. Returns accuracy in [0, 1].
+
+    Uses an explicit per-example loop so reported numbers are exact and
+    transparent (correct/total), and can optionally print predicted vs
+    correct answer for every example.
+    """
     predictor.predict.signature.instructions = prompt
+    total = len(dataset)
+    if total == 0:
+        return 0.0
 
-    def dspy_metric(example, prediction):
-        return math_metric(example, prediction)[0]
+    num_correct = 0
+    for idx, example in enumerate(dataset, start=1):
+        prediction = predictor(problem=example.problem)
+        score, _ = math_metric(example, prediction)
+        num_correct += int(score)
 
-    evaluator = dspy.Evaluate(
-        devset=dataset,
-        metric=dspy_metric,
-        num_threads=16,
-        display_progress=True,
-    )
-    return evaluator(predictor).score / 100.0
+        if print_examples:
+            mark = "✓" if score == 1.0 else "✗"
+            print(
+                f"  [{mark}] q#{idx:03d}  predicted={prediction.answer}  correct={example.answer}"
+            )
+
+    accuracy = num_correct / total
+    print(f"  Summary: {num_correct}/{total} correct ({accuracy:.2%})")
+    return accuracy

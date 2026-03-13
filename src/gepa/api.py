@@ -81,8 +81,10 @@ def optimize(
     # Reflection memory
     use_reflection_memory: bool = False,
     reflection_memory_max_entries: int = 10,
+    lesson_lm: LanguageModel | str | None = None,
     # Research observability
     research_mode: bool = False,
+    verbose: bool = False,
     # Reproducibility
     seed: int = 0,
     raise_on_exception: bool = True,
@@ -358,8 +360,13 @@ def optimize(
             ResearchLogger(output_dir=research_dir),
             StateLogger(output_dir=research_dir),
             LineageTracker(output_dir=research_dir),
-            LiveDisplay(),
         ])
+        if not verbose:
+            active_callbacks.append(LiveDisplay())
+    if verbose:
+        from gepa.callbacks import VerboseDisplay
+
+        active_callbacks.append(VerboseDisplay())
     effective_callbacks: list[GEPACallback] | None = active_callbacks if active_callbacks else None
 
     # Create reflection memory if enabled
@@ -369,6 +376,19 @@ def optimize(
             max_entries=reflection_memory_max_entries,
             callbacks=effective_callbacks,
         )
+
+    # Resolve lesson_lm for V2 memory: explicit override > reflection_lm > None
+    lesson_lm_callable: LanguageModel | None = None
+    if use_reflection_memory:
+        if lesson_lm is not None:
+            if isinstance(lesson_lm, str):
+                from gepa.optimize_anything import make_litellm_lm
+
+                lesson_lm_callable = make_litellm_lm(lesson_lm)
+            else:
+                lesson_lm_callable = lesson_lm
+        else:
+            lesson_lm_callable = reflection_lm_callable
 
     reflective_proposer = ReflectiveMutationProposer(
         logger=logger,
@@ -385,6 +405,7 @@ def optimize(
         custom_candidate_proposer=custom_candidate_proposer,
         callbacks=effective_callbacks,
         reflection_memory=reflection_memory,
+        lesson_lm=lesson_lm_callable,
     )
 
     def evaluator_fn(

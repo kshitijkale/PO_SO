@@ -1,0 +1,894 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Find the number of rectangles that can be formed inside a fixed regular dodecagon ($12$-gon) where each side of the rectangle lies on either a side or a diagonal of the dodecagon. The diagram below shows three of those rectangles.
+[asy] unitsize(0.6 inch); for(int i=0; i<360; i+=30) { dot(dir(i), 4+black); draw(dir(i)--dir(i+30)); } draw(dir(120)--dir(330)); filldraw(dir(210)--dir(240)--dir(30)--dir(60)--cycle, mediumgray, linewidth(1.5)); draw((0,0.366)--(0.366,0), linewidth(1.5)); [/asy]
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+15
+
+## reasoning
+We are given a regular dodecagon (12-gon), and the problem asks for the number of rectangles that can be formed inside it such that each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+
+**Step 1: Understand the problem and setup**
+
+A regular dodecagon has 12 vertices equally spaced on a circle. Each vertex is connected to every other vertex by a diagonal or side. In total, there are \(\binom{12}{2} = 66\) line segments (12 sides and 54 diagonals).
+
+We want to find rectangles formed by four such line segments, each lying along a side or diagonal of the dodecagon, whose vertices lie on the vertices of the dodecagon (since the sides/diagonals are defined between vertices).
+
+**Step 2: Key observations about rectangles inscribed in a regular polygon**
+
+- Rectangles have four right angles.
+- In a polygon inscribed in a circle, a rectangle must be cyclic (since all vertices lie on the circle).
+- The opposite vertices of a rectangle inscribed in a circle are endpoints of diameters of the circle, meaning they are antipodal points.
+- Therefore, any rectangle inscribed in a circle must have its vertices as four points on the circle such that opposite points are opposite on the circle (diametrically opposite).
+
+**Step 3: Find antipodal pairs in the regular dodecagon**
+
+The dodecagon is regular, so the vertices lie on the circle at angles of \(0^\circ, 30^\circ, 60^\circ, \dots, 330^\circ\).
+
+Antipodal points are those exactly \(180^\circ\) apart.
+
+- Vertex 0° is antipodal to vertex 180° (vertex 6 if numbering 0 to 11).
+- Vertex 30° (vertex 1) is antipodal to vertex 210° (vertex 7).
+- Vertex 60° (vertex 2) to vertex 240° (vertex 8).
+- Vertex 90° (vertex 3) to vertex 270° (vertex 9).
+- Vertex 120° (vertex 4) to vertex 300° (vertex 10).
+- Vertex 150° (vertex 5) to vertex 330° (vertex 11).
+
+Thus, there are 6 pairs of antipodal vertices.
+
+**Step 4: Constructing rectangles**
+
+Since a rectangle is defined by two pairs of opposite vertices which are antipodal, the vertices of the rectangle correspond to two distinct pairs of antipodal vertices.
+
+Therefore, to form a rectangle, pick two distinct antipodal pairs. The four vertices from these two pairs form a rectangle.
+
+For example, the pairs \((0,6)\) and \((1,7)\) define the vertices of a rectangle.
+
+**Step 5: Counting rectangles**
+
+- There are 6 antipodal pairs.
+- To form a rectangle, choose any two distinct antipodal pairs.
+- Number of ways = \(\binom{6}{2} = 15\).
+
+**Step 6: Confirm that the sides of these rectangles lie on sides or diagonals of the dodecagon**
+
+Each side of the rectangle is a chord between two vertices of the dodecagon. Since the polygon is regular and all vertices are present, these chords are either sides or diagonals.
+
+Thus, all edges of the rectangles formed this way lie on sides or diagonals of the dodecagon.
+
+**Step 7: Verify no other rectangles exist**
+
+- Rectangles inscribed in a circle must have vertices paired as antipodal points.
+- The only antipodal pairs are those listed.
+- Any rectangle must be formed by two such pairs.
+- No other rectangles can be formed.
+
+Hence, the total number of rectangles is \(\boxed{15}\).
+
+## Feedback
+Your answer is incorrect. The correct answer is 315.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Find the number of cubic polynomials $p(x) = x^3 + ax^2 + bx + c,$ where $a, b,$ and $c$ are integers in $\{-20,-19,-18,\ldots,18,19,20\},$ such that there is a unique integer $m \not= 2$ with $p(m) = p(2).$
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+328
+
+## reasoning
+We are given cubic polynomials of the form 
+\[ p(x) = x^3 + a x^2 + b x + c, \]
+where \(a, b, c \in \{-20, -19, \ldots, 19, 20\}\).
+
+We want to find the number of such polynomials for which there exists a **unique** integer \(m \neq 2\) such that
+\[ p(m) = p(2). \]
+
+---
+
+**Step 1: Understand the condition \(p(m) = p(2)\)**
+
+We want the number of integer roots \(m\) (other than \(m=2\)) of the equation
+\[ p(m) = p(2). \]
+
+Define the polynomial
+\[
+q(x) = p(x) - p(2).
+\]
+Then \(q(2) = 0\), so \((x-2)\) divides \(q(x)\).
+
+Write
+\[
+q(x) = p(x) - p(2) = (x-2) r(x)
+\]
+where \(r(x)\) is a quadratic polynomial.
+
+The roots of \(q(x)\) are exactly the roots of \(p(x) = p(2)\).
+
+Since \(q(2) = 0\), one root is \(x=2\). 
+
+We want **exactly one other integer root \(m \neq 2\)** of \(q(x) = 0\). This means the quadratic \(r(x)\) has exactly one integer root.
+
+---
+
+**Step 2: Express \(q(x)\) and \(r(x)\) explicitly**
+
+Since
+\[
+q(x) = p(x) - p(2) = (x-2) r(x)
+\]
+and \(p(x) = x^3 + a x^2 + b x + c\),
+
+we have
+\[
+p(2) = 2^3 + a \cdot 2^2 + b \cdot 2 + c = 8 + 4a + 2b + c.
+\]
+
+Thus,
+\[
+q(x) = x^3 + a x^2 + b x + c - (8 + 4a + 2b + c) = x^3 + a x^2 + b x + c - 8 - 4a - 2b - c = x^3 + a x^2 + b x - 8 - 4a - 2b.
+\]
+
+Simplify:
+\[
+q(x) = x^3 + a x^2 + b x - 8 - 4a - 2b.
+\]
+
+Because \(x=2\) is a root, perform polynomial division:
+\[
+q(x) = (x-2)(x^2 + (a+2) x + (b + 2a + 4)).
+\]
+
+Check the division:
+\[
+(x-2)(x^2 + (a+2) x + (b + 2a + 4)) = x^3 + (a + 2) x^2 + (b + 2a + 4) x - 2 x^2 - 2 (a+2) x - 2 (b + 2a + 4).
+\]
+
+Simplify:
+\[
+= x^3 + (a + 2 - 2) x^2 + (b + 2a + 4 - 2a - 4) x - 2b - 4a - 8,
+\]
+\[
+= x^3 + a x^2 + b x - 2 b - 4 a - 8,
+\]
+which matches \(q(x)\).
+
+So,
+\[
+r(x) = x^2 + (a + 2) x + (b + 2a + 4).
+\]
+
+---
+
+**Step 3: Roots of \(r(x)\)**
+
+We want \(r(x)\) to have **exactly one integer root**. Since \(r(x)\) is quadratic with integer coefficients, the roots can be:
+
+- Two distinct integer roots,
+- One integer root of multiplicity two (double root),
+- No integer roots,
+- One integer root and one non-integer root.
+
+We want exactly one integer root, so:
+
+- Either the discriminant is zero (double root, integer),
+- Or the discriminant is positive but only one root is integer (the other irrational or complex),
+- Or the discriminant is positive and roots are distinct, but only one is integer.
+
+---
+
+**Step 4: Condition for roots of \(r(x)\)**
+
+The quadratic is:
+\[
+r(x) = x^2 + (a+2) x + (b + 2a + 4).
+\]
+
+Discriminant:
+\[
+\Delta = (a+2)^2 - 4(b + 2a + 4).
+\]
+
+We want the roots to be:
+\[
+x = \frac{-(a+2) \pm \sqrt{\Delta}}{2}.
+\]
+
+---
+
+**Step 5: Condition for exactly one integer root**
+
+Let the roots be \(r_1\) and \(r_2\).
+
+If both roots are integers, then the quadratic factors over integers; then it has two integer roots.
+
+If discriminant is zero, then the root is double root (one integer root).
+
+If discriminant is positive but non-square, roots are irrational, so no integer roots.
+
+If discriminant is positive and square, roots are rational; since coefficients are integers, roots are integers if and only if \(\sqrt{\Delta}\) is an integer and \(-(a+2) \pm \sqrt{\Delta}\) are even.
+
+---
+
+**Step 6: Use Viète's formulas**
+
+Sum of roots:
+\[
+r_1 + r_2 = - (a+2),
+\]
+Product of roots:
+\[
+r_1 r_2 = b + 2a + 4.
+\]
+
+---
+
+**Step 7: We want exactly one integer root**
+
+- **Case 1: Double root**
+
+\(\Delta = 0\), then the unique root is integer if the root is integer.
+
+Root is
+\[
+r = \frac{-(a+2)}{2}.
+\]
+
+Since \(a\) is integer, \(a+2\) integer; then \(r\) is integer if \(-(a+2)\) is even.
+
+I.e., \(a+2\) is even.
+
+\(a \in \{-20, \ldots, 20\}\), so for each \(a\), check if \(a+2\) even.
+
+- If \(a+2\) even, then \(r\) integer root.
+
+- The product is
+\[
+r^2 = b + 2a + 4,
+\]
+so 
+\[
+b = r^2 - 2a - 4.
+\]
+
+We can find \(b\) from \(a\).
+
+\(c\) can be any integer in \([-20,20]\).
+
+---
+
+**Case 1 summary:**
+
+\[
+\Delta = 0 \implies (a+2)^2 = 4 (b + 2a + 4),
+\]
+\[
+b = \frac{(a+2)^2}{4} - 2a - 4,
+\]
+and if \(b\) integer and in \([-20,20]\), and \(\frac{-(a+2)}{2}\) is integer, then this case works.
+
+---
+
+**Step 8: Case 2: Two distinct roots with exactly one integer root**
+
+Suppose roots \(r_1, r_2\) with \(r_1 \in \mathbb{Z}\), and \(r_2 \notin \mathbb{Z}\).
+
+Since coefficients are integers, roots are either both integers or conjugates over rationals.
+
+If discriminant \(\Delta\) is a perfect square, roots are rational.
+
+If roots are rationals but not integers, can't have exactly one integer root.
+
+Therefore, for exactly one integer root and one irrational root, discriminant is not a perfect square, so roots irrational, so no integer roots.
+
+Hence, the only way to have exactly one integer root is if the other root is irrational (impossible since coefficients integer), or double root integer root.
+
+But we must check carefully.
+
+---
+
+**Step 9: More careful about roots**
+
+Since coefficients are integers, roots are either integers or irrational conjugates or rational non-integers.
+
+If discriminant is a perfect square, roots are rational.
+
+If roots are rational, then they can be integers or fractions.
+
+But since roots sum and product are integers, rational roots must be integers or fractions with denominator dividing 1, so integers.
+
+Therefore, rational roots with integer coefficients are integers.
+
+Therefore, if discriminant is perfect square, roots are integers.
+
+Therefore,
+
+- If discriminant is perfect square and roots distinct, both roots are integers (2 integer roots).
+
+- If discriminant zero, double root, one integer root.
+
+- If discriminant not perfect square, roots irrational, no integer roots.
+
+Hence, no way to have exactly one integer root and one non-integer.
+
+---
+
+**Step 10: Conclusion on roots of \(r(x)\)**
+
+- If \(\Delta\) is perfect square and \(\Delta > 0\), roots both integer, so two integer roots.
+
+- If \(\Delta=0\), double root integer.
+
+- If \(\Delta\) not perfect square, no integer roots.
+
+---
+
+**Step 11: Our problem**
+
+We want exactly one integer \(m \neq 2\) such that \(p(m) = p(2)\).
+
+Since \(x=2\) is always one root of \(q(x)\).
+
+The other roots come from \(r(x)\).
+
+- If \(r(x)\) has two integer roots \(m_1, m_2\), then \(q(x)\) has roots \(2, m_1, m_2\), so at least 2 distinct integer roots other than 2, so more than one \(m \neq 2\).
+
+- If \(r(x)\) has no integer root, then no \(m \neq 2\) with \(p(m) = p(2)\).
+
+- If \(r(x)\) has exactly one integer root of multiplicity 2 (double root), then exactly one integer \(m \neq 2\) with \(p(m) = p(2)\).
+
+Hence, the problem reduces to counting the number of triples \((a,b,c)\) with \(a,b,c \in [-20,20]\), such that
+
+1. \(\Delta = 0\),
+2. \(\frac{-(a+2)}{2}\) integer,
+3. \(b = \frac{(a+2)^2}{4} - 2a -4\) integer,
+4. \(b \in [-20,20]\),
+5. \(c \in [-20,20]\) arbitrary.
+
+---
+
+**Step 12: Find all \(a\) such that \(\frac{a+2}{2}\) is integer**
+
+\[
+\frac{a+2}{2} \in \mathbb{Z} \implies a+2 \equiv 0 \pmod{2} \implies a \equiv 0 \pmod{2}.
+\]
+
+So \(a\) even.
+
+Since \(a \in [-20,20]\), even integers in this range are
+
+\[
+-20, -18, -16, \ldots, 0, 2, 4, \ldots, 20,
+\]
+
+which is 21 even integers (from -20 to 20 inclusive).
+
+---
+
+**Step 13: For each even \(a\), compute \(b\)**
+
+\[
+b = \frac{(a+2)^2}{4} - 2a - 4.
+\]
+
+Since \(a\) is even, \(a+2\) even, \(\frac{(a+2)^2}{4}\) is an integer.
+
+Calculate \(b\) for each even \(a\):
+
+- \(a = -20\):
+\[
+b = \frac{(-20+2)^2}{4} - 2(-20) -4 = \frac{(-18)^2}{4} + 40 -4 = \frac{324}{4} + 36 = 81 + 36 = 117,
+\]
+which is outside \([-20,20]\).
+
+- \(a = -18\):
+\[
+b = \frac{(-16)^2}{4} - 2(-18) -4 = \frac{256}{4} + 36 -4 = 64 + 32 = 96,
+\]
+outside \([-20,20]\).
+
+- \(a = -16\):
+\[
+b = \frac{(-14)^2}{4} - 2(-16) -4 = \frac{196}{4} + 32 -4 = 49 + 28 = 77,
+\]
+outside range.
+
+- \(a = -14\):
+\[
+b = \frac{(-12)^2}{4} -2(-14) -4 = \frac{144}{4} + 28 -4 = 36 + 24 = 60,
+\]
+outside.
+
+- \(a = -12\):
+\[
+b = \frac{(-10)^2}{4} - 2(-12) -4 = \frac{100}{4} + 24 -4 = 25 + 20 = 45,
+\]
+outside.
+
+- \(a = -10\):
+\[
+b = \frac{(-8)^2}{4} - 2(-10) -4 = \frac{64}{4} + 20 -4 = 16 + 16 = 32,
+\]
+outside.
+
+- \(a = -8\):
+\[
+b = \frac{(-6)^2}{4} - 2(-8) -4 = \frac{36}{4} + 16 -4 = 9 + 12 = 21,
+\]
+just outside by 1.
+
+- \(a = -6\):
+\[
+b = \frac{(-4)^2}{4} - 2(-6) -4 = \frac{16}{4} + 12 -4 = 4 + 8 = 12,
+\]
+inside range.
+
+- \(a = -4\):
+\[
+b = \frac{(-2)^2}{4} - 2(-4) -4 = \frac{4}{4} + 8 -4 = 1 + 4 = 5,
+\]
+inside.
+
+- \(a = -2\):
+\[
+b = \frac{(0)^2}{4} - 2(-2) -4 = 0 + 4 -4 = 0,
+\]
+inside.
+
+- \(a = 0\):
+\[
+b = \frac{(2)^2}{4} - 2(0) -4 = \frac{4}{4} - 0 -4 = 1 - 4 = -3,
+\]
+inside.
+
+- \(a = 2\):
+\[
+b = \frac{(4)^2}{4} - 2(2) -4 = \frac{16}{4} -4 -4 = 4 - 8 = -4,
+\]
+inside.
+
+- \(a = 4\):
+\[
+b = \frac{(6)^2}{4} - 2(4) -4 = \frac{36}{4} -8 -4 = 9 -12 = -3,
+\]
+inside.
+
+- \(a = 6\):
+\[
+b = \frac{(8)^2}{4} - 2(6) -4 = \frac{64}{4} -12 -4 = 16 -16 = 0,
+\]
+inside.
+
+- \(a = 8\):
+\[
+b = \frac{(10)^2}{4} - 2(8) -4 = \frac{100}{4} -16 -4 = 25 -20 = 5,
+\]
+inside.
+
+- \(a = 10\):
+\[
+b = \frac{(12)^2}{4} - 2(10) -4 = \frac{144}{4} -20 -4 = 36 -24 = 12,
+\]
+inside.
+
+- \(a = 12\):
+\[
+b = \frac{(14)^2}{4} - 2(12) -4 = \frac{196}{4} -24 -4 = 49 -28 = 21,
+\]
+outside.
+
+- \(a = 14\):
+\[
+b = \frac{(16)^2}{4} - 2(14) -4 = \frac{256}{4} -28 -4 = 64 -32 = 32,
+\]
+outside.
+
+- \(a = 16\):
+\[
+b = \frac{(18)^2}{4} - 2(16) -4 = \frac{324}{4} -32 -4 = 81 -36 = 45,
+\]
+outside.
+
+- \(a = 18\):
+\[
+b = \frac{(20)^2}{4} - 2(18) -4 = \frac{400}{4} -36 -4 = 100 -40 = 60,
+\]
+outside.
+
+- \(a = 20\):
+\[
+b = \frac{(22)^2}{4} - 2(20) -4 = \frac{484}{4} -40 -4 = 121 -44 = 77,
+\]
+outside.
+
+---
+
+**Step 14: Valid \(a,b\) pairs**
+
+Valid \(a,b\) pairs correspond to \(a\) even and \(b\) in \([-20,20]\):
+
+\[
+a \in \{-6, -4, -2, 0, 2, 4, 6, 8, 10\},
+\]
+with corresponding \(b\) as:
+
+\[
+\begin{array}{c|c}
+a & b \\
+\hline
+-6 & 12 \\
+-4 & 5 \\
+-2 & 0 \\
+0 & -3 \\
+2 & -4 \\
+4 & -3 \\
+6 & 0 \\
+8 & 5 \\
+10 & 12 \\
+\end{array}
+\]
+
+---
+
+**Step 15: Counting \(c\)**
+
+Since \(c\) can be any integer in \([-20,20]\), there are 41 choices for \(c\).
+
+---
+
+**Step 16: Final count**
+
+Number of triples \((a,b,c)\) is
+\[
+9 \times 41 = 369.
+\]
+
+---
+
+**Step 17: Verify uniqueness of \(m \neq 2\)**
+
+For these values, discriminant zero, so \(r(x)\) has one double root integer \(m \neq 2\).
+
+Check \(m = -\frac{a+2}{2}\).
+
+Since \(a\) even, \(m\) integer.
+
+Is \(m \neq 2\)?
+
+Check if any \(m=2\):
+
+\[
+m = -\frac{a+2}{2} = 2 \implies a+2 = -4 \implies a = -6,
+\]
+
+which is in the list.
+
+For \(a = -6\), \(m=2\).
+
+But the problem says \(m \neq 2\).
+
+So this case is invalid.
+
+Remove \(a = -6\) from the list.
+
+---
+
+**Step 18: Adjust for \(m \neq 2\)**
+
+Remove \(a = -6\).
+
+Remaining \(a\) values:
+\[
+\{-4, -2, 0, 2, 4, 6, 8, 10\},
+\]
+count: 8.
+
+Number of polynomials:
+\[
+8 \times 41 = 328.
+\]
+
+---
+
+**Step 19: Final answer**
+
+\[
+\boxed{328}.
+\]
+
+---
+
+**Cross-check:**
+
+- \(a = -6\) excluded because the unique root of \(r(x)\) is 2, which is forbidden.
+
+- For other \(a\), \(m \neq 2\).
+
+- \(b\) and \(c\) in allowed ranges.
+
+- The polynomials have exactly one integer \(m \neq 2\) such that \(p(m) = p(2)\).
+
+---
+
+**Answer: 328**
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 738.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Find the largest possible real part of \[(75+117i)z+\frac{96+144i}{z}\]where $z$ is a complex number with $|z|=4$.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+512
+
+## reasoning
+Let \( z = re^{i\theta} \) be a complex number with \( |z| = r = 4 \). We want to maximize the real part of the expression
+\[
+(75 + 117i)z + \frac{96 + 144i}{z}.
+\]
+
+First, rewrite the expression in terms of \( r \) and \( \theta \):
+\[
+(75 + 117i) z + \frac{96 + 144i}{z} = (75 + 117i) (4e^{i\theta}) + \frac{96 + 144i}{4e^{i\theta}}.
+\]
+
+This simplifies to:
+\[
+4(75 + 117i) e^{i\theta} + \frac{96 + 144i}{4} e^{-i\theta} = 4(75 + 117i) e^{i\theta} + 24(4 + 6i) e^{-i\theta}.
+\]
+
+Note that \( 96 + 144i = 24(4 + 6i) \).
+
+We can write:
+\[
+4(75 + 117i) e^{i\theta} + 24(4 + 6i) e^{-i\theta}.
+\]
+
+Calculate the constants:
+\[
+4(75 + 117i) = 300 + 468i,
+\]
+so the expression becomes
+\[
+(300 + 468i) e^{i\theta} + 24(4 + 6i) e^{-i\theta}.
+\]
+
+Express \( e^{i\theta} = \cos \theta + i \sin \theta \) and \( e^{-i\theta} = \cos \theta - i \sin \theta \). Thus,
+\[
+(300 + 468i)(\cos \theta + i \sin \theta) + 24(4 + 6i)(\cos \theta - i \sin \theta).
+\]
+
+Expand each term:
+
+1. First term:
+\[
+(300)(\cos \theta) + (300)(i \sin \theta) + (468i)(\cos \theta) + (468i)(i \sin \theta).
+\]
+
+Recall \( i^2 = -1 \), so
+\[
+= 300 \cos \theta + 300 i \sin \theta + 468 i \cos \theta + 468 (i^2) \sin \theta
+= 300 \cos \theta + 300 i \sin \theta + 468 i \cos \theta - 468 \sin \theta.
+\]
+
+Group real and imaginary parts:
+Real part:
+\[
+300 \cos \theta - 468 \sin \theta,
+\]
+Imaginary part:
+\[
+300 \sin \theta + 468 \cos \theta.
+\]
+
+2. Second term:
+\[
+24(4 + 6i)(\cos \theta - i \sin \theta) = 24 (4 \cos \theta - 4 i \sin \theta + 6 i \cos \theta - 6 i^2 \sin \theta).
+\]
+
+Simplify inside:
+\[
+= 24(4 \cos \theta - 4 i \sin \theta + 6 i \cos \theta + 6 \sin \theta).
+\]
+
+Group real and imaginary parts inside the parentheses:
+Real part:
+\[
+4 \cos \theta + 6 \sin \theta,
+\]
+Imaginary part:
+\[
+-4 \sin \theta + 6 \cos \theta.
+\]
+
+So the second term is:
+\[
+24 \times \text{(real part)} + 24 i \times \text{(imaginary part)} = 24(4 \cos \theta + 6 \sin \theta) + 24 i (-4 \sin \theta + 6 \cos \theta).
+\]
+
+Real part:
+\[
+24 (4 \cos \theta + 6 \sin \theta) = 96 \cos \theta + 144 \sin \theta,
+\]
+Imaginary part:
+\[
+24 (-4 \sin \theta + 6 \cos \theta) = -96 \sin \theta + 144 \cos \theta.
+\]
+
+Now sum the real parts and imaginary parts from both terms:
+
+Real part total:
+\[
+(300 \cos \theta - 468 \sin \theta) + (96 \cos \theta + 144 \sin \theta) = (300 + 96) \cos \theta + (-468 + 144) \sin \theta = 396 \cos \theta - 324 \sin \theta.
+\]
+
+Imaginary part total:
+\[
+(300 \sin \theta + 468 \cos \theta) + (-96 \sin \theta + 144 \cos \theta) = (300 - 96) \sin \theta + (468 + 144) \cos \theta = 204 \sin \theta + 612 \cos \theta.
+\]
+
+We want to find the largest possible real part of the expression, which is:
+\[
+f(\theta) = 396 \cos \theta - 324 \sin \theta.
+\]
+
+To maximize \( f(\theta) \), write it as:
+\[
+f(\theta) = R \cos(\theta + \phi),
+\]
+where
+\[
+R = \sqrt{396^2 + (-324)^2}, \quad \tan \phi = \frac{324}{396} = \frac{27}{33} = \frac{9}{11}.
+\]
+
+Calculate \( R \):
+\[
+396^2 = 156,816, \quad 324^2 = 104,976,
+\]
+so
+\[
+R = \sqrt{156,816 + 104,976} = \sqrt{261,792}.
+\]
+
+Calculate \(\sqrt{261,792}\):
+We can factor:
+\[
+261,792 = 24^2 \times 454.5 \text{ (approximation)}.
+\]
+Better to just calculate numerically:
+\[
+\sqrt{261,792} \approx 511.68.
+\]
+
+Alternatively, use exact factorization:
+
+Notice \(396 = 36 \times 11\), \(324 = 36 \times 9\).
+
+So,
+\[
+R = \sqrt{(36 \times 11)^2 + (36 \times 9)^2} = 36 \sqrt{11^2 + 9^2} = 36 \sqrt{121 + 81} = 36 \sqrt{202}.
+\]
+
+Now,
+\[
+\sqrt{202} \approx 14.212,
+\]
+so
+\[
+R \approx 36 \times 14.212 = 511.63,
+\]
+which matches the previous approximation.
+
+Therefore,
+\[
+f(\theta)_{\max} = R = 36 \sqrt{202}.
+\]
+
+Since \( z \) has magnitude 4, and the expression is maximized by choosing \(\theta\) so that \(\cos(\theta + \phi) = 1\), the maximum real part is
+\[
+\boxed{36 \sqrt{202}}.
+\]
+
+To express as an integer, note that \( \sqrt{202} \) is irrational, so the problem likely expects the integer value of \( R \).
+
+Since the problem asks for the largest possible real part as a single integer, we should check if the problem wants the exact value or the integer approximation.
+
+Since \( 36 \sqrt{202} \) is irrational, the largest possible real part is \( 36 \sqrt{202} \). Let's compute its approximate value:
+
+\[
+\sqrt{202} \approx 14.212,
+\]
+so
+\[
+36 \times 14.212 = 511.63.
+\]
+
+Thus, the largest possible real part is approximately 512.
+
+Double-checking the problem statement: it asks for the largest possible real part of the expression, where \( |z| = 4 \). It does not explicitly say to approximate or rationalize.
+
+Therefore, the exact largest real part is \( 36 \sqrt{202} \).
+
+If the answer must be an integer, then the problem likely expects the integer closest to this value: 512.
+
+Given the problem format, I'll provide the integer value rounded to the nearest integer.
+
+Therefore, the largest possible real part is \(\boxed{512}\).
+
+To verify, consider the original expression and substituting back:
+
+- At \(\theta\) such that \( \cos(\theta + \phi) = 1 \), the real part is maximized.
+- The corresponding imaginary part value does not affect the maximum of the real part.
+
+Hence, the maximum real part is \(36 \sqrt{202}\), approximately 512.
+
+## Feedback
+Your answer is incorrect. The correct answer is 540.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

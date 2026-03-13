@@ -1,0 +1,14 @@
+[
+    1.0,
+    {
+        "current_candidate": "Solve the problem and provide the answer provide the final answer as a single integer."
+    },
+    {
+        "score": 1.0,
+        "problem": "Quadratic polynomials $P(x)$ and $Q(x)$ have leading coefficients $2$ and $-2,$ respectively. The graphs of both polynomials pass through the two points $(16,54)$ and $(20,53).$ Find $P(0) + Q(0).$",
+        "prompt": "Solve the problem and provide the answer provide the final answer as a single integer.",
+        "output": "116",
+        "reasoning": "Let \\( P(x) = 2x^2 + a x + b \\) because the leading coefficient is 2.  \nLet \\( Q(x) = -2x^2 + c x + d \\) because the leading coefficient is -2.\n\nSince both \\(P(x)\\) and \\(Q(x)\\) pass through \\((16, 54)\\) and \\((20, 53)\\), we have:\n\nFor \\(P(x)\\):\n\\[\nP(16) = 2(16)^2 + 16a + b = 54\n\\]\n\\[\nP(20) = 2(20)^2 + 20a + b = 53\n\\]\n\nCalculate the squares:\n\\[\n16^2 = 256, \\quad 20^2 = 400\n\\]\n\nSubstitute:\n\\[\n2 \\cdot 256 + 16a + b = 54 \\implies 512 + 16a + b = 54\n\\]\n\\[\n2 \\cdot 400 + 20a + b = 53 \\implies 800 + 20a + b = 53\n\\]\n\nRewrite:\n\\[\n16a + b = 54 - 512 = -458\n\\]\n\\[\n20a + b = 53 - 800 = -747\n\\]\n\nSubtract the first from the second:\n\\[\n(20a + b) - (16a + b) = -747 - (-458)\n\\]\n\\[\n4a = -289 \\implies a = -\\frac{289}{4}\n\\]\n\nFind \\(b\\):\n\\[\n16a + b = -458 \\implies b = -458 - 16a = -458 - 16 \\times \\left(-\\frac{289}{4}\\right) = -458 + 16 \\times \\frac{289}{4}\n\\]\n\\[\n16 \\times \\frac{289}{4} = 4 \\times 289 = 1156\n\\]\n\\[\nb = -458 + 1156 = 698\n\\]\n\nSo for \\(P(x)\\):\n\\[\nP(x) = 2x^2 - \\frac{289}{4} x + 698\n\\]\n\nNow for \\(Q(x) = -2x^2 + c x + d\\), with the same points:\n\n\\[\nQ(16) = -2(256) + 16 c + d = 54 \\implies -512 + 16 c + d = 54\n\\]\n\\[\nQ(20) = -2(400) + 20 c + d = 53 \\implies -800 + 20 c + d = 53\n\\]\n\nRewrite:\n\\[\n16 c + d = 54 + 512 = 566\n\\]\n\\[\n20 c + d = 53 + 800 = 853\n\\]\n\nSubtract first from second:\n\\[\n(20 c + d) - (16 c + d) = 853 - 566 \\implies 4 c = 287 \\implies c = \\frac{287}{4}\n\\]\n\nFind \\(d\\):\n\\[\n16 c + d = 566 \\implies d = 566 - 16 c = 566 - 16 \\times \\frac{287}{4} = 566 - 4 \\times 287 = 566 - 1148 = -582\n\\]\n\nSo:\n\\[\nQ(x) = -2 x^2 + \\frac{287}{4} x - 582\n\\]\n\nWe want \\(P(0) + Q(0) = b + d = 698 + (-582) = 116\\).",
+        "Feedback": "Your answer is correct. The correct answer is 116."
+    }
+]

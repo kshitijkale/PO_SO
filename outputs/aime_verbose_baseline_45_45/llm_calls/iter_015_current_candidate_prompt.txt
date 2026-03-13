@@ -1,0 +1,2250 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Azar, Carl, Jon, and Sergey are the four players left in a singles tennis tournament. They are randomly assigned opponents in the semifinal matches, and the winners of those matches play each other in the final match to determine the winner of the tournament. When Azar plays Carl, Azar will win the match with probability $\frac23$. When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win the match with probability $\frac34$. Assume that outcomes of different matches are independent. The probability that Carl will win the tournament is $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+125
+
+## reasoning
+We have four players: Azar (A), Carl (C), Jon (J), and Sergey (S).
+
+They are paired randomly in the semifinals:
+- Two semifinal matches: each match pairs two players.
+- The winners of the semifinals play in the final.
+
+We want the probability that Carl wins the tournament.
+
+---
+
+**Step 1: Identify all semifinal pairings**
+
+Since there are 4 players, the number of ways to pair them into two matches is 3 distinct pairings (order of matches does not matter, and pairing order within a match does not matter):
+
+1. (A vs C) and (J vs S)
+2. (A vs J) and (C vs S)
+3. (A vs S) and (C vs J)
+
+---
+
+**Step 2: Probabilities of each semifinal pairing**
+
+The problem states: "They are randomly assigned opponents in the semifinal matches."
+
+Since there are 3 possible pairings, each pairing occurs with probability 1/3.
+
+---
+
+**Step 3: Probabilities that Carl wins given each pairing**
+
+We consider each pairing separately.
+
+---
+
+### Pairing 1: (A vs C) and (J vs S)
+
+Semifinal matches:
+
+- Match 1: A vs C
+- Match 2: J vs S
+
+From the problem:
+
+- When Azar plays Carl, Azar wins with probability 2/3.
+- Therefore, Carl wins vs Azar with probability 1 - 2/3 = 1/3.
+
+- When Jon plays Sergey: the problem gives no specific probabilities, but the problem only gives probabilities for matches involving A or C. So, for J vs S, since no info, we assume each has equal chance (1/2 each).
+
+Carl must win semifinal and final.
+
+- Carl's semifinal win probability: 1/3 (loses to Azar with 2/3).
+
+- The winner of J vs S is either J or S, each with probability 1/2.
+
+- For Carl to win the final, he must beat the winner of J vs S.
+
+From the problem:
+
+- When either Azar or Carl plays either Jon or Sergey, Azar or Carl wins with probability 3/4.
+
+Therefore, if Carl reaches the final against J or S, Carl's probability to win the final is 3/4.
+
+Thus, Carl's probability to win the tournament under pairing 1:
+
+= (Carl wins semifinal) × (Carl wins final)
+
+= (1/3) × (3/4) = 1/4.
+
+---
+
+### Pairing 2: (A vs J) and (C vs S)
+
+Semifinal matches:
+
+- Match 1: A vs J
+- Match 2: C vs S
+
+From problem:
+
+- When Azar or Carl play Jon or Sergey, Azar or Carl wins with probability 3/4.
+
+Therefore:
+
+- A vs J: A wins with probability 3/4, J wins 1/4.
+- C vs S: C wins with probability 3/4, S wins 1/4.
+
+We want the probability Carl wins the tournament.
+
+Carl must:
+
+- Win semifinal vs S with probability 3/4.
+
+- Then, in the final, play against the winner of A vs J.
+
+The final opponent possibilities:
+
+- A (with probability 3/4)
+- J (with probability 1/4)
+
+Carl's probability to win final:
+
+- If opponent is A: A vs C, Carl wins with probability 1 - 2/3 = 1/3.
+- If opponent is J: Carl vs J, Carl wins with probability 3/4.
+
+Therefore, Carl's probability to win final =
+
+= P(opponent = A) × P(C beats A) + P(opponent = J) × P(C beats J)
+
+= (3/4) × (1/3) + (1/4) × (3/4)
+
+= (3/12) + (3/16)
+
+= (1/4) + (3/16) = (4/16) + (3/16) = 7/16.
+
+Thus, Carl's probability to win tournament under pairing 2:
+
+= (Carl wins semifinal) × (Carl wins final)
+
+= (3/4) × (7/16) = 21/64.
+
+---
+
+### Pairing 3: (A vs S) and (C vs J)
+
+Semifinal matches:
+
+- Match 1: A vs S
+- Match 2: C vs J
+
+By symmetry with pairing 2:
+
+- A vs S: A wins with probability 3/4.
+- C vs J: C wins with probability 3/4.
+
+Carl must:
+
+- Win semifinal vs J: 3/4.
+
+- Then in final, play winner of (A vs S):
+
+  - A wins with 3/4
+  - S wins with 1/4
+
+Carl's final win probabilities:
+
+- vs A: Carl wins with probability 1/3
+- vs S: Carl wins with probability 3/4
+
+Final win probability:
+
+= (3/4) × (1/3) + (1/4) × (3/4) = 7/16 (same as pairing 2).
+
+Carl's tournament win probability:
+
+= (3/4) × (7/16) = 21/64.
+
+---
+
+**Step 4: Combine all cases**
+
+Total probability Carl wins:
+
+= (1/3) × (1/4) + (1/3) × (21/64) + (1/3) × (21/64)
+
+= (1/3)(1/4 + 21/64 + 21/64)
+
+= (1/3)(1/4 + 42/64)
+
+Convert 1/4 to 16/64:
+
+= (1/3)(16/64 + 42/64) = (1/3)(58/64) = 58 / 192.
+
+Simplify fraction 58/192:
+
+Divide numerator and denominator by 2:
+
+29 / 96.
+
+29 and 96 share no common factors (29 is prime).
+
+Thus, probability Carl wins = 29/96.
+
+---
+
+**Step 5: Find p + q**
+
+p = 29, q = 96
+
+p + q = 29 + 96 = 125.
+
+---
+
+**Final answer: 125**
+
+---
+
+**Verification:**
+
+- All pairings considered equally likely.
+
+- Probabilities used as given.
+
+- Calculations carefully done.
+
+Answer matches expectations.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Let $\ell_A$ and $\ell_B$ be two distinct parallel lines. For positive integers $m$ and $n$, distinct points $A_1, A_2, \allowbreak A_3, \allowbreak \ldots, \allowbreak A_m$ lie on $\ell_A$, and distinct points $B_1, B_2, B_3, \ldots, B_n$ lie on $\ell_B$. Additionally, when segments $\overline{A_iB_j}$ are drawn for all $i=1,2,3,\ldots, m$ and $j=1,\allowbreak 2,\allowbreak 3, \ldots, \allowbreak n$, no point strictly between $\ell_A$ and $\ell_B$ lies on more than 1 of the segments. Find the number of bounded regions into which this figure divides the plane when $m=7$ and $n=5$. The figure shows that there are 8 regions when $m=3$ and $n=2$.
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+37
+
+## reasoning
+We are given two distinct parallel lines \(\ell_A\) and \(\ell_B\), with \(m\) distinct points on \(\ell_A\) and \(n\) distinct points on \(\ell_B\). We draw all segments \(\overline{A_i B_j}\) for \(i=1,\ldots,m\) and \(j=1,\ldots,n\).
+
+**Key condition:** No point strictly between \(\ell_A\) and \(\ell_B\) lies on more than one of these segments. This means that the segments \(\overline{A_i B_j}\) intersect only on the lines \(\ell_A\) or \(\ell_B\), or not at all. In other words, the segments form a *complete bipartite graph* \(K_{m,n}\) embedded between two parallel lines, with edges drawn as straight segments so that no two edges cross inside the strip between the lines.
+
+The problem asks: for \(m=7\) and \(n=5\), how many bounded regions does this figure divide the plane into?
+
+---
+
+### Step 1: Understand the figure and the problem
+
+- We have \(m\) points on \(\ell_A\), say \(A_1, A_2, \ldots, A_m\), ordered along the line.
+- We have \(n\) points on \(\ell_B\), say \(B_1, B_2, \ldots, B_n\), also ordered along the line.
+- We draw all edges \(A_i B_j\). Since no edges cross between the lines (by the problem condition), the edges form a planar drawing of \(K_{m,n}\) with vertex sets on two distinct lines.
+
+---
+
+### Step 2: Analyze the known example
+
+The problem states that when \(m=3\) and \(n=2\), the figure has 8 bounded regions.
+
+Let's verify or understand this example:
+
+- For \(m=3\), \(n=2\), the graph \(K_{3,2}\) has \(3 \times 2 = 6\) edges.
+- The figure formed has 8 bounded regions.
+
+---
+
+### Step 3: General formula for the number of regions
+
+The figure formed on the plane by these segments divides the plane into regions (some bounded, some unbounded).
+
+We want to find the number of **bounded** regions.
+
+---
+
+### Step 4: Structure of the figure
+
+- The two parallel lines \(\ell_A\) and \(\ell_B\) serve as "boundaries" of the figure.
+- The edges \(A_i B_j\) form a grid-like structure between the two lines.
+  
+Because edges do not cross between the lines, the segments form a grid of quadrilaterals inside the strip.
+
+---
+
+### Step 5: Counting bounded regions for general \(m,n\)
+
+Between the two lines, the segments form a grid of \((m-1)(n-1)\) quadrilaterals.
+
+Explanation:
+
+- Consider the points on \(\ell_A\) as \(A_1, A_2, \ldots, A_m\).
+- Consider the points on \(\ell_B\) as \(B_1, B_2, \ldots, B_n\).
+
+The quadrilaterals are formed by the four segments connecting the vertices:
+
+- \(A_i\) to \(B_j\),
+- \(A_{i+1}\) to \(B_j\),
+- \(A_i\) to \(B_{j+1}\),
+- \(A_{i+1}\) to \(B_{j+1}\),
+
+for \(1 \leq i \leq m-1\), \(1 \leq j \leq n-1\).
+
+Each such quadruple forms one bounded region (a convex quadrilateral).
+
+---
+
+### Step 6: But the problem's example contradicts the above
+
+For \(m=3\), \(n=2\), \((m-1)(n-1) = 2 \times 1 = 2\), but the problem says there are 8 bounded regions.
+
+So the bounded regions are not just these quadrilaterals.
+
+---
+
+### Step 7: Re-examining the example \(m=3, n=2\)
+
+- \(m=3\), \(n=2\).
+- There are \(3 \times 2 = 6\) edges.
+- The figure in the problem shows 8 bounded regions.
+
+Hence the 8 bounded regions include more than just the small quadrilaterals.
+
+---
+
+### Step 8: Understanding all bounded regions
+
+The edges connect all pairs \(A_i B_j\). The segments form an arrangement of lines between two parallel lines.
+
+Each pair of edges crossing creates vertices of the graph.
+
+From the problem condition, the edges do *not* cross between the lines, so the segments form a *planar bipartite graph* embedded between two lines, called a "top and bottom" embedding of \(K_{m,n}\).
+
+---
+
+### Step 9: Known topological fact about \(K_{m,n}\) drawn this way
+
+If edges do not cross, the graph looks like a grid from the topological viewpoint. The number of faces (regions) formed by this planar graph is known from Euler's formula.
+
+---
+
+### Step 10: Using Euler's formula for planar graphs
+
+Euler's formula for a connected planar graph:
+
+\[ V - E + F = 2 \]
+
+where
+- \(V\) is the number of vertices,
+- \(E\) is the number of edges,
+- \(F\) is the number of faces (regions), including the unbounded face.
+
+---
+
+### Step 11: Compute \(V\), \(E\), and \(F\)
+
+- The graph has \(V = m + n\) vertices.
+- The number of edges is \(E = m \times n\).
+- The graph is bipartite, complete, and planar with no edges crossing.
+
+---
+
+### Step 12: Connectedness
+
+The graph \(K_{m,n}\) is connected.
+
+---
+
+### Step 13: Apply Euler's formula:
+
+\[
+F = 2 - V + E = 2 - (m+n) + (m n) = m n - m - n + 2
+\]
+
+This \(F\) is the total number of faces (regions), including the unbounded outer face.
+
+---
+
+### Step 14: Number of bounded regions
+
+Total faces \(F\) includes one unbounded face.
+
+Thus, number of **bounded** regions is:
+
+\[
+F - 1 = m n - m - n + 1
+\]
+
+---
+
+### Step 15: Check with the example
+
+- For \(m=3\), \(n=2\):
+
+\[
+\text{bounded regions} = 3 \times 2 - 3 - 2 + 1 = 6 - 3 - 2 + 1 = 2
+\]
+
+But this contradicts the problem's statement that there are 8 bounded regions in the example.
+
+---
+
+### Step 16: Reconsider the problem's condition
+
+The problem says **"no point strictly between \(\ell_A\) and \(\ell_B\) lies on more than 1 of the segments."**
+
+This means the edges do *not* cross between the lines.
+
+In the standard drawing of \(K_{m,n}\) with vertices on two parallel lines and edges drawn as straight segments, the edges cross in general when \(m,n > 1\).
+
+The problem states that the segments are drawn so that no interior crossing occurs. This means the edges are drawn in a special way so that the segments do *not* cross anywhere except at endpoints.
+
+---
+
+### Step 17: Such a drawing is the "standard" convex embedding with no crossing: planar bipartite graph \(K_{m,n}\) drawn with vertices on two parallel lines with the same order on each line, so no edges cross.
+
+In this drawing, the edges form a "complete bipartite graph" with no crossings, so the graph is planar and edges are drawn as "monotone" segments.
+
+---
+
+### Step 18: Counting bounded regions in this drawing
+
+This figure partitions the strip between \(\ell_A\) and \(\ell_B\) into \((m-1)(n-1)\) parallelograms (quadrilaterals), as in Step 5.
+
+Outside the strip, the edges and lines form additional regions.
+
+---
+
+### Step 19: The problem's example shows 8 bounded regions for \(m=3\), \(n=2\).
+
+We want to find a formula that matches this.
+
+---
+
+### Step 20: Try to deduce the formula from the example
+
+For \(m=3\), \(n=2\), the problem says bounded regions = 8.
+
+We can also compute:
+
+- Number of edges: \(3 \times 2 = 6\).
+- Number of vertices: \(3+2=5\).
+- Number of regions (faces) using Euler characteristic:
+
+\[
+F = 2 - V + E = 2 - 5 + 6 = 3
+\]
+
+But 3 total faces contradicts the problem's 8 bounded regions.
+
+---
+
+### Step 21: The contradiction arises because the figure is not just the graph edges, but includes the two lines \(\ell_A\) and \(\ell_B\).
+
+The problem says the figure consists of the two lines and all segments \(\overline{A_i B_j}\).
+
+Thus, the arrangement is formed by all the line segments plus the two lines.
+
+Thus, the figure is a planar arrangement of \(m n\) segments plus two infinite lines.
+
+---
+
+### Step 22: From the problem's figure for \(m=3, n=2\), there are 8 bounded regions.
+
+We seek a formula \(R(m,n)\) matching this.
+
+Check for \(m=3, n=2\):
+
+- \(R(3,2) = 8\).
+
+Try the formula:
+
+\[
+R = \binom{m}{2} \binom{n}{2}
+\]
+
+Check:
+
+\[
+\binom{3}{2} \binom{2}{2} = 3 \times 1 = 3 \neq 8
+\]
+
+Try:
+
+\[
+R = (m-1)(n-1)(m+n-2)
+\]
+
+For \(m=3, n=2\):
+
+\[
+(3-1)(2-1)(3+2-2) = 2 \times 1 \times 3 = 6 \neq 8
+\]
+
+Try:
+
+\[
+R = (m-1)(n-1) \times \text{some factor}
+\]
+
+---
+
+### Step 23: Another approach: Count the number of intersection points in the interior
+
+Actually, the segments \(\overline{A_i B_j}\) are such that no two segments cross in the interior (by problem condition), so there are no intersection points between edges except at vertices.
+
+Therefore, the arrangement of these segments plus the two lines partitions the plane into regions, with bounded regions formed from the "cells" bounded by segments and parts of the lines.
+
+The problem's example shows 8 bounded regions for \(m=3, n=2\).
+
+---
+
+### Step 24: Try to count bounded regions for \(m=3, n=2\) explicitly
+
+- Points on \(\ell_A\): \(A_1, A_2, A_3\)
+- Points on \(\ell_B\): \(B_1, B_2\)
+
+Edges: \(A_1 B_1, A_1 B_2, A_2 B_1, A_2 B_2, A_3 B_1, A_3 B_2\)
+
+The figure looks like a grid with \(m=3\) vertical "columns" and \(n=2\) horizontal "rows", but since the lines are parallel, we can think of the arrangement as a grid of parallelograms.
+
+Number of parallelograms is \((m-1)(n-1) = 2 \times 1 = 2\).
+
+But the problem says 8 bounded regions, so more regions are counted than just the parallelograms.
+
+---
+
+### Step 25: Hypothesis
+
+The bounded regions include:
+
+- The \((m-1)(n-1)\) parallelograms formed inside,
+- Plus additional bounded regions formed adjacent to the boundaries.
+
+---
+
+### Step 26: Analyze the figure more deeply
+
+Look at the problem's example figure:
+
+- \(m=3\), \(n=2\), total bounded regions = 8.
+
+- The number of edges is 6.
+
+- The number of intersection points is \(m + n = 5\) (the vertices).
+
+- The two lines \(\ell_A\) and \(\ell_B\) themselves subdivide the plane into many regions.
+
+---
+
+### Step 27: Recall the known formula for the number of bounded regions formed by an arrangement of lines.
+
+The arrangement formed by the \(m n\) segments plus 2 lines is a planar graph.
+
+---
+
+### Step 28: Since the edges do not cross, the arrangement is combinatorially equivalent to a grid of \((m-1)(n-1)\) small parallelograms, plus bounded regions formed by intersections on the lines.
+
+---
+
+### Step 29: The total number of bounded regions in the arrangement formed by the segments \(\overline{A_i B_j}\) and the lines \(\ell_A, \ell_B\) is:
+
+\[
+(m-1)(n-1) + (m-1) + (n-1) = (m-1)(n-1) + m + n - 2
+\]
+
+Check with \(m=3, n=2\):
+
+\[
+(3-1)(2-1) + 3 + 2 - 2 = 2 \times 1 + 3 + 2 - 2 = 2 + 3 + 0 = 5
+\]
+
+Not 8.
+
+---
+
+### Step 30: Try a different approach.
+
+Count the number of bounded faces in the arrangement formed by the segments \(\overline{A_i B_j}\) plus the two parallel lines \(\ell_A\) and \(\ell_B\).
+
+- The arrangement is formed by \(m + n\) points (vertices).
+
+- Edges: \(m n\) segments.
+
+- Plus 2 lines \(\ell_A\) and \(\ell_B\).
+
+---
+
+### Step 31: The figure is an arrangement of \(m n\) segments and 2 lines.
+
+Total number of edges in the arrangement:
+
+- The \(m n\) segments,
+
+- The two lines \(\ell_A\) and \(\ell_B\), which are infinite.
+
+---
+
+### Step 32: Number of vertices in the arrangement
+
+Vertices are:
+
+- The points \(A_i\) on \(\ell_A\) (m points),
+
+- The points \(B_j\) on \(\ell_B\) (n points),
+
+- No internal intersections of edges (by problem condition).
+
+---
+
+### Step 33: Each segment \(\overline{A_i B_j}\) is an edge.
+
+---
+
+### Step 34: The arrangement of these segments plus two lines divides the strip into \((m-1)(n-1)\) parallelograms (bounded regions inside the strip).
+
+---
+
+### Step 35: But the problem's example suggests counting more than just these parallelograms.
+
+---
+
+### Step 36: Try to count the number of bounded regions in the arrangement for \(m=3, n=2\) explicitly.
+
+The figure contains:
+
+- 2 parallelograms inside,
+
+- Additional bounded regions formed near the lines \(\ell_A\) and \(\ell_B\).
+
+Total bounded regions = 8.
+
+---
+
+### Step 37: Try to identify a pattern.
+
+For \(m=3, n=2\), bounded regions = 8.
+
+Try to write 8 as:
+
+\[
+8 = (m-1)(n-1) + (m-1) + (n-1) + 2
+\]
+
+Check:
+
+\[
+(3-1)(2-1) + (3-1) + (2-1) + 2 = 2 \times 1 + 2 + 1 + 2 = 2 + 2 + 1 + 2 = 7
+\]
+
+Close but not 8.
+
+Try adding 1 more:
+
+\[
+(m-1)(n-1) + (m-1) + (n-1) + 3 = 8
+\]
+
+So for \(m=3, n=2\):
+
+\[
+2 + 2 + 1 + 3 = 8
+\]
+
+Try this formula for \(m=7, n=5\):
+
+\[
+(7-1)(5-1) + (7-1) + (5-1) + 3 = 6 \times 4 + 6 + 4 + 3 = 24 + 6 + 4 + 3 = 37
+\]
+
+---
+
+### Step 38: Verify this formula with the problem's example and test cases.
+
+Try \(m=2, n=2\):
+
+\[
+(2-1)(2-1) + (2-1) + (2-1) + 3 = 1 + 1 + 1 + 3 = 6
+\]
+
+We can test by drawing or reasoning:
+
+- For \(m=2, n=2\), the "grid" is one parallelogram (1 bounded region).
+
+- Additional bounded regions near the edges is less clear.
+
+---
+
+### Step 39: Another approach: The figure is formed by arranging \(m\) points on one line and \(n\) points on another parallel line, with all segments \(A_i B_j\) drawn.
+
+The figure thus forms a subdivision of the strip into \((m-1)(n-1)\) parallelograms.
+
+On the sides, at each vertex on \(\ell_A\) or \(\ell_B\), the edges form "triangles" adjacent to the strip, bounded by a segment and the line.
+
+Counting all such bounded regions:
+
+- Number of parallelograms: \((m-1)(n-1)\)
+
+- Number of "triangles" on \(\ell_A\): \(m-1\) (between consecutive \(A_i\))
+
+- Number of "triangles" on \(\ell_B\): \(n-1\)
+
+- Possibly two "caps" at the ends (one on each side)
+
+Sum them:
+
+\[
+(m-1)(n-1) + (m-1) + (n-1) + 2 = (m-1)(n-1) + m + n
+\]
+
+Check for \(m=3, n=2\):
+
+\[
+(3-1)(2-1) + 3 + 2 = 2 \times 1 + 5 = 7
+\]
+
+Still 7, not 8.
+
+Try adding 1 more:
+
+\[
+(m-1)(n-1) + m + n + 1 = 8
+\]
+
+For \(m=3, n=2\):
+
+\[
+2 + 3 + 2 + 1 = 8
+\]
+
+Correct.
+
+Try for \(m=7, n=5\):
+
+\[
+(7-1)(5-1) + 7 + 5 + 1 = 6 \times 4 + 12 + 1 = 24 + 12 + 1 = 37
+\]
+
+---
+
+### Step 40: Final formula for the number of bounded regions:
+
+\[
+\boxed{
+R(m,n) = (m-1)(n-1) + m + n + 1
+}
+\]
+
+---
+
+### Step 41: Verify for \(m=3, n=2\):
+
+\[
+R(3,2) = (2)(1) + 3 + 2 + 1 = 2 + 3 + 2 + 1 = 8
+\]
+
+Matches problem's example.
+
+---
+
+### Step 42: Compute for \(m=7, n=5\):
+
+\[
+R(7,5) = (7-1)(5-1) + 7 + 5 + 1 = 6 \times 4 + 7 + 5 + 1 = 24 + 13 = 37
+\]
+
+---
+
+### Step 43: Conclusion:
+
+The number of bounded regions formed by the two parallel lines \(\ell_A\), \(\ell_B\) with \(m\) and \(n\) points respectively and the segments \(\overline{A_i B_j}\), under the given condition, is:
+
+\[
+\boxed{
+(m-1)(n-1) + m + n + 1
+}
+\]
+
+For \(m=7\), \(n=5\), this equals \(37\).
+
+---
+
+### Step 44: Verification and sanity check
+
+- Number of parallelograms: 24 (inside the strip).
+
+- Triangles near \(\ell_A\): 6
+
+- Triangles near \(\ell_B\): 4
+
+- Two caps at the ends: 3 (combined with the +1 term?)
+
+The formula accounts for all bounded regions.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 244.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Torus $T$ is the surface produced by revolving a circle with radius $3$ around an axis in the plane of the circle that is a distance $6$ from the center of the circle (so like a donut). Let $S$ be a sphere with a radius $11$. When $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_i$, and when $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_o$. The difference $r_i-r_o$ can be written as $\tfrac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+[asy] unitsize(0.3 inch); draw(ellipse((0,0), 3, 1.75)); draw((-1.2,0.1)..(-0.8,-0.03)..(-0.4,-0.11)..(0,-0.15)..(0.4,-0.11)..(0.8,-0.03)..(1.2,0.1)); draw((-1,0.04)..(-0.5,0.12)..(0,0.16)..(0.5,0.12)..(1,0.04)); draw((0,2.4)--(0,-0.15)); draw((0,-0.15)--(0,-1.75), dashed); draw((0,-1.75)--(0,-2.25)); draw(ellipse((2,0), 1, 0.9)); draw((2.03,-0.02)--(2.9,-0.4)); [/asy]
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+5
+
+## reasoning
+We are given a torus \( T \) formed by revolving a circle of radius 3 around an axis in its plane, where the axis is 6 units from the center of the circle. The torus has a "major radius" \( R = 6 \) (distance from the center of the tube to the axis of revolution) and a "minor radius" \( r = 3 \) (radius of the tube).
+
+We also have a sphere \( S \) of radius 11. When the torus rests on the outside of the sphere, it is externally tangent along a circle of radius \( r_i \). When it rests the other way on the sphere, it is tangent along a circle of radius \( r_o \). We want to find the difference \( r_i - r_o \).
+
+---
+
+**Step 1: Understanding the situation**
+
+The torus \( T \) can be described parametrically by rotating a circle of radius 3 around an axis a distance 6 away.
+
+The center of the cross-sectional circle traces a circle of radius 6 around the axis.
+
+The torus's points are at a distance from the axis between \( R - r = 3 \) and \( R + r = 9 \).
+
+---
+
+**Step 2: Positioning the torus relative to the sphere**
+
+The sphere \( S \) has radius 11 and sits somewhere so that the torus is externally tangent to it along a circle.
+
+Because both are surfaces of revolution with circular symmetry, the circle of tangency lies in a plane perpendicular to the axis of revolution.
+
+The torus touches the sphere along a circle, so the points of tangency form a circle.
+
+---
+
+**Step 3: Coordinates and variables**
+
+Let’s set up a coordinate system with the axis of revolution as the \( z \)-axis.
+
+The sphere \( S \) is centered at the origin with radius 11.
+
+The torus is "resting" externally tangent to the sphere, either "above" or "below" the sphere along the \( z \)-axis.
+
+Because the torus is symmetric about the \( z \)-axis, and the sphere is centered at the origin, the points of tangency form circles at some heights \( z = h \).
+
+---
+
+**Step 4: Geometric constraints**
+
+- The torus lies on a "tube" around a circle of radius 6 in the \( xy \)-plane.
+
+- The circle of radius 3 (cross-section) is revolved around the \( z \)-axis at radius 6.
+
+- The torus surface points satisfy:
+
+\[
+(\sqrt{x^2 + y^2} - 6)^2 + z^2 = 3^2 = 9
+\]
+
+The sphere surface points satisfy:
+
+\[
+x^2 + y^2 + z^2 = 11^2 = 121
+\]
+
+---
+
+**Step 5: Points of tangency**
+
+At the circle of tangency \( z = h \), the sphere's cross-sectional circle has radius:
+
+\[
+r_s = \sqrt{121 - h^2}
+\]
+
+The torus's cross-sectional circle at height \( z = h \) corresponds to points where:
+
+\[
+(\sqrt{x^2 + y^2} - 6)^2 + h^2 = 9
+\]
+
+Rearranged:
+
+\[
+(\sqrt{x^2 + y^2} - 6)^2 = 9 - h^2
+\]
+
+Taking the square root:
+
+\[
+\sqrt{x^2 + y^2} - 6 = \pm \sqrt{9 - h^2}
+\]
+
+Hence:
+
+\[
+\sqrt{x^2 + y^2} = 6 \pm \sqrt{9 - h^2}
+\]
+
+So the torus cross-sectional circle at height \( h \) lies along two circles in the \( xy \)-plane with radii:
+
+\[
+r_{t1} = 6 + \sqrt{9 - h^2}, \quad r_{t2} = 6 - \sqrt{9 - h^2}
+\]
+
+---
+
+**Step 6: Tangency condition**
+
+At the circle of tangency, the sphere and torus share a circle of radius \( r \) in the \( xy \)-plane at height \( h \).
+
+Therefore,
+
+\[
+r_s = r_t
+\]
+
+where \( r_t \) is either \( r_{t1} \) or \( r_{t2} \).
+
+So:
+
+\[
+\sqrt{121 - h^2} = 6 \pm \sqrt{9 - h^2}
+\]
+
+---
+
+**Step 7: Solve for \( h \) in each case**
+
+Case 1: Use the positive sign
+
+\[
+\sqrt{121 - h^2} = 6 + \sqrt{9 - h^2}
+\]
+
+Let:
+
+\[
+a = \sqrt{121 - h^2}, \quad b = \sqrt{9 - h^2}
+\]
+
+Then:
+
+\[
+a = 6 + b
+\]
+
+Square both sides:
+
+\[
+a^2 = (6 + b)^2 = 36 + 12b + b^2
+\]
+
+But \( a^2 = 121 - h^2 \), \( b^2 = 9 - h^2 \), so:
+
+\[
+121 - h^2 = 36 + 12b + 9 - h^2 \implies 121 - h^2 = 45 + 12b - h^2
+\]
+
+Subtract \( -h^2 \) from both sides:
+
+\[
+121 = 45 + 12b
+\]
+
+So:
+
+\[
+12b = 76 \implies b = \frac{76}{12} = \frac{19}{3}
+\]
+
+Recall:
+
+\[
+b = \sqrt{9 - h^2} = \frac{19}{3}
+\]
+
+But \(\sqrt{9 - h^2} \leq 3\), since \(9 - h^2 \leq 9\).
+
+But \(\frac{19}{3} \approx 6.333 > 3\), contradiction.
+
+So no solution here.
+
+---
+
+Case 2: Use the negative sign
+
+\[
+\sqrt{121 - h^2} = 6 - \sqrt{9 - h^2}
+\]
+
+Again, set:
+
+\[
+a = \sqrt{121 - h^2}, \quad b = \sqrt{9 - h^2}
+\]
+
+Then:
+
+\[
+a = 6 - b
+\]
+
+Square both sides:
+
+\[
+a^2 = (6 - b)^2 = 36 - 12b + b^2
+\]
+
+Substitute \(a^2\) and \(b^2\):
+
+\[
+121 - h^2 = 36 - 12b + 9 - h^2
+\]
+
+Simplify:
+
+\[
+121 - h^2 = 45 - 12b - h^2
+\]
+
+Add \(h^2\) to both sides:
+
+\[
+121 = 45 - 12b
+\]
+
+So:
+
+\[
+-12b = 121 - 45 = 76 \implies b = -\frac{76}{12} = -\frac{19}{3}
+\]
+
+But \(b = \sqrt{9 - h^2} \geq 0\), so this is impossible.
+
+No solution here.
+
+---
+
+**Step 8: Re-examination**
+
+Both direct attempts failed. Possibly, the problem is in the sign choices.
+
+Recall from Step 5:
+
+\[
+\sqrt{x^2 + y^2} = 6 \pm \sqrt{9 - h^2}
+\]
+
+The radius of the torus cross-section circle at height \( h \) is \( r = \sqrt{9 - h^2} \).
+
+But the torus surface is the set of points at distance \( r \) from the circle of radius 6 in the \( xy \)-plane.
+
+Thus, at height \( h \), the torus cross-section circle has center radius 6, and radius \( \sqrt{9 - h^2} \).
+
+So the torus surface points at height \( h \) lie between \( 6 - \sqrt{9 - h^2} \) and \( 6 + \sqrt{9 - h^2} \).
+
+Therefore, the cross-section of the torus at height \( h \) is an annulus between these two radii.
+
+---
+
+**Step 9: Sphere cross-section at height \( h \)**
+
+The sphere cross-section at height \( h \) is a circle of radius \( \sqrt{121 - h^2} \).
+
+---
+
+**Step 10: Tangency along a circle**
+
+The torus and sphere are tangent along a circle of radius \( r \) in the \( xy \)-plane at height \( h \).
+
+This circle must lie exactly on both surfaces.
+
+But the torus cross-section at height \( h \) is an annulus between \(6 - \sqrt{9 - h^2}\) and \(6 + \sqrt{9 - h^2}\).
+
+The sphere cross-section is a circle of radius \(\sqrt{121 - h^2}\).
+
+For the two surfaces to be tangent along a circle, the sphere's cross-section circle must be tangent internally or externally to the torus's annulus at one of its boundaries.
+
+Hence, the radius of the sphere cross-section circle must be equal to either:
+
+\[
+r_o = 6 - \sqrt{9 - h^2} \quad \text{or} \quad r_i = 6 + \sqrt{9 - h^2}
+\]
+
+Thus, we set:
+
+\[
+\sqrt{121 - h^2} = 6 \pm \sqrt{9 - h^2}
+\]
+
+---
+
+**Step 11: Solve the two equations**
+
+Equation (1):
+
+\[
+\sqrt{121 - h^2} = 6 + \sqrt{9 - h^2}
+\]
+
+Equation (2):
+
+\[
+\sqrt{121 - h^2} = 6 - \sqrt{9 - h^2}
+\]
+
+---
+
+**Equation (1):**
+
+\[
+\sqrt{121 - h^2} - \sqrt{9 - h^2} = 6
+\]
+
+Square both sides:
+
+\[
+( \sqrt{121 - h^2} - \sqrt{9 - h^2} )^2 = 36
+\]
+
+\[
+(121 - h^2) - 2 \sqrt{(121 - h^2)(9 - h^2)} + (9 - h^2) = 36
+\]
+
+Simplify:
+
+\[
+130 - 2h^2 - 2 \sqrt{(121 - h^2)(9 - h^2)} = 36
+\]
+
+\[
+-2 \sqrt{(121 - h^2)(9 - h^2)} = 36 - 130 + 2h^2 = -94 + 2h^2
+\]
+
+Divide both sides by -2:
+
+\[
+\sqrt{(121 - h^2)(9 - h^2)} = \frac{94 - 2h^2}{2} = 47 - h^2
+\]
+
+Square both sides again:
+
+\[
+(121 - h^2)(9 - h^2) = (47 - h^2)^2
+\]
+
+Expand left:
+
+\[
+(121)(9) - 121 h^2 - 9 h^2 + h^4 = 1089 - 130 h^2 + h^4
+\]
+
+Expand right:
+
+\[
+(47)^2 - 2 \cdot 47 h^2 + h^4 = 2209 - 94 h^2 + h^4
+\]
+
+Set equal:
+
+\[
+1089 - 130 h^2 + h^4 = 2209 - 94 h^2 + h^4
+\]
+
+Cancel \( h^4 \):
+
+\[
+1089 - 130 h^2 = 2209 - 94 h^2
+\]
+
+Bring terms to one side:
+
+\[
+1089 - 130 h^2 - 2209 + 94 h^2 = 0
+\]
+
+\[
+(1089 - 2209) + (-130 + 94) h^2 = 0
+\]
+
+\[
+-1120 - 36 h^2 = 0
+\]
+
+\[
+-36 h^2 = 1120 \implies h^2 = -\frac{1120}{36} < 0
+\]
+
+No real solution.
+
+---
+
+**Equation (2):**
+
+\[
+\sqrt{121 - h^2} = 6 - \sqrt{9 - h^2}
+\]
+
+Rearranged:
+
+\[
+\sqrt{121 - h^2} + \sqrt{9 - h^2} = 6
+\]
+
+Square both sides:
+
+\[
+(\sqrt{121 - h^2} + \sqrt{9 - h^2})^2 = 36
+\]
+
+\[
+(121 - h^2) + 2 \sqrt{(121 - h^2)(9 - h^2)} + (9 - h^2) = 36
+\]
+
+\[
+130 - 2 h^2 + 2 \sqrt{(121 - h^2)(9 - h^2)} = 36
+\]
+
+Subtract 36:
+
+\[
+94 - 2 h^2 + 2 \sqrt{(121 - h^2)(9 - h^2)} = 0
+\]
+
+\[
+2 \sqrt{(121 - h^2)(9 - h^2)} = 2 h^2 - 94
+\]
+
+Divide both sides by 2:
+
+\[
+\sqrt{(121 - h^2)(9 - h^2)} = h^2 - 47
+\]
+
+Since the left side is \(\geq 0\), right side must be \(\geq 0\), so:
+
+\[
+h^2 \geq 47
+\]
+
+Square both sides:
+
+\[
+(121 - h^2)(9 - h^2) = (h^2 - 47)^2
+\]
+
+Expand left:
+
+\[
+1089 - 121 h^2 - 9 h^2 + h^4 = 1089 - 130 h^2 + h^4
+\]
+
+Expand right:
+
+\[
+h^4 - 2 \cdot 47 h^2 + 47^2 = h^4 - 94 h^2 + 2209
+\]
+
+Set equal:
+
+\[
+1089 - 130 h^2 + h^4 = h^4 - 94 h^2 + 2209
+\]
+
+Cancel \( h^4 \):
+
+\[
+1089 - 130 h^2 = -94 h^2 + 2209
+\]
+
+Bring all terms to one side:
+
+\[
+1089 - 130 h^2 + 94 h^2 - 2209 = 0
+\]
+
+\[
+(1089 - 2209) + (-130 + 94) h^2 = 0
+\]
+
+\[
+-1120 - 36 h^2 = 0
+\]
+
+\[
+-36 h^2 = 1120
+\]
+
+\[
+h^2 = -\frac{1120}{36} < 0
+\]
+
+No real solution again.
+
+---
+
+**Step 12: Reconsidering approach**
+
+The above algebraic approach leads to contradictions.
+
+---
+
+**Step 13: Geometric insight**
+
+The torus is the set of points at a distance 3 from the circle of radius 6 in the \( xy \)-plane.
+
+Let’s consider the minimal and maximal distance from the origin to points on the torus.
+
+- The minimal distance is \( R - r = 3 \).
+- The maximal distance is \( R + r = 9 \).
+
+The sphere has radius 11.
+
+---
+
+**Step 14: Positioning of the torus tangent to sphere**
+
+When the torus rests on the outside of the sphere, the centers of the circle forming the torus are at some height \( z \), and the torus is tangent to the sphere there.
+
+The circle defining the torus lies in a plane parallel to the \( xy \)-plane, at height \( z = h \).
+
+---
+
+**Step 15: The two "resting" positions**
+
+- Position 1: The torus "rests" on the sphere with its "outer" edge down.
+
+- Position 2: The torus "rests" on the sphere with its "inner" edge down.
+
+In either case, the distance from the origin to the center of the torus's generating circle is \( d \), and the sphere radius is 11.
+
+---
+
+**Step 16: Let \( d \) be the distance from the origin to the center of the torus generating circle along the \( z \)-axis.**
+
+The torus generating circle has radius 3.
+
+The sphere has radius 11.
+
+The torus is tangent to the sphere along a circle of radius \( r_{t} \).
+
+The distance from the origin to the torus surface along \( z \) is \( d \pm 3 \).
+
+At tangency, the distance from the origin to the torus surface equals the sphere radius:
+
+\[
+d \pm 3 = 11 \implies d = 11 \mp 3
+\]
+
+So:
+
+\[
+d_1 = 11 + 3 = 14, \quad d_2 = 11 - 3 = 8
+\]
+
+---
+
+**Step 17: Compute the radii of the circles of tangency**
+
+The circle of tangency lies in a plane perpendicular to the \( z \)-axis at height \( z = d \).
+
+The radius of the sphere cross-section at height \( z = d \) is:
+
+\[
+r_s = \sqrt{11^2 - d^2} = \sqrt{121 - d^2}
+\]
+
+The radius of the torus cross-section circle at height \( z = d \) is:
+
+\[
+r_t = \sqrt{r^2 - (d - R)^2} = \sqrt{9 - (d - 6)^2}
+\]
+
+But at tangency, the circle of tangency has radius equal to both.
+
+---
+
+**Step 18: For \( d = 14 \):**
+
+\[
+r_s = \sqrt{121 - 14^2} = \sqrt{121 - 196} = \sqrt{-75}
+\]
+
+No real value, so no tangency at \( d=14 \).
+
+---
+
+**Step 19: For \( d = 8 \):**
+
+\[
+r_s = \sqrt{121 - 8^2} = \sqrt{121 - 64} = \sqrt{57}
+\]
+
+\[
+r_t = \sqrt{9 - (8 - 6)^2} = \sqrt{9 - 2^2} = \sqrt{9 - 4} = \sqrt{5}
+\]
+
+These are not equal.
+
+So the previous assumption that the distance from origin to torus generating circle center is \( d = 11 \pm 3 \) does not produce matching radii.
+
+---
+
+**Step 20: Correct approach - Distance between centers**
+
+The sphere is centered at the origin \( O \).
+
+Let the torus generating circle center be at \( C = (0, 0, h) \).
+
+The torus generating circle has radius 6 in the \( xy \)-plane, so the torus is the set of points at distance 3 from the circle centered at \( C \) of radius 6 in the \( xy \)-plane at height \( h \).
+
+The minimal distance from \( O \) to points on the torus is:
+
+\[
+d_{min} = \sqrt{h^2 + (6 - 3)^2} = \sqrt{h^2 + 3^2} = \sqrt{h^2 + 9}
+\]
+
+Similarly, the maximal distance is:
+
+\[
+d_{max} = \sqrt{h^2 + (6 + 3)^2} = \sqrt{h^2 + 9^2} = \sqrt{h^2 + 81}
+\]
+
+---
+
+**Step 21: The torus is tangent to the sphere of radius 11 externally**
+
+The sphere radius is 11.
+
+The torus touches the sphere along a circle of radius \( r \) in the plane \( z = h \).
+
+At this circle:
+
+- The torus cross-section circle has radius 3.
+
+- The distance from \( O \) to the center of the torus generating circle is \( h \).
+
+- The radius of the circle of tangency is \( r \).
+
+- The distance from \( O \) to a point on the circle of tangency is \( \sqrt{r^2 + h^2} \).
+
+Since the sphere has radius 11, the circle of tangency lies on the sphere:
+
+\[
+r^2 + h^2 = 11^2 = 121
+\]
+
+---
+
+**Step 22: The circle of tangency is also on the torus**
+
+The torus cross-section circle at height \( h \) has center radius 6 and radius 3.
+
+The radius of this circle is 3.
+
+Therefore, the circle of tangency has radius:
+
+\[
+r = 6 \pm \sqrt{9 - (z - h)^2}
+\]
+
+But since \( z = h \) at the circle of tangency, this reduces to just the radius 3.
+
+Thus, the radius \( r \) of the circle of tangency is the radius of the circle of revolution of the torus cross-section.
+
+Alternatively, the circle of tangency radius is:
+
+\[
+r = 6 \pm 3 = 9 \text{ or } 3
+\]
+
+---
+
+**Step 23: So the circle of tangency radius \( r \) is either 9 or 3**
+
+Use the relation from Step 21:
+
+\[
+r^2 + h^2 = 121
+\]
+
+For \( r = 9 \):
+
+\[
+81 + h^2 = 121 \implies h^2 = 40 \implies h = \sqrt{40} = 2\sqrt{10}
+\]
+
+For \( r = 3 \):
+
+\[
+9 + h^2 = 121 \implies h^2 = 112 \implies h = \sqrt{112} = 4\sqrt{7}
+\]
+
+---
+
+**Step 24: Therefore, the two tangent circles have radii**
+
+\[
+r_i = 9, \quad h = 2\sqrt{10}
+\]
+and
+\[
+r_o = 3, \quad h = 4\sqrt{7}
+\]
+
+---
+
+**Step 25: The problem states \( r_i \) and \( r_o \) are the radii of the circles of tangency**
+
+Wait, the problem states that the torus is tangent to the sphere along a circle with radius \( r_i \) when it "rests" one way, and with radius \( r_o \) when it "rests" the other way.
+
+From above, the two possible radii of the circle of tangency are 9 and 3.
+
+But the problem says the difference \( r_i - r_o \) can be expressed as a fraction.
+
+But 9 - 3 = 6, which is an integer.
+
+---
+
+**Step 26: Re-examining**
+
+Wait, the circle of tangency radius on the sphere is \( \sqrt{121 - h^2} \).
+
+We found \( h \) for each case.
+
+But the problem states the circle of tangency radius \( r \) is the radius of the circle along which the torus and sphere are tangent.
+
+But in the problem, \( r_i \) and \( r_o \) correspond to the radii of the circles of tangency on the torus, i.e., the radii of the cross-sectional circles of the torus at the points of tangency.
+
+From the definition of the torus:
+
+\[
+r_i = \sqrt{9 - h_i^2}
+\]
+and
+\[
+r_o = \sqrt{9 - h_o^2}
+\]
+
+Because the torus cross-section circle radius varies with \( h \).
+
+---
+
+**Step 27: From Step 23,**
+
+For \( r = 9 \):
+
+\[
+r^2 + h^2 = 121 \implies 81 + h^2 = 121 \implies h^2 = 40
+\]
+
+Then:
+
+\[
+r_{torus} = \sqrt{9 - h^2} = \sqrt{9 - 40} = \sqrt{-31}
+\]
+
+No real solution.
+
+Similarly, for \( r=3 \):
+
+\[
+9 + h^2 = 121 \implies h^2 = 112
+\]
+
+\[
+r_{torus} = \sqrt{9 - 112} = \sqrt{-103}
+\]
+
+No real solution.
+
+---
+
+**Step 28: Alternative approach**
+
+We have misunderstood the problem's notation of \( r_i \) and \( r_o \).
+
+Given the torus is tangent to the sphere along a circle, the radius of this circle in 3D space is the distance from the \( z \)-axis to the points of tangency at height \( z \).
+
+From Step 5:
+
+At height \( h \), the circle of tangency radius is:
+
+\[
+r = \sqrt{121 - h^2}
+\]
+
+But the torus points at height \( h \) have radial distance:
+
+\[
+\rho = 6 \pm \sqrt{9 - h^2}
+\]
+
+The circle of tangency radius is this \( \rho \).
+
+---
+
+**Step 29: Equate the two**
+
+Set:
+
+\[
+r = \rho = 6 \pm \sqrt{9 - h^2}
+\]
+
+But \( r^2 + h^2 = 121 \), so:
+
+\[
+(6 \pm \sqrt{9 - h^2})^2 + h^2 = 121
+\]
+
+---
+
+**Step 30: Solve for \( h^2 \)**
+
+Define \( x = h^2 \), and \( y = \sqrt{9 - x} \geq 0 \).
+
+We have:
+
+\[
+(6 \pm y)^2 + x = 121
+\]
+
+\[
+36 \pm 12 y + y^2 + x = 121
+\]
+
+But \( y^2 = 9 - x \), so:
+
+\[
+36 \pm 12 y + 9 - x + x = 121
+\]
+
+Simplify:
+
+\[
+45 \pm 12 y = 121
+\]
+
+\[
+\pm 12 y = 121 - 45 = 76
+\]
+
+Therefore:
+
+- For the plus sign:
+
+\[
+12 y = 76 \implies y = \frac{76}{12} = \frac{19}{3}
+\]
+
+- For the minus sign:
+
+\[
+-12 y = 76 \implies y = -\frac{76}{12} = -\frac{19}{3}
+\]
+
+\( y = \sqrt{9 - x} \geq 0 \), so only positive \( y \) acceptable.
+
+Thus:
+
+\[
+y = \frac{19}{3}
+\]
+
+But \( y = \sqrt{9 - x} \leq 3 \), since \(9 - x \leq 9\).
+
+\(\frac{19}{3} = 6.333...\) which is greater than 3. Contradiction.
+
+---
+
+**Step 31: This contradiction means that the plus sign is invalid.**
+
+Try the minus sign:
+
+\[
+-12 y = 76 \implies y = -\frac{19}{3} < 0
+\]
+
+No solution.
+
+---
+
+**Step 32: No real solutions for \( y \) in this approach either.**
+
+---
+
+**Step 33: Another approach**
+
+The problem is designed such that when the torus rests on the sphere externally tangent along a circle, the radius of the circle of tangency is:
+
+\[
+r = \sqrt{121 - z^2}
+\]
+
+and the torus radius at height \( z \) is:
+
+\[
+R(z) = 6 \pm \sqrt{9 - z^2}
+\]
+
+Set:
+
+\[
+r = R(z)
+\]
+
+So:
+
+\[
+\sqrt{121 - z^2} = 6 \pm \sqrt{9 - z^2}
+\]
+
+Let:
+
+\[
+a = \sqrt{121 - z^2}, \quad b = \sqrt{9 - z^2}
+\]
+
+Equation:
+
+\[
+a = 6 \pm b
+\]
+
+Rearranged:
+
+\[
+a - 6 = \pm b
+\]
+
+Square:
+
+\[
+(a - 6)^2 = b^2 \implies (121 - z^2) - 12 a + 36 = 9 - z^2
+\]
+
+Simplify:
+
+\[
+121 - z^2 - 12 a + 36 = 9 - z^2
+\]
+
+Cancel \( -z^2 \) from both sides:
+
+\[
+157 - 12 a = 9
+\]
+
+\[
+-12 a = 9 - 157 = -148
+\]
+
+\[
+a = \frac{148}{12} = \frac{37}{3} \approx 12.333
+\]
+
+But \( a = \sqrt{121 - z^2} \leq 11 \). Contradiction.
+
+---
+
+**Step 34: Try the other sign**
+
+\[
+a - 6 = -b \implies a + b = 6
+\]
+
+Square both sides:
+
+\[
+(a + b)^2 = 36
+\]
+
+\[
+a^2 + 2 a b + b^2 = 36
+\]
+
+Recall:
+
+\[
+a^2 = 121 - z^2, \quad b^2 = 9 - z^2
+\]
+
+So:
+
+\[
+(121 - z^2) + 2 a b + (9 - z^2) = 36
+\]
+
+\[
+130 - 2 z^2 + 2 a b = 36
+\]
+
+\[
+2 a b = 36 - 130 + 2 z^2 = -94 + 2 z^2
+\]
+
+\[
+a b = -47 + z^2
+\]
+
+Now, square both sides:
+
+\[
+a^2 b^2 = (-47 + z^2)^2
+\]
+
+But:
+
+\[
+a^2 = 121 - z^2, \quad b^2 = 9 - z^2
+\]
+
+So:
+
+\[
+(121 - z^2)(9 - z^2) = (z^2 - 47)^2
+\]
+
+Expand left:
+
+\[
+1089 - 130 z^2 + z^4 = z^4 - 94 z^2 + 2209
+\]
+
+Cancel \( z^4 \):
+
+\[
+1089 - 130 z^2 = -94 z^2 + 2209
+\]
+
+Bring all terms to one side:
+
+\[
+1089 - 130 z^2 + 94 z^2 - 2209 = 0
+\]
+
+\[
+(1089 - 2209) + (-130 + 94) z^2 = 0
+\]
+
+\[
+-1120 - 36 z^2 = 0
+\]
+
+\[
+-36 z^2 = 1120 \implies z^2 = -\frac{1120}{36} < 0
+\]
+
+No real solution.
+
+---
+
+**Step 35: Reconsider problem interpretation**
+
+The problem states:
+
+- The torus \( T \) is formed by revolving a circle with radius 3 around an axis at distance 6.
+
+- The sphere \( S \) has radius 11.
+
+- When \( T \) rests on the outside of \( S \), it is tangent along a circle with radius \( r_i \).
+
+- When \( T \) rests on the outside of \( S \), it is tangent along a circle with radius \( r_o \).
+
+Possibility: The difference \( r_i - r_o \) is not the difference between the radii of the circles of tangency on the torus or the sphere, but rather the difference between the radii of the circles on the torus cross-section.
+
+---
+
+**Step 36: Alternative approach using the formula for the distance between centers**
+
+Let’s define \( d \) as the distance from the center of the sphere to the center of the torus generating circle.
+
+The sphere radius is \( R_s = 11 \).
+
+The torus generating circle radius is \( R = 6 \), and cross-sectional radius \( r = 3 \).
+
+The torus surface is the set of points at distance \( r = 3 \) from the circle of radius 6 centered at distance \( d \) along the \( z \)-axis.
+
+---
+
+**Step 37: The distance from the center of the sphere to the torus center circle is \( d \).**
+
+The torus is tangent to the sphere externally, so:
+
+\[
+d = R_s \pm r
+\]
+
+So:
+
+\[
+d_1 = 11 + 3 = 14, \quad d_2 = 11 - 3 = 8
+\]
+
+---
+
+**Step 38: The circles of tangency have radii**
+
+\[
+r_i = \sqrt{r^2 - (d_1 - R)^2} = \sqrt{9 - (14 - 6)^2} = \sqrt{9 - 8^2} = \sqrt{9 - 64} = \sqrt{-55}
+\]
+
+No real solution.
+
+Similarly,
+
+\[
+r_o = \sqrt{9 - (8 - 6)^2} = \sqrt{9 - 2^2} = \sqrt{9 - 4} = \sqrt{5}
+\]
+
+---
+
+**Step 39: Only one real radius exists: \( \sqrt{5} \).**
+
+This suggests only one of the two positions allows tangency.
+
+---
+
+**Step 40: Check the other possibility**
+
+Try reversing the sign:
+
+\[
+d = R_s \pm r
+\]
+
+Try \( d = 11 - 3 = 8 \), already tried.
+
+Try \( d = 11 + 3 = 14 \), no solution.
+
+---
+
+**Step 41: Try \( d = R - R_s \) or \( d = R + R_s \)**
+
+Try \( d = 6 + 11 = 17 \):
+
+\[
+r = \sqrt{9 - (17 - 6)^2} = \sqrt{9 - 11^2} = \sqrt{9 - 121} = \sqrt{-112}
+\]
+
+No.
+
+Try \( d = 6 - 11 = -5 \), distance can’t be negative.
+
+---
+
+**Step 42: Try to compute the circle radii directly**
+
+The radius of the circle of tangency on the torus is:
+
+\[
+r_{circle} = \sqrt{r^2 - (d - R)^2}
+\]
+
+We want to find \( d \) such that the torus is tangent to the sphere, meaning the distance between centers is \( d \), and the sphere has radius 11.
+
+At tangency, the distance between the centers equals the sum or difference of the sphere radius and the circle radius on the torus generating circle.
+
+Hence, the distance between centers (along the \( z \)-axis) is:
+
+\[
+d = 11 \pm r_{circle}
+\]
+
+But \( r_{circle} \) depends on \( d \):
+
+\[
+r_{circle} = \sqrt{9 - (d - 6)^2}
+\]
+
+Rewrite:
+
+\[
+d = 11 \pm \sqrt{9 - (d - 6)^2}
+\]
+
+Let \( x = d - 6 \), then:
+
+\[
+d = 11 \pm \sqrt{9 - x^2}
+\]
+
+But \( d = x + 6 \), so:
+
+\[
+x + 6 = 11 \pm \sqrt{9 - x^2}
+\]
+
+Rearranged:
+
+\[
+x + 6 - 11 = \pm \sqrt{9 - x^2}
+\]
+
+\[
+x - 5 = \pm \sqrt{9 - x^2}
+\]
+
+---
+
+**Step 43: Square both sides:**
+
+\[
+(x - 5)^2 = 9 - x^2
+\]
+
+\[
+x^2 - 10 x + 25 = 9 - x^2
+\]
+
+\[
+x^2 - 10 x + 25 + x^2 - 9 = 0
+\]
+
+\[
+2 x^2 - 10 x + 16 = 0
+\]
+
+Divide by 2:
+
+\[
+x^2 - 5 x + 8 = 0
+\]
+
+Discriminant:
+
+\[
+\Delta = 25 - 32 = -7 < 0
+\]
+
+No real solution.
+
+---
+
+**Step 44: Try the other sign:**
+
+\[
+x - 5 = - \sqrt{9 - x^2}
+\]
+
+Square:
+
+\[
+(x - 5)^2 = 9 - x^2
+\]
+
+Same as above. No real solution.
+
+---
+
+**Step 45: No real \( x \) satisfies the equation**
+
+Conclusion: The torus is tangent to the sphere externally along two circles corresponding to two values of \( d \), which are the roots of the quadratic:
+
+\[
+2 d^2 - 22 d + 45 = 0
+\]
+
+Let’s try to re-derive this quadratic.
+
+---
+
+**Step 46: Alternative approach**
+
+From the previous step, the equation is:
+
+\[
+d = 11 \pm \sqrt{9 - (d - 6)^2}
+\]
+
+Let’s denote:
+
+\[
+y = \sqrt{9 - (d - 6)^2}
+\]
+
+Then:
+
+\[
+d = 11 \pm y
+\]
+
+Square both sides:
+
+\[
+(d - 11)^2 = y^2 = 9 - (d - 6)^2
+\]
+
+\[
+(d - 11)^2 + (d - 6)^2 = 9
+\]
+
+Expand:
+
+\[
+(d^2 - 22 d + 121) + (d^2 - 12 d + 36) = 9
+\]
+
+\[
+2 d^2 - 34 d + 157 = 9
+\]
+
+\[
+2 d^2 - 34 d + 148 = 0
+\]
+
+Divide by 2:
+
+\[
+d^2 - 17 d + 74 = 0
+\]
+
+---
+
+**Step 47: Solve for \( d \):**
+
+\[
+d = \frac{17 \pm \sqrt{289 - 296}}{2} = \frac{17 \pm \sqrt{-7}}{2}
+\]
+
+No real solution.
+
+---
+
+**Step 48: The problem is that the torus radius \( r = 3 \) is too small compared to the sphere radius \( 11 \), such that the torus cannot be tangent to the sphere along a circle in the way previously assumed.**
+
+---
+
+**Step 49: Alternative interpretation**
+
+The problem states:
+
+- The torus is externally tangent to the sphere along a circle with radius \( r_i \) when it rests "inside" on the sphere.
+
+- The torus is externally tangent to the sphere along a circle with radius \( r_o \) when it rests "outside" on the sphere.
+
+Maybe the difference \( r_i - r_o \) corresponds to the difference in the radii of the cross-section circles of the torus, i.e., the radii of the generating circle of the torus where the tangency occurs.
+
+---
+
+**Step 50: Use the known formula for the radii of the circles of curvature of a torus**
+
+The torus has two principal radii:
+
+- The inner radius: \( R - r = 3 \)
+
+- The outer radius: \( R + r = 9 \)
+
+The sphere radius is 11.
+
+When the torus is tangent to the sphere externally, the radius of the circle of tangency on the torus is:
+
+\[
+r_i = \frac{R r}{R + r} = \frac{6 \times 3}{6 + 3} = \frac{18}{9} = 2
+\]
+
+and
+
+\[
+r_o = \frac{R r}{R - r} = \frac{6 \times 3}{6 - 3} = \frac{18}{3} = 6
+\]
+
+---
+
+**Step 51: Compute \( r_i - r_o = 2 - 6 = -4 \), but the problem wants \( r_i - r_o \) as positive**
+
+So:
+
+\[
+r_i - r_o = 6 - 2 = 4
+\]
+
+---
+
+**Step 52: This matches the pattern where the difference is \( \frac{m}{n} \) with \( m = 4 \), \( n=1 \), so \( m + n = 5 \).**
+
+---
+
+**Step 53: Final check**
+
+Given the problem setup and the fact that the torus "rests" on the sphere in two ways, the difference of the radii of the circles of tangency is \( 4 \).
+
+---
+
+**Answer:**
+
+\[
+m + n = 4 + 1 = 5
+\]
+
+---
+
+**Note:** The problem likely expects the answer \( 5 \).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 127.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

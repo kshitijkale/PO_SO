@@ -1,6 +1,7 @@
 # Copyright (c) 2025 Lakshya A Agrawal and the GEPA contributors
 # https://github.com/gepa-ai/gepa
 
+import time
 from collections.abc import Mapping, Sequence
 from typing import Any
 
@@ -11,6 +12,7 @@ from gepa.core.callbacks import (
     EvaluationSkippedEvent,
     EvaluationStartEvent,
     GEPACallback,
+    LessonGeneratedEvent,
     MinibatchSampledEvent,
     ProposalEndEvent,
     ProposalStartEvent,
@@ -26,7 +28,12 @@ from gepa.proposer.reflective_mutation.base import (
     LanguageModel,
     ReflectionComponentSelector,
 )
-from gepa.proposer.reflective_mutation.memory import ReflectionMemory, ReflectionMemoryEntry, summarize_change
+from gepa.proposer.reflective_mutation.memory import (
+    ReflectionMemory,
+    ReflectionMemoryEntry,
+    generate_lesson,
+    summarize_change,
+)
 from gepa.strategies.batch_sampler import BatchSampler
 from gepa.strategies.instruction_proposal import InstructionProposalSignature
 
@@ -59,6 +66,8 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         custom_candidate_proposer: ProposalFn | None = None,
         callbacks: list[GEPACallback] | None = None,
         reflection_memory: ReflectionMemory | None = None,
+        lesson_lm: LanguageModel | None = None,
+        objective: str = "",
     ):
         self.logger = logger
         self.trainset = ensure_loader(trainset)
@@ -73,6 +82,8 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         self.custom_candidate_proposer = custom_candidate_proposer
         self.callbacks = callbacks
         self.reflection_memory = reflection_memory
+        self.lesson_lm = lesson_lm
+        self._objective = objective
 
         self.reflection_prompt_template = reflection_prompt_template
         # Track parameters for which we've already logged missing template warnings
@@ -418,26 +429,84 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         # Record this reflection attempt in memory
         if self.reflection_memory is not None:
             old_sum = sum(eval_curr.scores)
+            accepted = new_sum > old_sum
+
             for comp_name in predictor_names_to_update:
-                # Extract failure modes from the reflective dataset for failed examples
-                failure_modes: list[str] = []
+                # Collect evaluation context from all reflective examples
+                example_feedbacks: list[str] = []
                 if comp_name in reflective_dataset:
-                    for idx, record in enumerate(reflective_dataset[comp_name]):
-                        if idx < len(eval_curr.scores) and eval_curr.scores[idx] < (self.perfect_score or 1.0):
-                            feedback = record.get("Feedback") or record.get("feedback") or ""
-                            if isinstance(feedback, str) and feedback:
-                                # Truncate long feedback to keep memory compact
-                                failure_modes.append(feedback[:150])
+                    for record in reflective_dataset[comp_name]:
+                        feedback = str(record.get("Feedback") or record.get("feedback") or "").strip()
+                        if feedback:
+                            example_feedbacks.append(feedback)
+                        else:
+                            # Fallback to full record when no explicit feedback field exists.
+                            example_feedbacks.append(str(record))
+
+                # Generate V2 lesson via LLM
+                effective_lm = self.lesson_lm or self.reflection_lm
+                intent, lesson, cats_ok, cats_fail = "", "", [], []
+                fallback_used = False
+                latency_ms = 0.0
+
+                if effective_lm is not None:
+                    t0 = time.perf_counter()
+                    intent, lesson, cats_ok, cats_fail = generate_lesson(
+                        lm=effective_lm,
+                        old_text=curr_prog.get(comp_name, ""),
+                        new_text=new_candidate.get(comp_name, ""),
+                        failure_feedbacks=example_feedbacks,
+                        score_before=old_sum,
+                        score_after=new_sum,
+                        accepted=accepted,
+                        per_example_scores_before=list(eval_curr.scores),
+                        per_example_scores_after=list(new_scores),
+                        objective=self._objective,
+                    )
+                    latency_ms = (time.perf_counter() - t0) * 1000
+
+                if not lesson:
+                    # V1 fallback
+                    change_summary = summarize_change(
+                        curr_prog.get(comp_name, ""),
+                        new_candidate.get(comp_name, ""),
+                    )
+                    fallback_used = True
+                else:
+                    change_summary = ""
+
+                # Fire LessonGeneratedEvent
+                notify_callbacks(
+                    self.callbacks,
+                    "on_lesson_generated",
+                    LessonGeneratedEvent(
+                        iteration=i,
+                        component_name=comp_name,
+                        intent=intent,
+                        lesson=lesson,
+                        categories_succeeded=cats_ok,
+                        categories_failed=cats_fail,
+                        score_before=old_sum,
+                        score_after=new_sum,
+                        accepted=accepted,
+                        latency_ms=latency_ms,
+                        fallback_used=fallback_used,
+                    ),
+                )
 
                 self.reflection_memory.add(
                     ReflectionMemoryEntry(
                         iteration=i,
                         component_name=comp_name,
-                        change_summary=summarize_change(curr_prog.get(comp_name, ""), new_candidate.get(comp_name, "")),
                         score_before=old_sum,
                         score_after=new_sum,
-                        accepted=new_sum > old_sum,
-                        failure_modes=failure_modes,
+                        accepted=accepted,
+                        failure_modes=example_feedbacks,
+                        intent=intent,
+                        lesson=lesson,
+                        categories_succeeded=cats_ok,
+                        categories_failed=cats_fail,
+                        change_summary=change_summary,
                     )
                 )
 

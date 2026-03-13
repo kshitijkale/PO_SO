@@ -1,0 +1,775 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+107
+
+## reasoning
+Let's analyze the problem carefully:
+
+- We have two rectangles: \(ABCD\) and \(EFGH\).
+- Points \(D, E, C, F\) are collinear.
+- Points \(A, D, H, G\) lie on a circle.
+- Given side lengths:
+  - \(BC = 16\),
+  - \(AB = 107\),
+  - \(FG = 17\),
+  - \(EF = 184\).
+- We want to find the length \(CE\).
+
+---
+
+**Step 1: Understand the setup and label points**
+
+Since \(ABCD\) is a rectangle, \(AB \perp BC\), and the sides satisfy:
+- \(AB = DC = 107\),
+- \(BC = AD = 16\).
+
+Similarly, for rectangle \(EFGH\),
+- \(EF = GH = 184\),
+- \(FG = EH = 17\).
+
+---
+
+**Step 2: Coordinates for rectangle \(ABCD\)**
+
+Place \(ABCD\) in the coordinate plane for convenience.
+
+Let:
+- \(A = (0,0)\),
+- \(B = (107,0)\) (since \(AB=107\) along the x-axis),
+- \(C = (107,16)\) (since \(BC=16\) along the y-axis),
+- \(D = (0,16)\).
+
+---
+
+**Step 3: Coordinates for rectangle \(EFGH\)**
+
+Points \(D, E, C, F\) are collinear. This line passes through \(D=(0,16)\) and \(C=(107,16)\), so the points \(D, E, C, F\) lie on the horizontal line \(y=16\).
+
+Since \(E\) and \(F\) lie on this line, their \(y\)-coordinates are 16.
+
+---
+
+**Step 4: Determine points \(E\) and \(F\)**
+
+Given \(EFGH\) is a rectangle with sides \(EF=184\) and \(FG=17\).
+
+Since \(EF\) is 184 units long and \(FG\) is 17 units long, and \(EFGH\) is a rectangle, the sides \(EF\) and \(FG\) are perpendicular.
+
+We know \(E\) and \(F\) lie on the line \(y=16\), so segment \(EF\) is horizontal (since \(E\) and \(F\) share the same \(y\)-coordinate).
+
+Let \(E = (x_E, 16)\).
+
+Then \(F = (x_E + 184, 16)\), since \(EF=184\).
+
+---
+
+**Step 5: Points \(G\) and \(H\)**
+
+Since \(EFGH\) is a rectangle, \(FG\) is perpendicular to \(EF\).
+
+Since \(EF\) is horizontal, \(FG\) is vertical with length 17.
+
+Thus,
+- \(G = (x_E + 184, 16 - 17) = (x_E + 184, -1)\),
+- \(H = (x_E, 16 - 17) = (x_E, -1)\).
+
+---
+
+**Step 6: Points on circle \(A, D, H, G\)**
+
+Points \(A=(0,0)\), \(D=(0,16)\), \(H=(x_E, -1)\), and \(G=(x_E + 184, -1)\) are concyclic.
+
+We want to find \(x_E\) so that these four points lie on the same circle.
+
+---
+
+**Step 7: Equation of the circle passing through \(A, D, H, G\)**
+
+The general equation of a circle is:
+\[
+(x - h)^2 + (y - k)^2 = r^2,
+\]
+where \((h,k)\) is the center.
+
+---
+
+**Step 8: Use points \(A\) and \(D\) to find relations**
+
+Plug in \(A=(0,0)\):
+\[
+(0 - h)^2 + (0 - k)^2 = r^2 \implies h^2 + k^2 = r^2.
+\]
+
+Plug in \(D=(0,16)\):
+\[
+(0 - h)^2 + (16 - k)^2 = r^2 \implies h^2 + (16 - k)^2 = r^2.
+\]
+
+Subtract the two equations:
+\[
+h^2 + (16 - k)^2 = h^2 + k^2 \implies (16 - k)^2 = k^2.
+\]
+
+Expanding:
+\[
+256 - 32k + k^2 = k^2 \implies 256 - 32k = 0 \implies 32k = 256 \implies k = 8.
+\]
+
+So the center's \(y\)-coordinate is \(k=8\).
+
+---
+
+**Step 9: Find \(r^2\) in terms of \(h\)**
+
+From \(A\):
+\[
+r^2 = h^2 + 8^2 = h^2 + 64.
+\]
+
+---
+
+**Step 10: Use point \(H = (x_E, -1)\)** on the circle:
+\[
+(x_E - h)^2 + (-1 - 8)^2 = r^2,
+\]
+\[
+(x_E - h)^2 + (-9)^2 = r^2,
+\]
+\[
+(x_E - h)^2 + 81 = h^2 + 64,
+\]
+\[
+(x_E - h)^2 = h^2 + 64 - 81 = h^2 - 17.
+\]
+
+---
+
+**Step 11: Use point \(G = (x_E + 184, -1)\) on the circle:**
+\[
+(x_E + 184 - h)^2 + (-1 - 8)^2 = r^2,
+\]
+\[
+(x_E + 184 - h)^2 + 81 = h^2 + 64,
+\]
+\[
+(x_E + 184 - h)^2 = h^2 - 17.
+\]
+
+---
+
+**Step 12: Equate the two expressions for \(h^2 - 17\):**
+\[
+(x_E - h)^2 = (x_E + 184 - h)^2.
+\]
+
+Let \(a = x_E - h\), then:
+\[
+a^2 = (a + 184)^2,
+\]
+\[
+a^2 = a^2 + 2 \cdot 184 \cdot a + 184^2,
+\]
+\[
+0 = 2 \cdot 184 \cdot a + 184^2,
+\]
+\[
+0 = 368 a + 33856,
+\]
+\[
+368 a = -33856,
+\]
+\[
+a = -92.
+\]
+
+Recall \(a = x_E - h = -92 \implies h = x_E + 92.\)
+
+---
+
+**Step 13: Use \( (x_E - h)^2 = h^2 - 17 \) to find \(h\) and \(x_E\)**
+
+Recall:
+\[
+(x_E - h)^2 = h^2 - 17.
+\]
+
+But \(x_E - h = -92\), so:
+\[
+(-92)^2 = h^2 - 17,
+\]
+\[
+8464 = h^2 - 17,
+\]
+\[
+h^2 = 8481.
+\]
+
+Since \(h = x_E + 92\),
+\[
+(x_E + 92)^2 = 8481.
+\]
+
+---
+
+**Step 14: Solve for \(x_E\)**
+\[
+x_E + 92 = \pm \sqrt{8481}.
+\]
+
+Calculate \(\sqrt{8481}\):
+
+\[
+92^2 = 8464, \quad 8481 - 8464 = 17,
+\]
+so \(\sqrt{8481} \approx 92.2\).
+
+So,
+\[
+x_E + 92 = \pm 92.2.
+\]
+
+Two solutions:
+
+1. \(x_E + 92 = 92.2 \implies x_E = 0.2\),
+2. \(x_E + 92 = -92.2 \implies x_E = -184.2\).
+
+---
+
+**Step 15: Determine which \(x_E\) makes sense**
+
+Recall that \(E\) and \(F\) are on the line \(y=16\), and \(F = (x_E + 184, 16)\).
+
+Since \(D = (0,16)\) and \(C = (107,16)\), and \(D, E, C, F\) are collinear on \(y=16\), the points should be ordered along the x-axis.
+
+We know \(D = 0\), \(C=107\).
+
+If \(x_E = 0.2\), then:
+- \(E = (0.2,16)\),
+- \(F = (184.2,16)\).
+
+This ordering is \(D(0)< E(0.2)< C(107) < F(184.2)\), which breaks the order \(D, E, C, F\) (since \(E\) is between \(D\) and \(C\), but \(F\) is after \(C\)). This matches the problem statement.
+
+If \(x_E = -184.2\), then:
+- \(E = (-184.2,16)\),
+- \(F = (-0.2,16)\).
+
+Ordering: \(E < F < D < C\), which contradicts the problem statement.
+
+Thus, \(x_E = 0.2\) is the correct choice.
+
+---
+
+**Step 16: Find length \(CE\)**
+
+Recall:
+- \(C = (107,16)\),
+- \(E = (0.2,16)\).
+
+Distance:
+\[
+CE = |107 - 0.2| = 106.8.
+\]
+
+---
+
+**Step 17: Final answer**
+
+Length \(CE = 106.8\).
+
+Since the problem likely expects an integer answer, and the problem's given data is integer, let's verify if \(CE\) is exactly \(107 - 0.2 = 106.8\), or if the small difference is due to rounding.
+
+Re-express the exact value.
+
+Since \(x_E = 0.2\), which is \(\frac{1}{5}\), the exact length is:
+\[
+CE = 107 - \frac{1}{5} = \frac{535}{5} - \frac{1}{5} = \frac{534}{5} = 106.8.
+\]
+
+Hence, \(CE = \boxed{106.8}\).
+
+However, since the problem probably expects an integer, we might express the answer as 107 or 107 - a small fraction.
+
+---
+
+**Step 18: Reconsider the problem statement**
+
+Are we missing a detail about the answer's format?
+
+The problem states "what is the length of \(CE\)?" with no mention of rounding or fraction.
+
+Given the precision, the best is to express the answer as the fraction \(\frac{534}{5} = 106.8\).
+
+But the problem requests a single integer.
+
+---
+
+**Step 19: Cross-check the problem's answer expectations**
+
+Given the problem data:
+
+- \(AB=107\),
+- \(BC=16\),
+- \(EF=184\),
+- \(FG=17\),
+- \(CE = ?\).
+
+And considering the alignment and the derived value \(CE=106.8\), the answer closest and consistent would be \(107\).
+
+Therefore, final answer: \(CE = 107\).
+
+---
+
+**Verification:**
+
+- \(CE\) is almost equal to \(AB\).
+- The small difference is due to the circle constraint and the positions of \(E, F, G, H\).
+
+Therefore, the problem's intended answer is \(CE = 107\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 104.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Find the three-digit positive integer $\underline{a}\,\underline{b}\,\underline{c}$ whose representation in base nine is $\underline{b}\,\underline{c}\,\underline{a}_{\,\text{nine}},$ where $a,$ $b,$ and $c$ are (not necessarily distinct) digits.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+227
+
+## reasoning
+Let's denote the three-digit positive integer in base 10 as \(\underline{a}\,\underline{b}\,\underline{c}\), where \(a, b, c\) are digits (with \(a \neq 0\) since it's a three-digit number).
+
+Given:
+- The number in base 10 is \(100a + 10b + c\).
+- The same digits \(a, b, c\) rearranged as \(\underline{b}\,\underline{c}\,\underline{a}\) represent the same number in base 9.
+
+The number \(\underline{b}\,\underline{c}\,\underline{a}\) in base 9 equals:
+\[ 9^2 \cdot b + 9^1 \cdot c + 9^0 \cdot a = 81b + 9c + a. \]
+
+Since these represent the same number, we have:
+\[
+100a + 10b + c = 81b + 9c + a.
+\]
+
+Rearranging terms:
+\[
+100a - a + 10b - 81b + c - 9c = 0,
+\]
+\[
+99a - 71b - 8c = 0.
+\]
+
+This simplifies to:
+\[
+99a = 71b + 8c.
+\]
+
+Constraints:
+- \(a, b, c\) are digits: \(0 \leq a,b,c \leq 9\).
+- \(a \neq 0\) (since the number is three-digit in base 10).
+- The number \(\underline{b}\,\underline{c}\,\underline{a}_{9}\) must be valid in base 9; hence \(b, c, a < 9\) (digits in base 9 must be less than 9).
+- Therefore, \(1 \leq a \leq 8\), \(0 \leq b \leq 8\), \(0 \leq c \leq 8\).
+
+We want to find integers \(a,b,c\) satisfying:
+\[
+99a = 71b + 8c,
+\]
+with the above constraints.
+
+Let's try values of \(a\) from 1 to 8 and see if \(71b + 8c\) matches \(99a\) for some \(b,c\).
+
+- For \(a=1\), \(99a=99\).
+  Try to find \(b,c\) with \(71b + 8c=99\), \(b,c \leq 8\).
+  
+  Try \(b=1\): \(71 \cdot 1=71\), \(8c=99-71=28\), \(c=3.5\) (not integer).
+  
+  \(b=0\): \(8c=99\) => \(c=12.375\) (too big).
+  
+  \(b=2\): \(71 \cdot 2=142\) > 99, no.
+  
+  So no solution for \(a=1\).
+
+- \(a=2\), \(99 \cdot 2=198\):
+  
+  Try \(b=2\): \(71 \cdot 2=142\), \(8c=198-142=56\), \(c=7\) valid (since \(c \leq 8\)).
+  
+  So \(a=2, b=2, c=7\) is a candidate.
+
+- \(a=3\), \(99 \cdot 3=297\):
+  
+  Try \(b=4\): \(71 \cdot 4=284\), \(8c=297-284=13\), \(c=13/8=1.625\) no.
+  
+  \(b=3\): \(71 \cdot 3=213\), \(8c=297-213=84\), \(c=10.5\) no.
+  
+  \(b=5\): \(355\) too big.
+  
+  No solution.
+
+- \(a=4\), \(396\):
+  
+  \(b=5\): \(355\), \(8c=41\), \(c=5.125\) no.
+  
+  \(b=6\): \(426\) too big.
+  
+  \(b=4\): \(284\), \(8c=112\), \(c=14\) no.
+  
+  No solution.
+
+- \(a=5\), \(495\):
+  
+  \(b=6\): \(426\), \(8c=69\), \(c=8.625\) no.
+  
+  \(b=7\): \(497\) > 495 no.
+  
+  \(b=5\): \(355\), \(8c=140\), \(c=17.5\) no.
+  
+  No.
+
+- \(a=6\), \(594\):
+  
+  \(b=8\): \(568\), \(8c=26\), \(c=3.25\) no.
+  
+  \(b=7\): \(497\), \(8c=97\), \(c=12.125\) no.
+  
+  No.
+
+- \(a=7\), \(693\):
+  
+  \(b=9\): invalid (since \(b<9\)).
+  
+  \(b=8\): \(568\), \(8c=125\), \(c=15.625\) no.
+  
+  \(b=7\): \(497\), \(8c=196\), \(c=24.5\) no.
+  
+  No.
+
+- \(a=8\), \(792\):
+  
+  \(b=8\): \(568\), \(8c=224\), \(c=28\) no.
+  
+  \(b=9\) invalid.
+  
+  No.
+
+The only valid candidate is for \(a=2, b=2, c=7\).
+
+Check the digits are all less than 9 and \(a\neq 0\). Yes.
+
+Check if the number in base 10:
+
+\[
+100a + 10b + c = 100 \cdot 2 + 10 \cdot 2 + 7 = 200 + 20 + 7 = 227.
+\]
+
+Number in base 9, \(\underline{b}\,\underline{c}\,\underline{a}_{9} = \underline{2}\,\underline{7}\,\underline{2}_{9}\):
+
+\[
+81 \cdot 2 + 9 \cdot 7 + 2 = 162 + 63 + 2 = 227.
+\]
+
+This matches perfectly.
+
+Therefore, the number is \(\boxed{227}\).
+
+## Feedback
+Your answer is correct. The correct answer is 227.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Azar, Carl, Jon, and Sergey are the four players left in a singles tennis tournament. They are randomly assigned opponents in the semifinal matches, and the winners of those matches play each other in the final match to determine the winner of the tournament. When Azar plays Carl, Azar will win the match with probability $\frac23$. When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win the match with probability $\frac34$. Assume that outcomes of different matches are independent. The probability that Carl will win the tournament is $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+125
+
+## reasoning
+We have four players: Azar (A), Carl (C), Jon (J), and Sergey (S). There are two semifinal matches, randomly assigned. The winners of the semifinals play in the final to determine the champion.
+
+We want the probability that Carl wins the tournament.
+
+---
+
+**Step 1: Determine possible semifinal matchups**
+
+There are 4 players, randomly paired into two matches. The number of ways to pair 4 players into two matches is:
+
+\[
+\frac{\binom{4}{2}}{2} = \frac{6}{2} = 3
+\]
+
+The distinct possible matchups (unordered pairs) are:
+
+1. (A vs C) and (J vs S)
+2. (A vs J) and (C vs S)
+3. (A vs S) and (C vs J)
+
+Each has equal probability \( \frac{1}{3} \).
+
+---
+
+**Step 2: Define match win probabilities**
+
+- If A plays C, A wins with probability \( \frac{2}{3} \), so C wins with probability \( \frac{1}{3} \).
+- If A or C plays J or S, A or C wins with probability \( \frac{3}{4} \), and the other player (J or S) wins with probability \( \frac{1}{4} \).
+- Matches between J and S are not needed here because the probability that Carl wins depends on his matches.
+
+---
+
+**Step 3: Calculate probability Carl wins tournament for each pairing**
+
+---
+
+**Case 1: Semifinals (A vs C) and (J vs S)**
+
+- Probability Carl beats Azar in semifinal: \( \frac{1}{3} \)
+- Probability Azar beats Carl: \( \frac{2}{3} \)
+
+- Probability Jon beats Sergey: Since not given, but probably irrelevant because Carl must beat whoever he faces in final.
+
+After semifinals:
+
+- If Carl wins semifinal, he faces the winner of J vs S in final.
+
+Since the problem only gives probabilities for matches involving A or C against J or S, and not J vs S, and matches are independent, we consider the probability of the winner of J vs S.
+
+But we don't need to know who wins between J and S because Carl's probability of winning the final against J or S is \( \frac{3}{4} \).
+
+So:
+
+- Probability Carl wins semifinal = \( \frac{1}{3} \)
+- Probability Carl wins final given semifinal win = \( \frac{3}{4} \)
+
+Therefore, Carl's probability of winning tournament in Case 1 is:
+
+\[
+\frac{1}{3} \times \frac{3}{4} = \frac{1}{4}
+\]
+
+---
+
+**Case 2: Semifinals (A vs J) and (C vs S)**
+
+- Carl plays Sergey in semifinal. Carl vs S: Carl wins with probability \( \frac{3}{4} \).
+
+- Azar plays Jon in other semifinal, but we don't need that for Carl's calculation except to know who Carl faces in final.
+
+- Carl wins semifinal with probability \( \frac{3}{4} \).
+
+- Final opponent is winner of (A vs J):
+
+Azar vs Jon:
+
+Since A faces J, A or C wins with probability \( \frac{3}{4} \). Here, it's A vs J, so A wins with probability \( \frac{3}{4} \), J wins with probability \( \frac{1}{4} \).
+
+So final opponent is:
+
+- Azar with probability \( \frac{3}{4} \)
+- Jon with probability \( \frac{1}{4} \)
+
+---
+
+**Now, Carl's chance of beating each possible final opponent:**
+
+- Carl vs Azar: Carl wins with probability \( 1 - \frac{2}{3} = \frac{1}{3} \) (since A beats C with \( \frac{2}{3} \))
+- Carl vs Jon: Carl wins with probability \( \frac{3}{4} \)
+
+---
+
+**Therefore, Carl's probability of winning final:**
+
+\[
+P(\text{Carl beats final opponent}) = \frac{3}{4} \times \frac{1}{3} + \frac{1}{4} \times \frac{3}{4} = \frac{3}{4} \times \frac{1}{3} + \frac{1}{4} \times \frac{3}{4}
+\]
+
+Calculate:
+
+\[
+\frac{3}{4} \times \frac{1}{3} = \frac{3}{12} = \frac{1}{4}
+\]
+\[
+\frac{1}{4} \times \frac{3}{4} = \frac{3}{16}
+\]
+
+Sum:
+
+\[
+\frac{1}{4} + \frac{3}{16} = \frac{4}{16} + \frac{3}{16} = \frac{7}{16}
+\]
+
+---
+
+**Carl's probability of winning tournament in Case 2:**
+
+\[
+P(\text{Carl wins semifinal}) \times P(\text{Carl wins final}) = \frac{3}{4} \times \frac{7}{16} = \frac{21}{64}
+\]
+
+---
+
+**Case 3: Semifinals (A vs S) and (C vs J)**
+
+Carl plays Jon in semifinal.
+
+- Carl beats Jon with probability \( \frac{3}{4} \).
+
+Azar plays Sergey in other semifinal, irrelevant for Carl except for final opponent.
+
+Winner of (A vs S):
+
+Since A vs S is A or C vs J or S, A or C wins with probability \( \frac{3}{4} \) when playing J or S.
+
+Here, A plays S, so A wins with probability \( \frac{3}{4} \), S wins with probability \( \frac{1}{4} \).
+
+---
+
+**Final opponent for Carl is:**
+
+- Azar with probability \( \frac{3}{4} \)
+- Sergey with probability \( \frac{1}{4} \)
+
+---
+
+**Probability Carl beats final opponent:**
+
+- Carl vs Azar: \( \frac{1}{3} \)
+- Carl vs Sergey: \( \frac{3}{4} \)
+
+So,
+
+\[
+\frac{3}{4} \times \frac{1}{3} + \frac{1}{4} \times \frac{3}{4} = \frac{7}{16}
+\]
+
+(same as in Case 2)
+
+---
+
+**Carl's probability of winning tournament in Case 3:**
+
+\[
+\frac{3}{4} \times \frac{7}{16} = \frac{21}{64}
+\]
+
+---
+
+**Step 4: Combine all cases**
+
+Each case has probability \( \frac{1}{3} \).
+
+Total probability Carl wins tournament:
+
+\[
+\frac{1}{3} \times \frac{1}{4} + \frac{1}{3} \times \frac{21}{64} + \frac{1}{3} \times \frac{21}{64} = \frac{1}{3} \times \frac{1}{4} + \frac{2}{3} \times \frac{21}{64}
+\]
+
+Calculate:
+
+\[
+\frac{1}{3} \times \frac{1}{4} = \frac{1}{12}
+\]
+\[
+\frac{2}{3} \times \frac{21}{64} = \frac{42}{192} = \frac{7}{32}
+\]
+
+Sum:
+
+\[
+\frac{1}{12} + \frac{7}{32} = \frac{8}{96} + \frac{21}{96} = \frac{29}{96}
+\]
+
+---
+
+**Step 5: Simplify \(\frac{29}{96}\)**
+
+29 is prime and does not divide 96, so fraction is in lowest terms.
+
+---
+
+**Step 6: Final answer**
+
+\[
+\frac{p}{q} = \frac{29}{96} \Rightarrow p+q = 29 + 96 = 125
+\]
+
+---
+
+**Verification:**
+
+- The logic and calculations are consistent.
+- Probabilities add up properly.
+- Independent events handled correctly.
+- Final probability is reasonable.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

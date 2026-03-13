@@ -143,6 +143,9 @@ class RecordingCallback:
     def on_proposal_trace(self, event):
         self._record("on_proposal_trace", event)
 
+    def on_lesson_generated(self, event):
+        self._record("on_lesson_generated", event)
+
 
 class FailingCallback:
     """A callback that raises exceptions for testing error handling.

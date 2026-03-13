@@ -1,16 +1,18 @@
 # Copyright (c) 2025 Lakshya A Agrawal and the GEPA contributors
 # https://github.com/gepa-ai/gepa
 
-"""ResearchLogger — exhaustive per-iteration logging callback.
+"""ResearchLogger — maximally exhaustive per-iteration logging callback.
 
 Writes structured markdown reports AND machine-readable JSONL for every
-event during GEPA optimization. Designed for researchers who need full
-transparency into every decision, every LLM call, every memory operation.
+event during GEPA optimization. Zero truncation — every LLM prompt,
+every LLM response, every evaluation output, every memory entry is
+captured in full.
 
 Output files:
     log.jsonl            — one JSON line per event (complete event stream)
     summary.jsonl        — one JSON line per iteration (key metrics)
     pareto_timeline.jsonl — Pareto front after each iteration
+    index.md             — cross-iteration index with links and scores
     iterations/          — per-iteration markdown narrative reports
     candidates/          — full text of every accepted candidate
     memory/              — reflection memory snapshots and events
@@ -36,6 +38,7 @@ from gepa.core.callbacks import (
     EvaluationStartEvent,
     IterationEndEvent,
     IterationStartEvent,
+    LessonGeneratedEvent,
     MemoryEntryAddedEvent,
     MemoryQueriedEvent,
     MemoryStateSnapshotEvent,
@@ -85,6 +88,10 @@ def _timestamp() -> str:
 class ResearchLogger:
     """Exhaustive callback logger that writes everything to disk.
 
+    Zero truncation policy: every piece of data that passes through the
+    optimization loop is captured verbatim in the iteration reports and
+    JSONL logs.
+
     Args:
         output_dir: Directory for all output files. Created if missing.
     """
@@ -102,6 +109,9 @@ class ResearchLogger:
         self._total_iterations = 0
         self._best_score = 0.0
         self._best_candidate_idx = 0
+
+        # Cross-iteration index data
+        self._iteration_index: list[dict[str, Any]] = []
 
         # Create directory structure
         for subdir in ["iterations", "candidates", "memory", "memory/prompts_with_memory", "llm_calls"]:
@@ -148,6 +158,9 @@ class ResearchLogger:
             "elapsed": self._elapsed(),
         }
         self._log_event("optimization_end", data)
+
+        # Write cross-iteration index
+        self._write_index()
 
         # Close file handles
         for fh in [self._log_jsonl, self._summary_jsonl, self._pareto_jsonl, self._memory_events_jsonl]:
@@ -212,6 +225,15 @@ class ResearchLogger:
         self._summary_jsonl.write(json.dumps(summary) + "\n")
         self._summary_jsonl.flush()
 
+        # Track for index
+        self._iteration_index.append({
+            "iteration": iteration,
+            "accepted": accepted,
+            "best_score": self._best_score,
+            "iter_elapsed_s": round(iter_elapsed, 2),
+            "decision": self._iter_buf.get("decision", {}),
+        })
+
         # Write iteration markdown report
         self._write_iteration_report(iteration)
 
@@ -227,6 +249,7 @@ class ResearchLogger:
             "iteration": event["iteration"],
             "candidate_idx": event["candidate_idx"],
             "score": event["score"],
+            "candidate": event["candidate"],
         })
 
     def on_minibatch_sampled(self, event: MinibatchSampledEvent) -> None:
@@ -239,12 +262,17 @@ class ResearchLogger:
     # =========================================================================
 
     def on_evaluation_start(self, event: EvaluationStartEvent) -> None:
+        # Store inputs for the iteration report
+        key = "eval_inputs_current" if event["capture_traces"] else "eval_inputs_proposed"
+        self._iter_buf[key] = _safe_json(event["inputs"])
+
         self._log_event("evaluation_start", {
             "iteration": event["iteration"],
             "candidate_idx": event["candidate_idx"],
             "batch_size": event["batch_size"],
             "capture_traces": event["capture_traces"],
             "is_seed_candidate": event["is_seed_candidate"],
+            "inputs": _safe_json(event["inputs"]),
         })
 
     def on_evaluation_end(self, event: EvaluationEndEvent) -> None:
@@ -254,6 +282,8 @@ class ResearchLogger:
             "scores": event["scores"],
             "has_trajectories": event["has_trajectories"],
             "objective_scores": _safe_json(event["objective_scores"]),
+            "outputs": _safe_json(event["outputs"]),
+            "trajectories": _safe_json(event["trajectories"]),
         }
         self._log_event("evaluation_end", {
             "iteration": event["iteration"],
@@ -261,6 +291,9 @@ class ResearchLogger:
             "scores": event["scores"],
             "has_trajectories": event["has_trajectories"],
             "capture_traces": event.get("capture_traces"),
+            "outputs": _safe_json(event["outputs"]),
+            "trajectories": _safe_json(event["trajectories"]),
+            "objective_scores": _safe_json(event["objective_scores"]),
         })
 
     def on_evaluation_skipped(self, event: EvaluationSkippedEvent) -> None:
@@ -275,6 +308,7 @@ class ResearchLogger:
             "total_valset_size": event["total_valset_size"],
             "is_best_program": event["is_best_program"],
             "scores_by_val_id": _safe_json(event["scores_by_val_id"]),
+            "outputs_by_val_id": _safe_json(event.get("outputs_by_val_id")),
         }
         self._log_event("valset_evaluated", {
             "iteration": event["iteration"],
@@ -282,6 +316,8 @@ class ResearchLogger:
             "average_score": event["average_score"],
             "num_examples": event["num_examples_evaluated"],
             "is_best_program": event["is_best_program"],
+            "scores_by_val_id": _safe_json(event["scores_by_val_id"]),
+            "outputs_by_val_id": _safe_json(event.get("outputs_by_val_id")),
         })
 
     # =========================================================================
@@ -298,7 +334,7 @@ class ResearchLogger:
             "iteration": event["iteration"],
             "candidate_idx": event["candidate_idx"],
             "components": event["components"],
-            "dataset_sizes": {k: len(v) for k, v in event["dataset"].items()},
+            "dataset": _safe_json(event["dataset"]),
         })
 
     def on_proposal_start(self, event: ProposalStartEvent) -> None:
@@ -307,6 +343,7 @@ class ResearchLogger:
         self._log_event("proposal_start", {
             "iteration": event["iteration"],
             "components": event["components"],
+            "parent_candidate": event["parent_candidate"],
         })
 
     def on_proposal_end(self, event: ProposalEndEvent) -> None:
@@ -326,14 +363,17 @@ class ResearchLogger:
             "latency_ms": event["latency_ms"],
             "memory_was_injected": event["memory_was_injected"],
         }
+        # Log FULL prompt and response to JSONL (no truncation)
         self._log_event("proposal_trace", {
             "iteration": event["iteration"],
             "component_name": event["component_name"],
             "model_id": event["model_id"],
             "latency_ms": round(event["latency_ms"], 1),
             "memory_was_injected": event["memory_was_injected"],
-            "prompt_length": len(event["rendered_prompt"]),
-            "response_length": len(event["raw_response"]),
+            "prompt_template": event["prompt_template"],
+            "rendered_prompt": event["rendered_prompt"],
+            "raw_response": event["raw_response"],
+            "extracted_instruction": event["extracted_instruction"],
         })
 
         # Write LLM call files
@@ -417,8 +457,6 @@ class ResearchLogger:
             "metric_calls_delta": event["metric_calls_delta"],
             "metric_calls_remaining": event["metric_calls_remaining"],
         }
-        # Don't log every budget update to avoid noise — they fire per-eval
-        # The iteration-end summary captures the final budget state
 
     def on_error(self, event: ErrorEvent) -> None:
         self._iter_buf["error"] = {"exception": str(event["exception"]), "will_continue": event["will_continue"]}
@@ -448,9 +486,10 @@ class ResearchLogger:
             "event": "add",
             "iteration": event["iteration"],
             "component": event["component_name"],
+            "entry": _safe_json(event["entry"]),
             "accepted": event["entry"].get("accepted"),
             "score_delta": (event["entry"].get("score_after", 0) or 0) - (event["entry"].get("score_before", 0) or 0),
-            "evicted": event["evicted_entry"] is not None,
+            "evicted": _safe_json(event["evicted_entry"]) if event["evicted_entry"] else None,
             "size_after": event["memory_size_after"],
         }
         self._memory_events_jsonl.write(json.dumps(record) + "\n")
@@ -459,14 +498,17 @@ class ResearchLogger:
     def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
         self._iter_buf.setdefault("memory_queries", []).append({
             "component": event["component_name"],
-            "entries_returned": len(event["entries_returned"]),
+            "entries_returned": event["entries_returned"],
             "formatted_text": event["formatted_text"],
             "formatted_text_length": event["formatted_text_length"],
         })
+        # Log full query including all returned entries and formatted text
         self._log_event("memory_queried", {
             "iteration": event["iteration"],
             "component": event["component_name"],
-            "entries_returned": len(event["entries_returned"]),
+            "query_n": event["query_n"],
+            "entries_returned": _safe_json(event["entries_returned"]),
+            "formatted_text": event["formatted_text"],
             "formatted_text_length": event["formatted_text_length"],
         })
 
@@ -487,7 +529,9 @@ class ResearchLogger:
             "event": "query",
             "iteration": event["iteration"],
             "component": event["component_name"],
-            "entries_returned": len(event["entries_returned"]),
+            "query_n": event["query_n"],
+            "entries_returned": _safe_json(event["entries_returned"]),
+            "formatted_text": event["formatted_text"],
             "formatted_length": event["formatted_text_length"],
         }
         self._memory_events_jsonl.write(json.dumps(record) + "\n")
@@ -509,6 +553,9 @@ class ResearchLogger:
             "total_entries": event["total_entries"],
             "max_entries": event["max_entries"],
             "accepted_ratio": round(event["accepted_ratio"], 3),
+            "rejected_ratio": round(event["rejected_ratio"], 3),
+            "entries_by_component": event["entries_by_component"],
+            "all_entries": _safe_json(event["all_entries"]),
         })
 
         # Write full snapshot to file
@@ -517,6 +564,25 @@ class ResearchLogger:
         )
         with open(snapshot_path, "w") as f:
             json.dump(_safe_json(dict(event)), f, indent=2, default=str)
+
+    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
+        self._iter_buf.setdefault("lessons", []).append({
+            "component_name": event["component_name"],
+            "intent": event["intent"],
+            "lesson": event["lesson"],
+            "categories_succeeded": event["categories_succeeded"],
+            "categories_failed": event["categories_failed"],
+            "score_before": event["score_before"],
+            "score_after": event["score_after"],
+            "accepted": event["accepted"],
+            "latency_ms": event["latency_ms"],
+            "fallback_used": event["fallback_used"],
+        })
+        self._log_event("lesson_generated", _safe_json(dict(event)))
+        # Write to dedicated lesson events log
+        lesson_path = os.path.join(self.output_dir, "memory", "lesson_events.jsonl")
+        with open(lesson_path, "a") as f:
+            f.write(json.dumps(_safe_json(dict(event))) + "\n")
 
     # =========================================================================
     # Helper: Save candidate
@@ -542,6 +608,41 @@ class ResearchLogger:
             json.dump(record, f, indent=2, default=str)
 
     # =========================================================================
+    # Helper: Write cross-iteration index
+    # =========================================================================
+
+    def _write_index(self) -> None:
+        """Write index.md with links to all iteration reports and a score timeline."""
+        lines: list[str] = []
+        lines.append("# Optimization Run Index")
+        lines.append("")
+        lines.append(f"**Total iterations:** {self._total_iterations}")
+        lines.append(f"**Accepted:** {self._total_accepted}/{self._total_iterations} ({self._total_accepted / self._total_iterations * 100:.1f}%)" if self._total_iterations > 0 else "")
+        lines.append(f"**Best score:** {self._best_score:.4f} (candidate #{self._best_candidate_idx})")
+        lines.append(f"**Total elapsed:** {self._elapsed()}")
+        lines.append("")
+
+        # Score timeline table
+        lines.append("## Iteration Timeline")
+        lines.append("")
+        lines.append("| Iter | Decision | Best Score | Time | Details |")
+        lines.append("|------|----------|------------|------|---------|")
+        for entry in self._iteration_index:
+            it = entry["iteration"]
+            dec = entry.get("decision", {})
+            accepted = dec.get("accepted", False)
+            status = "ACCEPTED" if accepted else "REJECTED"
+            score = entry.get("best_score", 0)
+            elapsed = entry.get("iter_elapsed_s", 0)
+            link = f"[iteration_{it:03d}.md](iterations/iteration_{it:03d}.md)"
+            lines.append(f"| {it} | {status} | {score:.4f} | {elapsed:.1f}s | {link} |")
+        lines.append("")
+
+        path = os.path.join(self.output_dir, "index.md")
+        with open(path, "w") as f:
+            f.write("\n".join(lines))
+
+    # =========================================================================
     # Helper: Write per-iteration markdown report
     # =========================================================================
 
@@ -549,6 +650,9 @@ class ResearchLogger:
         buf = self._iter_buf
         lines: list[str] = []
 
+        # =================================================================
+        # Header
+        # =================================================================
         lines.append(f"# Iteration {iteration}")
         lines.append("")
         lines.append(f"**Timestamp:** {buf.get('timestamp', 'N/A')}")
@@ -557,10 +661,39 @@ class ResearchLogger:
         lines.append(f"**Total evals so far:** {buf.get('total_evals', 'N/A')}")
         lines.append(f"**Candidates in population:** {buf.get('num_candidates', 'N/A')}")
         lines.append(f"**Best score:** {self._best_score:.4f} (candidate #{self._best_candidate_idx})")
-        lines.append(f"**Acceptance rate:** {self._total_accepted}/{self._total_iterations} ({self._total_accepted / self._total_iterations * 100:.1f}%)" if self._total_iterations > 0 else "")
+        if self._total_iterations > 0:
+            lines.append(f"**Acceptance rate:** {self._total_accepted}/{self._total_iterations} ({self._total_accepted / self._total_iterations * 100:.1f}%)")
         lines.append("")
 
-        # Candidate selection
+        # =================================================================
+        # Table of Contents
+        # =================================================================
+        lines.append("## Table of Contents")
+        lines.append("")
+        toc_sections = [
+            ("candidate-selection", "Candidate Selection"),
+            ("minibatch", "Minibatch"),
+            ("current-candidate-evaluation-pre-mutation", "Current Candidate Evaluation (pre-mutation)"),
+            ("reflective-dataset", "Reflective Dataset"),
+            ("reflection-memory", "Reflection Memory"),
+            ("llm-reflection-calls", "LLM Reflection Calls"),
+            ("full-candidate-texts", "Full Candidate Texts"),
+            ("beforeafter-diff", "Before/After Diff"),
+            ("proposed-candidate-evaluation-post-mutation", "Proposed Candidate Evaluation (post-mutation)"),
+            ("acceptance-decision", "Acceptance Decision"),
+            ("lesson-generated", "Lesson Generated"),
+            ("pareto-front-update", "Pareto Front Update"),
+            ("validation-set-evaluation", "Validation Set Evaluation"),
+            ("merge", "Merge"),
+            ("budget", "Budget"),
+        ]
+        for anchor, title in toc_sections:
+            lines.append(f"- [{title}](#{anchor})")
+        lines.append("")
+
+        # =================================================================
+        # Candidate Selection — full text of selected candidate
+        # =================================================================
         if "selected_candidate_idx" in buf:
             lines.append("## Candidate Selection")
             lines.append("")
@@ -568,9 +701,20 @@ class ResearchLogger:
             if "selected_candidate" in buf:
                 for comp_name, comp_text in buf["selected_candidate"].items():
                     lines.append(f"- **Component `{comp_name}`:** {len(comp_text)} chars")
-            lines.append("")
+                lines.append("")
+                lines.append("### Full Candidate Text")
+                lines.append("")
+                for comp_name, comp_text in buf["selected_candidate"].items():
+                    lines.append(f"#### `{comp_name}`")
+                    lines.append("")
+                    lines.append("```")
+                    lines.append(comp_text)
+                    lines.append("```")
+                    lines.append("")
 
+        # =================================================================
         # Minibatch
+        # =================================================================
         if "minibatch_ids" in buf:
             lines.append("## Minibatch")
             lines.append("")
@@ -578,7 +722,9 @@ class ResearchLogger:
             lines.append(f"- **Size:** {len(buf['minibatch_ids'])} / {buf.get('trainset_size', 'N/A')} total")
             lines.append("")
 
-        # Current evaluation
+        # =================================================================
+        # Current evaluation (pre-mutation) — full outputs
+        # =================================================================
         if "eval_current" in buf:
             ev = buf["eval_current"]
             lines.append("## Current Candidate Evaluation (pre-mutation)")
@@ -591,6 +737,44 @@ class ResearchLogger:
                 lines.append(f"- **Failed examples:** {failed}/{len(scores)}")
             lines.append("")
 
+            # Full per-example outputs
+            outputs = ev.get("outputs", [])
+            if outputs:
+                lines.append("### Per-Example Outputs")
+                lines.append("")
+                for idx, out in enumerate(outputs):
+                    score = scores[idx] if idx < len(scores) else "N/A"
+                    mark = "PASS" if isinstance(score, int | float) and score >= 1.0 else "FAIL"
+                    lines.append(f"#### Example {idx} [{mark}] (score: {score})")
+                    lines.append("")
+                    lines.append("```json")
+                    lines.append(json.dumps(_safe_json(out), indent=2, default=str))
+                    lines.append("```")
+                    lines.append("")
+
+            # Full trajectories
+            trajectories = ev.get("trajectories")
+            if trajectories:
+                lines.append("### Trajectories")
+                lines.append("")
+                for idx, traj in enumerate(trajectories):
+                    lines.append(f"#### Trajectory {idx}")
+                    lines.append("")
+                    lines.append("```json")
+                    lines.append(json.dumps(_safe_json(traj), indent=2, default=str))
+                    lines.append("```")
+                    lines.append("")
+
+            # Objective scores
+            obj_scores = ev.get("objective_scores")
+            if obj_scores:
+                lines.append("### Objective Scores")
+                lines.append("")
+                lines.append("```json")
+                lines.append(json.dumps(_safe_json(obj_scores), indent=2, default=str))
+                lines.append("```")
+                lines.append("")
+
         # Evaluation skipped
         if "evaluation_skipped" in buf:
             lines.append("## Evaluation Skipped")
@@ -598,7 +782,9 @@ class ResearchLogger:
             lines.append(f"- **Reason:** {buf['evaluation_skipped']['reason']}")
             lines.append("")
 
-        # Reflective dataset
+        # =================================================================
+        # Reflective Dataset — FULL records, no truncation
+        # =================================================================
         if "reflective_dataset" in buf:
             rd = buf["reflective_dataset"]
             lines.append("## Reflective Dataset")
@@ -607,19 +793,25 @@ class ResearchLogger:
             for comp, records in rd.get("dataset", {}).items():
                 lines.append(f"\n### Component: `{comp}` ({len(records)} records)")
                 lines.append("")
-                for idx, record in enumerate(records[:5]):  # Show first 5
+                for idx, record in enumerate(records):
                     lines.append(f"#### Record {idx + 1}")
+                    lines.append("")
                     for key, val in record.items():
                         val_str = str(val)
                         if len(val_str) > 500:
-                            val_str = val_str[:500] + "..."
-                        lines.append(f"- **{key}:** {val_str}")
-                    lines.append("")
-                if len(records) > 5:
-                    lines.append(f"*... and {len(records) - 5} more records*")
+                            # For very long values, use a fenced block
+                            lines.append(f"**{key}:**")
+                            lines.append("")
+                            lines.append("```")
+                            lines.append(val_str)
+                            lines.append("```")
+                        else:
+                            lines.append(f"- **{key}:** {val_str}")
                     lines.append("")
 
-        # Memory state
+        # =================================================================
+        # Memory State — show ALL entries, mark which were SELECTED
+        # =================================================================
         memory_snapshots = buf.get("memory_snapshots", [])
         memory_queries = buf.get("memory_queries", [])
         memory_updates = buf.get("memory_updates", [])
@@ -628,60 +820,140 @@ class ResearchLogger:
             lines.append("## Reflection Memory")
             lines.append("")
 
-            # Show before-proposal snapshot
+            # Build set of selected entry iterations for highlighting
+            selected_iterations: set[int] = set()
+            for mq in memory_queries:
+                for entry in mq.get("entries_returned", []):
+                    if isinstance(entry, dict):
+                        selected_iterations.add(entry.get("iteration", -1))
+
+            # Show before-proposal snapshot with ALL entries
             before_snapshots = [s for s in memory_snapshots if s["phase"] == "before_proposal"]
             if before_snapshots:
                 snap = before_snapshots[0]
-                lines.append(f"### Memory State ({snap['total_entries']}/{snap['max_entries']} entries, {snap['total_entries'] / snap['max_entries'] * 100:.0f}% utilization)" if snap["max_entries"] > 0 else f"### Memory State ({snap['total_entries']} entries)")
+                util_pct = snap["total_entries"] / snap["max_entries"] * 100 if snap["max_entries"] > 0 else 0
+                lines.append(f"### Memory State Before Proposal ({snap['total_entries']}/{snap['max_entries']} entries, {util_pct:.0f}% utilization)")
                 lines.append("")
+                lines.append(f"- **Accepted ratio:** {snap['accepted_ratio']:.1%}")
+                lines.append(f"- **Rejected ratio:** {snap['rejected_ratio']:.1%}")
+                lines.append(f"- **Entries by component:** {snap['entries_by_component']}")
+                lines.append("")
+
                 if snap["all_entries"]:
-                    lines.append("| # | Iter | Component | Change | Score | Status |")
-                    lines.append("|---|------|-----------|--------|-------|--------|")
+                    lines.append("| # | Selected? | Iter | Component | Status | Score | Intent | Lesson | Categories Succeeded | Categories Failed | Change Summary |")
+                    lines.append("|---|-----------|------|-----------|--------|-------|--------|--------|---------------------|-------------------|----------------|")
                     for i, entry in enumerate(snap["all_entries"], 1):
                         status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                        change = entry.get("change_summary", "")[:60]
+                        was_selected = entry.get("iteration", -1) in selected_iterations
+                        selected_mark = "**YES**" if was_selected else ""
+                        score_before = entry.get("score_before", 0)
+                        score_after = entry.get("score_after", 0)
+                        intent = entry.get("intent", "")
+                        lesson = entry.get("lesson", "")
+                        cats_ok = ", ".join(entry.get("categories_succeeded", []))
+                        cats_fail = ", ".join(entry.get("categories_failed", []))
+                        change = entry.get("change_summary", "")
                         lines.append(
-                            f"| {i} | {entry.get('iteration', '?')} | {entry.get('component_name', '?')} "
-                            f"| {change} | {entry.get('score_before', 0):.2f} -> {entry.get('score_after', 0):.2f} | {status} |"
+                            f"| {i} | {selected_mark} | {entry.get('iteration', '?')} | {entry.get('component_name', '?')} "
+                            f"| {status} | {score_before:.2f}->{score_after:.2f} | {intent} | {lesson} | {cats_ok} | {cats_fail} | {change} |"
                         )
                     lines.append("")
+
+                    # Detailed view of each entry (full failure_modes, etc.)
+                    lines.append("#### Full Memory Entry Details")
+                    lines.append("")
+                    for i, entry in enumerate(snap["all_entries"], 1):
+                        was_selected = entry.get("iteration", -1) in selected_iterations
+                        tag = " **(SELECTED FOR INJECTION)**" if was_selected else ""
+                        lines.append("<details>")
+                        lines.append(f"<summary>Entry {i} — Iter {entry.get('iteration', '?')}, {entry.get('component_name', '?')}{tag}</summary>")
+                        lines.append("")
+                        lines.append("```json")
+                        lines.append(json.dumps(_safe_json(entry), indent=2, default=str))
+                        lines.append("```")
+                        lines.append("")
+                        lines.append("</details>")
+                        lines.append("")
                 else:
                     lines.append("*Memory is empty*")
                     lines.append("")
 
-            # Show queries
+            # Show the exact text injected into prompts
             for mq in memory_queries:
                 lines.append(f"### Memory Injected into Prompt for `{mq['component']}`")
                 lines.append("")
+                n_returned = len(mq.get("entries_returned", []))
+                lines.append(f"**Entries selected:** {n_returned}")
+                lines.append(f"**Text length:** {mq['formatted_text_length']} chars")
+                lines.append("")
                 if mq["formatted_text"]:
-                    lines.append(f"Entries used: {mq['entries_returned']} | Text length: {mq['formatted_text_length']} chars")
+                    lines.append("Full injected text:")
                     lines.append("")
-                    for line in mq["formatted_text"].split("\n"):
-                        lines.append(f"> {line}")
+                    lines.append("```")
+                    lines.append(mq["formatted_text"])
+                    lines.append("```")
                     lines.append("")
+
+                    # Also list exactly which entries were selected
+                    if mq.get("entries_returned"):
+                        lines.append("**Selected entries (in order):**")
+                        lines.append("")
+                        for idx, entry in enumerate(mq["entries_returned"], 1):
+                            status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
+                            lines.append(f"{idx}. Iter {entry.get('iteration', '?')} [{status}] — {entry.get('intent') or entry.get('change_summary', '')}")
+                        lines.append("")
                 else:
                     lines.append("*No memory entries matched this component*")
                     lines.append("")
 
-            # Show updates
+            # Show updates made this iteration
             if memory_updates:
                 lines.append("### Memory Updates This Iteration")
                 lines.append("")
                 for mu in memory_updates:
                     entry = mu["entry"]
                     status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                    lines.append(
-                        f"- **Added:** iter={entry.get('iteration')}, component={mu['component']}, "
-                        f"change=\"{entry.get('change_summary', '')[:80]}\", "
-                        f"score: {entry.get('score_before', 0):.2f} -> {entry.get('score_after', 0):.2f}, {status}"
-                    )
+                    lines.append(f"#### New Entry: `{mu['component']}` [{status}]")
+                    lines.append("")
+                    lines.append(f"- **Iteration:** {entry.get('iteration')}")
+                    lines.append(f"- **Score:** {entry.get('score_before', 0):.2f} -> {entry.get('score_after', 0):.2f}")
+                    lines.append(f"- **Intent:** {entry.get('intent', '')}")
+                    lines.append(f"- **Lesson:** {entry.get('lesson', '')}")
+                    lines.append(f"- **Categories succeeded:** {entry.get('categories_succeeded', [])}")
+                    lines.append(f"- **Categories failed:** {entry.get('categories_failed', [])}")
+                    lines.append(f"- **Change summary:** {entry.get('change_summary', '')}")
+                    lines.append("- **Failure modes:**")
+                    for fm in entry.get("failure_modes", []):
+                        lines.append(f"  - {fm}")
+                    lines.append(f"- **Memory utilization:** {mu['size_after']} entries ({mu['utilization']:.0%})")
                     if mu["evicted"]:
                         evicted = mu["evicted"]
-                        lines.append(f"  - *Evicted:* iter={evicted.get('iteration')}, component={evicted.get('component_name')}")
-                    lines.append(f"  - *Memory utilization:* {mu['size_after']} entries ({mu['utilization']:.0%})")
+                        lines.append(f"- **Evicted entry:** iter={evicted.get('iteration')}, component={evicted.get('component_name')}")
+                        lines.append("")
+                        lines.append("  <details>")
+                        lines.append("  <summary>Evicted entry details</summary>")
+                        lines.append("")
+                        lines.append("  ```json")
+                        lines.append("  " + json.dumps(_safe_json(evicted), indent=2, default=str).replace("\n", "\n  "))
+                        lines.append("  ```")
+                        lines.append("")
+                        lines.append("  </details>")
+                    lines.append("")
+
+            # Show after-proposal snapshot
+            after_snapshots = [s for s in memory_snapshots if s["phase"] == "after_proposal"]
+            if after_snapshots:
+                snap = after_snapshots[0]
+                util_pct = snap["total_entries"] / snap["max_entries"] * 100 if snap["max_entries"] > 0 else 0
+                lines.append(f"### Memory State After Proposal ({snap['total_entries']}/{snap['max_entries']} entries, {util_pct:.0f}% utilization)")
+                lines.append("")
+                lines.append(f"- **Accepted ratio:** {snap['accepted_ratio']:.1%}")
+                lines.append(f"- **Rejected ratio:** {snap['rejected_ratio']:.1%}")
                 lines.append("")
 
-        # LLM Proposal
+        # =================================================================
+        # LLM Proposal — full prompts and responses, zero truncation
+        # =================================================================
         if "proposal_traces" in buf:
             lines.append("## LLM Reflection Calls")
             lines.append("")
@@ -691,23 +963,60 @@ class ResearchLogger:
                 lines.append(f"- **Model:** {trace['model_id']}")
                 lines.append(f"- **Latency:** {trace['latency_ms']:.0f}ms")
                 lines.append(f"- **Memory injected:** {trace['memory_was_injected']}")
+                lines.append(f"- **Prompt length:** {len(trace['rendered_prompt'])} chars")
+                lines.append(f"- **Response length:** {len(trace['raw_response'])} chars")
                 lines.append("")
-                lines.append("#### Rendered Prompt")
+
+                lines.append("#### Prompt Template")
+                lines.append("")
                 lines.append("```")
-                prompt_text = trace["rendered_prompt"]
-                if len(prompt_text) > 3000:
-                    lines.append(prompt_text[:3000] + "\n... [truncated]")
-                else:
-                    lines.append(prompt_text)
+                lines.append(trace["prompt_template"])
                 lines.append("```")
                 lines.append("")
-                lines.append("#### Raw LLM Response")
+
+                lines.append("#### Full Rendered Prompt (sent to LLM)")
+                lines.append("")
+                lines.append("````")
+                lines.append(trace["rendered_prompt"])
+                lines.append("````")
+                lines.append("")
+
+                lines.append("#### Full Raw LLM Response")
+                lines.append("")
+                lines.append("````")
+                lines.append(trace["raw_response"])
+                lines.append("````")
+                lines.append("")
+
+                lines.append("#### Extracted Instruction")
+                lines.append("")
                 lines.append("```")
-                response_text = trace["raw_response"]
-                if len(response_text) > 3000:
-                    lines.append(response_text[:3000] + "\n... [truncated]")
-                else:
-                    lines.append(response_text)
+                lines.append(trace["extracted_instruction"])
+                lines.append("```")
+                lines.append("")
+
+        # =================================================================
+        # Full Candidate Texts — before AND after
+        # =================================================================
+        if "proposal_parent" in buf and "new_instructions" in buf:
+            lines.append("## Full Candidate Texts")
+            lines.append("")
+            for comp_name in buf["new_instructions"]:
+                old_text = buf["proposal_parent"].get(comp_name, "")
+                new_text = buf["new_instructions"][comp_name]
+
+                lines.append(f"### Component: `{comp_name}`")
+                lines.append("")
+                lines.append("#### Before (current)")
+                lines.append("")
+                lines.append("```")
+                lines.append(old_text)
+                lines.append("```")
+                lines.append("")
+                lines.append("#### After (proposed)")
+                lines.append("")
+                lines.append("```")
+                lines.append(new_text)
                 lines.append("```")
                 lines.append("")
 
@@ -735,7 +1044,9 @@ class ResearchLogger:
                     lines.append("*No changes*")
                 lines.append("")
 
-        # Proposed candidate evaluation
+        # =================================================================
+        # Proposed candidate evaluation — full outputs
+        # =================================================================
         if "eval_proposed" in buf:
             ev = buf["eval_proposed"]
             lines.append("## Proposed Candidate Evaluation (post-mutation)")
@@ -759,7 +1070,24 @@ class ResearchLogger:
                         lines.append(f"| {j} | {old_s:.4f} | {new_s:.4f} | {sign}{delta:.4f} |")
                     lines.append("")
 
+            # Full per-example outputs
+            outputs = ev.get("outputs", [])
+            if outputs:
+                lines.append("### Per-Example Outputs (post-mutation)")
+                lines.append("")
+                for idx, out in enumerate(outputs):
+                    score = scores[idx] if idx < len(scores) else "N/A"
+                    mark = "PASS" if isinstance(score, int | float) and score >= 1.0 else "FAIL"
+                    lines.append(f"#### Example {idx} [{mark}] (score: {score})")
+                    lines.append("")
+                    lines.append("```json")
+                    lines.append(json.dumps(_safe_json(out), indent=2, default=str))
+                    lines.append("```")
+                    lines.append("")
+
+        # =================================================================
         # Decision
+        # =================================================================
         if "decision" in buf:
             dec = buf["decision"]
             lines.append("## Acceptance Decision")
@@ -770,7 +1098,34 @@ class ResearchLogger:
                 lines.append(f"**REJECTED** — old: {dec.get('old_score', 'N/A')}, new: {dec.get('new_score', 'N/A')}, reason: {dec.get('reason', 'N/A')}")
             lines.append("")
 
+        # =================================================================
+        # Lesson Generated
+        # =================================================================
+        lessons = buf.get("lessons", [])
+        if lessons:
+            lines.append("## Lesson Generated")
+            lines.append("")
+            for ls in lessons:
+                delta = ls["score_after"] - ls["score_before"]
+                status = "ACCEPTED" if ls["accepted"] else "REJECTED"
+                fallback = " (V1 fallback)" if ls["fallback_used"] else " (V2 LLM)"
+                lines.append(f"### Component: `{ls['component_name']}` [{status}, delta: {delta:+.2f}]{fallback}")
+                lines.append("")
+                lines.append(f"- **Score:** {ls['score_before']:.2f} -> {ls['score_after']:.2f}")
+                lines.append(f"- **Latency:** {ls['latency_ms']:.0f}ms")
+                if ls["intent"]:
+                    lines.append(f"- **Intent:** {ls['intent']}")
+                if ls["lesson"]:
+                    lines.append(f"- **Lesson:** {ls['lesson']}")
+                if ls["categories_succeeded"]:
+                    lines.append(f"- **Categories succeeded:** {', '.join(ls['categories_succeeded'])}")
+                if ls["categories_failed"]:
+                    lines.append(f"- **Categories failed:** {', '.join(ls['categories_failed'])}")
+                lines.append("")
+
+        # =================================================================
         # Pareto front
+        # =================================================================
         if "pareto_update" in buf:
             pu = buf["pareto_update"]
             lines.append("## Pareto Front Update")
@@ -781,7 +1136,9 @@ class ResearchLogger:
                 lines.append(f"- **Displaced:** {pu['displaced']}")
             lines.append("")
 
-        # Valset evaluation
+        # =================================================================
+        # Valset evaluation — full per-example scores
+        # =================================================================
         if "valset_eval" in buf:
             ve = buf["valset_eval"]
             lines.append("## Validation Set Evaluation")
@@ -792,7 +1149,38 @@ class ResearchLogger:
             lines.append(f"- **Is best program:** {ve['is_best_program']}")
             lines.append("")
 
+            # Per-example valset scores
+            scores_by_id = ve.get("scores_by_val_id")
+            if scores_by_id:
+                lines.append("### Per-Example Validation Scores")
+                lines.append("")
+                lines.append("| Example ID | Score |")
+                lines.append("|------------|-------|")
+                for eid, score in scores_by_id.items():
+                    mark = "PASS" if isinstance(score, int | float) and score >= 1.0 else "FAIL"
+                    lines.append(f"| {eid} | {score} [{mark}] |")
+                lines.append("")
+
+            # Per-example valset outputs
+            outputs_by_id = ve.get("outputs_by_val_id")
+            if outputs_by_id:
+                lines.append("### Per-Example Validation Outputs")
+                lines.append("")
+                for eid, out in outputs_by_id.items():
+                    score = scores_by_id.get(str(eid), "?") if scores_by_id else "?"
+                    lines.append("<details>")
+                    lines.append(f"<summary>Example {eid} (score: {score})</summary>")
+                    lines.append("")
+                    lines.append("```json")
+                    lines.append(json.dumps(_safe_json(out), indent=2, default=str))
+                    lines.append("```")
+                    lines.append("")
+                    lines.append("</details>")
+                    lines.append("")
+
+        # =================================================================
         # Merge
+        # =================================================================
         if "merge" in buf:
             m = buf["merge"]
             lines.append("## Merge")
@@ -804,7 +1192,9 @@ class ResearchLogger:
                 lines.append(f"- **Result:** REJECTED (reason: {m.get('reason', 'N/A')})")
             lines.append("")
 
+        # =================================================================
         # Budget
+        # =================================================================
         if "budget" in buf:
             b = buf["budget"]
             lines.append("## Budget")
@@ -814,13 +1204,26 @@ class ResearchLogger:
             lines.append(f"- **Remaining:** {b['metric_calls_remaining']}")
             lines.append("")
 
+        # =================================================================
         # Error
+        # =================================================================
         if "error" in buf:
             lines.append("## Error")
             lines.append("")
             lines.append(f"- **Exception:** {buf['error']['exception']}")
             lines.append(f"- **Will continue:** {buf['error']['will_continue']}")
             lines.append("")
+
+        # =================================================================
+        # Navigation footer
+        # =================================================================
+        lines.append("---")
+        lines.append("")
+        if iteration > 1:
+            lines.append(f"[< Previous iteration](iteration_{iteration - 1:03d}.md)")
+        lines.append("[Index](../index.md)")
+        lines.append(f"[Next iteration >](iteration_{iteration + 1:03d}.md)")
+        lines.append("")
 
         # Write file
         path = os.path.join(self.output_dir, "iterations", f"iteration_{iteration:03d}.md")

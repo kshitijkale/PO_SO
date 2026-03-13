@@ -308,6 +308,22 @@ class ProposalTraceEvent(TypedDict):
     memory_was_injected: bool
 
 
+class LessonGeneratedEvent(TypedDict):
+    """Fired when a V2 lesson is generated (or fallback used) after optimization step."""
+
+    iteration: int
+    component_name: str
+    intent: str
+    lesson: str
+    categories_succeeded: list[str]
+    categories_failed: list[str]
+    score_before: float
+    score_after: float
+    accepted: bool
+    latency_ms: float
+    fallback_used: bool
+
+
 @runtime_checkable
 class GEPACallback(Protocol):
     """Protocol for GEPA optimization callbacks.
@@ -468,6 +484,10 @@ class GEPACallback(Protocol):
         """Called with the complete LLM interaction for a proposal."""
         ...
 
+    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
+        """Called when a V2 lesson is generated after an optimization step."""
+        ...
+
 
 class CompositeCallback:
     """A callback that delegates to multiple child callbacks.
@@ -613,6 +633,9 @@ class CompositeCallback:
 
     def on_proposal_trace(self, event: ProposalTraceEvent) -> None:
         self._notify("on_proposal_trace", event)
+
+    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
+        self._notify("on_lesson_generated", event)
 
 
 def notify_callbacks(

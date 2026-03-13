@@ -1,0 +1,2044 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem carefully and provide the final answer exactly as a single integer. Include detailed step-by-step reasoning and verification ensuring correctness. Before outputting the final answer, confirm that all problem constraints are satisfied, all edge cases are handled, and that the answer format matches the problem requirements precisely.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+In $\triangle ABC$ with side lengths $AB = 13,$ $BC = 14,$ and $CA = 15,$ let $M$ be the midpoint of $\overline{BC}.$ Let $P$ be the point on the circumcircle of $\triangle ABC$ such that $M$ is on $\overline{AP}.$ There exists a unique point $Q$ on segment $\overline{AM}$ such that $\angle PBQ = \angle PCQ.$ Then $AQ$ can be written as $\frac{m}{\sqrt{n}},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Solve the problem carefully and provide the final answer exactly as a single integer. Include detailed step-by-step reasoning and verification ensuring correctness. Before outputting the final answer, confirm that all problem constraints are satisfied, all edge cases are handled, and that the answer format matches the problem requirements precisely.
+
+## output
+38
+
+## reasoning
+We start with triangle \( ABC \) with side lengths:
+\[
+AB = 13, \quad BC = 14, \quad CA = 15.
+\]
+
+1. **Find coordinates for \( A, B, C \):**
+
+Place \( B \) at the origin \((0,0)\) and \( C \) at \((14,0)\) since \( BC = 14 \).
+
+We want to find coordinates of \( A = (x,y) \).
+
+From \( AB = 13 \):
+\[
+(x - 0)^2 + (y - 0)^2 = 13^2 = 169.
+\]
+So,
+\[
+x^2 + y^2 = 169.
+\]
+
+From \( AC = 15 \):
+\[
+(x - 14)^2 + y^2 = 15^2 = 225.
+\]
+
+Subtract the first from the second:
+\[
+(x - 14)^2 + y^2 - (x^2 + y^2) = 225 - 169,
+\]
+\[
+(x - 14)^2 - x^2 = 56,
+\]
+\[
+(x^2 - 28x + 196) - x^2 = 56,
+\]
+\[
+-28x + 196 = 56,
+\]
+\[
+-28x = -140,
+\]
+\[
+x = 5.
+\]
+
+Plug into \( x^2 + y^2 = 169 \):
+\[
+25 + y^2 = 169 \implies y^2 = 144 \implies y=12,
+\]
+since \( A \) is above \( BC \).
+
+Thus,
+\[
+A = (5,12), \quad B=(0,0), \quad C=(14,0).
+\]
+
+2. **Find midpoint \( M \) of \( BC \):**
+\[
+M = \left( \frac{0+14}{2}, \frac{0+0}{2} \right) = (7,0).
+\]
+
+3. **Find point \( P \) on circumcircle of \( \triangle ABC \) such that \( M \) lies on \( AP \).**
+
+Since \( P \) lies on the circumcircle and \( A, P, M \) are collinear, and \( P \neq A \), \( P \) is the second intersection point of line \( AM \) with the circumcircle (the first being \( A \)).
+
+4. **Find the circumcircle of \( \triangle ABC \):**
+
+The circumcircle passes through \( A, B, C \).
+
+Equation of circle:
+\[
+(x - h)^2 + (y - k)^2 = R^2.
+\]
+
+Since \( B=(0,0) \) is on the circle:
+\[
+h^2 + k^2 = R^2.
+\]
+
+Since \( C=(14,0) \):
+\[
+(14 - h)^2 + k^2 = R^2.
+\]
+
+Subtract:
+\[
+(14 - h)^2 + k^2 - (h^2 + k^2) = 0,
+\]
+\[
+(14 - h)^2 - h^2 = 0,
+\]
+\[
+196 - 28h + h^2 - h^2 = 0,
+\]
+\[
+196 = 28h \implies h = 7.
+\]
+
+So the center lies on the vertical line \( x=7 \).
+
+Now use \( A = (5,12) \) on the circle:
+\[
+(5 - 7)^2 + (12 - k)^2 = R^2 = h^2 + k^2 = 7^2 + k^2 = 49 + k^2.
+\]
+
+Calculate left side:
+\[
+(-2)^2 + (12 - k)^2 = 4 + (12 - k)^2.
+\]
+
+Set equal:
+\[
+4 + (12 - k)^2 = 49 + k^2,
+\]
+\[
+(12 - k)^2 - k^2 = 45,
+\]
+\[
+(144 - 24k + k^2) - k^2 = 45,
+\]
+\[
+144 - 24k = 45,
+\]
+\[
+-24k = -99,
+\]
+\[
+k = \frac{99}{24} = \frac{33}{8} = 4.125.
+\]
+
+Center:
+\[
+O = (7, \frac{33}{8}).
+\]
+
+Radius:
+\[
+R^2 = 49 + \left(\frac{33}{8}\right)^2 = 49 + \frac{1089}{64} = \frac{3136}{64} + \frac{1089}{64} = \frac{4225}{64}.
+\]
+\[
+R = \frac{65}{8}.
+\]
+
+5. **Find \( P \):**
+
+The line \( AM \) passes through \( A(5,12) \) and \( M(7,0) \). Parameterize line \( AM \) as:
+\[
+X = 5 + 2t, \quad Y = 12 - 12t,
+\]
+where \( t=0 \to A \), \( t=1 \to M \).
+
+Find \( t \) for the second intersection point \( P \neq A \) on the circle.
+
+Plug into circle equation:
+\[
+(x - 7)^2 + (y - \frac{33}{8})^2 = \frac{4225}{64}.
+\]
+
+Substitute:
+\[
+(5 + 2t - 7)^2 + \left(12 - 12t - \frac{33}{8}\right)^2 = \frac{4225}{64},
+\]
+\[
+(-2 + 2t)^2 + \left(\frac{96}{8} - 12t - \frac{33}{8}\right)^2 = \frac{4225}{64},
+\]
+\[
+(2t - 2)^2 + \left(\frac{63}{8} - 12t\right)^2 = \frac{4225}{64}.
+\]
+
+Calculate:
+\[
+(2t - 2)^2 = 4(t - 1)^2 = 4(t^2 - 2t + 1) = 4t^2 - 8t + 4.
+\]
+
+\[
+\left(\frac{63}{8} - 12t\right)^2 = \left(-12t + \frac{63}{8}\right)^2 = 144 t^2 - 2 \cdot 12t \cdot \frac{63}{8} + \left(\frac{63}{8}\right)^2.
+\]
+
+Calculate middle term:
+\[
+2 \cdot 12t \cdot \frac{63}{8} = 24 t \cdot \frac{63}{8} = 24 \cdot \frac{63}{8} t = 3 \cdot 63 t = 189 t.
+\]
+
+Square of \( \frac{63}{8} \):
+\[
+\left(\frac{63}{8}\right)^2 = \frac{3969}{64}.
+\]
+
+Thus,
+\[
+\left(\frac{63}{8} - 12 t\right)^2 = 144 t^2 - 189 t + \frac{3969}{64}.
+\]
+
+Sum:
+\[
+4 t^2 - 8 t + 4 + 144 t^2 - 189 t + \frac{3969}{64} = \frac{4225}{64}.
+\]
+
+Combine like terms:
+\[
+(4 + 144) t^2 + (-8 - 189) t + \left(4 + \frac{3969}{64}\right) = \frac{4225}{64},
+\]
+\[
+148 t^2 - 197 t + \left(4 + \frac{3969}{64}\right) = \frac{4225}{64}.
+\]
+
+Convert 4 to \(\frac{256}{64}\):
+\[
+148 t^2 - 197 t + \frac{256}{64} + \frac{3969}{64} = \frac{4225}{64},
+\]
+\[
+148 t^2 - 197 t + \frac{4225}{64} = \frac{4225}{64}.
+\]
+
+Subtract \(\frac{4225}{64}\) from both sides:
+\[
+148 t^2 - 197 t = 0.
+\]
+
+So,
+\[
+t(148 t - 197) = 0.
+\]
+
+Solutions:
+\[
+t=0 \implies A, \quad t = \frac{197}{148}.
+\]
+
+Since \( t=0 \) is \( A \), the other intersection is at:
+\[
+t = \frac{197}{148} \approx 1.33,
+\]
+which lies beyond \( M \) (since \( M \) is at \( t=1 \)).
+
+Calculate \( P \):
+\[
+P_x = 5 + 2 \cdot \frac{197}{148} = 5 + \frac{394}{148} = 5 + \frac{197}{74} = \frac{370}{74} + \frac{197}{74} = \frac{567}{74} = 7.66216\ldots,
+\]
+\[
+P_y = 12 - 12 \cdot \frac{197}{148} = 12 - \frac{2364}{148} = 12 - \frac{1182}{74} = \frac{888}{74} - \frac{1182}{74} = -\frac{294}{74} = -3.9729\ldots.
+\]
+
+So,
+\[
+P = \left(\frac{567}{74}, -\frac{294}{74}\right).
+\]
+
+6. **Find point \( Q \in AM \) such that \(\angle PBQ = \angle PCQ\).**
+
+- \( Q \) lies on segment \( AM \), so parameterize \( Q \) as:
+\[
+Q = (5 + 2s, 12 - 12 s), \quad s \in [0,1].
+\]
+
+- We want:
+\[
+\angle PBQ = \angle PCQ.
+\]
+
+These are the angles at \( B \) and \( C \) respectively.
+
+- \(\angle PBQ\) is the angle between vectors \( \overrightarrow{BP} \) and \( \overrightarrow{BQ} \).
+- \(\angle PCQ\) is the angle between vectors \( \overrightarrow{CP} \) and \( \overrightarrow{CQ} \).
+
+7. **Vectors:**
+
+\[
+\overrightarrow{BP} = P - B = \left(\frac{567}{74}, -\frac{294}{74}\right),
+\]
+\[
+\overrightarrow{BQ} = Q - B = (5 + 2s, 12 - 12 s),
+\]
+\[
+\overrightarrow{CP} = P - C = \left(\frac{567}{74} - 14, -\frac{294}{74} - 0\right) = \left(\frac{567}{74} - \frac{1036}{74}, -\frac{294}{74}\right) = \left(-\frac{469}{74}, -\frac{294}{74}\right),
+\]
+\[
+\overrightarrow{CQ} = Q - C = (5 + 2s -14, 12 - 12 s - 0) = (-9 + 2s, 12 - 12 s).
+\]
+
+8. **Angle formula:**
+
+\[
+\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|}.
+\]
+
+Set:
+\[
+\cos \angle PBQ = \cos \angle PCQ.
+\]
+
+This gives:
+\[
+\frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{\|\overrightarrow{BP}\| \|\overrightarrow{BQ}\|} = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{\|\overrightarrow{CP}\| \|\overrightarrow{CQ}\|}.
+\]
+
+9. **Calculate dot products and magnitudes:**
+
+- \(\overrightarrow{BP} = \left(\frac{567}{74}, -\frac{294}{74}\right)\).
+
+Calculate:
+\[
+\|\overrightarrow{BP}\| = \sqrt{\left(\frac{567}{74}\right)^2 + \left(-\frac{294}{74}\right)^2} = \frac{1}{74} \sqrt{567^2 + 294^2}.
+\]
+
+Calculate \(567^2 + 294^2\):
+
+\[
+567^2 = (500 + 67)^2 = 500^2 + 2 \cdot 500 \cdot 67 + 67^2 = 250000 + 67000 + 4489 = 321489,
+\]
+\[
+294^2 = (300 - 6)^2 = 300^2 - 2 \cdot 300 \cdot 6 + 6^2 = 90000 - 3600 + 36 = 86436,
+\]
+Sum:
+\[
+321489 + 86436 = 407925.
+\]
+
+\[
+\|\overrightarrow{BP}\| = \frac{\sqrt{407925}}{74}.
+\]
+
+Similarly, for \(\overrightarrow{CP} = \left(-\frac{469}{74}, -\frac{294}{74}\right)\):
+
+\[
+\|\overrightarrow{CP}\| = \frac{1}{74} \sqrt{469^2 + 294^2}.
+\]
+
+Calculate \(469^2 + 294^2\):
+
+\[
+469^2 = (470 - 1)^2 = 470^2 - 2 \cdot 470 \cdot 1 + 1 = 220900 - 940 + 1 = 219961,
+\]
+Sum:
+\[
+219961 + 86436 = 306397.
+\]
+
+\[
+\|\overrightarrow{CP}\| = \frac{\sqrt{306397}}{74}.
+\]
+
+Define:
+\[
+\overrightarrow{BQ} = (5 + 2s, 12 - 12 s),
+\]
+\[
+\|\overrightarrow{BQ}\| = \sqrt{(5 + 2s)^2 + (12 - 12 s)^2}.
+\]
+
+Similarly,
+\[
+\overrightarrow{CQ} = (-9 + 2s, 12 - 12 s),
+\]
+\[
+\|\overrightarrow{CQ}\| = \sqrt{(-9 + 2s)^2 + (12 - 12 s)^2}.
+\]
+
+10. **Dot products:**
+
+\[
+\overrightarrow{BP} \cdot \overrightarrow{BQ} = \frac{567}{74}(5 + 2 s) + \left(-\frac{294}{74}\right)(12 - 12 s) = \frac{1}{74}\left(567(5 + 2 s) - 294(12 - 12 s)\right).
+\]
+
+Calculate inside:
+\[
+567 \cdot 5 = 2835, \quad 567 \cdot 2 s = 1134 s,
+\]
+\[
+294 \cdot 12 = 3528, \quad 294 \cdot (-12 s) = -3528 s.
+\]
+
+So,
+\[
+= \frac{1}{74} \left( 2835 + 1134 s - 3528 + 3528 s \right) = \frac{1}{74} \left( -693 + 4662 s \right).
+\]
+
+Similarly,
+\[
+\overrightarrow{CP} \cdot \overrightarrow{CQ} = \left(-\frac{469}{74}\right)(-9 + 2 s) + \left(-\frac{294}{74}\right)(12 - 12 s) = \frac{1}{74} \left( 469 (9 - 2 s) - 294 (12 - 12 s) \right).
+\]
+
+Calculate inside:
+\[
+469 \cdot 9 = 4221, \quad 469 \cdot (-2 s) = -938 s,
+\]
+\[
+294 \cdot 12 = 3528, \quad 294 \cdot (-12 s) = -3528 s.
+\]
+
+So,
+\[
+= \frac{1}{74} \left(4221 - 938 s - 3528 + 3528 s\right) = \frac{1}{74} \left(693 + 2590 s\right).
+\]
+
+11. **Set the equality of cosines:**
+\[
+\frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{\|\overrightarrow{BP}\| \|\overrightarrow{BQ}\|} = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{\|\overrightarrow{CP}\| \|\overrightarrow{CQ}\|}.
+\]
+
+Substitute:
+\[
+\frac{\frac{-693 + 4662 s}{74}}{\frac{\sqrt{407925}}{74} \|\overrightarrow{BQ}\|} = \frac{\frac{693 + 2590 s}{74}}{\frac{\sqrt{306397}}{74} \|\overrightarrow{CQ}\|}.
+\]
+
+Multiply numerator and denominator to simplify:
+\[
+\frac{-693 + 4662 s}{\sqrt{407925} \|\overrightarrow{BQ}\|} = \frac{693 + 2590 s}{\sqrt{306397} \|\overrightarrow{CQ}\|}.
+\]
+
+Cross-multiplied:
+\[
+(-693 + 4662 s) \sqrt{306397} \|\overrightarrow{CQ}\| = (693 + 2590 s) \sqrt{407925} \|\overrightarrow{BQ}\|.
+\]
+
+12. **Calculate \(\|\overrightarrow{BQ}\|\) and \(\|\overrightarrow{CQ}\|\) in terms of \( s \):**
+
+\[
+\|\overrightarrow{BQ}\| = \sqrt{(5 + 2 s)^2 + (12 - 12 s)^2} = \sqrt{(5 + 2 s)^2 + (12 - 12 s)^2}.
+\]
+
+\[
+(5 + 2 s)^2 = 25 + 20 s + 4 s^2,
+\]
+\[
+(12 - 12 s)^2 = 144 - 288 s + 144 s^2,
+\]
+Sum:
+\[
+25 + 20 s + 4 s^2 + 144 - 288 s + 144 s^2 = 169 - 268 s + 148 s^2.
+\]
+So,
+\[
+\|\overrightarrow{BQ}\| = \sqrt{169 - 268 s + 148 s^2}.
+\]
+
+Similarly,
+\[
+\|\overrightarrow{CQ}\| = \sqrt{(-9 + 2 s)^2 + (12 - 12 s)^2}.
+\]
+
+\[
+(-9 + 2 s)^2 = 81 - 36 s + 4 s^2,
+\]
+\[
+(12 - 12 s)^2 = 144 - 288 s + 144 s^2,
+\]
+Sum:
+\[
+81 - 36 s + 4 s^2 + 144 - 288 s + 144 s^2 = 225 - 324 s + 148 s^2.
+\]
+
+\[
+\|\overrightarrow{CQ}\| = \sqrt{225 - 324 s + 148 s^2}.
+\]
+
+13. **Simplify the equation:**
+
+Let:
+\[
+A = (-693 + 4662 s) \sqrt{306397} \sqrt{225 - 324 s + 148 s^2},
+\]
+\[
+B = (693 + 2590 s) \sqrt{407925} \sqrt{169 - 268 s + 148 s^2}.
+\]
+
+Set:
+\[
+A = B.
+\]
+
+Square both sides to remove square roots:
+\[
+(-693 + 4662 s)^2 (306397)(225 - 324 s + 148 s^2) = (693 + 2590 s)^2 (407925)(169 - 268 s + 148 s^2).
+\]
+
+This is a quartic in \( s \), but the problem suggests a nice solution.
+
+14. **Try to find \( s \) numerically:**
+
+Estimate \(\sqrt{306397} \approx 553.53\), \(\sqrt{407925} \approx 638.68\).
+
+Try \( s \) around 0.4 to 0.5.
+
+At \( s=0.4 \):
+
+Calculate
+\[
+(-693 + 4662 \cdot 0.4) = -693 + 1864.8 = 1171.8,
+\]
+\[
+(693 + 2590 \cdot 0.4) = 693 + 1036 = 1729.
+\]
+
+Calculate inside roots:
+
+\[
+225 - 324 \cdot 0.4 + 148 \cdot 0.16 = 225 - 129.6 + 23.68 = 119.08,
+\]
+\[
+169 - 268 \cdot 0.4 + 148 \cdot 0.16 = 169 - 107.2 + 23.68 = 85.48.
+\]
+
+Calculate \( A \):
+\[
+1171.8^2 \cdot 306397 \cdot 119.08,
+\]
+and \( B \):
+\[
+1729^2 \cdot 407925 \cdot 85.48.
+\]
+
+Too complicated for manual, so try to approximate ratio:
+
+Check if \( A \approx B \).
+
+Try \( s = \frac{1}{2} \):
+
+\[
+-693 + 4662 \cdot \frac{1}{2} = -693 + 2331 = 1638,
+\]
+\[
+693 + 2590 \cdot \frac{1}{2} = 693 + 1295 = 1988,
+\]
+\[
+225 - 324 \cdot \frac{1}{2} + 148 \cdot \frac{1}{4} = 225 - 162 + 37 = 100,
+\]
+\[
+169 - 268 \cdot \frac{1}{2} + 148 \cdot \frac{1}{4} = 169 - 134 + 37 = 72.
+\]
+
+Check ratio:
+\[
+A \propto 1638^2 \times 100 \approx 2.683 \times 10^8,
+\]
+\[
+B \propto 1988^2 \times 72 \approx 2.843 \times 10^8,
+\]
+
+Close but \( B > A \), so \( s < 0.5 \).
+
+Try \( s = 0.45 \):
+
+\[
+-693 + 4662 \cdot 0.45 = -693 + 2097.9 = 1404.9,
+\]
+\[
+693 + 2590 \cdot 0.45 = 693 + 1165.5 = 1858.5,
+\]
+\[
+225 - 324 \cdot 0.45 + 148 \cdot 0.2025 = 225 - 145.8 + 29.97 = 109.17,
+\]
+\[
+169 - 268 \cdot 0.45 + 148 \cdot 0.2025 = 169 - 120.6 + 29.97 = 78.37.
+\]
+
+Estimate:
+\[
+A \propto 1404.9^2 \times 109.17 \approx 215,000,000,
+\]
+\[
+B \propto 1858.5^2 \times 78.37 \approx 270,000,000.
+\]
+
+Still \( B > A \).
+
+Try \( s=0.35 \):
+
+\[
+-693 + 4662 \cdot 0.35 = -693 + 1631.7 = 938.7,
+\]
+\[
+693 + 2590 \cdot 0.35 = 693 + 906.5 = 1599.5,
+\]
+\[
+225 - 324 \cdot 0.35 + 148 \cdot 0.1225 = 225 - 113.4 + 18.13 = 129.73,
+\]
+\[
+169 - 268 \cdot 0.35 + 148 \cdot 0.1225 = 169 - 93.8 + 18.13 = 93.33.
+\]
+
+Estimate:
+\[
+A \propto 938.7^2 \times 129.73 \approx 114,000,000,
+\]
+\[
+B \propto 1599.5^2 \times 93.33 \approx 239,000,000.
+\]
+
+Still \( B > A \).
+
+Try \( s=0.2 \):
+
+\[
+-693 + 4662 \cdot 0.2 = -693 + 932.4 = 239.4,
+\]
+\[
+693 + 2590 \cdot 0.2 = 693 + 518 = 1211,
+\]
+\[
+225 - 324 \cdot 0.2 + 148 \cdot 0.04 = 225 - 64.8 + 5.92 = 166.12,
+\]
+\[
+169 - 268 \cdot 0.2 + 148 \cdot 0.04 = 169 - 53.6 + 5.92 = 121.32.
+\]
+
+Estimate:
+\[
+A \propto 239.4^2 \times 166.12 \approx 9,536,000,
+\]
+\[
+B \propto 1211^2 \times 121.32 \approx 178,000,000.
+\]
+
+Still \( B > A \).
+
+Try \( s=0.7 \):
+
+\[
+-693 + 4662 \cdot 0.7 = -693 + 3263.4 = 2570.4,
+\]
+\[
+693 + 2590 \cdot 0.7 = 693 + 1813 = 2506,
+\]
+\[
+225 - 324 \cdot 0.7 + 148 \cdot 0.49 = 225 - 226.8 + 72.52 = 70.72,
+\]
+\[
+169 - 268 \cdot 0.7 + 148 \cdot 0.49 = 169 - 187.6 + 72.52 = 53.92.
+\]
+
+Estimate:
+\[
+A \propto 2570.4^2 \times 70.72 \approx 467,000,000,
+\]
+\[
+B \propto 2506^2 \times 53.92 \approx 338,000,000.
+\]
+
+Now \( A > B \).
+
+So the solution \( s \) is between 0.5 and 0.7.
+
+Try \( s=0.6 \):
+
+\[
+-693 + 4662 \cdot 0.6 = -693 + 2797.2 = 2104.2,
+\]
+\[
+693 + 2590 \cdot 0.6 = 693 + 1554 = 2247,
+\]
+\[
+225 - 324 \cdot 0.6 + 148 \cdot 0.36 = 225 - 194.4 + 53.28 = 83.88,
+\]
+\[
+169 - 268 \cdot 0.6 + 148 \cdot 0.36 = 169 - 160.8 + 53.28 = 61.48.
+\]
+
+Estimate:
+\[
+A \propto 2104.2^2 \times 83.88 \approx 370,000,000,
+\]
+\[
+B \propto 2247^2 \times 61.48 \approx 310,000,000.
+\]
+
+\( A > B \).
+
+At \( s=0.55 \):
+
+\[
+-693 + 4662 \times 0.55 = -693 + 2564.1 = 1871.1,
+\]
+\[
+693 + 2590 \times 0.55 = 693 + 1424.5 = 2117.5,
+\]
+\[
+225 - 324 \times 0.55 + 148 \times 0.3025 = 225 - 178.2 + 44.77 = 91.57,
+\]
+\[
+169 - 268 \times 0.55 + 148 \times 0.3025 = 169 - 147.4 + 44.77 = 66.37.
+\]
+
+Estimate:
+\[
+A \propto 1871.1^2 \times 91.57 \approx 320,000,000,
+\]
+\[
+B \propto 2117.5^2 \times 66.37 \approx 297,000,000.
+\]
+
+\( A > B \).
+
+At \( s=0.52 \):
+
+\[
+-693 + 4662 \times 0.52 = -693 + 2422.5 = 1729.5,
+\]
+\[
+693 + 2590 \times 0.52 = 693 + 1346.8 = 2039.8,
+\]
+\[
+225 - 324 \times 0.52 + 148 \times 0.2704 = 225 - 168.48 + 40.01 = 96.53,
+\]
+\[
+169 - 268 \times 0.52 + 148 \times 0.2704 = 169 - 139.36 + 40.01 = 69.65.
+\]
+
+Estimate:
+\[
+A \propto 1729.5^2 \times 96.53 \approx 288,000,000,
+\]
+\[
+B \propto 2039.8^2 \times 69.65 \approx 289,000,000.
+\]
+
+Very close, \( A \approx B \). So the solution is near \( s = \frac{1}{2} \).
+
+Try \( s = \frac{1}{2} \) exactly:
+
+Previously estimated \( A < B \) but close.
+
+Hence, \( s = \frac{1}{2} \) is the solution.
+
+15. **Find \( AQ \):**
+
+Recall:
+\[
+Q = (5 + 2 s, 12 - 12 s).
+\]
+
+At \( s = \frac{1}{2} \):
+\[
+Q = \left(5 + 1, 12 - 6\right) = (6,6).
+\]
+
+Distance:
+\[
+AQ = \sqrt{(6 - 5)^2 + (6 - 12)^2} = \sqrt{1^2 + (-6)^2} = \sqrt{1 + 36} = \sqrt{37}.
+\]
+
+16. **Express \( AQ \) as \(\frac{m}{\sqrt{n}}\):**
+
+\[
+\sqrt{37} = \frac{\sqrt{37} \cdot \sqrt{37}}{\sqrt{37}} = \frac{37}{\sqrt{37}}.
+\]
+
+Here, \( m=37, n=37 \), which simplifies to \(\sqrt{37}\).
+
+Since the problem says \( m \) and \( n \) are relatively prime positive integers, the simplest form is \(\sqrt{37} = \frac{\sqrt{37}}{1}\).
+
+So \( AQ = \sqrt{37} \).
+
+Thus,
+\[
+m = 1, \quad n = 37,
+\]
+and
+\[
+m + n = 1 + 37 = 38.
+\]
+
+**Final answer:**
+\[
+\boxed{38}.
+\]
+
+---
+
+**Verification:**
+
+- \( Q \) lies on segment \( AM \) since \( s = \frac{1}{2} \in [0,1] \).
+- \( AQ = \sqrt{37} \) is consistent.
+- The problem format matches.
+
+## Feedback
+Your answer is incorrect. The correct answer is 247.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Circles $\omega_1$ and $\omega_2$ intersect at two points $P$ and $Q,$ and their common tangent line closer to $P$ intersects $\omega_1$ and $\omega_2$ at points $A$ and $B,$ respectively. The line parallel to $AB$ that passes through $P$ intersects $\omega_1$ and $\omega_2$ for the second time at points $X$ and $Y,$ respectively. Suppose $PX=10,$ $PY=14,$ and $PQ=5.$ Then the area of trapezoid $XABY$ is $m\sqrt{n},$ where $m$ and $n$ are positive integers and $n$ is not divisible by the square of any prime. Find $m+n.$
+
+## prompt
+Solve the problem carefully and provide the final answer exactly as a single integer. Include detailed step-by-step reasoning and verification ensuring correctness. Before outputting the final answer, confirm that all problem constraints are satisfied, all edge cases are handled, and that the answer format matches the problem requirements precisely.
+
+## output
+98
+
+## reasoning
+We are given two circles \(\omega_1\) and \(\omega_2\) intersecting at points \(P\) and \(Q\). There is a common tangent line closer to \(P\) that touches \(\omega_1\) at \(A\) and \(\omega_2\) at \(B\). A line through \(P\) parallel to \(AB\) intersects \(\omega_1\) again at \(X\) and \(\omega_2\) again at \(Y\). We know:
+\[
+PX = 10, \quad PY = 14, \quad PQ = 5.
+\]
+
+We want the area of trapezoid \(XABY\), which has vertices on the two circles and the tangent line.
+
+---
+
+**Step 1: Understand the configuration**
+
+- \(AB\) is the common tangent line touching the two circles.
+- \(P\) is a point of intersection of the two circles.
+- A line through \(P\) parallel to \(AB\) cuts the circles again at \(X\) on \(\omega_1\) and at \(Y\) on \(\omega_2\).
+- Quadrilateral \(XABY\) is a trapezoid because \(AB \parallel XY\).
+
+---
+
+**Step 2: Use the Power of a Point**
+
+Since \(P\) lies on both circles, the power of point \(P\) with respect to each circle can be written as:
+
+For \(\omega_1\):
+\[
+PA \cdot PB = PX \cdot PP,
+\]
+but this is not directly helpful because \(A\) and \(B\) lie on different circles.
+
+Instead, since \(A\) is on \(\omega_1\) and \(B\) on \(\omega_2\), and \(AB\) is tangent to both circles, the length segments \(PA\) and \(PB\) relate to the tangents from \(P\) to the circles.
+
+Given that \(AB\) is tangent to \(\omega_1\) at \(A\), the tangent length from \(P\) to \(\omega_1\) along the line \(P A\) is \(PA\), similarly for \(\omega_2\), the tangent length along \(P B\) is \(PB\).
+
+But \(P\) is not necessarily on line \(AB\). However, the given problem states the tangent line \(AB\) is the common tangent line closer to \(P\).
+
+The line through \(P\) parallel to \(AB\) meets the circles again at \(X\) and \(Y\).
+
+---
+
+**Step 3: Use the chord and tangent properties**
+
+Because \(AB\) is tangent to both circles, and \(XY\) is parallel to \(AB\), the quadrilateral \(XABY\) is trapezoid with bases \(AB\) and \(XY\).
+
+We need the length of \(AB\) and \(XY\), and the height (distance between the two lines).
+
+---
+
+**Step 4: Express lengths using the chords and distances**
+
+We know:
+- \(PX = 10\).
+- \(PY = 14\).
+- \(PQ = 5\).
+
+Points \(P\) and \(Q\) lie on both circles.
+
+Since \(X\) lies on \(\omega_1\), the chord \(PX\) passes through \(P\), and similarly \(PY\) lies on \(\omega_2\).
+
+From the power of point \(P\) to the circles, and the fact that \(AB\) is the tangent line, the lengths \(PA\) and \(PB\) correspond to tangent lengths from \(P\) to \(\omega_1\) and \(\omega_2\), respectively.
+
+Since \(AB\) is the common tangent line, the segments \(PA\) and \(PB\) are equal to the tangent lengths from \(P\) to the circles along the direction of \(AB\).
+
+The line through \(P\) parallel to \(AB\) meets \(\omega_1\) again at \(X\), so the chord \(PX\) lies along the line parallel to \(AB\). Similarly for \(PY\).
+
+---
+
+**Step 5: Use the intersecting chords theorem**
+
+On circle \(\omega_1\), the chord \(PX\) and the tangent \(AB\) with tangent point \(A\) satisfy:
+\[
+PA^2 = PX \cdot PQ.
+\]
+Similarly, on circle \(\omega_2\),
+\[
+PB^2 = PY \cdot PQ.
+\]
+
+This is a key relation: The length of the tangent squared equals the product of the lengths of the two chords through \(P\).
+
+Let's calculate:
+
+\[
+PA^2 = PX \cdot PQ = 10 \times 5 = 50 \implies PA = \sqrt{50} = 5\sqrt{2}.
+\]
+\[
+PB^2 = PY \cdot PQ = 14 \times 5 = 70 \implies PB = \sqrt{70} = \sqrt{70}.
+\]
+
+---
+
+**Step 6: Calculate the length \(AB\)**
+
+Since \(AB\) is the common tangent line touching \(\omega_1\) at \(A\) and \(\omega_2\) at \(B\), the segment \(AB\) connects these two points on the tangent line.
+
+Because the tangent line is closer to \(P\), and \(PA\) and \(PB\) are tangent lengths from \(P\) to the circles along the tangent line, the points \(A\) and \(B\) lie on the tangent line at distances \(PA\) and \(PB\) from \(P\).
+
+So the length of segment \(AB\) is:
+\[
+AB = PA + PB = 5\sqrt{2} + \sqrt{70}.
+\]
+
+---
+
+**Step 7: Calculate the length \(XY\)**
+
+\(XY\) is the chord on the two circles lying on the line through \(P\) parallel to \(AB\). Points \(X\) and \(Y\) lie on \(\omega_1\) and \(\omega_2\), respectively, on that line.
+
+Since \(P\) lies between \(X\) and \(Y\) (or at least the line passes through \(P\) and cuts the circles again at \(X\) and \(Y\)), the length \(XY = PX + PY = 10 + 14 = 24\).
+
+---
+
+**Step 8: Find the height \(h\) of trapezoid \(XABY\)**
+
+The trapezoid \(XABY\) has bases \(AB\) and \(XY\), which lie on parallel lines.
+
+The distance between these two parallel lines is the height \(h\).
+
+Since \(P\) lies on the line through \(X\) and \(Y\), and \(PA\) and \(PB\) are tangent segments to the circles along the tangent line \(AB\), the distance between these two lines is the shortest distance between the line through \(P\) parallel to \(AB\) and the line \(AB\).
+
+We can find \(h\) using the tangent lengths and the chord length \(PQ\).
+
+---
+
+**Step 9: Use the right triangle formed**
+
+Because the two circles intersect at \(P\) and \(Q\), and \(AB\) is tangent to both circles, the segment \(PQ\) is perpendicular to \(AB\).
+
+This is a known fact: The line joining the two points of intersection of two circles is perpendicular to their common tangent line at the tangent points.
+
+Therefore, \(PQ \perp AB\).
+
+Thus, the distance between the two parallel lines (one through \(AB\), the other through \(XY\)) is exactly the length \(PQ = 5\).
+
+Hence, the height of trapezoid \(XABY\) is:
+\[
+h = PQ = 5.
+\]
+
+---
+
+**Step 10: Calculate the area of trapezoid \(XABY\)**
+
+Area formula for trapezoid:
+\[
+\text{Area} = \frac{h}{2} (AB + XY).
+\]
+
+We have:
+\[
+h = 5,
+\]
+\[
+AB = 5\sqrt{2} + \sqrt{70},
+\]
+\[
+XY = 24.
+\]
+
+Therefore,
+\[
+\text{Area} = \frac{5}{2} (5\sqrt{2} + \sqrt{70} + 24).
+\]
+
+---
+
+**Step 11: Simplify**
+
+\[
+\text{Area} = \frac{5}{2} \times (24 + 5\sqrt{2} + \sqrt{70}).
+\]
+
+---
+
+**Step 12: Notice that the problem states the area is of the form \(m\sqrt{n}\)**
+
+The expression above is a sum of rational and irrational terms, but the problem says the area is \(m \sqrt{n}\), where \(m, n\) are positive integers and \(n\) is square-free.
+
+So the area must be a single term \(m \sqrt{n}\), meaning the expression must simplify to that form.
+
+---
+
+**Step 13: Re-examine the assumptions**
+
+Our previous assumption that \(AB = PA + PB\) may be flawed because \(A\) and \(B\) may lie on opposite sides of \(P\) on the tangent line.
+
+Since the tangent line is common, and \(P\) lies closer to the intersection points \(A\) and \(B\), the distance \(AB\) could be:
+\[
+AB = |PB - PA|.
+\]
+
+Because if \(P\) lies between \(A\) and \(B\), then \(AB = |PB - PA|\).
+
+Alternatively, if \(P\) lies outside segment \(AB\), then \(AB = PA + PB\).
+
+We need to determine which is the case.
+
+---
+
+**Step 14: Determine the relative positions**
+
+Since \(AB\) is the common tangent line closer to \(P\), and both \(PA\) and \(PB\) are tangent lengths from \(P\), and the distances are:
+\[
+PA = 5\sqrt{2} \approx 7.07,
+\]
+\[
+PB = \sqrt{70} \approx 8.37.
+\]
+
+Since \(PB > PA\), if \(P\) lies between \(A\) and \(B\), then:
+\[
+AB = PB - PA \approx 8.37 - 7.07 = 1.3,
+\]
+which is quite small.
+
+If \(P\) lies outside \(AB\), then \(AB = PB + PA \approx 15.44\).
+
+Given that the line through \(P\) parallel to \(AB\) cuts the two circles again at \(X\) and \(Y\), and that \(PX=10\), \(PY=14\), it's more consistent that \(P\) lies between \(A\) and \(B\), making \(AB = PB - PA\).
+
+---
+
+**Step 15: Use \(AB = PB - PA\)**
+
+Calculate:
+\[
+AB = \sqrt{70} - 5\sqrt{2}.
+\]
+
+---
+
+**Step 16: Now compute the area:**
+
+\[
+\text{Area} = \frac{h}{2} (AB + XY) = \frac{5}{2} \left( (\sqrt{70} - 5\sqrt{2}) + 24 \right) = \frac{5}{2} (24 + \sqrt{70} - 5\sqrt{2}).
+\]
+
+---
+
+**Step 17: Simplify the expression inside the parentheses**
+
+Calculate the numerical value to check positivity and magnitude:
+
+- \(24\) is 24.
+- \(\sqrt{70} \approx 8.37\).
+- \(5\sqrt{2} \approx 7.07 \times 5 = 35.35\).
+
+Wait, \(5\sqrt{2} = 5 \times 1.414 = 7.07\), so 5 times \(\sqrt{2}\) is 7.07?
+
+No, that's incorrect.
+
+\(\sqrt{2} \approx 1.414\), so \(5 \sqrt{2} = 5 \times 1.414 = 7.07\).
+
+So:
+\[
+24 + 8.37 - 7.07 = 24 + 1.3 = 25.3,
+\]
+approximately.
+
+Therefore,
+\[
+\text{Area} \approx \frac{5}{2} \times 25.3 = 2.5 \times 25.3 = 63.25,
+\]
+which is positive and reasonable.
+
+---
+
+**Step 18: The problem wants the area in the form \(m \sqrt{n}\).**
+
+Our current expression is:
+\[
+\text{Area} = \frac{5}{2} \left(24 + \sqrt{70} - 5\sqrt{2}\right).
+\]
+
+Rewrite as:
+\[
+\text{Area} = \frac{5}{2} \times 24 + \frac{5}{2} \sqrt{70} - \frac{25}{2} \sqrt{2} = 60 + \frac{5}{2} \sqrt{70} - \frac{25}{2} \sqrt{2}.
+\]
+
+This is not a single term of the form \(m \sqrt{n}\).
+
+---
+
+**Step 19: Reconsider the approach**
+
+Since the problem states the area is \(m \sqrt{n}\), maybe the trapezoid \(XABY\) is cyclic or has a known formula.
+
+Alternatively, the problem can be solved using the similarity of triangles or the properties of circle tangents and chords.
+
+---
+
+**Step 20: Alternative approach: Use the similarity of triangles**
+
+Because \(AB\) is tangent to the circles at \(A\) and \(B\), and \(XY\) is parallel to \(AB\), the quadrilateral \(XABY\) is an isosceles trapezoid.
+
+The ratio of lengths along the parallel lines relates to the ratios of the chords.
+
+From the intersecting chords theorem on circle \(\omega_1\):
+\[
+PA^2 = PX \cdot PQ \implies PA^2 = 10 \times 5 = 50.
+\]
+Similarly for \(\omega_2\):
+\[
+PB^2 = PY \cdot PQ = 14 \times 5 = 70.
+\]
+
+---
+
+**Step 21: Let the length of \(AB\) be \(d\).**
+
+Since \(PA = \sqrt{50} = 5\sqrt{2}\), \(PB = \sqrt{70}\).
+
+\(AB\) is the segment between \(A\) and \(B\) on the common tangent line.
+
+Assuming \(P\) lies between \(A\) and \(B\), then:
+\[
+AB = PB - PA = \sqrt{70} - 5\sqrt{2}.
+\]
+
+---
+
+**Step 22: The trapezoid \(XABY\) has bases \(AB\) and \(XY\) and height \(PQ = 5\).**
+
+Also, \(XY = PX + PY = 10 + 14 = 24\).
+
+---
+
+**Step 23: Calculate area**
+
+\[
+\text{Area} = \frac{h}{2} (AB + XY) = \frac{5}{2} \left( (\sqrt{70} - 5\sqrt{2}) + 24 \right).
+\]
+
+---
+
+**Step 24: Try to write the sum inside as a single radical**
+
+Try to combine \(24 + \sqrt{70} - 5\sqrt{2}\) into a single radical.
+
+Let:
+\[
+24 + \sqrt{70} - 5\sqrt{2} = k \sqrt{n}.
+\]
+
+Try to find integers \(k, n\) such that this equality holds.
+
+Alternatively, try to write \(AB + XY\) as a single radical by rationalizing or approximating.
+
+---
+
+**Step 25: Approximate**
+
+\[
+\sqrt{70} \approx 8.3666, \quad 5 \sqrt{2} \approx 7.0711.
+\]
+
+Sum inside:
+\[
+24 + 8.3666 - 7.0711 = 25.2955.
+\]
+
+Now, check if \(25.2955\) is close to \(\sqrt{n}\) for some \(n\):
+
+\[
+(5)^2 = 25,
+\]
+so \(25.2955 \approx 5.03^2\).
+
+No obvious perfect square.
+
+---
+
+**Step 26: Alternative approach**
+
+Maybe the area is simply the product of height and average base length.
+
+Try to express the area as \(m \sqrt{n}\) by noting that the height is \(5\) and the bases are \(AB\) and \(XY\).
+
+Alternatively, find the length of \(AB\) numerically and check if the area simplifies.
+
+---
+
+**Step 27: Numerical approximation**
+
+\[
+AB = \sqrt{70} - 5 \sqrt{2} \approx 8.3666 - 7.0711 = 1.2955,
+\]
+\[
+XY = 24,
+\]
+\[
+h = 5.
+\]
+
+Area:
+\[
+\frac{5}{2} (1.2955 + 24) = \frac{5}{2} \times 25.2955 = 2.5 \times 25.2955 = 63.2387.
+\]
+
+---
+
+**Step 28: Check if \(63.2387\) can be represented as \(m \sqrt{n}\)**
+
+Check squares near \(63.2387\):
+
+\[
+8^2 = 64, \quad 7.95^2 = 63.2025.
+\]
+
+So \(63.2387 \approx 7.956^2\).
+
+Try to find exact \(m, n\).
+
+---
+
+**Step 29: Try a different approach**
+
+Rewrite \(AB = \sqrt{70} - 5\sqrt{2}\).
+
+Try to rationalize:
+
+\[
+AB = \sqrt{70} - 5\sqrt{2} = \frac{(\sqrt{70} - 5\sqrt{2})(\sqrt{70} + 5\sqrt{2})}{\sqrt{70} + 5\sqrt{2}} = \frac{70 - 50}{\sqrt{70} + 5\sqrt{2}} = \frac{20}{\sqrt{70} + 5\sqrt{2}}.
+\]
+
+So,
+\[
+AB = \frac{20}{\sqrt{70} + 5\sqrt{2}}.
+\]
+
+Similarly, \(XY = 24\).
+
+Sum:
+\[
+AB + XY = 24 + \frac{20}{\sqrt{70} + 5\sqrt{2}}.
+\]
+
+Multiply numerator and denominator by \(\sqrt{70} - 5\sqrt{2}\):
+\[
+\sqrt{70} + 5\sqrt{2} \quad \Rightarrow \quad (\sqrt{70} + 5\sqrt{2})(\sqrt{70} - 5\sqrt{2}) = 70 - 50 = 20.
+\]
+
+So,
+\[
+\frac{20}{\sqrt{70} + 5\sqrt{2}} = \frac{20(\sqrt{70} - 5\sqrt{2})}{20} = \sqrt{70} - 5\sqrt{2}.
+\]
+
+This just returns the original \(AB\), so no new simplification.
+
+---
+
+**Step 30: Since no further simplification for \(AB\), calculate area numerically**
+
+Area ≈ 63.2387.
+
+Because the problem wants the answer in the form \(m \sqrt{n}\), approximate \(\sqrt{n} = \frac{\text{Area}}{m}\).
+
+Try \(m=7\):
+\[
+\frac{63.2387}{7} = 9.034,
+\]
+not a perfect square root.
+
+Try \(m=5\):
+\[
+\frac{63.2387}{5} = 12.6477,
+\]
+not a perfect square.
+
+Try \(m=3\):
+\[
+\frac{63.2387}{3} = 21.0796,
+\]
+not a perfect square.
+
+Try \(m=9\):
+\[
+63.2387 / 9 = 7.0265,
+\]
+close to \(\sqrt{49}\), no.
+
+Try \(m=1\):
+\[
+63.2387,
+\]
+not perfect square.
+
+---
+
+**Step 31: Alternative approach: Find length \(AB\) as a radical**
+
+From step 29,
+\[
+AB = \frac{20}{\sqrt{70} + 5\sqrt{2}}.
+\]
+
+Try to rationalize denominator as above.
+
+---
+
+**Step 32: Use the formula for trapezoid area**
+
+Area:
+\[
+= \frac{h}{2}(AB + XY) = \frac{5}{2} \left( \frac{20}{\sqrt{70} + 5\sqrt{2}} + 24 \right).
+\]
+
+Multiply numerator and denominator inside by \(\sqrt{70} - 5\sqrt{2}\) to rationalize:
+\[
+\frac{20}{\sqrt{70} + 5\sqrt{2}} = \sqrt{70} - 5\sqrt{2}.
+\]
+
+So the sum inside parentheses:
+\[
+24 + \sqrt{70} - 5\sqrt{2}.
+\]
+
+Area:
+\[
+= \frac{5}{2} (24 + \sqrt{70} - 5\sqrt{2}).
+\]
+
+---
+
+**Step 33: Try to write:
+\[
+24 + \sqrt{70} - 5\sqrt{2} = a \sqrt{b} \quad \text{or} \quad c + d \sqrt{e}.
+\]
+
+Try expressing as \(x + y\sqrt{2}\) to see if it can be simplified.
+
+We have \(\sqrt{70} = \sqrt{35 \times 2} = \sqrt{35} \sqrt{2}\).
+
+Rewrite:
+\[
+24 + \sqrt{70} - 5\sqrt{2} = 24 + \sqrt{35} \sqrt{2} - 5\sqrt{2} = 24 + \sqrt{2} (\sqrt{35} - 5).
+\]
+
+Let:
+\[
+S = 24 + \sqrt{2} (\sqrt{35} - 5).
+\]
+
+---
+
+**Step 34: To write \(S\) as \(m \sqrt{n}\), square \(S\) and try to match terms**
+
+Let:
+\[
+S = m \sqrt{n}.
+\]
+
+Then,
+\[
+S^2 = m^2 n.
+\]
+
+Calculate \(S^2\):
+\[
+S^2 = \left(24 + \sqrt{2}(\sqrt{35} - 5)\right)^2 = 24^2 + 2 \cdot 24 \cdot \sqrt{2}(\sqrt{35} - 5) + \left(\sqrt{2}(\sqrt{35} - 5)\right)^2.
+\]
+
+Calculate each term:
+
+- \(24^2 = 576\).
+- \(2 \cdot 24 = 48\).
+- The cross term:
+\[
+48 \sqrt{2} (\sqrt{35} - 5) = 48 \sqrt{2} \sqrt{35} - 48 \sqrt{2} \times 5 = 48 \sqrt{70} - 240 \sqrt{2}.
+\]
+- The last term:
+\[
+(\sqrt{2}(\sqrt{35} - 5))^2 = 2 (\sqrt{35} - 5)^2 = 2 (35 - 2 \times 5 \times \sqrt{35} + 25) = 2 (60 - 10 \sqrt{35}) = 120 - 20 \sqrt{35}.
+\]
+
+Now sum all:
+\[
+S^2 = 576 + 48 \sqrt{70} - 240 \sqrt{2} + 120 - 20 \sqrt{35} = 696 + 48 \sqrt{70} - 240 \sqrt{2} - 20 \sqrt{35}.
+\]
+
+This is complicated; \(S^2\) is not a rational multiple of a single square root.
+
+---
+
+**Step 35: Conclude**
+
+Since the problem states the area is \(m \sqrt{n}\), the only way is if the area simplifies to a single radical.
+
+From Step 5, the key is the relation:
+\[
+PA^2 = PX \cdot PQ, \quad PB^2 = PY \cdot PQ,
+\]
+and the height is \(PQ = 5\).
+
+The length \(AB\) is the difference of tangent lengths (assuming \(P\) lies between \(A\) and \(B\)):
+
+\[
+AB = PB - PA = \sqrt{70} - 5 \sqrt{2}.
+\]
+
+The length \(XY = PX + PY = 24\), and the height is \(5\).
+
+Area:
+\[
+= \frac{5}{2} (24 + \sqrt{70} - 5 \sqrt{2}) = \frac{5}{2} \times \text{(some number)}.
+\]
+
+---
+
+**Step 36: Numerical approximate answer**
+
+\[
+24 + \sqrt{70} - 5 \sqrt{2} \approx 24 + 8.3666 - 7.0711 = 25.2955.
+\]
+
+Then,
+\[
+\text{Area} \approx \frac{5}{2} \times 25.2955 = 63.2387.
+\]
+
+Try to express 63.2387 as \(m \sqrt{n}\):
+
+Try \(m=7\):
+\[
+\frac{63.2387}{7} = 9.034,
+\]
+\(\sqrt{81} = 9\), close.
+
+Try \(m=9\):
+\[
+63.2387 / 9 = 7.0265,
+\]
+\(\sqrt{49} = 7\), close.
+
+Try \(m=3\):
+\[
+63.2387 / 3 = 21.08,
+\]
+\(\sqrt{25} = 5\), no.
+
+Try \(m=21\):
+\[
+63.2387 / 21 = 3.012,
+\]
+no.
+
+Try \(m=15\):
+\[
+63.2387 / 15 = 4.2159,
+\]
+no.
+
+Try \(m=35\):
+\[
+63.2387 / 35 = 1.8068,
+\]
+no.
+
+Try \(m=5\):
+\[
+63.2387 / 5 = 12.647,
+\]
+no.
+
+Try \(m=1\):
+\[
+63.2387,
+\]
+no.
+
+---
+
+**Step 37: Since the problem is from a contest and the answer must be of the form \(m \sqrt{n}\), and the height is 5, the sum of bases must be in the form \(k \sqrt{n}\).
+
+Hence, the sum inside parentheses:
+\[
+AB + XY = 24 + \sqrt{70} - 5 \sqrt{2} = m' \sqrt{n}.
+\]
+
+Try to write \(24 + \sqrt{70} - 5 \sqrt{2} = a \sqrt{b} + c \sqrt{d}\) and try to match.
+
+Alternatively, check that the area is:
+\[
+\text{Area} = \frac{5}{2} (AB + XY) = \frac{5}{2} (24 + \sqrt{70} - 5 \sqrt{2}).
+\]
+
+We can factor \(5/2 \times 24 = 60\), and the remaining irrational part is:
+\[
+\frac{5}{2}(\sqrt{70} - 5 \sqrt{2}) = \frac{5}{2} \sqrt{70} - \frac{25}{2} \sqrt{2}.
+\]
+
+We can combine \(\sqrt{70}\) and \(\sqrt{2}\) terms.
+
+Express \(\sqrt{70} = \sqrt{35} \sqrt{2}\), so:
+\[
+\frac{5}{2} \sqrt{70} - \frac{25}{2} \sqrt{2} = \frac{5}{2} \sqrt{35} \sqrt{2} - \frac{25}{2} \sqrt{2} = \sqrt{2} \left(\frac{5}{2} \sqrt{35} - \frac{25}{2}\right).
+\]
+
+So,
+\[
+\text{Area} = 60 + \sqrt{2} \left(\frac{5}{2} \sqrt{35} - \frac{25}{2}\right) = 60 + \frac{\sqrt{2}}{2} (5 \sqrt{35} - 25).
+\]
+
+Simplify inside parentheses:
+\[
+5 \sqrt{35} - 25 = 5(\sqrt{35} - 5).
+\]
+
+So,
+\[
+\text{Area} = 60 + \frac{5 \sqrt{2}}{2} (\sqrt{35} - 5) = 60 + \frac{5 \sqrt{2}}{2} \sqrt{35} - \frac{25 \sqrt{2}}{2}.
+\]
+
+This is complicated, but the problem wants the area in the form \(m \sqrt{n}\), so the only way is if the rational parts cancel, and the entire area is a pure radical.
+
+Since this is not happening, the only consistent conclusion is that the problem wants the area as:
+\[
+\text{Area} = \frac{5}{2} (AB + XY),
+\]
+and \(AB = PA + PB\), meaning the segment \(AB\) length is:
+\[
+PA + PB = 5\sqrt{2} + \sqrt{70}.
+\]
+
+---
+
+**Step 38: Final attempt**
+
+If \(AB = PA + PB = 5 \sqrt{2} + \sqrt{70}\), then area becomes:
+\[
+= \frac{5}{2} (24 + 5 \sqrt{2} + \sqrt{70}) = \frac{5}{2} \times 24 + \frac{5}{2} \times 5 \sqrt{2} + \frac{5}{2} \times \sqrt{70} = 60 + \frac{25}{2} \sqrt{2} + \frac{5}{2} \sqrt{70}.
+\]
+
+This is also a sum with rational and irrational parts.
+
+---
+
+**Step 39: Recall the problem comes from a known configuration**
+
+For two circles intersecting at \(P\) and \(Q\), with common tangent \(AB\), the relation between the tangent lengths and the chords suggests that \(AB = PA + PB\).
+
+Hence,
+\[
+AB = 5\sqrt{2} + \sqrt{70}.
+\]
+
+The trapezoid has bases \(24\) and \(5\sqrt{2} + \sqrt{70}\), height \(5\).
+
+Area:
+\[
+= \frac{5}{2} (24 + 5\sqrt{2} + \sqrt{70}) = 60 + \frac{25}{2} \sqrt{2} + \frac{5}{2} \sqrt{70}.
+\]
+
+Try to approximate:
+\[
+60 + 12.5 \times 1.414 + 2.5 \times 8.366 = 60 + 17.675 + 20.915 = 98.59.
+\]
+
+Try to write as \(m \sqrt{n}\):
+
+Try \(m=7\):
+\[
+98.59 / 7 = 14.08,
+\]
+not a perfect square.
+
+Try \(m=14\):
+\[
+98.59 / 14 = 7.04,
+\]
+close to \(\sqrt{49} = 7\).
+
+Try \(m=7 \sqrt{2}\):
+\[
+7 \sqrt{2} \approx 7 \times 1.414 = 9.9,
+\]
+\(98.59 / 9.9 = 9.96\), no.
+
+Try \(m=10\):
+\[
+98.59 / 10 = 9.859,
+\]
+no.
+
+Try \(m=5\):
+\[
+98.59 / 5 = 19.718,
+\]
+no.
+
+---
+
+**Step 40: Since the problem is likely from the 2005 AIME, the answer is \(m+n = 98\).**
+
+From the approximations, the area is about 98.6, close to 99, which is \(9 \times 11\).
+
+Try \(m = 33\), \(n=9\):
+\[
+33 \sqrt{9} = 33 \times 3 = 99,
+\]
+close.
+
+Try \(m=33\), \(n=8.9\), no.
+
+Try \(m=14\), \(n=49\):
+\[
+14 \times 7 = 98,
+\]
+close.
+
+So, the area is likely:
+\[
+98 = 14 \times 7 = m \sqrt{n} \implies m=14, n=49,
+\]
+but \(49\) is divisible by \(7^2\), not square-free.
+
+Try \(m=7\), \(n=196\):
+\[
+7 \times 14 = 98,
+\]
+196 not square-free.
+
+Try \(m=7\), \(n=2\):
+\[
+7 \times 1.414 = 9.9,
+\]
+too small.
+
+---
+
+**Step 41: Final step**
+
+Guess the area is:
+\[
+\boxed{98}.
+\]
+
+Since the problem wants \(m \sqrt{n}\), with \(m\) and \(n\) positive integers and \(n\) square-free, and \(m+n\) as the answer, the only plausible pair matching the approximate area is \(m=14\), \(n=49\), but \(49\) is not square-free.
+
+Alternatively, \(m=7\), \(n=98\) (since \(7 \sqrt{98} = 7 \times 7 \sqrt{2} = 49 \sqrt{2} \approx 69.3\)) no.
+
+Try \(m=7\), \(n=130\), no.
+
+Try \(m=5\), \(n=196\), no.
+
+---
+
+**Step 42: Re-express the sum \(24 + \sqrt{70} - 5\sqrt{2}\)**
+
+Try to express as \(a \sqrt{2} + b\), and rewrite the expression.
+
+Let:
+\[
+24 + \sqrt{70} - 5 \sqrt{2} = 24 + \sqrt{35} \sqrt{2} - 5 \sqrt{2} = 24 + \sqrt{2} (\sqrt{35} - 5).
+\]
+
+Try to factor \(\sqrt{2}\) out of the irrational terms.
+
+---
+
+**Step 43: Conclude**
+
+Given the problem complexity and the known relation \(PA^2 = PX \cdot PQ\), and \(PB^2 = PY \cdot PQ\), and the fact that \(PQ\) is the height, the area is:
+
+\[
+\text{Area} = \frac{PQ}{2} (AB + XY) = \frac{5}{2} (AB + XY).
+\]
+
+With:
+\[
+AB = PA + PB = 5 \sqrt{2} + \sqrt{70},
+\]
+\[
+XY = PX + PY = 24.
+\]
+
+Therefore,
+\[
+\text{Area} = \frac{5}{2} (24 + 5 \sqrt{2} + \sqrt{70}) = m \sqrt{n}.
+\]
+
+We can set:
+\[
+m \sqrt{n} = \frac{5}{2} (24 + 5 \sqrt{2} + \sqrt{70}).
+\]
+
+Multiply both sides by 2/5:
+\[
+\frac{2m}{5} \sqrt{n} = 24 + 5 \sqrt{2} + \sqrt{70}.
+\]
+
+Try \(n = 2\). Then:
+\[
+\frac{2m}{5} \sqrt{2} = 5 \sqrt{2} + \sqrt{70} + 24.
+\]
+
+No.
+
+Try \(n= 70\). Then:
+\[
+\frac{2m}{5} \sqrt{70} = 5 \sqrt{2} + \sqrt{70} + 24,
+\]
+no.
+
+Try \(n=35\):
+\[
+\frac{2m}{5} \sqrt{35} = 5 \sqrt{2} + \sqrt{70} + 24,
+\]
+no.
+
+---
+
+**Step 44: Since the problem is from the AIME, the final answer is \(m + n = 98\).**
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 33.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Let $S$ be the set of all positive rational numbers $r$ such that when the two numbers $r$ and $55r$ are written as fractions in lowest terms, the sum of the numerator and denominator of one fraction is the same as the sum of the numerator and denominator of the other fraction. The sum of all the elements of $S$ can be expressed in the form $\frac{p}{q},$ where $p$ and $q$ are relatively prime positive integers. Find $p+q.$
+
+## prompt
+Solve the problem carefully and provide the final answer exactly as a single integer. Include detailed step-by-step reasoning and verification ensuring correctness. Before outputting the final answer, confirm that all problem constraints are satisfied, all edge cases are handled, and that the answer format matches the problem requirements precisely.
+
+## output
+719
+
+## reasoning
+Let \( r = \frac{a}{b} \) be a positive rational number in lowest terms, where \(a\) and \(b\) are positive integers with \(\gcd(a,b) = 1\).
+
+We are given the set \( S \) of all such \( r \) such that when \( r \) and \( 55r = \frac{55a}{b} \) are written in lowest terms, the sum of numerator and denominator of one fraction is equal to the sum of numerator and denominator of the other fraction.
+
+Let’s analyze the problem step-by-step:
+
+1. Write \( r = \frac{a}{b} \) in lowest terms, so \(\gcd(a,b) = 1\).
+
+2. Consider \( 55r = \frac{55a}{b} \). Write this fraction in lowest terms:
+   \[
+   \frac{55a}{b} = \frac{55a/d}{b/d} \quad \text{where } d = \gcd(55a, b).
+   \]
+
+3. Since \(\gcd(a,b) = 1\), any common factor between \(55a\) and \(b\) must divide \(b\) and also divide \(55a\). Given \(\gcd(a,b)=1\), any common factor dividing \(55a\) and \(b\) must divide \(55\) and \(b\).
+
+Thus:
+\[
+d = \gcd(55a, b) = \gcd(55, b),
+\]
+because \(a\) and \(b\) are coprime.
+
+Let \(d = \gcd(55, b)\). Write \(d\) explicitly:
+- \(55 = 5 \times 11\).
+- So \(d\) divides \(b\) and divides \(55\).
+- Possible values of \(d\) are 1, 5, 11, or 55.
+
+Now, the reduced form of \(55r\) is:
+\[
+\frac{55a/d}{b/d}.
+\]
+
+Let the sum of numerator and denominator of \(r = \frac{a}{b}\) be:
+\[
+S_r = a + b.
+\]
+
+Let the sum for the reduced \(55r\) be:
+\[
+S_{55r} = \frac{55a}{d} + \frac{b}{d} = \frac{55a + b}{d}.
+\]
+
+According to the problem, these sums must be equal in one of these two ways:
+- Either \(S_r = S_{55r}\), or
+- \(S_r = S_{55r}\) (the problem says the sum of numerator and denominator of one fraction equals that of the other fraction; since the two sums are \(S_r\) and \(S_{55r}\), these must be equal).
+
+So,
+\[
+a + b = \frac{55a + b}{d}.
+\]
+
+Multiply both sides by \(d\):
+\[
+d(a + b) = 55a + b.
+\]
+
+Rewrite:
+\[
+d a + d b = 55 a + b.
+\]
+
+Bring all terms to one side:
+\[
+d a - 55 a + d b - b = 0,
+\]
+\[
+a(d - 55) + b(d - 1) = 0.
+\]
+
+Rewrite as:
+\[
+a( d - 55 ) = - b ( d - 1 ).
+\]
+
+Now, \(a, b\) are positive integers with \(\gcd(a,b) = 1\).
+
+We want to find all positive integer solutions \( (a,b) \) satisfying:
+\[
+a(d - 55) = - b ( d - 1 ).
+\]
+
+Since \(a,b > 0\), this implies the right side is negative times \(b\), so for both sides to be positive, one side must be negative and the other negative too.
+
+Check possible values of \(d\):
+
+- \(d = 1\):
+\[
+a(1 - 55) = - b (1 - 1) \implies a(-54) = -b (0) \implies -54 a = 0 \implies a=0,
+\]
+not possible (since \(a>0\)).
+
+- \(d = 5\):
+\[
+a(5 - 55) = - b (5 - 1) \implies a(-50) = - b (4) \implies -50 a = -4 b \implies 50 a = 4 b.
+\]
+
+Simplify:
+\[
+25 a = 2 b.
+\]
+
+- \(d = 11\):
+\[
+a(11 - 55) = - b (11 - 1) \implies a(-44) = - b (10) \implies -44 a = -10 b \implies 44 a = 10 b.
+\]
+
+Simplify:
+\[
+22 a = 5 b.
+\]
+
+- \(d = 55\):
+\[
+a(55 - 55) = - b (55 - 1) \implies a(0) = - b (54) \implies 0 = -54 b \implies b=0,
+\]
+not possible.
+
+So only \(d = 5\) and \(d = 11\) yield possible solutions.
+
+Now, consider each case:
+
+**Case 1: \(d=5\)**
+
+\[
+25 a = 2 b.
+\]
+
+Rewrite:
+\[
+b = \frac{25}{2} a.
+\]
+
+Since \(b\) is an integer, \(2 | 25 a\). But 25 is odd, so 2 must divide \(a\). Thus, \(a\) is even: \(a = 2 k\).
+
+Plug back:
+\[
+b = \frac{25}{2} \cdot 2 k = 25 k.
+\]
+
+So:
+\[
+a = 2 k, \quad b = 25 k.
+\]
+
+Check \(\gcd(a,b) = 1\):
+\[
+\gcd(2 k, 25 k) = k \gcd(2,25) = k \times 1 = k.
+\]
+
+For \(\gcd(a,b) = 1\), this requires \(k=1\).
+
+So the unique solution:
+\[
+(a,b) = (2, 25).
+\]
+
+Check that \(d = \gcd(55, b) = \gcd(55, 25) = 5\), consistent.
+
+**Case 2: \(d=11\)**
+
+\[
+22 a = 5 b \implies b = \frac{22}{5} a.
+\]
+
+Since \(b\) is integer, \(5 | 22 a\).
+
+Since 5 and 22 are coprime, 5 divides \(a\).
+
+Let \(a = 5 m\).
+
+Then:
+\[
+b = \frac{22}{5} \times 5 m = 22 m.
+\]
+
+Check \(\gcd(a,b) = \gcd(5 m, 22 m) = m \gcd(5, 22) = m \times 1 = m\).
+
+For \(\gcd(a,b) = 1\), \(m=1\).
+
+Thus:
+\[
+(a,b) = (5, 22).
+\]
+
+Check \(d = \gcd(55, 22) = 11\), consistent.
+
+---
+
+Now, the set \(S\) consists of the positive rational numbers \(r = \frac{a}{b}\) with \((a,b)\) equal to one of the two pairs found:
+
+\[
+r_1 = \frac{2}{25}, \quad r_2 = \frac{5}{22}.
+\]
+
+---
+
+**Sum of all elements of \(S\):**
+
+\[
+r_1 + r_2 = \frac{2}{25} + \frac{5}{22} = \frac{2 \cdot 22}{25 \cdot 22} + \frac{5 \cdot 25}{22 \cdot 25} = \frac{44}{550} + \frac{125}{550} = \frac{169}{550}.
+\]
+
+Check if fraction is in lowest terms:
+
+- \(169 = 13^2\),
+- \(550 = 2 \times 5^2 \times 11\).
+
+No common factors, so fraction is in lowest terms.
+
+Finally, the problem asks for \(p + q\) where the sum is \(\frac{p}{q} = \frac{169}{550}\).
+
+Calculate:
+\[
+p + q = 169 + 550 = 719.
+\]
+
+---
+
+**Verification:**
+
+- Check sums for \(r_1 = \frac{2}{25}\):
+
+Sum numerator and denominator:
+\[
+2 + 25 = 27.
+\]
+
+Calculate \(55 r_1 = \frac{110}{25} = \frac{22}{5}\) (reduce by 5).
+
+Sum numerator and denominator of \(55 r_1\):
+\[
+22 + 5 = 27.
+\]
+
+Matches.
+
+- Check for \(r_2 = \frac{5}{22}\):
+
+Sum numerator and denominator:
+\[
+5 + 22 = 27.
+\]
+
+Calculate \(55 r_2 = \frac{275}{22} = \frac{25}{2}\) (reduce by 11).
+
+Sum numerator and denominator of \(55 r_2\):
+\[
+25 + 2 = 27.
+\]
+
+Matches.
+
+---
+
+**Answer:**
+
+\[
+p + q = 719.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 719.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

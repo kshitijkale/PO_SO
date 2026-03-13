@@ -1,0 +1,1324 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Let $x,y$ and $z$ be positive real numbers that satisfy the following system of equations:
+\[\log_2\left({x \over yz}\right) = {1 \over 2}\]\[\log_2\left({y \over xz}\right) = {1 \over 3}\]\[\log_2\left({z \over xy}\right) = {1 \over 4}\]
+Then the value of $\left|\log_2(x^4y^3z^2)\right|$ is $\tfrac{m}{n}$ where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+33
+
+## reasoning
+Given the system:
+\[
+\log_2\left(\frac{x}{yz}\right) = \frac{1}{2}, \quad \log_2\left(\frac{y}{xz}\right) = \frac{1}{3}, \quad \log_2\left(\frac{z}{xy}\right) = \frac{1}{4}
+\]
+
+Define:
+\[
+a = \log_2 x, \quad b = \log_2 y, \quad c = \log_2 z.
+\]
+
+Rewrite each equation using log properties:
+\[
+\log_2 \frac{x}{yz} = \log_2 x - \log_2 y - \log_2 z = a - b - c = \frac{1}{2}
+\]
+\[
+\log_2 \frac{y}{xz} = b - a - c = \frac{1}{3}
+\]
+\[
+\log_2 \frac{z}{xy} = c - a - b = \frac{1}{4}
+\]
+
+We have the system:
+\[
+\begin{cases}
+a - b - c = \frac{1}{2} \\
+b - a - c = \frac{1}{3} \\
+c - a - b = \frac{1}{4}
+\end{cases}
+\]
+
+Add all three equations:
+\[
+(a - b - c) + (b - a - c) + (c - a - b) = \frac{1}{2} + \frac{1}{3} + \frac{1}{4}.
+\]
+
+Left side:
+\[
+a - b - c + b - a - c + c - a - b = (a - a) + (-b + b) + (-c - c + c) + (-a - b) = -a - b - c.
+\]
+
+Check carefully:
+\[
+a - b - c + b - a - c + c - a - b = (a - a - a) + (-b + b - b) + (-c - c + c) = -a - b - c.
+\]
+
+So,
+\[
+-a - b - c = \frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{6}{12} + \frac{4}{12} + \frac{3}{12} = \frac{13}{12}.
+\]
+
+Therefore,
+\[
+a + b + c = -\frac{13}{12}.
+\]
+
+We want to find:
+\[
+|\log_2 (x^4 y^3 z^2)| = |4a + 3b + 2c|.
+\]
+
+From the system, express \(a, b, c\) in terms of each other.
+
+Rewrite the system:
+\[
+a - b - c = \frac{1}{2} \implies a = b + c + \frac{1}{2}
+\]
+\[
+b - a - c = \frac{1}{3} \implies b = a + c + \frac{1}{3}
+\]
+\[
+c - a - b = \frac{1}{4} \implies c = a + b + \frac{1}{4}
+\]
+
+Now substitute the first into the second:
+\[
+b = a + c + \frac{1}{3} = (b + c + \frac{1}{2}) + c + \frac{1}{3} = b + 2c + \frac{5}{6}.
+\]
+
+Subtract \(b\) from both sides:
+\[
+0 = 2c + \frac{5}{6} \implies 2c = -\frac{5}{6} \implies c = -\frac{5}{12}.
+\]
+
+Now from \(a = b + c + \frac{1}{2}\), plug \(c = -\frac{5}{12}\):
+\[
+a = b - \frac{5}{12} + \frac{1}{2} = b - \frac{5}{12} + \frac{6}{12} = b + \frac{1}{12}.
+\]
+
+From the third equation:
+\[
+c = a + b + \frac{1}{4}.
+\]
+
+We know \(c = -\frac{5}{12}\), so:
+\[
+-\frac{5}{12} = a + b + \frac{1}{4}.
+\]
+
+Substitute \(a = b + \frac{1}{12}\):
+\[
+-\frac{5}{12} = b + \frac{1}{12} + b + \frac{1}{4} = 2b + \frac{1}{12} + \frac{3}{12} = 2b + \frac{4}{12} = 2b + \frac{1}{3}.
+\]
+
+Subtract \(\frac{1}{3}\) from both sides:
+\[
+-\frac{5}{12} - \frac{1}{3} = 2b \implies -\frac{5}{12} - \frac{4}{12} = 2b \implies -\frac{9}{12} = 2b \implies 2b = -\frac{3}{4}.
+\]
+
+Thus,
+\[
+b = -\frac{3}{8}.
+\]
+
+Then,
+\[
+a = b + \frac{1}{12} = -\frac{3}{8} + \frac{1}{12} = -\frac{9}{24} + \frac{2}{24} = -\frac{7}{24}.
+\]
+
+Check \(a + b + c\):
+\[
+-\frac{7}{24} - \frac{3}{8} - \frac{5}{12} = -\frac{7}{24} - \frac{9}{24} - \frac{10}{24} = -\frac{26}{24} = -\frac{13}{12},
+\]
+which matches previous result, confirming consistency.
+
+Finally, calculate:
+\[
+4a + 3b + 2c = 4 \cdot \left(-\frac{7}{24}\right) + 3 \cdot \left(-\frac{3}{8}\right) + 2 \cdot \left(-\frac{5}{12}\right).
+\]
+
+Calculate each term:
+\[
+4a = -\frac{28}{24} = -\frac{7}{6}, \quad 3b = -\frac{9}{8}, \quad 2c = -\frac{10}{12} = -\frac{5}{6}.
+\]
+
+Sum:
+\[
+-\frac{7}{6} - \frac{9}{8} - \frac{5}{6} = \left(-\frac{7}{6} - \frac{5}{6}\right) - \frac{9}{8} = -2 - \frac{9}{8} = -2 - 1.125 = -3.125.
+\]
+
+Express as fraction:
+\[
+-3.125 = -\frac{25}{8}.
+\]
+
+Absolute value:
+\[
+\left|4a + 3b + 2c\right| = \frac{25}{8}.
+\]
+
+The fraction \(\frac{25}{8}\) is in lowest terms.
+
+Sum numerator and denominator:
+\[
+25 + 8 = 33.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 33.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+There is a positive real number $x$ not equal to either $\tfrac{1}{20}$ or $\tfrac{1}{2}$ such that\[\log_{20x} (22x)=\log_{2x} (202x).\]The value $\log_{20x} (22x)$ can be written as $\log_{10} (\tfrac{m}{n})$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+112
+
+## reasoning
+We are given the equation
+\[
+\log_{20x} (22x) = \log_{2x} (202x)
+\]
+where \(x\) is a positive real number and \(x \neq \frac{1}{20}, \frac{1}{2}\).
+
+We want to find the value of \(\log_{20x}(22x)\) expressed as \(\log_{10} \left(\frac{m}{n}\right)\) where \(m,n\) are relatively prime positive integers, and then find \(m+n\).
+
+---
+
+**Step 1: Rewrite the logs in terms of \(\log_{10}\).**
+
+Recall the change of base formula:
+\[
+\log_a b = \frac{\log_{10} b}{\log_{10} a}.
+\]
+
+So,
+\[
+\log_{20x} (22x) = \frac{\log_{10} (22x)}{\log_{10} (20x)}, \quad \log_{2x} (202x) = \frac{\log_{10} (202x)}{\log_{10} (2x)}.
+\]
+
+The given equation becomes:
+\[
+\frac{\log_{10} (22x)}{\log_{10} (20x)} = \frac{\log_{10} (202x)}{\log_{10} (2x)}.
+\]
+
+---
+
+**Step 2: Set variables for convenience.**
+
+Let
+\[
+a = \log_{10} x.
+\]
+
+Then:
+\[
+\log_{10} (22x) = \log_{10} 22 + a,
+\]
+\[
+\log_{10} (20x) = \log_{10} 20 + a,
+\]
+\[
+\log_{10} (202x) = \log_{10} 202 + a,
+\]
+\[
+\log_{10} (2x) = \log_{10} 2 + a.
+\]
+
+Substitute back:
+\[
+\frac{\log_{10} 22 + a}{\log_{10} 20 + a} = \frac{\log_{10} 202 + a}{\log_{10} 2 + a}.
+\]
+
+---
+
+**Step 3: Cross-multiply and simplify.**
+
+\[
+(\log_{10} 22 + a)(\log_{10} 2 + a) = (\log_{10} 202 + a)(\log_{10} 20 + a).
+\]
+
+Expand both sides:
+
+Left:
+\[
+(\log_{10} 22)(\log_{10} 2) + a \log_{10} 22 + a \log_{10} 2 + a^2.
+\]
+
+Right:
+\[
+(\log_{10} 202)(\log_{10} 20) + a \log_{10} 202 + a \log_{10} 20 + a^2.
+\]
+
+The \(a^2\) terms cancel out:
+
+\[
+(\log_{10} 22)(\log_{10} 2) + a (\log_{10} 22 + \log_{10} 2) = (\log_{10} 202)(\log_{10} 20) + a (\log_{10} 202 + \log_{10} 20).
+\]
+
+Bring terms to one side:
+
+\[
+a (\log_{10} 22 + \log_{10} 2 - \log_{10} 202 - \log_{10} 20) = (\log_{10} 202)(\log_{10} 20) - (\log_{10} 22)(\log_{10} 2).
+\]
+
+---
+
+**Step 4: Simplify the coefficients.**
+
+Note that \(\log_{10} 22 + \log_{10} 2 = \log_{10} (22 \times 2) = \log_{10} 44\).
+
+Similarly, \(\log_{10} 202 + \log_{10} 20 = \log_{10} (202 \times 20) = \log_{10} 4040\).
+
+So the coefficient of \(a\) is:
+\[
+\log_{10} 44 - \log_{10} 4040 = \log_{10} \left(\frac{44}{4040}\right).
+\]
+
+Calculate \(\frac{44}{4040}\):
+\[
+\frac{44}{4040} = \frac{44}{44 \times 91.81818...} = \frac{1}{91.81818...} \approx 0.0109.
+\]
+
+But let's keep it exact:
+\[
+4040 = 40 \times 101 = (4 \times 10) \times 101.
+\]
+
+Similarly,
+\[
+44 = 4 \times 11.
+\]
+
+So,
+\[
+\frac{44}{4040} = \frac{4 \times 11}{4 \times 10 \times 101} = \frac{11}{10 \times 101} = \frac{11}{1010}.
+\]
+
+Hence,
+\[
+\log_{10} \left(\frac{44}{4040}\right) = \log_{10} \left(\frac{11}{1010}\right).
+\]
+
+---
+
+**Step 5: Simplify the right side:**
+
+\[
+(\log_{10} 202)(\log_{10} 20) - (\log_{10} 22)(\log_{10} 2).
+\]
+
+Write each log:
+
+- \(202 = 2 \times 101\),
+- \(20 = 2^2 \times 5\),
+- \(22 = 2 \times 11\),
+- \(2\) is prime.
+
+So,
+\[
+\log_{10} 202 = \log_{10} 2 + \log_{10} 101,
+\]
+\[
+\log_{10} 20 = \log_{10} 2^2 + \log_{10} 5 = 2 \log_{10} 2 + \log_{10} 5,
+\]
+\[
+\log_{10} 22 = \log_{10} 2 + \log_{10} 11,
+\]
+\[
+\log_{10} 2 = \log_{10} 2.
+\]
+
+Substitute:
+\[
+(\log_{10} 2 + \log_{10} 101)(2 \log_{10} 2 + \log_{10} 5) - (\log_{10} 2 + \log_{10} 11)(\log_{10} 2).
+\]
+
+Expand the first product:
+\[
+= \log_{10} 2 \cdot 2 \log_{10} 2 + \log_{10} 2 \cdot \log_{10} 5 + \log_{10} 101 \cdot 2 \log_{10} 2 + \log_{10} 101 \cdot \log_{10} 5,
+\]
+\[
+= 2 (\log_{10} 2)^2 + \log_{10} 2 \log_{10} 5 + 2 \log_{10} 101 \log_{10} 2 + \log_{10} 101 \log_{10} 5.
+\]
+
+The second product:
+\[
+(\log_{10} 2 + \log_{10} 11)(\log_{10} 2) = (\log_{10} 2)^2 + \log_{10} 11 \log_{10} 2.
+\]
+
+Subtract:
+\[
+\left[2 (\log_{10} 2)^2 + \log_{10} 2 \log_{10} 5 + 2 \log_{10} 101 \log_{10} 2 + \log_{10} 101 \log_{10} 5\right] - \left[(\log_{10} 2)^2 + \log_{10} 11 \log_{10} 2\right].
+\]
+
+Simplify:
+\[
+(2 - 1)(\log_{10} 2)^2 + \log_{10} 2 \log_{10} 5 + 2 \log_{10} 101 \log_{10} 2 + \log_{10} 101 \log_{10} 5 - \log_{10} 11 \log_{10} 2,
+\]
+\[
+= (\log_{10} 2)^2 + \log_{10} 2 \log_{10} 5 + 2 \log_{10} 101 \log_{10} 2 + \log_{10} 101 \log_{10} 5 - \log_{10} 11 \log_{10} 2.
+\]
+
+Group terms with \(\log_{10} 2\):
+\[
+= (\log_{10} 2)^2 + \log_{10} 2 \log_{10} 5 + 2 \log_{10} 101 \log_{10} 2 - \log_{10} 11 \log_{10} 2 + \log_{10} 101 \log_{10} 5.
+\]
+
+Factor \(\log_{10} 2\) where possible:
+\[
+= (\log_{10} 2)^2 + \log_{10} 2(\log_{10} 5 + 2 \log_{10} 101 - \log_{10} 11) + \log_{10} 101 \log_{10} 5.
+\]
+
+Note that:
+\[
+\log_{10} 5 + 2 \log_{10} 101 - \log_{10} 11 = \log_{10} \left(\frac{5 \times 101^2}{11}\right).
+\]
+
+---
+
+**Step 6: Solve for \(a\).**
+
+Recall
+\[
+a \cdot \log_{10} \left(\frac{11}{1010}\right) = (\log_{10} 2)^2 + \log_{10} 2 \log_{10} \left(\frac{5 \times 101^2}{11}\right) + \log_{10} 101 \log_{10} 5.
+\]
+
+Divide both sides by \(\log_{10} \left(\frac{11}{1010}\right)\):
+\[
+a = \frac{(\log_{10} 2)^2 + \log_{10} 2 \log_{10} \left(\frac{5 \times 101^2}{11}\right) + \log_{10} 101 \log_{10} 5}{\log_{10} \left(\frac{11}{1010}\right)}.
+\]
+
+---
+
+**Step 7: Express \(\log_{20x} (22x)\) in terms of \(a\).**
+
+We want:
+\[
+\log_{20x} (22x) = \frac{\log_{10} (22x)}{\log_{10} (20x)} = \frac{\log_{10} 22 + a}{\log_{10} 20 + a}.
+\]
+
+---
+
+**Step 8: Numerical approximation to find \(\log_{20x}(22x)\).**
+
+Calculate approximate values:
+
+- \(\log_{10} 2 \approx 0.30103\),
+- \(\log_{10} 5 \approx 0.69897\),
+- \(\log_{10} 11 \approx 1.04139\),
+- \(\log_{10} 20 = \log_{10} (2 \times 10) = 0.30103 + 1 = 1.30103\),
+- \(\log_{10} 22 = \log_{10} (2.2 \times 10) = \log_{10} 2.2 + 1 \approx 0.34242 + 1 = 1.34242\),
+- \(\log_{10} 101 \approx 2.00432\).
+
+Calculate numerator of \(a\):
+
+\[
+(\log_{10} 2)^2 = (0.30103)^2 = 0.09062,
+\]
+\[
+\frac{5 \times 101^2}{11} = \frac{5 \times 10201}{11} = \frac{51005}{11} \approx 4636.82,
+\]
+\[
+\log_{10} 4636.82 \approx \log_{10} 4.63682 \times 10^3 = \log_{10} 4.63682 + 3 \approx 0.666 + 3 = 3.666,
+\]
+\[
+\log_{10} 2 \times \log_{10} \left(\frac{5 \times 101^2}{11}\right) = 0.30103 \times 3.666 = 1.103,
+\]
+\[
+\log_{10} 101 \times \log_{10} 5 = 2.00432 \times 0.69897 = 1.401.
+\]
+
+Sum numerator:
+\[
+0.09062 + 1.103 + 1.401 = 2.5946.
+\]
+
+Denominator:
+\[
+\log_{10} \left(\frac{11}{1010}\right) = \log_{10} 11 - \log_{10} 1010 = 1.04139 - (3.00432) = -1.9629.
+\]
+
+Therefore,
+\[
+a = \frac{2.5946}{-1.9629} = -1.3218.
+\]
+
+---
+
+**Step 9: Compute \(\log_{20x} (22x)\) using \(a\).**
+
+\[
+\log_{10} 22 + a = 1.34242 - 1.3218 = 0.02062,
+\]
+\[
+\log_{10} 20 + a = 1.30103 - 1.3218 = -0.02077,
+\]
+\[
+\log_{20x}(22x) = \frac{0.02062}{-0.02077} = -0.9927 \approx -1.
+\]
+
+The value is close to \(-1\), but we want exact form.
+
+---
+
+**Step 10: Check alternative approach using the substitution**
+
+Since the logs are equal:
+\[
+\log_{20x}(22x) = \log_{2x}(202x) = t \quad \text{say}.
+\]
+
+Rewrite the logs as exponentials:
+\[
+(20x)^t = 22x,
+\]
+\[
+(2x)^t = 202x.
+\]
+
+Divide the two equations:
+\[
+\frac{(20x)^t}{(2x)^t} = \frac{22x}{202x} \implies \left(\frac{20x}{2x}\right)^t = \frac{22}{202} = \frac{11}{101}.
+\]
+
+Simplify the base:
+\[
+\left(\frac{20x}{2x}\right)^t = 10^t = \frac{11}{101}.
+\]
+
+Therefore,
+\[
+10^t = \frac{11}{101} \implies t = \log_{10} \left(\frac{11}{101}\right).
+\]
+
+---
+
+**Step 11: Verify the solution**
+
+We have:
+\[
+\log_{20x}(22x) = \log_{10} \left(\frac{11}{101}\right).
+\]
+
+Then the answer is \(m=11\), \(n=101\), which are relatively prime.
+
+Sum:
+\[
+m + n = 11 + 101 = 112.
+\]
+
+---
+
+**Final verification:**
+
+Check the original equation with \(t = \log_{10} \frac{11}{101}\):
+
+\[
+(20x)^t = 22x,
+\]
+\[
+(2x)^t = 202x.
+\]
+
+Divide:
+\[
+\left(\frac{20x}{2x}\right)^t = 10^t = \frac{11}{101}.
+\]
+
+As above, this matches perfectly.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 112.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+There exists a unique positive integer $a$ for which the sum \[U=\sum_{n=1}^{2023}\left\lfloor\dfrac{n^{2}-na}{5}\right\rfloor\] is an integer strictly between $-1000$ and $1000$. For that unique $a$, find $a+U$.
+(Note that $\lfloor x\rfloor$ denotes the greatest integer that is less than or equal to $x$.)
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+944
+
+## reasoning
+We are given the sum
+\[
+U = \sum_{n=1}^{2023} \left\lfloor \frac{n^2 - n a}{5} \right\rfloor,
+\]
+where \(a\) is a positive integer. We want to find the unique \(a\) for which \(U\) is an integer strictly between \(-1000\) and \(1000\). Then we must find \(a + U\).
+
+---
+
+**Step 1: Understand the sum \(U\) and the role of \(a\).**
+
+For fixed \(a\), each term is \(\left\lfloor \frac{n^2 - n a}{5} \right\rfloor\).
+
+Rewrite the term inside the floor:
+\[
+\frac{n^2 - n a}{5} = \frac{n(n - a)}{5}.
+\]
+
+Since \(n\) ranges from 1 to 2023, the numerator is quadratic in \(n\).
+
+---
+
+**Step 2: Express the floor in terms of integer division and fractional parts**
+
+Write
+\[
+\frac{n^2 - n a}{5} = \frac{n^2 - n a - r_n}{5} + \frac{r_n}{5},
+\]
+where \(r_n \equiv (n^2 - n a) \mod 5\), with \(r_n \in \{0,1,2,3,4\}\).
+
+Then,
+\[
+\left\lfloor \frac{n^2 - n a}{5} \right\rfloor = \frac{n^2 - n a - r_n}{5} = \frac{n^2 - n a}{5} - \frac{r_n}{5}.
+\]
+
+So,
+\[
+U = \sum_{n=1}^{2023} \left( \frac{n^2 - n a}{5} - \frac{r_n}{5} \right) = \frac{1}{5} \sum_{n=1}^{2023} (n^2 - n a) - \frac{1}{5} \sum_{n=1}^{2023} r_n.
+\]
+
+Note that \(\sum r_n\) depends on \(a\) modulo 5.
+
+---
+
+**Step 3: Compute \(\sum (n^2 - n a)\)**
+
+\[
+\sum_{n=1}^{2023} n^2 = \frac{2023 \cdot 2024 \cdot (2 \cdot 2023 + 1)}{6}.
+\]
+
+Calculate:
+
+- \(2 \cdot 2023 + 1 = 4047\).
+- \(2023 \cdot 2024 = 2023 \times 2024\).
+
+Calculate \(2023 \times 2024\):
+\[
+2023 \times 2000 = 4,046,000,
+\]
+\[
+2023 \times 24 = 48,552,
+\]
+Sum:
+\[
+4,046,000 + 48,552 = 4,094,552.
+\]
+
+So,
+\[
+\sum_{n=1}^{2023} n^2 = \frac{4,094,552 \times 4047}{6}.
+\]
+
+Calculate numerator:
+\[
+4,094,552 \times 4047.
+\]
+
+Calculate stepwise:
+
+- \(4,094,552 \times 4000 = 16,378,208,000\),
+- \(4,094,552 \times 40 = 163,782,080\),
+- \(4,094,552 \times 7 = 28,661,864\).
+
+Sum:
+\[
+16,378,208,000 + 163,782,080 + 28,661,864 = 16,570,651,944.
+\]
+
+Divide by 6:
+\[
+\sum n^2 = \frac{16,570,651,944}{6} = 2,761,775,324.
+\]
+
+---
+
+\[
+\sum_{n=1}^{2023} n = \frac{2023 \cdot 2024}{2} = 2023 \times 1012.
+\]
+
+Calculate:
+\[
+2023 \times 1000 = 2,023,000,
+\]
+\[
+2023 \times 12 = 24,276,
+\]
+Sum:
+\[
+2,023,000 + 24,276 = 2,047,276.
+\]
+
+So,
+\[
+\sum_{n=1}^{2023} n = 2,047,276.
+\]
+
+---
+
+Therefore,
+\[
+\sum_{n=1}^{2023} (n^2 - n a) = \sum n^2 - a \sum n = 2,761,775,324 - a \times 2,047,276.
+\]
+
+---
+
+**Step 4: Summation of the remainders \(r_n\)**
+
+Recall,
+\[
+r_n = (n^2 - n a) \bmod 5.
+\]
+
+We want to find
+\[
+S_r = \sum_{n=1}^{2023} r_n.
+\]
+
+Since \(r_n\) depends only on \(n \bmod 5\) and \(a \bmod 5\), we consider the sequence modulo 5.
+
+---
+
+**Step 5: Evaluate \(r_n\) modulo 5 for all \(n\)**
+
+Let \(a \equiv k \pmod{5}\), where \(k \in \{0,1,2,3,4\}\).
+
+We analyze the function
+\[
+r_n = (n^2 - n a) \bmod 5 = (n^2 - n k) \bmod 5.
+\]
+
+Since modulo 5 is periodic with period 5, the values of \(r_n\) repeat every 5.
+
+---
+
+The residues of \(n\) modulo 5 are \(0, 1, 2, 3, 4\). For each residue \(r\), compute
+\[
+r_r = (r^2 - r k) \bmod 5.
+\]
+
+For each \(k\), list \(r_r\) for \(r=0,1,2,3,4\).
+
+---
+
+**Case 1: \(k=0\)**
+\[
+r_r = r^2 - 0 = r^2 \bmod 5.
+\]
+Squares mod 5 are:
+- \(0^2 = 0\)
+- \(1^2 = 1\)
+- \(2^2 = 4\)
+- \(3^2 = 9 \equiv 4\)
+- \(4^2 = 16 \equiv 1\)
+
+So sequence for \(r_r\):
+\[
+0, 1, 4, 4, 1.
+\]
+Sum per 5 terms:
+\[
+0 + 1 + 4 + 4 + 1 = 10.
+\]
+
+---
+
+**Case 2: \(k=1\)**
+\[
+r_r = r^2 - r \pmod{5}.
+\]
+
+Calculate for \(r=0,1,2,3,4\):
+- \(0^2 - 0 = 0\)
+- \(1 - 1 = 0\)
+- \(4 - 2 = 2\)
+- \(9 - 3 = 6 \equiv 1\)
+- \(16 - 4 = 12 \equiv 2\)
+
+Sum:
+\[
+0 + 0 + 2 + 1 + 2 = 5.
+\]
+
+---
+
+**Case 3: \(k=2\)**
+\[
+r_r = r^2 - 2r \pmod{5}.
+\]
+
+Calculate:
+- \(0 - 0 = 0\)
+- \(1 - 2 = -1 \equiv 4\)
+- \(4 - 4 = 0\)
+- \(9 - 6 = 3\)
+- \(16 - 8 = 8 \equiv 3\)
+
+Sum:
+\[
+0 + 4 + 0 + 3 + 3 = 10.
+\]
+
+---
+
+**Case 4: \(k=3\)**
+\[
+r_r = r^2 - 3r \pmod{5}.
+\]
+
+Calculate:
+- \(0 - 0 = 0\)
+- \(1 - 3 = -2 \equiv 3\)
+- \(4 - 6 = -2 \equiv 3\)
+- \(9 - 9 = 0\)
+- \(16 - 12 = 4\)
+
+Sum:
+\[
+0 + 3 + 3 + 0 + 4 = 10.
+\]
+
+---
+
+**Case 5: \(k=4\)**
+\[
+r_r = r^2 - 4r \pmod{5}.
+\]
+
+Calculate:
+- \(0 - 0 = 0\)
+- \(1 - 4 = -3 \equiv 2\)
+- \(4 - 8 = -4 \equiv 1\)
+- \(9 - 12 = -3 \equiv 2\)
+- \(16 - 16 = 0\)
+
+Sum:
+\[
+0 + 2 + 1 + 2 + 0 = 5.
+\]
+
+---
+
+**Summary of sum of remainders per 5 terms:**
+\[
+k: \quad 0 \to 10, \quad 1 \to 5, \quad 2 \to 10, \quad 3 \to 10, \quad 4 \to 5.
+\]
+
+---
+
+**Step 6: Count how many complete blocks of 5 are in 2023**
+
+Number of blocks:
+\[
+\lfloor 2023/5 \rfloor = 404,
+\]
+and remainder terms:
+\[
+2023 - 5 \times 404 = 2023 - 2020 = 3.
+\]
+
+---
+
+**Step 7: Sum of remainders over full blocks**
+
+\[
+S_r = 404 \times S_5(k) + \sum_{r=1}^{3} r_r(k),
+\]
+where \(S_5(k)\) is the sum for 5 terms from Step 5.
+
+---
+
+**Step 8: Calculate partial sums of first 3 terms of remainder sequence for each \(k\)**
+
+For \(k=0\), sequence: \(0,1,4,4,1\)
+\[
+\sum_{r=1}^3 = 1 + 4 + 4 = 9.
+\]
+
+For \(k=1\), sequence: \(0,0,2,1,2\)
+\[
+\sum_{r=1}^3 = 0 + 2 + 1 = 3.
+\]
+
+For \(k=2\), sequence: \(0,4,0,3,3\)
+\[
+\sum_{r=1}^3 = 4 + 0 + 3 = 7.
+\]
+
+For \(k=3\), sequence: \(0,3,3,0,4\)
+\[
+\sum_{r=1}^3 = 3 + 3 + 0 = 6.
+\]
+
+For \(k=4\), sequence: \(0,2,1,2,0\)
+\[
+\sum_{r=1}^3 = 2 + 1 + 2 = 5.
+\]
+
+---
+
+**Step 9: Total sum of remainders \(S_r\) for each \(k\)**
+
+\[
+S_r(k) = 404 \times S_5(k) + \text{partial sum}.
+\]
+
+Calculate for each \(k\):
+
+- \(k=0\):
+\[
+404 \times 10 + 9 = 4040 + 9 = 4049.
+\]
+
+- \(k=1\):
+\[
+404 \times 5 + 3 = 2020 + 3 = 2023.
+\]
+
+- \(k=2\):
+\[
+404 \times 10 + 7 = 4040 + 7 = 4047.
+\]
+
+- \(k=3\):
+\[
+404 \times 10 + 6 = 4040 + 6 = 4046.
+\]
+
+- \(k=4\):
+\[
+404 \times 5 + 5 = 2020 + 5 = 2025.
+\]
+
+---
+
+**Step 10: Expression for \(U\)**
+
+Recall:
+\[
+U = \frac{1}{5} \sum_{n=1}^{2023} (n^2 - n a) - \frac{1}{5} S_r(k).
+\]
+
+Substitute:
+\[
+U = \frac{2,761,775,324 - a \times 2,047,276}{5} - \frac{S_r(k)}{5}.
+\]
+
+Rewrite as:
+\[
+U = \frac{2,761,775,324 - a \times 2,047,276 - S_r(k)}{5}.
+\]
+
+---
+
+**Step 11: Since \(a \equiv k \pmod{5}\), write \(a = 5m + k\) for some integer \(m \geq 0\).**
+
+Then:
+\[
+U = \frac{2,761,775,324 - (5m + k) \times 2,047,276 - S_r(k)}{5}.
+\]
+
+Split:
+\[
+U = \frac{2,761,775,324 - 5m \times 2,047,276 - k \times 2,047,276 - S_r(k)}{5}.
+\]
+
+Note \(5m \times 2,047,276 = 5 \times m \times 2,047,276\) is divisible by 5, so:
+\[
+U = \frac{2,761,775,324 - k \times 2,047,276 - S_r(k)}{5} - m \times 2,047,276.
+\]
+
+---
+
+**Step 12: For \(U\) to be an integer, the numerator must be divisible by 5. Check divisibility by 5 for each \(k\).**
+
+We analyze
+\[
+N(k) = 2,761,775,324 - k \times 2,047,276 - S_r(k).
+\]
+
+Check \(N(k) \bmod 5\).
+
+---
+
+Compute modulo 5 of each term:
+
+- \(2,761,775,324 \bmod 5\):
+
+Last digit 4, so modulo 5 is 4.
+
+- \(2,047,276 \bmod 5\):
+
+Last digit 6, but modulo 5 depends on last digit: 6 mod 5 is 1.
+
+So \(2,047,276 \equiv 1 \pmod{5}\).
+
+- \(S_r(k) \bmod 5\):
+
+From previous sums:
+
+\[
+S_r(0) = 4049, \quad 4049 \bmod 5 = 4049 - 5 \times 809 = 4049 - 4045 = 4,
+\]
+\[
+S_r(1) = 2023, \quad 2023 - 5 \times 404 = 2023 - 2020 = 3,
+\]
+\[
+S_r(2) = 4047, \quad 4047 - 5 \times 809 = 4047 - 4045 = 2,
+\]
+\[
+S_r(3) = 4046, \quad 4046 - 5 \times 809 = 4046 - 4045 = 1,
+\]
+\[
+S_r(4) = 2025, \quad 2025 - 5 \times 405 = 2025 - 2025 = 0.
+\]
+
+---
+
+Now calculate \(N(k) \bmod 5\):
+
+\[
+N(k) \equiv 4 - k \times 1 - S_r(k) \pmod{5}.
+\]
+
+Calculate for each \(k\):
+
+- \(k=0\):
+\[
+4 - 0 - 4 = 0 \pmod{5}.
+\]
+
+- \(k=1\):
+\[
+4 - 1 - 3 = 0 \pmod{5}.
+\]
+
+- \(k=2\):
+\[
+4 - 2 - 2 = 0 \pmod{5}.
+\]
+
+- \(k=3\):
+\[
+4 - 3 - 1 = 0 \pmod{5}.
+\]
+
+- \(k=4\):
+\[
+4 - 4 - 0 = 0 \pmod{5}.
+\]
+
+All \(N(k)\) are divisible by 5, so \(U\) is integer for all \(k\).
+
+---
+
+**Step 13: The general form of \(U\) is**
+\[
+U = \frac{2,761,775,324 - k \times 2,047,276 - S_r(k)}{5} - m \times 2,047,276.
+\]
+
+Rewrite:
+\[
+U = C(k) - m \times 2,047,276,
+\]
+where
+\[
+C(k) = \frac{2,761,775,324 - k \times 2,047,276 - S_r(k)}{5}.
+\]
+
+---
+
+**Step 14: Compute \(C(k)\) for each \(k\).**
+
+We already have the numerator \(N(k)\).
+
+Calculate \(C(k) = N(k)/5\).
+
+Compute numerator \(N(k)\):
+
+- For \(k=0\):
+\[
+N(0) = 2,761,775,324 - 0 - 4049 = 2,761,771,275.
+\]
+Divide by 5:
+\[
+C(0) = \frac{2,761,771,275}{5} = 552,354,255.
+\]
+
+- For \(k=1\):
+\[
+N(1) = 2,761,775,324 - 2,047,276 - 2023 = 2,761,775,324 - 2,049,299 = 2,759,726,025.
+\]
+Divide by 5:
+\[
+C(1) = \frac{2,759,726,025}{5} = 551,945,205.
+\]
+
+- For \(k=2\):
+\[
+N(2) = 2,761,775,324 - 4,094,552 - 4047 = 2,761,775,324 - 4,098,599 = 2,757,676,725.
+\]
+Divide by 5:
+\[
+C(2) = \frac{2,757,676,725}{5} = 551,535,345.
+\]
+
+- For \(k=3\):
+\[
+N(3) = 2,761,775,324 - 6,141,828 - 4046 = 2,761,775,324 - 6,145,874 = 2,755,629,450.
+\]
+Divide by 5:
+\[
+C(3) = \frac{2,755,629,450}{5} = 551,125,890.
+\]
+
+- For \(k=4\):
+\[
+N(4) = 2,761,775,324 - 8,189,104 - 2025 = 2,761,775,324 - 8,191,129 = 2,753,584,195.
+\]
+Divide by 5:
+\[
+C(4) = \frac{2,753,584,195}{5} = 550,716,839.
+\]
+
+---
+
+**Step 15: Summary**
+
+\[
+U = C(k) - m \times 2,047,276,
+\]
+with \(a = 5m + k\), \(m \geq 0\).
+
+---
+
+**Step 16: Find \(a\) and \(U\) with \(-1000 < U < 1000\), \(a>0\).**
+
+Since \(U\) decreases by \(2,047,276\) when \(m\) increases by 1, \(U\) is very large positive at \(m=0\) (equal to \(C(k)\)).
+
+To get \(U\) between \(-1000\) and \(1000\), we must choose \(m\) so that
+\[
+|U| < 1000.
+\]
+
+Rewrite:
+\[
+|C(k) - m \times 2,047,276| < 1000.
+\]
+
+So,
+\[
+m \approx \frac{C(k)}{2,047,276}.
+\]
+
+---
+
+Calculate \(m\) for each \(k\):
+
+- \(k=0\):
+\[
+m_0 = \frac{552,354,255}{2,047,276} \approx 269.8.
+\]
+
+- \(k=1\):
+\[
+m_1 = \frac{551,945,205}{2,047,276} \approx 269.6.
+\]
+
+- \(k=2\):
+\[
+m_2 = \frac{551,535,345}{2,047,276} \approx 269.4.
+\]
+
+- \(k=3\):
+\[
+m_3 = \frac{551,125,890}{2,047,276} \approx 269.2.
+\]
+
+- \(k=4\):
+\[
+m_4 = \frac{550,716,839}{2,047,276} \approx 269.0.
+\]
+
+---
+
+Since \(m\) must be an integer, try \(m = 269\) for each \(k\), and compute \(U\).
+
+---
+
+**Step 17: Calculate \(U\) for \(m=269\), each \(k\):**
+
+\[
+U = C(k) - 269 \times 2,047,276.
+\]
+
+Calculate \(269 \times 2,047,276\):
+
+Calculate stepwise:
+- \(200 \times 2,047,276 = 409,455,200\),
+- \(60 \times 2,047,276 = 122,836,560\),
+- \(9 \times 2,047,276 = 18,425,484\).
+
+Sum:
+\[
+409,455,200 + 122,836,560 + 18,425,484 = 550,717,244.
+\]
+
+---
+
+Now compute \(U\):
+
+- \(k=0\):
+\[
+U = 552,354,255 - 550,717,244 = 1,637,011,
+\]
+too large.
+
+- \(k=1\):
+\[
+U = 551,945,205 - 550,717,244 = 1,227,961,
+\]
+too large.
+
+- \(k=2\):
+\[
+U = 551,535,345 - 550,717,244 = 818,101,
+\]
+fits in \(-1000 < U < 1000\) is false; 818,101 is too large.
+
+- \(k=3\):
+\[
+U = 551,125,890 - 550,717,244 = 408,646,
+\]
+too large.
+
+- \(k=4\):
+\[
+U = 550,716,839 - 550,717,244 = -405,
+\]
+which is between \(-1000\) and \(1000\).
+
+---
+
+**Step 18: Check if \(U = -405\) satisfies the condition**
+
+Yes, \(-1000 < -405 < 1000\).
+
+---
+
+**Step 19: Find \(a\)**
+
+Recall:
+\[
+a = 5m + k = 5 \times 269 + 4 = 1345 + 4 = 1349.
+\]
+
+---
+
+**Step 20: Compute \(a + U\)**
+
+\[
+a + U = 1349 + (-405) = 944.
+\]
+
+---
+
+**Step 21: Verify uniqueness**
+
+- For \(k=4\), \(m=269\), \(U\) in range.
+
+- For \(k=4\), \(m=268\),
+\[
+U = 550,716,839 - 268 \times 2,047,276 = 550,716,839 - 548,669,968 = 2,046,871,
+\]
+too large.
+
+- For \(k=4\), \(m=270\),
+\[
+U = 550,716,839 - 550,717,244 - 2,047,276 = -2,452,581,
+\]
+too small.
+
+Similarly for other \(k\), the difference is large.
+
+Thus only \(a=1349\) yields \(U\) strictly between \(-1000\) and \(1000\).
+
+---
+
+**Final answer:**
+\[
+a + U = 944.
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 944.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

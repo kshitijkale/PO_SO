@@ -58,7 +58,7 @@ for seed in 0 1 2 3 4; do
   uv run python -m experiments.aime_memory.run \
     --seed $seed \
     --max-calls 500 \
-    --reflection-lm openai/gpt-4.1 \
+    --reflection-lm openai/gpt-4.1-mini \
     --solver-lm gpt-4.1-mini \
     --workers 32
 
@@ -66,7 +66,7 @@ for seed in 0 1 2 3 4; do
   uv run python -m experiments.aime_memory.run \
     --seed $seed \
     --max-calls 500 \
-    --reflection-lm openai/gpt-4.1 \
+    --reflection-lm openai/gpt-4.1-mini \
     --solver-lm gpt-4.1-mini \
     --workers 32 \
     --memory
@@ -92,7 +92,7 @@ uv run python -m experiments.aime_memory.run --seed 0 --max-calls 500 --workers 
 | `--seed` | `0` | Random seed for reproducibility |
 | `--memory` | off | Enable reflection memory |
 | `--max-calls` | `500` | Total LLM evaluation budget |
-| `--reflection-lm` | `openai/gpt-4.1` | Model used by the reflection LLM to propose mutations |
+| `--reflection-lm` | `openai/gpt-4.1-mini` | Model used by the reflection LLM to propose mutations |
 | `--solver-lm` | `gpt-4.1-mini` | Model used to solve AIME problems |
 | `--output-dir` | `outputs/aime_memory` | Root directory for all run artifacts |
 | `--workers` | `32` | Parallel evaluation workers |
@@ -157,8 +157,8 @@ for condition in ["memory_off", "memory_on"]:
 
 | Role | Cheap / Fast | Better |
 |------|-------------|--------|
-| Solver | `gpt-4.1-mini` | `gpt-4.1` |
-| Reflection | `openai/gpt-4.1` | `openai/gpt-4.1` (default is fine) |
+| Solver | `openai/gpt-4.1-mini` | `openai/gpt-4.1-mini` |
+| Reflection | `openai/gpt-4.1-mini` | `openai/gpt-4.1-mini` (default) |
 
 The solver LM is called ~500 × (budget) times. Keep it cheap.
 The reflection LM is called ~1× per iteration (much less frequent). Use a stronger model.

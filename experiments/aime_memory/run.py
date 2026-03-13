@@ -13,8 +13,8 @@ Flags
 --seed INT            Random seed (default: 0). Use 0-4 for the 5-seed study.
 --memory              Enable reflection memory (default: off).
 --max-calls INT       Evaluation budget (default: 500).
---reflection-lm STR   LiteLLM model string for reflection (default: openai/gpt-4.1).
---solver-lm STR       LiteLLM model string for solving (default: gpt-4.1-mini).
+--reflection-lm STR   LiteLLM model string for reflection (default: openai/gpt-4.1-mini).
+--solver-lm STR       LiteLLM model string for solving (default: openai/gpt-4.1-mini).
 --output-dir STR      Base output dir (default: outputs/aime_memory).
 --workers INT         Parallel workers (default: 32).
 --memory-entries INT  Max entries in reflection memory (default: 10).
@@ -22,8 +22,10 @@ Flags
 
 import argparse
 import os
+from pathlib import Path
 
 import dspy
+from dotenv import load_dotenv
 
 from experiments.aime_memory.dataset import load_aime_dataset
 from experiments.aime_memory.solver import evaluate_on_dataset, math_metric, run_llm
@@ -36,9 +38,12 @@ from gepa.optimize_anything import (
 )
 
 
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
+
+
 INITIAL_PROMPT = (
-    "Solve the math problem carefully. "
-    "Break down the steps and provide the final answer as a single integer."
+    "Solve the problem and provide the answer provide the final answer as a single integer."
 )
 
 
@@ -66,8 +71,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--memory", action="store_true", default=False)
     parser.add_argument("--max-calls", type=int, default=500)
-    parser.add_argument("--reflection-lm", type=str, default="openai/gpt-4.1")
-    parser.add_argument("--solver-lm", type=str, default="gpt-4.1-mini")
+    parser.add_argument("--reflection-lm", type=str, default="openai/gpt-4.1-mini")
+    parser.add_argument("--solver-lm", type=str, default="openai/gpt-4.1-mini")
     parser.add_argument("--output-dir", type=str, default="outputs/aime_memory")
     parser.add_argument("--workers", type=int, default=32)
     parser.add_argument("--memory-entries", type=int, default=10)
@@ -93,7 +98,11 @@ def main():
     print(f"Dataset: train={len(trainset)}, val={len(valset)}, test={len(testset)}")
 
     # --- Solver LM ---
-    api_key = os.environ.get("OPENAI_API_KEY")
+    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError(
+            "OPENAI_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
+        )
     solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=1.0, max_tokens=32000)
     evaluator = make_evaluator(solver_lm)
 

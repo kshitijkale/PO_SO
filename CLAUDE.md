@@ -89,6 +89,7 @@ config = GEPAConfig(
 - **`StateLogger`**: 12 numbered JSON snapshots per iteration into `states/` — one file per step: `01_iteration_start`, `02_selection_and_minibatch`, `03_eval_current`, `04_reflective_dataset`, `05_memory_before/after`, `06_proposal_<component>`, `07_eval_proposed`, `08_decision`, `09_pareto`, `10_valset`, `11_merge_result`, `12_iteration_end`. Each file is self-contained.
 - **`LineageTracker`**: Candidate ancestry graph. Produces `lineage.jsonl`, `lineage_graph.json`, `lineage_tree.md` (human-readable tree of the best candidate's ancestry).
 - **`LiveDisplay`**: Live terminal dashboard after each iteration — score history, memory utilization, acceptance rate.
+- **`VerboseDisplay`** (`src/gepa/callbacks/verbose_display.py`): Structured per-iteration console output — logs candidate diffs, memory table, and acceptance decisions in plain text without writing files.
 
 **New callback events (added to `src/gepa/core/callbacks.py`):**
 - `MemoryEntryAddedEvent` — fires on every `ReflectionMemory.add()` with before/after size and evicted entry
@@ -128,6 +129,33 @@ run_dir/
 ### Key Type: Candidate
 
 A candidate is `dict[str, str]` — a mapping of component names to their text values. Multi-component candidates allow optimizing multiple parts of a system simultaneously.
+
+## Running Experiments
+
+The `experiments/aime_memory/` directory validates the reflection memory feature on AIME math problems.
+
+```bash
+# Full experiment (with reflection memory V2)
+uv run python -m experiments.aime_memory.run \
+  --seed 0 \
+  --memory \
+  --max-calls 500 \
+  --reflection-lm openai/gpt-4.1-mini \
+  --solver-lm gpt-4.1-mini \
+  --workers 32 \
+  --memory-entries 10
+
+# Lightweight variant for quick iteration
+uv run python -m experiments.aime_memory.run_light --seed 0 --memory
+```
+
+See `experiments/aime_memory/HOWTO_RUN.md` for all available flags and ablation configs.
+
+## Key Reference Documents
+
+- **`GEPA_WALKTHROUGH.md`**: Deep-dive walkthrough of the full architecture — covers the engine loop, adapter contract, state machine, and proposer internals in detail. Read this before making structural changes.
+- **`ideas/REFLECTION_MEMORY_V2.md`**: High-level design for the V2 memory feature (LLM-generated lessons vs. heuristic diffs).
+- **`plans/reflection_memory_v2_impl.md`**: Low-level implementation spec for the current MemoryV2 branch work.
 
 ## Pyright Exclusions
 

@@ -717,6 +717,7 @@ class ReflectionConfig:
     custom_candidate_proposer: ProposalFn | None = None
     use_reflection_memory: bool = False
     reflection_memory_max_entries: int = 10
+    lesson_lm: LanguageModel | str | None = None
 
 
 @dataclass
@@ -789,6 +790,7 @@ class TrackingConfig:
     mlflow_experiment_name: str | None = None
     callbacks: list[Any] | None = None
     research_mode: bool = False
+    verbose: bool = False
 
 
 @dataclass
@@ -1417,8 +1419,13 @@ def optimize_anything(
             ResearchLogger(output_dir=research_dir),
             StateLogger(output_dir=research_dir),
             LineageTracker(output_dir=research_dir),
-            LiveDisplay(),
         ])
+        if not config.tracking.verbose:
+            active_callbacks.append(LiveDisplay())
+    if config.tracking.verbose:
+        from gepa.callbacks import VerboseDisplay
+
+        active_callbacks.append(VerboseDisplay())
     effective_callbacks: list[Any] | None = active_callbacks if active_callbacks else None
 
     # --- 11. Build reflective proposer from ReflectionConfig ---
@@ -1428,6 +1435,15 @@ def optimize_anything(
             max_entries=config.reflection.reflection_memory_max_entries,
             callbacks=effective_callbacks,
         )
+    # Resolve lesson_lm: explicit override > reflection_lm > None
+    resolved_lesson_lm: LanguageModel | None = None
+    if config.reflection.use_reflection_memory:
+        _raw_lesson_lm = config.reflection.lesson_lm or config.reflection.reflection_lm
+        if isinstance(_raw_lesson_lm, str):
+            resolved_lesson_lm = make_litellm_lm(_raw_lesson_lm)
+        else:
+            resolved_lesson_lm = _raw_lesson_lm
+
     reflective_proposer = ReflectiveMutationProposer(
         logger=config.tracking.logger,
         trainset=train_loader,
@@ -1443,6 +1459,8 @@ def optimize_anything(
         custom_candidate_proposer=config.reflection.custom_candidate_proposer,
         reflection_memory=reflection_memory,
         callbacks=effective_callbacks,
+        lesson_lm=resolved_lesson_lm,
+        objective=objective or "",
     )
 
     # Define evaluator function for merge proposer

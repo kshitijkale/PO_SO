@@ -1,0 +1,1112 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Alice knows that $3$ red cards and $3$ black cards will be revealed to her one at a time in random order. Before each card is revealed, Alice must guess its color. If Alice plays optimally, the expected number of cards she will guess correctly is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+103
+
+## reasoning
+We have a deck with 3 red cards and 3 black cards, shuffled randomly. Cards are revealed one at a time, and before each card is revealed, Alice must guess its color. She wants to maximize the expected number of correct guesses.
+
+We want to find the expected number of correct guesses if Alice plays optimally.
+
+---
+
+**Step 1: Understanding the problem**
+
+- There are 6 cards in total: 3 Red (R) and 3 Black (B).
+- Cards are revealed one by one in random order (all 6! permutations equally likely).
+- Before revealing each card, Alice guesses its color.
+- She wants to maximize the expected number of correct guesses.
+- The optimal strategy can use the information of how many cards of each color remain unseen.
+- We want the expected value of correct guesses under that optimal strategy.
+- The answer will be a reduced fraction \( \frac{m}{n} \), and we want \( m+n \).
+
+---
+
+**Step 2: Characterizing the optimal strategy**
+
+At any point, the number of remaining red cards and black cards is known (to us, but not to Alice). Alice must guess the color of the next card without knowing the actual card, only the distribution of remaining cards.
+
+Because the order is random and all permutations equally likely, the conditional probability that the next card is red is proportional to the number of remaining red cards, and similarly for black cards.
+
+Hence, at each step:
+
+- Let \( r \) = number of remaining red cards
+- Let \( b \) = number of remaining black cards
+
+The probability the next card is red is \( \frac{r}{r+b} \), and black is \( \frac{b}{r+b} \).
+
+Alice should guess the color with the higher remaining count (or either if tied), to maximize her chance.
+
+The expected number of correct guesses going forward from state \((r,b)\) is:
+
+\[
+E(r,b) = \max\left(\frac{r}{r+b} + E(r-1,b), \frac{b}{r+b} + E(r,b-1)\right)
+\]
+
+where the terms inside the max correspond to guessing red or black respectively:
+
+- If guessing red: probability correct = \( \frac{r}{r+b} \), then after revealing a red card, remaining cards are \((r-1,b)\).
+- If guessing black: probability correct = \( \frac{b}{r+b} \), then remaining cards are \((r,b-1)\).
+
+Base cases:
+
+- \( E(0,b) = b \), because if only black cards remain, Alice can guess black every turn and be correct each time.
+- \( E(r,0) = r \), similarly.
+
+---
+
+**Step 3: Compute \( E(3,3) \)**
+
+We compute \( E(r,b) \) for all \( 0 \leq r,b \leq 3 \).
+
+Start with base cases:
+
+- \( E(0,b) = b \)
+- \( E(r,0) = r \)
+
+Now fill in the values for other states:
+
+- \( E(1,1) \):
+  - Guess red: \( \frac{1}{2} + E(0,1) = 0.5 + 1 = 1.5 \)
+  - Guess black: \( \frac{1}{2} + E(1,0) = 0.5 + 1 = 1.5 \)
+  - Choose max = 1.5
+
+- \( E(1,2) \):
+  - Guess red: \( \frac{1}{3} + E(0,2) = \frac{1}{3} + 2 = 2 \frac{1}{3} \approx 2.3333 \)
+  - Guess black: \( \frac{2}{3} + E(1,1) = \frac{2}{3} + 1.5 = 2.1666... \)
+  - Max is guessing red: \( 7/3 = 2 \frac{1}{3} \)
+
+- \( E(2,1) \):
+  - Guess red: \( \frac{2}{3} + E(1,1) = \frac{2}{3} + 1.5 = 2.1666... \)
+  - Guess black: \( \frac{1}{3} + E(2,0) = \frac{1}{3} + 2 = 2 \frac{1}{3} = 2.3333 \)
+  - Max is guessing black: \( 7/3 \)
+
+- \( E(2,2) \):
+  - Guess red: \( \frac{2}{4} + E(1,2) = 0.5 + \frac{7}{3} = 0.5 + 2.3333 = 2.8333 \)
+  - Guess black: \( \frac{2}{4} + E(2,1) = 0.5 + \frac{7}{3} = 2.8333 \)
+  - Both equal, so \( E(2,2) = \frac{17}{6} \approx 2.8333 \)
+
+- \( E(1,3) \):
+  - Guess red: \( \frac{1}{4} + E(0,3) = 0.25 + 3 = 3.25 \)
+  - Guess black: \( \frac{3}{4} + E(1,2) = 0.75 + \frac{7}{3} = 0.75 + 2.3333 = 3.0833 \)
+  - Max is guessing red: \( 13/4 = 3.25 \)
+
+- \( E(3,1) \):
+  - Guess red: \( \frac{3}{4} + E(2,1) = 0.75 + \frac{7}{3} = 0.75 + 2.3333 = 3.0833 \)
+  - Guess black: \( \frac{1}{4} + E(3,0) = 0.25 + 3 = 3.25 \)
+  - Max is guessing black: \( 13/4 = 3.25 \)
+
+- \( E(2,3) \):
+  - Guess red: \( \frac{2}{5} + E(1,3) = 0.4 + 3.25 = 3.65 \)
+  - Guess black: \( \frac{3}{5} + E(2,2) = 0.6 + \frac{17}{6} = 0.6 + 2.8333 = 3.4333 \)
+  - Max is guessing red: 3.65
+
+- \( E(3,2) \):
+  - Guess red: \( \frac{3}{5} + E(2,2) = 0.6 + \frac{17}{6} = 3.4333 \)
+  - Guess black: \( \frac{2}{5} + E(3,1) = 0.4 + 3.25 = 3.65 \)
+  - Max is guessing black: 3.65
+
+- Finally, \( E(3,3) \):
+  - Guess red: \( \frac{3}{6} + E(2,3) = 0.5 + 3.65 = 4.15 \)
+  - Guess black: \( \frac{3}{6} + E(3,2) = 0.5 + 3.65 = 4.15 \)
+  - Both equal.
+
+---
+
+**Step 4: Convert to fraction**
+
+We need the exact fraction for \( E(3,3) \).
+
+Recall:
+
+- \( E(2,3) = 0.4 + E(1,3) \)
+
+We have:
+
+- \( E(1,3) = \frac{13}{4} \)
+- \( E(2,3) = \frac{2}{5} + \frac{13}{4} = \frac{8}{20} + \frac{65}{20} = \frac{73}{20} \)
+
+Similarly:
+
+- \( E(3,2) = \frac{2}{5} + E(3,1) \) or \( \frac{3}{5} + E(2,2) \), whichever is maximum, but from above max is guessing black:
+
+- \( E(3,1) = \frac{13}{4} \)
+- \( E(3,2) = \frac{2}{5} + \frac{13}{4} = \frac{8}{20} + \frac{65}{20} = \frac{73}{20} \)
+
+Now,
+
+\[
+E(3,3) = \frac{3}{6} + E(2,3) = \frac{1}{2} + \frac{73}{20} = \frac{10}{20} + \frac{73}{20} = \frac{83}{20}
+\]
+
+---
+
+**Step 5: Final answer**
+
+The expected number of correct guesses with optimal play is \( \frac{83}{20} \).
+
+Since 83 and 20 share no common factors (83 is prime), they are relatively prime.
+
+Therefore:
+
+\[
+m = 83, \quad n = 20, \quad m+n = 103
+\]
+
+---
+
+**Step 6: Verification**
+
+- The expectation is more than half the cards (3 out of 6), which makes sense since Alice can leverage information.
+- The number \( \frac{83}{20} = 4.15 \) is reasonable (out of 6 cards).
+- The calculations are consistent.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 51.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Let ABCDEF be a convex equilateral hexagon in which all pairs of opposite sides are parallel. The triangle whose sides are extensions of segments AB, CD, and EF has side lengths 200, 240, and 300. Find the side length of the hexagon.
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+198
+
+## reasoning
+We are given a convex equilateral hexagon \( ABCDEF \) with the properties:
+1. All sides are equal in length.
+2. Each pair of opposite sides are parallel.
+3. The triangle formed by the lines containing sides \( AB \), \( CD \), and \( EF \) has side lengths 200, 240, and 300.
+
+We want to find the side length of the hexagon.
+
+---
+
+**Step 1: Understanding the hexagon's structure**
+
+The hexagon is convex, equilateral, and opposite sides are parallel. This means:
+
+- \( AB \parallel DE \)
+- \( BC \parallel EF \)
+- \( CD \parallel FA \)
+
+The hexagon is equilateral: all sides have length \( s \).
+
+This means the hexagon is a *centrally symmetric equilateral hexagon*, often called a "parallelogon," specifically a hexagon with three pairs of parallel opposite sides of equal length.
+
+---
+
+**Step 2: Direction vectors of the sides**
+
+We can represent the sides by vectors:
+
+- Let \(\vec{u} = \overrightarrow{AB}\)
+- \(\vec{v} = \overrightarrow{BC}\)
+- \(\vec{w} = \overrightarrow{CD}\)
+
+Since opposite sides are parallel and equal length, we have:
+
+- \(\overrightarrow{DE} = -\vec{u}\)
+- \(\overrightarrow{EF} = -\vec{v}\)
+- \(\overrightarrow{FA} = -\vec{w}\)
+
+Because the hexagon is closed:
+
+\[
+\vec{u} + \vec{v} + \vec{w} + (-\vec{u}) + (-\vec{v}) + (-\vec{w}) = \vec{0}
+\]
+
+which is true trivially.
+
+---
+
+**Step 3: The triangle formed by the lines extending \( AB, CD, EF \)**
+
+The triangle we consider is formed by the lines containing sides \( AB, CD, EF \).
+
+- The sides of this triangle are the distances between the intersections of these lines.
+
+Since \( AB \parallel DE \), and \( CD \parallel FA \), and \( EF \parallel BC \), the lines \( AB, CD, EF \) are in three directions corresponding to vectors \(\vec{u}, \vec{w}, -\vec{v}\).
+
+Remember, the triangle formed by these three lines is called the *triangle of directions* or *triangle formed by three non-parallel lines*.
+
+---
+
+**Step 4: Using the concept of the triangle formed by three lines**
+
+The three lines are:
+
+- Line \( \ell_1 \) containing \( AB \), direction vector \(\vec{u}\).
+- Line \( \ell_2 \) containing \( CD \), direction vector \(\vec{w}\).
+- Line \( \ell_3 \) containing \( EF \), direction vector \(-\vec{v}\).
+
+These three lines are pairwise non-parallel, so they form a triangle.
+
+The side lengths of this triangle are given as 200, 240, and 300.
+
+---
+
+**Step 5: Relating side length \( s \) to the triangle**
+
+Let the unit direction vectors be:
+
+\[
+\hat{u} = \frac{\vec{u}}{s}, \quad \hat{v} = \frac{\vec{v}}{s}, \quad \hat{w} = \frac{\vec{w}}{s}
+\]
+
+Each side length of the hexagon is \( s \).
+
+Since opposite sides are parallel and equal, the directions \( \vec{u}, \vec{v}, \vec{w} \) correspond to the directions of the three pairs of parallel sides.
+
+---
+
+**Step 6: Key insight - the triangle formed by the three lines**
+
+The triangle formed by lines \( AB, CD, EF \) has side lengths:
+
+\[
+L_1 = \frac{s}{\sin \theta_1}, \quad L_2 = \frac{s}{\sin \theta_2}, \quad L_3 = \frac{s}{\sin \theta_3}
+\]
+
+where \(\theta_i\) are the angles between pairs of directions of these lines.
+
+This comes from the fact that the distance between two intersecting lines at an angle \(\theta\) is proportional to \( s / \sin \theta \).
+
+More precisely, if \( s \) is the side length of the hexagon and \(\alpha, \beta, \gamma\) are the angles between pairs of directions of the three lines, then the sides of the triangle formed by these lines are proportional to:
+
+\[
+\frac{s}{\sin \alpha}, \quad \frac{s}{\sin \beta}, \quad \frac{s}{\sin \gamma}
+\]
+
+---
+
+**Step 7: Angles between the direction vectors**
+
+We want to express the side lengths 200, 240, and 300 in terms of \( s \) and the sines of the angles between the directions.
+
+The three directions are \(\vec{u}\), \(\vec{w}\), and \(-\vec{v}\).
+
+Let's consider the angles between these direction vectors:
+
+- Angle between \(\vec{u}\) and \(\vec{w}\) is \(\theta_1\).
+- Angle between \(\vec{w}\) and \(-\vec{v}\) is \(\theta_2\).
+- Angle between \(-\vec{v}\) and \(\vec{u}\) is \(\theta_3\).
+
+Because the vectors \(\vec{u}, \vec{v}, \vec{w}\) "close" the hexagon, we have:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = 0
+\]
+
+This means \(\vec{u}, \vec{v}, \vec{w}\) form a triangle.
+
+---
+
+**Step 8: Using the fact \(\vec{u} + \vec{v} + \vec{w} = 0\)**
+
+Since \(\vec{u} + \vec{v} + \vec{w} = 0\), these three vectors form a triangle.
+
+Let their lengths be all \( s \), and the angles between them be:
+
+- between \(\vec{u}\) and \(\vec{v}\): \(\phi_1\)
+- between \(\vec{v}\) and \(\vec{w}\): \(\phi_2\)
+- between \(\vec{w}\) and \(\vec{u}\): \(\phi_3\)
+
+Because the three vectors sum to zero, the triangle formed by these vectors has sides all length \( s \), and internal angles \(\phi_1, \phi_2, \phi_3\).
+
+---
+
+**Step 9: Relationship between angles \(\phi_i\) and \(\theta_i\)**
+
+We want the angles between the lines \( AB \), \( CD \), and \( EF \).
+
+The directions of the lines are along \(\vec{u}\), \(\vec{w}\), and \(-\vec{v}\).
+
+So the angles between the lines are:
+
+- Between \( AB \) and \( CD \): angle between \(\vec{u}\) and \(\vec{w}\) = \(\phi_3\).
+- Between \( CD \) and \( EF \): angle between \(\vec{w}\) and \(-\vec{v}\) = angle between \(\vec{w}\) and \(\vec{v}\) = \(\phi_2\).
+- Between \( EF \) and \( AB \): angle between \(-\vec{v}\) and \(\vec{u}\) = angle between \(\vec{v}\) and \(\vec{u}\) = \(\phi_1\).
+
+Therefore, the triangle formed by these three lines has side lengths proportional to:
+
+\[
+\frac{1}{\sin \phi_3}, \quad \frac{1}{\sin \phi_2}, \quad \frac{1}{\sin \phi_1}
+\]
+
+multiplied by the side length \( s \).
+
+---
+
+**Step 10: The triangle formed by \( \vec{u}, \vec{v}, \vec{w} \)**
+
+Since \(\vec{u} + \vec{v} + \vec{w} = 0\), and \(|\vec{u}| = |\vec{v}| = |\vec{w}| = s\), the triangle formed by these vectors is equilateral in side lengths but not necessarily equiangular.
+
+Using the Law of Cosines for the triangle with sides \( s \), the angles \(\phi_1, \phi_2, \phi_3\) satisfy:
+
+\[
+s^2 = s^2 + s^2 - 2 s^2 \cos \phi_i \implies \cos \phi_i = -\frac{1}{2}
+\]
+
+This would imply \(\phi_i = 120^\circ\) if the triangle were equilateral.
+
+However, that would make the hexagon regular, and the triangle formed by extending lines \( AB, CD, EF \) would be equilateral.
+
+But the triangle has side lengths 200, 240, 300, which is scalene.
+
+Hence, the triangle formed by \(\vec{u}, \vec{v}, \vec{w}\) is equilateral in side lengths \( s \) but **not** equiangular.
+
+---
+
+**Step 11: Using the Law of Cosines for the triangle formed by \(\vec{u}, \vec{v}, \vec{w}\)**
+
+The vectors \(\vec{u}, \vec{v}, \vec{w}\) form a triangle with sides of length \( s \) and angles \(\phi_1, \phi_2, \phi_3\).
+
+Using the Law of Cosines on the triangle formed by \(\vec{u}, \vec{v}, \vec{w}\) (which close):
+
+\[
+|\vec{u} + \vec{v}| = |\vec{w}| = s
+\]
+
+So:
+
+\[
+s^2 = |\vec{u} + \vec{v}|^2 = |\vec{u}|^2 + |\vec{v}|^2 + 2 \vec{u} \cdot \vec{v} = s^2 + s^2 + 2 s^2 \cos \phi_1 = 2 s^2 (1 + \cos \phi_1)
+\]
+
+Divide both sides by \( s^2 \):
+
+\[
+1 = 2(1 + \cos \phi_1) \implies \cos \phi_1 = -\frac{1}{2}
+\]
+
+Similarly, for the other pairs:
+
+\[
+|\vec{v} + \vec{w}| = s \implies \cos \phi_2 = -\frac{1}{2}
+\]
+\[
+|\vec{w} + \vec{u}| = s \implies \cos \phi_3 = -\frac{1}{2}
+\]
+
+All give \(\cos \phi_i = -\frac{1}{2}\), so \(\phi_i = 120^\circ\).
+
+This means the angles between \(\vec{u}, \vec{v}\), etc., are all \( 120^\circ \).
+
+---
+
+**Step 12: Contradiction?**
+
+Our previous assumption was wrong because the vectors sum to zero and have equal length, so the triangle formed by \(\vec{u}, \vec{v}, \vec{w}\) is equilateral with all angles \( 120^\circ \).
+
+So the directions \(\vec{u}, \vec{v}, \vec{w}\) are separated by \( 120^\circ \).
+
+---
+
+**Step 13: Angles between the lines \( AB, CD, EF \)**
+
+Recall the lines are along:
+
+- \( AB \) along \(\vec{u}\)
+- \( CD \) along \(\vec{w}\)
+- \( EF \) along \(-\vec{v}\)
+
+The angles between these lines are:
+
+- Between \( AB \) and \( CD \): angle between \(\vec{u}\) and \(\vec{w}\) = \(120^\circ\)
+- Between \( CD \) and \( EF \): angle between \(\vec{w}\) and \(-\vec{v}\) = angle between \(\vec{w}\) and \(\vec{v}\) = \(120^\circ\)
+- Between \( EF \) and \( AB \): angle between \(-\vec{v}\) and \(\vec{u}\) = angle between \(\vec{v}\) and \(\vec{u}\) = \(120^\circ\)
+
+So the three lines are separated by \(120^\circ\).
+
+---
+
+**Step 14: Side lengths of the triangle formed by the three lines**
+
+The triangle formed by three lines intersecting pairwise at \(120^\circ\) will be *equilateral*.
+
+But the problem states the triangle side lengths are 200, 240, and 300, which is scalene.
+
+Thus, the initial assumption that the hexagon is *equilateral* in side length and the vectors \(\vec{u}, \vec{v}, \vec{w}\) form an equilateral triangle must be re-examined.
+
+---
+
+**Step 15: Reconsidering the direction vectors**
+
+The problem states the hexagon ABCDEF is equilateral, and opposite sides are parallel.
+
+It does **not** say the hexagon is equiangular.
+
+Opposite sides are parallel, so:
+
+- \( \overrightarrow{AB} \parallel \overrightarrow{DE} \)
+- \( \overrightarrow{BC} \parallel \overrightarrow{EF} \)
+- \( \overrightarrow{CD} \parallel \overrightarrow{FA} \)
+
+But the vectors \(\vec{u}, \vec{v}, \vec{w}\) might have different directions and are not necessarily forming an equilateral triangle.
+
+---
+
+**Step 16: Using vector approach and closure**
+
+Since \( ABCDEF \) is a hexagon with opposite sides parallel and equal length, and all sides have length \( s \), define:
+
+- \( \vec{u} = s \mathbf{a} \), with unit vector \(\mathbf{a}\)
+- \( \vec{v} = s \mathbf{b} \), with unit vector \(\mathbf{b}\)
+- \( \vec{w} = s \mathbf{c} \), with unit vector \(\mathbf{c}\)
+
+Then the hexagon closes:
+
+\[
+\vec{u} + \vec{v} + \vec{w} + (-\vec{u}) + (-\vec{v}) + (-\vec{w}) = 0
+\]
+
+But the vertices are ordered \( A, B, C, D, E, F \), so the sum of consecutive edges is zero:
+
+\[
+\vec{u} + \vec{v} + \vec{w} + \vec{d} + \vec{e} + \vec{f} = 0
+\]
+
+where
+
+\[
+\vec{d} = \overrightarrow{DE} = -\vec{u}, \quad \vec{e} = \overrightarrow{EF} = -\vec{v}, \quad \vec{f} = \overrightarrow{FA} = -\vec{w}
+\]
+
+So the vector sum is zero, consistent.
+
+---
+
+**Step 17: Using the triangle formed by lines \( AB, CD, EF \)**
+
+The three lines \( AB, CD, EF \) are parallel to \( \mathbf{a}, \mathbf{c}, -\mathbf{b} \), respectively.
+
+The triangle formed by these three lines has side lengths 200, 240, and 300.
+
+The side lengths of the triangle formed by three lines with directions \( \mathbf{a}, \mathbf{c}, -\mathbf{b} \) are (up to scale) proportional to
+
+\[
+\frac{s}{\sin \theta}, \quad \frac{s}{\sin \phi}, \quad \frac{s}{\sin \psi}
+\]
+
+where \(\theta, \phi, \psi\) are the angles between pairs of directions.
+
+---
+
+**Step 18: Define the angles**
+
+Let the angle between \(\mathbf{a}\) and \(\mathbf{c}\) be \( \alpha \),
+
+between \(\mathbf{c}\) and \(\mathbf{b}\) be \( \beta \),
+
+and between \(\mathbf{b}\) and \(\mathbf{a}\) be \( \gamma \).
+
+Because \(\mathbf{a} + \mathbf{b} + \mathbf{c} = 0\), the vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) form a triangle with sides 1 (unit vectors) and internal angles \(\alpha, \beta, \gamma\).
+
+From vector addition:
+
+\[
+\mathbf{c} = -(\mathbf{a} + \mathbf{b})
+\]
+
+and the lengths are 1, so the triangle has sides of length 1 and angles \(\alpha, \beta, \gamma\).
+
+---
+
+**Step 19: Law of cosines in the unit triangle**
+
+In the triangle formed by unit vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\), the side lengths are all 1, and the internal angles satisfy:
+
+\[
+\alpha + \beta + \gamma = \pi
+\]
+
+---
+
+**Step 20: The triangle formed by the lines**
+
+The triangle formed by the three lines along directions \(\mathbf{a}, \mathbf{c}, -\mathbf{b}\) has side lengths proportional to:
+
+\[
+\frac{s}{\sin \alpha}, \quad \frac{s}{\sin \beta}, \quad \frac{s}{\sin \gamma}
+\]
+
+Given that the triangle formed by the lines \( AB, CD, EF \) has side lengths 200, 240, and 300, we can write:
+
+\[
+\frac{s}{\sin \alpha} = 200k
+\]
+\[
+\frac{s}{\sin \beta} = 240k
+\]
+\[
+\frac{s}{\sin \gamma} = 300k
+\]
+
+for some positive constant \( k \).
+
+Divide the first by the second:
+
+\[
+\frac{200k}{240k} = \frac{s/\sin \alpha}{s/\sin \beta} = \frac{\sin \beta}{\sin \alpha} = \frac{5}{6}
+\]
+
+Similarly,
+
+\[
+\frac{200k}{300k} = \frac{\sin \gamma}{\sin \alpha} = \frac{2}{3}
+\]
+
+Thus,
+
+\[
+\sin \beta = \frac{5}{6} \sin \alpha, \quad \sin \gamma = \frac{2}{3} \sin \alpha
+\]
+
+---
+
+**Step 21: Using the sum of angles**
+
+Recall:
+
+\[
+\alpha + \beta + \gamma = \pi
+\]
+
+Express \(\beta\) and \(\gamma\) in terms of \(\alpha\).
+
+---
+
+**Step 22: Using Law of sines on the triangle \(\mathbf{a}, \mathbf{b}, \mathbf{c}\)**
+
+The triangle with sides length 1 and angles \(\alpha, \beta, \gamma\) satisfies the Law of Sines:
+
+\[
+\frac{1}{\sin \alpha} = \frac{1}{\sin \beta} = \frac{1}{\sin \gamma}
+\]
+
+But this is only true for equilateral triangles.
+
+Since all sides are 1, the triangle is equilateral, so \(\alpha = \beta = \gamma = 60^\circ\).
+
+This contradicts the values of sine ratios found.
+
+---
+
+**Step 23: Re-examining assumptions**
+
+The key point is that the sides of vectors \(\vec{u}, \vec{v}, \vec{w}\) are all length \( s \), but the directions \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) are *not* necessarily unit vectors; the vectors \(\vec{u}, \vec{v}, \vec{w}\) have length \( s \), so \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) are unit vectors.
+
+Then \(\vec{u} + \vec{v} + \vec{w} = 0\) implies:
+
+\[
+s \mathbf{a} + s \mathbf{b} + s \mathbf{c} = 0 \implies \mathbf{a} + \mathbf{b} + \mathbf{c} = 0
+\]
+
+Therefore, \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) are unit vectors summing to zero.
+
+Thus, these three unit vectors form an equilateral triangle with all angles \(120^\circ\).
+
+Therefore, the triangle formed by the directions \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) has angles of \(120^\circ\).
+
+---
+
+**Step 24: Side lengths of the triangle formed by the lines**
+
+The triangle formed by lines \( AB, CD, EF \) has side lengths proportional to:
+
+\[
+\frac{s}{\sin 120^\circ} = \frac{s}{\sqrt{3}/2} = \frac{2s}{\sqrt{3}}
+\]
+
+Therefore, the triangle formed by the three lines is equilateral with side length \( \frac{2s}{\sqrt{3}} \).
+
+---
+
+**Step 25: Given triangle side lengths are 200, 240, and 300**
+
+This contradicts the triangle formed by the three lines being equilateral.
+
+---
+
+**Step 26: Realizing the triangle formed is the *triangle formed by the sides extended*, which is *the pedal triangle* of the hexagon's directions**
+
+This problem is a classic one related to the "hexagon with pairs of opposite sides parallel and equal length," where the triangle formed by the three lines \( AB, CD, EF \) is the triangle with side lengths proportional to the reciprocals of the sines of the angles between the directions of the sides.
+
+Let the directions of sides \( AB, CD, EF \) be unit vectors \( \mathbf{u}, \mathbf{v}, \mathbf{w} \) with angles \( A, B, C \) between them.
+
+Then the side lengths of the triangle formed by these three lines are proportional to
+
+\[
+\frac{1}{\sin A}, \quad \frac{1}{\sin B}, \quad \frac{1}{\sin C}
+\]
+
+and the sides of the hexagon are all equal length \( s \).
+
+The side lengths of the triangle formed by lines \( AB, CD, EF \) are:
+
+\[
+L_1 = \frac{s}{\sin A}, \quad L_2 = \frac{s}{\sin B}, \quad L_3 = \frac{s}{\sin C}
+\]
+
+Given the triangle sides 200, 240, 300, we have:
+
+\[
+\frac{L_1}{L_2} = \frac{200}{240} = \frac{5}{6} = \frac{\sin B}{\sin A}
+\]
+\[
+\frac{L_1}{L_3} = \frac{200}{300} = \frac{2}{3} = \frac{\sin C}{\sin A}
+\]
+
+Let \( \sin A = x \).
+
+Then:
+
+\[
+\sin B = \frac{5}{6} x, \quad \sin C = \frac{2}{3} x
+\]
+
+Since \( A + B + C = \pi \), and sine is positive in \((0, \pi)\), we seek \( A, B, C \) satisfying these sine ratios and angle sum.
+
+---
+
+**Step 27: Solve for angles \( A, B, C \)**
+
+We want \( A, B, C \in (0, \pi) \) such that:
+
+\[
+\sin B = \frac{5}{6} \sin A, \quad \sin C = \frac{2}{3} \sin A, \quad A + B + C = \pi
+\]
+
+Try to find \( A \) numerically.
+
+---
+
+**Step 28: Numerical approach**
+
+Let \( \sin A = x \).
+
+Then:
+
+\[
+B = \arcsin\left(\frac{5}{6} x\right), \quad C = \arcsin\left(\frac{2}{3} x\right)
+\]
+
+And:
+
+\[
+A + B + C = \pi
+\]
+
+Define function:
+
+\[
+f(x) = \arcsin(x) + \arcsin\left(\frac{5}{6} x\right) + \arcsin\left(\frac{2}{3} x\right) - \pi
+\]
+
+Find \( x \in (0,1) \) so that \( f(x) = 0 \).
+
+---
+
+**Step 29: Evaluate \( f(x) \) at some values**
+
+- At \( x=0.9 \):
+
+\[
+\arcsin(0.9) \approx 1.1197
+\]
+\[
+\arcsin(0.75) \approx 0.8481
+\]
+\[
+\arcsin(0.6) \approx 0.6435
+\]
+
+Sum: \(1.1197 + 0.8481 + 0.6435 = 2.6113\)
+
+\[
+f(0.9) = 2.6113 - \pi = -0.5303 < 0
+\]
+
+- At \( x=0.95 \):
+
+\[
+\arcsin(0.95) \approx 1.2532
+\]
+\[
+\arcsin(0.7917) \approx 0.9124
+\]
+\[
+\arcsin(0.6333) \approx 0.6859
+\]
+
+Sum: \(1.2532 + 0.9124 + 0.6859 = 2.8515\)
+
+\[
+f(0.95) = 2.8515 - \pi = -0.2901 < 0
+\]
+
+- At \( x=0.99 \):
+
+\[
+\arcsin(0.99) \approx 1.4293
+\]
+\[
+\arcsin(0.825) \approx 0.9722
+\]
+\[
+\arcsin(0.66) \approx 0.7227
+\]
+
+Sum: \(1.4293 + 0.9722 + 0.7227 = 3.1242\)
+
+\[
+f(0.99) = 3.1242 - \pi = -0.0173 < 0
+\]
+
+- At \( x=1 \):
+
+\[
+\arcsin(1) = \pi/2 = 1.5708
+\]
+\[
+\arcsin(5/6) = \arcsin(0.8333) = 0.986
+\]
+\[
+\arcsin(2/3) = \arcsin(0.6667) = 0.7297
+\]
+
+Sum: \(1.5708 + 0.986 + 0.7297 = 3.2865\)
+
+\[
+f(1) = 3.2865 - \pi = 0.1447 > 0
+\]
+
+We see that \(f(0.99) < 0\) and \(f(1) > 0\), so root lies between 0.99 and 1.
+
+---
+
+**Step 30: Approximate root**
+
+Try \( x = 0.995 \):
+
+\[
+\arcsin(0.995) \approx 1.500
+\]
+\[
+\arcsin(0.829) \approx 0.979
+\]
+\[
+\arcsin(0.663) \approx 0.726
+\]
+
+Sum: \(1.500 + 0.979 + 0.726 = 3.205\)
+
+\[
+f(0.995) = 3.205 - \pi = 0.064 > 0
+\]
+
+Try \( x=0.992 \):
+
+Sum approximately \(3.16\), \(f(0.992) \approx 0.03\)
+
+Try \( x=0.991 \):
+
+Sum approximately \(3.14\), \(f(0.991) \approx 0.01\)
+
+Try \( x=0.990 \):
+
+Sum \(3.124\), \(f(0.99) = -0.0173\)
+
+So root approximately \( x = 0.9915 \).
+
+---
+
+**Step 31: Calculate s**
+
+From the triangle formed by the lines:
+
+\[
+L_1 = \frac{s}{\sin A} = \text{side length corresponding to } 200
+\]
+
+So:
+
+\[
+s = 200 \sin A = 200 \times 0.9915 = 198.3
+\]
+
+---
+
+**Step 32: Final answer**
+
+The side length of the hexagon is approximately \( 198 \).
+
+---
+
+**Step 33: Verification**
+
+- \( s \approx 198 \)
+- Triangle sides:
+
+\[
+\frac{s}{\sin A} = 200
+\]
+\[
+\frac{s}{\sin B} = 240
+\]
+\[
+\frac{s}{\sin C} = 300
+\]
+
+consistent with given data.
+
+---
+
+**Step 34: Conclusion**
+
+The side length of the hexagon is \( \boxed{198} \).
+
+---
+
+**Step 35: Round to nearest integer**
+
+\( s \approx 198 \).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 80.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Let $x,y$ and $z$ be positive real numbers that satisfy the following system of equations:
+\[\log_2\left({x \over yz}\right) = {1 \over 2}\]\[\log_2\left({y \over xz}\right) = {1 \over 3}\]\[\log_2\left({z \over xy}\right) = {1 \over 4}\]
+Then the value of $\left|\log_2(x^4y^3z^2)\right|$ is $\tfrac{m}{n}$ where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+33
+
+## reasoning
+We are given the system:
+\[
+\log_2\left(\frac{x}{yz}\right) = \frac{1}{2}, \quad
+\log_2\left(\frac{y}{xz}\right) = \frac{1}{3}, \quad
+\log_2\left(\frac{z}{xy}\right) = \frac{1}{4}.
+\]
+
+First, rewrite each equation in exponential form:
+\[
+\frac{x}{yz} = 2^{1/2} = \sqrt{2}, \quad
+\frac{y}{xz} = 2^{1/3}, \quad
+\frac{z}{xy} = 2^{1/4}.
+\]
+
+We want to find \(\left|\log_2\left(x^4 y^3 z^2\right)\right|\).
+
+Define:
+\[
+a = \log_2 x, \quad b = \log_2 y, \quad c = \log_2 z.
+\]
+
+Rewrite the given equations in terms of \(a, b, c\):
+\[
+\log_2 \frac{x}{yz} = a - (b + c) = \frac{1}{2},
+\]
+\[
+\log_2 \frac{y}{xz} = b - (a + c) = \frac{1}{3},
+\]
+\[
+\log_2 \frac{z}{xy} = c - (a + b) = \frac{1}{4}.
+\]
+
+So the system is:
+\[
+a - b - c = \frac{1}{2},
+\]
+\[
+b - a - c = \frac{1}{3},
+\]
+\[
+c - a - b = \frac{1}{4}.
+\]
+
+Add all three equations:
+\[
+(a - b - c) + (b - a - c) + (c - a - b) = \frac{1}{2} + \frac{1}{3} + \frac{1}{4}.
+\]
+
+Simplify the left side:
+\[
+a - b - c + b - a - c + c - a - b = (a - a - a) + (-b + b - b) + (-c - c + c) = -a - b - c.
+\]
+
+The right side is:
+\[
+\frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{6}{12} + \frac{4}{12} + \frac{3}{12} = \frac{13}{12}.
+\]
+
+So:
+\[
+-a - b - c = \frac{13}{12} \implies a + b + c = -\frac{13}{12}.
+\]
+
+Now we have:
+\[
+a - b - c = \frac{1}{2}, \quad b - a - c = \frac{1}{3}, \quad c - a - b = \frac{1}{4}.
+\]
+
+Express \(c\) from the first equation:
+\[
+a - b - c = \frac{1}{2} \implies c = a - b - \frac{1}{2}.
+\]
+
+Plug into the second:
+\[
+b - a - (a - b - \tfrac{1}{2}) = \frac{1}{3} \implies b - a - a + b + \frac{1}{2} = \frac{1}{3} \implies 2b - 2a + \frac{1}{2} = \frac{1}{3}.
+\]
+
+Subtract \(\frac{1}{2}\) from both sides:
+\[
+2b - 2a = \frac{1}{3} - \frac{1}{2} = -\frac{1}{6} \implies b - a = -\frac{1}{12}.
+\]
+
+From the third:
+\[
+c - a - b = \frac{1}{4}.
+\]
+
+Use \(c = a - b - \frac{1}{2}\):
+\[
+(a - b - \frac{1}{2}) - a - b = \frac{1}{4} \implies -b - \frac{1}{2} - b = \frac{1}{4} \implies -2b - \frac{1}{2} = \frac{1}{4}.
+\]
+
+Add \(\frac{1}{2}\) to both sides:
+\[
+-2b = \frac{1}{4} + \frac{1}{2} = \frac{3}{4} \implies b = -\frac{3}{8}.
+\]
+
+Recall \(b - a = -\frac{1}{12} \implies a = b + \frac{1}{12} = -\frac{3}{8} + \frac{1}{12}\).
+
+Find common denominator 24:
+\[
+-\frac{3}{8} = -\frac{9}{24}, \quad \frac{1}{12} = \frac{2}{24}, \quad a = -\frac{9}{24} + \frac{2}{24} = -\frac{7}{24}.
+\]
+
+Now find \(c\):
+\[
+c = a - b - \frac{1}{2} = -\frac{7}{24} - \left(-\frac{3}{8}\right) - \frac{1}{2} = -\frac{7}{24} + \frac{3}{8} - \frac{1}{2}.
+\]
+
+Convert to denominator 24:
+\[
+-\frac{7}{24} + \frac{9}{24} - \frac{12}{24} = (-7 + 9 - 12)/24 = (-10)/24 = -\frac{5}{12}.
+\]
+
+Verify sum \(a + b + c\):
+\[
+-\frac{7}{24} - \frac{3}{8} - \frac{5}{12} = -\frac{7}{24} - \frac{9}{24} - \frac{10}{24} = -\frac{26}{24} = -\frac{13}{12},
+\]
+which matches the earlier sum.
+
+Now, compute \(\log_2(x^4 y^3 z^2) = 4a + 3b + 2c\):
+\[
+4a + 3b + 2c = 4 \times \left(-\frac{7}{24}\right) + 3 \times \left(-\frac{3}{8}\right) + 2 \times \left(-\frac{5}{12}\right).
+\]
+
+Calculate each term:
+\[
+4a = -\frac{28}{24} = -\frac{7}{6},
+\]
+\[
+3b = 3 \times -\frac{3}{8} = -\frac{9}{8},
+\]
+\[
+2c = 2 \times -\frac{5}{12} = -\frac{10}{12} = -\frac{5}{6}.
+\]
+
+Add together:
+\[
+-\frac{7}{6} - \frac{9}{8} - \frac{5}{6} = \left(-\frac{7}{6} - \frac{5}{6}\right) - \frac{9}{8} = -\frac{12}{6} - \frac{9}{8} = -2 - \frac{9}{8} = -\frac{16}{8} - \frac{9}{8} = -\frac{25}{8}.
+\]
+
+Therefore,
+\[
+\left|\log_2(x^4 y^3 z^2)\right| = \left| -\frac{25}{8} \right| = \frac{25}{8}.
+\]
+
+Since \(25\) and \(8\) are relatively prime, \(m = 25\), \(n = 8\), so
+\[
+m + n = 25 + 8 = 33.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 33.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

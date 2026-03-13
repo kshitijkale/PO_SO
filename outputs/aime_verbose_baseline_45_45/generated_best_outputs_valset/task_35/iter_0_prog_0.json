@@ -1,0 +1,14 @@
+[
+    1.0,
+    {
+        "current_candidate": "Solve the problem and provide the answer provide the final answer as a single integer."
+    },
+    {
+        "score": 1.0,
+        "problem": "The numbers of apples growing on each of six apple trees form an arithmetic sequence where the greatest number of apples growing on any of the six trees is double the least number of apples growing on any of the six trees. The total number of apples growing on all six trees is $990.$ Find the greatest number of apples growing on any of the six trees.",
+        "prompt": "Solve the problem and provide the answer provide the final answer as a single integer.",
+        "output": "220",
+        "reasoning": "Let the number of apples on the six trees form an arithmetic sequence:\na, a + d, a + 2d, a + 3d, a + 4d, a + 5d\n\nWe are given:\n- The greatest number of apples is double the least number.\n- The total number of apples is 990.\n\nTranslate the information into equations:\n\n1) Greatest number = 2 \u00d7 Least number\n=> a + 5d = 2a\n=> a + 5d = 2a\n=> 5d = a\n=> a = 5d\n\n2) Sum of all apples = 990\nSum of 6 terms of arithmetic sequence = (number of terms) \u00d7 (average of first and last terms)\n= 6 \u00d7 ( (a + (a + 5d)) / 2 ) = 990\n\nSimplify:\n6 \u00d7 ( (2a + 5d) / 2 ) = 990\n3 \u00d7 (2a + 5d) = 990\n2a + 5d = 990 / 3 = 330\n\nRecall from above that a = 5d. Substitute:\n2(5d) + 5d = 330\n10d + 5d = 330\n15d = 330\nd = 330 / 15 = 22\n\nFind a:\na = 5d = 5 \u00d7 22 = 110\n\nNow find the greatest number of apples:\na + 5d = 110 + 5 \u00d7 22 = 110 + 110 = 220\n\nCheck that the greatest number is double the least:\n220 = 2 \u00d7 110, correct.\n\nSum check:\nSum = 6 \u00d7 average = 6 \u00d7 ( (110 + 220)/2 ) = 6 \u00d7 165 = 990, correct.",
+        "Feedback": "Your answer is correct. The correct answer is 220."
+    }
+]

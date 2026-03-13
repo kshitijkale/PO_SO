@@ -1,0 +1,1020 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Find the number of ways to place a digit in each cell of a 2x3 grid so that the sum of the two numbers formed by reading left to right is $999$, and the sum of the three numbers formed by reading top to bottom is $99$. The grid below is an example of such an arrangement because $8+991=999$ and $9+9+81=99$.
+\[\begin{array}{|c|c|c|} \hline 0 & 0 & 8 \\ \hline 9 & 9 & 1 \\ \hline \end{array}\]
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+45
+
+## reasoning
+We have a 2x3 grid of digits:
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+a & b & c \\
+\hline
+d & e & f \\
+\hline
+\end{array}
+\]
+
+where each cell contains a digit 0-9.
+
+**Given conditions:**
+
+1. The sum of the two numbers formed by reading left to right (row-wise) is 999.
+
+   That is:
+
+   \[
+   (100a + 10b + c) + (100d + 10e + f) = 999
+   \]
+
+2. The sum of the three numbers formed by reading top to bottom (column-wise) is 99.
+
+   That is:
+
+   \[
+   (10a + d) + (10b + e) + (10c + f) = 99
+   \]
+
+---
+
+**Step 1: Write the equations explicitly.**
+
+Row sum:
+
+\[
+100a + 10b + c + 100d + 10e + f = 999
+\]
+
+Column sum:
+
+\[
+(10a + d) + (10b + e) + (10c + f) = 99
+\]
+
+Simplify the column sum:
+
+\[
+10a + d + 10b + e + 10c + f = 99 \implies 10(a + b + c) + (d + e + f) = 99
+\]
+
+---
+
+**Step 2: Use the two equations and represent variables.**
+
+From the row sum:
+
+\[
+100a + 10b + c + 100d + 10e + f = 999
+\]
+
+Group:
+
+\[
+100(a + d) + 10(b + e) + (c + f) = 999
+\]
+
+From the column sum:
+
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+
+---
+
+**Step 3: Define sums:**
+
+Let:
+
+\[
+A = a + d, \quad B = b + e, \quad C = c + f
+\]
+
+Then:
+
+- Row sum:
+
+\[
+100A + 10B + C = 999
+\]
+
+- Column sum:
+
+\[
+10(a + b + c) + (d + e + f) = 10(a + b + c) + (A + B + C - (a + b + c)) = 99
+\]
+
+Since \(d + e + f = A + B + C - (a + b + c)\), we rewrite column sum as:
+
+\[
+10(a + b + c) + (A + B + C - (a + b + c)) = 99
+\]
+
+\[
+9(a + b + c) + (A + B + C) = 99
+\]
+
+But \(A + B + C = (a + d) + (b + e) + (c + f) = a + b + c + d + e + f\).
+
+So:
+
+\[
+9(a + b + c) + (a + b + c + d + e + f) = 99
+\]
+
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+
+which is the original equation, so the substitution is consistent.
+
+---
+
+**Step 4: From Step 2, row sum is:**
+
+\[
+100A + 10B + C = 999
+\]
+
+Since \(A, B, C\) are sums of two digits each (each between 0 and 18).
+
+---
+
+**Step 5: Analyze the row sum \(100A + 10B + C = 999\).**
+
+Since 999 is close to 1000, the digits \(A, B, C\) satisfy:
+
+\[
+100A + 10B + C = 999
+\]
+
+Write 999 in digits:
+
+\[
+999 = 9 \times 100 + 9 \times 10 + 9
+\]
+
+Hence:
+
+\[
+A = 9, \quad B = 9, \quad C = 9
+\]
+
+Because the digits \(A, B, C\) correspond to the digits in the sum, and since \(A, B, C\) can be up to 18, but the sum must be exactly 999, the only way is \(A=9, B=9, C=9\).
+
+---
+
+**Step 6: So,**
+
+\[
+a + d = 9, \quad b + e = 9, \quad c + f = 9
+\]
+
+---
+
+**Step 7: From the column sum:**
+
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+
+But:
+
+\[
+d + e + f = (a + d) + (b + e) + (c + f) - (a + b + c) = 27 - (a + b + c)
+\]
+
+(Since \(a + d = 9\), etc., sum of these three pairs is \(9 + 9 + 9 = 27\))
+
+So:
+
+\[
+10(a + b + c) + 27 - (a + b + c) = 99 \implies 9(a + b + c) + 27 = 99
+\]
+
+\[
+9(a + b + c) = 72 \implies a + b + c = 8
+\]
+
+---
+
+**Step 8: Now summarize constraints:**
+
+- \(a + d = 9\)
+- \(b + e = 9\)
+- \(c + f = 9\)
+- \(a + b + c = 8\)
+- All digits \(a,b,c,d,e,f\) are between 0 and 9.
+
+---
+
+**Step 9: Determine possible values of \(a,b,c\) and corresponding \(d,e,f\).**
+
+Since \(a,b,c\) are digits \(\in [0,9]\), and \(a+b+c=8\).
+
+For each triple \((a,b,c)\) with sum 8:
+
+- \(d = 9 - a\)
+- \(e = 9 - b\)
+- \(f = 9 - c\)
+
+Since \(a,b,c \leq 9\), \(d,e,f \geq 0\).
+
+Also, since \(a,b,c \geq 0\), \(d,e,f \leq 9\).
+
+Therefore, \(d,e,f\) are valid digits.
+
+---
+
+**Step 10: Count the number of triples \((a,b,c)\) with digits 0-9 such that \(a + b + c = 8\).**
+
+This is the number of non-negative integer solutions to:
+
+\[
+a + b + c = 8, \quad 0 \leq a,b,c \leq 9
+\]
+
+Since 8 ≤ 9, the upper bound does not restrict solutions, so simply number of non-negative integer solutions to \(a+b+c=8\).
+
+Number of solutions:
+
+\[
+\binom{8 + 3 - 1}{3 - 1} = \binom{10}{2} = 45
+\]
+
+---
+
+**Step 11: For each such \((a,b,c)\), the corresponding \((d,e,f)\) is unique and valid.**
+
+Therefore, total number of solutions is 45.
+
+---
+
+**Step 12: Verify with the example given:**
+
+Example:
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+0 & 0 & 8 \\
+\hline
+9 & 9 & 1 \\
+\hline
+\end{array}
+\]
+
+Check sums:
+
+- Row sums:
+
+\[
+(0+0+8) + (9+9+1) = 8 + 19 = 27 \quad \text{Wait, we need to check numbers, not sums of digits.}
+\]
+
+Numbers formed:
+
+- Top row: \(008 = 8\)
+- Bottom row: \(991\)
+
+Sum: \(8 + 991 = 999\) ✔
+
+Columns:
+
+- First column: \(0,9 \to 09 = 9\)
+- Second: \(0,9 \to 09 = 9\)
+- Third: \(8,1 \to 81\)
+
+Sum: \(9 + 9 + 81 = 99\) ✔
+
+Also, \(a=0, b=0, c=8\), sum \(0+0+8=8\), consistent.
+
+---
+
+**Final Answer:**
+
+There are \(\boxed{45}\) ways to assign digits in the grid to satisfy the conditions.
+
+---
+
+**Verification:**
+
+- Each solution corresponds to choosing \(a,b,c\) with \(a+b+c=8\), then \(d=9-a\), \(e=9-b\), \(f=9-c\).
+- All digits valid (0-9).
+- The conditions on sums are satisfied.
+
+No other constraints to reduce the count.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 45.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Let $x,y,$ and $z$ be real numbers satisfying the system of equations
+\begin{align*} xy + 4z &= 60 \\ yz + 4x &= 60 \\ zx + 4y &= 60. \end{align*}
+Let $S$ be the set of possible values of $x.$ Find the sum of the squares of the elements of $S.$
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+273
+
+## reasoning
+We are given the system:
+\[
+\begin{cases}
+xy + 4z = 60 \\
+yz + 4x = 60 \\
+zx + 4y = 60
+\end{cases}
+\]
+with \(x, y, z \in \mathbb{R}\).
+
+We want to find the set \(S\) of possible values of \(x\) that satisfy this system, and then find the sum of the squares of the elements of \(S\).
+
+---
+
+**Step 1: Analyze the system**
+
+The system is symmetric in \(x, y, z\). Each equation is formed similarly, just cyclically permuting the variables. The symmetry suggests we consider two cases:
+
+- Case 1: \(x = y = z\)
+- Case 2: \(x, y, z\) are not all equal.
+
+---
+
+**Case 1: \(x = y = z = t\)**
+
+Then each equation becomes:
+\[
+t \cdot t + 4t = t^2 + 4t = 60.
+\]
+So
+\[
+t^2 + 4t - 60 = 0.
+\]
+Solve for \(t\):
+\[
+t = \frac{-4 \pm \sqrt{16 + 240}}{2} = \frac{-4 \pm \sqrt{256}}{2} = \frac{-4 \pm 16}{2}.
+\]
+
+Two roots:
+- \(t = \frac{-4 + 16}{2} = \frac{12}{2} = 6\)
+- \(t = \frac{-4 - 16}{2} = \frac{-20}{2} = -10\)
+
+So \(x = y = z = 6\) or \(x = y = z = -10\) are two solutions.
+
+Hence, \(6\) and \(-10\) are in the set \(S\).
+
+---
+
+**Case 2: \(x, y, z\) not all equal**
+
+Write the system explicitly:
+\[
+\begin{cases}
+xy + 4z = 60 \\
+yz + 4x = 60 \\
+zx + 4y = 60
+\end{cases}
+\]
+
+Rewrite each as:
+\[
+xy = 60 - 4z, \quad yz = 60 - 4x, \quad zx = 60 - 4y.
+\]
+
+Multiply all three equations:
+\[
+(xy)(yz)(zx) = (60 - 4z)(60 - 4x)(60 - 4y).
+\]
+
+Left side:
+\[
+(xy)(yz)(zx) = (xyz)^2.
+\]
+
+Right side:
+\[
+(60 - 4x)(60 - 4y)(60 - 4z).
+\]
+
+So
+\[
+(xyz)^2 = (60 - 4x)(60 - 4y)(60 - 4z).
+\]
+
+---
+
+**Step 3: Try to find relations between sums/products**
+
+Let:
+\[
+p = x + y + z, \quad q = xy + yz + zx, \quad r = xyz.
+\]
+
+We want to express \((60 - 4x)(60 - 4y)(60 - 4z)\) in terms of \(p, q, r\).
+
+Expand:
+\[
+(60 - 4x)(60 - 4y)(60 - 4z) = 60^3 - 4 \cdot 60^2(x + y + z) + 16 \cdot 60(xy + yz + zx) - 64 xyz.
+\]
+
+Calculate:
+\[
+60^3 = 216000, \quad 4 \cdot 60^2 = 4 \times 3600 = 14400, \quad 16 \times 60 = 960.
+\]
+
+Hence:
+\[
+(60 - 4x)(60 - 4y)(60 - 4z) = 216000 - 14400 p + 960 q - 64 r.
+\]
+
+Recall:
+\[
+(xyz)^2 = 216000 - 14400 p + 960 q - 64 r.
+\]
+
+But since \(r = xyz\), we can write:
+\[
+r^2 = 216000 - 14400 p + 960 q - 64 r.
+\]
+
+Rearranged:
+\[
+r^2 + 64 r = 216000 - 14400 p + 960 q.
+\]
+
+---
+
+**Step 4: Use original equations to find relations between \(p, q, r\)**
+
+Sum all three original equations:
+\[
+(xy + 4z) + (yz + 4x) + (zx + 4y) = 3 \times 60 = 180.
+\]
+
+Group terms:
+\[
+(xy + yz + zx) + 4(x + y + z) = q + 4p = 180.
+\]
+
+So:
+\[
+q + 4p = 180 \implies q = 180 - 4p.
+\]
+
+---
+
+**Step 5: Substitute \(q\) into the \(r\) equation**
+
+Recall:
+\[
+r^2 + 64 r = 216000 - 14400 p + 960 q = 216000 - 14400 p + 960 (180 - 4p).
+\]
+
+Calculate:
+\[
+960 \times 180 = 172800.
+\]
+
+So:
+\[
+r^2 + 64 r = 216000 - 14400 p + 172800 - 3840 p = (216000 + 172800) - (14400 + 3840) p = 388800 - 18240 p.
+\]
+
+Therefore:
+\[
+r^2 + 64 r + 18240 p = 388800.
+\]
+
+---
+
+**Step 6: Substitute \(r = xyz\) and attempt to express everything in terms of \(p\) and \(r\)**
+
+We are not able to get a direct relation between \(p\) and \(r\) yet.
+
+---
+
+**Step 7: Express \(z\) in terms of \(x, y\)**
+
+From the first equation:
+\[
+xy + 4z = 60 \implies z = \frac{60 - xy}{4}.
+\]
+
+Similarly from the second equation:
+\[
+yz + 4x = 60 \implies yz = 60 - 4x.
+\]
+
+And from the third:
+\[
+zx + 4y = 60 \implies zx = 60 - 4y.
+\]
+
+---
+
+**Step 8: Try to find relationships from the differences of equations**
+
+Subtract the first two equations:
+\[
+(xy + 4z) - (yz + 4x) = 0 \implies xy - yz + 4z - 4x = 0.
+\]
+Factor:
+\[
+y(x - z) + 4(z - x) = 0 \implies (x - z)(y - 4) = 0.
+\]
+
+Similarly, subtract the second and third:
+\[
+(yz + 4x) - (zx + 4y) = 0 \implies z(y - x) + 4(x - y) = 0.
+\]
+Factor:
+\[
+(y - x)(z - 4) = 0.
+\]
+
+Subtract the third and first:
+\[
+(zx + 4y) - (xy + 4z) = 0 \implies x(z - y) + 4(y - z) = 0.
+\]
+Factor:
+\[
+(z - y)(x - 4) = 0.
+\]
+
+---
+
+**Step 9: From these factorized forms:**
+
+Either:
+- \(x = z\) or \(y = 4\),
+- \(y = x\) or \(z = 4\),
+- \(z = y\) or \(x = 4\).
+
+---
+
+**Step 10: Consider possible combinations**
+
+- If \(x = y = z\), already solved: \(x = 6\) or \(-10\).
+
+- Other options:
+  - Suppose \(x = z\).
+    Then from first factorization, it's satisfied.
+    From the second factorization, either \(y = x\) or \(z = 4\).
+    If \(y = x\), then \(x = y = z\), already done.
+    If \(z = 4\), then \(x = z = 4\).
+  
+  - Suppose \(z = 4\).
+    From third factorization, either \(z = y\) or \(x = 4\).
+    But \(z = 4\) fixed, so either \(y = 4\) or \(x = 4\).
+  
+  Similar reasoning applies for \(x = 4\) or \(y = 4\).
+
+---
+
+**Step 11: Check solutions where one variable equals 4**
+
+Try \(x = 4\).
+
+Use the equations:
+\[
+xy + 4z = 60, \quad yz + 4x = 60, \quad zx + 4y = 60.
+\]
+
+Set \(x = 4\), then:
+
+1. \(4y + 4z = 60 \implies y + z = 15.\)
+2. \(y z + 16 = 60 \implies y z = 44.\)
+3. \(4 z + 4 y = 60\) (same as first equation), so consistent.
+
+From 1 and 2:
+\[
+y + z = 15, \quad y z = 44.
+\]
+
+Find \(y, z\) as roots of:
+\[
+t^2 - 15 t + 44 = 0.
+\]
+
+Discriminant:
+\[
+225 - 176 = 49.
+\]
+
+Roots:
+\[
+t = \frac{15 \pm 7}{2} \implies t = 11 \text{ or } 4.
+\]
+
+So \((y, z) = (11, 4)\) or \((4, 11)\).
+
+Check whether these satisfy all equations:
+
+- \(xy + 4z = 4 \cdot y + 4 z = 4 y + 4 z = 60\) by construction.
+
+- \(yz + 4x = y z + 16 = 44 + 16 = 60\), correct.
+
+- \(zx + 4y = 4 z + 4 y = 4 y + 4 z = 60\), also correct.
+
+So \(x=4\) works with \(y=11, z=4\) or \(y=4, z=11\).
+
+Similarly, try \(y=4\):
+
+By symmetry, this will give solutions with \(x, z\) satisfying the same quadratic, and similarly for \(z=4\).
+
+---
+
+**Step 12: Summary of solutions found**
+
+- \(x = y = z = 6\)
+- \(x = y = z = -10\)
+- \(x = 4\), with \(y, z\) roots of \(t^2 - 15 t + 44 = 0\), i.e., \(t=4\) or \(11\).
+
+Because of symmetry, the possible values of \(x\) are:
+
+- \(6\)
+- \(-10\)
+- \(4\)
+- \(11\) (since \(x\) can be \(11\) if one of the others is 4)
+
+---
+
+**Step 13: Check if \(x = 11\) works**
+
+Try \(x=11\).
+
+From the equations, check if consistent values of \(y, z\) can be found.
+
+First equation:
+\[
+xy + 4z = 60 \implies 11 y + 4 z = 60.
+\]
+
+Second:
+\[
+yz + 4 \cdot 11 = 60 \implies yz = 60 - 44 = 16.
+\]
+
+Third:
+\[
+zx + 4 y = 60 \implies 11 z + 4 y = 60.
+\]
+
+From first and third:
+\[
+11 y + 4 z = 60, \quad 11 z + 4 y = 60.
+\]
+
+Treat as a system in \(y, z\):
+\[
+\begin{cases}
+11 y + 4 z = 60 \\
+4 y + 11 z = 60
+\end{cases}
+\]
+
+Multiply first by 11:
+\[
+121 y + 44 z = 660,
+\]
+Multiply second by 4:
+\[
+16 y + 44 z = 240.
+\]
+
+Subtract:
+\[
+(121 y - 16 y) + (44 z - 44 z) = 660 - 240 \implies 105 y = 420 \implies y = 4.
+\]
+
+Plug in \(y=4\) into the first:
+\[
+11 \cdot 4 + 4 z = 60 \implies 44 + 4 z = 60 \implies 4 z = 16 \implies z = 4.
+\]
+
+Check \(yz = 4 \times 4 = 16\), consistent with second equation.
+
+So \(x=11\) works with \(y = z = 4\).
+
+---
+
+**Step 14: So values of \(x\) in solutions are:**
+
+- \(6\) (all equal)
+- \(-10\) (all equal)
+- \(4\) (with \(y,z\) roots of the quadratic)
+- \(11\) (with \(y = z = 4\))
+
+---
+
+**Step 15: Final set \(S\) of possible values of \(x\) is \(\{-10, 4, 6, 11\}\).**
+
+---
+
+**Step 16: Find sum of squares of elements of \(S\):**
+
+\[
+(-10)^2 + 4^2 + 6^2 + 11^2 = 100 + 16 + 36 + 121 = 273.
+\]
+
+---
+
+**Verification:**
+
+- All these values correspond to some solution triple \((x, y, z)\) satisfying the system.
+- The problem asks for sum of squares of all possible \(x\).
+- The set \(S\) is \(\{-10, 4, 6, 11\}\).
+- Sum of squares computed as \(273\).
+
+---
+
+**Answer:**
+
+\[
+\boxed{273}.
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 273.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+There exist real numbers $x$ and $y$, both greater than 1, such that $\log_x\left(y^x\right)=\log_y\left(x^{4y}\right)=10$. Find $xy$.
+
+## prompt
+Solve the problem with rigorous, carefully verified step-by-step reasoning. Clearly define all variables, state assumptions explicitly, and check the logical consistency of each step. When dealing with algebraic or numeric calculations, verify intermediate results with approximation or alternative methods to catch errors. For geometric or combinatorial arguments, carefully analyze special cases and confirm all constraints are handled. At the end, perform a detailed verification of the final answer ensuring it satisfies all problem conditions, edge cases, and formatting requirements. Provide the final answer exactly as a single integer only, after thorough validation and cross-checks.
+
+## output
+25
+
+## reasoning
+We are given that \(x > 1\), \(y > 1\), and the following equalities hold:
+
+\[
+\log_x(y^x) = 10 \quad \text{and} \quad \log_y(x^{4y}) = 10.
+\]
+
+We want to find \(xy\).
+
+Step 1: Express the logarithms in terms of natural logs (or any common base).
+
+Recall that \(\log_a b = \frac{\ln b}{\ln a}\).
+
+So,
+
+\[
+\log_x(y^x) = \frac{\ln(y^x)}{\ln x} = \frac{x \ln y}{\ln x} = 10,
+\]
+
+and
+
+\[
+\log_y(x^{4y}) = \frac{\ln(x^{4y})}{\ln y} = \frac{4y \ln x}{\ln y} = 10.
+\]
+
+Step 2: Write the two equations explicitly:
+
+\[
+\frac{x \ln y}{\ln x} = 10 \quad \Rightarrow \quad x \ln y = 10 \ln x,
+\]
+
+\[
+\frac{4y \ln x}{\ln y} = 10 \quad \Rightarrow \quad 4y \ln x = 10 \ln y.
+\]
+
+Step 3: From the first equation:
+
+\[
+x \ln y = 10 \ln x \implies \ln y = \frac{10 \ln x}{x}.
+\]
+
+From the second equation:
+
+\[
+4y \ln x = 10 \ln y \implies \ln y = \frac{4y \ln x}{10} = \frac{2y \ln x}{5}.
+\]
+
+Step 4: Equate the two expressions for \(\ln y\):
+
+\[
+\frac{10 \ln x}{x} = \frac{2y \ln x}{5}.
+\]
+
+Since \(x > 1\), \(\ln x > 0\), so we can divide both sides by \(\ln x\):
+
+\[
+\frac{10}{x} = \frac{2y}{5}.
+\]
+
+Multiply both sides by \(5x\):
+
+\[
+50 = 2 y x,
+\]
+
+or
+
+\[
+2 y x = 50 \implies y x = 25.
+\]
+
+Step 5: We want to verify that this value is consistent with the previous equations.
+
+Recall from Step 3:
+
+\[
+\ln y = \frac{10 \ln x}{x},
+\]
+
+and also:
+
+\[
+\ln y = \frac{2 y \ln x}{5}.
+\]
+
+Use \(y x = 25 \implies y = \frac{25}{x}\).
+
+Substitute \(y = \frac{25}{x}\) into \(\ln y = \frac{10 \ln x}{x}\):
+
+\[
+\ln \left(\frac{25}{x}\right) = \frac{10 \ln x}{x}.
+\]
+
+Rewrite left side:
+
+\[
+\ln 25 - \ln x = \frac{10 \ln x}{x}.
+\]
+
+Bring \(\ln x\) terms to one side:
+
+\[
+\ln 25 = \ln x + \frac{10 \ln x}{x} = \ln x \left(1 + \frac{10}{x}\right) = \ln x \cdot \frac{x + 10}{x}.
+\]
+
+So,
+
+\[
+\ln 25 = \ln x \cdot \frac{x + 10}{x}.
+\]
+
+Rearranged:
+
+\[
+\ln x = \frac{x}{x + 10} \ln 25.
+\]
+
+Step 6: Now, check if there exists \(x > 1\) satisfying the above.
+
+Set
+
+\[
+f(x) = \ln x - \frac{x}{x+10} \ln 25 = 0.
+\]
+
+At \(x=5\):
+
+\[
+\ln 5 \approx 1.6094,
+\]
+\[
+\frac{5}{5+10} = \frac{5}{15} = \frac{1}{3},
+\]
+\[
+\ln 25 = \ln(5^2) = 2 \ln 5 \approx 3.2189,
+\]
+\[
+\frac{5}{15} \times 3.2189 = \frac{1}{3} \times 3.2189 = 1.0729,
+\]
+\[
+f(5) = 1.6094 - 1.0729 = 0.5365 > 0.
+\]
+
+At \(x=10\):
+
+\[
+\ln 10 \approx 2.3026,
+\]
+\[
+\frac{10}{20} = 0.5,
+\]
+\[
+0.5 \times 3.2189 = 1.6094,
+\]
+\[
+f(10) = 2.3026 - 1.6094 = 0.6932 > 0,
+\]
+
+At \(x=1.5\):
+
+\[
+\ln 1.5 \approx 0.4055,
+\]
+\[
+\frac{1.5}{11.5} \approx 0.1304,
+\]
+\[
+0.1304 \times 3.2189 \approx 0.420,
+\]
+\[
+f(1.5) = 0.4055 - 0.420 = -0.0145 < 0.
+\]
+
+So \(f(1.5) < 0\), \(f(5) > 0\), indicating a root between 1.5 and 5.
+
+Step 7: The exact value is not necessary for the problem since the question asks for \(xy\).
+
+From the previous step, the value of \(xy\) is uniquely determined as 25.
+
+Therefore,
+
+\[
+\boxed{25}
+\]
+
+is the value of \(xy\).
+
+Step 8: Double-check the conditions \(x > 1\), \(y > 1\).
+
+Since \(y = \frac{25}{x}\), and \(x > 1\), for \(y > 1\), we need:
+
+\[
+\frac{25}{x} > 1 \implies x < 25.
+\]
+
+Given \(x\) is between 1.5 and 5 based on the function values, this holds.
+
+Thus, both \(x, y > 1\) are satisfied.
+
+## Feedback
+Your answer is correct. The correct answer is 25.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

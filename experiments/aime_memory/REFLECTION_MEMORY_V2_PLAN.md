@@ -39,9 +39,7 @@ diff. Future reflection calls receive rich, pre-digested strategic insight rathe
 {
   "intent": "Strengthen verification by requiring double-checking of algebraic steps",
   "lesson": "Explicit verification reduced arithmetic errors but didn't help with
-             structural setup mistakes — those require different prompting",
-  "takeaway": "Target problem setup and variable definition next; arithmetic
-               verification is already addressed"
+             structural setup mistakes — those require different prompting"
 }
 ```
 
@@ -73,22 +71,22 @@ Intent: Require explicit verification of algebraic steps before committing to an
 Lesson: Adding a verification step improved performance on problems where arithmetic
         errors were the main failure mode, but didn't help on problems requiring more
         creative problem setup
-Takeaway: Arithmetic verification is addressed — next target problem decomposition
-          strategy and geometric/algebraic setup for harder problems
+Strong on: number theory, combinatorics
+Still failing: geometry, algebra
 
 ### Iter 2 [REJECTED ±0.00]
 Intent: Strengthen the verification language with more comprehensive coverage
 Lesson: This is a minor restatement of the Iter 1 accepted change with no new strategy —
         the model is already verifying; more emphasis on the same idea doesn't help
-Takeaway: Avoid rewording existing accepted instructions; introduce a genuinely new
-          strategy like explicit modular arithmetic or case-enumeration guidance
+Strong on: number theory
+Still failing: geometry, algebra, combinatorics
 
 ### Iter 4 [REJECTED −1.00]
 Intent: Add domain-specific guidance for combinatorics and optimization problems
 Lesson: Adding problem-type-specific advice hurt performance — the model may be
         over-specializing when the minibatch contains diverse problem types
-Takeaway: Broad instructions that apply to all problem types outperform narrow type-specific
-          ones in this diverse setting; consider problem-agnostic reasoning strategies instead
+Strong on: (none — score dropped)
+Still failing: geometry, algebra, combinatorics, number theory
 
 IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.
 ```
@@ -104,14 +102,15 @@ history of what was tried, why it did/didn't work, and specifically what to try 
 
 | Component | V1 | V2 |
 |-----------|----|----|
-| `ReflectionMemoryEntry.change_summary` | heuristic diff string | removed |
-| `ReflectionMemoryEntry.lesson` | (does not exist) | LLM-generated lesson |
+| `ReflectionMemoryEntry.change_summary` | heuristic diff string | removed (silent fallback only) |
 | `ReflectionMemoryEntry.intent` | (does not exist) | LLM-generated intent |
-| `ReflectionMemoryEntry.takeaway` | (does not exist) | LLM-generated takeaway |
-| `ReflectionMemoryEntry.failure_modes` | raw truncated feedback strings | LLM-extracted failure type labels |
-| `format_for_prompt()` | renders diff + raw feedback | renders intent + lesson + takeaway |
+| `ReflectionMemoryEntry.lesson` | (does not exist) | LLM-generated lesson |
+| `ReflectionMemoryEntry.categories_succeeded` | (does not exist) | problem types solved correctly |
+| `ReflectionMemoryEntry.categories_failed` | (does not exist) | problem types still failing |
+| `ReflectionMemoryEntry.failure_modes` | raw truncated feedback strings | raw feedback capped at 3 × 200 chars |
+| `format_for_prompt()` | renders diff + raw feedback | renders intent + lesson + categories |
 | `ReflectiveMutationProposer.propose()` | calls `summarize_change()` | calls `generate_lesson()` |
-| New: `LessonGeneratorSignature` | (does not exist) | prompt + structured JSON output |
+| New: `generate_lesson()` function | (does not exist) | LLM call → intent + lesson + categories |
 | New: `lesson_lm` parameter | (does not exist) | LM used for lesson generation (defaults to reflection LM) |
 
 `summarize_change()` is kept as a **fallback** — used if lesson generation fails or is disabled.
@@ -129,22 +128,23 @@ class ReflectionMemoryEntry:
     iteration: int
     component_name: str
 
-    # V1: heuristic diff (kept as fallback)
-    change_summary: str = ""
-
-    # V2: LLM-generated lesson (populated when use_llm_lesson=True)
+    # V2: LLM-generated lesson
     intent: str = ""
     lesson: str = ""
-    takeaway: str = ""
+    categories_succeeded: list[str] = field(default_factory=list)
+    categories_failed: list[str] = field(default_factory=list)
 
     score_before: float = 0.0
     score_after: float = 0.0
     accepted: bool = False
-    failure_modes: list[str] = field(default_factory=list)
+    failure_modes: list[str] = field(default_factory=list)  # raw feedback, capped at 3 × 200 chars
+
+    # V1 fallback (populated only when lesson LLM call fails)
+    change_summary: str = ""
 ```
 
-All new fields default to empty string so existing V1 tests continue to pass without
-modification.
+All new fields default to empty string / empty list so existing V1 tests continue to pass
+without modification.
 
 ---
 
@@ -174,25 +174,27 @@ Minibatch score: {score_before:.2f} → {score_after:.2f} ({ACCEPTED or REJECTED
 ---
 
 Analyze this optimization step. Be specific — reference the actual failure examples and
-the actual changes made. Avoid generic advice.
+the actual changes made. Avoid generic observations.
 
-Respond with a JSON object:
+Respond with ONLY a JSON object, no other text:
 {
   "intent": "<1 sentence: what was this edit trying to achieve?>",
   "lesson": "<1-2 sentences: what does the outcome reveal about this type of change?>",
-  "takeaway": "<1 sentence: one specific, actionable directive for the next iteration>"
+  "categories_succeeded": ["<problem type>", ...],
+  "categories_failed": ["<problem type>", ...]
 }
+
+For categories use labels from: algebra, geometry, number_theory, combinatorics,
+calculus, trigonometry, probability, other.
+Base them on the failure examples. If examples don't indicate problem type, use [].
 ```
 
 **Key design choices:**
+- `takeaway` is intentionally absent — that is for the reflection LLM to determine, not memory
 - Instruction to "be specific — reference actual failure examples" prevents generic lessons
 - Structured JSON output avoids parsing ambiguity
-- 3 fields map cleanly to the 3 roles: *what was tried*, *what was learned*, *what to do next*
 - The objective is passed in so the lesson is task-aware
-
-**Failure modes extraction**: The lesson LLM also distills raw feedback into the `failure_modes`
-list (e.g. `["arithmetic error", "wrong case setup", "misread constraint"]`) which are
-surfaced more cleanly than raw truncated feedback strings.
+- Category labels are a closed vocabulary to prevent free-form noise
 
 ---
 
@@ -205,16 +207,15 @@ def generate_lesson(
     lm: LanguageModel,
     old_text: str,
     new_text: str,
-    failure_feedbacks: list[str],   # raw Feedback strings from failed examples
+    failure_feedbacks: list[str],   # raw Feedback strings, already capped at 3 × 200 chars by caller
     score_before: float,
     score_after: float,
     accepted: bool,
     objective: str = "",
-    max_feedback_examples: int = 3,  # cap to keep prompt short
-) -> tuple[str, str, str]:           # (intent, lesson, takeaway)
+) -> tuple[str, str, list[str], list[str]]:   # (intent, lesson, categories_succeeded, categories_failed)
 ```
 
-Returns `("", "", "")` on any exception — the caller falls back to `summarize_change()`.
+Returns `("", "", [], [])` on any exception — the caller falls back to `summarize_change()`.
 
 ---
 
@@ -233,8 +234,10 @@ for entry in relevant:
         if entry.intent:
             lines.append(f"Intent: {entry.intent}")
         lines.append(f"Lesson: {entry.lesson}")
-        if entry.takeaway:
-            lines.append(f"Takeaway: {entry.takeaway}")
+        if entry.categories_succeeded:
+            lines.append(f"Strong on: {', '.join(entry.categories_succeeded)}")
+        if entry.categories_failed:
+            lines.append(f"Still failing: {', '.join(entry.categories_failed)}")
     else:             # V1 fallback path
         lines.append(
             f"Iter {entry.iteration}: {entry.change_summary}. "
@@ -331,7 +334,8 @@ class LessonGeneratedEvent(TypedDict):
     component_name: str
     intent: str
     lesson: str
-    takeaway: str
+    categories_succeeded: list[str]
+    categories_failed: list[str]
     score_before: float
     score_after: float
     accepted: bool

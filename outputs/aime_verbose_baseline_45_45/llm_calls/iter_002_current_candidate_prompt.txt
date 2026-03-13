@@ -1,0 +1,722 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+In isosceles trapezoid $ABCD$, parallel bases $\overline{AB}$ and $\overline{CD}$ have lengths $500$ and $650$, respectively, and $AD=BC=333$. The angle bisectors of $\angle{A}$ and $\angle{D}$ meet at $P$, and the angle bisectors of $\angle{B}$ and $\angle{C}$ meet at $Q$. Find $PQ$.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+242
+
+## reasoning
+Given an isosceles trapezoid \(ABCD\) with bases \(AB\) and \(CD\) parallel, and \(AB = 500\), \(CD = 650\), and legs \(AD = BC = 333\). We seek the length \(PQ\), where \(P\) is the intersection of the angle bisectors of \(\angle A\) and \(\angle D\), and \(Q\) is the intersection of the angle bisectors of \(\angle B\) and \(\angle C\).
+
+**Step 1: Set up coordinate system**
+
+Place trapezoid \(ABCD\) in the coordinate plane for convenience.
+
+- Let \(AB\) be on the x-axis.
+- Place \(A\) at \((0,0)\) and \(B\) at \((500,0)\).
+- Since \(AB \parallel CD\), \(CD\) lies on a line \(y = h\) for some height \(h > 0\).
+- Let \(D = (x_D, h)\) and \(C = (x_C, h)\), with \(x_C > x_D\).
+
+Since \(CD = 650\), we have:
+\[
+x_C - x_D = 650.
+\]
+
+**Step 2: Use the isosceles condition**
+
+The legs are equal: \(AD = BC = 333\).
+
+Distance \(AD\):
+\[
+AD = \sqrt{(x_D - 0)^2 + (h - 0)^2} = 333,
+\]
+so
+\[
+x_D^2 + h^2 = 333^2 = 110,889.
+\]
+
+Distance \(BC\):
+\[
+BC = \sqrt{(x_C - 500)^2 + (h - 0)^2} = 333,
+\]
+so
+\[
+(x_C - 500)^2 + h^2 = 110,889.
+\]
+
+Subtract the two equations:
+\[
+(x_C - 500)^2 + h^2 - (x_D^2 + h^2) = 0 \implies (x_C - 500)^2 = x_D^2.
+\]
+
+Recall \(x_C = x_D + 650\):
+\[
+(x_D + 650 - 500)^2 = x_D^2 \implies (x_D + 150)^2 = x_D^2.
+\]
+
+Expand:
+\[
+x_D^2 + 300 x_D + 150^2 = x_D^2 \implies 300 x_D + 22,500 = 0.
+\]
+
+Solve for \(x_D\):
+\[
+300 x_D = -22,500 \implies x_D = -75.
+\]
+
+Then,
+\[
+x_C = x_D + 650 = -75 + 650 = 575.
+\]
+
+**Step 3: Find height \(h\)**
+
+Using \(x_D^2 + h^2 = 110,889\):
+\[
+(-75)^2 + h^2 = 110,889 \implies 5,625 + h^2 = 110,889,
+\]
+\[
+h^2 = 110,889 - 5,625 = 105,264,
+\]
+\[
+h = \sqrt{105,264} \approx 324.4.
+\]
+
+So the points are:
+\[
+A = (0,0), \quad B=(500,0), \quad D = (-75, 324.4), \quad C = (575, 324.4).
+\]
+
+**Step 4: Find angle bisectors at \(A\) and \(D\)**
+
+- At vertex \(A\), angle formed by vectors \(AB\) and \(AD\).
+- At vertex \(D\), angle formed by vectors \(DC\) and \(DA\).
+
+We want the intersection of the angle bisectors at \(A\) and \(D\).
+
+Similarly for \(Q\), which is intersection of angle bisectors at \(B\) and \(C\).
+
+**Step 5: Compute unit vectors for the angle bisectors**
+
+At \(A\):
+
+- Vector \(AB = B - A = (500, 0)\).
+- Vector \(AD = D - A = (-75, 324.4)\).
+
+Find unit vectors:
+\[
+|AB| = 500, \quad u_{AB} = (1, 0),
+\]
+\[
+|AD| = 333, \quad u_{AD} = \left(-\frac{75}{333}, \frac{324.4}{333}\right) \approx (-0.225, 0.974).
+\]
+
+Angle bisector direction at \(A\) is along the sum of the unit vectors:
+\[
+u_A = u_{AB} + u_{AD} = (1 - 0.225, 0 + 0.974) = (0.775, 0.974).
+\]
+
+Normalize:
+\[
+|u_A| = \sqrt{0.775^2 + 0.974^2} = \sqrt{0.600 + 0.949} = \sqrt{1.549} \approx 1.244,
+\]
+\[
+\hat{u}_A = \left(\frac{0.775}{1.244}, \frac{0.974}{1.244}\right) \approx (0.623, 0.783).
+\]
+
+Equation of angle bisector at \(A\):
+\[
+\ell_A: \quad (x,y) = (0,0) + t (0.623, 0.783).
+\]
+
+At \(D\):
+
+Vectors:
+\[
+DC = C - D = (575 + 75, 324.4 - 324.4) = (650, 0),
+\]
+\[
+DA = A - D = (0 + 75, 0 - 324.4) = (75, -324.4).
+\]
+
+Unit vectors:
+\[
+|DC| = 650, \quad u_{DC} = (1, 0),
+\]
+\[
+|DA| = 333, \quad u_{DA} = \left(\frac{75}{333}, \frac{-324.4}{333}\right) \approx (0.225, -0.974).
+\]
+
+Angle bisector direction at \(D\):
+\[
+u_D = u_{DC} + u_{DA} = (1 + 0.225, 0 - 0.974) = (1.225, -0.974).
+\]
+
+Normalize:
+\[
+|u_D| = \sqrt{1.225^2 + (-0.974)^2} = \sqrt{1.500 + 0.949} = \sqrt{2.449} \approx 1.565,
+\]
+\[
+\hat{u}_D = \left(\frac{1.225}{1.565}, \frac{-0.974}{1.565}\right) \approx (0.783, -0.623).
+\]
+
+Equation of angle bisector at \(D\):
+\[
+\ell_D: (x,y) = (-75, 324.4) + s (0.783, -0.623).
+\]
+
+**Step 6: Find \(P = \ell_A \cap \ell_D\)**
+
+Set
+\[
+(0.623 t, 0.783 t) = (-75 + 0.783 s, 324.4 - 0.623 s).
+\]
+
+Equate \(x\) and \(y\):
+\[
+0.623 t = -75 + 0.783 s, \quad 0.783 t = 324.4 - 0.623 s.
+\]
+
+From first:
+\[
+0.623 t - 0.783 s = -75,
+\]
+from second:
+\[
+0.783 t + 0.623 s = 324.4.
+\]
+
+Solve system:
+
+Multiply first by 0.783:
+\[
+0.488 t - 0.613 s = -58.725,
+\]
+Multiply second by 0.623:
+\[
+0.488 t + 0.388 s = 202.012.
+\]
+
+Subtract first from second:
+\[
+(0.488 t + 0.388 s) - (0.488 t - 0.613 s) = 202.012 - (-58.725),
+\]
+\[
+0.388 s + 0.613 s = 260.737,
+\]
+\[
+1.001 s = 260.737,
+\]
+\[
+s \approx 260.7.
+\]
+
+Use first equation to find \(t\):
+\[
+0.623 t - 0.783(260.7) = -75,
+\]
+\[
+0.623 t = -75 + 0.783 \times 260.7 = -75 + 204.0 = 129,
+\]
+\[
+t = \frac{129}{0.623} \approx 207.1.
+\]
+
+Coordinates of \(P\):
+\[
+x = 0.623 \times 207.1 \approx 129,
+\]
+\[
+y = 0.783 \times 207.1 \approx 162.
+\]
+
+**Step 7: Find angle bisectors at \(B\) and \(C\) and their intersection \(Q\)**
+
+At \(B\):
+
+Vectors:
+\[
+BA = A - B = (0 - 500, 0 - 0) = (-500, 0),
+\]
+\[
+BC = C - B = (575 - 500, 324.4 - 0) = (75, 324.4).
+\]
+
+Unit vectors:
+\[
+|BA| = 500, \quad u_{BA} = (-1, 0),
+\]
+\[
+|BC| = 333, \quad u_{BC} = \left(\frac{75}{333}, \frac{324.4}{333}\right) \approx (0.225, 0.974).
+\]
+
+Angle bisector at \(B\):
+\[
+u_B = u_{BA} + u_{BC} = (-1 + 0.225, 0 + 0.974) = (-0.775, 0.974).
+\]
+
+Normalize:
+\[
+|u_B| = \sqrt{(-0.775)^2 + 0.974^2} = \sqrt{0.600 + 0.949} = \sqrt{1.549} \approx 1.244,
+\]
+\[
+\hat{u}_B = \left(\frac{-0.775}{1.244}, \frac{0.974}{1.244}\right) \approx (-0.623, 0.783).
+\]
+
+Equation of angle bisector at \(B\):
+\[
+\ell_B: (x,y) = (500, 0) + t(-0.623, 0.783).
+\]
+
+At \(C\):
+
+Vectors:
+\[
+CB = B - C = (500 - 575, 0 - 324.4) = (-75, -324.4),
+\]
+\[
+CD = D - C = (-75 - 575, 324.4 - 324.4) = (-650, 0).
+\]
+
+Unit vectors:
+\[
+|CB| = 333, \quad u_{CB} = \left(-\frac{75}{333}, -\frac{324.4}{333}\right) \approx (-0.225, -0.974),
+\]
+\[
+|CD| = 650, \quad u_{CD} = (-1, 0).
+\]
+
+Angle bisector at \(C\):
+\[
+u_C = u_{CB} + u_{CD} = (-0.225 -1, -0.974 + 0) = (-1.225, -0.974).
+\]
+
+Normalize:
+\[
+|u_C| = \sqrt{1.225^2 + 0.974^2} = \sqrt{1.5 + 0.949} = \sqrt{2.449} \approx 1.565,
+\]
+\[
+\hat{u}_C = \left(\frac{-1.225}{1.565}, \frac{-0.974}{1.565}\right) \approx (-0.783, -0.623).
+\]
+
+Equation of angle bisector at \(C\):
+\[
+\ell_C: (x,y) = (575, 324.4) + s (-0.783, -0.623).
+\]
+
+**Step 8: Find \(Q = \ell_B \cap \ell_C\)**
+
+Set:
+\[
+(500 - 0.623 t, 0 + 0.783 t) = (575 - 0.783 s, 324.4 - 0.623 s).
+\]
+
+Equate \(x\) and \(y\):
+\[
+500 - 0.623 t = 575 - 0.783 s,
+\]
+\[
+0.783 t = 324.4 - 0.623 s.
+\]
+
+Rewrite:
+\[
+-0.623 t + 0.783 s = 75,
+\]
+\[
+0.783 t + 0.623 s = 324.4.
+\]
+
+Multiply first by 0.783:
+\[
+-0.488 t + 0.613 s = 58.725,
+\]
+Multiply second by 0.623:
+\[
+0.488 t + 0.388 s = 202.012.
+\]
+
+Add the two equations:
+\[
+(-0.488 t + 0.613 s) + (0.488 t + 0.388 s) = 58.725 + 202.012,
+\]
+\[
+(0.613 + 0.388) s = 260.737,
+\]
+\[
+1.001 s = 260.737 \implies s \approx 260.7.
+\]
+
+Use first equation to find \(t\):
+\[
+-0.623 t + 0.783 (260.7) = 75,
+\]
+\[
+-0.623 t + 204.0 = 75,
+\]
+\[
+-0.623 t = 75 - 204 = -129,
+\]
+\[
+t = \frac{129}{0.623} \approx 207.1.
+\]
+
+Coordinates of \(Q\):
+\[
+x = 500 - 0.623 \times 207.1 = 500 - 129 = 371,
+\]
+\[
+y = 0 + 0.783 \times 207.1 = 162.
+\]
+
+**Step 9: Find \(PQ\)**
+
+From the coordinates:
+\[
+P \approx (129, 162), \quad Q \approx (371, 162).
+\]
+
+Distance:
+\[
+PQ = |371 - 129| = 242.
+\]
+
+**Step 10: Final answer**
+
+\[
+\boxed{242}
+\]
+
+---
+
+**Summary:**
+
+- \(P\) and \(Q\) lie on the same horizontal line \(y \approx 162\).
+- Their \(x\)-coordinates are approximately 129 and 371.
+- The segment \(PQ\) length is approximately 242.
+
+Since all data are integers initially and the problem likely expects an integer answer, \(PQ = 242\) is the exact distance.
+
+## Feedback
+Your answer is correct. The correct answer is 242.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Let $\omega\neq 1$ be a 13th root of unity. Find the remainder when
+\[\prod_{k=0}^{12}(2-2\omega^k+\omega^{2k})\]
+is divided by 1000.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+321
+
+## reasoning
+We are given \(\omega \neq 1\) is a 13th root of unity, and we want to find the remainder when
+\[
+\prod_{k=0}^{12} \left(2 - 2\omega^k + \omega^{2k}\right)
+\]
+is divided by 1000.
+
+Step 1: Understand the roots of unity and the product
+- \(\omega\) is a primitive 13th root of unity, so \(\omega^{13} = 1\).
+- The set \(\{\omega^k : k = 0,1,\ldots,12\}\) are the 13th roots of unity.
+
+Step 2: Simplify the term inside product
+Consider the expression for each \(k\):
+\[
+2 - 2\omega^k + \omega^{2k}.
+\]
+
+Rewrite it by grouping powers:
+\[
+2 - 2\omega^k + (\omega^k)^2 = (\omega^k)^2 - 2\omega^k + 2.
+\]
+
+Let \(x = \omega^k\), then the term is:
+\[
+x^2 - 2x + 2.
+\]
+
+Step 3: The product is:
+\[
+\prod_{k=0}^{12} (x_k^2 - 2x_k + 2),
+\]
+where \(x_k = \omega^k\).
+
+Step 4: Use polynomial approach
+Define polynomial:
+\[
+f(x) = x^2 - 2x + 2.
+\]
+
+We want:
+\[
+\prod_{k=0}^{12} f(\omega^k).
+\]
+
+Step 5: Use the minimal polynomial of the 13th roots of unity
+The 13th roots of unity are roots of \(x^{13} - 1 = 0\).
+
+The 13th roots of unity are \(\omega^0, \omega^1, \ldots, \omega^{12}\).
+
+Step 6: Rewrite the product in terms of \(f(x)\) evaluated at roots of \(x^{13} - 1\).
+
+Note that \(f(\omega^k) = \omega^{2k} - 2 \omega^k + 2\).
+
+We want:
+\[
+P = \prod_{k=0}^{12} f(\omega^k).
+\]
+
+Step 7: Use the fact that the product over all roots of unity can be expressed as the resultant of two polynomials:
+
+\[
+P = \prod_{\omega^k : \omega^{13} = 1} f(\omega^k) = \text{Res}(x^{13} - 1, f(x)).
+\]
+
+The resultant \(\text{Res}(A,B)\) of two polynomials \(A(x), B(x)\) is the product over the roots \(\alpha_i\) of \(A\) of \(B(\alpha_i)\), up to multiplicities and sign (depending on degrees).
+
+Since \(x^{13}-1\) has degree 13 and \(f(x)\) has degree 2, and both are monic, the resultant is exactly the product \(P\).
+
+So:
+\[
+P = \text{Res}(x^{13} - 1, x^2 - 2x + 2).
+\]
+
+Step 8: Compute the resultant
+
+The resultant can be computed by other means, such as from the roots of \(f(x)\).
+
+Let the roots of \(f(x)\) be \(r_1, r_2\):
+
+\[
+x^2 - 2x + 2 = 0 \implies x = \frac{2 \pm \sqrt{4 - 8}}{2} = 1 \pm i.
+\]
+
+So roots are \(r_1 = 1 + i\), \(r_2 = 1 - i\).
+
+The resultant satisfies:
+\[
+\text{Res}(A,B) = \prod_{i=1}^m B(\alpha_i) = \prod_{j=1}^n A(r_j) \quad \text{(since resultant is symmetric in polynomials)}.
+\]
+
+Here,
+\[
+\text{Res}(x^{13} - 1, f) = \prod_{j=1}^2 (r_j^{13} - 1).
+\]
+
+Step 9: Compute \(r_j^{13} - 1\) for \(r_1 = 1 + i\) and \(r_2 = 1 - i\).
+
+Note \(r_2 = \overline{r_1}\), so their powers are conjugates.
+
+Step 10: Express \(r_1 = 1 + i\) in polar form:
+
+\[
+|r_1| = \sqrt{1^2 + 1^2} = \sqrt{2},
+\]
+\[
+\arg(r_1) = \frac{\pi}{4}.
+\]
+
+Therefore,
+\[
+r_1 = \sqrt{2} \left(\cos \frac{\pi}{4} + i \sin \frac{\pi}{4}\right).
+\]
+
+Then:
+\[
+r_1^{13} = (\sqrt{2})^{13} \left(\cos \frac{13\pi}{4} + i \sin \frac{13\pi}{4}\right).
+\]
+
+Calculate powers and trigonometric functions:
+
+- \((\sqrt{2})^{13} = (2^{1/2})^{13} = 2^{13/2} = 2^{6.5} = 2^6 \cdot 2^{0.5} = 64 \sqrt{2}.\)
+
+- \(\frac{13\pi}{4} = 3\pi + \frac{\pi}{4}\) (since \(3\pi = \frac{12\pi}{4}\)).
+
+Using angle reduction:
+\[
+\cos \left(3\pi + \frac{\pi}{4}\right) = \cos\left(\pi + 2\pi + \frac{\pi}{4}\right) = -\cos \frac{\pi}{4} = -\frac{\sqrt{2}}{2}.
+\]
+\[
+\sin \left(3\pi + \frac{\pi}{4}\right) = \sin\left(\pi + 2\pi + \frac{\pi}{4}\right) = -\sin \frac{\pi}{4} = -\frac{\sqrt{2}}{2}.
+\]
+
+So,
+\[
+r_1^{13} = 64 \sqrt{2} \left(-\frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2}\right) = 64 \sqrt{2} \cdot \left(-\frac{\sqrt{2}}{2}\right) \left(1 + i\right).
+\]
+
+Calculate \(64 \sqrt{2} \cdot \left(-\frac{\sqrt{2}}{2}\right)\):
+\[
+\sqrt{2} \cdot \frac{\sqrt{2}}{2} = \frac{2}{2} = 1,
+\]
+so
+\[
+64 \sqrt{2} \cdot \left(-\frac{\sqrt{2}}{2}\right) = 64 \times (-1) = -64.
+\]
+
+Therefore,
+\[
+r_1^{13} = -64 (1 + i) = -64 - 64i.
+\]
+
+Similarly, for \(r_2 = 1 - i\), which is the conjugate of \(r_1\),
+\[
+r_2^{13} = \overline{r_1^{13}} = -64 + 64i.
+\]
+
+Step 11: Compute \(r_j^{13} - 1\):
+\[
+r_1^{13} - 1 = (-64 - 64i) - 1 = -65 - 64i,
+\]
+\[
+r_2^{13} - 1 = (-64 + 64i) - 1 = -65 + 64i.
+\]
+
+Step 12: Compute the product:
+\[
+P = (r_1^{13} - 1)(r_2^{13} - 1) = (-65 - 64i)(-65 + 64i).
+\]
+
+This is:
+\[
+(-65)^2 - (64i)^2 = 4225 - (-4096) = 4225 + 4096 = 8321.
+\]
+
+Step 13: Final answer
+\[
+\prod_{k=0}^{12} (2 - 2\omega^k + \omega^{2k}) = \text{Res}(x^{13} -1, f(x)) = 8321.
+\]
+
+We want the remainder when 8321 is divided by 1000:
+
+\[
+8321 \mod 1000 = 8321 - 8 \times 1000 = 8321 - 8000 = 321.
+\]
+
+Therefore, the remainder is \(\boxed{321}\).
+
+## Feedback
+Your answer is correct. The correct answer is 321.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Find the number of rectangles that can be formed inside a fixed regular dodecagon ($12$-gon) where each side of the rectangle lies on either a side or a diagonal of the dodecagon. The diagram below shows three of those rectangles.
+[asy] unitsize(0.6 inch); for(int i=0; i<360; i+=30) { dot(dir(i), 4+black); draw(dir(i)--dir(i+30)); } draw(dir(120)--dir(330)); filldraw(dir(210)--dir(240)--dir(30)--dir(60)--cycle, mediumgray, linewidth(1.5)); draw((0,0.366)--(0.366,0), linewidth(1.5)); [/asy]
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+15
+
+## reasoning
+We are asked to find the number of rectangles formed inside a regular dodecagon (12-gon) such that each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+
+Key observations:
+1. The dodecagon is regular, so its vertices lie equally spaced on a circle.
+2. Rectangles inside a polygon formed by its sides and diagonals correspond to sets of four vertices that form rectangles.
+3. Since the polygon is regular, the vertices are at equally spaced angles of 360°/12 = 30° apart.
+
+Step 1: Characterize rectangles inscribed in a regular polygon.
+- A rectangle inscribed in a circle is a cyclic quadrilateral with equal opposite sides and right angles.
+- Since the polygon is regular and inscribed in a circle, rectangles inside it must be cyclic quadrilaterals inscribed in the circle.
+- The vertices of the rectangle must be among the polygon vertices.
+- Because all rectangles are cyclic and the polygon is inscribed in a circle, rectangles correspond to four vertices such that the quadrilateral formed is a rectangle.
+
+Step 2: Conditions for a rectangle inscribed in a regular polygon:
+- The rectangle's vertices must be four points on the circle with vertices at angles k*30°, for k=0,...,11.
+- In a rectangle inscribed in a circle, the vertices are at points symmetric about the center, and the opposite vertices are 180° apart on the circle.
+
+Hence, for a rectangle:
+- The four vertices are at positions a, b, a+6, b+6 (mod 12), where 6 corresponds to 180° apart (because 12 vertices, 180° = 6 steps).
+- The pairs (a, a+6) and (b, b+6) are pairs of opposite vertices.
+
+Step 3: Counting rectangles:
+- We need to pick two pairs of opposite vertices (two pairs separated by 6 steps).
+- The rectangle vertices are {a, b, a+6, b+6}, with a ≠ b.
+- Since a and b are vertices from 0 to 11, and a ≠ b, and the pairs are unordered, we must count distinct sets {a,b}.
+
+Step 4: Number of possible pairs (a,b):
+- There are 12 vertices, so 12 choices for a.
+- For each a, b can be any vertex different from a and a+6 (because a+6 is the opposite vertex to a).
+- But since the rectangle is determined by the unordered pair {a,b}, and the pairs {a,b} and {b,a} represent the same rectangle, we count combinations.
+
+Step 5: Another way to count:
+- The 12 vertices can be split into 6 opposite pairs: (0,6), (1,7), (2,8), (3,9), (4,10), (5,11).
+- Each rectangle is formed by choosing two distinct opposite pairs.
+- For example, choosing pairs (0,6) and (1,7) gives rectangle vertices {0,1,6,7}.
+- So the number of rectangles = number of ways to choose 2 distinct opposite pairs out of 6.
+
+Number of rectangles = C(6,2) = 15.
+
+Step 6: Verify this with the problem statement:
+- The problem's diagram shows 3 rectangles, which fits with multiple rectangles existing.
+- Our count is consistent with the geometry.
+
+Therefore, the number of rectangles formed inside the regular dodecagon by sides or diagonals is 15.
+
+## Feedback
+Your answer is incorrect. The correct answer is 315.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

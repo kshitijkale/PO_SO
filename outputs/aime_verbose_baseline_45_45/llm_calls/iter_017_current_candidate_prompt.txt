@@ -1,0 +1,902 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Let $\omega\neq 1$ be a 13th root of unity. Find the remainder when
+\[\prod_{k=0}^{12}(2-2\omega^k+\omega^{2k})\]
+is divided by 1000.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+321
+
+## reasoning
+We are given \(\omega \neq 1\) as a 13th root of unity, so \(\omega^{13} = 1\) and \(\omega^k \neq 1\) for \(k = 1, 2, \ldots, 12\).
+
+We want to evaluate:
+\[
+\prod_{k=0}^{12} \left(2 - 2\omega^k + \omega^{2k}\right)
+\]
+
+First, rewrite the expression inside the product:
+\[
+2 - 2\omega^k + \omega^{2k} = \omega^{2k} - 2\omega^k + 2
+\]
+
+Note that this is a quadratic expression in \(\omega^k\):
+\[
+f(x) = x^2 - 2x + 2
+\]
+
+So the product becomes:
+\[
+\prod_{k=0}^{12} f(\omega^k)
+\]
+
+Since \(\omega^k\) for \(k=0,\ldots,12\) are the 13th roots of unity, the product over all \(k\) of \(f(\omega^k)\) is:
+\[
+\prod_{\zeta^{13} = 1} f(\zeta)
+\]
+
+where \(\zeta\) runs over all 13th roots of unity.
+
+Now, recall that the 13th roots of unity are the roots of the polynomial:
+\[
+x^{13} - 1 = 0
+\]
+
+and can be factored as:
+\[
+x^{13} - 1 = \prod_{\zeta^{13}=1} (x - \zeta)
+\]
+
+We want \(\prod_{\zeta^{13}=1} f(\zeta)\).
+
+Key step: Use the resultant.
+
+**Using the resultant:**
+
+The resultant \(\mathrm{Res}(f, g)\) of two polynomials \(f\) and \(g\) is defined as the product of \(f(\alpha_i)\) where \(\alpha_i\) are the roots of \(g\), times some leading coefficient powers.
+
+Specifically, for monic polynomial \(g\) of degree \(n\),
+\[
+\mathrm{Res}(f, g) = \prod_{g(\alpha)=0} f(\alpha)
+\]
+
+since \(g\) is monic, the resultant equals the product of \(f(\alpha)\) over roots \(\alpha\) of \(g\).
+
+Here, \(g(x) = x^{13} - 1\) (monic of degree 13), so:
+\[
+\prod_{\zeta^{13}=1} f(\zeta) = \mathrm{Res}(f, x^{13} - 1)
+\]
+
+So the product we want is the resultant of \(f(x) = x^2 - 2x + 2\) and \(x^{13} - 1\).
+
+**Calculate \(\mathrm{Res}(f, x^{13} - 1)\):**
+
+The resultant can be computed via the formula:
+\[
+\mathrm{Res}(f, g) = a_m^n \prod_{g(\alpha) = 0} f(\alpha)
+\]
+if \(f\) is degree \(m\), \(g\) degree \(n\), and \(a_m\) is the leading coefficient of \(f\).
+
+Since \(f\) is monic (\(a_2 = 1\)), 
+\[
+\mathrm{Res}(f, g) = \prod_{g(\alpha)=0} f(\alpha)
+\]
+
+Thus,
+\[
+\prod_{\zeta^{13}=1} f(\zeta) = \mathrm{Res}(f, x^{13} - 1)
+\]
+
+**Alternative approach to compute the resultant:**
+
+The resultant can also be expressed as:
+\[
+\mathrm{Res}(f, g) = \prod_{f(\beta) = 0} g(\beta)
+\]
+where \(f(\beta) = 0\).
+
+Since \(f(x) = x^2 - 2x + 2\), its roots are:
+\[
+x = \frac{2 \pm \sqrt{(-2)^2 - 4 \cdot 1 \cdot 2}}{2} = \frac{2 \pm \sqrt{4 - 8}}{2} = \frac{2 \pm \sqrt{-4}}{2} = 1 \pm i
+\]
+
+So the roots of \(f\) are:
+\[
+\beta_1 = 1 + i, \quad \beta_2 = 1 - i
+\]
+
+Therefore,
+\[
+\mathrm{Res}(f, g) = g(\beta_1) \cdot g(\beta_2) = (\beta_1^{13} - 1)(\beta_2^{13} - 1)
+\]
+
+So the original product is:
+\[
+\prod_{k=0}^{12} f(\omega^k) = ( (1 + i)^{13} - 1 ) \cdot ( (1 - i)^{13} - 1 )
+\]
+
+---
+
+**Simplify \((1 \pm i)^{13}\):**
+
+Note that:
+\[
+1 + i = \sqrt{2} \left(\cos \frac{\pi}{4} + i \sin \frac{\pi}{4}\right)
+\]
+
+Similarly,
+\[
+1 - i = \sqrt{2} \left(\cos \frac{7\pi}{4} + i \sin \frac{7\pi}{4}\right)
+\]
+
+Raising to the 13th power:
+\[
+(1 + i)^{13} = (\sqrt{2})^{13} \left(\cos \frac{13\pi}{4} + i \sin \frac{13\pi}{4}\right)
+\]
+
+\[
+(1 - i)^{13} = (\sqrt{2})^{13} \left(\cos \frac{91\pi}{4} + i \sin \frac{91\pi}{4}\right)
+\]
+
+Note:
+\[
+(\sqrt{2})^{13} = (2^{1/2})^{13} = 2^{13/2} = 2^{6.5} = 2^{6} \cdot 2^{0.5} = 64 \sqrt{2}
+\]
+
+Compute angles modulo \(2\pi\):
+
+- For \(\frac{13\pi}{4}\):
+\[
+\frac{13\pi}{4} = 3\pi + \frac{\pi}{4} = 2\pi + \pi + \frac{\pi}{4}
+\]
+Modulo \(2\pi\), subtract \(2\pi\):
+\[
+3\pi + \frac{\pi}{4} - 2\pi = \pi + \frac{\pi}{4} = \frac{5\pi}{4}
+\]
+
+So,
+\[
+\cos \frac{13\pi}{4} = \cos \frac{5\pi}{4} = -\frac{\sqrt{2}}{2}
+\]
+\[
+\sin \frac{13\pi}{4} = \sin \frac{5\pi}{4} = -\frac{\sqrt{2}}{2}
+\]
+
+Similarly, for \(\frac{91\pi}{4}\):
+\[
+91\pi/4 = 22 \cdot \frac{4\pi}{4} + 3\pi/4 = 22\pi + \frac{3\pi}{4}
+\]
+
+Modulo \(2\pi\), subtract \(11 \cdot 2\pi = 22\pi\):
+\[
+91\pi/4 - 22\pi = \frac{3\pi}{4}
+\]
+
+So,
+\[
+\cos \frac{91\pi}{4} = \cos \frac{3\pi}{4} = -\frac{\sqrt{2}}{2}
+\]
+\[
+\sin \frac{91\pi}{4} = \sin \frac{3\pi}{4} = \frac{\sqrt{2}}{2}
+\]
+
+Therefore,
+\[
+(1 + i)^{13} = 64 \sqrt{2} \left(-\frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2}\right) = 64 \sqrt{2} \cdot \left(-\frac{\sqrt{2}}{2}\right) - i 64 \sqrt{2} \cdot \frac{\sqrt{2}}{2}
+\]
+
+Simplify:
+\[
+\sqrt{2} \cdot \frac{\sqrt{2}}{2} = \frac{2}{2} = 1
+\]
+
+So,
+\[
+(1 + i)^{13} = 64(-1) - i 64 (1) = -64 - 64 i
+\]
+
+Similarly,
+\[
+(1 - i)^{13} = 64 \sqrt{2} \left(-\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) = 64(-1) + i 64 (1) = -64 + 64 i
+\]
+
+---
+
+Now,
+\[
+((1+i)^{13} - 1)((1 - i)^{13} -1) = (-64 - 64 i -1)(-64 + 64 i -1) = (-65 - 64 i)(-65 + 64 i)
+\]
+
+Multiply:
+\[
+(-65 - 64i)(-65 + 64i) = (-65)^2 - (64i)^2 = 4225 - (-4096) = 4225 + 4096 = 8321
+\]
+
+---
+
+So the product is:
+\[
+\prod_{k=0}^{12} (2 - 2\omega^k + \omega^{2k}) = 8321
+\]
+
+We want the remainder when dividing by 1000:
+\[
+8321 \mod 1000 = 8321 - 8 \times 1000 = 8321 - 8000 = 321
+\]
+
+---
+
+**Final check:**
+
+- Confirmed expression rewriting and use of resultant.
+- Confirmed roots of \(f\).
+- Correctly evaluated powers using polar form.
+- Computed product correctly.
+- Modulo calculation correct.
+
+Everything is consistent.
+
+## Feedback
+Your answer is correct. The correct answer is 321.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Alice knows that $3$ red cards and $3$ black cards will be revealed to her one at a time in random order. Before each card is revealed, Alice must guess its color. If Alice plays optimally, the expected number of cards she will guess correctly is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+51
+
+## reasoning
+We have 3 red cards and 3 black cards, revealed one at a time in a random order (all permutations equally likely). Before each card is revealed, Alice must guess the color. She wants to maximize the expected number of correct guesses.
+
+We want to find the expected number of correct guesses if Alice plays optimally.
+
+---
+
+**Step 1: Understand the setting**
+
+- Total cards: 6 (3 red, 3 black)
+- Cards are revealed in random order (all 6! permutations equally likely).
+- Before each card is revealed, Alice guesses red or black.
+- She wants to maximize the expected number of correct guesses.
+- Alice can use the history of revealed cards to inform her guess.
+
+---
+
+**Step 2: Optimal strategy**
+
+At each step, Alice knows how many red and black cards remain unrevealed. Since the order is random, the conditional probability that the next card is red is the number of remaining red cards divided by the total remaining cards, and similarly for black.
+
+Therefore, the optimal strategy is:
+
+- At each step, guess the color that has the higher probability of appearing next, i.e., guess the color with more cards remaining.
+
+If the numbers remaining are equal, then both colors are equally likely, so guessing either gives expected correctness 0.5 for that step.
+
+---
+
+**Step 3: Formalize the dynamic**
+
+Define the state as (r, b) where r is the number of red cards remaining, b the number of black cards remaining.
+
+At each step:
+
+- If r > b, guess red, expected correctness = r/(r+b)
+- If b > r, guess black, expected correctness = b/(r+b)
+- If r = b, guess either, expected correctness = 0.5
+
+After the guess, a card is revealed, which is red with probability r/(r+b) or black with probability b/(r+b).
+
+We want the expected total correct guesses starting from (3,3).
+
+---
+
+**Step 4: Define the recursion**
+
+Let \( E(r,b) \) = expected number of correct guesses starting from state (r,b).
+
+Base case: \( E(0,0) = 0 \).
+
+For \( r+b > 0 \):
+
+- If \( r > b \), guess red:
+
+  Expected correctness this step = \( \frac{r}{r+b} \).
+
+  Then the next state is:
+
+  - with probability \( \frac{r}{r+b} \), the revealed card is red, so \( (r-1,b) \)
+  - with probability \( \frac{b}{r+b} \), the revealed card is black, so \( (r,b-1) \)
+
+Thus,
+
+\[
+E(r,b) = \frac{r}{r+b} + \frac{r}{r+b} E(r-1,b) + \frac{b}{r+b} E(r,b-1)
+\]
+
+- If \( b > r \), guess black:
+
+  Expected correctness this step = \( \frac{b}{r+b} \).
+
+  Next state:
+
+  - with probability \( \frac{r}{r+b} \), card is red, next state \( (r-1,b) \)
+  - with probability \( \frac{b}{r+b} \), card is black, next state \( (r,b-1) \)
+
+\[
+E(r,b) = \frac{b}{r+b} + \frac{r}{r+b} E(r-1,b) + \frac{b}{r+b} E(r,b-1)
+\]
+
+- If \( r = b \), guess either color (both probabilities equal):
+
+  Expected correctness this step = 0.5
+
+  Next state:
+
+  - with probability \( \frac{r}{r+b} = \frac{1}{2} \), card is red, next state \( (r-1,b) \)
+  - with probability \( \frac{b}{r+b} = \frac{1}{2} \), card is black, next state \( (r,b-1) \)
+
+\[
+E(r,r) = 0.5 + 0.5 E(r-1,r) + 0.5 E(r,r-1)
+\]
+
+---
+
+**Step 5: Compute values bottom-up**
+
+Start with base:
+
+\[
+E(0,0) = 0
+\]
+
+Also, if one color has zero cards, the other color's cards remain all known:
+
+- \( E(r,0) \):
+
+If \( b=0 \), then all remaining cards are red. So guess red every time, and guess is always correct.
+
+So,
+
+\[
+E(r,0) = r
+\]
+
+Similarly,
+
+\[
+E(0,b) = b
+\]
+
+---
+
+Now compute all values for \( r,b \in \{0,1,2,3\} \).
+
+- \( E(0,0) = 0 \)
+- \( E(1,0) = 1 \)
+- \( E(2,0) = 2 \)
+- \( E(3,0) = 3 \)
+- \( E(0,1) = 1 \)
+- \( E(0,2) = 2 \)
+- \( E(0,3) = 3 \)
+
+---
+
+Calculate \( E(1,1) \):
+
+Since \( r=b=1 \),
+
+\[
+E(1,1) = 0.5 + 0.5 E(0,1) + 0.5 E(1,0) = 0.5 + 0.5 \times 1 + 0.5 \times 1 = 0.5 + 0.5 + 0.5 = 1.5
+\]
+
+---
+
+Calculate \( E(1,2) \):
+
+Here, \( b=2 > 1=r \), guess black.
+
+\[
+E(1,2) = \frac{2}{3} + \frac{1}{3} E(0,2) + \frac{2}{3} E(1,1) = \frac{2}{3} + \frac{1}{3} \times 2 + \frac{2}{3} \times 1.5
+\]
+
+Calculate:
+
+\[
+= \frac{2}{3} + \frac{2}{3} + \frac{3}{3} = \frac{2}{3} + \frac{2}{3} + 1 = \frac{4}{3} + 1 = \frac{7}{3} \approx 2.3333
+\]
+
+---
+
+Calculate \( E(2,1) \):
+
+\( r=2 > b=1 \), guess red.
+
+\[
+E(2,1) = \frac{2}{3} + \frac{2}{3} E(1,1) + \frac{1}{3} E(2,0) = \frac{2}{3} + \frac{2}{3} \times 1.5 + \frac{1}{3} \times 2
+\]
+
+Calculate:
+
+\[
+= \frac{2}{3} + 1 + \frac{2}{3} = \frac{2}{3} + \frac{2}{3} + 1 = \frac{4}{3} + 1 = \frac{7}{3} \approx 2.3333
+\]
+
+---
+
+Calculate \( E(2,2) \):
+
+\( r=b=2 \), guess any color (expected correctness 0.5)
+
+\[
+E(2,2) = 0.5 + 0.5 E(1,2) + 0.5 E(2,1) = 0.5 + 0.5 \times \frac{7}{3} + 0.5 \times \frac{7}{3} = 0.5 + \frac{7}{6} + \frac{7}{6} = 0.5 + \frac{14}{6} = 0.5 + \frac{7}{3} = \frac{1}{2} + \frac{7}{3} = \frac{3}{6} + \frac{14}{6} = \frac{17}{6} \approx 2.8333
+\]
+
+---
+
+Calculate \( E(3,2) \):
+
+\( r=3 > b=2 \), guess red.
+
+\[
+E(3,2) = \frac{3}{5} + \frac{3}{5} E(2,2) + \frac{2}{5} E(3,1)
+\]
+
+We need \( E(3,1) \).
+
+Calculate \( E(3,1) \):
+
+\( r=3 > b=1 \), guess red.
+
+\[
+E(3,1) = \frac{3}{4} + \frac{3}{4} E(2,1) + \frac{1}{4} E(3,0) = \frac{3}{4} + \frac{3}{4} \times \frac{7}{3} + \frac{1}{4} \times 3
+\]
+
+Calculate:
+
+\[
+\frac{3}{4} + \frac{3}{4} \times \frac{7}{3} + \frac{3}{4} = \frac{3}{4} + \frac{7}{4} + \frac{3}{4} = \frac{3+7+3}{4} = \frac{13}{4} = 3.25
+\]
+
+---
+
+Back to \( E(3,2) \):
+
+\[
+E(3,2) = \frac{3}{5} + \frac{3}{5} \times \frac{17}{6} + \frac{2}{5} \times \frac{13}{4}
+\]
+
+Calculate each term:
+
+- \( \frac{3}{5} = 0.6 \)
+- \( \frac{3}{5} \times \frac{17}{6} = \frac{3 \times 17}{5 \times 6} = \frac{51}{30} = 1.7 \)
+- \( \frac{2}{5} \times \frac{13}{4} = \frac{2 \times 13}{5 \times 4} = \frac{26}{20} = 1.3 \)
+
+Sum:
+
+\[
+0.6 + 1.7 + 1.3 = 3.6
+\]
+
+---
+
+Calculate \( E(2,3) \):
+
+\( b=3 > r=2 \), guess black.
+
+\[
+E(2,3) = \frac{3}{5} + \frac{2}{5} E(1,3) + \frac{3}{5} E(2,2)
+\]
+
+Need \( E(1,3) \):
+
+\( b=3 > r=1 \), guess black.
+
+\[
+E(1,3) = \frac{3}{4} + \frac{1}{4} E(0,3) + \frac{3}{4} E(1,2) = \frac{3}{4} + \frac{1}{4} \times 3 + \frac{3}{4} \times \frac{7}{3}
+\]
+
+Calculate:
+
+\[
+\frac{3}{4} + \frac{3}{4} + \frac{7}{4} = \frac{3+3+7}{4} = \frac{13}{4} = 3.25
+\]
+
+---
+
+Back to \( E(2,3) \):
+
+\[
+E(2,3) = \frac{3}{5} + \frac{2}{5} \times 3.25 + \frac{3}{5} \times \frac{17}{6}
+\]
+
+Calculate:
+
+- \( \frac{3}{5} = 0.6 \)
+- \( \frac{2}{5} \times 3.25 = \frac{2}{5} \times \frac{13}{4} = \frac{26}{20} = 1.3 \)
+- \( \frac{3}{5} \times \frac{17}{6} = \frac{51}{30} = 1.7 \)
+
+Sum:
+
+\[
+0.6 + 1.3 + 1.7 = 3.6
+\]
+
+---
+
+Calculate \( E(3,3) \):
+
+\( r=b=3 \),
+
+\[
+E(3,3) = 0.5 + 0.5 E(2,3) + 0.5 E(3,2) = 0.5 + 0.5 \times 3.6 + 0.5 \times 3.6 = 0.5 + 1.8 + 1.8 = 4.1
+\]
+
+---
+
+**Step 6: Final answer**
+
+The expected number of correct guesses under the optimal strategy is \( \frac{41}{10} = 4.1 \).
+
+The problem asks for \( m+n \) where the expected value is \( \frac{m}{n} \) in lowest terms.
+
+Since \( 4.1 = \frac{41}{10} \) and 41 and 10 are coprime, \( m=41, n=10 \).
+
+Therefore,
+
+\[
+m+n = 41 + 10 = 51
+\]
+
+---
+
+**Verification:**
+
+- The expected correct guesses cannot be more than 6.
+- Our value 4.1 is plausible.
+- The recursion and logic align with the problem's constraints.
+- The answers at intermediate states are consistent.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 51.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## prompt
+Solve the problem with meticulous, step-by-step mathematical reasoning. Begin by clearly defining all variables and stating all assumptions explicitly. At each step, verify logical consistency and perform rigorous algebraic, numeric, or geometric validations, including alternative methods or approximations to catch errors. When handling combinatorial or probabilistic problems, carefully consider all cases and confirm that constraints and underlying principles are fully respected. For problems involving fractions or expressions requiring simplification, ensure all results are reduced to lowest terms. Importantly, fully interpret the problem’s final requested format and quantity—in particular, whether the answer requires a single integer, a sum of numerator and denominator, or another specific value—and produce exactly that final integer as your answer. Before outputting the final integer, perform a thorough cross-check by substituting back into the original problem to verify correctness, including checking edge cases and ensuring no misinterpretation of problem conditions occurred.
+
+## output
+154
+
+## reasoning
+Let the initial total number of people at the concert be \( T \).
+Let the number of adults initially be \( A \).
+
+From the problem, adults initially make up \(\frac{5}{12}\) of the crowd:
+\[
+A = \frac{5}{12} T
+\]
+
+After a bus carrying 50 more people arrives, the total number of people becomes:
+\[
+T + 50
+\]
+
+The number of adults does not change (no mention of adults arriving), so adults remain \( A \).
+
+After the bus arrives, adults make up \(\frac{11}{25}\) of the crowd:
+\[
+\frac{A}{T + 50} = \frac{11}{25}
+\]
+
+Substitute \( A = \frac{5}{12} T \):
+\[
+\frac{\frac{5}{12} T}{T + 50} = \frac{11}{25}
+\]
+
+Cross-multiplied:
+\[
+\frac{5}{12} T \times 25 = 11 (T + 50)
+\]
+\[
+\frac{125}{12} T = 11 T + 550
+\]
+
+Multiply both sides by 12 to clear denominator:
+\[
+125 T = 132 T + 6600
+\]
+
+Bring all terms to one side:
+\[
+125 T - 132 T = 6600
+\]
+\[
+-7 T = 6600
+\]
+
+Divide both sides by -7:
+\[
+T = -\frac{6600}{7}
+\]
+
+This is negative, which is impossible for a number of people.
+
+This suggests that the number of adults must have changed after the bus arrives, meaning some adults were among the 50 new people.
+
+Let \( x \) be the number of adults among the 50 new people.
+
+Then:
+- New total number of people: \( T + 50 \)
+- New number of adults: \( A + x \)
+
+After the bus arrives:
+\[
+\frac{A + x}{T + 50} = \frac{11}{25}
+\]
+
+Recall:
+\[
+A = \frac{5}{12} T
+\]
+
+Substitute:
+\[
+\frac{\frac{5}{12} T + x}{T + 50} = \frac{11}{25}
+\]
+
+Cross-multiplied:
+\[
+25 \left(\frac{5}{12} T + x\right) = 11 (T + 50)
+\]
+
+\[
+\frac{125}{12} T + 25 x = 11 T + 550
+\]
+
+Multiply both sides by 12:
+\[
+125 T + 300 x = 132 T + 6600
+\]
+
+Bring terms involving \(T\) to one side:
+\[
+300 x = 132 T - 125 T + 6600
+\]
+\[
+300 x = 7 T + 6600
+\]
+
+Rewrite:
+\[
+7 T = 300 x - 6600
+\]
+
+Recall \(T\) and \(x\) must be integers, with \(0 \leq x \leq 50\), since \(x\) is number of adults among 50 new people.
+
+Also, \(A = \frac{5}{12} T\) must be integer, so \(T\) must be divisible by 12.
+
+Let:
+\[
+T = 12 k, \quad k \in \mathbb{Z}^+
+\]
+
+Substitute:
+\[
+7 \times 12 k = 300 x - 6600
+\]
+\[
+84 k = 300 x - 6600
+\]
+
+Then:
+\[
+300 x - 6600 = 84 k
+\]
+
+Rearranged:
+\[
+300 x - 84 k = 6600
+\]
+
+Divide entire equation by 6 to simplify:
+\[
+50 x - 14 k = 1100
+\]
+
+Rewrite:
+\[
+50 x = 14 k + 1100
+\]
+
+We want integer solutions \( (x,k) \) with \( 0 \leq x \leq 50 \) and \( k \geq 1 \).
+
+Solve for \( x \):
+\[
+x = \frac{14 k + 1100}{50}
+\]
+
+For \( x \) to be integer, numerator must be divisible by 50.
+
+Consider:
+\[
+14 k + 1100 \equiv 0 \pmod{50}
+\]
+
+Calculate \(1100 \mod 50\):
+\[
+1100 \div 50 = 22 \text{ remainder } 0
+\]
+Thus,
+\[
+14 k \equiv 0 \pmod{50}
+\]
+
+We want:
+\[
+14 k \equiv 0 \pmod{50}
+\]
+
+Note that \(\gcd(14,50) = 2\).
+
+Divide the congruence by 2:
+\[
+7 k \equiv 0 \pmod{25}
+\]
+
+Because 25 is prime to 7, this implies:
+\[
+k \equiv 0 \pmod{25}
+\]
+
+So:
+\[
+k = 25 m, \quad m \in \mathbb{Z}^+
+\]
+
+Now, express \(x\):
+\[
+x = \frac{14 \times 25 m + 1100}{50} = \frac{350 m + 1100}{50} = 7 m + 22
+\]
+
+Recall constraints on \(x\):
+\[
+0 \leq x \leq 50 \implies 7 m + 22 \leq 50 \implies 7 m \leq 28 \implies m \leq 4
+\]
+
+Also, \(m \geq 1\).
+
+Possible \(m\): 1, 2, 3, 4.
+
+Calculate \(x\) for each \(m\):
+- \(m=1: x=7(1)+22=29\)
+- \(m=2: x=14+22=36\)
+- \(m=3: x=21+22=43\)
+- \(m=4: x=28+22=50\)
+
+Calculate \(k = 25 m\):
+- \(m=1: k=25\)
+- \(m=2: k=50\)
+- \(m=3: k=75\)
+- \(m=4: k=100\)
+
+Recall \( T = 12 k \):
+- \(m=1: T=12 \times 25 = 300\)
+- \(m=2: T=600\)
+- \(m=3: T=900\)
+- \(m=4: T=1200\)
+
+Calculate adults after bus arrives:
+\[
+A + x = \frac{5}{12} T + x = 5 k + x
+\]
+
+For each \(m\):
+
+1. \(m=1\):
+\[
+5 \times 25 + 29 = 125 + 29 = 154
+\]
+
+2. \(m=2\):
+\[
+5 \times 50 + 36 = 250 + 36 = 286
+\]
+
+3. \(m=3\):
+\[
+5 \times 75 + 43 = 375 + 43 = 418
+\]
+
+4. \(m=4\):
+\[
+5 \times 100 + 50 = 500 + 50 = 550
+\]
+
+The problem asks for the minimum number of adults after the bus arrived.
+
+From above, minimum is \(154\).
+
+Cross-check for \(m=1\):
+
+- Initial total: 300
+- Initial adults: \( \frac{5}{12} \times 300 = 125 \)
+- Adults in bus: 29
+- Total after bus: 350
+- Adults after bus: 154
+- Check ratio:
+\[
+\frac{154}{350} = \frac{11}{25}
+\]
+Calculate \(154 \times 25 = 3850\), \(350 \times 11 = 3850\), matches perfectly.
+
+Thus, solution is consistent.
+
+## Feedback
+Your answer is correct. The correct answer is 154.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

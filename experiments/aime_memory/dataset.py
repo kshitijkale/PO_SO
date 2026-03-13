@@ -7,7 +7,6 @@ Splits:
 
 Each example is a dspy.Example with fields:
   problem   (InputField)
-  solution  (str, may be empty for test examples)
   answer    (str, the correct integer answer)
 """
 
@@ -23,7 +22,6 @@ def load_aime_dataset():
     train_examples = [
         dspy.Example(
             problem=x["problem"],
-            solution=x["solution"],
             answer=x["answer"],
         ).with_inputs("problem")
         for x in train_split
