@@ -46,6 +46,7 @@ def optimize(
     evaluator: Evaluator | None = None,
     # Reflection-based configuration
     reflection_lm: LanguageModel | str | None = None,
+    reflection_lm_temperature: float | None = None,
     candidate_selection_strategy: CandidateSelector | Literal["pareto", "current_best", "epsilon_greedy"] = "pareto",
     frontier_type: FrontierType = "instance",
     skip_perfect_score: bool = True,
@@ -265,11 +266,18 @@ def optimize(
 
         def _reflection_lm(prompt: str | list[dict[str, str]]) -> str:
             if isinstance(prompt, str):
-                completion = litellm.completion(
-                    model=reflection_lm_name, messages=[{"role": "user", "content": prompt}]
-                )
+                completion_kwargs: dict[str, Any] = {
+                    "model": reflection_lm_name,
+                    "messages": [{"role": "user", "content": prompt}],
+                }
             else:
-                completion = litellm.completion(model=reflection_lm_name, messages=prompt)
+                completion_kwargs = {
+                    "model": reflection_lm_name,
+                    "messages": prompt,
+                }
+            if reflection_lm_temperature is not None:
+                completion_kwargs["temperature"] = reflection_lm_temperature
+            completion = litellm.completion(**completion_kwargs)
             return completion.choices[0].message.content  # type: ignore
 
         reflection_lm_callable = _reflection_lm

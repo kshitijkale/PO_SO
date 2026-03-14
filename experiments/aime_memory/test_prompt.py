@@ -18,7 +18,7 @@ Flags
 -----
 --prompt STR          Prompt text to evaluate (repeatable).
 --prompt-file PATH    File with one prompt per line.
---solver-lm STR       LiteLLM model string (default: openai/gpt-4.1-mini).
+--solver-lm STR       LiteLLM model string (default: groq/openai/gpt-oss-20b).
 --workers INT         Parallel workers (default: 4).
 """
 
@@ -35,8 +35,17 @@ from dotenv import load_dotenv
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
+GROQ_API_BASE = "https://api.groq.com/openai/v1"
+DEFAULT_MODEL = "groq/openai/gpt-oss-20b"
 
 from experiments.aime_memory.solver import math_metric  # noqa: E402
+
+
+def normalize_model_for_groq(model: str) -> str:
+    """Normalize model aliases so Groq routing is unambiguous."""
+    if model == "openai/gpt-oss-20b":
+        return "groq/openai/gpt-oss-20b"
+    return model
 
 
 def load_testset() -> list:
@@ -89,32 +98,39 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Evaluate prompts on AIME 2025 (30 examples, no repetition)")
     parser.add_argument("--prompt", action="append", default=[], metavar="STR", help="Prompt text (repeatable)")
     parser.add_argument("--prompt-file", type=str, default=None, help="File with one prompt per line")
-    parser.add_argument("--solver-lm", type=str, default="openai/gpt-4.1-mini")
+    parser.add_argument("--solver-lm", type=str, default=DEFAULT_MODEL)
     parser.add_argument("--max-tokens", type=int, default=32000)
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+    solver_model = normalize_model_for_groq(args.solver_lm)
 
     prompts: list[str] = list(args.prompt)
     if args.prompt_file:
         lines = Path(args.prompt_file).read_text().splitlines()
-        prompts += [l.strip() for l in lines if l.strip()]
+        prompts += [line.strip() for line in lines if line.strip()]
 
     if not prompts:
         print("No prompts provided. Use --prompt or --prompt-file.", file=sys.stderr)
         sys.exit(1)
 
-    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    api_key = os.environ.get("GROQ_API_KEY", "").strip()
     if not api_key:
-        raise RuntimeError("OPENAI_API_KEY missing. Set it in the environment or .claude/.env.")
+        raise RuntimeError("GROQ_API_KEY missing. Set it in the environment or .claude/.env.")
 
     print("Loading AIME 2025 test set...")
     testset = load_testset()
     print(f"  {len(testset)} examples loaded.\n")
 
-    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=1.0, max_tokens=args.max_tokens)
+    solver_lm = dspy.LM(
+        solver_model,
+        api_key=api_key,
+        api_base=GROQ_API_BASE,
+        temperature=1.0,
+        max_tokens=args.max_tokens,
+    )
 
     results: list[tuple[str, float]] = []
 

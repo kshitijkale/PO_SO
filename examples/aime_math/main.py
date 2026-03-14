@@ -30,12 +30,18 @@ def evaluate(candidate: str, example) -> tuple[float, SideInfo]:
 
 
 def main():
-    INITIAL_PROMPT = (
+    initial_prompt = (
         "Solve the math problem carefully. Break down the steps and provide the final answer as a single number."
     )
 
-    api_key = os.environ.get("OPENAI_API_KEY")
-    solver_lm = dspy.LM("gpt-4.1-mini", api_key=api_key, temperature=1.0, max_tokens=32000)
+    api_key = os.environ.get("GROQ_API_KEY")
+    solver_lm = dspy.LM(
+        "groq/openai/gpt-oss-20b",
+        api_key=api_key,
+        api_base="https://api.groq.com/openai/v1",
+        temperature=1.0,
+        max_tokens=32000,
+    )
     dspy.configure(lm=solver_lm)
 
     trainset, valset, testset = load_math_dataset()
@@ -50,12 +56,12 @@ def main():
             cache_evaluation=True,
         ),
         reflection=ReflectionConfig(
-            reflection_lm="openai/gpt-5.1",
+            reflection_lm="groq/openai/gpt-oss-20b",
         ),
     )
 
     result = optimize_anything(
-        seed_candidate=INITIAL_PROMPT,
+        seed_candidate=initial_prompt,
         evaluator=evaluate,
         dataset=trainset,
         valset=valset,
@@ -64,7 +70,7 @@ def main():
 
     # Baseline Evaluation
     print("\nEvaluating Baseline (Initial Prompt)...")
-    baseline_score = evaluate_on_dataset(INITIAL_PROMPT, testset)
+    baseline_score = evaluate_on_dataset(initial_prompt, testset)
 
     # Optimized Evaluation
     print("\nEvaluating Best Optimized Program...")

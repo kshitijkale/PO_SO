@@ -1,7 +1,7 @@
 """AIME light run — memory ON, 45 train / 10 val, small iteration budget.
 
 Verifies that ReflectionMemory records and injects entries correctly on a real
-math-reasoning task.  Uses gpt-4.1-mini for both solver and reflection LLM.
+math-reasoning task. Uses gpt-oss-20b via Groq for both solver and reflection LLM.
 
 Usage
 -----
@@ -33,7 +33,8 @@ from gepa.api import optimize
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
 
-MODEL = "openai/gpt-4.1-mini"
+MODEL = "groq/openai/gpt-oss-20b"
+GROQ_API_BASE = "https://api.groq.com/openai/v1"
 RUN_DIR = "outputs/aime_light_memory_on"
 MAX_METRIC_CALLS = 200
 MINIBATCH_SIZE = 3
@@ -130,10 +131,10 @@ def print_memory_report(run_dir: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    api_key = os.environ.get("GROQ_API_KEY", "").strip()
     if not api_key:
         raise RuntimeError(
-            "OPENAI_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
+            "GROQ_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
         )
 
     # --- Dataset: 45 train, 10 val ---
@@ -144,14 +145,20 @@ def main() -> None:
     print(f"  train={len(trainset)}  val={len(valset)}")
 
     # --- Solver LM ---
-    solver_lm = dspy.LM(MODEL, api_key=api_key, temperature=0.7, max_tokens=32000)
+    solver_lm = dspy.LM(
+        MODEL,
+        api_key=api_key,
+        api_base=GROQ_API_BASE,
+        temperature=0.7,
+        max_tokens=32000,
+    )
 
     # --- Adapter ---
     adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=MAX_WORKERS)
 
     seed_candidate = {AIMEAdapter.COMPONENT_NAME: INITIAL_PROMPT}
 
-    print(f"\n=== AIME Light Run — Memory ON ===")
+    print("\n=== AIME Light Run — Memory ON ===")
     print(f"  solver LLM      : {MODEL}")
     print(f"  reflection LLM  : {MODEL}")
     print(f"  train / val     : {len(trainset)} / {len(valset)}")
