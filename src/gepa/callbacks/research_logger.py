@@ -134,6 +134,58 @@ class ResearchLogger:
         m, s = divmod(int(secs), 60)
         return f"{m:02d}m {s:02d}s"
 
+    @staticmethod
+    def _sum_scores(eval_block: dict[str, Any] | None) -> float | None:
+        if not eval_block:
+            return None
+        scores = eval_block.get("scores")
+        if isinstance(scores, list):
+            return float(sum(scores))
+        return None
+
+    @staticmethod
+    def _decision_reason(
+        *,
+        accepted: bool,
+        old_score: float | None,
+        new_score: float | None,
+        parent_ids: list[int],
+        base_reason: str | None = None,
+    ) -> dict[str, Any]:
+        if old_score is not None and new_score is not None:
+            delta: float | None = new_score - old_score
+            threshold = old_score
+            passes = new_score > threshold
+        else:
+            delta = None
+            threshold = None
+            passes = accepted
+
+        status = "ACCEPTED" if accepted else "REJECTED"
+        old_s = f"{old_score:.4f}" if old_score is not None else "N/A"
+        new_s = f"{new_score:.4f}" if new_score is not None else "N/A"
+        delta_s = f"{delta:+.4f}" if delta is not None else "N/A"
+        threshold_s = f"{threshold:.4f}" if threshold is not None else "N/A"
+        parent_s = parent_ids if parent_ids else ["N/A"]
+        line = (
+            f"{status} | old={old_s} new={new_s} delta={delta_s} "
+            f"threshold={threshold_s} parent_ids={parent_s} comparator='new_score > threshold'"
+        )
+        if base_reason:
+            line += f" | reason={base_reason}"
+
+        return {
+            "status": status,
+            "old_score": old_score,
+            "new_score": new_score,
+            "delta": delta,
+            "threshold": threshold,
+            "parent_ids": parent_ids,
+            "passes_threshold": passes,
+            "base_reason": base_reason,
+            "line": line,
+        }
+
     # =========================================================================
     # Optimization Lifecycle
     # =========================================================================
@@ -320,6 +372,22 @@ class ResearchLogger:
             "outputs_by_val_id": _safe_json(event.get("outputs_by_val_id")),
         })
 
+        # Persist discovered candidates to stable files so downstream analysis
+        # can inspect all accepted programs without parsing iteration markdown.
+        candidate_idx = int(event["candidate_idx"])
+        if candidate_idx > 0:
+            parent_ids = list(event.get("parent_ids", []))
+            operation = "merge" if len(parent_ids) > 1 else "mutation"
+            candidate_path = os.path.join(self.output_dir, "candidates", f"candidate_{candidate_idx:03d}.json")
+            if not os.path.exists(candidate_path):
+                self._save_candidate(
+                    candidate_idx,
+                    event["candidate"],
+                    iteration=event["iteration"],
+                    operation=operation,
+                    parent_idxs=parent_ids,
+                )
+
     # =========================================================================
     # Reflection Events
     # =========================================================================
@@ -362,6 +430,12 @@ class ResearchLogger:
             "model_id": event["model_id"],
             "latency_ms": event["latency_ms"],
             "memory_was_injected": event["memory_was_injected"],
+            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
+            "memory_selected_intents": event["memory_selected_intents"],
+            "memory_selected_categories": event["memory_selected_categories"],
+            "memory_reused_intents": event["memory_reused_intents"],
+            "memory_reused_categories": event["memory_reused_categories"],
+            "memory_reuse_detected": event["memory_reuse_detected"],
         }
         # Log FULL prompt and response to JSONL (no truncation)
         self._log_event("proposal_trace", {
@@ -370,6 +444,12 @@ class ResearchLogger:
             "model_id": event["model_id"],
             "latency_ms": round(event["latency_ms"], 1),
             "memory_was_injected": event["memory_was_injected"],
+            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
+            "memory_selected_intents": event["memory_selected_intents"],
+            "memory_selected_categories": event["memory_selected_categories"],
+            "memory_reused_intents": event["memory_reused_intents"],
+            "memory_reused_categories": event["memory_reused_categories"],
+            "memory_reuse_detected": event["memory_reuse_detected"],
             "prompt_template": event["prompt_template"],
             "rendered_prompt": event["rendered_prompt"],
             "raw_response": event["raw_response"],
@@ -393,21 +473,58 @@ class ResearchLogger:
     # =========================================================================
 
     def on_candidate_accepted(self, event: CandidateAcceptedEvent) -> None:
+        old_score = self._sum_scores(self._iter_buf.get("eval_current"))
+        new_score = float(event["new_score"])
+        parent_ids = list(event["parent_ids"])
+        decision_reason = self._decision_reason(
+            accepted=True,
+            old_score=old_score,
+            new_score=new_score,
+            parent_ids=parent_ids,
+        )
+
         self._iter_buf["decision"] = {
             "accepted": True,
             "new_candidate_idx": event["new_candidate_idx"],
-            "new_score": event["new_score"],
+            "new_score": new_score,
+            "old_score": old_score,
+            "delta": decision_reason["delta"],
+            "threshold": decision_reason["threshold"],
+            "parent_ids": parent_ids,
+            "decision_reason": decision_reason["line"],
         }
-        self._log_event("candidate_accepted", _safe_json(dict(event)))
+        self._iter_buf["decision_reason"] = decision_reason
+        payload = _safe_json(dict(event))
+        payload["decision_reason"] = decision_reason
+        self._log_event("candidate_accepted", payload)
 
     def on_candidate_rejected(self, event: CandidateRejectedEvent) -> None:
+        old_score = float(event["old_score"])
+        new_score = float(event["new_score"])
+        parent_ids = [self._iter_buf["selected_candidate_idx"]] if "selected_candidate_idx" in self._iter_buf else []
+        decision_reason = self._decision_reason(
+            accepted=False,
+            old_score=old_score,
+            new_score=new_score,
+            parent_ids=parent_ids,
+            base_reason=event["reason"],
+        )
+
         self._iter_buf["decision"] = {
             "accepted": False,
-            "old_score": event["old_score"],
-            "new_score": event["new_score"],
+            "old_score": old_score,
+            "new_score": new_score,
+            "delta": decision_reason["delta"],
+            "threshold": decision_reason["threshold"],
+            "parent_ids": parent_ids,
             "reason": event["reason"],
+            "decision_reason": decision_reason["line"],
         }
-        self._log_event("candidate_rejected", _safe_json(dict(event)))
+        self._iter_buf["decision_reason"] = decision_reason
+        payload = _safe_json(dict(event))
+        payload["parent_ids"] = parent_ids
+        payload["decision_reason"] = decision_reason
+        self._log_event("candidate_rejected", payload)
 
     # =========================================================================
     # Merge Events
@@ -457,6 +574,7 @@ class ResearchLogger:
             "metric_calls_delta": event["metric_calls_delta"],
             "metric_calls_remaining": event["metric_calls_remaining"],
         }
+        self._log_event("budget_updated", _safe_json(dict(event)))
 
     def on_error(self, event: ErrorEvent) -> None:
         self._iter_buf["error"] = {"exception": str(event["exception"]), "will_continue": event["will_continue"]}
@@ -486,6 +604,7 @@ class ResearchLogger:
             "event": "add",
             "iteration": event["iteration"],
             "component": event["component_name"],
+            "entry_id": event["entry"].get("entry_id"),
             "entry": _safe_json(event["entry"]),
             "accepted": event["entry"].get("accepted"),
             "score_delta": (event["entry"].get("score_after", 0) or 0) - (event["entry"].get("score_before", 0) or 0),
@@ -498,6 +617,7 @@ class ResearchLogger:
     def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
         self._iter_buf.setdefault("memory_queries", []).append({
             "component": event["component_name"],
+            "selected_entry_ids": event["selected_entry_ids"],
             "entries_returned": event["entries_returned"],
             "formatted_text": event["formatted_text"],
             "formatted_text_length": event["formatted_text_length"],
@@ -507,6 +627,7 @@ class ResearchLogger:
             "iteration": event["iteration"],
             "component": event["component_name"],
             "query_n": event["query_n"],
+            "selected_entry_ids": event["selected_entry_ids"],
             "entries_returned": _safe_json(event["entries_returned"]),
             "formatted_text": event["formatted_text"],
             "formatted_text_length": event["formatted_text_length"],
@@ -530,9 +651,12 @@ class ResearchLogger:
             "iteration": event["iteration"],
             "component": event["component_name"],
             "query_n": event["query_n"],
+            "selected_entry_ids": event["selected_entry_ids"],
             "entries_returned": _safe_json(event["entries_returned"]),
             "formatted_text": event["formatted_text"],
+            # Keep both keys for backward compatibility with older analysis scripts.
             "formatted_length": event["formatted_text_length"],
+            "formatted_text_length": event["formatted_text_length"],
         }
         self._memory_events_jsonl.write(json.dumps(record) + "\n")
         self._memory_events_jsonl.flush()
@@ -577,6 +701,10 @@ class ResearchLogger:
             "accepted": event["accepted"],
             "latency_ms": event["latency_ms"],
             "fallback_used": event["fallback_used"],
+            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
+            "memory_reused_intents": event["memory_reused_intents"],
+            "memory_reused_categories": event["memory_reused_categories"],
+            "memory_reuse_detected": event["memory_reuse_detected"],
         })
         self._log_event("lesson_generated", _safe_json(dict(event)))
         # Write to dedicated lesson events log
@@ -666,11 +794,104 @@ class ResearchLogger:
         lines.append("")
 
         # =================================================================
+        # Research Verdict (high-signal summary for rapid review)
+        # =================================================================
+        lines.append("## Research Verdict")
+        lines.append("")
+
+        decision = buf.get("decision", {})
+        decision_reason = buf.get("decision_reason", {})
+        if decision:
+            status = "ACCEPTED" if decision.get("accepted") else "REJECTED"
+            lines.append(f"- **Decision:** {status}")
+            if decision_reason:
+                lines.append(f"- **Decision reason:** `{decision_reason.get('line', 'N/A')}`")
+        else:
+            lines.append("- **Decision:** N/A")
+
+        if "proposal_parent" in buf and "new_instructions" in buf:
+            lines.append("- **What changed:**")
+            for comp_name, new_text in buf["new_instructions"].items():
+                old_text = buf["proposal_parent"].get(comp_name, "")
+                delta_chars = len(new_text) - len(old_text)
+                changed = old_text != new_text
+                status = "changed" if changed else "unchanged"
+                lines.append(
+                    f"  - `{comp_name}`: {status}, chars {len(old_text)} -> {len(new_text)} ({delta_chars:+d})"
+                )
+        else:
+            lines.append("- **What changed:** N/A")
+
+        lessons = buf.get("lessons", [])
+        if lessons:
+            lines.append("- **Why the model says it changed:**")
+            for lesson in lessons:
+                intent = lesson.get("intent") or "(no intent)"
+                text = lesson.get("lesson") or "(fallback: no V2 lesson text)"
+                lines.append(f"  - `{lesson['component_name']}` intent: {intent}")
+                lines.append(f"  - `{lesson['component_name']}` lesson: {text}")
+        else:
+            lines.append("- **Why the model says it changed:** N/A")
+
+        old_sum = self._sum_scores(buf.get("eval_current"))
+        new_sum = self._sum_scores(buf.get("eval_proposed"))
+        if old_sum is not None and new_sum is not None:
+            delta = new_sum - old_sum
+            lines.append(f"- **Did score improve:** {new_sum > old_sum} ({old_sum:.4f} -> {new_sum:.4f}, {delta:+.4f})")
+        else:
+            lines.append("- **Did score improve:** N/A")
+
+        moved_summary: list[str] = []
+        curr_scores = buf.get("eval_current", {}).get("scores", [])
+        prop_scores = buf.get("eval_proposed", {}).get("scores", [])
+        reflective_dataset = buf.get("reflective_dataset", {}).get("dataset", {})
+        first_component_records = next(iter(reflective_dataset.values()), [])
+        if (
+            isinstance(curr_scores, list)
+            and isinstance(prop_scores, list)
+            and curr_scores
+            and len(curr_scores) == len(prop_scores)
+        ):
+            improved: list[str] = []
+            regressed: list[str] = []
+            still_failing: list[str] = []
+            for idx, (old_s, new_s) in enumerate(zip(curr_scores, prop_scores, strict=False)):
+                feedback = f"Example {idx}"
+                if idx < len(first_component_records):
+                    rec = first_component_records[idx]
+                    feedback = str(rec.get("Feedback") or rec.get("feedback") or feedback)
+                old_fail = isinstance(old_s, int | float) and old_s < 1.0
+                new_fail = isinstance(new_s, int | float) and new_s < 1.0
+                if old_fail and not new_fail:
+                    improved.append(feedback)
+                elif (not old_fail) and new_fail:
+                    regressed.append(feedback)
+                elif old_fail and new_fail:
+                    still_failing.append(feedback)
+
+            moved_summary.append(f"improved={len(improved)}")
+            moved_summary.append(f"regressed={len(regressed)}")
+            moved_summary.append(f"still_failing={len(still_failing)}")
+            if improved:
+                moved_summary.append(f"improved_examples={improved[:2]}")
+            if regressed:
+                moved_summary.append(f"regressed_examples={regressed[:2]}")
+            if still_failing:
+                moved_summary.append(f"still_failing_examples={still_failing[:2]}")
+
+        if moved_summary:
+            lines.append(f"- **Failure modes moved:** {', '.join(moved_summary)}")
+        else:
+            lines.append("- **Failure modes moved:** N/A")
+        lines.append("")
+
+        # =================================================================
         # Table of Contents
         # =================================================================
         lines.append("## Table of Contents")
         lines.append("")
         toc_sections = [
+            ("research-verdict", "Research Verdict"),
             ("candidate-selection", "Candidate Selection"),
             ("minibatch", "Minibatch"),
             ("current-candidate-evaluation-pre-mutation", "Current Candidate Evaluation (pre-mutation)"),
@@ -820,12 +1041,10 @@ class ResearchLogger:
             lines.append("## Reflection Memory")
             lines.append("")
 
-            # Build set of selected entry iterations for highlighting
-            selected_iterations: set[int] = set()
+            # Build set of selected entry IDs for highlighting
+            selected_entry_ids: set[str] = set()
             for mq in memory_queries:
-                for entry in mq.get("entries_returned", []):
-                    if isinstance(entry, dict):
-                        selected_iterations.add(entry.get("iteration", -1))
+                selected_entry_ids.update(str(eid) for eid in mq.get("selected_entry_ids", []))
 
             # Show before-proposal snapshot with ALL entries
             before_snapshots = [s for s in memory_snapshots if s["phase"] == "before_proposal"]
@@ -840,11 +1059,12 @@ class ResearchLogger:
                 lines.append("")
 
                 if snap["all_entries"]:
-                    lines.append("| # | Selected? | Iter | Component | Status | Score | Intent | Lesson | Categories Succeeded | Categories Failed | Change Summary |")
-                    lines.append("|---|-----------|------|-----------|--------|-------|--------|--------|---------------------|-------------------|----------------|")
+                    lines.append("| # | Selected? | Entry ID | Iter | Component | Status | Score | Intent | Lesson | Categories Succeeded | Categories Failed | Change Summary |")
+                    lines.append("|---|-----------|----------|------|-----------|--------|-------|--------|--------|---------------------|-------------------|----------------|")
                     for i, entry in enumerate(snap["all_entries"], 1):
                         status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                        was_selected = entry.get("iteration", -1) in selected_iterations
+                        entry_id = str(entry.get("entry_id") or "")
+                        was_selected = bool(entry_id and entry_id in selected_entry_ids)
                         selected_mark = "**YES**" if was_selected else ""
                         score_before = entry.get("score_before", 0)
                         score_after = entry.get("score_after", 0)
@@ -854,7 +1074,7 @@ class ResearchLogger:
                         cats_fail = ", ".join(entry.get("categories_failed", []))
                         change = entry.get("change_summary", "")
                         lines.append(
-                            f"| {i} | {selected_mark} | {entry.get('iteration', '?')} | {entry.get('component_name', '?')} "
+                            f"| {i} | {selected_mark} | {entry_id or 'N/A'} | {entry.get('iteration', '?')} | {entry.get('component_name', '?')} "
                             f"| {status} | {score_before:.2f}->{score_after:.2f} | {intent} | {lesson} | {cats_ok} | {cats_fail} | {change} |"
                         )
                     lines.append("")
@@ -863,10 +1083,13 @@ class ResearchLogger:
                     lines.append("#### Full Memory Entry Details")
                     lines.append("")
                     for i, entry in enumerate(snap["all_entries"], 1):
-                        was_selected = entry.get("iteration", -1) in selected_iterations
+                        entry_id = str(entry.get("entry_id") or "")
+                        was_selected = bool(entry_id and entry_id in selected_entry_ids)
                         tag = " **(SELECTED FOR INJECTION)**" if was_selected else ""
                         lines.append("<details>")
-                        lines.append(f"<summary>Entry {i} — Iter {entry.get('iteration', '?')}, {entry.get('component_name', '?')}{tag}</summary>")
+                        lines.append(
+                            f"<summary>Entry {i} — {entry_id or 'N/A'}, Iter {entry.get('iteration', '?')}, {entry.get('component_name', '?')}{tag}</summary>"
+                        )
                         lines.append("")
                         lines.append("```json")
                         lines.append(json.dumps(_safe_json(entry), indent=2, default=str))
@@ -884,6 +1107,8 @@ class ResearchLogger:
                 lines.append("")
                 n_returned = len(mq.get("entries_returned", []))
                 lines.append(f"**Entries selected:** {n_returned}")
+                if mq.get("selected_entry_ids"):
+                    lines.append(f"**Selected entry IDs:** {mq['selected_entry_ids']}")
                 lines.append(f"**Text length:** {mq['formatted_text_length']} chars")
                 lines.append("")
                 if mq["formatted_text"]:
@@ -900,7 +1125,11 @@ class ResearchLogger:
                         lines.append("")
                         for idx, entry in enumerate(mq["entries_returned"], 1):
                             status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                            lines.append(f"{idx}. Iter {entry.get('iteration', '?')} [{status}] — {entry.get('intent') or entry.get('change_summary', '')}")
+                            entry_id = entry.get("entry_id", "N/A")
+                            lines.append(
+                                f"{idx}. {entry_id} | Iter {entry.get('iteration', '?')} [{status}] "
+                                f"— {entry.get('intent') or entry.get('change_summary', '')}"
+                            )
                         lines.append("")
                 else:
                     lines.append("*No memory entries matched this component*")
@@ -915,12 +1144,16 @@ class ResearchLogger:
                     status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
                     lines.append(f"#### New Entry: `{mu['component']}` [{status}]")
                     lines.append("")
+                    lines.append(f"- **Entry ID:** {entry.get('entry_id', 'N/A')}")
                     lines.append(f"- **Iteration:** {entry.get('iteration')}")
                     lines.append(f"- **Score:** {entry.get('score_before', 0):.2f} -> {entry.get('score_after', 0):.2f}")
                     lines.append(f"- **Intent:** {entry.get('intent', '')}")
                     lines.append(f"- **Lesson:** {entry.get('lesson', '')}")
                     lines.append(f"- **Categories succeeded:** {entry.get('categories_succeeded', [])}")
                     lines.append(f"- **Categories failed:** {entry.get('categories_failed', [])}")
+                    lines.append(f"- **Referenced memory IDs:** {entry.get('referenced_memory_entry_ids', [])}")
+                    lines.append(f"- **Reused memory intents:** {entry.get('reused_memory_intents', [])}")
+                    lines.append(f"- **Reused memory categories:** {entry.get('reused_memory_categories', [])}")
                     lines.append(f"- **Change summary:** {entry.get('change_summary', '')}")
                     lines.append("- **Failure modes:**")
                     for fm in entry.get("failure_modes", []):
@@ -963,6 +1196,10 @@ class ResearchLogger:
                 lines.append(f"- **Model:** {trace['model_id']}")
                 lines.append(f"- **Latency:** {trace['latency_ms']:.0f}ms")
                 lines.append(f"- **Memory injected:** {trace['memory_was_injected']}")
+                lines.append(f"- **Memory selected entry IDs:** {trace.get('memory_selected_entry_ids', [])}")
+                lines.append(f"- **Memory reused intents:** {trace.get('memory_reused_intents', [])}")
+                lines.append(f"- **Memory reused categories:** {trace.get('memory_reused_categories', [])}")
+                lines.append(f"- **Memory reuse detected:** {trace.get('memory_reuse_detected', False)}")
                 lines.append(f"- **Prompt length:** {len(trace['rendered_prompt'])} chars")
                 lines.append(f"- **Response length:** {len(trace['raw_response'])} chars")
                 lines.append("")
@@ -1096,6 +1333,14 @@ class ResearchLogger:
                 lines.append(f"**ACCEPTED** — new candidate #{dec.get('new_candidate_idx', '?')} (score: {dec.get('new_score', 'N/A')})")
             else:
                 lines.append(f"**REJECTED** — old: {dec.get('old_score', 'N/A')}, new: {dec.get('new_score', 'N/A')}, reason: {dec.get('reason', 'N/A')}")
+            if dec.get("decision_reason"):
+                lines.append(f"- **Decision reason:** `{dec['decision_reason']}`")
+            if dec.get("parent_ids") is not None:
+                lines.append(f"- **Parent IDs:** {dec.get('parent_ids', [])}")
+            if dec.get("threshold") is not None:
+                lines.append(f"- **Threshold:** {dec.get('threshold'):.4f}")
+            if dec.get("delta") is not None:
+                lines.append(f"- **Delta:** {dec.get('delta'):+.4f}")
             lines.append("")
 
         # =================================================================
@@ -1121,6 +1366,10 @@ class ResearchLogger:
                     lines.append(f"- **Categories succeeded:** {', '.join(ls['categories_succeeded'])}")
                 if ls["categories_failed"]:
                     lines.append(f"- **Categories failed:** {', '.join(ls['categories_failed'])}")
+                lines.append(f"- **Referenced memory entry IDs:** {ls.get('memory_selected_entry_ids', [])}")
+                lines.append(f"- **Reused memory intents:** {ls.get('memory_reused_intents', [])}")
+                lines.append(f"- **Reused memory categories:** {ls.get('memory_reused_categories', [])}")
+                lines.append(f"- **Memory reuse detected:** {ls.get('memory_reuse_detected', False)}")
                 lines.append("")
 
         # =================================================================

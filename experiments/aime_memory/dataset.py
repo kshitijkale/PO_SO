@@ -3,7 +3,7 @@
 Splits:
   train  : first 50% of AI-MO/aimo-validation-aime (shuffled, seed=0)
   val    : last  50% of AI-MO/aimo-validation-aime
-  test   : MathArena/aime_2025 × 5  (5 independent passes over the held-out set)
+  test   : MathArena/aime_2025 (single pass over the held-out set)
 
 Each example is a dspy.Example with fields:
   problem   (InputField)
@@ -40,6 +40,6 @@ def load_aime_dataset():
         ).with_inputs("problem")
         for x in test_split
     ]
-    testset = test_examples * 5
+    testset = test_examples
 
     return trainset, valset, testset

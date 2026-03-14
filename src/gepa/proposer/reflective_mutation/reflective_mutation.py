@@ -84,6 +84,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
         self.reflection_memory = reflection_memory
         self.lesson_lm = lesson_lm
         self._objective = objective
+        self._last_memory_attribution: dict[str, dict[str, Any]] = {}
 
         self.reflection_prompt_template = reflection_prompt_template
         # Track parameters for which we've already logged missing template warnings
@@ -100,6 +101,25 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                 "perfect_score must be provided when skip_perfect_score is True. "
                 "If you do not have a perfect target score, set skip_perfect_score=False."
             )
+
+    @staticmethod
+    def _collect_unique_memory_signals(entries: list[ReflectionMemoryEntry]) -> tuple[list[str], list[str]]:
+        intents: list[str] = []
+        categories: list[str] = []
+        for entry in entries:
+            intent = entry.intent.strip()
+            if intent and intent not in intents:
+                intents.append(intent)
+            for category in entry.categories_succeeded + entry.categories_failed:
+                cat = category.strip()
+                if cat and cat not in categories:
+                    categories.append(cat)
+        return intents, categories
+
+    @staticmethod
+    def _find_reuse_matches(text: str, phrases: list[str]) -> list[str]:
+        text_l = text.lower()
+        return [phrase for phrase in phrases if phrase.lower() in text_l]
 
     def propose_new_texts(
         self,
@@ -118,6 +138,7 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
             raise ValueError("reflection_lm must be provided when adapter.propose_new_texts is None.")
 
         new_texts: dict[str, str] = {}
+        self._last_memory_attribution = {}
         for name in components_to_update:
             # Gracefully handle cases where a selected component has no data in reflective_dataset
             if name not in reflective_dataset or not reflective_dataset.get(name):
@@ -144,7 +165,9 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
             # Inject reflection memory into the prompt template if available
             effective_template = prompt_template
             memory_was_injected = False
+            selected_entries: list[ReflectionMemoryEntry] = []
             if self.reflection_memory is not None:
+                selected_entries = self.reflection_memory.get_recent(n=5, component_name=name)
                 memory_text = self.reflection_memory.format_for_prompt(component_name=name)
                 if memory_text:
                     base_template = effective_template or InstructionProposalSignature.default_prompt_template
@@ -161,6 +184,19 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
             )
             new_texts[name] = result["new_instruction"]
 
+            selected_intents, selected_categories = self._collect_unique_memory_signals(selected_entries)
+            reused_intents = self._find_reuse_matches(result["new_instruction"], selected_intents)
+            reused_categories = self._find_reuse_matches(result["new_instruction"], selected_categories)
+            memory_attribution = {
+                "selected_entry_ids": [entry.entry_id for entry in selected_entries if entry.entry_id],
+                "selected_intents": selected_intents,
+                "selected_categories": selected_categories,
+                "reused_intents": reused_intents,
+                "reused_categories": reused_categories,
+                "reuse_detected": bool(reused_intents or reused_categories),
+            }
+            self._last_memory_attribution[name] = memory_attribution
+
             # Fire proposal trace event
             notify_callbacks(
                 self.callbacks,
@@ -175,6 +211,12 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                     model_id=getattr(self.reflection_lm, "__name__", str(self.reflection_lm)),
                     latency_ms=trace["latency_ms"],
                     memory_was_injected=memory_was_injected,
+                    memory_selected_entry_ids=memory_attribution["selected_entry_ids"],
+                    memory_selected_intents=memory_attribution["selected_intents"],
+                    memory_selected_categories=memory_attribution["selected_categories"],
+                    memory_reused_intents=memory_attribution["reused_intents"],
+                    memory_reused_categories=memory_attribution["reused_categories"],
+                    memory_reuse_detected=memory_attribution["reuse_detected"],
                 ),
             )
         return new_texts
@@ -476,6 +518,11 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                     change_summary = ""
 
                 # Fire LessonGeneratedEvent
+                memory_attribution = self._last_memory_attribution.get(comp_name, {})
+                selected_entry_ids = memory_attribution.get("selected_entry_ids", [])
+                reused_intents = memory_attribution.get("reused_intents", [])
+                reused_categories = memory_attribution.get("reused_categories", [])
+                reuse_detected = bool(memory_attribution.get("reuse_detected", False))
                 notify_callbacks(
                     self.callbacks,
                     "on_lesson_generated",
@@ -491,6 +538,10 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                         accepted=accepted,
                         latency_ms=latency_ms,
                         fallback_used=fallback_used,
+                        memory_selected_entry_ids=selected_entry_ids,
+                        memory_reused_intents=reused_intents,
+                        memory_reused_categories=reused_categories,
+                        memory_reuse_detected=reuse_detected,
                     ),
                 )
 
@@ -507,6 +558,9 @@ class ReflectiveMutationProposer(ProposeNewCandidate[DataId]):
                         categories_succeeded=cats_ok,
                         categories_failed=cats_fail,
                         change_summary=change_summary,
+                        referenced_memory_entry_ids=selected_entry_ids,
+                        reused_memory_intents=reused_intents,
+                        reused_memory_categories=reused_categories,
                     )
                 )
 

@@ -1,0 +1,1409 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Positive real numbers $b \not= 1$ and $n$ satisfy the equations \[\sqrt{\log_b n} = \log_b \sqrt{n} \qquad \text{and} \qquad b \cdot \log_b n = \log_b (bn).\] The value of $n$ is $\frac{j}{k},$ where $j$ and $k$ are relatively prime positive integers. Find $j+k.$
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+881
+
+## reasoning
+Given the problem, we have two equations involving positive real numbers \(b \neq 1\) and \(n\):
+
+\[
+\sqrt{\log_b n} = \log_b \sqrt{n}
+\]
+and
+\[
+b \cdot \log_b n = \log_b (bn).
+\]
+
+We want to find \(n = \frac{j}{k}\) in lowest terms and then find \(j + k\).
+
+---
+
+**Step 1: Simplify the first equation**
+
+Recall that \(\log_b \sqrt{n} = \log_b n^{1/2} = \frac{1}{2}\log_b n\).
+
+The first equation becomes:
+\[
+\sqrt{\log_b n} = \frac{1}{2} \log_b n.
+\]
+
+Let \(x = \log_b n\). Since \(n > 0\) and \(b > 0, b \neq 1\), \(\log_b n\) is defined.
+
+The equation is:
+\[
+\sqrt{x} = \frac{1}{2} x.
+\]
+
+Rewrite:
+\[
+\sqrt{x} = \frac{x}{2}.
+\]
+
+Square both sides (noting \(x \ge 0\) since \(\sqrt{x}\) is real):
+\[
+x = \frac{x^2}{4} \implies 4x = x^2 \implies x^2 - 4x = 0 \implies x(x - 4) = 0.
+\]
+
+So \(x = 0\) or \(x = 4\).
+
+Recall \(x = \log_b n\).
+
+- If \(x = 0\), then \(\log_b n = 0 \implies n = b^0 = 1\).
+- If \(x = 4\), then \(n = b^4\).
+
+---
+
+**Step 2: Use the second equation**
+
+\[
+b \cdot \log_b n = \log_b (bn).
+\]
+
+Again, let \(x = \log_b n\).
+
+We have:
+\[
+b \cdot x = \log_b (b n).
+\]
+
+Express \(\log_b (b n)\) as \(\log_b b + \log_b n = 1 + x\) because \(\log_b b = 1\).
+
+So:
+\[
+b x = 1 + x.
+\]
+
+Rearranged:
+\[
+b x - x = 1 \implies x(b - 1) = 1 \implies x = \frac{1}{b - 1}.
+\]
+
+---
+
+**Step 3: Combine the two conditions on \(x\)**
+
+From the first equation, \(x \in \{0, 4\}\).
+
+From the second, \(x = \frac{1}{b - 1}\).
+
+- If \(x = 0\), then \(\frac{1}{b-1} = 0\) which is impossible.
+- If \(x = 4\), then:
+\[
+4 = \frac{1}{b - 1} \implies b - 1 = \frac{1}{4} \implies b = \frac{5}{4}.
+\]
+
+---
+
+**Step 4: Find \(n\)**
+
+Recall \(n = b^x = b^4\) with \(b = \frac{5}{4}\).
+
+So:
+\[
+n = \left(\frac{5}{4}\right)^4 = \frac{5^4}{4^4} = \frac{625}{256}.
+\]
+
+The fraction \(\frac{625}{256}\) is in lowest terms because 625 is \(5^4\) and 256 is \(2^8\), no common factors.
+
+---
+
+**Step 5: Compute \(j + k\)**
+
+\(j = 625\), \(k = 256\), so:
+\[
+j + k = 625 + 256 = 881.
+\]
+
+---
+
+**Final answer:**
+\[
+\boxed{881}
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 881.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Rhombus $ABCD$ has $\angle BAD < 90^\circ.$ There is a point $P$ on the incircle of the rhombus such that the distances from $P$ to the lines $DA,AB,$ and $BC$ are $9,$ $5,$ and $16,$ respectively. Find the perimeter of $ABCD.$
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+125
+
+## reasoning
+First, let's analyze the problem step-by-step.
+
+1. **Basic properties of the rhombus and its incircle:**
+
+- A rhombus is a quadrilateral with all sides equal.
+- The rhombus has an incircle if and only if it is a **tangential quadrilateral**; for a rhombus, this means it is a **kite or a square**, but since all sides are equal, the rhombus is tangential if and only if it is a **rhombus with incircle**, which implies it is a **tangential quadrilateral** with equal sides.
+
+In fact, a rhombus always has an incircle if and only if it is a **rhombus with perpendicular diagonals**, i.e., a **rhombus with an inscribed circle** is a **rhombus that is a tangential quadrilateral**, i.e., it must be a **rhombus with angle < 90° and a circle tangent to all sides**.
+
+Given this, the rhombus has an incircle tangent to all sides.
+
+2. **Notation and Setup:**
+
+Label the rhombus \(ABCD\) with vertices in order, and the angles such that \(\angle BAD < 90^\circ\).
+
+Let the side length be \(s\).
+
+Since the rhombus has an incircle, the incircle touches each side at exactly one point, and its radius is the inradius \(r\).
+
+3. **Distances from point \(P\) to lines \(DA, AB, BC\):**
+
+Given point \(P\) lies **on the incircle** of the rhombus.
+
+The distances from \(P\) to the three lines are:
+
+- Distance to line \(DA\): 9
+- Distance to line \(AB\): 5
+- Distance to line \(BC\): 16
+
+Since \(P\) lies on the incircle, the distance from \(P\) to each side is the length of the tangent segment from \(P\) to the circle on that side. But more concretely, since the incircle touches all four sides, the distance from \(P\) to each side is the radius \(r\) when \(P\) is on the circle. But here, \(P\) is on the circle, so its distance to the tangent lines of the circle (which are the sides) varies.
+
+However, the problem gives three distances from \(P\) to three sides of the rhombus.
+
+4. **Key Idea:**
+
+The distances from a point to three sides of the rhombus are given. Since \(P\) lies on the incircle, its distance to the side which is tangent at the point on the incircle is equal to the radius \(r\). For other sides, the distance varies.
+
+The sides are \(AB, BC, CD, DA\) in order.
+
+Given distances to lines \(DA, AB, BC\) are 9, 5, and 16 respectively. So the distances to the three consecutive sides \(DA, AB, BC\) are 9, 5, and 16.
+
+We want to find the perimeter \(4s\).
+
+5. **Find the inradius and side length:**
+
+Let’s model the rhombus in a coordinate system:
+
+- Place \(A\) at the origin \((0,0)\).
+- Let \(AB\) lie along the positive x-axis.
+- Since all sides have length \(s\), and \(\angle BAD = \theta < 90^\circ\), point \(B\) is at \((s,0)\).
+- Point \(D\) is at \((s \cos \theta, s \sin \theta)\).
+- Point \(C\) is at \(B + (D - A) = (s + s \cos \theta, s \sin \theta)\).
+
+6. **Equations of sides \(DA, AB, BC\):**
+
+- Line \(AB\): horizontal through \((0,0)\) and \((s,0)\), so equation \(y=0\).
+- Line \(DA\): through points \(D(s \cos \theta, s \sin \theta)\) and \(A(0,0)\).
+  Equation of \(DA\) is \(y = \tan \theta \cdot x\), or \(y - \tan \theta \cdot x = 0\).
+- Line \(BC\): passes through \(B(s,0)\) and \(C(s + s \cos \theta, s \sin \theta)\).
+  
+  Vector \(BC = (s \cos \theta, s \sin \theta)\).
+  
+  Slope of \(BC\) is \(\tan \theta\), so line \(BC\) has equation:
+  
+  \[
+  y - 0 = \tan \theta (x - s) \implies y = \tan \theta (x - s)
+  \]
+
+7. **Incircle center and inradius:**
+
+Since the rhombus is tangential, it has an incircle tangent to all four sides.
+
+The incenter \(I\) is equidistant from all sides, so the distances from \(I\) to lines \(AB, BC, CD, DA\) are all equal to \(r\).
+
+8. **Find incenter coordinates:**
+
+Let the incenter be at \((x_0,y_0)\).
+
+The distance from \(I\) to line \(AB: y=0\) is:
+
+\[
+d_{AB} = |y_0| = r
+\]
+
+Distance from \(I\) to line \(DA: y - \tan \theta x = 0\) is:
+
+\[
+d_{DA} = \frac{|y_0 - \tan \theta x_0|}{\sqrt{1 + \tan^2 \theta}} = r
+\]
+
+Distance from \(I\) to line \(BC: y - \tan \theta (x - s) = 0\) is:
+
+\[
+d_{BC} = \frac{|y_0 - \tan \theta (x_0 - s)|}{\sqrt{1 + \tan^2 \theta}} = r
+\]
+
+Similarly, distance to line \(CD\) would also be \(r\).
+
+9. **Using the above equalities:**
+
+From \(d_{AB} = r\), we have:
+
+\[
+y_0 = r
+\]
+
+From \(d_{DA} = r\):
+
+\[
+\frac{|y_0 - \tan \theta x_0|}{\sqrt{1 + \tan^2 \theta}} = r
+\]
+
+Substitute \(y_0 = r\):
+
+\[
+\frac{|r - \tan \theta x_0|}{\sqrt{1 + \tan^2 \theta}} = r \implies |r - \tan \theta x_0| = r \sqrt{1 + \tan^2 \theta}
+\]
+
+Similarly, from \(d_{BC} = r\):
+
+\[
+\frac{|y_0 - \tan \theta (x_0 - s)|}{\sqrt{1 + \tan^2 \theta}} = r
+\]
+
+Substitute \(y_0 = r\):
+
+\[
+|r - \tan \theta (x_0 - s)| = r \sqrt{1 + \tan^2 \theta}
+\]
+
+10. **Analyze the two absolute value equations:**
+
+Let \(k = \sqrt{1 + \tan^2 \theta} = \frac{1}{\cos \theta}\).
+
+So:
+
+\[
+|r - \tan \theta x_0| = r k
+\]
+
+\[
+|r - \tan \theta (x_0 - s)| = r k
+\]
+
+Since \(k > 1,\) these imply:
+
+Case 1:
+
+\[
+r - \tan \theta x_0 = r k \implies \tan \theta x_0 = r (1 - k)
+\]
+
+Case 2:
+
+\[
+r - \tan \theta x_0 = -r k \implies \tan \theta x_0 = r (1 + k)
+\]
+
+Similarly for the second:
+
+\[
+r - \tan \theta (x_0 - s) = \pm r k
+\]
+
+Try to match these to find \(x_0\).
+
+Let’s suppose:
+
+\[
+r - \tan \theta x_0 = r k \implies \tan \theta x_0 = r (1 - k)
+\]
+
+and
+
+\[
+r - \tan \theta (x_0 - s) = - r k \implies \tan \theta (x_0 - s) = r (1 + k)
+\]
+
+Subtract:
+
+\[
+\tan \theta (x_0 - s) - \tan \theta x_0 = r (1 + k) - r (1 - k) = r (1 + k - 1 + k) = 2 r k
+\]
+
+Left side:
+
+\[
+\tan \theta (x_0 - s - x_0) = -\tan \theta s
+\]
+
+Equate:
+
+\[
+-\tan \theta s = 2 r k \implies s = -\frac{2 r k}{\tan \theta}
+\]
+
+Since \(s>0\), this is negative → contradiction.
+
+Try the other sign:
+
+\[
+r - \tan \theta x_0 = - r k \implies \tan \theta x_0 = r (1 + k)
+\]
+
+\[
+r - \tan \theta (x_0 - s) = r k \implies \tan \theta (x_0 - s) = r (1 - k)
+\]
+
+Subtract:
+
+\[
+\tan \theta (x_0 - s) - \tan \theta x_0 = r (1 - k) - r (1 + k) = r (1 - k - 1 - k) = -2 r k
+\]
+
+Left side:
+
+\[
+\tan \theta (x_0 - s - x_0) = - \tan \theta s
+\]
+
+So:
+
+\[
+- \tan \theta s = - 2 r k \implies \tan \theta s = 2 r k \implies s = \frac{2 r k}{\tan \theta}
+\]
+
+This is positive and consistent.
+
+Also:
+
+\[
+\tan \theta x_0 = r (1 + k) \implies x_0 = \frac{r (1 + k)}{\tan \theta}
+\]
+
+11. **Summary so far:**
+
+- \(y_0 = r\)
+- \(x_0 = \frac{r (1 + k)}{\tan \theta}\)
+- \(s = \frac{2 r k}{\tan \theta}\)
+
+Recall \(k = \frac{1}{\cos \theta}\), so:
+
+\[
+s = \frac{2 r}{\tan \theta} \cdot \frac{1}{\cos \theta} = \frac{2 r}{\sin \theta / \cos \theta} \cdot \frac{1}{\cos \theta} = \frac{2 r \cos \theta}{\sin \theta} \cdot \frac{1}{\cos \theta} = \frac{2 r}{\sin \theta}
+\]
+
+So,
+
+\[
+s = \frac{2 r}{\sin \theta}.
+\]
+
+12. **Now, the incircle radius \(r\):**
+
+The area of the rhombus is:
+
+\[
+\text{Area} = s^2 \sin \theta
+\]
+
+The perimeter is \(4 s\).
+
+The inradius \(r\) of a tangential quadrilateral is:
+
+\[
+r = \frac{\text{Area}}{\text{semiperimeter}} = \frac{s^2 \sin \theta}{2 s} = \frac{s \sin \theta}{2}
+\]
+
+So,
+
+\[
+r = \frac{s \sin \theta}{2}
+\]
+
+From step 11, we had \(s = \frac{2 r}{\sin \theta}\).
+
+Substitute into the above:
+
+\[
+r = \frac{\left(\frac{2 r}{\sin \theta}\right) \sin \theta}{2} = \frac{2 r}{\sin \theta} \cdot \frac{\sin \theta}{2} = r
+\]
+
+This is consistent.
+
+Therefore, our expressions for \(s\) and \(r\) are consistent.
+
+13. **Coordinates of incenter:**
+
+\[
+x_0 = \frac{r (1 + k)}{\tan \theta} = \frac{r (1 + \frac{1}{\cos \theta})}{\tan \theta} = \frac{r (1 + \sec \theta)}{\tan \theta}
+\]
+
+14. **Now, find the point \(P\) on the incircle with known distances to lines \(DA, AB, BC\).**
+
+Recall that the incircle center is \(I = (x_0, y_0)\), radius \(r\).
+
+The point \(P\) lies on the circle centered at \(I\) with radius \(r\).
+
+We are given the distances from \(P\) to the lines \(DA, AB, BC\) as 9, 5, 16 respectively.
+
+15. **Express distances from \(P\) to these lines:**
+
+Let \(P = (x,y)\) on the circle:
+
+\[
+(x - x_0)^2 + (y - y_0)^2 = r^2
+\]
+
+Distances to the lines:
+
+- \(d_{DA} = \frac{|y - \tan \theta x|}{\sqrt{1 + \tan^2 \theta}} = 9\)
+- \(d_{AB} = |y| = 5\)
+- \(d_{BC} = \frac{|y - \tan \theta (x - s)|}{\sqrt{1 + \tan^2 \theta}} = 16\)
+
+16. **Check the signs of distance for convenience:**
+
+Let
+
+\[
+M = \sqrt{1 + \tan^2 \theta} = k = \frac{1}{\cos \theta}
+\]
+
+Then:
+
+\[
+|y - \tan \theta x| = 9 k
+\]
+
+\[
+|y| = 5
+\]
+
+\[
+|y - \tan \theta (x - s)| = 16 k
+\]
+
+Since \(y_0 = r > 0\), and \(P\) is on the circle, the \(y\)-coordinate of \(P\) should be near \(r\).
+
+Given \(d_{AB} = |y| = 5\), so \(y = \pm 5\).
+
+17. **Try \(y = 5\):**
+
+If \(y = 5\), then:
+
+\[
+|5 - \tan \theta x| = 9 k
+\]
+
+\[
+|5 - \tan \theta (x - s)| = 16 k
+\]
+
+Let \(t = \tan \theta\).
+
+Rewrite:
+
+\[
+|5 - t x| = 9 k
+\]
+
+\[
+|5 - t x + t s| = 16 k
+\]
+
+Let \(A = 5 - t x\).
+
+Then:
+
+\[
+|A| = 9 k
+\]
+
+\[
+|A + t s| = 16 k
+\]
+
+Consider \(A = \pm 9 k\).
+
+Case 1: \(A = 9 k\)
+
+Then:
+
+\[
+|9 k + t s| = 16 k
+\]
+
+So,
+
+\[
+9 k + t s = \pm 16 k
+\]
+
+If \(9 k + t s = 16 k \implies t s = 7 k\)
+
+If \(9 k + t s = -16 k \implies t s = -25 k\) (negative \(s\), discard)
+
+Case 2: \(A = -9 k\)
+
+Then:
+
+\[
+|-9 k + t s| = 16 k
+\]
+
+So:
+
+\[
+-9 k + t s = \pm 16 k
+\]
+
+If \(-9 k + t s = 16 k \implies t s = 25 k\)
+
+If \(-9 k + t s = -16 k \implies t s = -7 k\) (discard)
+
+So possible values for \(t s\):
+
+\[
+7 k, 25 k, 25 k
+\]
+
+From earlier, we know:
+
+\[
+s = \frac{2 r}{\sin \theta}
+\]
+
+Recall \(t = \tan \theta = \frac{\sin \theta}{\cos \theta}\), and \(k = \frac{1}{\cos \theta}\).
+
+Calculate \(t s\):
+
+\[
+t s = \tan \theta \cdot s = \frac{\sin \theta}{\cos \theta} \cdot \frac{2 r}{\sin \theta} = \frac{2 r}{\cos \theta} = 2 r k
+\]
+
+Therefore,
+
+\[
+t s = 2 r k
+\]
+
+Comparing to values above, \(t s\) must be \(7 k\) or \(25 k\) or \(25 k\).
+
+So,
+
+\[
+2 r k = 7 k \implies r = \frac{7}{2} = 3.5
+\]
+
+or
+
+\[
+2 r k = 25 k \implies r = \frac{25}{2} = 12.5
+\]
+
+But \(r\) depends on \(s\) and \(\theta\), so let's check which is consistent.
+
+18. **Recall \(s = \frac{2 r}{\sin \theta}\).**
+
+If \(r = 3.5\), then:
+
+\[
+s = \frac{2 \cdot 3.5}{\sin \theta} = \frac{7}{\sin \theta}
+\]
+
+If \(r = 12.5\), then:
+
+\[
+s = \frac{25}{\sin \theta}
+\]
+
+Also, the inradius \(r = \frac{s \sin \theta}{2}\), so for \(r = 3.5\):
+
+\[
+r = \frac{s \sin \theta}{2} \implies 3.5 = \frac{s \sin \theta}{2} \implies s = \frac{7}{\sin \theta}
+\]
+
+This matches the above \(s\) formula for \(r=3.5\).
+
+Similarly for \(r=12.5\):
+
+\[
+12.5 = \frac{s \sin \theta}{2} \implies s = \frac{25}{\sin \theta}
+\]
+
+Also matches.
+
+19. **Now check the other distance \(d_{DA} = 9\):**
+
+Recall:
+
+\[
+d_{DA} = \frac{|y - t x|}{k} = 9
+\]
+
+We had \(y=5\), so:
+
+\[
+|5 - t x| = 9 k
+\]
+
+From step 17, using \(A = 5 - t x = \pm 9 k\),
+
+If \(A = 9 k\):
+
+\[
+5 - t x = 9 k \implies t x = 5 - 9 k
+\]
+
+If \(A = -9 k\):
+
+\[
+5 - t x = -9 k \implies t x = 5 + 9 k
+\]
+
+Similarly, for \(d_{BC} = 16\):
+
+\[
+|5 - t (x - s)| = 16 k
+\]
+
+Let’s solve for \(x\).
+
+From above, considering \(A = -9 k\):
+
+\[
+t x = 5 + 9 k
+\]
+
+From \(d_{BC}\):
+
+\[
+|5 - t x + t s| = 16 k \implies |(5 - t x) + t s| = 16 k
+\]
+
+Substitute \(5 - t x = -9 k\):
+
+\[
+|-9 k + t s| = 16 k
+\]
+
+So,
+
+\[
+-9 k + t s = \pm 16 k
+\]
+
+If
+
+\[
+-9 k + t s = 16 k \implies t s = 25 k
+\]
+
+or
+
+\[
+-9 k + t s = -16 k \implies t s = -7 k
+\]
+
+As before, positive \(t s = 25 k\) is consistent.
+
+Therefore, \(t x = 5 + 9 k\) and \(t s = 25 k\).
+
+Recall from step 17:
+
+\[
+t s = 2 r k
+\]
+
+So
+
+\[
+2 r k = 25 k \implies r = 12.5
+\]
+
+Also:
+
+\[
+t x = 5 + 9 k
+\]
+
+20. **Find \(x\) coordinate of \(P\):**
+
+\[
+x = \frac{5 + 9 k}{t}
+\]
+
+Recall:
+
+- \(t = \tan \theta = \frac{\sin \theta}{\cos \theta}\),
+- \(k = \frac{1}{\cos \theta}\).
+
+So:
+
+\[
+x = \frac{5 + \frac{9}{\cos \theta}}{\frac{\sin \theta}{\cos \theta}} = \frac{5 + 9 / \cos \theta}{\sin \theta / \cos \theta} = \frac{5 \cos \theta + 9}{\sin \theta}
+\]
+
+21. **Check if \(P\) lies on the circle:**
+
+Circle centered at \((x_0, y_0) = \left( \frac{r (1 + k)}{t}, r \right)\) with radius \(r\).
+
+Plug in:
+
+\[
+(x - x_0)^2 + (y - y_0)^2 = r^2
+\]
+
+Recall:
+
+\[
+x_0 = \frac{r (1 + k)}{t} = \frac{12.5 (1 + \frac{1}{\cos \theta})}{\frac{\sin \theta}{\cos \theta}} = \frac{12.5 (1 + \sec \theta)}{\tan \theta}
+\]
+
+Similarly:
+
+\[
+x = \frac{5 \cos \theta + 9}{\sin \theta}
+\]
+
+\[
+y = 5
+\]
+
+\[
+y_0 = r = 12.5
+\]
+
+Compute:
+
+\[
+(x - x_0)^2 + (5 - 12.5)^2 = (12.5)^2 = 156.25
+\]
+
+Calculate \(5 - 12.5 = -7.5\).
+
+So:
+
+\[
+(x - x_0)^2 + (-7.5)^2 = 156.25 \implies (x - x_0)^2 = 156.25 - 56.25 = 100
+\]
+
+\[
+|x - x_0| = 10
+\]
+
+22. **Calculate \(x - x_0\):**
+
+\[
+x - x_0 = \frac{5 \cos \theta + 9}{\sin \theta} - \frac{12.5 (1 + \frac{1}{\cos \theta})}{\tan \theta}
+\]
+
+Recall:
+
+\[
+\tan \theta = \frac{\sin \theta}{\cos \theta}
+\]
+
+Rewrite:
+
+\[
+x_0 = \frac{12.5 (1 + \sec \theta)}{\tan \theta} = \frac{12.5 (1 + \frac{1}{\cos \theta})}{\frac{\sin \theta}{\cos \theta}} = \frac{12.5 (1 + \frac{1}{\cos \theta}) \cos \theta}{\sin \theta} = \frac{12.5 (\cos \theta + 1)}{\sin \theta}
+\]
+
+Therefore,
+
+\[
+x - x_0 = \frac{5 \cos \theta + 9}{\sin \theta} - \frac{12.5 (\cos \theta + 1)}{\sin \theta} = \frac{5 \cos \theta + 9 - 12.5 \cos \theta - 12.5}{\sin \theta}
+\]
+
+Simplify numerator:
+
+\[
+(5 \cos \theta - 12.5 \cos \theta) + (9 - 12.5) = -7.5 \cos \theta - 3.5
+\]
+
+So:
+
+\[
+x - x_0 = \frac{-7.5 \cos \theta - 3.5}{\sin \theta}
+\]
+
+Recall:
+
+\[
+|x - x_0| = 10
+\]
+
+Hence,
+
+\[
+\left| \frac{-7.5 \cos \theta - 3.5}{\sin \theta} \right| = 10 \implies \left| -7.5 \cos \theta - 3.5 \right| = 10 \sin \theta
+\]
+
+23. **Solve for \(\theta\):**
+
+Let \(c = \cos \theta, s = \sin \theta\).
+
+Equation:
+
+\[
+| -7.5 c - 3.5 | = 10 s
+\]
+
+Since \(\theta < 90^\circ\), \(s > 0\).
+
+So,
+
+\[
+7.5 c + 3.5 = \pm 10 s
+\]
+
+Try positive sign:
+
+\[
+7.5 c + 3.5 = 10 s
+\]
+
+Square both sides:
+
+\[
+(7.5 c + 3.5)^2 = 100 s^2
+\]
+
+Recall \(s^2 = 1 - c^2\):
+
+\[
+(7.5 c + 3.5)^2 = 100 (1 - c^2)
+\]
+
+Expand left:
+
+\[
+(7.5 c)^2 + 2 \cdot 7.5 c \cdot 3.5 + 3.5^2 = 100 - 100 c^2
+\]
+
+Calculate:
+
+\[
+56.25 c^2 + 52.5 c + 12.25 = 100 - 100 c^2
+\]
+
+Bring all terms to one side:
+
+\[
+56.25 c^2 + 52.5 c + 12.25 + 100 c^2 - 100 = 0
+\]
+
+\[
+(56.25 + 100) c^2 + 52.5 c + (12.25 - 100) = 0
+\]
+
+\[
+156.25 c^2 + 52.5 c - 87.75 = 0
+\]
+
+Divide by 1.25 for simpler numbers:
+
+\[
+125 c^2 + 42 c - 70.2 = 0
+\]
+
+Use quadratic formula:
+
+\[
+c = \frac{-42 \pm \sqrt{42^2 - 4 \cdot 125 \cdot (-70.2)}}{2 \cdot 125}
+\]
+
+Calculate discriminant:
+
+\[
+42^2 = 1764
+\]
+
+\[
+4 \cdot 125 \cdot 70.2 = 4 \cdot 125 \cdot 70.2 = 500 \cdot 70.2 = 35100
+\]
+
+\[
+\Delta = 1764 + 35100 = 36864
+\]
+
+\[
+\sqrt{36864} = 192
+\]
+
+So,
+
+\[
+c = \frac{-42 \pm 192}{250}
+\]
+
+Two roots:
+
+- \(c = \frac{150}{250} = 0.6\)
+- \(c = \frac{-234}{250} = -0.936\) (discard since \(\theta < 90^\circ\), \(c > 0\))
+
+Therefore,
+
+\[
+\cos \theta = 0.6 \implies \theta = \arccos 0.6 \approx 53.13^\circ
+\]
+
+24. **Find side length \(s\):**
+
+Recall
+
+\[
+s = \frac{2 r}{\sin \theta}
+\]
+
+We found \(r = 12.5\).
+
+\[
+\sin \theta = \sqrt{1 - 0.6^2} = \sqrt{1 - 0.36} = \sqrt{0.64} = 0.8
+\]
+
+Therefore,
+
+\[
+s = \frac{2 \times 12.5}{0.8} = \frac{25}{0.8} = 31.25
+\]
+
+25. **Find perimeter:**
+
+\[
+\text{Perimeter} = 4 s = 4 \times 31.25 = 125
+\]
+
+**Answer: 125**
+
+---
+
+**Verification:**
+
+- \(r = \frac{s \sin \theta}{2} = \frac{31.25 \times 0.8}{2} = 12.5\) matches.
+
+- Distances from \(P\) to lines \(DA, AB, BC\) match given values.
+
+Thus, the perimeter is \(\boxed{125}\).
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Let $x_1\leq x_2\leq \cdots\leq x_{100}$ be real numbers such that $|x_1| + |x_2| + \cdots + |x_{100}| = 1$ and $x_1 + x_2 + \cdots + x_{100} = 0$. Among all such $100$-tuples of numbers, the greatest value that $x_{76} - x_{16}$ can achieve is $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+697
+
+## reasoning
+We are given 100 real numbers \( x_1 \leq x_2 \leq \cdots \leq x_{100} \) satisfying:
+
+1. \(|x_1| + |x_2| + \cdots + |x_{100}| = 1\),
+2. \(x_1 + x_2 + \cdots + x_{100} = 0\).
+
+We want to maximize \(x_{76} - x_{16}\).
+
+---
+
+**Step 1: Understanding the problem**
+
+- The sequence is sorted nondecreasingly.
+- The sum of the absolute values is 1.
+- The sum of the values themselves is zero.
+- We want to maximize the difference between the 76th and 16th elements.
+
+---
+
+**Step 2: Intuition**
+
+Because the sum is zero but the sum of absolute values is 1, the numbers must "balance" positive and negative values.
+
+We want \(x_{76}\) as large as possible and \(x_{16}\) as small as possible.
+
+Since the sequence is increasing, \(x_{16}\) is among the smaller numbers, and \(x_{76}\) among the larger numbers.
+
+To maximize \(x_{76} - x_{16}\), we want:
+
+- \(x_{16}\) to be as negative as possible,
+- \(x_{76}\) to be as positive as possible.
+
+---
+
+**Step 3: Structure of the sequence**
+
+Because the sequence is sorted:
+
+- \(x_1 \leq \cdots \leq x_{16} \leq \cdots \leq x_{76} \leq \cdots \leq x_{100}\).
+
+If we try to maximize the gap between \(x_{16}\) and \(x_{76}\), it suggests "clumping" the values:
+
+- The first 16 terms could be equal to some negative number \(a\),
+- The next 60 terms (from 17 to 76) could be equal to some number \(b\),
+- The last 24 terms (77 to 100) could be equal to some number \(c\).
+
+But since \(x_{16} \leq x_{17} \leq \cdots \leq x_{76}\), it must be that \(a \leq b\).
+
+Our main interest is in \(x_{16} = a\) and \(x_{76} = b\).
+
+To maximize \(b - a\), it might be best to make \(a\) as negative as possible and \(b\) as positive as possible.
+
+Now, to keep the sum zero and the sum of absolute values 1, we must find such values \(a, b, c\) and counts \(n_a, n_b, n_c\) with:
+
+- \(n_a + n_b + n_c = 100\),
+- \(n_a \geq 16\) (since the first 16 are \(a\)),
+- \(n_b \geq 76 - 16 = 60\) (since from 17 to 76 inclusive is 60 terms),
+- \(n_c \geq 0\).
+
+The simplest is to have exactly three groups:
+
+- \(x_1 = \cdots = x_{16} = a\),
+- \(x_{17} = \cdots = x_{76} = b\),
+- \(x_{77} = \cdots = x_{100} = c\).
+
+So:
+
+- \(n_a = 16\),
+- \(n_b = 60\),
+- \(n_c = 24\).
+
+---
+
+**Step 4: Constraints**
+
+The sequence is nondecreasing:
+
+\[ a \leq b \leq c. \]
+
+Sum zero:
+
+\[ 16a + 60b + 24c = 0. \]
+
+Sum of absolute values 1:
+
+\[ 16|a| + 60|b| + 24|c| = 1. \]
+
+Our goal: maximize \(b - a\).
+
+---
+
+**Step 5: Choosing signs**
+
+To maximize \(b - a\), we want \(a\) negative and \(b\) positive. For \(c\), we have two choices:
+
+- \(c \geq b \geq 0\), so \(c \geq 0\),
+- or \(c \leq b\), but since the sequence is nondecreasing, \(c \geq b\).
+
+If \(b\) is positive, then \(c\) should be \(\geq b > 0\), so \(c\) is positive.
+
+---
+
+To minimize the sum of absolute values, we want the absolute values of the numbers to be as small as possible while satisfying the sum constraint.
+
+Suppose \(a < 0\), \(b > 0\), \(c > 0\).
+
+Sum zero:
+
+\[
+16a + 60b + 24c = 0 \implies 24c = -16a - 60b.
+\]
+
+Sum of absolute values:
+
+\[
+16(-a) + 60b + 24c = 1,
+\]
+
+because \(a<0\), so \(|a| = -a\), and \(b,c > 0\).
+
+Substitute \(c\):
+
+\[
+16(-a) + 60b + 24 \left( \frac{-16a - 60b}{24} \right) = 1.
+\]
+
+Simplify:
+
+\[
+16(-a) + 60b -16a - 60b = 1,
+\]
+
+which reduces to:
+
+\[
+16(-a) -16a + 60b - 60b = 1,
+\]
+\[
+-16a -16a + 0 = 1 \implies -32a = 1 \implies a = -\frac{1}{32}.
+\]
+
+This is a crucial step. The sum of absolute values constraint reduces to a condition only on \(a\).
+
+Then, from sum zero:
+
+\[
+16a + 60b + 24c = 0.
+\]
+
+Using \(a = -\frac{1}{32}\), 
+
+\[
+16 \times \left(-\frac{1}{32}\right) + 60b + 24c = 0,
+\]
+\[
+-\frac{16}{32} + 60b + 24c = 0,
+\]
+\[
+-\frac{1}{2} + 60b + 24c = 0 \implies 60b + 24c = \frac{1}{2}.
+\]
+
+Recall the ordering \(a \leq b \leq c\), and \(a = -\frac{1}{32} \approx -0.03125\).
+
+Since \(a < 0\), and \(b, c > 0\), the ordering is:
+
+\[
+-\frac{1}{32} \leq b \leq c,
+\]
+with \(b, c > 0\).
+
+Our goal is to maximize \(b - a = b + \frac{1}{32}\).
+
+So, maximize \(b\), with the constraint:
+
+\[
+60b + 24c = \frac{1}{2}.
+\]
+
+Since \(c \geq b\), we have:
+
+\[
+24c \geq 24b,
+\]
+
+so:
+
+\[
+60b + 24c \geq 60b + 24b = 84b.
+\]
+
+But \(60b + 24c = \frac{1}{2}\), so:
+
+\[
+\frac{1}{2} \geq 84b \implies b \leq \frac{1}{168}.
+\]
+
+To maximize \(b\), set \(c = b\).
+
+Check if this is consistent with the ordering: \(a \leq b \leq c\), with \(c = b\), yes.
+
+Then:
+
+\[
+60b + 24b = 84b = \frac{1}{2} \implies b = \frac{1}{168}.
+\]
+
+Therefore:
+
+\[
+a = -\frac{1}{32}, \quad b = \frac{1}{168}, \quad c = \frac{1}{168}.
+\]
+
+Finally,
+
+\[
+x_{76} - x_{16} = b - a = \frac{1}{168} - \left(-\frac{1}{32}\right) = \frac{1}{168} + \frac{1}{32}.
+\]
+
+Find common denominator:
+
+\[
+\text{lcm}(168, 32) = 672,
+\]
+
+since \(168 = 2^3 \times 3 \times 7\), \(32 = 2^5\), so \(2^5 \times 3 \times 7 = 32 \times 21 = 672\).
+
+Convert:
+
+\[
+\frac{1}{168} = \frac{4}{672}, \quad \frac{1}{32} = \frac{21}{672}.
+\]
+
+Sum:
+
+\[
+\frac{4}{672} + \frac{21}{672} = \frac{25}{672}.
+\]
+
+---
+
+**Step 6: Verify sum of absolute values**
+
+\[
+16|a| + 60|b| + 24|c| = 16 \times \frac{1}{32} + 60 \times \frac{1}{168} + 24 \times \frac{1}{168} = \frac{16}{32} + \frac{60}{168} + \frac{24}{168}.
+\]
+
+Calculate each:
+
+- \(\frac{16}{32} = \frac{1}{2}\),
+- \(\frac{60}{168} = \frac{5}{14}\),
+- \(\frac{24}{168} = \frac{2}{14} = \frac{1}{7}\).
+
+Sum:
+
+\[
+\frac{1}{2} + \frac{5}{14} + \frac{1}{7} = \frac{1}{2} + \frac{5}{14} + \frac{2}{14} = \frac{1}{2} + \frac{7}{14} = \frac{1}{2} + \frac{1}{2} = 1.
+\]
+
+Perfect.
+
+Sum of values:
+
+\[
+16a + 60b + 24c = 16 \times \left(-\frac{1}{32}\right) + 60 \times \frac{1}{168} + 24 \times \frac{1}{168} = -\frac{1}{2} + \frac{60}{168} + \frac{24}{168} = -\frac{1}{2} + \frac{84}{168}.
+\]
+
+Since \(\frac{84}{168} = \frac{1}{2}\), sum is zero.
+
+---
+
+**Step 7: Check ordering**
+
+\[
+a = -\frac{1}{32} \approx -0.03125, \quad b = c = \frac{1}{168} \approx 0.00595,
+\]
+
+so
+
+\[
+a < b = c,
+\]
+
+and the sequence is:
+
+- first 16 terms \(= a\),
+- next 60 terms \(= b\),
+- last 24 terms \(= c = b\),
+
+nondecreasing.
+
+---
+
+**Step 8: Conclusion**
+
+The maximum value of \(x_{76} - x_{16}\) is
+
+\[
+\frac{25}{672}.
+\]
+
+Sum numerator + denominator:
+
+\[
+25 + 672 = 697.
+\]
+
+---
+
+**Final answer:**
+
+\[
+\boxed{697}.
+\]
+
+---
+
+**Summary:**
+
+- The 100 terms are split into three groups: 16 terms at \(a\), 60 terms at \(b\), and 24 terms at \(c\).
+- Using the constraints and ordering, the maximal difference \(x_{76} - x_{16}\) equals \(b - a = \frac{1}{168} + \frac{1}{32} = \frac{25}{672}\).
+- The problem asks for \(m + n\) where \(\frac{m}{n} = \frac{25}{672}\).
+- Thus, the answer is \(25 + 672 = 697\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 841.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000022 | Iter 22 [REJECTED -1.00]
+Intent: The edit aimed to enhance rigor and thoroughness in reasoning steps to improve accuracy on AIME problems by explicitly verifying all critical calculations and exploring multiple cases or approaches.
+Lesson: The outcome reveals that increasing verbosity and complexity in the reasoning instructions can reduce accuracy, possibly by encouraging overcomplication or divergence from clear, direct solutions; simpler, more focused prompts may be more effective for precise numeric answers.
+Still failing: algebraic reasoning, multi-case analysis, combinatorial logic
+
+### mem_000023 | Iter 23 [REJECTED -1.00]
+Intent: The edit aimed to enhance the clarity and thoroughness of the reasoning instructions to improve accuracy and consistency in solving AIME problems.
+Lesson: The outcome reveals that adding more detailed instructions and complexity to the prompt can confuse or overwhelm the solver, leading to a decline in performance; simpler, more direct guidance may be more effective for this task.
+Strong on: multistep arithmetic problems
+Still failing: case analysis, rigor-demanding proofs
+
+### mem_000024 | Iter 24 [REJECTED +0.00]
+Intent: The edit aimed to improve problem-solving rigor by explicitly encouraging consideration of multiple solution paths and conciseness without losing thoroughness.
+Lesson: The unchanged score indicates that adding instructions about multiple cases and balancing rigor with conciseness did not impact accuracy for this task, suggesting such refinements alone are insufficient to improve AIME accuracy in this context.
+Strong on: AIME integer answer problems
+
+### mem_000025 | Iter 25 [REJECTED +0.00]
+Intent: The edit aimed to enhance solution rigor and clarity by emphasizing systematic case analysis and explicit verification without verbosity, to improve accuracy on AIME problems.
+Lesson: The unchanged aggregate and per-example scores indicate that reinforcing reasoning detail and clarity alone did not impact accuracy, suggesting that prompt refinement should target other factors such as problem-specific heuristics or answer format enforcement for improvement.
+Strong on: AIME integer-answer problems
+
+### mem_000026 | Iter 26 [REJECTED +0.00]
+Intent: The edit aimed to enhance correctness by instructing explicit verification of calculations and allowing output as a sum of numerator and denominator when fractional answers are required.
+Lesson: The unchanged aggregate score indicates that introducing these additional verification steps and output format allowances did not improve accuracy, suggesting that added complexity or ambiguity in the output format may not benefit prompt optimization for AIME problems.
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

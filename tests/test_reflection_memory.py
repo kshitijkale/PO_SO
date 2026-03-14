@@ -5,8 +5,6 @@
 
 from unittest.mock import MagicMock
 
-import pytest
-
 from gepa.proposer.reflective_mutation.memory import (
     ReflectionMemory,
     ReflectionMemoryEntry,

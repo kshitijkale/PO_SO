@@ -1,0 +1,85 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize correctness across arithmetic, algebra, and logic questions.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve and return a single integer.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## example_id
+5
+
+## type
+logic
+
+## Feedback
+type=logic score=0.20; needs arithmetic verification/units/assumption checks
+
+## score
+0.2
+
+
+
+# Example 2
+## example_id
+2
+
+## type
+arith
+
+## Feedback
+type=arith score=0.20; needs arithmetic verification/units/assumption checks
+
+## score
+0.2
+
+
+
+# Example 3
+## example_id
+6
+
+## type
+logic
+
+## Feedback
+type=logic score=0.20; needs arithmetic verification/units/assumption checks
+
+## score
+0.2
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.

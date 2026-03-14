@@ -22,6 +22,7 @@ from gepa.core.callbacks import (
     EvaluationSkippedEvent,
     IterationEndEvent,
     IterationStartEvent,
+    LessonGeneratedEvent,
     MemoryStateSnapshotEvent,
     MergeAcceptedEvent,
     MergeAttemptedEvent,
@@ -74,6 +75,7 @@ class StateLogger:
         # Accumulate state for the current candidate selection
         self._selection_data: dict[str, Any] = {}
         self._eval_count = 0  # track current vs proposed eval
+        self._current_eval_score: float | None = None
 
     def _write(self, iteration: int, step: str, data: dict[str, Any]) -> None:
         path = os.path.join(self.states_dir, f"iter_{iteration:03d}_{step}.json")
@@ -102,6 +104,7 @@ class StateLogger:
     def on_iteration_start(self, event: IterationStartEvent) -> None:
         self._current_iter = event["iteration"]
         self._eval_count = 0
+        self._current_eval_score = None
         state = event["state"]
         self._write(event["iteration"], "01_iteration_start", {
             "iteration": event["iteration"],
@@ -144,10 +147,13 @@ class StateLogger:
     def on_evaluation_end(self, event: EvaluationEndEvent) -> None:
         self._eval_count += 1
         step = "03_eval_current" if self._eval_count == 1 else "07_eval_proposed"
+        aggregate = sum(event["scores"])
+        if self._eval_count == 1:
+            self._current_eval_score = float(aggregate)
         self._write(event["iteration"], step, {
             "candidate_idx": event["candidate_idx"],
             "scores": event["scores"],
-            "aggregate_score": sum(event["scores"]),
+            "aggregate_score": aggregate,
             "has_trajectories": event["has_trajectories"],
             "objective_scores": event["objective_scores"],
             "num_outputs": len(event["outputs"]) if event["outputs"] else 0,
@@ -189,29 +195,80 @@ class StateLogger:
             "model_id": event["model_id"],
             "latency_ms": event["latency_ms"],
             "memory_was_injected": event["memory_was_injected"],
+            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
+            "memory_selected_intents": event["memory_selected_intents"],
+            "memory_selected_categories": event["memory_selected_categories"],
+            "memory_reused_intents": event["memory_reused_intents"],
+            "memory_reused_categories": event["memory_reused_categories"],
+            "memory_reuse_detected": event["memory_reuse_detected"],
         })
 
     def on_proposal_end(self, event: ProposalEndEvent) -> None:
         pass  # Captured per-component in proposal_trace
+
+    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
+        self._write(event["iteration"], f"07b_lesson_{event['component_name']}", {
+            "component_name": event["component_name"],
+            "intent": event["intent"],
+            "lesson": event["lesson"],
+            "categories_succeeded": event["categories_succeeded"],
+            "categories_failed": event["categories_failed"],
+            "score_before": event["score_before"],
+            "score_after": event["score_after"],
+            "accepted": event["accepted"],
+            "latency_ms": event["latency_ms"],
+            "fallback_used": event["fallback_used"],
+            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
+            "memory_reused_intents": event["memory_reused_intents"],
+            "memory_reused_categories": event["memory_reused_categories"],
+            "memory_reuse_detected": event["memory_reuse_detected"],
+        })
 
     # =========================================================================
     # Decision
     # =========================================================================
 
     def on_candidate_accepted(self, event: CandidateAcceptedEvent) -> None:
+        old_score = self._current_eval_score
+        new_score = float(event["new_score"])
+        delta = (new_score - old_score) if old_score is not None else None
+        threshold = old_score
+        decision_reason = (
+            f"ACCEPTED | old={old_score:.4f} new={new_score:.4f} delta={delta:+.4f} "
+            f"threshold={threshold:.4f} parent_ids={list(event['parent_ids'])} comparator='new_score > threshold'"
+            if old_score is not None
+            else (
+                f"ACCEPTED | old=N/A new={new_score:.4f} delta=N/A "
+                f"threshold=N/A parent_ids={list(event['parent_ids'])} comparator='new_score > threshold'"
+            )
+        )
         self._write(event["iteration"], "08_decision", {
             "accepted": True,
             "new_candidate_idx": event["new_candidate_idx"],
-            "new_score": event["new_score"],
+            "old_score": old_score,
+            "new_score": new_score,
+            "delta": delta,
+            "threshold": threshold,
             "parent_ids": list(event["parent_ids"]),
+            "decision_reason": decision_reason,
         })
 
     def on_candidate_rejected(self, event: CandidateRejectedEvent) -> None:
+        old_score = float(event["old_score"])
+        new_score = float(event["new_score"])
+        delta = new_score - old_score
+        decision_reason = (
+            f"REJECTED | old={old_score:.4f} new={new_score:.4f} delta={delta:+.4f} "
+            f"threshold={old_score:.4f} comparator='new_score > threshold' reason={event['reason']}"
+        )
         self._write(event["iteration"], "08_decision", {
             "accepted": False,
-            "old_score": event["old_score"],
-            "new_score": event["new_score"],
+            "old_score": old_score,
+            "new_score": new_score,
+            "delta": delta,
+            "threshold": old_score,
             "reason": event["reason"],
+            "decision_reason": decision_reason,
         })
 
     # =========================================================================

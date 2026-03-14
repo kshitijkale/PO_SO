@@ -1,0 +1,102 @@
+{
+  "iteration": 3,
+  "phase": "after_proposal",
+  "all_entries": [
+    {
+      "entry_id": "mem_000001",
+      "iteration": 1,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 0.6000000000000001,
+      "score_after": 1.2000000000000002,
+      "accepted": true,
+      "failure_modes": [
+        "type=logic score=0.20; needs arithmetic verification/units/assumption checks",
+        "type=arith score=0.20; needs arithmetic verification/units/assumption checks",
+        "type=logic score=0.20; needs arithmetic verification/units/assumption checks"
+      ],
+      "intent": "Use step-by-step verification",
+      "lesson": "Verification improved arithmetic reliability; keep explicit structure.",
+      "categories_succeeded": [
+        "arithmetic"
+      ],
+      "categories_failed": [
+        "algebra"
+      ],
+      "referenced_memory_entry_ids": [],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000002",
+      "iteration": 2,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.2000000000000002,
+      "score_after": 0.4,
+      "accepted": false,
+      "failure_modes": [
+        "type=algebra score=0.20; needs arithmetic verification/units/assumption checks",
+        "type=arith score=0.80; needs arithmetic verification/units/assumption checks",
+        "type=algebra score=0.20; needs arithmetic verification/units/assumption checks"
+      ],
+      "intent": "Use step-by-step verification",
+      "lesson": "The bad short-cut harmed performance and should be removed.",
+      "categories_succeeded": [
+        "arithmetic"
+      ],
+      "categories_failed": [
+        "algebra",
+        "logic"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000001"
+      ],
+      "reused_memory_intents": [
+        "Use step-by-step verification"
+      ],
+      "reused_memory_categories": [
+        "arithmetic"
+      ]
+    },
+    {
+      "entry_id": "mem_000003",
+      "iteration": 3,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.2000000000000002,
+      "score_after": 2.0,
+      "accepted": true,
+      "failure_modes": [
+        "type=logic score=0.20; needs arithmetic verification/units/assumption checks",
+        "type=arith score=0.80; needs arithmetic verification/units/assumption checks",
+        "type=logic score=0.20; needs arithmetic verification/units/assumption checks"
+      ],
+      "intent": "Use step-by-step verification",
+      "lesson": "Verification improved arithmetic reliability; keep explicit structure.",
+      "categories_succeeded": [
+        "arithmetic"
+      ],
+      "categories_failed": [
+        "algebra"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000001",
+        "mem_000002"
+      ],
+      "reused_memory_intents": [
+        "Use step-by-step verification"
+      ],
+      "reused_memory_categories": [
+        "arithmetic"
+      ]
+    }
+  ],
+  "total_entries": 3,
+  "max_entries": 10,
+  "entries_by_component": {
+    "current_candidate": 3
+  },
+  "accepted_ratio": 0.6666666666666666,
+  "rejected_ratio": 0.3333333333333333
+}

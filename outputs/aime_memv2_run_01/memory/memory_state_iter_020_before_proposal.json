@@ -1,0 +1,304 @@
+{
+  "iteration": 20,
+  "phase": "before_proposal",
+  "all_entries": [
+    {
+      "entry_id": "mem_000010",
+      "iteration": 10,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is incorrect. The correct answer is 140.",
+        "Your answer is correct. The correct answer is 154.",
+        "Your answer is incorrect. The correct answer is 738."
+      ],
+      "intent": "The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning and thorough verification before providing a concise final integer answer.",
+      "lesson": "The outcome reveals that adding detailed reasoning and verification in the prompt does not necessarily improve performance for AIME math problems, suggesting the model's accuracy may be limited by other factors beyond prompt instruction clarity or thoroughness.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000005",
+        "mem_000006",
+        "mem_000007",
+        "mem_000008",
+        "mem_000009"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000011",
+      "iteration": 11,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 3.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 540.",
+        "Your answer is correct. The correct answer is 236.",
+        "Your answer is correct. The correct answer is 881."
+      ],
+      "intent": "The edit aimed to increase answer accuracy by enforcing more explicit verification and thorough explanation at each step of the solution.",
+      "lesson": "The outcome shows that adding more detailed instructions and explicit verification requirements can overwhelm or confuse the model, leading to a decrease in accuracy for some problems rather than improvement.",
+      "categories_succeeded": [
+        "problems with straightforward verification"
+      ],
+      "categories_failed": [
+        "problems requiring concise reasoning and simplicity"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000006",
+        "mem_000007",
+        "mem_000008",
+        "mem_000009",
+        "mem_000010"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000012",
+      "iteration": 12,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 51.",
+        "Your answer is incorrect. The correct answer is 80.",
+        "Your answer is correct. The correct answer is 33."
+      ],
+      "intent": "The edit aimed to improve solution accuracy by encouraging verification of calculations and logical steps throughout the reasoning process.",
+      "lesson": "The unchanged aggregate and per-example scores indicate that adding verification steps did not enhance performance, suggesting that this added instruction neither improved nor degraded accuracy for these AIME problems.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000007",
+        "mem_000008",
+        "mem_000009",
+        "mem_000010",
+        "mem_000011"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000013",
+      "iteration": 13,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 3.0,
+      "accepted": true,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 112.",
+        "Your answer is correct. The correct answer is 150.",
+        "Your answer is incorrect. The correct answer is 125."
+      ],
+      "intent": "The edit aimed to enhance rigor and clarity in reasoning by emphasizing verification of critical steps and explicit documentation, reducing errors and premature conclusions to improve final answer accuracy.",
+      "lesson": "The outcome shows that making instructions more explicit about verification and clarity can improve correctness on challenging problems prone to subtle mistakes, but may have limited or no effect on problems already well-handled by the original prompt.",
+      "categories_succeeded": [
+        "complex multi-step algebraic problems",
+        "problems requiring careful verification"
+      ],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000008",
+        "mem_000009",
+        "mem_000010",
+        "mem_000011",
+        "mem_000012"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000014",
+      "iteration": 14,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 3.0,
+      "accepted": true,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 45.",
+        "Your answer is incorrect. The correct answer is 273.",
+        "Your answer is correct. The correct answer is 25."
+      ],
+      "intent": "Improve answer accuracy on AIME math problems by encouraging explicit step-by-step reasoning and verification before providing a final answer.",
+      "lesson": "The outcome shows that prompting for detailed, careful reasoning and explicit verification can meaningfully increase correctness on problems that previously failed, while maintaining success on problems already answered correctly.",
+      "categories_succeeded": [
+        "multi-step calculation",
+        "logical deduction"
+      ],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000009",
+        "mem_000010",
+        "mem_000011",
+        "mem_000012",
+        "mem_000013"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000015",
+      "iteration": 15,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 0.0,
+      "score_after": 2.0,
+      "accepted": true,
+      "failure_modes": [
+        "Your answer is incorrect. The correct answer is 125.",
+        "Your answer is incorrect. The correct answer is 244.",
+        "Your answer is incorrect. The correct answer is 127."
+      ],
+      "intent": "The edit aimed to improve solution accuracy by emphasizing explicit, step-by-step verification and rigor in logical reasoning before outputting the final integer answer.",
+      "lesson": "This outcome reveals that explicitly instructing the model to verify each calculation and avoid premature assumptions can enhance correctness on complex math problems, though improvements may be partial and problem-dependent.",
+      "categories_succeeded": [
+        "AIME-style integer answer problems"
+      ],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000010",
+        "mem_000011",
+        "mem_000012",
+        "mem_000013",
+        "mem_000014"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000016",
+      "iteration": 16,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 3.0,
+      "score_after": 3.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 33.",
+        "Your answer is correct. The correct answer is 321.",
+        "Your answer is correct. The correct answer is 585."
+      ],
+      "intent": "The edit aimed to enhance clarity and rigor in the prompt to reduce errors and improve the accuracy of final integer answers on AIME problems.",
+      "lesson": "The unchanged scores suggest that increasing prompt verbosity and emphasizing verification without changing content does not necessarily improve accuracy; simpler or more focused instructions might be equally effective.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000011",
+        "mem_000012",
+        "mem_000013",
+        "mem_000014",
+        "mem_000015"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000017",
+      "iteration": 17,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 540.",
+        "Your answer is correct. The correct answer is 51.",
+        "Your answer is incorrect. The correct answer is 140."
+      ],
+      "intent": "The edit aimed to increase rigor and precision in the reasoning process by adding explicit checks on algebraic, geometric, and numeric justifications and emphasizing validation before simplifying or assuming.",
+      "lesson": "The unchanged score indicates that increasing verbosity and specificity in instruction for rigorous verification did not translate into improved accuracy, suggesting that over-specification may not address core reasoning or calculation errors in AIME problems.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000012",
+        "mem_000013",
+        "mem_000014",
+        "mem_000015",
+        "mem_000016"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000018",
+      "iteration": 18,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 3.0,
+      "score_after": 3.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 104.",
+        "Your answer is correct. The correct answer is 227.",
+        "Your answer is correct. The correct answer is 125."
+      ],
+      "intent": "The edit aimed to improve the rigor and clarity of step-by-step reasoning and validation to increase accuracy on AIME problems.",
+      "lesson": "The outcome shows that merely intensifying instructions for verification and rigor without changing structural elements or model capability did not enhance accuracy; more substantive changes or different strategies are needed.",
+      "categories_succeeded": [],
+      "categories_failed": [
+        "AIME math problems"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000013",
+        "mem_000014",
+        "mem_000015",
+        "mem_000016",
+        "mem_000017"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": [
+        "logical deduction"
+      ]
+    },
+    {
+      "entry_id": "mem_000019",
+      "iteration": 19,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 3.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 220.",
+        "Your answer is correct. The correct answer is 721.",
+        "Your answer is correct. The correct answer is 242."
+      ],
+      "intent": "The edit aimed to increase solution rigor by emphasizing explicit verification of intermediate steps and exploring all constraints thoroughly to reduce errors and improve final answer accuracy.",
+      "lesson": "The outcome reveals that adding more detailed verification and constraints exploration in the prompt may lead to overcomplication or verbosity that negatively impacts model performance on AIME problems, resulting in lower accuracy. The simpler original prompt produced better or equal results in most cases.",
+      "categories_succeeded": [
+        "algebraic manipulation"
+      ],
+      "categories_failed": [
+        "combinatorial reasoning",
+        "number theory"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000014",
+        "mem_000015",
+        "mem_000016",
+        "mem_000017",
+        "mem_000018"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    }
+  ],
+  "total_entries": 10,
+  "max_entries": 10,
+  "entries_by_component": {
+    "current_candidate": 10
+  },
+  "accepted_ratio": 0.3,
+  "rejected_ratio": 0.7
+}

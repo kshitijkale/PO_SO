@@ -1,0 +1,935 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+In isosceles trapezoid $ABCD$, parallel bases $\overline{AB}$ and $\overline{CD}$ have lengths $500$ and $650$, respectively, and $AD=BC=333$. The angle bisectors of $\angle{A}$ and $\angle{D}$ meet at $P$, and the angle bisectors of $\angle{B}$ and $\angle{C}$ meet at $Q$. Find $PQ$.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+242
+
+## reasoning
+We have an isosceles trapezoid \(ABCD\) with bases \(AB = 500\) and \(CD = 650\), and legs \(AD = BC = 333\). The trapezoid is isosceles, so \(AD = BC\) and the non-parallel sides are equal. We want to find the length \(PQ\), where:
+- \(P\) is the intersection of the angle bisectors of \(\angle A\) and \(\angle D\),
+- \(Q\) is the intersection of the angle bisectors of \(\angle B\) and \(\angle C\).
+
+**Step 1: Set up coordinates**
+
+Place the trapezoid in the coordinate plane for convenience.
+
+Let the trapezoid be \(ABCD\) with \(AB\) on top and \(CD\) on the bottom, with \(AB \parallel CD\).
+
+- Place \(D\) at \((0,0)\).
+- Since \(CD = 650\), place \(C\) at \((650,0)\).
+- The top base \(AB = 500\), and the trapezoid is isosceles, so the legs \(AD = BC = 333\).
+
+Because the trapezoid is isosceles, the top base \(AB\) is centered above \(CD\). The midpoint of \(CD\) is at \((325,0)\).
+
+The top base \(AB\) will be centered at \(x=325\), so:
+- \(A\) is at \((325 - 250, h) = (75, h)\),
+- \(B\) is at \((325 + 250, h) = (575, h)\),
+where \(h\) is the height of the trapezoid.
+
+**Step 2: Find the height \(h\)**
+
+Use the leg length \(AD = 333\):
+
+Distance \(AD = \sqrt{(75-0)^2 + (h-0)^2} = 333\).
+
+Calculate:
+
+\[
+(75)^2 + h^2 = 333^2 \\
+5625 + h^2 = 110889 \\
+h^2 = 110889 - 5625 = 105264 \\
+h = \sqrt{105264} \approx 324.5.
+\]
+
+So \(h \approx 324.5\).
+
+Check \(BC\) for confirmation:
+
+\[
+BC = \sqrt{(650 - 575)^2 + (0 - h)^2} = \sqrt{75^2 + h^2} = \sqrt{5625 + 105264} = \sqrt{110889} = 333,
+\]
+
+which matches perfectly.
+
+**Step 3: Coordinates**
+
+- \(A = (75, 324.5)\),
+- \(B = (575, 324.5)\),
+- \(C = (650, 0)\),
+- \(D = (0,0)\).
+
+**Step 4: Find angle bisectors at \(A\) and \(D\) to find point \(P\)**
+
+First, find the bisector of \(\angle A\).
+
+At \(A\), the two sides are \(AB\) and \(AD\).
+
+- Vector \(AB = B - A = (575 - 75, 324.5 - 324.5) = (500, 0)\),
+- Vector \(AD = D - A = (0 - 75, 0 - 324.5) = (-75, -324.5)\).
+
+We need the angle bisector at \(A\), which is the direction vector that bisects the angle between vectors \(AB\) and \(AD\).
+
+The angle bisector direction vector at \(A\) is the sum of the unit vectors along \(AB\) and \(AD\).
+
+Compute the unit vectors:
+
+\[
+\|AB\| = 500, \quad \hat{u}_{AB} = \left(1,0\right),
+\]
+\[
+\|AD\| = 333, \quad \hat{u}_{AD} = \left(-\frac{75}{333}, -\frac{324.5}{333}\right) \approx (-0.225, -0.975).
+\]
+
+Sum:
+
+\[
+\vec{v}_A = \hat{u}_{AB} + \hat{u}_{AD} = (1 - 0.225, 0 - 0.975) = (0.775, -0.975).
+\]
+
+This is the angle bisector direction vector at \(A\).
+
+**Step 5: Find angle bisector at \(D\)**
+
+At \(D\), the two sides are \(DC\) and \(DA\).
+
+- Vector \(DC = C - D = (650 - 0, 0 - 0) = (650, 0)\),
+- Vector \(DA = A - D = (75 - 0, 324.5 - 0) = (75, 324.5)\).
+
+Unit vectors:
+
+\[
+\|DC\| = 650, \quad \hat{u}_{DC} = (1, 0),
+\]
+\[
+\|DA\| = 333, \quad \hat{u}_{DA} = \left(\frac{75}{333}, \frac{324.5}{333}\right) \approx (0.225, 0.975).
+\]
+
+Sum:
+
+\[
+\vec{v}_D = \hat{u}_{DC} + \hat{u}_{DA} = (1 + 0.225, 0 + 0.975) = (1.225, 0.975).
+\]
+
+This is the angle bisector direction vector at \(D\).
+
+**Step 6: Parametrize the bisectors**
+
+- Bisector at \(A\):
+
+\[
+\vec{r}_A(t) = A + t \vec{v}_A = (75, 324.5) + t (0.775, -0.975).
+\]
+
+- Bisector at \(D\):
+
+\[
+\vec{r}_D(s) = D + s \vec{v}_D = (0, 0) + s (1.225, 0.975).
+\]
+
+Find \(P\) where the two bisectors intersect:
+
+\[
+(75 + 0.775 t, 324.5 - 0.975 t) = (1.225 s, 0.975 s).
+\]
+
+Equate components:
+
+\[
+75 + 0.775 t = 1.225 s, \quad (1)
+\]
+\[
+324.5 - 0.975 t = 0.975 s. \quad (2)
+\]
+
+From (1),
+
+\[
+s = \frac{75 + 0.775 t}{1.225}.
+\]
+
+From (2),
+
+\[
+s = \frac{324.5 - 0.975 t}{0.975}.
+\]
+
+Set equal:
+
+\[
+\frac{75 + 0.775 t}{1.225} = \frac{324.5 - 0.975 t}{0.975}.
+\]
+
+Cross-multiplied:
+
+\[
+0.975 (75 + 0.775 t) = 1.225 (324.5 - 0.975 t).
+\]
+
+Calculate:
+
+\[
+0.975 \times 75 = 73.125, \quad 0.975 \times 0.775 t = 0.7556 t,
+\]
+\[
+1.225 \times 324.5 = 397.5125, \quad 1.225 \times (-0.975 t) = -1.194 t.
+\]
+
+Thus,
+
+\[
+73.125 + 0.7556 t = 397.5125 - 1.194 t,
+\]
+\[
+0.7556 t + 1.194 t = 397.5125 - 73.125,
+\]
+\[
+1.9496 t = 324.3875,
+\]
+\[
+t = \frac{324.3875}{1.9496} \approx 166.39.
+\]
+
+Now find \(s\):
+
+\[
+s = \frac{75 + 0.775 \times 166.39}{1.225} = \frac{75 + 128.93}{1.225} = \frac{203.93}{1.225} \approx 166.5.
+\]
+
+Calculate \(P\):
+
+\[
+P = (1.225 \times 166.5, 0.975 \times 166.5) = (203.96, 162.34).
+\]
+
+**Step 7: Find angle bisectors at \(B\) and \(C\) and their intersection \(Q\)**
+
+At \(B\), sides \(BA\) and \(BC\):
+
+- Vector \(BA = A - B = (75 - 575, 324.5 - 324.5) = (-500, 0)\),
+- Vector \(BC = C - B = (650 - 575, 0 - 324.5) = (75, -324.5)\).
+
+Unit vectors:
+
+\[
+\|BA\| = 500, \quad \hat{u}_{BA} = (-1, 0),
+\]
+\[
+\|BC\| = 333, \quad \hat{u}_{BC} = \left(\frac{75}{333}, -\frac{324.5}{333}\right) \approx (0.225, -0.975).
+\]
+
+Sum:
+
+\[
+\vec{v}_B = (-1 + 0.225, 0 - 0.975) = (-0.775, -0.975).
+\]
+
+At \(C\), sides \(CB\) and \(CD\):
+
+- Vector \(CB = B - C = (575 - 650, 324.5 - 0) = (-75, 324.5)\),
+- Vector \(CD = D - C = (0 - 650, 0 - 0) = (-650, 0)\).
+
+Unit vectors:
+
+\[
+\|CB\| = 333, \quad \hat{u}_{CB} = \left(-\frac{75}{333}, \frac{324.5}{333}\right) = (-0.225, 0.975),
+\]
+\[
+\|CD\| = 650, \quad \hat{u}_{CD} = (-1, 0).
+\]
+
+Sum:
+
+\[
+\vec{v}_C = (-0.225 - 1, 0.975 + 0) = (-1.225, 0.975).
+\]
+
+**Step 8: Parametrize bisectors at \(B\) and \(C\)**
+
+- At \(B\):
+
+\[
+\vec{r}_B(t) = B + t \vec{v}_B = (575, 324.5) + t (-0.775, -0.975).
+\]
+
+- At \(C\):
+
+\[
+\vec{r}_C(s) = C + s \vec{v}_C = (650, 0) + s (-1.225, 0.975).
+\]
+
+Find \(Q\) where these lines intersect:
+
+\[
+(575 - 0.775 t, 324.5 - 0.975 t) = (650 - 1.225 s, 0 + 0.975 s).
+\]
+
+Equate components:
+
+\[
+575 - 0.775 t = 650 - 1.225 s, \quad (1)
+\]
+\[
+324.5 - 0.975 t = 0.975 s. \quad (2)
+\]
+
+From (1):
+
+\[
+-0.775 t + 1.225 s = 650 - 575 = 75,
+\]
+or
+\[
+1.225 s = 75 + 0.775 t,
+\]
+\[
+s = \frac{75 + 0.775 t}{1.225}.
+\]
+
+From (2):
+
+\[
+324.5 - 0.975 t = 0.975 s,
+\]
+\[
+s = \frac{324.5 - 0.975 t}{0.975}.
+\]
+
+Equate \(s\):
+
+\[
+\frac{75 + 0.775 t}{1.225} = \frac{324.5 - 0.975 t}{0.975}.
+\]
+
+Notice this is the same equation as before, so the solution for \(t\) is the same:
+
+\[
+t = 166.39.
+\]
+
+Then,
+
+\[
+s = \frac{75 + 0.775 \times 166.39}{1.225} = \frac{75 + 128.93}{1.225} = \frac{203.93}{1.225} = 166.5.
+\]
+
+Calculate \(Q\):
+
+\[
+Q = (650 - 1.225 \times 166.5, 0 + 0.975 \times 166.5) = (650 - 203.96, 162.34) = (446.04, 162.34).
+\]
+
+**Step 9: Find \(PQ\)**
+
+Coordinates:
+
+\[
+P = (203.96, 162.34), \quad Q = (446.04, 162.34).
+\]
+
+Distance:
+
+\[
+PQ = |446.04 - 203.96| = 242.08 \approx 242.
+\]
+
+**Step 10: Conclusion**
+
+The length \(PQ\) is approximately 242.
+
+Since all numbers are nice and the problem likely expects an integer, the answer is \(242\).
+
+## Feedback
+Your answer is correct. The correct answer is 242.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Let $\omega\neq 1$ be a 13th root of unity. Find the remainder when
+\[\prod_{k=0}^{12}(2-2\omega^k+\omega^{2k})\]
+is divided by 1000.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+65
+
+## reasoning
+We are given a 13th root of unity \(\omega \neq 1\), and we want to find the remainder when
+\[
+\prod_{k=0}^{12} (2 - 2\omega^k + \omega^{2k})
+\]
+is divided by 1000.
+
+**Step 1: Rewrite the product**
+
+Rewrite each term inside the product:
+\[
+2 - 2\omega^k + \omega^{2k} = (\omega^k)^2 - 2\omega^k + 2 = (\omega^k)^2 - 2\omega^k + 2.
+\]
+
+Define \(x = \omega^k\). The factor becomes:
+\[
+x^2 - 2x + 2.
+\]
+
+**Step 2: Express the product as \( \prod_{k=0}^{12} f(\omega^k) \) for \(f(x) = x^2 - 2x + 2\).**
+
+Since \(\omega\) is a primitive 13-th root of unity, the \(\omega^k\) for \(k=0,\ldots,12\) are the roots of the polynomial:
+\[
+x^{13} - 1 = 0.
+\]
+
+We want to compute:
+\[
+\prod_{k=0}^{12} f(\omega^k) = \prod_{\omega^k : \omega^{13}=1} f(\omega^k).
+\]
+
+**Step 3: Use the polynomial whose roots are \(\omega^k\)**
+
+The minimal polynomial for \(\omega\) (primitive 13th root) is the 13th cyclotomic polynomial \(\Phi_{13}(x)\), which divides \(x^{13}-1\):
+\[
+x^{13} - 1 = (x-1)\Phi_{13}(x).
+\]
+
+Since \(\omega^k\) for \(k=1,\ldots,12\) are roots of \(\Phi_{13}(x)\), and \(\omega^0 = 1\) is root of \(x-1\), the roots \(\omega^k\) for \(k=0,\ldots,12\) are roots of \(x^{13}-1\).
+
+**Step 4: Relate the product to a resultant**
+
+Recall that:
+\[
+\prod_{\alpha: P(\alpha)=0} f(\alpha) = \text{Res}(P,f),
+\]
+where \(\text{Res}(P,f)\) is the resultant of polynomials \(P\) and \(f\).
+
+In our case:
+\[
+\prod_{k=0}^{12} f(\omega^k) = \prod_{\omega^k : \omega^{13}=1} f(\omega^k) = \prod_{\alpha: \alpha^{13} = 1} f(\alpha) = \text{Res}(x^{13} - 1, f).
+\]
+
+Therefore:
+\[
+\prod_{k=0}^{12} (2 - 2\omega^k + \omega^{2k}) = \text{Res}(x^{13}-1, x^2 - 2x + 2).
+\]
+
+**Step 5: Compute the resultant**
+
+The resultant \(\text{Res}(P,Q)\) can be computed using the product of \(Q(\alpha)\) over roots \(\alpha\) of \(P\), multiplied by the leading coefficient of \(P\) raised to the degree of \(Q\).
+
+Since \(x^{13} - 1\) is monic, and \(f(x) = x^2 - 2x + 2\) is monic, we can use:
+\[
+\text{Res}(x^{13} - 1, f) = \prod_{\alpha^{13} = 1} f(\alpha).
+\]
+
+**Step 6: Alternative approach using roots**
+
+If \(f(x) = (x - r_1)(x - r_2)\), then:
+\[
+\prod_{\alpha^{13} = 1} f(\alpha) = \prod_{\alpha^{13} = 1} ( \alpha - r_1)(\alpha - r_2 ) = \left( \prod_{\alpha^{13} = 1} (\alpha - r_1) \right) \left( \prod_{\alpha^{13} = 1} (\alpha - r_2) \right).
+\]
+
+Note that:
+\[
+\prod_{\alpha^{13} = 1} (x - \alpha) = x^{13} - 1.
+\]
+
+Thus, by setting \(x = r_1\) or \(r_2\),
+\[
+\prod_{\alpha^{13} = 1} (r_i - \alpha) = r_i^{13} - 1.
+\]
+
+But we have \(\prod_{\alpha^{13} = 1} (\alpha - r_i) = (-1)^{13} \prod_{\alpha^{13} = 1} (r_i - \alpha) = - (r_i^{13} - 1)\).
+
+Therefore:
+\[
+\prod_{\alpha^{13} = 1} f(\alpha) = \prod_{\alpha^{13} = 1} (\alpha - r_1)(\alpha - r_2) = \prod_{\alpha^{13} = 1} (\alpha - r_1) \cdot \prod_{\alpha^{13} = 1} (\alpha - r_2) = (-1)^{26} (r_1^{13} - 1)(r_2^{13} - 1).
+\]
+
+Since 26 is even, \((-1)^{26} = 1\), so:
+\[
+\prod_{\alpha^{13} = 1} f(\alpha) = (r_1^{13} - 1)(r_2^{13} - 1).
+\]
+
+**Step 7: Find the roots \(r_1, r_2\) of \(f(x)\)**
+
+Given:
+\[
+x^2 - 2x + 2 = 0.
+\]
+
+Using quadratic formula:
+\[
+x = \frac{2 \pm \sqrt{4 - 8}}{2} = 1 \pm i.
+\]
+
+So:
+\[
+r_1 = 1 + i, \quad r_2 = 1 - i.
+\]
+
+**Step 8: Compute \(r_1^{13} - 1\) and \(r_2^{13} - 1\)**
+
+Express \(r_1\) and \(r_2\) in polar form.
+
+\[
+r_1 = 1 + i = \sqrt{2} \left( \frac{1}{\sqrt{2}} + i \frac{1}{\sqrt{2}} \right) = \sqrt{2} e^{i\pi/4}.
+\]
+
+Similarly,
+\[
+r_2 = 1 - i = \sqrt{2} e^{-i\pi/4}.
+\]
+
+Then:
+\[
+r_1^{13} = (\sqrt{2})^{13} e^{i 13 \pi / 4}, \quad r_2^{13} = (\sqrt{2})^{13} e^{-i 13 \pi / 4}.
+\]
+
+**Step 9: Simplify \((\sqrt{2})^{13}\)**
+
+\[
+(\sqrt{2})^{13} = (2^{1/2})^{13} = 2^{13/2} = 2^{6.5} = 2^6 \cdot 2^{0.5} = 64 \sqrt{2}.
+\]
+
+**Step 10: Simplify the exponentials**
+
+Note:
+\[
+e^{i 13 \pi / 4} = e^{i (3 \cdot 2\pi + \pi/4)} = e^{i \pi/4}
+\]
+because \(13 \pi / 4 = 12 \pi /4 + \pi/4 = 3\pi + \pi/4 = 3 (2\pi) + \pi/4\) mod \(2\pi\).
+
+Similarly,
+\[
+e^{-i 13 \pi / 4} = e^{-i \pi/4}.
+\]
+
+So,
+\[
+r_1^{13} = 64 \sqrt{2} e^{i \pi / 4}, \quad r_2^{13} = 64 \sqrt{2} e^{-i \pi / 4}.
+\]
+
+**Step 11: Compute \(r_1^{13} - 1\) and \(r_2^{13} - 1\)**
+
+Write in rectangular form:
+\[
+r_1^{13} = 64 \sqrt{2} \left( \cos \frac{\pi}{4} + i \sin \frac{\pi}{4} \right) = 64 \sqrt{2} \left( \frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2} \right) = 64 \sqrt{2} \cdot \frac{\sqrt{2}}{2} (1 + i) = 64 \cdot 1 (1 + i) = 64 (1 + i).
+\]
+
+Similarly,
+\[
+r_2^{13} = 64 (1 - i).
+\]
+
+Thus,
+\[
+r_1^{13} - 1 = 64 (1 + i) - 1 = 63 + 64 i,
+\]
+\[
+r_2^{13} - 1 = 64 (1 - i) - 1 = 63 - 64 i.
+\]
+
+**Step 12: Compute the product**
+
+\[
+(r_1^{13} - 1)(r_2^{13} - 1) = (63 + 64 i)(63 - 64 i) = 63^2 + 64^2 = 3969 + 4096 = 8065.
+\]
+
+**Step 13: Find remainder modulo 1000**
+
+\[
+8065 \equiv 8065 - 8 \cdot 1000 = 8065 - 8000 = 65 \pmod{1000}.
+\]
+
+**Answer:**
+\[
+\boxed{65}.
+\]
+
+## Feedback
+Your answer is incorrect. The correct answer is 321.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Find the number of rectangles that can be formed inside a fixed regular dodecagon ($12$-gon) where each side of the rectangle lies on either a side or a diagonal of the dodecagon. The diagram below shows three of those rectangles.
+[asy] unitsize(0.6 inch); for(int i=0; i<360; i+=30) { dot(dir(i), 4+black); draw(dir(i)--dir(i+30)); } draw(dir(120)--dir(330)); filldraw(dir(210)--dir(240)--dir(30)--dir(60)--cycle, mediumgray, linewidth(1.5)); draw((0,0.366)--(0.366,0), linewidth(1.5)); [/asy]
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+17
+
+## reasoning
+We are given a regular dodecagon (12-gon) and asked to find how many rectangles can be formed inside it such that each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+
+Key observations and approach:
+
+1. **Vertices and diagonals of a regular 12-gon:**
+   The polygon has 12 vertices equally spaced on a circle. The sides and diagonals are all chords between these vertices.
+
+2. **Rectangles inscribed in the polygon:**
+   For a rectangle to be formed by the sides or diagonals of the polygon, the rectangle's vertices must be vertices of the polygon, and its sides must be chords of the polygon.
+
+3. **Condition for a rectangle on vertices of a regular polygon:**
+   A rectangle is a special parallelogram with right angles. In a circle, the only way four points form a rectangle is if the rectangle is cyclic (which it always is, since vertices lie on the circle) and the opposite vertices are endpoints of diameters. 
+   
+   In other words, the rectangle must be inscribed in the circle, with each pair of opposite vertices lying at opposite ends of a diameter of the circumscribed circle.
+
+4. **Number of diameters in a 12-gon:**
+   Since the polygon is regular with 12 vertices, the vertices lie at angles \(0^\circ, 30^\circ, 60^\circ, ..., 330^\circ\).
+   
+   The pairs of vertices forming diameters are those separated by 180°. So vertex \(k\) is opposite vertex \(k+6 \mod 12\).
+   
+   Thus, the 12-gon has 6 diameters, each connecting opposite vertices.
+
+5. **Rectangles correspond to pairs of diameters:**
+   For a rectangle inscribed in the polygon, the vertices must be the endpoints of two diameters that are perpendicular (because rectangle sides are perpendicular).
+   
+   So each rectangle corresponds to choosing two perpendicular diameters.
+   
+6. **Counting the perpendicular diameters:**
+   - The 6 diameters correspond to the pairs:
+     (0°,180°), (30°,210°), (60°,240°), (90°,270°), (120°,300°), (150°,330°).
+   - Each diameter has an angle (the smaller angle of its endpoints) that is \(k \times 30^\circ\) for \(k=0,...,5\).
+   - Two diameters are perpendicular if their angles differ by 90° modulo 180°.
+   
+   Let's write down diameters by angle and see which are perpendicular:
+   - Diameter 1: 0°
+   - Diameter 2: 30°
+   - Diameter 3: 60°
+   - Diameter 4: 90°
+   - Diameter 5: 120°
+   - Diameter 6: 150°
+   
+   Two diameters are perpendicular if their angles differ by 90° or 270° (which is 90° modulo 180°).
+   
+   Check pairs:
+   - 0° and 90° → difference 90° → perpendicular
+   - 0° and 150° → difference 150°, no
+   - 30° and 120° → difference 90°, yes
+   - 60° and 150° → difference 90°, yes
+   - 90° and 180° (equiv 0°, no 180° diameter) no
+   Other pairs can be tested similarly, but only these three pairs correspond to perpendicular diameters:
+   
+   So the sets of perpendicular diameters are:
+   - (0°, 90°)
+   - (30°, 120°)
+   - (60°, 150°)
+   
+7. **Each pair of perpendicular diameters defines a unique rectangle:**
+   The rectangle is formed by the four endpoints of these two diameters.
+
+8. **Are there other rectangles?**
+   The rectangle must have sides on sides or diagonals of the polygon.
+
+   Since the rectangle is formed by chords between vertices, and the sides of the rectangle are chords of the polygon, the sides of the rectangle are sides or diagonals of the polygon.
+
+   Because the polygon is regular, any chord between two vertices is either a side or a diagonal.
+
+   Thus, every rectangle formed by two perpendicular diameters corresponds to a rectangle with sides on sides or diagonals of the polygon.
+
+9. **Number of such rectangles:**
+   We found 3 such pairs of perpendicular diameters, hence 3 rectangles.
+
+10. **But the problem's diagram shows 3 rectangles; is that all?**
+
+    Wait, the problem states "The diagram below shows three of those rectangles," implying there could be more than three.
+
+11. **Re-examining the approach:**
+
+    Actually, the above reasoning counts rectangles whose vertices are four vertices of the polygon forming a rectangle inscribed in the circle.
+
+    But the problem's condition is that each side of the rectangle lies on either a side or a diagonal of the polygon.
+
+    That means the rectangle's sides are chords of the polygon.
+
+    However, the rectangle can be formed not only by vertices of the polygon but also by intersections of diagonals (other than the vertices).
+
+    The problem mentions the rectangle sides lie on sides or diagonals of the polygon, but doesn't require the rectangle vertices to be polygon vertices.
+
+    So the rectangle can be formed by intersections of diagonals as vertices.
+
+12. **Next step:**
+
+    Since the polygon is regular, all diagonals are chords between vertices.
+
+    The rectangle's sides must be edges (polygon sides) or diagonals.
+
+    The rectangle's vertices are intersection points of the polygon's sides or diagonals.
+
+13. **Key fact:**
+
+    Rectangles inside a regular polygon formed by sides or diagonals correspond to choosing two pairs of parallel lines from the set of polygon sides and diagonals.
+
+14. **Number of directions of sides and diagonals:**
+
+    The polygon has 12 sides, each parallel to a certain direction.
+
+    The polygon is regular, so the sides are in 12 directions spaced by 30°.
+
+    But the polygon's sides only have 12 directions; and diagonals can have other directions.
+
+15. **All directions of sides and diagonals:**
+
+    The polygon has 12 vertices, and the diagonals are chords between vertices.
+
+    The directions of the chords are the directions between vertex i and vertex j.
+
+    The polygon's vertices are at angles \(0^\circ, 30^\circ, 60^\circ, ..., 330^\circ\).
+
+    The directions of chords correspond to differences of these angles modulo 180°.
+
+    So the directions of chords are \(\{0^\circ, 30^\circ, 60^\circ, 90^\circ, 120^\circ, 150^\circ\}\).
+
+    Because for each chord from vertex i to j, the direction is (angle_j - angle_i) mod 180°.
+
+    So the chords have 6 distinct directions: 0°, 30°, 60°, 90°, 120°, and 150°.
+
+16. **Lines in these 6 directions:**
+
+    For each direction, the polygon has multiple lines (sides or diagonals) parallel to that direction.
+
+    For example, lines parallel to 0° direction include all edges or diagonals connecting vertices with difference in angle 0° or 180°.
+
+    Similarly for other directions.
+
+17. **Forming rectangles:**
+
+    Rectangles have sides parallel to two perpendicular directions.
+
+    Since the possible directions are \(\{0^\circ, 30^\circ, 60^\circ, 90^\circ, 120^\circ, 150^\circ\}\), we need to find pairs of directions that are perpendicular.
+
+    Perpendicular direction pairs are pairs that differ by 90° modulo 180°.
+
+    Let's list pairs:
+
+    - 0° and 90°
+    - 30° and 120°
+    - 60° and 150°
+
+    These three pairs correspond to the perpendicular direction pairs.
+
+18. **Lines in these directions:**
+
+    For each direction, lines in that direction correspond to sets of chords parallel to that direction.
+
+    For each direction, the polygon defines 12 parallel lines through each vertex, but only some of these lines correspond to sides or diagonals.
+
+19. **Counting lines in each direction:**
+
+    For direction 0°:
+
+    - Lines parallel to 0° are lines joining vertices separated by multiples of 6 (since 180° corresponds to 6 steps in the 12-gon).
+
+    - The sides parallel to 0° are edges between vertices i and i+1? No, edges are between i and i+1 (mod 12).
+
+    The edges in direction 0° are those edges parallel to the 0° direction.
+
+    But more simply, the polygon sides have 12 directions spaced by 30°, so each side has a unique direction.
+
+    So for direction 0°, there are exactly 2 sides parallel to it (because polygon is symmetric).
+
+    Similarly, for direction 30°, there will be 2 sides parallel.
+
+    In general, since the polygon is regular, for each direction, there are exactly 2 sides parallel to that direction.
+
+20. **Lines through vertices parallel to each direction:**
+
+    For chords (edges or diagonals), the lines in each direction passing through vertices correspond to the sets of chords parallel to that direction.
+
+    The number of lines in each direction is equal to the number of parallel chords in that direction.
+
+21. **Number of lines in each direction:**
+
+    Since the polygon has 12 vertices, and chords are between pairs of vertices, and the directions are 0°, 30°, 60°, 90°, 120°, and 150°, the number of distinct lines in each direction is equal to the number of distinct chords parallel to that direction.
+
+    Let's find the number of lines for each direction:
+
+    - Direction 0°:
+
+      Chords parallel to 0° are those joining vertices i and i+6 (opposite vertices).
+
+      So these are the 6 diameters.
+
+      So total 6 lines in direction 0°.
+
+    - Direction 30°:
+
+      Lines parallel to 30° are chords connecting vertices i and i+5 or i and i+7 mod 12.
+
+      Let's check:
+
+      The difference in angle between vertex i and vertex j is (j - i)*30°.
+
+      For direction 30°, difference is 30° or 150° (since 150° = 180° - 30°).
+
+      So chords with difference 1 or 11 steps correspond to direction 30° and 150°, but 150° is another direction.
+
+      Actually, to get direction 30°, the chord has difference 1 (30°) or 11 (330°, which is 150° modulo 180° is 150°).
+
+      So direction 30° lines correspond to chords with steps difference 1 or 11 (mod 12).
+
+      But sides connect vertices with difference 1 (edges), so the sides in direction 30° are edges.
+
+      For direction 30°, the edges are those between vertex i and i+1.
+
+      There are 12 edges, but only 2 directions for edges (since edges have 12 directions spaced by 30°, each direction with two edges).
+
+      So direction 30° lines are edges between i and i+1 for i=0, and i=6 (because these edges are parallel).
+
+      So total 2 edges parallel to 30°.
+
+      Similarly, diagonals parallel to 30° are chords with difference 1 or 11, but only edges correspond to difference 1 or 11.
+
+      So total lines in direction 30° are 2.
+
+    - Similarly for other directions.
+
+22. **Summary:**
+
+    For each direction, the number of lines (edges or diagonals) parallel to that direction is 2 or 6 (for 0° direction).
+
+    Actually, for direction 0° (and 180°), the lines correspond to the 6 diameters.
+
+    For directions 30°, 60°, 90°, 120°, 150°, the number of parallel lines is 2.
+
+23. **Number of lines in each direction:**
+
+    - Direction 0°: 6 lines (diameters)
+    - Direction 30°: 2 lines (edges)
+    - Direction 60°: 2 lines (edges)
+    - Direction 90°: 2 lines (edges)
+    - Direction 120°: 2 lines (edges)
+    - Direction 150°: 2 lines (edges)
+
+24. **Forming rectangles:**
+
+    To form a rectangle, we pick two directions that are perpendicular (from the 3 pairs: (0°,90°), (30°,120°), (60°,150°)).
+
+    For each pair, the rectangle is formed by choosing two distinct lines from the first direction and two distinct lines from the second direction.
+
+    Because opposite sides of a rectangle are parallel lines.
+
+25. **Number of rectangles from each pair:**
+
+    For each direction in the pair, the number of lines is:
+
+    - For 0° direction: 6 lines
+
+    - For 90° direction: 2 lines
+
+    So number of rectangles from (0°,90°) pair is:
+
+    Number of ways to choose 2 distinct lines from 6 lines (direction 0°) times number of ways to choose 2 distinct lines from 2 lines (direction 90°):
+
+    \[
+    \binom{6}{2} \times \binom{2}{2} = 15 \times 1 = 15
+    \]
+
+    Similarly, for (30°,120°):
+
+    Number of lines in 30° direction: 2 lines
+
+    Number of lines in 120° direction: 2 lines
+
+    Number of rectangles:
+
+    \[
+    \binom{2}{2} \times \binom{2}{2} = 1 \times 1 =1
+    \]
+
+    For (60°,150°):
+
+    Number of lines in 60° direction: 2 lines
+
+    Number of lines in 150° direction: 2 lines
+
+    Number of rectangles:
+
+    \[
+    \binom{2}{2} \times \binom{2}{2} =1 \times 1=1
+    \]
+
+26. **Total number of rectangles:**
+
+    Sum over all three pairs:
+
+    \[
+    15 + 1 +1 = 17
+    \]
+
+27. **Conclusion:**
+
+    There are 17 rectangles that can be formed inside the regular dodecagon where each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+
+## Feedback
+Your answer is incorrect. The correct answer is 315.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000001 | Iter 1 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by encouraging detailed, step-by-step solutions that include all necessary reasoning and conclude with a clearly boxed integer answer.
+Lesson: The outcome reveals that requiring more detailed explanations and justifications did not improve the accuracy on AIME problems, suggesting that increased verbosity or explicitness in the prompt does not necessarily lead to better final answers.
+Still failing: AIME math problems
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

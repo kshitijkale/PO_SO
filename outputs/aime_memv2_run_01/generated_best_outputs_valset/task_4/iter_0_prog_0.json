@@ -1,0 +1,14 @@
+[
+    1.0,
+    {
+        "current_candidate": "Solve the problem and provide the answer provide the final answer as a single integer."
+    },
+    {
+        "score": 1.0,
+        "problem": "Quadratic polynomials $P(x)$ and $Q(x)$ have leading coefficients $2$ and $-2,$ respectively. The graphs of both polynomials pass through the two points $(16,54)$ and $(20,53).$ Find $P(0) + Q(0).$",
+        "prompt": "Solve the problem and provide the answer provide the final answer as a single integer.",
+        "output": "116",
+        "reasoning": "Let the quadratic polynomials be:\n\\[ P(x) = 2x^2 + bx + c \\]\n\\[ Q(x) = -2x^2 + dx + e \\]\n\nSince both pass through the points \\((16,54)\\) and \\((20,53)\\), we have:\n\nFor \\(P(x)\\):\n\\[\nP(16) = 2(16)^2 + 16b + c = 54\n\\]\n\\[\nP(20) = 2(20)^2 + 20b + c = 53\n\\]\n\nCalculate \\(2(16)^2 = 2 \\times 256 = 512\\), so:\n\\[\n512 + 16b + c = 54 \\implies 16b + c = 54 - 512 = -458\n\\]\n\nCalculate \\(2(20)^2 = 2 \\times 400 = 800\\), so:\n\\[\n800 + 20b + c = 53 \\implies 20b + c = 53 - 800 = -747\n\\]\n\nSubtract the first equation from the second:\n\\[\n(20b + c) - (16b + c) = -747 - (-458) \\implies 4b = -289 \\implies b = -72.25\n\\]\n\nPlug back to find \\(c\\):\n\\[\n16b + c = -458 \\implies 16(-72.25) + c = -458 \\implies -1156 + c = -458 \\implies c = 698\n\\]\n\nSo:\n\\[\nP(x) = 2x^2 - 72.25x + 698\n\\]\n\nFor \\(Q(x)\\):\n\\[\nQ(16) = -2(16)^2 + 16d + e = 54\n\\]\n\\[\nQ(20) = -2(20)^2 + 20d + e = 53\n\\]\n\nCalculate \\(-2(16)^2 = -2 \\times 256 = -512\\):\n\\[\n-512 + 16d + e = 54 \\implies 16d + e = 566\n\\]\n\nCalculate \\(-2(20)^2 = -2 \\times 400 = -800\\):\n\\[\n-800 + 20d + e = 53 \\implies 20d + e = 853\n\\]\n\nSubtract the first from the second:\n\\[\n(20d + e) - (16d + e) = 853 - 566 \\implies 4d = 287 \\implies d = 71.75\n\\]\n\nPlug back to find \\(e\\):\n\\[\n16d + e = 566 \\implies 16(71.75) + e = 566 \\implies 1148 + e = 566 \\implies e = 566 - 1148 = -582\n\\]\n\nSo:\n\\[\nQ(x) = -2x^2 + 71.75x - 582\n\\]\n\nWe want \\(P(0) + Q(0) = c + e = 698 + (-582) = 116\\).",
+        "Feedback": "Your answer is correct. The correct answer is 116."
+    }
+]

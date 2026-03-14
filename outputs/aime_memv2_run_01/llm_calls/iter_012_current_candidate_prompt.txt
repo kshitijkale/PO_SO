@@ -1,0 +1,1194 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Carefully solve the problem step-by-step, ensuring mathematical correctness and logical consistency throughout. After completing the full reasoning process, provide only the final answer as a single, simplified integer without any additional explanation or formatting.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Alice knows that $3$ red cards and $3$ black cards will be revealed to her one at a time in random order. Before each card is revealed, Alice must guess its color. If Alice plays optimally, the expected number of cards she will guess correctly is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Carefully solve the problem step-by-step, ensuring mathematical correctness and logical consistency throughout. After completing the full reasoning process, provide only the final answer as a single, simplified integer without any additional explanation or formatting.
+
+## output
+51
+
+## reasoning
+This is a classic problem of optimal guessing with partial information and known card counts.
+
+Setup: There are 6 cards total, 3 red (R) and 3 black (B). They will be revealed one by one in a random order. Before each card is revealed, Alice guesses the color of that card. She wants to maximize the expected number of correct guesses.
+
+Key points:
+- The order is random and unknown.
+- Alice knows the total counts (3 red, 3 black).
+- She guesses before each card is revealed.
+- After each card is revealed, she gains information about the remaining cards (since the counts of remaining cards change).
+
+The problem asks for the expected number of correct guesses if Alice uses the optimal strategy.
+
+---
+
+**Step 1: Understanding the optimal strategy**
+
+At any point, Alice knows how many red and black cards remain in the unrevealed deck. Since the order is uniformly random, the best guess is to guess the color which is more likely to appear next, i.e., the color with the greater number of remaining cards.
+
+If the remaining counts are equal, then the probability of the next card being red or black is equal, so Alice's best guess is to guess either color (the expected correct guess from that guess is 0.5).
+
+---
+
+**Step 2: State definition and expectation**
+
+Let \(E(r,b)\) be the expected number of correct guesses remaining when there are \(r\) red and \(b\) black cards left to be revealed.
+
+We want \(E(3,3)\).
+
+Base cases:
+
+- If \(r=0\) and \(b=0\), no cards remain, so \(E(0,0) = 0\).
+- If \(r=0\), only black cards remain. The best guess is black always, so each guess is correct with probability 1. So \(E(0,b) = b\).
+- Similarly, \(E(r,0) = r\).
+
+---
+
+**Step 3: Recursive formula**
+
+For \(r>0\) and \(b>0\):
+
+Alice guesses the color with the greater number remaining (or either if equal).
+
+- If \(r > b\), Alice guesses red.
+- If \(b > r\), Alice guesses black.
+- If \(r = b\), Alice guesses either color (say red), and the expected correct guess for that guess is 0.5.
+
+The next card is red with probability \(\frac{r}{r+b}\) and black with probability \(\frac{b}{r+b}\).
+
+Denote the guess color as \(g\).
+
+The expected correct guesses starting with state \((r,b)\) is:
+
+\[
+E(r,b) = P(\text{correct guess}) + P(\text{next card is red}) \cdot E(r-1,b) + P(\text{next card is black}) \cdot E(r,b-1).
+\]
+
+- \(P(\text{correct guess}) = \frac{\max(r,b)}{r+b}\) if guessing the majority color.
+- If \(r = b\), then \(P(\text{correct guess}) = \frac{r}{r+b} = \frac{1}{2}\).
+
+---
+
+**Step 4: Compute values bottom-up**
+
+We calculate \(E(r,b)\) for all \(r,b\) from 0 up to 3.
+
+Start with base cases:
+
+- \(E(0,0) = 0\)
+- \(E(r,0) = r\)
+- \(E(0,b) = b\)
+
+Calculate for increasing \(r,b\):
+
+1. \(E(1,1)\):
+
+Since \(r=b=1\), guess either color.
+
+\[
+P(\text{correct}) = \frac{1}{2}.
+\]
+
+Next card red with probability \(1/2\), black with probability \(1/2\).
+
+\[
+E(1,1) = \frac{1}{2} + \frac{1}{2}E(0,1) + \frac{1}{2}E(1,0) = \frac{1}{2} + \frac{1}{2}\cdot 1 + \frac{1}{2}\cdot 1 = \frac{1}{2} + \frac{1}{2} + \frac{1}{2} = 1.5.
+\]
+
+2. \(E(1,2)\):
+
+Here \(b > r\), so guess black.
+
+\[
+P(\text{correct}) = \frac{b}{r+b} = \frac{2}{3}.
+\]
+
+Next card red with probability \(1/3\), black with probability \(2/3\).
+
+\[
+E(1,2) = \frac{2}{3} + \frac{1}{3}E(0,2) + \frac{2}{3}E(1,1).
+\]
+
+We know:
+
+- \(E(0,2) = 2\)
+- \(E(1,1) = 1.5\)
+
+Calculate:
+
+\[
+E(1,2) = \frac{2}{3} + \frac{1}{3}\times 2 + \frac{2}{3} \times 1.5 = \frac{2}{3} + \frac{2}{3} + 1 = \frac{2}{3} + \frac{2}{3} + 1 = \frac{4}{3} + 1 = \frac{7}{3} \approx 2.3333.
+\]
+
+3. \(E(2,1)\):
+
+\(r > b\), guess red.
+
+\[
+P(\text{correct}) = \frac{2}{3}.
+\]
+
+Next card red with probability \(2/3\), black with probability \(1/3\).
+
+\[
+E(2,1) = \frac{2}{3} + \frac{2}{3} E(1,1) + \frac{1}{3} E(2,0).
+\]
+
+We know:
+
+- \(E(1,1) = 1.5\)
+- \(E(2,0) = 2\)
+
+Calculate:
+
+\[
+E(2,1) = \frac{2}{3} + \frac{2}{3} \times 1.5 + \frac{1}{3} \times 2 = \frac{2}{3} + 1 + \frac{2}{3} = \frac{2}{3} + 1 + \frac{2}{3} = \frac{4}{3} + 1 = \frac{7}{3} \approx 2.3333.
+\]
+
+4. \(E(2,2)\):
+
+\(r=b=2\), guess either color.
+
+\[
+P(\text{correct}) = \frac{1}{2}.
+\]
+
+Next card red with probability \(1/2\), black with probability \(1/2\).
+
+\[
+E(2,2) = \frac{1}{2} + \frac{1}{2} E(1,2) + \frac{1}{2} E(2,1).
+\]
+
+We have:
+
+- \(E(1,2) = \frac{7}{3}\)
+- \(E(2,1) = \frac{7}{3}\)
+
+Calculate:
+
+\[
+E(2,2) = \frac{1}{2} + \frac{1}{2} \times \frac{7}{3} + \frac{1}{2} \times \frac{7}{3} = \frac{1}{2} + \frac{7}{6} + \frac{7}{6} = \frac{1}{2} + \frac{14}{6} = \frac{1}{2} + \frac{7}{3} = \frac{3}{6} + \frac{14}{6} = \frac{17}{6} \approx 2.8333.
+\]
+
+5. \(E(3,1)\):
+
+\(r > b\), guess red.
+
+\[
+P(\text{correct}) = \frac{3}{4}.
+\]
+
+Next card red with probability \(3/4\), black with probability \(1/4\).
+
+\[
+E(3,1) = \frac{3}{4} + \frac{3}{4} E(2,1) + \frac{1}{4} E(3,0).
+\]
+
+We know:
+
+- \(E(2,1) = \frac{7}{3}\)
+- \(E(3,0) = 3\)
+
+Calculate:
+
+\[
+E(3,1) = \frac{3}{4} + \frac{3}{4} \times \frac{7}{3} + \frac{1}{4} \times 3 = \frac{3}{4} + \frac{7}{4} + \frac{3}{4} = \frac{3+7+3}{4} = \frac{13}{4} = 3.25.
+\]
+
+6. \(E(1,3)\):
+
+\(b > r\), guess black.
+
+\[
+P(\text{correct}) = \frac{3}{4}.
+\]
+
+Next card red with probability \(1/4\), black with probability \(3/4\).
+
+\[
+E(1,3) = \frac{3}{4} + \frac{1}{4} E(0,3) + \frac{3}{4} E(1,2).
+\]
+
+We know:
+
+- \(E(0,3) = 3\)
+- \(E(1,2) = \frac{7}{3}\)
+
+Calculate:
+
+\[
+E(1,3) = \frac{3}{4} + \frac{1}{4} \times 3 + \frac{3}{4} \times \frac{7}{3} = \frac{3}{4} + \frac{3}{4} + \frac{7}{4} = \frac{3+3+7}{4} = \frac{13}{4} = 3.25.
+\]
+
+7. \(E(3,2)\):
+
+\(r > b\), guess red.
+
+\[
+P(\text{correct}) = \frac{3}{5}.
+\]
+
+Next card red with probability \(3/5\), black with probability \(2/5\).
+
+\[
+E(3,2) = \frac{3}{5} + \frac{3}{5} E(2,2) + \frac{2}{5} E(3,1).
+\]
+
+We know:
+
+- \(E(2,2) = \frac{17}{6}\)
+- \(E(3,1) = \frac{13}{4}\)
+
+Calculate:
+
+\[
+E(3,2) = \frac{3}{5} + \frac{3}{5} \times \frac{17}{6} + \frac{2}{5} \times \frac{13}{4} = \frac{3}{5} + \frac{51}{30} + \frac{26}{20}.
+\]
+
+Simplify fractions:
+
+- \(\frac{51}{30} = \frac{17}{10}\)
+- \(\frac{26}{20} = \frac{13}{10}\)
+
+So:
+
+\[
+E(3,2) = \frac{3}{5} + \frac{17}{10} + \frac{13}{10} = \frac{3}{5} + \frac{30}{10} = \frac{3}{5} + 3 = \frac{3}{5} + 3.
+\]
+
+Convert \(\frac{3}{5}\) to tenths:
+
+\[
+\frac{3}{5} = \frac{6}{10}.
+\]
+
+So:
+
+\[
+E(3,2) = \frac{6}{10} + \frac{30}{10} = \frac{36}{10} = 3.6.
+\]
+
+8. \(E(2,3)\):
+
+\(b > r\), guess black.
+
+\[
+P(\text{correct}) = \frac{3}{5}.
+\]
+
+Next card red with probability \(2/5\), black with probability \(3/5\).
+
+\[
+E(2,3) = \frac{3}{5} + \frac{2}{5} E(1,3) + \frac{3}{5} E(2,2).
+\]
+
+We know:
+
+- \(E(1,3) = \frac{13}{4}\)
+- \(E(2,2) = \frac{17}{6}\)
+
+Calculate:
+
+\[
+E(2,3) = \frac{3}{5} + \frac{2}{5} \times \frac{13}{4} + \frac{3}{5} \times \frac{17}{6} = \frac{3}{5} + \frac{26}{20} + \frac{51}{30}.
+\]
+
+Simplify fractions:
+
+- \(\frac{26}{20} = \frac{13}{10}\)
+- \(\frac{51}{30} = \frac{17}{10}\)
+
+Sum:
+
+\[
+\frac{3}{5} + \frac{13}{10} + \frac{17}{10} = \frac{3}{5} + 3 = ?
+\]
+
+Convert \(\frac{3}{5} = \frac{6}{10}\):
+
+\[
+\frac{6}{10} + \frac{13}{10} + \frac{17}{10} = \frac{36}{10} = 3.6.
+\]
+
+9. Finally, \(E(3,3)\):
+
+\(r = b = 3\), so guess either color.
+
+\[
+P(\text{correct}) = \frac{1}{2}.
+\]
+
+Next card red with probability \(1/2\), black with probability \(1/2\).
+
+\[
+E(3,3) = \frac{1}{2} + \frac{1}{2} E(2,3) + \frac{1}{2} E(3,2).
+\]
+
+We know:
+
+- \(E(2,3) = 3.6\)
+- \(E(3,2) = 3.6\)
+
+Calculate:
+
+\[
+E(3,3) = \frac{1}{2} + \frac{1}{2} \times 3.6 + \frac{1}{2} \times 3.6 = \frac{1}{2} + 1.8 + 1.8 = \frac{1}{2} + 3.6 = 4.1.
+\]
+
+---
+
+**Step 5: Express as fraction**
+
+\[
+4.1 = \frac{41}{10}.
+\]
+
+Thus, the expected number of correct guesses is \(\frac{41}{10}\).
+
+---
+
+**Step 6: Final answer**
+
+\(m = 41\), \(n = 10\), relatively prime.
+
+Sum: \(m + n = 41 + 10 = 51\).
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 51.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Let ABCDEF be a convex equilateral hexagon in which all pairs of opposite sides are parallel. The triangle whose sides are extensions of segments AB, CD, and EF has side lengths 200, 240, and 300. Find the side length of the hexagon.
+
+## prompt
+Carefully solve the problem step-by-step, ensuring mathematical correctness and logical consistency throughout. After completing the full reasoning process, provide only the final answer as a single, simplified integer without any additional explanation or formatting.
+
+## output
+197
+
+## reasoning
+Let the side length of the hexagon be \( s \). Since ABCDEF is an equilateral hexagon with all pairs of opposite sides parallel, it is an equilateral hexagon with opposite sides parallel, also known as an equiangular hexagon if it were regular, but here only the conditions are equilateral and opposite sides parallel.
+
+Given:
+- The hexagon is convex.
+- All sides have length \( s \).
+- Opposite sides are parallel: \( AB \parallel DE \), \( BC \parallel EF \), \( CD \parallel FA \).
+- The triangle formed by the extensions of sides \( AB, CD, EF \) has side lengths 200, 240, and 300.
+
+We want to find \( s \).
+
+---
+
+**Step 1: Understanding the geometry**
+
+The hexagon \( ABCDEF \) has sides \( AB, BC, CD, DE, EF, FA \), each of length \( s \).
+
+Opposite sides are parallel:
+
+- \( AB \parallel DE \)
+- \( BC \parallel EF \)
+- \( CD \parallel FA \)
+
+Because the hexagon is convex and equilateral with these parallel pairs, it can be seen as a hexagon formed by taking three vectors \( \vec{u}, \vec{v}, \vec{w} \) in the plane such that:
+
+- \( AB = \vec{u} \)
+- \( BC = \vec{v} \)
+- \( CD = \vec{w} \)
+- \( DE = -\vec{u} \)
+- \( EF = -\vec{v} \)
+- \( FA = -\vec{w} \)
+
+This is because opposite sides are parallel and equal in length and opposite in direction.
+
+Since the hexagon is closed, the sum of the vectors is zero:
+
+\[
+\vec{u} + \vec{v} + \vec{w} + (-\vec{u}) + (-\vec{v}) + (-\vec{w}) = 0,
+\]
+
+which is trivial. But the order is \( A \to B \to C \to D \to E \to F \to A \), so the sides are \( \vec{u}, \vec{v}, \vec{w}, -\vec{u}, -\vec{v}, -\vec{w} \).
+
+Each of these vectors has length \( s \).
+
+---
+
+**Step 2: The triangle formed by the extensions of sides \( AB, CD, EF \)**
+
+The problem says: The triangle whose sides are the extensions of segments \( AB, CD, EF \) has side lengths 200, 240, and 300.
+
+The "triangle formed by the extensions of segments \( AB, CD, EF \)" means the triangle formed by the lines containing sides \( AB, CD, EF \).
+
+Since \( AB \) is parallel to \( DE \), and \( CD \) is parallel to \( FA \), and \( EF \) is parallel to \( BC \), the three lines \( AB, CD, EF \) are three lines in the plane, no two of which are parallel (otherwise the triangle would be degenerate).
+
+These three lines form a triangle by their intersections.
+
+---
+
+**Step 3: Using the vectors \(\vec{u}, \vec{v}, \vec{w}\)**
+
+Recall:
+
+- \( AB = \vec{u} \), length \( s \)
+- \( CD = \vec{w} \), length \( s \)
+- \( EF = -\vec{v} \), length \( s \)
+
+The lines containing \( AB, CD, EF \) have directions of \( \vec{u}, \vec{w}, \vec{v} \) respectively (direction vectors).
+
+Each line is in the direction of one of the vectors \( \vec{u}, \vec{w}, \vec{v} \).
+
+The triangle formed by these three lines has sides equal to the distances between the intersections of these lines.
+
+---
+
+**Step 4: Determining the side lengths of the triangle formed by these three lines**
+
+Recall that the triangle formed by three lines \( L_1, L_2, L_3 \) is the triangle whose vertices are the intersection points of these lines.
+
+Each vertex is formed by the intersection of two of these lines.
+
+Let the three lines be:
+
+- \( L_1 \) in direction \( \vec{u} \)
+- \( L_2 \) in direction \( \vec{w} \)
+- \( L_3 \) in direction \( \vec{v} \)
+
+They intersect pairwise, forming triangle vertices:
+
+- \( P = L_1 \cap L_2 \)
+- \( Q = L_2 \cap L_3 \)
+- \( R = L_3 \cap L_1 \)
+
+The sides of the triangle are the segments \( PQ, QR, RP \).
+
+---
+
+**Step 5: Express the distances between the intersection points in terms of \( \vec{u}, \vec{v}, \vec{w} \)**
+
+To find the side lengths, use the following approach:
+
+The distance between the intersection points of two pairs of lines is related to the angle between the lines and the distances between the lines.
+
+Alternatively, more robust is to use the formula for the length of the triangle formed by the three lines:
+
+If the three lines intersect pairwise, the triangle formed has sides equal to the distances between the intersection points.
+
+---
+
+**Step 6: Key insight: The triangle formed by the three lines \( AB, CD, EF \) has side lengths proportional to \( 1/|\sin \theta| \) where \( \theta \) is the angle between the directions of the lines**
+
+More precisely, the length of the side opposite to the line with direction \( \vec{u} \) is proportional to \( \frac{1}{\sin \alpha} \), where \( \alpha \) is the angle between the other two lines.
+
+---
+
+**Step 7: Use the fact that the hexagon is equilateral with side length \( s \), and vectors \( \vec{u}, \vec{v}, \vec{w} \) with length \( s \).**
+
+Assuming \( \vec{u}, \vec{v}, \vec{w} \) are vectors with length \( s \), and the hexagon is formed by these vectors as sides:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = \vec{0}
+\]
+
+because the sum of the first three sides is equal and opposite to the sum of the last three sides.
+
+Thus:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = \vec{0}
+\]
+
+Each vector has length \( s \).
+
+This is the key vector relation: three vectors of length \( s \) sum to zero.
+
+---
+
+**Step 8: Use the vector relation to find angles between vectors**
+
+Let the angles between the vectors be:
+
+- Angle between \( \vec{u} \) and \( \vec{v} \) is \( \theta \).
+- Angle between \( \vec{v} \) and \( \vec{w} \) is \( \phi \).
+- Angle between \( \vec{w} \) and \( \vec{u} \) is \( \psi \).
+
+Since the three vectors sum to zero:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = 0
+\]
+
+Taking norms squared:
+
+\[
+|\vec{u} + \vec{v} + \vec{w}|^2 = 0
+\]
+
+Expanding:
+
+\[
+|\vec{u}|^2 + |\vec{v}|^2 + |\vec{w}|^2 + 2\vec{u} \cdot \vec{v} + 2\vec{v} \cdot \vec{w} + 2\vec{w} \cdot \vec{u} = 0
+\]
+
+Since each vector has length \( s \), \( |\vec{u}|^2 = |\vec{v}|^2 = |\vec{w}|^2 = s^2 \), so:
+
+\[
+3 s^2 + 2 s^2 (\cos \theta + \cos \phi + \cos \psi) = 0
+\]
+
+Divide both sides by \( s^2 \):
+
+\[
+3 + 2(\cos \theta + \cos \phi + \cos \psi) = 0
+\]
+
+So:
+
+\[
+\cos \theta + \cos \phi + \cos \psi = -\frac{3}{2}
+\]
+
+---
+
+**Step 9: Express the triangle side lengths formed by lines \( AB, CD, EF \) in terms of the angles between the vectors**
+
+The triangle formed by the three lines has sides which are the distances between the intersection points of these lines.
+
+The side lengths of the triangle formed by the three lines with directions \( \vec{u}, \vec{w}, \vec{v} \) are proportional to:
+
+\[
+\frac{s}{\sin \angle(\text{directions})}
+\]
+
+More precisely, the side lengths of the triangle formed by the three lines are:
+
+\[
+\frac{s}{\sin \alpha}, \quad \frac{s}{\sin \beta}, \quad \frac{s}{\sin \gamma}
+\]
+
+where \( \alpha, \beta, \gamma \) are the angles between the directions of the pairs of lines.
+
+---
+
+**Step 10: Identify the side lengths of the triangle formed by the three lines**
+
+The three lines are \( AB, CD, EF \) with directions \( \vec{u}, \vec{w}, \vec{v} \) respectively.
+
+The triangle's sides are:
+
+- Side opposite \( AB \) is between intersections of lines \( CD \) and \( EF \), so length proportional to \( \frac{s}{\sin \angle(\vec{w}, \vec{v})} \).
+- Side opposite \( CD \) is between intersections of lines \( AB \) and \( EF \), length proportional to \( \frac{s}{\sin \angle(\vec{u}, \vec{v})} \).
+- Side opposite \( EF \) is between intersections of lines \( AB \) and \( CD \), length proportional to \( \frac{s}{\sin \angle(\vec{u}, \vec{w})} \).
+
+So the side lengths of the triangle formed by lines \( AB, CD, EF \) are:
+
+\[
+\frac{s}{\sin \phi}, \quad \frac{s}{\sin \theta}, \quad \frac{s}{\sin \psi}
+\]
+
+where:
+
+- \( \theta = \angle(\vec{u}, \vec{v}) \)
+- \( \phi = \angle(\vec{v}, \vec{w}) \)
+- \( \psi = \angle(\vec{w}, \vec{u}) \)
+
+---
+
+**Step 11: Given the side lengths of the triangle formed by these lines are 200, 240, 300**
+
+So:
+
+\[
+\left\{ \frac{s}{\sin \theta}, \frac{s}{\sin \phi}, \frac{s}{\sin \psi} \right\} = \{200, 240, 300\}
+\]
+
+Without loss of generality, assign:
+
+\[
+\frac{s}{\sin \theta} = 200, \quad \frac{s}{\sin \phi} = 240, \quad \frac{s}{\sin \psi} = 300
+\]
+
+From these:
+
+\[
+\sin \theta = \frac{s}{200}, \quad \sin \phi = \frac{s}{240}, \quad \sin \psi = \frac{s}{300}
+\]
+
+Since \( \sin \) values must be \( \leq 1 \), \( s \leq 200 \).
+
+---
+
+**Step 12: Use the relation from step 8:**
+
+\[
+\cos \theta + \cos \phi + \cos \psi = -\frac{3}{2}
+\]
+
+We have \( \sin \theta, \sin \phi, \sin \psi \) in terms of \( s \), so we can find \( \cos \theta, \cos \phi, \cos \psi \):
+
+\[
+\cos \alpha = \pm \sqrt{1 - \sin^2 \alpha}
+\]
+
+Since the hexagon is convex, the angles between vectors are greater than 0 and less than \( \pi \), so the cosines are likely negative (because the sum is negative).
+
+We take the negative square roots:
+
+\[
+\cos \theta = -\sqrt{1 - \left(\frac{s}{200}\right)^2}, \quad
+\cos \phi = -\sqrt{1 - \left(\frac{s}{240}\right)^2}, \quad
+\cos \psi = -\sqrt{1 - \left(\frac{s}{300}\right)^2}
+\]
+
+Sum:
+
+\[
+-\sqrt{1 - \frac{s^2}{40000}} - \sqrt{1 - \frac{s^2}{57600}} - \sqrt{1 - \frac{s^2}{90000}} = -\frac{3}{2}
+\]
+
+Multiply both sides by -1:
+
+\[
+\sqrt{1 - \frac{s^2}{40000}} + \sqrt{1 - \frac{s^2}{57600}} + \sqrt{1 - \frac{s^2}{90000}} = \frac{3}{2}
+\]
+
+---
+
+**Step 13: Solve for \( s \)**
+
+Set:
+
+\[
+x = s^2
+\]
+
+Then:
+
+\[
+\sqrt{1 - \frac{x}{40000}} + \sqrt{1 - \frac{x}{57600}} + \sqrt{1 - \frac{x}{90000}} = \frac{3}{2}
+\]
+
+Try values for \( s \):
+
+- \( s = 120 \Rightarrow x = 14400 \)
+
+Calculate:
+
+\[
+\sqrt{1 - \frac{14400}{40000}} = \sqrt{1 - 0.36} = \sqrt{0.64} = 0.8
+\]
+
+\[
+\sqrt{1 - \frac{14400}{57600}} = \sqrt{1 - 0.25} = \sqrt{0.75} \approx 0.8660
+\]
+
+\[
+\sqrt{1 - \frac{14400}{90000}} = \sqrt{1 - 0.16} = \sqrt{0.84} \approx 0.9165
+\]
+
+Sum:
+
+\[
+0.8 + 0.8660 + 0.9165 = 2.5825 > 1.5
+\]
+
+Try \( s = 80 \Rightarrow x = 6400 \):
+
+\[
+\sqrt{1 - \frac{6400}{40000}} = \sqrt{1 - 0.16} = 0.9165
+\]
+
+\[
+\sqrt{1 - \frac{6400}{57600}} = \sqrt{1 - 0.1111} = \sqrt{0.8889} = 0.9428
+\]
+
+\[
+\sqrt{1 - \frac{6400}{90000}} = \sqrt{1 - 0.0711} = \sqrt{0.9289} = 0.9638
+\]
+
+Sum:
+
+\[
+0.9165 + 0.9428 + 0.9638 = 2.8231 > 1.5
+\]
+
+Try \( s = 195 \Rightarrow x = 38025 \):
+
+\[
+\sqrt{1 - \frac{38025}{40000}} = \sqrt{1 - 0.9506} = \sqrt{0.0494} = 0.2222
+\]
+
+\[
+\sqrt{1 - \frac{38025}{57600}} = \sqrt{1 - 0.6602} = \sqrt{0.3398} = 0.5831
+\]
+
+\[
+\sqrt{1 - \frac{38025}{90000}} = \sqrt{1 - 0.4225} = \sqrt{0.5775} = 0.7600
+\]
+
+Sum:
+
+\[
+0.2222 + 0.5831 + 0.7600 = 1.5653 \approx 1.5
+\]
+
+Try \( s = 190 \Rightarrow x=36100 \):
+
+\[
+\sqrt{1 - \frac{36100}{40000}} = \sqrt{1 - 0.9025} = \sqrt{0.0975} = 0.3122
+\]
+
+\[
+\sqrt{1 - \frac{36100}{57600}} = \sqrt{1 - 0.6276} = \sqrt{0.3724} = 0.6102
+\]
+
+\[
+\sqrt{1 - \frac{36100}{90000}} = \sqrt{1 - 0.4011} = \sqrt{0.5989} = 0.7738
+\]
+
+Sum:
+
+\[
+0.3122 + 0.6102 + 0.7738 = 1.6962 > 1.5
+\]
+
+Try \( s = 185 \Rightarrow x=34225 \):
+
+\[
+\sqrt{1 - \frac{34225}{40000}} = \sqrt{1 - 0.8556} = \sqrt{0.1444} = 0.38
+\]
+
+\[
+\sqrt{1 - \frac{34225}{57600}} = \sqrt{1 - 0.5941} = \sqrt{0.4059} = 0.6373
+\]
+
+\[
+\sqrt{1 - \frac{34225}{90000}} = \sqrt{1 - 0.3803} = \sqrt{0.6197} = 0.7872
+\]
+
+Sum:
+
+\[
+0.38 + 0.6373 + 0.7872 = 1.8045 > 1.5
+\]
+
+Try \( s = 150 \Rightarrow x=22500 \):
+
+\[
+\sqrt{1 - \frac{22500}{40000}} = \sqrt{1 - 0.5625} = \sqrt{0.4375} = 0.6614
+\]
+
+\[
+\sqrt{1 - \frac{22500}{57600}} = \sqrt{1 - 0.3906} = \sqrt{0.6094} = 0.7806
+\]
+
+\[
+\sqrt{1 - \frac{22500}{90000}} = \sqrt{1 - 0.25} = 0.8660
+\]
+
+Sum:
+
+\[
+0.6614 + 0.7806 + 0.8660 = 2.308 > 1.5
+\]
+
+Try \( s = 100 \Rightarrow x=10000 \):
+
+\[
+\sqrt{1 - \frac{10000}{40000}} = \sqrt{1 - 0.25} = 0.8660
+\]
+
+\[
+\sqrt{1 - \frac{10000}{57600}} = \sqrt{1 - 0.1736} = \sqrt{0.8264} = 0.9091
+\]
+
+\[
+\sqrt{1 - \frac{10000}{90000}} = \sqrt{1 - 0.1111} = \sqrt{0.8889} = 0.9428
+\]
+
+Sum:
+
+\[
+0.8660 + 0.9091 + 0.9428 = 2.7179 > 1.5
+\]
+
+Try \( s = 180 \Rightarrow x=32400 \):
+
+\[
+\sqrt{1 - \frac{32400}{40000}} = \sqrt{1 - 0.81} = \sqrt{0.19} = 0.4359
+\]
+
+\[
+\sqrt{1 - \frac{32400}{57600}} = \sqrt{1 - 0.5625} = \sqrt{0.4375} = 0.6614
+\]
+
+\[
+\sqrt{1 - \frac{32400}{90000}} = \sqrt{1 - 0.36} = \sqrt{0.64} = 0.8
+\]
+
+Sum:
+
+\[
+0.4359 + 0.6614 + 0.8 = 1.8973 > 1.5
+\]
+
+Try \( s = 170 \Rightarrow x=28900 \):
+
+\[
+\sqrt{1 - \frac{28900}{40000}} = \sqrt{1 - 0.7225} = \sqrt{0.2775} = 0.5269
+\]
+
+\[
+\sqrt{1 - \frac{28900}{57600}} = \sqrt{1 - 0.5017} = \sqrt{0.4983} = 0.706
+\]
+
+\[
+\sqrt{1 - \frac{28900}{90000}} = \sqrt{1 - 0.3211} = \sqrt{0.6789} = 0.8239
+\]
+
+Sum:
+
+\[
+0.5269 + 0.706 + 0.8239 = 2.0568 > 1.5
+\]
+
+Try \( s = 195 \) gave about 1.5653 (closest so far).
+
+Try \( s = 198 \Rightarrow x = 39204 \):
+
+\[
+\sqrt{1 - \frac{39204}{40000}} = \sqrt{1 - 0.9801} = \sqrt{0.0199} = 0.141
+\]
+
+\[
+\sqrt{1 - \frac{39204}{57600}} = \sqrt{1 - 0.6807} = \sqrt{0.3193} = 0.565
+\]
+
+\[
+\sqrt{1 - \frac{39204}{90000}} = \sqrt{1 - 0.4356} = \sqrt{0.5644} = 0.75
+\]
+
+Sum:
+
+\[
+0.141 + 0.565 + 0.75 = 1.456 < 1.5
+\]
+
+Try \( s = 196 \Rightarrow x=38416 \):
+
+\[
+\sqrt{1 - \frac{38416}{40000}} = \sqrt{1 - 0.9604} = \sqrt{0.0396} = 0.199
+\]
+
+\[
+\sqrt{1 - \frac{38416}{57600}} = \sqrt{1 - 0.6675} = \sqrt{0.3325} = 0.577
+\]
+
+\[
+\sqrt{1 - \frac{38416}{90000}} = \sqrt{1 - 0.4279} = \sqrt{0.5721} = 0.756
+\]
+
+Sum:
+
+\[
+0.199 + 0.577 + 0.756 = 1.532 > 1.5
+\]
+
+Try \( s = 197 \Rightarrow x=38809 \):
+
+\[
+\sqrt{1 - \frac{38809}{40000}} = \sqrt{1 - 0.9702} = \sqrt{0.0298} = 0.1725
+\]
+
+\[
+\sqrt{1 - \frac{38809}{57600}} = \sqrt{1 - 0.6739} = \sqrt{0.3261} = 0.571
+\]
+
+\[
+\sqrt{1 - \frac{38809}{90000}} = \sqrt{1 - 0.4312} = \sqrt{0.5688} = 0.754
+\]
+
+Sum:
+
+\[
+0.1725 + 0.571 + 0.754 = 1.4975 \approx 1.5
+\]
+
+This is very close to the required sum.
+
+---
+
+**Step 14: Final approximation**
+
+\( s \approx 197 \)
+
+Since the problem likely expects an integer answer, \( s = 197 \).
+
+---
+
+**Step 15: Verify the sine values**
+
+\[
+\sin \theta = \frac{197}{200} = 0.985,
+\quad \sin \phi = \frac{197}{240} \approx 0.8208,
+\quad \sin \psi = \frac{197}{300} \approx 0.6567.
+\]
+
+All less than or equal to 1, so valid.
+
+---
+
+**Answer:**
+
+\[
+\boxed{197}
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 80.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Let $x,y$ and $z$ be positive real numbers that satisfy the following system of equations:
+\[\log_2\left({x \over yz}\right) = {1 \over 2}\]\[\log_2\left({y \over xz}\right) = {1 \over 3}\]\[\log_2\left({z \over xy}\right) = {1 \over 4}\]
+Then the value of $\left|\log_2(x^4y^3z^2)\right|$ is $\tfrac{m}{n}$ where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Carefully solve the problem step-by-step, ensuring mathematical correctness and logical consistency throughout. After completing the full reasoning process, provide only the final answer as a single, simplified integer without any additional explanation or formatting.
+
+## output
+33
+
+## reasoning
+Given the system:
+\[
+\log_2\left(\frac{x}{yz}\right) = \frac{1}{2}, \quad \log_2\left(\frac{y}{xz}\right) = \frac{1}{3}, \quad \log_2\left(\frac{z}{xy}\right) = \frac{1}{4}.
+\]
+
+Rewrite each in terms of logarithms of \(x,y,z\):
+Let
+\[
+a = \log_2 x, \quad b = \log_2 y, \quad c = \log_2 z.
+\]
+
+Then,
+\[
+\log_2\left(\frac{x}{yz}\right) = a - b - c = \frac{1}{2},
+\]
+\[
+\log_2\left(\frac{y}{xz}\right) = b - a - c = \frac{1}{3},
+\]
+\[
+\log_2\left(\frac{z}{xy}\right) = c - a - b = \frac{1}{4}.
+\]
+
+We have the system:
+\[
+a - b - c = \frac{1}{2}, \quad b - a - c = \frac{1}{3}, \quad c - a - b = \frac{1}{4}.
+\]
+
+Add all three equations:
+\[
+(a - b - c) + (b - a - c) + (c - a - b) = \frac{1}{2} + \frac{1}{3} + \frac{1}{4}.
+\]
+
+Left side:
+\[
+a - b - c + b - a - c + c - a - b = (a - a - a) + (-b + b - b) + (-c - c + c) = -a - b - c.
+\]
+
+Right side:
+\[
+\frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{6}{12} + \frac{4}{12} + \frac{3}{12} = \frac{13}{12}.
+\]
+
+So,
+\[
+-a - b - c = \frac{13}{12} \implies a + b + c = -\frac{13}{12}.
+\]
+
+Now, we want to find:
+\[
+\left|\log_2(x^4 y^3 z^2)\right| = |4a + 3b + 2c|.
+\]
+
+From the system:
+\[
+\begin{cases}
+a - b - c = \frac{1}{2}, \\
+b - a - c = \frac{1}{3}, \\
+c - a - b = \frac{1}{4}.
+\end{cases}
+\]
+
+Rewrite as:
+\[
+a - b - c = \frac{1}{2} \implies a = \frac{1}{2} + b + c,
+\]
+\[
+b - a - c = \frac{1}{3} \implies b = \frac{1}{3} + a + c,
+\]
+\[
+c - a - b = \frac{1}{4} \implies c = \frac{1}{4} + a + b.
+\]
+
+Substitute \(a = \frac{1}{2} + b + c\) into the second:
+\[
+b = \frac{1}{3} + \left(\frac{1}{2} + b + c\right) + c = \frac{1}{3} + \frac{1}{2} + b + c + c = \frac{5}{6} + b + 2c.
+\]
+
+Subtract \(b\) from both sides:
+\[
+0 = \frac{5}{6} + 2c \implies 2c = -\frac{5}{6} \implies c = -\frac{5}{12}.
+\]
+
+Now substitute \(c = -\frac{5}{12}\) into the expression for \(a\):
+\[
+a = \frac{1}{2} + b - \frac{5}{12} = b + \left(\frac{1}{2} - \frac{5}{12}\right) = b + \frac{6}{12} - \frac{5}{12} = b + \frac{1}{12}.
+\]
+
+Use the third equation:
+\[
+c = \frac{1}{4} + a + b.
+\]
+
+We know \(c = -\frac{5}{12}\), so
+\[
+-\frac{5}{12} = \frac{1}{4} + a + b = \frac{1}{4} + (b + \frac{1}{12}) + b = \frac{1}{4} + \frac{1}{12} + 2b = \frac{3}{12} + \frac{1}{12} + 2b = \frac{4}{12} + 2b = \frac{1}{3} + 2b.
+\]
+
+Subtract \(\frac{1}{3}\) from both sides:
+\[
+-\frac{5}{12} - \frac{1}{3} = 2b \implies -\frac{5}{12} - \frac{4}{12} = 2b \implies -\frac{9}{12} = 2b \implies -\frac{3}{4} = 2b \implies b = -\frac{3}{8}.
+\]
+
+Now,
+\[
+a = b + \frac{1}{12} = -\frac{3}{8} + \frac{1}{12} = -\frac{9}{24} + \frac{2}{24} = -\frac{7}{24}.
+\]
+
+Check \(a + b + c\):
+\[
+-\frac{7}{24} - \frac{3}{8} - \frac{5}{12} = -\frac{7}{24} - \frac{9}{24} - \frac{10}{24} = -\frac{26}{24} = -\frac{13}{12},
+\]
+which matches the earlier sum.
+
+Finally, compute:
+\[
+4a + 3b + 2c = 4 \times \left(-\frac{7}{24}\right) + 3 \times \left(-\frac{3}{8}\right) + 2 \times \left(-\frac{5}{12}\right) = -\frac{28}{24} - \frac{9}{8} - \frac{10}{12}.
+\]
+
+Convert all to a common denominator, say 24:
+\[
+-\frac{28}{24} - \frac{27}{24} - \frac{20}{24} = -\frac{75}{24}.
+\]
+
+Take absolute value:
+\[
+\left|4a + 3b + 2c\right| = \frac{75}{24}.
+\]
+
+Simplify \(\frac{75}{24}\):
+\[
+\gcd(75,24) = 3,
+\]
+\[
+\frac{75}{24} = \frac{25}{8}.
+\]
+
+So the value is \(\frac{25}{8}\), and the problem states that the final answer is \(m+n\) where \(\frac{m}{n} = \frac{25}{8}\).
+
+Thus,
+\[
+m = 25, \quad n = 8, \quad m+n = 33.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 33.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000007 | Iter 7 [REJECTED +0.00]
+Intent: The edit aimed to improve answer accuracy by instructing the model to solve problems step-by-step with detailed reasoning, then provide only the exact final integer answer.
+Lesson: The unchanged aggregate score reveals that adding step-by-step solution instructions followed by a final answer requirement did not enhance accuracy, suggesting that the additional reasoning steps neither helped nor hindered performance in this context.
+
+### mem_000008 | Iter 8 [ACCEPTED +2.00]
+Intent: This edit aimed to improve accuracy by instructing the model to perform detailed step-by-step reasoning before giving a final, concise integer answer.
+Lesson: Emphasizing careful, structured reasoning and clarity in the final output significantly improves performance on complex math problems requiring precision, like AIME problems. This strategy helped convert previous incorrect answers into correct ones by reducing premature or incomplete responses.
+Strong on: complex multi-step arithmetic, logical deduction problems
+
+### mem_000009 | Iter 9 [ACCEPTED +2.00]
+Intent: The edit aimed to improve solution accuracy by encouraging more detailed, verified, and documented step-by-step reasoning before producing a single integer answer.
+Lesson: The positive outcome indicates that prompting for careful, methodical reasoning with explicit verification helps the model avoid errors in complex math problems, improving final answer accuracy. However, the improvement was partial, suggesting some problems may require even more refined or targeted strategies.
+Strong on: complex multi-step numeric problems, problems requiring detailed logical deductions
+
+### mem_000010 | Iter 10 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning and thorough verification before providing a concise final integer answer.
+Lesson: The outcome reveals that adding detailed reasoning and verification in the prompt does not necessarily improve performance for AIME math problems, suggesting the model's accuracy may be limited by other factors beyond prompt instruction clarity or thoroughness.
+
+### mem_000011 | Iter 11 [REJECTED -1.00]
+Intent: The edit aimed to increase answer accuracy by enforcing more explicit verification and thorough explanation at each step of the solution.
+Lesson: The outcome shows that adding more detailed instructions and explicit verification requirements can overwhelm or confuse the model, leading to a decrease in accuracy for some problems rather than improvement.
+Strong on: problems with straightforward verification
+Still failing: problems requiring concise reasoning and simplicity
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

@@ -1,0 +1,971 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+104
+
+## reasoning
+Let's analyze the problem step-by-step.
+
+1. We have two rectangles \(ABCD\) and \(EFGH\).
+2. Points \(D, E, C, F\) are collinear.
+3. Points \(A, D, H, G\) lie on a circle.
+4. Given:
+   - \(BC = 16\)
+   - \(AB = 107\)
+   - \(FG = 17\)
+   - \(EF = 184\)
+5. We need to find the length of \(CE\).
+
+---
+
+**Step 1: Understand the rectangles and their orientation**
+
+- Rectangle \(ABCD\) with sides \(AB\) and \(BC\).
+- Rectangle \(EFGH\) with sides \(EF\) and \(FG\).
+- Since \(ABCD\) is a rectangle, \(AB \perp BC\).
+- Similarly, \(EFGH\) is a rectangle, so \(EF \perp FG\).
+
+---
+
+**Step 2: Assign coordinates for clarity**
+
+Let's place rectangle \(ABCD\) on the coordinate plane for convenience.
+
+- Place point \(A\) at the origin: \(A = (0, 0)\).
+- Since \(AB = 107\), let \(AB\) lie on the x-axis:
+  \[
+  B = (107, 0)
+  \]
+- Since \(BC = 16\) and rectangle, \(BC\) is vertical:
+  \[
+  C = (107, 16)
+  \]
+- \(D\) is then:
+  \[
+  D = (0, 16)
+  \]
+
+---
+
+**Step 3: Analyze rectangle \(EFGH\)**
+
+- Rectangle \(EFGH\) has sides \(EF = 184\) and \(FG = 17\).
+- \(D, E, C, F\) are collinear.
+- Points \(D, E, C, F\) lie on the same line.
+
+Given \(D = (0,16)\) and \(C = (107,16)\), points \(D\) and \(C\) lie on the horizontal line \(y=16\).
+
+Thus, the line \(D, E, C, F\) is horizontal at \(y = 16\).
+
+So, \(E\) and \(F\) lie on this line \(y = 16\).
+
+---
+
+**Step 4: Assign coordinates of \(E\) and \(F\)**
+
+Since \(D, E, C, F\) lie on \(y=16\), let:
+\[
+E = (x_E, 16), \quad F = (x_F, 16)
+\]
+
+---
+
+**Step 5: Determine the orientation of rectangle \(EFGH\)**
+
+Since \(EF = 184\) and \(FG = 17\), and \(EFGH\) is a rectangle, \(EF \perp FG\).
+
+- Segment \(EF\) lies on line \(y=16\), so \(EF\) is horizontal.
+- Therefore, \(FG\) is vertical.
+
+- \(E = (x_E, 16)\)
+- \(F = (x_F, 16)\)
+- \(G = (x_F, y_G)\)
+- \(H = (x_E, y_G)\)
+
+---
+
+**Step 6: Use the side lengths**
+
+- \(EF = 184\) means:
+  \[
+  |x_F - x_E| = 184
+  \]
+
+- \(FG = 17\) means:
+  \[
+  |y_G - 16| = 17
+  \]
+
+---
+
+**Step 7: Find the position of \(E\) and \(F\)**
+
+We know that \(D = (0,16)\), \(C = (107,16)\).
+
+Since \(D, E, C, F\) are collinear on \(y=16\), \(E\) and \(F\) must lie somewhere on this line.
+
+Assuming the order along the line is \(D, E, C, F\), from left to right or \(D, C, E, F\), we need to check which order is consistent.
+
+- \(D = 0\)
+- \(C = 107\)
+
+If \(E\) were between \(D\) and \(C\), then \(x_E \in (0, 107)\).
+
+But then \(F = x_E + 184\), which would be larger than 107, placing \(F\) to the right of \(C\).
+
+So the order along the line is likely:
+\[
+D (0) < C (107) < E (x_E) < F (x_F)
+\]
+
+But \(E\) must be to the right of \(C\) for \(F\) to be \(184\) units from \(E\).
+
+Set:
+\[
+x_E = 107 + t
+\]
+for some \(t > 0\).
+
+Then:
+\[
+x_F = x_E + 184 = 107 + t + 184 = 291 + t
+\]
+
+---
+
+**Step 8: Use the cyclic quadrilateral condition**
+
+Points \(A, D, H, G\) lie on a circle.
+
+Coordinates we have:
+
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x_E, y_G)\) (since \(H\) is vertically above or below \(E\))
+- \(G = (x_F, y_G)\)
+
+Recall \(H\) and \(G\) have the same \(y\)-coordinate \(y_G\).
+
+---
+
+**Step 9: Use length \(FH = 17\)**
+
+Since \(FG = 17\), and \(FG\) is vertical segment at \(x = x_F\):
+
+\[
+FG = |y_G - 16| = 17
+\]
+
+Similarly, \(EH = 17\), vertical segment at \(x = x_E\).
+
+Thus:
+\[
+y_G = 16 + 17 = 33 \quad \text{or} \quad y_G = 16 - 17 = -1
+\]
+
+---
+
+**Step 10: Use circle passing through points \(A, D, H, G\)**
+
+Points:
+
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x_E, y_G)\)
+- \(G = (x_F, y_G)\)
+
+---
+
+**Step 11: Find the circle center and radius**
+
+The circle passes through \(A\) and \(D\), which lie on vertical line \(x=0\).
+
+The midpoint of \(A\) and \(D\) is \(M = (0,8)\), and the segment \(AD = 16\).
+
+The center lies somewhere; let's find the center \((h, k)\) and radius \(r\).
+
+We know:
+\[
+(h - 0)^2 + (k - 0)^2 = r^2 \quad (1)
+\]
+\[
+(h - 0)^2 + (k - 16)^2 = r^2 \quad (2)
+\]
+
+Subtract (1) from (2):
+\[
+k^2 - (k - 16)^2 = 0
+\]
+\[
+k^2 - (k^2 - 32k + 256) = 0
+\]
+\[
+32k - 256 = 0
+\]
+\[
+k = 8
+\]
+
+So center \( (h, 8) \).
+
+---
+
+**Step 12: Use \(H = (x_E, y_G)\) lies on the circle**
+
+\[
+(h - x_E)^2 + (8 - y_G)^2 = r^2
+\]
+
+From (1):
+\[
+h^2 + 8^2 = r^2 \Rightarrow h^2 + 64 = r^2
+\]
+
+Therefore,
+\[
+(h - x_E)^2 + (8 - y_G)^2 = h^2 + 64
+\]
+\[
+h^2 - 2 h x_E + x_E^2 + (8 - y_G)^2 = h^2 + 64
+\]
+\[
+-2 h x_E + x_E^2 + (8 - y_G)^2 = 64
+\]
+\[
+x_E^2 - 2 h x_E + (8 - y_G)^2 = 64
+\]
+
+---
+
+**Step 13: Similarly for \(G = (x_F, y_G)\)**
+
+\[
+(h - x_F)^2 + (8 - y_G)^2 = r^2 = h^2 + 64
+\]
+\[
+h^2 - 2 h x_F + x_F^2 + (8 - y_G)^2 = h^2 + 64
+\]
+\[
+-2 h x_F + x_F^2 + (8 - y_G)^2 = 64
+\]
+\[
+x_F^2 - 2 h x_F + (8 - y_G)^2 = 64
+\]
+
+---
+
+**Step 14: Subtract the two equations**
+
+\[
+(x_F^2 - 2 h x_F + (8 - y_G)^2) - (x_E^2 - 2 h x_E + (8 - y_G)^2) = 64 - 64 = 0
+\]
+\[
+x_F^2 - 2 h x_F - x_E^2 + 2 h x_E = 0
+\]
+\[
+(x_F^2 - x_E^2) - 2 h (x_F - x_E) = 0
+\]
+\[
+(x_F - x_E)(x_F + x_E) = 2 h (x_F - x_E)
+\]
+
+Since \(x_F \neq x_E\), divide both sides by \(x_F - x_E\):
+\[
+x_F + x_E = 2 h
+\]
+\[
+h = \frac{x_F + x_E}{2}
+\]
+
+---
+
+**Step 15: Recall \(x_F = x_E + 184\)**
+
+\[
+h = \frac{x_E + (x_E + 184)}{2} = \frac{2 x_E + 184}{2} = x_E + 92
+\]
+
+---
+
+**Step 16: Recall from Step 12**
+
+\[
+x_E^2 - 2 h x_E + (8 - y_G)^2 = 64
+\]
+
+Substitute \(h = x_E + 92\):
+
+\[
+x_E^2 - 2 (x_E + 92) x_E + (8 - y_G)^2 = 64
+\]
+\[
+x_E^2 - 2 x_E^2 - 184 x_E + (8 - y_G)^2 = 64
+\]
+\[
+-x_E^2 - 184 x_E + (8 - y_G)^2 = 64
+\]
+\[
+(8 - y_G)^2 = 64 + x_E^2 + 184 x_E
+\]
+
+---
+
+**Step 17: Recall \(y_G = 33\) or \(-1\)**
+
+Check both possibilities:
+
+- For \(y_G = 33\):
+\[
+(8 - 33)^2 = (-25)^2 = 625
+\]
+\[
+625 = 64 + x_E^2 + 184 x_E
+\]
+\[
+x_E^2 + 184 x_E + 64 - 625 = 0
+\]
+\[
+x_E^2 + 184 x_E - 561 = 0
+\]
+
+- For \(y_G = -1\):
+\[
+(8 - (-1))^2 = (9)^2 = 81
+\]
+\[
+81 = 64 + x_E^2 + 184 x_E
+\]
+\[
+x_E^2 + 184 x_E + 64 - 81 = 0
+\]
+\[
+x_E^2 + 184 x_E - 17 = 0
+\]
+
+---
+
+**Step 18: Solve quadratic equations**
+
+- For \(y_G = 33\):
+
+\[
+x_E^2 + 184 x_E - 561 = 0
+\]
+
+Discriminant:
+
+\[
+\Delta = 184^2 + 4 \times 561 = 33856 + 2244 = 36100
+\]
+\[
+\sqrt{\Delta} = 190
+\]
+
+Solutions:
+
+\[
+x_E = \frac{-184 \pm 190}{2}
+\]
+
+- \(x_E = \frac{-184 + 190}{2} = \frac{6}{2} = 3\)
+- \(x_E = \frac{-184 - 190}{2} = \frac{-374}{2} = -187\) (discard as \(x_E > 107\))
+
+So \(x_E = 3\) is less than 107, contradicting our earlier assumption that \(x_E > 107\).
+
+---
+
+- For \(y_G = -1\):
+
+\[
+x_E^2 + 184 x_E - 17 = 0
+\]
+
+Discriminant:
+
+\[
+\Delta = 184^2 + 4 \times 17 = 33856 + 68 = 33924
+\]
+
+Approximate \(\sqrt{33924} \approx 184.2\).
+
+Roots:
+
+\[
+x_E = \frac{-184 \pm 184.2}{2}
+\]
+
+- \(x_E = \frac{-184 + 184.2}{2} = \frac{0.2}{2} = 0.1\)
+- \(x_E = \frac{-184 - 184.2}{2} = \frac{-368.2}{2} = -184.1\) (discard negative)
+
+So \(x_E \approx 0.1\), less than 107, contradicting previous assumption.
+
+---
+
+**Step 19: Reconsider point order**
+
+Initially, we assumed order \(D < C < E < F\) along \(y=16\).
+
+Try order \(D < E < C < F\):
+
+- \(E = (x_E,16)\) with \(0 < x_E < 107\)
+- \(C = (107,16)\)
+- \(F = (x_F, 16)\), \(x_F = x_E + 184\)
+
+Therefore,
+\[
+x_F = x_E + 184 > 107
+\]
+
+---
+
+**Step 20: Recalculate \(h\) with this assumption**
+
+Recall \(h = \frac{x_F + x_E}{2} = \frac{x_E + (x_E + 184)}{2} = x_E + 92\).
+
+From Step 16:
+\[
+(8 - y_G)^2 = 64 + x_E^2 + 184 x_E
+\]
+
+Try \(y_G=33\) (\(8 - 33 = -25\), squared 625):
+\[
+625 = 64 + x_E^2 + 184 x_E
+\]
+\[
+x_E^2 + 184 x_E + 64 - 625=0
+\]
+\[
+x_E^2 + 184 x_E - 561=0
+\]
+
+Solve quadratic:
+
+\[
+\Delta = 184^2 + 4 \times 561 = 33856 + 2244 = 36100
+\]
+\[
+\sqrt{36100} = 190
+\]
+
+\[
+x_E = \frac{-184 \pm 190}{2}
+\]
+
+Possible roots:
+
+- \(\frac{-184 + 190}{2} = \frac{6}{2} = 3\)
+- \(\frac{-184 -190}{2} = \frac{-374}{2} = -187\) (discard)
+
+So \(x_E = 3\), which is between 0 and 107, valid.
+
+Then \(x_F = x_E + 184 = 3 + 184 = 187\).
+
+---
+
+**Step 21: Confirm \(CE\)**
+
+Points \(C = (107,16)\), \(E = (3,16)\).
+
+Distance \(CE = |107 - 3| = 104\).
+
+---
+
+**Step 22: Verify the circle passes through \(A, D, H, G\)**
+
+- \(H = (x_E, y_G) = (3, 33)\)
+- \(G = (x_F, y_G) = (187, 33)\)
+- Center \((h, k) = (x_E + 92, 8) = (3 + 92, 8) = (95, 8)\)
+- Radius \(r = \sqrt{(h - 0)^2 + (k - 0)^2} = \sqrt{95^2 + 8^2} = \sqrt{9025 + 64} = \sqrt{9089}\)
+
+Check if \(H\) lies on the circle:
+
+\[
+(95 - 3)^2 + (8 - 33)^2 = 92^2 + (-25)^2 = 8464 + 625 = 9089 = r^2
+\]
+
+Similarly for \(G\):
+
+\[
+(95 - 187)^2 + (8 - 33)^2 = (-92)^2 + (-25)^2 = 8464 + 625 = 9089 = r^2
+\]
+
+Perfect.
+
+---
+
+**Final answer:**
+
+\[
+CE = 104
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 104.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Find the three-digit positive integer $\underline{a}\,\underline{b}\,\underline{c}$ whose representation in base nine is $\underline{b}\,\underline{c}\,\underline{a}_{\,\text{nine}},$ where $a,$ $b,$ and $c$ are (not necessarily distinct) digits.
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+227
+
+## reasoning
+Let the three-digit number in base 10 be \( \overline{abc} \), where \(a, b, c\) are digits and \(a \neq 0\).
+
+The problem states that the base 9 representation of this number is \( \overline{bca}_9 \).
+
+First, write the number \( \overline{abc} \) in base 10:
+\[
+N = 100a + 10b + c.
+\]
+
+The base 9 representation \( \overline{bca}_9 \) corresponds to:
+\[
+N = b \times 9^2 + c \times 9 + a = 81b + 9c + a.
+\]
+
+Since both expressions represent the same number \(N\), we have:
+\[
+100a + 10b + c = 81b + 9c + a.
+\]
+
+Rearranging terms:
+\[
+100a - a + 10b - 81b + c - 9c = 0,
+\]
+\[
+99a - 71b - 8c = 0.
+\]
+
+So,
+\[
+99a = 71b + 8c.
+\]
+
+Since \(a, b, c\) are digits (0 through 9) and \(a \neq 0\) (since it's a three-digit number), we have:
+\[
+1 \leq a \leq 9, \quad 0 \leq b \leq 9, \quad 0 \leq c \leq 9.
+\]
+
+We want to find integer values of \(a, b, c\) satisfying:
+\[
+99a = 71b + 8c.
+\]
+
+Because \(71b + 8c\) must be divisible by 99 for some digit \(a\), try to find \(b, c\) such that \(71b + 8c\) is a multiple of 99 between 99 and 891 (since \(a \leq 9\), and \(99a \leq 891\)).
+
+Try \(a = 1\):
+\[
+99 = 71b + 8c.
+\]
+Check integer solutions for \(b, c \in [0,9]\):
+- For \(b=1\), \(71 \times 1 = 71\), so \(8c = 99 - 71 = 28\), \(c = 3.5\), no.
+- For \(b=2\), \(142\), too big.
+No integer solution.
+
+Try \(a=2\):
+\[
+198 = 71b + 8c.
+\]
+Try \(b=2\), \(71 \times 2 = 142\), so \(8c = 198 - 142 = 56\), \(c=7\), which is valid.
+
+Check if \(b=2\), \(c=7\) valid: digits are 2 and 7, both in 0-9.
+
+Thus, one solution is:
+\[
+a=2, b=2, c=7.
+\]
+
+Check the number:
+\[
+N = 100a + 10b + c = 100 \times 2 + 10 \times 2 + 7 = 227.
+\]
+
+Check the base 9 representation:
+\[
+\overline{bca}_9 = \overline{2\,7\,2}_9 = 2 \times 81 + 7 \times 9 + 2 = 162 + 63 + 2 = 227.
+\]
+
+This matches perfectly.
+
+Try \(a=3\):
+\[
+99 \times 3 = 297 = 71b + 8c.
+\]
+Try \(b=4\):
+\[
+71 \times 4 = 284, \quad 8c = 13, \quad c=1.625,
+\]
+no.
+
+Try \(b=3\):
+\[
+213, \quad 8c=84, c=10.5,
+\]
+no.
+
+Try \(b=1\):
+\[
+71, \quad 8c=226, c=28.25,
+\]
+no.
+
+Try \(a=4\):
+\[
+396 = 71b + 8c.
+\]
+Try \(b=5\):
+\[
+355, \quad 8c=41, c=5.125,
+\]
+no.
+
+Try \(b=4\):
+\[
+284, \quad 8c=112, c=14,
+\]
+no.
+
+Try \(b=3\):
+\[
+213, \quad 8c=183, c=22.875,
+\]
+no.
+
+Try \(a=5\):
+\[
+495 = 71b + 8c.
+\]
+Try \(b=6\):
+\[
+426, \quad 8c=69, c=8.625,
+\]
+no.
+
+Try \(b=7\):
+\[
+497, \quad 8c=-2, \quad c \text{ negative},
+\]
+no.
+
+Try \(a=6\):
+\[
+594 = 71b + 8c.
+\]
+Try \(b=8\):
+\[
+568, \quad 8c=26, c=3.25,
+\]
+no.
+
+Try \(b=7\):
+\[
+497, \quad 8c=97, c=12.125,
+\]
+no.
+
+Try \(a=7\):
+\[
+693 = 71b + 8c.
+\]
+Try \(b=9\):
+\[
+639, \quad 8c=54, c=6.75,
+\]
+no.
+
+Try \(b=8\):
+\[
+568, \quad 8c=125, c=15.625,
+\]
+no.
+
+Try \(a=8\):
+\[
+792 = 71b + 8c.
+\]
+Try \(b=9\):
+\[
+639, \quad 8c=153, c=19.125,
+\]
+no.
+
+Try \(a=9\):
+\[
+891 = 71b + 8c.
+\]
+Try \(b=9\):
+\[
+639, \quad 8c=252, c=31.5,
+\]
+no.
+
+Try \(b=10\) is invalid since digits are 0-9.
+
+So the only valid solution is \(a=2, b=2, c=7\), which gives the number 227.
+
+## Feedback
+Your answer is correct. The correct answer is 227.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Azar, Carl, Jon, and Sergey are the four players left in a singles tennis tournament. They are randomly assigned opponents in the semifinal matches, and the winners of those matches play each other in the final match to determine the winner of the tournament. When Azar plays Carl, Azar will win the match with probability $\frac23$. When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win the match with probability $\frac34$. Assume that outcomes of different matches are independent. The probability that Carl will win the tournament is $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+125
+
+## reasoning
+First, let's identify the players: Azar (A), Carl (C), Jon (J), Sergey (S).
+
+There are four players, and the semifinal matches are randomly assigned. The possible semifinal pairings are as follows:
+
+Since there are 4 players, the number of ways to pair them into two matches is 3:
+
+1. (A vs C) and (J vs S)
+2. (A vs J) and (C vs S)
+3. (A vs S) and (C vs J)
+
+Each of these three pairings is equally likely with probability 1/3.
+
+We want the probability that Carl wins the entire tournament.
+
+---
+
+Let's analyze each case.
+
+**Case 1: (A vs C) and (J vs S)**
+
+- Semifinal 1: A vs C, with A winning probability 2/3, so C wins with probability 1/3.
+- Semifinal 2: J vs S. Neither A nor C are playing; the problem does not specify probabilities here, but since we only care about Carl, we can just note the winner is either J or S with probability 1/2 each (assuming equal chance; since the problem does not specify, we assume equal chance).
+
+If Carl wins semifinal 1 (prob = 1/3), he goes to the final against the winner of J vs S (J or S with equal probability 1/2 each).
+
+Now, when Carl plays Jon or Sergey, Carl wins with probability 3/4.
+
+Therefore, the probability Carl wins the final in this case is:
+
+- Carl wins semifinal: 1/3
+- Carl faces J or S (each with probability 1/2)
+- Carl wins final: 3/4
+
+So probability Carl wins tournament in case 1:
+
+= (1/3) * 1 * (3/4) = (1/3)*(3/4) = 1/4
+
+Note: The 1 corresponds to the certainty that Carl faces either J or S; since both have equal chance, total probability sums to 1.
+
+---
+
+**Case 2: (A vs J) and (C vs S)**
+
+- Semifinal 1: A vs J. Since A or Carl vs Jon or Sergey, the player from A or C wins with probability 3/4.
+
+Here, A vs J: A wins with probability 3/4, J wins with probability 1/4.
+
+- Semifinal 2: C vs S. Carl plays Sergey, so Carl wins with probability 3/4.
+
+Now, possible final matchups:
+
+- If A wins semifinal 1 and C wins semifinal 2, final is A vs C.
+- If A wins semifinal 1 and S wins semifinal 2, final is A vs S.
+- If J wins semifinal 1 and C wins semifinal 2, final is J vs C.
+- If J wins semifinal 1 and S wins semifinal 2, final is J vs S (Carl is out).
+
+We want the probability Carl wins the tournament, so Carl must win semifinal 2 (C vs S), then win final.
+
+Let's consider only the cases where Carl wins semifinal 2 (prob = 3/4).
+
+Then, final opponent is either A or J, depending on semifinal 1 outcome.
+
+- Probability A wins semifinal 1: 3/4
+- Probability J wins semifinal 1: 1/4
+
+When final is A vs C: from problem, A vs C, A wins with probability 2/3, so C wins with probability 1/3.
+
+When final is J vs C: Carl wins with probability 3/4.
+
+Hence, in case 2, probability Carl wins tournament:
+
+= P(C wins semifinal 2) * [P(A wins semifinal 1) * P(C beats A) + P(J wins semifinal 1) * P(C beats J)]
+
+= (3/4) * [ (3/4)*(1/3) + (1/4)*(3/4) ]
+
+Calculate inside bracket:
+
+(3/4)*(1/3) = 3/12 = 1/4
+
+(1/4)*(3/4) = 3/16
+
+Sum: 1/4 + 3/16 = 4/16 + 3/16 = 7/16
+
+Therefore,
+
+Probability Carl wins tournament in case 2 = (3/4)*(7/16) = 21/64
+
+---
+
+**Case 3: (A vs S) and (C vs J)**
+
+This is symmetric to case 2, swapping J and S.
+
+- Semifinal 1: A vs S. A or C vs J or S, so A wins with 3/4, S wins with 1/4.
+- Semifinal 2: C vs J. Carl wins with 3/4.
+
+Final matchups:
+
+- If A wins semifinal 1 and C wins semifinal 2, final is A vs C.
+- If S wins semifinal 1 and C wins semifinal 2, final is S vs C.
+- If A wins semifinal 1 and J wins semifinal 2, final is A vs J (Carl eliminated).
+- If S wins semifinal 1 and J wins semifinal 2, final is S vs J (Carl eliminated).
+
+Carl must win semifinal 2 (prob = 3/4), then win final.
+
+Final opponent is A with probability 3/4 (A wins semifinal 1), or S with probability 1/4 (S wins semifinal 1).
+
+- Carl vs A: Carl wins with probability 1/3 (since A beats C with 2/3, C wins with 1/3).
+- Carl vs S: Carl wins with 3/4.
+
+Therefore,
+
+Probability Carl wins tournament in case 3:
+
+= (3/4) * [ (3/4)*(1/3) + (1/4)*(3/4) ] = same as case 2 = 21/64
+
+---
+
+**Combine all cases:**
+
+Each case occurs with probability 1/3.
+
+Overall probability Carl wins tournament:
+
+= (1/3)*(case 1) + (1/3)*(case 2) + (1/3)*(case 3)
+
+= (1/3)*(1/4) + (1/3)*(21/64) + (1/3)*(21/64)
+
+= (1/3)*(1/4) + (2/3)*(21/64)
+
+= (1/12) + (2/3)*(21/64)
+
+Calculate (2/3)*(21/64):
+
+2/3 * 21/64 = 42/192 = 7/32
+
+Therefore,
+
+Total probability = 1/12 + 7/32
+
+Find common denominator 96:
+
+1/12 = 8/96
+
+7/32 = 21/96
+
+Sum = (8 + 21)/96 = 29/96
+
+---
+
+Since 29 and 96 share no common factors (29 is prime), the fraction is in lowest terms.
+
+Thus, p = 29, q = 96, p + q = 29 + 96 = 125.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000013 | Iter 13 [ACCEPTED +1.00]
+Intent: The edit aimed to enhance rigor and clarity in reasoning by emphasizing verification of critical steps and explicit documentation, reducing errors and premature conclusions to improve final answer accuracy.
+Lesson: The outcome shows that making instructions more explicit about verification and clarity can improve correctness on challenging problems prone to subtle mistakes, but may have limited or no effect on problems already well-handled by the original prompt.
+Strong on: complex multi-step algebraic problems, problems requiring careful verification
+
+### mem_000014 | Iter 14 [ACCEPTED +1.00]
+Intent: Improve answer accuracy on AIME math problems by encouraging explicit step-by-step reasoning and verification before providing a final answer.
+Lesson: The outcome shows that prompting for detailed, careful reasoning and explicit verification can meaningfully increase correctness on problems that previously failed, while maintaining success on problems already answered correctly.
+Strong on: multi-step calculation, logical deduction
+
+### mem_000015 | Iter 15 [ACCEPTED +2.00]
+Intent: The edit aimed to improve solution accuracy by emphasizing explicit, step-by-step verification and rigor in logical reasoning before outputting the final integer answer.
+Lesson: This outcome reveals that explicitly instructing the model to verify each calculation and avoid premature assumptions can enhance correctness on complex math problems, though improvements may be partial and problem-dependent.
+Strong on: AIME-style integer answer problems
+
+### mem_000016 | Iter 16 [REJECTED +0.00]
+Intent: The edit aimed to enhance clarity and rigor in the prompt to reduce errors and improve the accuracy of final integer answers on AIME problems.
+Lesson: The unchanged scores suggest that increasing prompt verbosity and emphasizing verification without changing content does not necessarily improve accuracy; simpler or more focused instructions might be equally effective.
+
+### mem_000017 | Iter 17 [REJECTED +0.00]
+Intent: The edit aimed to increase rigor and precision in the reasoning process by adding explicit checks on algebraic, geometric, and numeric justifications and emphasizing validation before simplifying or assuming.
+Lesson: The unchanged score indicates that increasing verbosity and specificity in instruction for rigorous verification did not translate into improved accuracy, suggesting that over-specification may not address core reasoning or calculation errors in AIME problems.
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

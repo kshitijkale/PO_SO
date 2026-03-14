@@ -1,0 +1,73 @@
+{
+  "iteration": 4,
+  "phase": "before_proposal",
+  "all_entries": [
+    {
+      "iteration": 1,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 0.0,
+      "score_after": 1.0,
+      "accepted": true,
+      "failure_modes": [
+        "Need token GOOD1",
+        "Need token GOOD2"
+      ],
+      "intent": "Target missing pattern",
+      "lesson": "Adding explicit pattern words improved matching.",
+      "categories_succeeded": [
+        "pattern_match"
+      ],
+      "categories_failed": [
+        "edge_case"
+      ]
+    },
+    {
+      "iteration": 2,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Need token GOOD1",
+        "Need token GOOD2"
+      ],
+      "intent": "Target missing pattern",
+      "lesson": "Adding explicit pattern words improved matching.",
+      "categories_succeeded": [
+        "pattern_match"
+      ],
+      "categories_failed": [
+        "edge_case"
+      ]
+    },
+    {
+      "iteration": 3,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 2.0,
+      "accepted": true,
+      "failure_modes": [
+        "Need token GOOD1",
+        "Need token GOOD2"
+      ],
+      "intent": "Target missing pattern",
+      "lesson": "Adding explicit pattern words improved matching.",
+      "categories_succeeded": [
+        "pattern_match"
+      ],
+      "categories_failed": [
+        "edge_case"
+      ]
+    }
+  ],
+  "total_entries": 3,
+  "max_entries": 3,
+  "entries_by_component": {
+    "current_candidate": 3
+  },
+  "accepted_ratio": 0.6666666666666666,
+  "rejected_ratio": 0.3333333333333333
+}

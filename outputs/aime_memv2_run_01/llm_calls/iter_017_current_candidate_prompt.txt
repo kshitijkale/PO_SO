@@ -1,0 +1,1360 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+1.0
+
+## problem
+Find the largest possible real part of \[(75+117i)z+\frac{96+144i}{z}\]where $z$ is a complex number with $|z|=4$.
+
+## prompt
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+
+## output
+540
+
+## reasoning
+We are given the expression:
+\[
+(75 + 117i)z + \frac{96 + 144i}{z}
+\]
+where \( z \) is a complex number with \(|z| = 4\).
+
+We want to find the largest possible real part of this expression.
+
+---
+
+**Step 1: Parametrize \( z \)**
+
+Since \(|z| = 4\), let
+\[
+z = 4e^{i\theta}
+\]
+for some real \(\theta\).
+
+---
+
+**Step 2: Rewrite the expression in terms of \(\theta\)**
+
+The expression is:
+\[
+(75 + 117i)z + \frac{96 + 144i}{z} = (75 + 117i)(4e^{i\theta}) + \frac{96 + 144i}{4e^{i\theta}}.
+\]
+
+Simplify:
+\[
+= 4(75 + 117i)e^{i\theta} + \frac{96 + 144i}{4} e^{-i\theta}
+= 4(75 + 117i)e^{i\theta} + 24(4 + 6i) e^{-i\theta}
+\]
+Note that \(\frac{96 + 144i}{4} = 24 + 36i\), but let's double-check that:
+
+- \(96 / 4 = 24\)
+- \(144 / 4 = 36\)
+
+So,
+\[
+= 4(75 + 117i) e^{i\theta} + (24 + 36i) e^{-i\theta}.
+\]
+
+---
+
+**Step 3: Express the complex numbers in polar form or separate real and imaginary parts**
+
+Let:
+\[
+A = 4(75 + 117i) = 300 + 468i,
+\]
+\[
+B = 24 + 36i.
+\]
+
+The expression is:
+\[
+A e^{i\theta} + B e^{-i\theta}.
+\]
+
+---
+
+**Step 4: Find the real part**
+
+The real part of \( A e^{i\theta} + B e^{-i\theta} \) is:
+\[
+\Re(A e^{i\theta}) + \Re(B e^{-i\theta}).
+\]
+
+Write \(A = a_1 + i b_1 = 300 + 468i\),
+and \(B = a_2 + i b_2 = 24 + 36i\).
+
+Then:
+\[
+\Re(A e^{i\theta}) = \Re((a_1 + i b_1)(\cos \theta + i \sin \theta)) = a_1 \cos \theta - b_1 \sin \theta,
+\]
+\[
+\Re(B e^{-i\theta}) = \Re((a_2 + i b_2)(\cos \theta - i \sin \theta)) = a_2 \cos \theta + b_2 \sin \theta.
+\]
+
+Therefore,
+\[
+\text{Real part} = (a_1 + a_2) \cos \theta + (-b_1 + b_2) \sin \theta.
+\]
+
+Plugging in values:
+\[
+a_1 + a_2 = 300 + 24 = 324,
+\]
+\[
+-b_1 + b_2 = -468 + 36 = -432.
+\]
+
+Hence,
+\[
+\text{Real part} = 324 \cos \theta - 432 \sin \theta.
+\]
+
+---
+
+**Step 5: Maximize the expression \(324 \cos \theta - 432 \sin \theta\)**
+
+This is maximized by:
+\[
+R = \sqrt{324^2 + (-432)^2} = \sqrt{324^2 + 432^2}.
+\]
+
+Calculate:
+\[
+324^2 = (300 + 24)^2 = 300^2 + 2 \cdot 300 \cdot 24 + 24^2 = 90000 + 14400 + 576 = 104976,
+\]
+\[
+432^2 = (400 + 32)^2 = 400^2 + 2 \cdot 400 \cdot 32 + 32^2 = 160000 + 25600 + 1024 = 186624.
+\]
+
+Sum:
+\[
+104976 + 186624 = 291600.
+\]
+
+Square root:
+\[
+\sqrt{291600} = \sqrt{2916 \times 100} = 10 \times \sqrt{2916}.
+\]
+
+Since \(54^2 = 2916\),
+\[
+\sqrt{2916} = 54.
+\]
+
+Thus,
+\[
+R = 10 \times 54 = 540.
+\]
+
+---
+
+**Step 6: Conclusion**
+
+The largest possible real part is:
+\[
+\boxed{540}.
+\]
+
+---
+
+**Verification:**
+
+The expression is a linear combination of \(\cos \theta\) and \(\sin \theta\), and the maximum value of \(A \cos \theta + B \sin \theta\) is \(\sqrt{A^2 + B^2}\). Here, \(A = 324\), \(B = -432\), so maximum is \(\sqrt{324^2 + (-432)^2} = 540\). This confirms the result.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 540.
+
+
+
+# Example 2
+## score
+1.0
+
+## problem
+Alice knows that $3$ red cards and $3$ black cards will be revealed to her one at a time in random order. Before each card is revealed, Alice must guess its color. If Alice plays optimally, the expected number of cards she will guess correctly is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+
+## output
+51
+
+## reasoning
+Alice is shown 6 cards in a random order: 3 red (R) and 3 black (B). Each card is revealed one at a time, and before each reveal, Alice must guess the color of the card. She wants to maximize the expected number of correct guesses.
+
+We want to find the expected number of correct guesses if Alice plays optimally, and then express this expectation as a reduced fraction \(\frac{m}{n}\) and find \(m + n\).
+
+---
+
+**Step 1: Understanding the problem**
+
+- There are 6 cards total: 3 red, 3 black.
+- The order is random and unknown to Alice.
+- Before each card is revealed, Alice guesses the color.
+- After the card is revealed, Alice knows the revealed card’s color and updates her knowledge.
+- The sequence is without replacement.
+- Alice wants to maximize expected correct guesses.
+
+---
+
+**Step 2: Strategy**
+
+Alice's optimal strategy is to guess the color that is more likely to appear next, given the cards revealed so far.
+
+At any point, if \(r\) red cards remain unrevealed and \(b\) black cards remain unrevealed, Alice should guess the color with the higher remaining count (or either if equal).
+
+Initially: \(r=3, b=3\).
+
+---
+
+**Step 3: Modeling the problem**
+
+Let \(E(r,b)\) be the expected number of correct guesses from the state with \(r\) red and \(b\) black cards remaining to be revealed.
+
+At each step:
+
+- Alice guesses the color with the maximum of \(r\) and \(b\).
+- If \(r = b\), the guess can be either color.
+- The card revealed is randomly one of the remaining cards, so:
+    - Probability red: \(\frac{r}{r+b}\)
+    - Probability black: \(\frac{b}{r+b}\)
+
+---
+
+**Step 4: Recurrence**
+
+If \(r = 0\) and \(b = 0\), no cards remain, so \(E(0,0) = 0\).
+
+For \(r,b > 0\):
+
+- If \(r > b\), guess red:
+  \[
+  E(r,b) = \Pr(\text{card is red}) \times (1 + E(r-1,b)) + \Pr(\text{card is black}) \times E(r,b-1)
+  = \frac{r}{r+b}(1 + E(r-1,b)) + \frac{b}{r+b} E(r,b-1).
+  \]
+
+- If \(b > r\), guess black:
+  \[
+  E(r,b) = \frac{b}{r+b}(1 + E(r,b-1)) + \frac{r}{r+b} E(r-1,b).
+  \]
+
+- If \(r = b\), guess either color (symmetry), say guess red:
+  \[
+  E(r,r) = \frac{r}{2r}(1 + E(r-1,r)) + \frac{r}{2r} E(r,r-1) = \frac{1}{2}(1 + E(r-1,r)) + \frac{1}{2} E(r,r-1).
+  \]
+
+---
+
+**Step 5: Calculate values bottom-up**
+
+We need \(E(3,3)\).
+
+Start from base cases:
+
+- \(E(0,0) = 0\)
+- \(E(r,0) = r\) because all remaining cards are red, so if Alice guesses red, she will be correct every time.
+- \(E(0,b) = b\) similarly for black.
+
+Calculate:
+
+- \(E(1,0) = 1\)
+- \(E(0,1) = 1\)
+
+- \(E(1,1)\):
+  \[
+  r=b=1, \quad E(1,1) = \frac{1}{2}(1 + E(0,1)) + \frac{1}{2} E(1,0) = \frac{1}{2}(1 + 1) + \frac{1}{2}(1) = \frac{1}{2} \times 2 + \frac{1}{2} \times 1 = 1 + 0.5 = 1.5.
+  \]
+
+- \(E(2,0) = 2\)
+- \(E(0,2) = 2\)
+
+- \(E(2,1)\):
+  Since \(r=2 > 1 = b\), guess red:
+  \[
+  E(2,1) = \frac{2}{3}(1 + E(1,1)) + \frac{1}{3} E(2,0) = \frac{2}{3}(1 + 1.5) + \frac{1}{3} \times 2 = \frac{2}{3} \times 2.5 + \frac{2}{3} = \frac{5}{3} + \frac{2}{3} = \frac{7}{3} = 2.\overline{3}.
+  \]
+
+- \(E(1,2)\):
+  \(b=2 > 1 = r\), guess black:
+  \[
+  E(1,2) = \frac{2}{3}(1 + E(1,1)) + \frac{1}{3} E(0,2) = \frac{2}{3}(1 + 1.5) + \frac{1}{3} \times 2 = \frac{2}{3} \times 2.5 + \frac{2}{3} = \frac{5}{3} + \frac{2}{3} = \frac{7}{3} = 2.\overline{3}.
+  \]
+
+- \(E(2,2)\):
+  \(r=b=2\), guess red:
+  \[
+  E(2,2) = \frac{1}{2}(1 + E(1,2)) + \frac{1}{2} E(2,1) = \frac{1}{2}(1 + \frac{7}{3}) + \frac{1}{2} \times \frac{7}{3} = \frac{1}{2} \times \frac{10}{3} + \frac{7}{6} = \frac{5}{3} + \frac{7}{6} = \frac{10}{6} + \frac{7}{6} = \frac{17}{6} \approx 2.8333.
+  \]
+
+- \(E(3,0) = 3\)
+- \(E(0,3) = 3\)
+
+- \(E(3,1)\):
+  \(r=3 > 1\), guess red:
+  \[
+  E(3,1) = \frac{3}{4}(1 + E(2,1)) + \frac{1}{4} E(3,0) = \frac{3}{4}(1 + \frac{7}{3}) + \frac{1}{4} \times 3 = \frac{3}{4} \times \frac{10}{3} + \frac{3}{4} = \frac{3}{4} \times \frac{10}{3} + \frac{3}{4} = \frac{10}{4} + \frac{3}{4} = \frac{13}{4} = 3.25.
+  \]
+
+- \(E(1,3)\):
+  \(b=3 > 1\), guess black:
+  \[
+  E(1,3) = \frac{3}{4}(1 + E(1,2)) + \frac{1}{4} E(0,3) = \frac{3}{4}(1 + \frac{7}{3}) + \frac{1}{4} \times 3 = \frac{3}{4} \times \frac{10}{3} + \frac{3}{4} = \frac{13}{4} = 3.25.
+  \]
+
+- \(E(3,2)\):
+  \(r=3 > 2\), guess red:
+  \[
+  E(3,2) = \frac{3}{5}(1 + E(2,2)) + \frac{2}{5} E(3,1) = \frac{3}{5}(1 + \frac{17}{6}) + \frac{2}{5} \times \frac{13}{4} = \frac{3}{5} \times \frac{23}{6} + \frac{2}{5} \times \frac{13}{4}.
+  \]
+
+Calculate each term:
+
+\[
+\frac{3}{5} \times \frac{23}{6} = \frac{69}{30} = \frac{23}{10} = 2.3,
+\]
+\[
+\frac{2}{5} \times \frac{13}{4} = \frac{26}{20} = \frac{13}{10} = 1.3,
+\]
+
+Sum:
+\[
+2.3 + 1.3 = 3.6 = \frac{18}{5}.
+\]
+
+- \(E(2,3)\):
+  \(b=3 > 2\), guess black:
+  \[
+  E(2,3) = \frac{3}{5}(1 + E(2,2)) + \frac{2}{5} E(1,3) = \frac{3}{5} \times \frac{23}{6} + \frac{2}{5} \times \frac{13}{4} = 3.6 = \frac{18}{5}.
+  \]
+
+- Finally, \(E(3,3)\):
+
+Since \(r=b=3\), guess red:
+
+\[
+E(3,3) = \frac{1}{2}(1 + E(2,3)) + \frac{1}{2} E(3,2) = \frac{1}{2}(1 + \frac{18}{5}) + \frac{1}{2} \times \frac{18}{5} = \frac{1}{2} \times \frac{23}{5} + \frac{9}{5} = \frac{23}{10} + \frac{9}{5} = \frac{23}{10} + \frac{18}{10} = \frac{41}{10} = 4.1.
+\]
+
+---
+
+**Step 6: Conclusion**
+
+The expected number of correct guesses if Alice plays optimally is \(\frac{41}{10}\).
+
+The problem asks for \(m+n\) where the fraction is \(\frac{m}{n}\).
+
+\[
+m = 41, \quad n = 10, \quad m + n = 41 + 10 = 51.
+\]
+
+---
+
+**Check:** The number makes sense because there are 6 cards, and guessing randomly would yield an expected 3 correct guesses. Here, optimal play yields more than 4, which is reasonable.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 51.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Two externally tangent circles $\omega_1$ and $\omega_2$ have centers $O_1$ and $O_2$, respectively. A third circle $\Omega$ passing through $O_1$ and $O_2$ intersects $\omega_1$ at $B$ and $C$ and $\omega_2$ at $A$ and $D$, as shown. Suppose that $AB = 2$, $O_1O_2 = 15$, $CD = 16$, and $ABO_1CDO_2$ is a convex hexagon. Find the area of this hexagon.
+
+## prompt
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+
+## output
+39
+
+## reasoning
+We are given two externally tangent circles \(\omega_1\) and \(\omega_2\) with centers \(O_1\) and \(O_2\), respectively, and a third circle \(\Omega\) passing through both centers \(O_1\) and \(O_2\). The circle \(\Omega\) intersects \(\omega_1\) at points \(B\) and \(C\) and \(\omega_2\) at points \(A\) and \(D\). The hexagon \(ABO_1CDO_2\) is convex, with given lengths \(AB = 2\), \(O_1O_2 = 15\), and \(CD = 16\).
+
+We want to find the area of \(ABO_1CDO_2\).
+
+---
+
+**Step 1: Understand the configuration**
+
+- Circles \(\omega_1\) and \(\omega_2\) are tangent externally at some point \(T\).
+- \(O_1\) and \(O_2\) are their centers, and \(O_1O_2 = 15\).
+- The circle \(\Omega\) passes through \(O_1\) and \(O_2\).
+- \(\Omega\) intersects \(\omega_1\) again at \(B\) and \(C\), and \(\omega_2\) again at \(A\) and \(D\).
+- Points \(A, B, C, D\) lie on \(\Omega\), and points \(B, C\) lie on \(\omega_1\); points \(A, D\) lie on \(\omega_2\).
+- The hexagon \(ABO_1CDO_2\) is convex.
+
+---
+
+**Step 2: Analyze the points**
+
+The hexagon is formed by vertices in this order: \(A, B, O_1, C, D, O_2\).
+
+Since \(B, C\) are on \(\omega_1\) and \(O_1\) is its center, \(O_1B = O_1C = r_1\), the radius of \(\omega_1\).
+
+Similarly, \(A, D\) are on \(\omega_2\), so \(O_2A = O_2D = r_2\), the radius of \(\omega_2\).
+
+Since \(\omega_1\) and \(\omega_2\) are tangent externally, \(r_1 + r_2 = O_1O_2 = 15\).
+
+---
+
+**Step 3: Use the circle \(\Omega\) passing through \(O_1\) and \(O_2\) and the chords \(AB\) and \(CD\)**
+
+Points \(A, B, C, D, O_1, O_2\) lie on \(\Omega\), which passes through \(O_1\) and \(O_2\).
+
+Since \(B, C\) lie on \(\omega_1\), and \(A, D\) lie on \(\omega_2\), and all lie on \(\Omega\), the chords \(AB\) and \(CD\) lie on \(\Omega\).
+
+We are given lengths: \(AB = 2\), \(CD = 16\), and \(O_1O_2 = 15\).
+
+---
+
+**Step 4: Consider the power of points and use chord lengths to find radii**
+
+- Since \(A, B, O_1, C, D, O_2\) lie on the circle \(\Omega\), and \(B, C\) lie on \(\omega_1\) (center \(O_1\), radius \(r_1\)), the points \(B\) and \(C\) lie on both \(\omega_1\) and \(\Omega\).
+- Similarly, \(A, D\) lie on \(\omega_2\) (center \(O_2\), radius \(r_2\)) and on \(\Omega\).
+
+Because \(B\) and \(C\) lie on \(\omega_1\), \(O_1B = O_1C = r_1\).
+
+Similarly, \(O_2A = O_2D = r_2\).
+
+---
+
+**Step 5: Place the centers and points in coordinate system**
+
+Set up a coordinate system to find the coordinates of all points for area calculation.
+
+Place \(O_1\) at the origin: \(O_1 = (0,0)\).
+
+Since \(O_1O_2 = 15\), place \(O_2\) at \((15,0)\).
+
+\(\omega_1\) is centered at \((0,0)\) with radius \(r_1\), \(\omega_2\) at \((15,0)\) with radius \(r_2\).
+
+---
+
+**Step 6: Use the external tangency condition**
+
+Since the circles are tangent externally:
+
+\[
+r_1 + r_2 = 15.
+\]
+
+---
+
+**Step 7: The circle \(\Omega\) passes through \(O_1\) and \(O_2\). Let its center be \(O = (h,k)\) and radius \(R\).**
+
+Then:
+
+\[
+(h - 0)^2 + (k - 0)^2 = R^2 \quad \Rightarrow \quad h^2 + k^2 = R^2,
+\]
+\[
+(h - 15)^2 + k^2 = R^2.
+\]
+
+Subtract the two equations:
+
+\[
+h^2 + k^2 = (h - 15)^2 + k^2,
+\]
+\[
+h^2 = (h - 15)^2,
+\]
+\[
+h^2 = h^2 - 30h + 225,
+\]
+\[
+0 = -30h + 225,
+\]
+\[
+30h = 225,
+\]
+\[
+h = 7.5.
+\]
+
+So the center \(O = (7.5, k)\).
+
+---
+
+**Step 8: Express \(R^2\)**
+
+From \(h^2 + k^2 = R^2\):
+
+\[
+R^2 = 7.5^2 + k^2 = 56.25 + k^2.
+\]
+
+---
+
+**Step 9: Parametrize points \(A, B, C, D\) on \(\Omega\) and \(\omega_1, \omega_2\)**
+
+- Points \(B, C\) lie on \(\omega_1: x^2 + y^2 = r_1^2\) and \(\Omega: (x - 7.5)^2 + (y - k)^2 = R^2\).
+- Points \(A, D\) lie on \(\omega_2: (x - 15)^2 + y^2 = r_2^2\) and \(\Omega: (x - 7.5)^2 + (y - k)^2 = R^2\).
+
+---
+
+**Step 10: Find the chord lengths \(AB=2\) and \(CD=16\) using the intersection of \(\Omega\) with \(\omega_1\) and \(\omega_2\)**
+
+We now find the length of chord \(AB\) on \(\omega_2\).
+
+---
+
+**Step 11: For \(\omega_2\)**
+
+The circle \(\omega_2\) is centered at \((15,0)\) with radius \(r_2\).
+
+The circle \(\Omega\) has center at \((7.5, k)\) and radius \(R\).
+
+The intersection of two circles gives a chord on both.
+
+The length of chord of intersection between two circles with centers separated by distance \(d\), radii \(r\) and \(R\) is:
+
+\[
+\ell = 2 \sqrt{R^2 - m^2},
+\]
+where \(m\) is the distance from the center of one circle to the chord line, given by
+
+\[
+m = \frac{d^2 - r^2 + R^2}{2d}.
+\]
+
+Here, for circle \(\omega_2\) and \(\Omega\):
+
+- \(d = |O - O_2| = \sqrt{(7.5 - 15)^2 + (k - 0)^2} = \sqrt{(-7.5)^2 + k^2} = \sqrt{56.25 + k^2}\).
+- Radius of \(\omega_2\) is \(r_2\).
+- Radius of \(\Omega\) is \(R = \sqrt{56.25 + k^2}\).
+
+Note that:
+
+\[
+d = R,
+\]
+because \(d = \sqrt{56.25 + k^2} = R\).
+
+This means the centers of \(\Omega\) and \(\omega_2\) are at distance \(R\), and \(\Omega\) passes through \(O_2\) (which we already know).
+
+---
+
+**Step 12: Compute chord length \(AB\) on \(\omega_2\)**
+
+Using the formula for chord length of intersection between two circles:
+
+\[
+\ell = 2 \sqrt{r_2^2 - (d - R)^2}.
+\]
+
+But since \(d = R\), \(d - R = 0\), so:
+
+\[
+\ell = 2 \sqrt{r_2^2 - 0} = 2r_2.
+\]
+
+Therefore, chord \(AB\) on \(\omega_2\) has length \(AB = 2r_2\).
+
+Given \(AB = 2\), so:
+
+\[
+2r_2 = 2 \implies r_2 = 1.
+\]
+
+---
+
+**Step 13: Similarly, for \(\omega_1\)**
+
+- Center \(O_1 = (0,0)\).
+- \(\Omega\) center at \((7.5, k)\), radius \(R = \sqrt{56.25 + k^2}\).
+- Distance between centers:
+
+\[
+d = |O - O_1| = \sqrt{(7.5 - 0)^2 + (k - 0)^2} = \sqrt{56.25 + k^2} = R.
+\]
+
+Again, \(d = R\).
+
+Then, chord length of intersection between \(\omega_1\) and \(\Omega\) is:
+
+\[
+\ell = 2 \sqrt{r_1^2 - (d - R)^2} = 2r_1.
+\]
+
+Given chord \(CD = 16\), so:
+
+\[
+2r_1 = 16 \implies r_1 = 8.
+\]
+
+---
+
+**Step 14: Check the sum of radii**
+
+\[
+r_1 + r_2 = 8 + 1 = 9 \neq 15,
+\]
+
+which contradicts the external tangency condition \(r_1 + r_2 = 15\).
+
+This suggests our initial assumption about chord length formula needs correction.
+
+---
+
+**Step 15: Correct interpretation of chord length**
+
+The formula for the length of the chord formed by intersecting two circles with centers separated by distance \(d\), and radii \(R\) and \(r\) is:
+
+\[
+\ell = 2 \sqrt{r^2 - m^2},
+\]
+where
+\[
+m = \frac{d^2 - R^2 + r^2}{2d}.
+\]
+
+Here, \(m\) is the distance from the center of the smaller circle to the chord.
+
+Apply this carefully.
+
+---
+
+**Step 16: For \(\omega_1\) and \(\Omega\)**
+
+- \(O_1 = (0,0)\), radius \(r_1\).
+- \(\Omega\) center at \((7.5,k)\), radius \(R\).
+- Distance between centers:
+
+\[
+d = \sqrt{(7.5)^2 + k^2} = \sqrt{56.25 + k^2}.
+\]
+
+Chord length on \(\omega_1\):
+
+\[
+CD = 16 = 2 \sqrt{r_1^2 - m_1^2},
+\]
+where
+
+\[
+m_1 = \frac{d^2 - R^2 + r_1^2}{2d}.
+\]
+
+But since \(R^2 = d^2\), as shown in step 7:
+
+\[
+m_1 = \frac{d^2 - d^2 + r_1^2}{2d} = \frac{r_1^2}{2d}.
+\]
+
+Therefore,
+
+\[
+16 = 2 \sqrt{r_1^2 - \left(\frac{r_1^2}{2d}\right)^2} = 2 \sqrt{r_1^2 - \frac{r_1^4}{4 d^2}} = 2 r_1 \sqrt{1 - \frac{r_1^2}{4 d^2}}.
+\]
+
+Divide both sides by 2:
+
+\[
+8 = r_1 \sqrt{1 - \frac{r_1^2}{4 d^2}}.
+\]
+
+Square both sides:
+
+\[
+64 = r_1^2 \left(1 - \frac{r_1^2}{4 d^2}\right) = r_1^2 - \frac{r_1^4}{4 d^2}.
+\]
+
+Rearranged:
+
+\[
+64 = r_1^2 - \frac{r_1^4}{4 d^2}.
+\]
+
+Multiply both sides by \(4 d^2\):
+
+\[
+256 d^2 = 4 d^2 r_1^2 - r_1^4.
+\]
+
+Rearranged:
+
+\[
+r_1^4 - 4 d^2 r_1^2 + 256 d^2 = 0.
+\]
+
+---
+
+**Step 17: Similarly for \(\omega_2\)**
+
+- \(O_2 = (15,0)\), radius \(r_2\).
+- \(\Omega\) center at \((7.5, k)\), radius \(R = \sqrt{56.25 + k^2}\).
+- Distance between centers:
+
+\[
+d = |O - O_2| = \sqrt{(7.5 - 15)^2 + (k - 0)^2} = \sqrt{56.25 + k^2} = R.
+\]
+
+Chord length on \(\omega_2\):
+
+\[
+AB = 2 = 2 \sqrt{r_2^2 - m_2^2},
+\]
+where
+
+\[
+m_2 = \frac{d^2 - R^2 + r_2^2}{2 d} = \frac{r_2^2}{2 d}.
+\]
+
+Therefore,
+
+\[
+2 = 2 \sqrt{r_2^2 - \left(\frac{r_2^2}{2 d}\right)^2} = 2 r_2 \sqrt{1 - \frac{r_2^2}{4 d^2}}.
+\]
+
+Divide both sides by 2:
+
+\[
+1 = r_2 \sqrt{1 - \frac{r_2^2}{4 d^2}}.
+\]
+
+Square both sides:
+
+\[
+1 = r_2^2 - \frac{r_2^4}{4 d^2}.
+\]
+
+Multiply both sides by \(4 d^2\):
+
+\[
+4 d^2 = 4 d^2 r_2^2 - r_2^4,
+\]
+
+or equivalently:
+
+\[
+r_2^4 - 4 d^2 r_2^2 + 4 d^2 = 0.
+\]
+
+---
+
+**Step 18: Recall \(d^2 = 56.25 + k^2\), unknown for now.**
+
+---
+
+**Step 19: Use external tangency condition**
+
+\[
+r_1 + r_2 = 15.
+\]
+
+We now have two quartic equations:
+
+\[
+r_1^4 - 4 d^2 r_1^2 + 256 d^2 = 0,
+\]
+\[
+r_2^4 - 4 d^2 r_2^2 + 4 d^2 = 0,
+\]
+with \(r_1 + r_2 = 15\).
+
+---
+
+**Step 20: Set \(X = r_1^2\), \(Y = r_2^2\).**
+
+From the quartics:
+
+\[
+X^2 - 4 d^2 X + 256 d^2 = 0,
+\]
+\[
+Y^2 - 4 d^2 Y + 4 d^2 = 0.
+\]
+
+Solve each quadratic in \(X\) and \(Y\).
+
+---
+
+**Step 21: Solve for \(X\)**
+
+\[
+X^2 - 4 d^2 X + 256 d^2 = 0.
+\]
+
+Discriminant:
+
+\[
+\Delta_X = (4 d^2)^2 - 4 \cdot 1 \cdot 256 d^2 = 16 d^4 - 1024 d^2 = 16 d^2 (d^2 - 64).
+\]
+
+For real solutions, \(d^2 \geq 64\).
+
+---
+
+**Step 22: Solve for \(Y\)**
+
+\[
+Y^2 - 4 d^2 Y + 4 d^2 = 0.
+\]
+
+Discriminant:
+
+\[
+\Delta_Y = 16 d^4 - 16 d^2 = 16 d^2 (d^2 - 1).
+\]
+
+For real solutions, \(d^2 \geq 1\).
+
+---
+
+**Step 23: Express \(X\) and \(Y\)**
+
+\[
+X = 2 d^2 \pm 4 d \sqrt{d^2 - 64},
+\]
+\[
+Y = 2 d^2 \pm 2 d \sqrt{d^2 - 1}.
+\]
+
+---
+
+**Step 24: Use \(r_1 + r_2 = 15\) and \(r_i = \sqrt{X}\), \(\sqrt{Y}\)**
+
+We try to find \(d^2\) such that
+
+\[
+\sqrt{X} + \sqrt{Y} = 15,
+\]
+with \(X\) and \(Y\) as above.
+
+---
+
+**Step 25: Try the minus signs for \(X\) and plus signs for \(Y\), to keep values positive**
+
+Set:
+
+\[
+X = 2 d^2 - 4 d \sqrt{d^2 - 64},
+\]
+\[
+Y = 2 d^2 + 2 d \sqrt{d^2 - 1}.
+\]
+
+---
+
+**Step 26: Numerical approach**
+
+Try \(d^2 = 81\) (since \(81 > 64\)):
+
+- \(\sqrt{d^2 - 64} = \sqrt{17} \approx 4.1231\),
+- \(\sqrt{d^2 - 1} = \sqrt{80} \approx 8.9443\),
+- \(X = 2 \cdot 81 - 4 \cdot 9 \cdot 4.1231 = 162 - 148.43 = 13.57\),
+- \(Y = 2 \cdot 81 + 2 \cdot 9 \cdot 8.9443 = 162 + 161 = 323\),
+- \(r_1 = \sqrt{13.57} \approx 3.68\),
+- \(r_2 = \sqrt{323} \approx 17.97\),
+- sum \(= 21.65\), too big.
+
+Try \(d^2 = 70\):
+
+- \(\sqrt{70 - 64} = \sqrt{6} \approx 2.45\),
+- \(\sqrt{70 - 1} = \sqrt{69} \approx 8.31\),
+- \(X = 140 - 4 \cdot \sqrt{70} \cdot 2.45\),
+- \(\sqrt{70} \approx 8.37\),
+- \(X = 140 - 4 \cdot 8.37 \cdot 2.45 = 140 - 82.0 = 58\),
+- \(Y = 140 + 2 \cdot 8.37 \cdot 8.31 = 140 + 139 = 279\),
+- \(r_1 = \sqrt{58} \approx 7.62\),
+- \(r_2 = \sqrt{279} \approx 16.7\),
+- sum \(= 24.3\), still too big.
+
+Try the other sign for \(X\):
+
+\[
+X = 2 d^2 + 4 d \sqrt{d^2 - 64}.
+\]
+
+Try \(d^2 = 70\):
+
+- \(X = 140 + 4 \cdot 8.37 \cdot 2.45 = 140 + 82 = 222\),
+- \(r_1 = \sqrt{222} \approx 14.9\),
+- sum \(= 14.9 + 16.7 = 31.6\), too big.
+
+Try \(d^2 = 64\):
+
+- \(\sqrt{64 - 64} = 0\),
+- \(\sqrt{64 - 1} = \sqrt{63} \approx 7.94\),
+- \(X = 2 \cdot 64 \pm 0 = 128\),
+- \(Y = 128 \pm 2 \cdot 8 \cdot 7.94 = 128 \pm 127\),
+- For \(Y = 128 + 127 = 255\), \(r_2 = \sqrt{255} \approx 15.97\),
+- \(r_1 = \sqrt{128} \approx 11.31\),
+- sum \(= 27.28\), too big.
+- For \(Y = 128 - 127 = 1\), \(r_2 = 1\), sum \(= 11.31 + 1 = 12.31\), too small.
+
+Try \(d^2 = 81\) with \(X = 2 d^2 + 4 d \sqrt{d^2 - 64} = 162 + 148 = 310\), \(r_1 \approx 17.6\), sum too big.
+
+Try \(d^2 = 100\):
+
+- \(\sqrt{100 - 64} = \sqrt{36} = 6\),
+- \(\sqrt{100 - 1} = \sqrt{99} \approx 9.95\),
+- \(X = 200 \pm 4 \cdot 10 \cdot 6 = 200 \pm 240\),
+- \(X = 440\) or \(-40\) (discard negative),
+- \(r_1 = \sqrt{440} = 20.98\),
+- \(Y = 200 \pm 2 \cdot 10 \cdot 9.95 = 200 \pm 199\),
+- \(Y=399\) or \(1\),
+- \(r_2 = \sqrt{399} = 19.97\) or \(1\),
+- sum \(= 20.98 + 19.97 = 40.95\) or \(20.98 + 1 = 21.98\), too big.
+
+Try \(d^2= 65\):
+
+- \(\sqrt{65-64} = 1\),
+- \(\sqrt{65-1} = \sqrt{64} = 8\),
+- \(X = 130 \pm 4 \cdot \sqrt{65} \cdot 1 = 130 \pm 4 \cdot 8.06 = 130 \pm 32.25\),
+- \(X = 162.25\) or \(97.75\),
+- \(r_1 = \sqrt{162.25} = 12.74\) or \(\sqrt{97.75} = 9.88\),
+- \(Y = 130 \pm 2 \cdot 8.06 \cdot 8 = 130 \pm 129\),
+- \(Y=259\) or \(1\),
+- \(r_2 = \sqrt{259} = 16.09\) or \(1\),
+- sum options:
+  - \(12.74 + 16.09 = 28.83\),
+  - \(12.74 + 1 = 13.74\),
+  - \(9.88 + 16.09 = 25.97\),
+  - \(9.88 + 1 = 10.88\).
+
+None close to 15.
+
+---
+
+**Step 27: Try \(d^2 = 68\)**
+
+\[
+\sqrt{68 - 64} = 2,
+\quad \sqrt{68 - 1} = \sqrt{67} \approx 8.19,
+\]
+\[
+X = 136 \pm 4 \cdot \sqrt{68} \cdot 2 = 136 \pm 4 \cdot 8.25 \cdot 2 = 136 \pm 66,
+\]
+\[
+X = 202 \text{ or } 70,
+\]
+\[
+r_1 = \sqrt{202} \approx 14.21 \text{ or } \sqrt{70} \approx 8.37,
+\]
+\[
+Y = 136 \pm 2 \cdot 8.25 \cdot 8.19 = 136 \pm 135,
+\]
+\[
+Y=271 \text{ or } 1,
+\]
+\[
+r_2 = \sqrt{271} \approx 16.46 \text{ or } 1,
+\]
+
+Sum possibilities:
+
+- \(14.21 + 16.46 = 30.67\),
+- \(14.21 + 1 = 15.21\) (close!),
+- \(8.37 + 16.46 = 24.83\),
+- \(8.37 + 1 = 9.37\).
+
+Try \(r_1 = 14.21\), \(r_2 = 1\), sum \(= 15.21\) close to 15.
+
+Try \(r_1 = 14.21\), \(r_2 = 1\).
+
+---
+
+**Step 28: Since sum is close to 15, approximate \(r_1 = 14\), \(r_2 = 1\).**
+
+Recall from step 12, chord length \(AB = 2\) implies \(r_2\) near 1, and chord length \(CD = 16\) implies \(r_1\) near 8, but from the above, approximations suggest \(r_1\) near 14.
+
+This discrepancy means the initial assumption about chord length being equal to twice radius is incorrect.
+
+---
+
+**Step 29: Use the fact that \(\omega_1\) and \(\omega_2\) are tangent externally at \(T\), so \(r_1 + r_2 = 15\).**
+
+If we take \(r_2 = 1\), then \(r_1 = 14\).
+
+---
+
+**Step 30: Now find coordinates of points for area calculation**
+
+We have:
+
+\[
+O_1 = (0,0), \quad O_2 = (15,0), \quad r_1 = 14, \quad r_2 = 1.
+\]
+
+---
+
+**Step 31: Find center \(O = (7.5,k)\) and radius \(R\) of \(\Omega\)**
+
+Since \(\Omega\) passes through \(O_1\) and \(O_2\), radius is:
+
+\[
+R^2 = (7.5)^2 + k^2 = 56.25 + k^2.
+\]
+
+---
+
+**Step 32: Find \(k\) using chord length \(AB=2\) on \(\omega_2\)**
+
+Chord \(AB\) lies on \(\omega_2\) and \(\Omega\). The length of chord of intersection for two circles with centers separated by distance \(d\), radii \(r\) and \(R\) is:
+
+\[
+\ell = 2 \sqrt{r^2 - m^2},
+\]
+where
+
+\[
+m = \frac{d^2 - R^2 + r^2}{2 d}.
+\]
+
+For \(\omega_2\) and \(\Omega\):
+
+- \(r = r_2 = 1\),
+- \(d = |O - O_2| = \sqrt{(7.5 - 15)^2 + k^2} = \sqrt{56.25 + k^2} = R\),
+- \(R^2 = d^2 = 56.25 + k^2\).
+
+Thus,
+
+\[
+m = \frac{d^2 - R^2 + r^2}{2 d} = \frac{0 + 1}{2 d} = \frac{1}{2 d}.
+\]
+
+Chord length:
+
+\[
+2 = 2 \sqrt{1^2 - \left(\frac{1}{2 d}\right)^2} = 2 \sqrt{1 - \frac{1}{4 d^2}}.
+\]
+
+Divide both sides by 2:
+
+\[
+1 = \sqrt{1 - \frac{1}{4 d^2}},
+\]
+square both sides:
+
+\[
+1 = 1 - \frac{1}{4 d^2},
+\]
+\[
+\frac{1}{4 d^2} = 0,
+\]
+which is impossible unless \(d \to \infty\).
+
+Contradiction.
+
+---
+
+**Step 33: This contradiction suggests the chord \(AB=2\) is too small compared to radius \(r_2=1\).**
+
+Since chord length on circle of radius 1 must be at most 2 (diameter), chord length 2 means chord is diameter.
+
+So \(AB = 2\) implies \(AB\) is diameter of \(\omega_2\), so points \(A, B\) are endpoints of diameter of \(\omega_2\).
+
+Therefore,
+
+\[
+r_2 = 1.
+\]
+
+Similarly, for \(CD = 16\), maximum chord length on \(\omega_1\) is diameter \(2 r_1\).
+
+Given \(CD = 16\), so radius \(r_1 \geq 8\).
+
+---
+
+**Step 34: Since \(r_1 + r_2 = 15\), and \(r_2=1\), \(r_1=14\), contradicts chord length \(CD = 16\) (which would be diameter = 28 for \(r_1=14\)).
+
+Therefore, \(CD = 16\) is less than diameter 28, possible.
+
+Similarly, for \(\omega_2\), chord \(AB = 2\) equals diameter \(2 r_2\), so \(r_2=1\).
+
+---
+
+**Step 35: Find coordinates of points \(A, B, C, D\)**
+
+- On \(\omega_2\) (center \(15,0\), radius 1):
+
+Endpoints of diameter \(AB\) lie on horizontal axis or vertical axis.
+
+Assuming \(AB\) horizontal for simplicity:
+
+\[
+A = (15 - 1, 0) = (14, 0),
+\]
+\[
+B = (15 + 1, 0) = (16, 0).
+\]
+
+But \(B\) lies on \(\omega_1\) and \(\Omega\), so \(B\) cannot be at \(16,0\) because \(\omega_1\) is at origin with radius 14 and \(\Omega\) passes through \(O_1\) and \(O_2\).
+
+Therefore, choose \(AB\) vertical:
+
+\[
+A = (15, 1),
+\]
+\[
+B = (15, -1).
+\]
+
+---
+
+**Step 36: Similarly for \(CD\) on \(\omega_1\) with radius 14**
+
+Chord length \(CD=16\).
+
+Maximum chord length is \(28\), so chord \(CD\) is 16.
+
+Assume chord \(CD\) is vertical at some \(x = x_0\):
+
+\[
+C = (x_0, y_c),
+\]
+\[
+D = (x_0, y_d),
+\]
+with
+
+\[
+|y_c - y_d| = 16.
+\]
+
+On \(\omega_1\):
+
+\[
+x_0^2 + y_c^2 = 196,
+\]
+\[
+x_0^2 + y_d^2 = 196.
+\]
+
+Since \(y_c - y_d = 16\), set
+
+\[
+y_c = y_d + 16.
+\]
+
+Subtract the two equations:
+
+\[
+y_c^2 - y_d^2 = 0 \implies (y_c - y_d)(y_c + y_d) = 0,
+\]
+\[
+16(y_c + y_d) = 0 \implies y_c + y_d = 0 \implies y_c = - y_d.
+\]
+
+Hence,
+
+\[
+y_c = - y_d,
+\]
+and
+
+\[
+y_c - y_d = 16 \implies y_c - (- y_c) = 16 \implies 2 y_c = 16 \implies y_c = 8, \quad y_d = -8.
+\]
+
+Therefore,
+
+\[
+x_0^2 + 8^2 = 196 \implies x_0^2 = 196 - 64 = 132,
+\]
+\[
+x_0 = \sqrt{132} = 2 \sqrt{33} \approx 11.49.
+\]
+
+So,
+
+\[
+C = (11.49, 8),
+\]
+\[
+D = (11.49, -8).
+\]
+
+---
+
+**Step 37: Now check if points \(A, B, O_1, C, D, O_2\) form a convex hexagon**
+
+Vertices in order: \(A, B, O_1, C, D, O_2\):
+
+\[
+A = (15, 1),
+\]
+\[
+B = (15, -1),
+\]
+\[
+O_1 = (0, 0),
+\]
+\[
+C = (11.49, 8),
+\]
+\[
+D = (11.49, -8),
+\]
+\[
+O_2 = (15, 0).
+\]
+
+---
+
+**Step 38: Compute area of hexagon \(ABO_1CDO_2\)**
+
+Use shoelace formula for polygon with vertices in order:
+
+\[
+(15,1), (15,-1), (0,0), (11.49,8), (11.49,-8), (15,0).
+\]
+
+Calculate:
+
+\[
+S_1 = x_1 y_2 + x_2 y_3 + x_3 y_4 + x_4 y_5 + x_5 y_6 + x_6 y_1,
+\]
+\[
+S_2 = y_1 x_2 + y_2 x_3 + y_3 x_4 + y_4 x_5 + y_5 x_6 + y_6 x_1.
+\]
+
+Label vertices:
+
+\[
+(15,1) = (x_1,y_1),
+\]
+\[
+(15,-1) = (x_2,y_2),
+\]
+\[
+(0,0) = (x_3,y_3),
+\]
+\[
+(11.49,8) = (x_4,y_4),
+\]
+\[
+(11.49,-8) = (x_5,y_5),
+\]
+\[
+(15,0) = (x_6,y_6).
+\]
+
+Compute \(S_1\):
+
+\[
+S_1 = 15 \cdot (-1) + 15 \cdot 0 + 0 \cdot 8 + 11.49 \cdot (-8) + 11.49 \cdot 0 + 15 \cdot 1,
+\]
+\[
+= -15 + 0 + 0 - 91.92 + 0 + 15 = (-15 + 15) - 91.92 = 0 - 91.92 = -91.92.
+\]
+
+Compute \(S_2\):
+
+\[
+S_2 = 1 \cdot 15 + (-1) \cdot 0 + 0 \cdot 11.49 + 8 \cdot 11.49 + (-8) \cdot 15 + 0 \cdot 15,
+\]
+\[
+= 15 + 0 + 0 + 91.92 - 120 + 0 = 15 + 91.92 - 120 = 106.92 - 120 = -13.08.
+\]
+
+Area:
+
+\[
+\text{Area} = \frac{|S_1 - S_2|}{2} = \frac{|-91.92 - (-13.08)|}{2} = \frac{| -91.92 + 13.08|}{2} = \frac{78.84}{2} = 39.42.
+\]
+
+---
+
+**Step 39: Final area**
+
+The area is approximately \(39.42\).
+
+Since the problem expects an integer, and the approximations were close, the exact area is:
+
+\[
+\boxed{39}.
+\]
+
+---
+
+**Summary:**
+
+- \(r_1 = 14\), \(r_2 = 1\),
+- \(O_1 = (0,0)\), \(O_2 = (15,0)\),
+- \(A, B\) vertical chord on \(\omega_2\),
+- \(C, D\) vertical chord on \(\omega_1\),
+- Using shoelace formula area \(\approx 39\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 140.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000012 | Iter 12 [REJECTED +0.00]
+Intent: The edit aimed to improve solution accuracy by encouraging verification of calculations and logical steps throughout the reasoning process.
+Lesson: The unchanged aggregate and per-example scores indicate that adding verification steps did not enhance performance, suggesting that this added instruction neither improved nor degraded accuracy for these AIME problems.
+
+### mem_000013 | Iter 13 [ACCEPTED +1.00]
+Intent: The edit aimed to enhance rigor and clarity in reasoning by emphasizing verification of critical steps and explicit documentation, reducing errors and premature conclusions to improve final answer accuracy.
+Lesson: The outcome shows that making instructions more explicit about verification and clarity can improve correctness on challenging problems prone to subtle mistakes, but may have limited or no effect on problems already well-handled by the original prompt.
+Strong on: complex multi-step algebraic problems, problems requiring careful verification
+
+### mem_000014 | Iter 14 [ACCEPTED +1.00]
+Intent: Improve answer accuracy on AIME math problems by encouraging explicit step-by-step reasoning and verification before providing a final answer.
+Lesson: The outcome shows that prompting for detailed, careful reasoning and explicit verification can meaningfully increase correctness on problems that previously failed, while maintaining success on problems already answered correctly.
+Strong on: multi-step calculation, logical deduction
+
+### mem_000015 | Iter 15 [ACCEPTED +2.00]
+Intent: The edit aimed to improve solution accuracy by emphasizing explicit, step-by-step verification and rigor in logical reasoning before outputting the final integer answer.
+Lesson: This outcome reveals that explicitly instructing the model to verify each calculation and avoid premature assumptions can enhance correctness on complex math problems, though improvements may be partial and problem-dependent.
+Strong on: AIME-style integer answer problems
+
+### mem_000016 | Iter 16 [REJECTED +0.00]
+Intent: The edit aimed to enhance clarity and rigor in the prompt to reduce errors and improve the accuracy of final integer answers on AIME problems.
+Lesson: The unchanged scores suggest that increasing prompt verbosity and emphasizing verification without changing content does not necessarily improve accuracy; simpler or more focused instructions might be equally effective.
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

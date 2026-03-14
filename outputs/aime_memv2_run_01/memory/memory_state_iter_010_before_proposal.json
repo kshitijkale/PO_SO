@@ -1,0 +1,252 @@
+{
+  "iteration": 10,
+  "phase": "before_proposal",
+  "all_entries": [
+    {
+      "entry_id": "mem_000001",
+      "iteration": 1,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 227.",
+        "Your answer is correct. The correct answer is 585.",
+        "Your answer is incorrect. The correct answer is 601."
+      ],
+      "intent": "The edit aimed to improve accuracy by encouraging detailed, step-by-step solutions that include all necessary reasoning and conclude with a clearly boxed integer answer.",
+      "lesson": "The outcome reveals that requiring more detailed explanations and justifications did not improve the accuracy on AIME problems, suggesting that increased verbosity or explicitness in the prompt does not necessarily lead to better final answers.",
+      "categories_succeeded": [],
+      "categories_failed": [
+        "AIME math problems"
+      ],
+      "referenced_memory_entry_ids": [],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000002",
+      "iteration": 2,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 242.",
+        "Your answer is incorrect. The correct answer is 321.",
+        "Your answer is incorrect. The correct answer is 315."
+      ],
+      "intent": "The edit aimed to improve answer accuracy by encouraging detailed, verified, step-by-step reasoning leading to a uniquely justified integer answer.",
+      "lesson": "Despite adding more rigorous reasoning instructions, the strategy did not yield accuracy improvement, suggesting that enhancing explanation detail alone may not address underlying issues impacting correctness.",
+      "categories_succeeded": [],
+      "categories_failed": [
+        "AIME math problem solving"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000001"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000003",
+      "iteration": 3,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 756.",
+        "Your answer is incorrect. The correct answer is 751.",
+        "Your answer is correct. The correct answer is 73."
+      ],
+      "intent": "The edit aimed to improve answer accuracy by enforcing detailed step-by-step reasoning and explicit verification while ensuring the final response is a single simplified integer.",
+      "lesson": "The unchanged aggregate and per-example scores indicate that adding instructions for detailed reasoning and verification did not improve or worsen accuracy on these problems, suggesting that increased explicit reasoning steps may not directly translate to better answer correctness in this context.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000001",
+        "mem_000002"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000004",
+      "iteration": 4,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 721.",
+        "Your answer is incorrect. The correct answer is 902.",
+        "Your answer is correct. The correct answer is 247."
+      ],
+      "intent": "The edit aimed to improve accuracy by encouraging detailed, step-by-step reasoning and careful verification before providing a final integer answer.",
+      "lesson": "The outcome shows that adding complexity and emphasis on detailed explanation may introduce confusion or errors, potentially lowering accuracy; simpler, direct prompts may be more effective for generating correct final answers on AIME problems.",
+      "categories_succeeded": [],
+      "categories_failed": [
+        "AIME integer answer extraction"
+      ],
+      "referenced_memory_entry_ids": [
+        "mem_000001",
+        "mem_000002",
+        "mem_000003"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000005",
+      "iteration": 5,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is incorrect. The correct answer is 81.",
+        "Your answer is incorrect. The correct answer is 228.",
+        "Your answer is correct. The correct answer is 841."
+      ],
+      "intent": "The edit aimed to improve accuracy by encouraging step-by-step reasoning, verification, and a clean final answer format.",
+      "lesson": "The unchanged aggregate score shows that adding detailed reasoning and explicit verification instructions did not improve accuracy, suggesting that prompt clarity on answer format alone was not the limiting factor for performance.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000001",
+        "mem_000002",
+        "mem_000003",
+        "mem_000004"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000006",
+      "iteration": 6,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 2.0,
+      "score_after": 2.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is incorrect. The correct answer is 104.",
+        "Your answer is correct. The correct answer is 21.",
+        "Your answer is correct. The correct answer is 125."
+      ],
+      "intent": "The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning while still requiring a final simplified integer answer.",
+      "lesson": "The unchanged aggregate and per-example scores reveal that adding explicit instructions for step-by-step reasoning without additional constraints or guidance did not improve or harm accuracy; it suggests that more targeted or fundamentally different prompt modifications might be necessary to affect performance.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000001",
+        "mem_000002",
+        "mem_000003",
+        "mem_000004",
+        "mem_000005"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000007",
+      "iteration": 7,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 1.0,
+      "accepted": false,
+      "failure_modes": [
+        "Your answer is incorrect. The correct answer is 247.",
+        "Your answer is incorrect. The correct answer is 33.",
+        "Your answer is correct. The correct answer is 719."
+      ],
+      "intent": "The edit aimed to improve answer accuracy by instructing the model to solve problems step-by-step with detailed reasoning, then provide only the exact final integer answer.",
+      "lesson": "The unchanged aggregate score reveals that adding step-by-step solution instructions followed by a final answer requirement did not enhance accuracy, suggesting that the additional reasoning steps neither helped nor hindered performance in this context.",
+      "categories_succeeded": [],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000002",
+        "mem_000003",
+        "mem_000004",
+        "mem_000005",
+        "mem_000006"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000008",
+      "iteration": 8,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 1.0,
+      "score_after": 3.0,
+      "accepted": true,
+      "failure_modes": [
+        "Your answer is correct. The correct answer is 928.",
+        "Your answer is incorrect. The correct answer is 220.",
+        "Your answer is incorrect. The correct answer is 550."
+      ],
+      "intent": "This edit aimed to improve accuracy by instructing the model to perform detailed step-by-step reasoning before giving a final, concise integer answer.",
+      "lesson": "Emphasizing careful, structured reasoning and clarity in the final output significantly improves performance on complex math problems requiring precision, like AIME problems. This strategy helped convert previous incorrect answers into correct ones by reducing premature or incomplete responses.",
+      "categories_succeeded": [
+        "complex multi-step arithmetic",
+        "logical deduction problems"
+      ],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000003",
+        "mem_000004",
+        "mem_000005",
+        "mem_000006",
+        "mem_000007"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    },
+    {
+      "entry_id": "mem_000009",
+      "iteration": 9,
+      "component_name": "current_candidate",
+      "change_summary": "",
+      "score_before": 0.0,
+      "score_after": 2.0,
+      "accepted": true,
+      "failure_modes": [
+        "Your answer is incorrect. The correct answer is 392.",
+        "Your answer is incorrect. The correct answer is 33.",
+        "Your answer is incorrect. The correct answer is 944."
+      ],
+      "intent": "The edit aimed to improve solution accuracy by encouraging more detailed, verified, and documented step-by-step reasoning before producing a single integer answer.",
+      "lesson": "The positive outcome indicates that prompting for careful, methodical reasoning with explicit verification helps the model avoid errors in complex math problems, improving final answer accuracy. However, the improvement was partial, suggesting some problems may require even more refined or targeted strategies.",
+      "categories_succeeded": [
+        "complex multi-step numeric problems",
+        "problems requiring detailed logical deductions"
+      ],
+      "categories_failed": [],
+      "referenced_memory_entry_ids": [
+        "mem_000004",
+        "mem_000005",
+        "mem_000006",
+        "mem_000007",
+        "mem_000008"
+      ],
+      "reused_memory_intents": [],
+      "reused_memory_categories": []
+    }
+  ],
+  "total_entries": 9,
+  "max_entries": 10,
+  "entries_by_component": {
+    "current_candidate": 9
+  },
+  "accepted_ratio": 0.2222222222222222,
+  "rejected_ratio": 0.7777777777777778
+}

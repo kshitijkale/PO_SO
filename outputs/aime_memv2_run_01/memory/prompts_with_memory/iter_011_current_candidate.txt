@@ -1,0 +1,25 @@
+## Optimization History
+
+### mem_000006 | Iter 6 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning while still requiring a final simplified integer answer.
+Lesson: The unchanged aggregate and per-example scores reveal that adding explicit instructions for step-by-step reasoning without additional constraints or guidance did not improve or harm accuracy; it suggests that more targeted or fundamentally different prompt modifications might be necessary to affect performance.
+
+### mem_000007 | Iter 7 [REJECTED +0.00]
+Intent: The edit aimed to improve answer accuracy by instructing the model to solve problems step-by-step with detailed reasoning, then provide only the exact final integer answer.
+Lesson: The unchanged aggregate score reveals that adding step-by-step solution instructions followed by a final answer requirement did not enhance accuracy, suggesting that the additional reasoning steps neither helped nor hindered performance in this context.
+
+### mem_000008 | Iter 8 [ACCEPTED +2.00]
+Intent: This edit aimed to improve accuracy by instructing the model to perform detailed step-by-step reasoning before giving a final, concise integer answer.
+Lesson: Emphasizing careful, structured reasoning and clarity in the final output significantly improves performance on complex math problems requiring precision, like AIME problems. This strategy helped convert previous incorrect answers into correct ones by reducing premature or incomplete responses.
+Strong on: complex multi-step arithmetic, logical deduction problems
+
+### mem_000009 | Iter 9 [ACCEPTED +2.00]
+Intent: The edit aimed to improve solution accuracy by encouraging more detailed, verified, and documented step-by-step reasoning before producing a single integer answer.
+Lesson: The positive outcome indicates that prompting for careful, methodical reasoning with explicit verification helps the model avoid errors in complex math problems, improving final answer accuracy. However, the improvement was partial, suggesting some problems may require even more refined or targeted strategies.
+Strong on: complex multi-step numeric problems, problems requiring detailed logical deductions
+
+### mem_000010 | Iter 10 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning and thorough verification before providing a concise final integer answer.
+Lesson: The outcome reveals that adding detailed reasoning and verification in the prompt does not necessarily improve performance for AIME math problems, suggesting the model's accuracy may be limited by other factors beyond prompt instruction clarity or thoroughness.
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

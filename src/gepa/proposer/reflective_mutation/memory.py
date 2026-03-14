@@ -6,16 +6,9 @@ from __future__ import annotations
 import difflib
 import json
 import logging
-import time
 from collections import Counter
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
-
-if TYPE_CHECKING:
-    from gepa.core.callbacks import GEPACallback
-    from gepa.proposer.reflective_mutation.base import LanguageModel
-
-_logger = logging.getLogger(__name__)
 
 from gepa.core.callbacks import (
     MemoryEntryAddedEvent,
@@ -23,6 +16,12 @@ from gepa.core.callbacks import (
     MemoryStateSnapshotEvent,
     notify_callbacks,
 )
+
+if TYPE_CHECKING:
+    from gepa.core.callbacks import GEPACallback
+    from gepa.proposer.reflective_mutation.base import LanguageModel
+
+_logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -44,10 +43,15 @@ class ReflectionMemoryEntry:
 
     # V1 fallback (populated only when lesson LLM call fails)
     change_summary: str = ""
+    entry_id: str = ""
+    referenced_memory_entry_ids: list[str] = field(default_factory=list)
+    reused_memory_intents: list[str] = field(default_factory=list)
+    reused_memory_categories: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         """Serialize to a plain dict for logging/JSON output."""
         return {
+            "entry_id": self.entry_id,
             "iteration": self.iteration,
             "component_name": self.component_name,
             "change_summary": self.change_summary,
@@ -59,6 +63,9 @@ class ReflectionMemoryEntry:
             "lesson": self.lesson,
             "categories_succeeded": self.categories_succeeded,
             "categories_failed": self.categories_failed,
+            "referenced_memory_entry_ids": self.referenced_memory_entry_ids,
+            "reused_memory_intents": self.reused_memory_intents,
+            "reused_memory_categories": self.reused_memory_categories,
         }
 
 
@@ -74,6 +81,7 @@ class ReflectionMemory:
     entries: list[ReflectionMemoryEntry] = field(default_factory=list)
     callbacks: list[GEPACallback] | None = field(default=None, repr=False)
     current_iteration: int = field(default=0, repr=False)
+    _next_entry_id: int = field(default=1, repr=False)
 
     def set_iteration(self, iteration: int) -> None:
         """Set the current iteration number for event reporting."""
@@ -123,6 +131,10 @@ class ReflectionMemory:
         """Append an entry, evicting the oldest if over capacity."""
         size_before = len(self.entries)
         evicted_entry: ReflectionMemoryEntry | None = None
+
+        if not entry.entry_id:
+            entry.entry_id = f"mem_{self._next_entry_id:06d}"
+            self._next_entry_id += 1
 
         self.entries.append(entry)
         if len(self.entries) > self.max_entries:
@@ -174,6 +186,7 @@ class ReflectionMemory:
                         iteration=self.current_iteration,
                         component_name=component_name,
                         query_n=max_recent,
+                        selected_entry_ids=[],
                         entries_returned=[],
                         formatted_text="",
                         formatted_text_length=0,
@@ -188,7 +201,7 @@ class ReflectionMemory:
 
             if entry.lesson:
                 # V2 path: structured lesson from LLM
-                lines.append(f"### Iter {entry.iteration} [{status} {delta:+.2f}]")
+                lines.append(f"### {entry.entry_id} | Iter {entry.iteration} [{status} {delta:+.2f}]")
                 if entry.intent:
                     lines.append(f"Intent: {entry.intent}")
                 lines.append(f"Lesson: {entry.lesson}")
@@ -199,7 +212,7 @@ class ReflectionMemory:
             else:
                 # V1 fallback path: heuristic change summary
                 lines.append(
-                    f"Iter {entry.iteration}: {entry.change_summary}. "
+                    f"{entry.entry_id} | Iter {entry.iteration}: {entry.change_summary}. "
                     f"Score: {entry.score_before:.2f} → {entry.score_after:.2f} ({status})"
                 )
                 if entry.failure_modes:
@@ -229,6 +242,7 @@ class ReflectionMemory:
                     iteration=self.current_iteration,
                     component_name=component_name,
                     query_n=max_recent,
+                    selected_entry_ids=[e.entry_id for e in relevant if e.entry_id],
                     entries_returned=[e.to_dict() for e in relevant],
                     formatted_text=formatted_text,
                     formatted_text_length=len(formatted_text),

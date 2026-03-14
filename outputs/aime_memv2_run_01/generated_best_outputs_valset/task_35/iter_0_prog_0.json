@@ -1,0 +1,14 @@
+[
+    1.0,
+    {
+        "current_candidate": "Solve the problem and provide the answer provide the final answer as a single integer."
+    },
+    {
+        "score": 1.0,
+        "problem": "The numbers of apples growing on each of six apple trees form an arithmetic sequence where the greatest number of apples growing on any of the six trees is double the least number of apples growing on any of the six trees. The total number of apples growing on all six trees is $990.$ Find the greatest number of apples growing on any of the six trees.",
+        "prompt": "Solve the problem and provide the answer provide the final answer as a single integer.",
+        "output": "220",
+        "reasoning": "Let the number of apples on the six trees form an arithmetic sequence: \na, a + d, a + 2d, a + 3d, a + 4d, a + 5d\n\nGiven that the greatest number of apples (a + 5d) is double the least number (a):\na + 5d = 2a \n=> 5d = a \n=> a = 5d\n\nThe total number of apples is 990:\nSum = 6/2 * (first term + last term) = 3 * (a + a + 5d) = 3 * (2a + 5d)\n\nSubstitute a = 5d:\nSum = 3 * (2*5d + 5d) = 3 * (10d + 5d) = 3 * 15d = 45d\n\nSet equal to 990:\n45d = 990\nd = 990 / 45 = 22\n\nNow find a:\na = 5d = 5 * 22 = 110\n\nGreatest number of apples = a + 5d = 110 + 5 * 22 = 110 + 110 = 220",
+        "Feedback": "Your answer is correct. The correct answer is 220."
+    }
+]

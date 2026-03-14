@@ -271,6 +271,7 @@ class MemoryQueriedEvent(TypedDict):
     iteration: int
     component_name: str
     query_n: int
+    selected_entry_ids: list[str]
     entries_returned: list[dict[str, Any]]
     formatted_text: str
     formatted_text_length: int
@@ -306,6 +307,12 @@ class ProposalTraceEvent(TypedDict):
     model_id: str
     latency_ms: float
     memory_was_injected: bool
+    memory_selected_entry_ids: list[str]
+    memory_selected_intents: list[str]
+    memory_selected_categories: list[str]
+    memory_reused_intents: list[str]
+    memory_reused_categories: list[str]
+    memory_reuse_detected: bool
 
 
 class LessonGeneratedEvent(TypedDict):
@@ -322,6 +329,10 @@ class LessonGeneratedEvent(TypedDict):
     accepted: bool
     latency_ms: float
     fallback_used: bool
+    memory_selected_entry_ids: list[str]
+    memory_reused_intents: list[str]
+    memory_reused_categories: list[str]
+    memory_reuse_detected: bool
 
 
 @runtime_checkable

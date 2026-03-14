@@ -1,0 +1,1293 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Let ABCDEF be a convex equilateral hexagon in which all pairs of opposite sides are parallel. The triangle whose sides are extensions of segments AB, CD, and EF has side lengths 200, 240, and 300. Find the side length of the hexagon.
+
+## prompt
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+
+## output
+200
+
+## reasoning
+We are given a convex equilateral hexagon \( ABCDEF \) with the properties:
+- It is equilateral, so all sides \( AB = BC = CD = DE = EF = FA = s \) for some \( s \).
+- All pairs of opposite sides are parallel: \( AB \parallel DE \), \( BC \parallel EF \), and \( CD \parallel FA \).
+
+We are also given that the triangle formed by the extensions of segments \( AB \), \( CD \), and \( EF \) has side lengths 200, 240, and 300.
+
+---
+
+**Step 1: Understand the problem setup**
+
+Since the hexagon is convex and equilateral with opposite sides parallel, it is a special kind of hexagon often called an "equilateral hexagon with parallel opposite sides." 
+
+Opposite sides are parallel, so the hexagon is a "hexagon with three pairs of parallel sides." The direction vectors of sides \( AB, CD, EF \) are mutually distinct, and each pair is parallel to its opposite side.
+
+The triangle formed by the extensions of \( AB \), \( CD \), and \( EF \) means that we extend the lines containing these sides until they meet pairwise, forming a triangle.
+
+---
+
+**Step 2: Assign vectors to sides**
+
+Let the hexagon vertices be \( A, B, C, D, E, F \) in order.
+
+Because opposite sides are parallel and equal length, the sides can be represented by vectors:
+
+- \( \vec{AB} = \vec{u} \)
+- \( \vec{BC} = \vec{v} \)
+- \( \vec{CD} = \vec{w} \)
+- \( \vec{DE} = -\vec{u} \) (opposite side to \( AB \))
+- \( \vec{EF} = -\vec{v} \) (opposite side to \( BC \))
+- \( \vec{FA} = -\vec{w} \) (opposite side to \( CD \))
+
+Because the hexagon is closed (sum of all side vectors is zero):
+
+\[
+\vec{u} + \vec{v} + \vec{w} + (-\vec{u}) + (-\vec{v}) + (-\vec{w}) = \vec{0}
+\]
+
+which is trivial and confirms the hexagon closes.
+
+Each vector \( \vec{u}, \vec{v}, \vec{w} \) has length \( s \).
+
+---
+
+**Step 3: Determine the triangle formed by the lines containing \( AB, CD, EF \)**
+
+The triangle formed by the extensions of sides \( AB \), \( CD \), and \( EF \) is formed by the intersection points of the lines supporting these sides.
+
+Note:
+
+- \( AB \) is along vector \( \vec{u} \),
+- \( CD \) is along vector \( \vec{w} \) (since \( CD = \vec{w} \)),
+- \( EF \) is along vector \( -\vec{v} \) (opposite of \( \vec{v} \)).
+
+So the three lines are parallel to vectors \( \vec{u}, \vec{w}, \) and \( -\vec{v} \). The triangle formed by these three lines will have side lengths related to the distances between these lines.
+
+---
+
+**Step 4: Use geometry of the hexagon**
+
+Label the vertices:
+
+- \( A \),
+- \( B = A + \vec{u} \),
+- \( C = B + \vec{v} = A + \vec{u} + \vec{v} \),
+- \( D = C + \vec{w} = A + \vec{u} + \vec{v} + \vec{w} \),
+- \( E = D - \vec{u} = A + \vec{v} + \vec{w} \),
+- \( F = E - \vec{v} = A + \vec{w} \).
+
+---
+
+**Step 5: Find the triangle formed by lines \( AB, CD, EF \)**
+
+The lines in question are:
+
+- Line \( AB \) passes through \( A \) with direction \( \vec{u} \).
+- Line \( CD \) passes through \( C \) with direction \( \vec{w} \).
+- Line \( EF \) passes through \( E \) with direction \( -\vec{v} \).
+
+These three lines form a triangle. The side lengths of this triangle are the distances between the lines:
+
+- Distance between lines \( AB \) and \( CD \),
+- Distance between lines \( CD \) and \( EF \),
+- Distance between lines \( EF \) and \( AB \).
+
+---
+
+**Step 6: Calculate these distances**
+
+The distance between two lines in the plane is the length of the segment perpendicular to both.
+
+Let us denote:
+
+- \( L_1 \) is line \( AB \) through \( A \) with direction \( \vec{u} \),
+- \( L_2 \) is line \( CD \) through \( C \) with direction \( \vec{w} \),
+- \( L_3 \) is line \( EF \) through \( E \) with direction \( -\vec{v} \).
+
+The distance between two lines with directions \( \vec{d_1} \) and \( \vec{d_2} \) and points \( P_1 \) and \( P_2 \) on them is:
+
+\[
+\text{distance} = \frac{|(P_2 - P_1) \cdot \vec{n}|}{\|\vec{n}\|}
+\]
+
+where \( \vec{n} \) is a vector perpendicular to both directions \( \vec{d_1} \) and \( \vec{d_2} \).
+
+In 2D, \( \vec{n} \) is perpendicular to both directions, so:
+
+\[
+\vec{n} = \vec{d_1}^\perp = \text{rotate } \vec{d_1} \text{ by } 90^\circ,
+\]
+
+and the distance between two parallel lines is the projection of their difference vector onto the perpendicular direction.
+
+Since these lines are not parallel (directions \( \vec{u}, \vec{w}, -\vec{v} \) are distinct), we consider the triangle formed by these lines. The side length of this triangle equals the distance between the lines.
+
+---
+
+**Step 7: Express directions in the plane**
+
+Let us place \( \vec{u}, \vec{v}, \vec{w} \) as vectors of length \( s \) with directions at angles:
+
+- \( \vec{u} = s \mathbf{u} \)
+- \( \vec{v} = s \mathbf{v} \)
+- \( \vec{w} = s \mathbf{w} \)
+
+where \( \mathbf{u}, \mathbf{v}, \mathbf{w} \) are unit vectors.
+
+Because the hexagon is convex and equilateral with pairs of opposite sides parallel, the sum of the three vectors is zero:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = \vec{0}
+\]
+
+But wait, earlier we said the sum is zero, but the hexagon is formed by the sequence \( \vec{u}, \vec{v}, \vec{w}, -\vec{u}, -\vec{v}, -\vec{w} \), so the sum of all six vectors is zero, and the sum of the first three vectors is NOT zero necessarily.
+
+But the hexagon is closed if:
+
+\[
+\vec{u} + \vec{v} + \vec{w} + (-\vec{u}) + (-\vec{v}) + (-\vec{w}) = 0,
+\]
+
+which is trivial.
+
+So the sum of the first three vectors is:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = \vec{s},
+\]
+
+and the sum of the last three vectors is:
+
+\[
+(-\vec{u}) + (-\vec{v}) + (-\vec{w}) = -\vec{s}.
+\]
+
+But the hexagon is closed, so the polygon is symmetric.
+
+---
+
+**Step 8: Use the fact that the triangle formed by the lines has sides 200, 240, and 300**
+
+It is known (from a standard fact in such problems) that the triangle formed by the three lines \( AB, CD, EF \) has side lengths proportional to
+
+\[
+s \cdot \frac{\sin(\theta_i + \theta_j)}{\sin \theta_i \sin \theta_j},
+\]
+
+where \( \theta_i, \theta_j \) are the angles between the directions.
+
+Alternatively, a more rigorous approach:
+
+Since the hexagon is equilateral and opposite sides are parallel, the vectors \( \vec{u}, \vec{v}, \vec{w} \) satisfy:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = \vec{0}.
+\]
+
+(Each pair of opposite sides is parallel and equal, so the polygon closes as:
+
+\[
+\vec{u} + \vec{v} + \vec{w} + (-\vec{u}) + (-\vec{v}) + (-\vec{w}) = \vec{0}.
+\]
+
+But since the polygon goes \( A \to B \to C \to D \to E \to F \to A \), the sum of all sides must be zero, so:
+
+\[
+\vec{AB} + \vec{BC} + \vec{CD} + \vec{DE} + \vec{EF} + \vec{FA} = \vec{0}.
+\]
+
+But \( \vec{DE} = -\vec{u}, \vec{EF} = -\vec{v}, \vec{FA} = -\vec{w} \), so:
+
+\[
+\vec{u} + \vec{v} + \vec{w} - \vec{u} - \vec{v} - \vec{w} = \vec{0}.
+\]
+
+So the sum of the six sides is zero, as expected.)
+
+But for the triangle formed by the lines \( AB, CD, EF \), the triangle's side lengths are proportional to the magnitudes of:
+
+\[
+L_1 = \frac{s}{\sin \alpha}, \quad L_2 = \frac{s}{\sin \beta}, \quad L_3 = \frac{s}{\sin \gamma},
+\]
+
+for some angles \(\alpha, \beta, \gamma\) related to the directions \( \vec{u}, \vec{v}, \vec{w} \).
+
+---
+
+**Step 9: Use a known formula**
+
+From the problem's known classical result (e.g., from geometry of hexagons with parallel opposite sides), the triangle formed by the three lines \( AB, CD, EF \) has side lengths proportional to
+
+\[
+\frac{s}{\sin \theta_{ij}},
+\]
+
+where \( \theta_{ij} \) is the angle between the directions of the pairs of lines.
+
+Hence, if the side lengths of the triangle are given as 200, 240, and 300, then
+
+\[
+200 : 240 : 300 = \frac{1}{\sin \alpha} : \frac{1}{\sin \beta} : \frac{1}{\sin \gamma}
+\]
+
+or equivalently,
+
+\[
+\frac{1}{200} : \frac{1}{240} : \frac{1}{300} = \sin \alpha : \sin \beta : \sin \gamma.
+\]
+
+---
+
+**Step 10: Simplify the ratios**
+
+Calculate ratios of sines:
+
+\[
+\sin \alpha : \sin \beta : \sin \gamma = \frac{1}{200} : \frac{1}{240} : \frac{1}{300}.
+\]
+
+Find the common denominator:
+
+\[
+\frac{1}{200} = 0.005, \quad \frac{1}{240} \approx 0.0041667, \quad \frac{1}{300} = 0.0033333.
+\]
+
+Express all relative to 0.0033333:
+
+\[
+\sin \alpha : \sin \beta : \sin \gamma = \frac{0.005}{0.0033333} : \frac{0.0041667}{0.0033333} : 1 = 1.5 : 1.25 : 1.
+\]
+
+So:
+
+\[
+\sin \alpha = 1.5 k, \quad \sin \beta = 1.25 k, \quad \sin \gamma = k,
+\]
+
+for some positive \( k \).
+
+Since sine values cannot exceed 1, the only way is \( k = \frac{2}{3} \), so:
+
+\[
+\sin \alpha = 1.5 \times \frac{2}{3} = 1, \quad \sin \beta = 1.25 \times \frac{2}{3} = \frac{5}{6} \approx 0.8333, \quad \sin \gamma = \frac{2}{3} \approx 0.6667.
+\]
+
+---
+
+**Step 11: Confirm that the angles sum to \(\pi\)**
+
+The three directions \( \vec{u}, \vec{v}, \vec{w} \) satisfy:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = 0,
+\]
+
+which means the vectors form a triangle, so the angles between them satisfy:
+
+\[
+\alpha + \beta + \gamma = \pi,
+\]
+
+where \(\alpha, \beta, \gamma\) are the angles between the vectors.
+
+Since these are the angles of a triangle, and \(\sin \alpha = 1\), \(\alpha = 90^\circ\).
+
+Next, \(\sin \beta = \frac{5}{6}\), so \(\beta \approx \arcsin(0.8333) \approx 56^\circ\).
+
+Finally, \(\gamma = \pi - (\alpha + \beta) = 180^\circ - (90^\circ + 56^\circ) = 34^\circ\).
+
+Check \(\sin \gamma = \sin 34^\circ \approx 0.559\), but above we had \(\sin \gamma = 0.6667\).
+
+This is not consistent.
+
+---
+
+**Step 12: Reconsider previous step**
+
+Our previous assumption that the side length of the triangle formed by the lines is inversely proportional to the sine of the angle between directions may have been oversimplified.
+
+---
+
+**Step 13: Alternative approach via vectors**
+
+Since the hexagon is convex, equilateral, and opposite sides are parallel, the vectors \( \vec{u}, \vec{v}, \vec{w} \) satisfy:
+
+\[
+\vec{u} + \vec{v} + \vec{w} = \vec{0}.
+\]
+
+Thus, the vectors \( \vec{u}, \vec{v}, \vec{w} \) form a triangle with side lengths \( s \).
+
+Let the directions be:
+
+- \( \vec{u} = s \mathbf{u} \),
+- \( \vec{v} = s \mathbf{v} \),
+- \( \vec{w} = s \mathbf{w} \),
+
+with \( ||\mathbf{u}|| = ||\mathbf{v}|| = ||\mathbf{w}|| = 1 \) and
+
+\[
+\mathbf{u} + \mathbf{v} + \mathbf{w} = \mathbf{0}.
+\]
+
+Therefore, the triangle formed by the vectors \( \mathbf{u}, \mathbf{v}, \mathbf{w} \) is a triangle with unit sides.
+
+---
+
+**Step 14: The triangle formed by the lines \( AB, CD, EF \)**
+
+The triangle formed by the lines \( AB, CD, EF \) has side lengths equal to the distances between these lines, which are proportional to:
+
+\[
+s \times \frac{|\sin \theta_i|}{|\sin(\theta_j - \theta_k)|},
+\]
+
+where \(\theta_i\) are the directions of the vectors \( \mathbf{u}, \mathbf{v}, \mathbf{w} \).
+
+More precisely, the side lengths of the triangle formed by these lines are proportional to \( s \cdot ||\mathbf{u} \times \mathbf{v}|| \), \( s \cdot ||\mathbf{v} \times \mathbf{w}|| \), and \( s \cdot ||\mathbf{w} \times \mathbf{u}|| \).
+
+Since the vectors sum to zero:
+
+\[
+\mathbf{u} + \mathbf{v} + \mathbf{w} = 0,
+\]
+
+the magnitudes of the cross products correspond to the sides of the triangle formed by the lines:
+
+\[
+\text{Length of side opposite to } \mathbf{w} \propto |\mathbf{u} \times \mathbf{v}|, \quad
+\text{opposite to } \mathbf{u} \propto |\mathbf{v} \times \mathbf{w}|, \quad
+\text{opposite to } \mathbf{v} \propto |\mathbf{w} \times \mathbf{u}|.
+\]
+
+---
+
+**Step 15: Let the unit vectors be at angles**
+
+Let:
+
+\[
+\mathbf{u} = (\cos 0, \sin 0) = (1, 0),
+\]
+\[
+\mathbf{v} = (\cos \theta, \sin \theta),
+\]
+\[
+\mathbf{w} = -(\mathbf{u} + \mathbf{v}) = (-1 - \cos \theta, -\sin \theta).
+\]
+
+---
+
+**Step 16: Calculate the cross products**
+
+The magnitude of cross product of two vectors in 2D:
+
+\[
+|\mathbf{a} \times \mathbf{b}| = |a_x b_y - a_y b_x|.
+\]
+
+Calculate:
+
+- \( |\mathbf{u} \times \mathbf{v}| = |1 \times \sin \theta - 0 \times \cos \theta| = |\sin \theta| \),
+- \( |\mathbf{v} \times \mathbf{w}| = |(\cos \theta)(-\sin \theta) - (\sin \theta)(-1 - \cos \theta)| = | -\cos \theta \sin \theta + \sin \theta + \sin \theta \cos \theta| = |\sin \theta| \),
+- \( |\mathbf{w} \times \mathbf{u}| = |(-1 - \cos \theta) \times 0 - (-\sin \theta) \times 1| = |\sin \theta| \).
+
+All three cross products have magnitude \( |\sin \theta| \).
+
+---
+
+**Step 17: Check if this is consistent**
+
+This indicates that all three sides of the triangle formed by the lines are equal in length, which contradicts the side lengths 200, 240, and 300.
+
+Therefore, our assumption in step 15 that the unit vectors \( \mathbf{u} \) and \( \mathbf{v} \) are at angle \( \theta \) and \( \mathbf{w} = -(\mathbf{u} + \mathbf{v}) \) is oversimplified.
+
+---
+
+**Step 18: Alternative parametrization**
+
+Assume the vectors \( \mathbf{u}, \mathbf{v}, \mathbf{w} \) form a triangle with sides 1.
+
+Let the angles between vectors be \( A, B, C \), opposite to \( \mathbf{u}, \mathbf{v}, \mathbf{w} \), respectively.
+
+By the law of cosines on the vector triangle:
+
+\[
+||\mathbf{u}|| = 1, \quad ||\mathbf{v}|| = 1, \quad ||\mathbf{w}|| = 1,
+\]
+and the angle between \( \mathbf{u} \) and \( \mathbf{v} \) is \( C \), etc.
+
+The area of this triangle is:
+
+\[
+T = \frac{1}{2} \sin C,
+\]
+
+and the cross product magnitudes correspond to \( \sin \) of the angles.
+
+---
+
+**Step 19: The triangle formed by the lines**
+
+The triangle formed by the lines \( AB, CD, EF \) has side lengths proportional to
+
+\[
+s \cdot \frac{1}{\sin A}, \quad s \cdot \frac{1}{\sin B}, \quad s \cdot \frac{1}{\sin C}.
+\]
+
+Given the side lengths are 200, 240, and 300, set:
+
+\[
+200 : 240 : 300 = \frac{1}{\sin A} : \frac{1}{\sin B} : \frac{1}{\sin C}.
+\]
+
+Therefore,
+
+\[
+\sin A : \sin B : \sin C = \frac{1}{200} : \frac{1}{240} : \frac{1}{300}.
+\]
+
+Multiply all by 600 (LCM of denominators):
+
+\[
+\sin A : \sin B : \sin C = 3 : 2.5 : 2.
+\]
+
+Normalize by dividing by 0.5:
+
+\[
+\sin A : \sin B : \sin C = 6 : 5 : 4.
+\]
+
+But sine values cannot exceed 1, so scale down by factor \( k \) so that \( 6k \leq 1 \).
+
+Set \( k = \frac{1}{6} \), then:
+
+\[
+\sin A = 1, \quad \sin B = \frac{5}{6} \approx 0.8333, \quad \sin C = \frac{4}{6} = \frac{2}{3} \approx 0.6667.
+\]
+
+---
+
+**Step 20: Find \( A, B, C \)**
+
+- \( A = 90^\circ \) (since \(\sin A = 1\)),
+- \( B = \arcsin(0.8333) \approx 56^\circ \),
+- \( C = \arcsin(0.6667) \approx 41.8^\circ \).
+
+Sum:
+
+\[
+A + B + C = 90^\circ + 56^\circ + 41.8^\circ = 187.8^\circ > 180^\circ,
+\]
+
+which is impossible for triangle angles.
+
+---
+
+**Step 21: Try scale \( k = \frac{1}{7} \) instead**
+
+\[
+6k = \frac{6}{7} \approx 0.8571, \quad \sin A = 0.8571 \implies A \approx 59^\circ,
+\]
+\[
+\sin B = 5k = \frac{5}{7} = 0.7143 \implies B \approx 45.6^\circ,
+\]
+\[
+\sin C = 4k = \frac{4}{7} = 0.5714 \implies C \approx 34.8^\circ,
+\]
+
+Sum:
+
+\[
+59 + 45.6 + 34.8 = 139.4^\circ < 180^\circ.
+\]
+
+Not equal to 180°, so not triangle angles.
+
+---
+
+**Step 22: Find \( k \) such that \( A+B+C = 180^\circ \)**
+
+We want:
+
+\[
+\arcsin(6k) + \arcsin(5k) + \arcsin(4k) = 180^\circ,
+\]
+with \( 0 < k \leq \frac{1}{6} \).
+
+Try numerical approach:
+
+- For \( k = 0.16 \),
+\[
+\arcsin(0.96) \approx 74^\circ,
+\]
+\[
+\arcsin(0.8) \approx 53^\circ,
+\]
+\[
+\arcsin(0.64) \approx 39.8^\circ,
+\]
+sum \( \approx 166.8^\circ \).
+
+- For \( k = 0.17 \),
+\[
+\arcsin(1.02) \text{ undefined},
+\]
+
+so \( k \leq \frac{1}{6} \approx 0.1667 \).
+
+- For \( k = 0.165 \),
+\[
+\arcsin(0.99) \approx 81^\circ,
+\]
+\[
+\arcsin(0.825) \approx 55.3^\circ,
+\]
+\[
+\arcsin(0.66) \approx 41.3^\circ,
+\]
+sum \( \approx 177.6^\circ \).
+
+- For \( k = 0.166 \),
+\[
+\arcsin(0.996) \approx 85^\circ,
+\]
+\[
+\arcsin(0.83) \approx 56^\circ,
+\]
+\[
+\arcsin(0.664) \approx 41.5^\circ,
+\]
+sum \( \approx 182.5^\circ \).
+
+Interpolating, at about \( k = 0.1655 \), sum is \( 180^\circ \).
+
+---
+
+**Step 23: Calculate the side length \( s \)**
+
+The side length \( s \) of the hexagon is related to the triangle side lengths by:
+
+\[
+s = \text{(triangle side length)} \times \sin A,
+\]
+for the side of length 200 corresponding to \(\sin A\).
+
+Since the side lengths of the triangle formed by the lines are:
+
+\[
+\frac{s}{\sin A} = 200,
+\]
+so
+
+\[
+s = 200 \sin A.
+\]
+
+From above, \( \sin A = 6k \approx 6 \times 0.1655 = 0.993 \).
+
+Then
+
+\[
+s = 200 \times 0.993 = 198.6 \approx 199.
+\]
+
+---
+
+**Step 24: Round to nearest integer**
+
+The side length \( s \approx 199 \).
+
+---
+
+**Final answer:**
+
+\[
+\boxed{200}.
+\]
+
+Given the problem data and small rounding errors, the side length of the hexagon is 200.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 80.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+There is a collection of $25$ indistinguishable white chips and $25$ indistinguishable black chips. Find the number of ways to place some of these chips in the $25$ unit cells of a $5\times5$ grid such that: 
+
+each cell contains at most one chip
+all chips in the same row and all chips in the same column have the same colour
+any additional chip placed on the grid would violate one or more of the previous two conditions.
+
+## prompt
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+
+## output
+1024
+
+## reasoning
+We have a \(5 \times 5\) grid (25 cells) and 25 white chips and 25 black chips, all indistinguishable within their color. We want to place some chips (possibly zero chips in some rows/columns) with these constraints:
+
+1. Each cell contains at most one chip.
+2. All chips in the same row have the same color.
+3. All chips in the same column have the same color.
+4. The configuration is maximal in the sense that adding any additional chip violates one or more of the above conditions.
+
+---
+
+**Step 1: Understand the coloring constraints on rows and columns**
+
+- Each row's chips are all the same color (if any chips are placed in that row).
+- Each column's chips are all the same color (if any chips are placed in that column).
+
+**Step 2: What does this imply about the colors in the grid?**
+
+Suppose a cell \((i,j)\) contains a chip of some color \(c\).
+
+- Since row \(i\) has all chips of color \(c\),
+- and column \(j\) has all chips of color \(c\),
+- this implies that if there is a chip at \((i,j)\), then the color assigned to row \(i\) and the color assigned to column \(j\) must be the same (equal to \(c\)).
+
+Therefore, the coloring of rows and columns must be consistent:
+
+- For every cell where there is a chip, the row and column colors must agree.
+- For cells where the row and column colors differ, no chip can be placed.
+
+---
+
+**Step 3: Assign colors to rows and columns**
+
+We want to assign to each row a color from \(\{\text{white}, \text{black}\}\) or no chip (meaning the row is empty).
+
+Similarly for each column.
+
+However, since the chips are placed only where the row and column colors match, and the chips are indistinguishable, the empty rows and columns correspond to rows or columns with no chips.
+
+---
+
+**Step 4: Characterize the placement**
+
+Let:
+
+- \(R_w\) = set of rows assigned white,
+- \(R_b\) = set of rows assigned black,
+- \(R_0\) = set of rows with no chips,
+- and similarly \(C_w, C_b, C_0\) for columns.
+
+Only the intersection of \(R_w \times C_w\) and \(R_b \times C_b\) may have chips.
+
+---
+
+**Step 5: The set of chips placed**
+
+- White chips are placed in all cells \((i,j)\) with \(i \in R_w\) and \(j \in C_w\).
+- Black chips are placed in all cells \((i,j)\) with \(i \in R_b\) and \(j \in C_b\).
+- No chips are placed in other cells.
+
+---
+
+**Step 6: Maximality condition**
+
+The problem states:
+
+"any additional chip placed on the grid would violate one or more of previous two conditions."
+
+This means the placement is maximal—cannot add any chip without violating:
+
+- "each cell at most one chip" (adding chip in an empty cell),
+- "all chips in same row have same color",
+- "all chips in same column have same color".
+
+---
+
+**Step 7: What does maximality mean here?**
+
+Suppose we have chosen \(R_w, R_b, R_0\) and \(C_w, C_b, C_0\).
+
+The chips are placed in:
+
+- all cells of \(R_w \times C_w\),
+- all cells of \(R_b \times C_b\).
+
+Is this maximal?
+
+- If there is a cell in \(R_0 \times C_w\) (row with no chips, column white), can we add a white chip there?
+
+If yes, that would not violate row/column color consistency because the row \(i\) has no chips yet, so the row color can be set to white.
+
+But the problem states "all chips in the same row have the same color". So if the row currently has no chips, adding one chip determines its color.
+
+But the problem says "any additional chip placed on the grid would violate one or more previous two conditions." So the configuration must be "maximal" in that no chip can be added anywhere.
+
+Hence, to be maximal, every empty row or column must not allow adding a chip.
+
+---
+
+**Step 8: Implications for maximality**
+
+- If a row is empty, then adding a chip in that row and some column with color \(c\) would set the row's color to \(c\).
+- But if no chip is placed in the row, then the row color is undefined.
+- So maximality means no empty row can add any chip.
+
+Similarly for columns.
+
+---
+
+**Step 9: Maximality in terms of rows and columns**
+
+- For each empty row \(r\), for each colored column \(c\), adding a chip in \((r,c)\) would set row \(r\)'s color to the column's color.
+- So to prevent adding a chip, for each empty row \(r\), for every colored column \(c\), the cell \((r,c)\) must be blocked because of some condition.
+
+But the only conditions are that each cell contains at most one chip (which is empty), and the color consistency rules.
+
+So to block adding a chip in \((r,c)\), the only way is if the cell is already occupied or we forbid adding a chip there.
+
+But the cell is empty.
+
+This suggests that if there is an empty row and a colored column, then one can add a chip in their intersection.
+
+Hence, to prevent adding any additional chip, either:
+
+- No empty rows exist if colored columns exist, or
+- No colored columns exist if empty rows exist.
+
+Similarly for empty columns and colored rows.
+
+---
+
+**Step 10: Therefore, maximality requires:**
+
+- The set of colored rows and the set of colored columns must be complementary in the sense that if there is any colored row, then all columns must be colored (no empty columns).
+- If there are empty columns, then no colored rows exist.
+- Similarly for empty rows.
+
+But if all columns are colored, then empty rows cannot add chips because the row is empty and adding a chip would assign a color to the row. Hence, adding chips is possible unless the row is colored or the columns are empty.
+
+The only way to ensure maximality is:
+
+- No empty rows or columns, or
+- The rows and columns are partitioned so that no chip can be added.
+
+---
+
+**Step 11: A better way:**
+
+Since the chips are placed exactly on the intersection of rows and columns that have the same color, and maximality means no chip can be added, the only way this happens is:
+
+- For each empty row \(r\), for each colored column \(c\), the cell \((r,c)\) must be impossible to place a chip.
+- To prevent adding a chip in \((r,c)\), the row and column colors must differ (since no chip can be placed if row and column colors differ).
+
+But the row is empty (no color assigned), so if the row has no color, it can be assigned any color by adding a chip there.
+
+Thus, to prevent adding a chip, there must be no colored columns if there are empty rows, and no colored rows if there are empty columns.
+
+Therefore:
+
+- Either all rows and columns are colored (no empty rows or columns), or
+- All rows and columns are empty (no chips), or
+- Some rows are colored and the columns colored match, but there is no empty row or column.
+
+---
+
+**Step 12: Conclusion on maximality**
+
+Maximal configurations are those where:
+
+- The rows are partitioned into white and black sets (possibly empty sets), and no empty rows.
+- The columns are partitioned into white and black sets, no empty columns.
+- Chips are placed in the intersection of white rows and white columns, and black rows and black columns.
+- No empty rows or columns so that no chip can be added in an empty cell without violating the color consistency.
+
+Thus, the empty set (no chips) is allowed only if no chips are placed.
+
+But the problem requires maximality: "any additional chip placed on the grid would violate the conditions."
+
+If zero chips are placed, adding a chip in any cell assigns color to that row and column, so conditions hold. So zero chips is NOT maximal.
+
+Therefore, no empty rows or columns allowed.
+
+---
+
+**Step 13: Final structure**
+
+Let:
+
+- \(w_r =\) number of white rows
+- \(b_r = 5 - w_r =\) number of black rows
+- \(w_c =\) number of white columns
+- \(b_c = 5 - w_c =\) number of black columns
+
+We place chips in:
+
+- \(w_r \times w_c\) white chips
+- \(b_r \times b_c\) black chips
+
+Each cell contains at most one chip.
+
+---
+
+**Step 14: Check chip availability**
+
+We have 25 white chips and 25 black chips.
+
+Number of white chips used: \(w_r \times w_c\)
+
+Number of black chips used: \(b_r \times b_c\)
+
+We must have:
+
+\[
+w_r \times w_c \leq 25
+\]
+\[
+b_r \times b_c \leq 25
+\]
+
+Since the grid is \(5 \times 5\), the maximum number of chips of either color is 25, so these inequalities always hold.
+
+---
+
+**Step 15: Count the number of such configurations**
+
+We must count the number of ways to:
+
+- Assign colors to rows: choose \(w_r\) rows to be white, the rest black.
+- Assign colors to columns: choose \(w_c\) columns to be white, the rest black.
+
+---
+
+**Step 16: Number of configurations**
+
+- Number of ways to choose white rows: \(\binom{5}{w_r}\)
+- Number of ways to choose white columns: \(\binom{5}{w_c}\)
+
+For each pair \((w_r, w_c)\), the configuration is unique.
+
+---
+
+**Step 17: Maximality condition**
+
+Is every such configuration maximal?
+
+- If \(w_r\) and \(w_c\) are fixed, the white chips are placed at \(w_r \times w_c\) cells.
+- Black chips at \((5 - w_r) \times (5 - w_c)\) cells.
+- No empty rows or columns since all are assigned a color.
+- Adding a chip in a cell outside these sets would mean adding a chip in a cell where the row and column colors differ, which is forbidden.
+- Adding a chip in an empty cell inside the same color intersection is impossible because these cells are all occupied.
+- So no additional chip can be added without violating conditions.
+
+Hence, all such assignments with no empty rows or columns correspond to maximal configurations.
+
+---
+
+**Step 18: Exclude trivial cases**
+
+- \(w_r = 0\) means all rows black.
+- \(w_c = 0\) means all columns black.
+- Similarly for \(w_r=5\) or \(w_c=5\).
+
+All these are allowed.
+
+---
+
+**Step 19: Compute total number of maximal configurations**
+
+Sum over \(w_r = 0,1,2,3,4,5\), and \(w_c = 0,1,2,3,4,5\):
+
+\[
+\sum_{w_r=0}^5 \sum_{w_c=0}^5 \binom{5}{w_r} \binom{5}{w_c} = \left( \sum_{w_r=0}^5 \binom{5}{w_r} \right)^2 = (2^5)^2 = 2^{10} = 1024
+\]
+
+---
+
+**Step 20: Final answer**
+
+There are \(\boxed{1024}\) maximal configurations.
+
+---
+
+**Verification**
+
+- Each configuration corresponds to choosing a subset of rows to be white, the rest black.
+- Choosing a subset of columns to be white, the rest black.
+- Chips placed in the intersection of matching colors, filling those cells.
+- No empty rows or columns.
+- Maximality is satisfied.
+- Number of such assignments: \(2^5 \times 2^5 = 1024\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 902.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Find the number of ways to place a digit in each cell of a 2x3 grid so that the sum of the two numbers formed by reading left to right is $999$, and the sum of the three numbers formed by reading top to bottom is $99$. The grid below is an example of such an arrangement because $8+991=999$ and $9+9+81=99$.
+\[\begin{array}{|c|c|c|} \hline 0 & 0 & 8 \\ \hline 9 & 9 & 1 \\ \hline \end{array}\]
+
+## prompt
+Carefully and methodically solve the problem using clear, step-by-step logical reasoning. At each step, explicitly verify the correctness of calculations and justifications to ensure accuracy and consistency throughout. Avoid premature simplifications or assumptions; instead, proceed with rigor and precision. Only after fully completing and verifying the entire reasoning process should you output the final answer as a single, simplified integer, with no additional explanation, formatting, or commentary.
+
+## output
+45
+
+## reasoning
+Let the 2x3 grid be:
+\[
+\begin{array}{|c|c|c|}
+\hline
+a & b & c \\
+\hline
+d & e & f \\
+\hline
+\end{array}
+\]
+where each of \( a,b,c,d,e,f \) are digits (0 through 9).
+
+**Step 1: Understanding the problem**
+
+- The sum of the two numbers formed by reading left to right (row-wise) is 999:
+\[
+(100a + 10b + c) + (100d + 10e + f) = 999
+\]
+
+- The sum of the three numbers formed by reading top to bottom (column-wise) is 99:
+\[
+(10a + d) + (10b + e) + (10c + f) = 99
+\]
+
+**Step 2: Write down the equations**
+
+1. Row sum:
+\[
+100a + 10b + c + 100d + 10e + f = 999
+\]
+Group terms:
+\[
+100(a + d) + 10(b + e) + (c + f) = 999
+\]
+
+2. Column sum:
+\[
+(10a + d) + (10b + e) + (10c + f) = 99
+\]
+Group terms:
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+
+**Step 3: Introduce variables**
+
+Let:
+\[
+X = a + d \quad
+Y = b + e \quad
+Z = c + f
+\]
+
+Also,
+\[
+S = a + b + c \quad
+T = d + e + f
+\]
+
+From the above definitions:
+- The row sum equation becomes:
+\[
+100X + 10Y + Z = 999
+\]
+
+- The column sum equation becomes:
+\[
+10S + T = 99
+\]
+where \( S = a + b + c \) and \( T = d + e + f \).
+
+Note that:
+\[
+X = a + d, \quad Y = b + e, \quad Z = c + f
+\]
+
+and
+\[
+S = a + b + c, \quad T = d + e + f
+\]
+
+We want to find all digit assignments \( a,b,c,d,e,f \in \{0,\ldots,9\} \) satisfying these equations.
+
+**Step 4: Analyze the first equation**
+
+\[
+100X + 10Y + Z = 999
+\]
+
+Since \(X,Y,Z\) are sums of two digits each, their possible ranges:
+
+- \(X = a + d\), max 9+9=18
+- \(Y = b + e\), max 18
+- \(Z = c + f\), max 18
+
+We want:
+\[
+100X + 10Y + Z = 999
+\]
+
+Try to solve this Diophantine equation for \(X,Y,Z\) with \(0 \leq X,Y,Z \leq 18\).
+
+Rewrite:
+\[
+100X + 10Y + Z = 999
+\]
+
+Try to find integers \(X\) from 0 to 18 so that the right side minus 100X is less than or equal to the maximum of \(10Y + Z\) which is \(10 \cdot 18 + 18 = 198\).
+
+Check possible values of \(X\):
+
+- \(X=9\): \(100 \times 9 = 900\), \(999 - 900 = 99\), so
+\[
+10Y + Z = 99
+\]
+Since \(Y,Z \leq 18\), \(10Y + Z = 99\) is possible if \(Y=9\) and \(Z=9\) (max Z is 18, so 9 is possible).
+
+- \(X=8\): \(800\), remainder \(199\) → max \(10Y + Z\) is 198, so no.
+- \(X=10\): \(1000\), too large.
+
+Therefore, only \(X=9\) works.
+
+With \(X=9\), we have:
+\[
+10Y + Z = 99
+\]
+
+Similarly, \(Y\) and \(Z\) are between 0 and 18, so:
+
+\[
+10Y + Z = 99
+\]
+Since \(Z \leq 18\), possible values for \(Y\) are:
+
+- \(Y=9 \implies Z=9\) (9 ≤ 18, valid)
+- \(Y=8 \implies Z=19\) (too large)
+- \(Y=7 \implies Z=29\) (too large)
+
+So the only valid pair is \(Y=9\) and \(Z=9\).
+
+So:
+\[
+X = 9, \quad Y=9, \quad Z=9
+\]
+
+**Step 5: Now, from the column sum:**
+
+\[
+10S + T = 99
+\]
+
+Recall \(S = a + b + c\), \(T = d + e + f\).
+
+We also have:
+\[
+X = a + d = 9, \quad Y = b + e = 9, \quad Z = c + f = 9
+\]
+
+Sum \(S + T = (a+b+c) + (d+e+f) = (a + d) + (b + e) + (c + f) = X + Y + Z = 9 + 9 + 9 = 27\).
+
+From the column sum equation:
+\[
+10S + T = 99
+\]
+
+Substitute \(T = 27 - S\):
+\[
+10S + (27 - S) = 99 \implies 9S + 27 = 99 \implies 9S = 72 \implies S = 8
+\]
+
+Therefore:
+\[
+S = 8, \quad T = 27 - 8 = 19
+\]
+
+**Step 6: Summarize constraints**
+
+- \(a + d = 9\)
+- \(b + e = 9\)
+- \(c + f = 9\)
+- \(a + b + c = 8\)
+- \(d + e + f = 19\)
+
+All digits are between 0 and 9.
+
+**Step 7: Solve for \(a,b,c\) and \(d,e,f\)**
+
+Since \(a + d = 9\), \(d = 9 - a\).
+
+Similarly, \(e = 9 - b\), \(f = 9 - c\).
+
+Sum of bottom row digits:
+\[
+d + e + f = (9 - a) + (9 - b) + (9 - c) = 27 - (a + b + c) = 27 - 8 = 19
+\]
+
+This matches the previous calculation, so consistent.
+
+So \(a,b,c\) must be digits \(0 \leq a,b,c \leq 9\) such that:
+\[
+a + b + c = 8
+\]
+
+and \(d,e,f\) determined by:
+\[
+d = 9 - a, \quad e = 9 - b, \quad f = 9 - c
+\]
+
+Since \(a,b,c\) are digits from 0 to 9, and their sum is 8, no problem.
+
+**Step 8: Count the number of solutions**
+
+Number of non-negative integer solutions to:
+\[
+a + b + c = 8, \quad 0 \leq a,b,c \leq 9
+\]
+
+Since 8 ≤ 9 and sum is 8, no upper bound is violated.
+
+The number of non-negative integer solutions to \(a + b + c = 8\) is:
+\[
+\binom{8 + 3 - 1}{3 - 1} = \binom{10}{2} = 45
+\]
+
+Each such triple \((a,b,c)\) determines uniquely \((d,e,f) = (9 - a, 9 - b, 9 - c)\), which are digits between 0 and 9 (since \(a,b,c \leq 9\)).
+
+**Step 9: Verify the example given**
+
+Example given:
+\[
+\begin{array}{|c|c|c|}
+\hline
+0 & 0 & 8 \\
+\hline
+9 & 9 & 1 \\
+\hline
+\end{array}
+\]
+
+Check sums:
+
+- \(a=0, b=0, c=8\), sum = 8
+- \(d=9, e=9, f=1\), sum = 19
+- \(a + d = 0 + 9 = 9\)
+- \(b + e = 0 + 9 = 9\)
+- \(c + f = 8 + 1 = 9\)
+
+Row sums:
+\[
+(100a + 10b + c) + (100d + 10e + f) = (0 + 0 + 8) + (900 + 90 + 1) = 8 + 991 = 999
+\]
+
+Column sums:
+\[
+(10a + d) + (10b + e) + (10c + f) = (0 + 9) + (0 + 9) + (80 + 1) = 9 + 9 + 81 = 99
+\]
+
+Everything checks out.
+
+**Step 10: Final answer**
+
+Number of such 2x3 grids is the number of triples \((a,b,c)\) with \(a,b,c \in \{0,\ldots,9\}\), \(a+b+c=8\), which is 45.
+
+For each such triple, the bottom row is uniquely determined.
+
+Hence, total number of ways = 45.
+
+## Feedback
+Your answer is correct. The correct answer is 45.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000019 | Iter 19 [REJECTED -2.00]
+Intent: The edit aimed to increase solution rigor by emphasizing explicit verification of intermediate steps and exploring all constraints thoroughly to reduce errors and improve final answer accuracy.
+Lesson: The outcome reveals that adding more detailed verification and constraints exploration in the prompt may lead to overcomplication or verbosity that negatively impacts model performance on AIME problems, resulting in lower accuracy. The simpler original prompt produced better or equal results in most cases.
+Strong on: algebraic manipulation
+Still failing: combinatorial reasoning, number theory
+
+### mem_000020 | Iter 20 [REJECTED +0.00]
+Intent: The edit aimed to enhance the prompt's clarity and rigor by emphasizing verification, thorough case analysis, and a methodical structured solution to improve accuracy on AIME problems.
+Lesson: The unchanged aggregate score indicates that increasing detail and caution in the prompt wording did not improve performance, suggesting that beyond a certain point, more verbose instructions may not enhance or harm model accuracy on these math problems.
+
+### mem_000021 | Iter 21 [ACCEPTED +1.00]
+Intent: This edit aimed to improve accuracy by encouraging explicit verification, careful case analysis, and detailed error checking during problem solving to reduce mistakes in AIME math problem answers.
+Lesson: The outcome reveals that adding explicit instructions to check intermediate steps, consider multiple solution paths, and verify numerical work can significantly improve reasoning reliability and final answer correctness in complex math problems.
+Strong on: algebraic problem solving, multi-step reasoning, case-based analysis
+
+### mem_000022 | Iter 22 [REJECTED -1.00]
+Intent: The edit aimed to enhance rigor and thoroughness in reasoning steps to improve accuracy on AIME problems by explicitly verifying all critical calculations and exploring multiple cases or approaches.
+Lesson: The outcome reveals that increasing verbosity and complexity in the reasoning instructions can reduce accuracy, possibly by encouraging overcomplication or divergence from clear, direct solutions; simpler, more focused prompts may be more effective for precise numeric answers.
+Still failing: algebraic reasoning, multi-case analysis, combinatorial logic
+
+### mem_000023 | Iter 23 [REJECTED -1.00]
+Intent: The edit aimed to enhance the clarity and thoroughness of the reasoning instructions to improve accuracy and consistency in solving AIME problems.
+Lesson: The outcome reveals that adding more detailed instructions and complexity to the prompt can confuse or overwhelm the solver, leading to a decline in performance; simpler, more direct guidance may be more effective for this task.
+Strong on: multistep arithmetic problems
+Still failing: case analysis, rigor-demanding proofs
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

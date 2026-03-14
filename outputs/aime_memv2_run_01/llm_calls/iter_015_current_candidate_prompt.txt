@@ -1,0 +1,1215 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Carefully and methodically solve the problem using detailed step-by-step reasoning, verifying each deduction and computation for mathematical correctness and logical consistency. Clearly document all intermediate steps and logical justifications to ensure no detail is overlooked. After completing the full and thorough reasoning process, output only the final answer as a single, simplified integer without any additional explanation, formatting, or commentary.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Azar, Carl, Jon, and Sergey are the four players left in a singles tennis tournament. They are randomly assigned opponents in the semifinal matches, and the winners of those matches play each other in the final match to determine the winner of the tournament. When Azar plays Carl, Azar will win the match with probability $\frac23$. When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win the match with probability $\frac34$. Assume that outcomes of different matches are independent. The probability that Carl will win the tournament is $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## prompt
+Carefully and methodically solve the problem using detailed step-by-step reasoning, verifying each deduction and computation for mathematical correctness and logical consistency. Clearly document all intermediate steps and logical justifications to ensure no detail is overlooked. After completing the full and thorough reasoning process, output only the final answer as a single, simplified integer without any additional explanation, formatting, or commentary.
+
+## output
+29
+
+## reasoning
+There are four players: Azar (A), Carl (C), Jon (J), and Sergey (S).
+
+They are randomly paired in the semifinals, then the winners play in the final.
+
+We want the probability that Carl wins the tournament.
+
+---
+
+**Step 1: Possible semifinal matchups**
+
+There are 3 ways to pair the 4 players into two matches:
+
+1. (A vs C) and (J vs S)
+2. (A vs J) and (C vs S)
+3. (A vs S) and (C vs J)
+
+Each pairing is equally likely with probability \( \frac{1}{3} \).
+
+---
+
+**Step 2: Winning probabilities**
+
+- When Azar plays Carl: Azar wins with probability \(\frac{2}{3}\), so Carl wins with probability \(\frac{1}{3}\).
+
+- When Azar or Carl plays Jon or Sergey: Azar or Carl wins with probability \(\frac{3}{4}\).
+
+Since the problem says "When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win with probability \(\frac{3}{4}\)", this means:
+
+- If A or C plays J or S, then the A/C player wins with probability \(\frac{3}{4}\), and the J/S player wins with probability \(\frac{1}{4}\).
+
+---
+
+**Step 3: Analyze each pairing**
+
+---
+
+**Case 1: Semifinals: (A vs C) and (J vs S)**
+
+- Probability of this matchup: \(\frac{1}{3}\).
+
+- In A vs C, Carl wins with probability \(\frac{1}{3}\).
+
+- In J vs S, the winner is J or S with probability \(\frac{1}{2}\) each.
+
+- Final: Carl vs (J or S)
+
+Carl plays either J or S.
+
+- Carl wins final against J or S with probability \(\frac{3}{4}\).
+
+Therefore, probability Carl wins tournament in Case 1:
+
+\[
+P_1 = \left(\frac{1}{3}\right) \times \left(\frac{1}{3}\right) \times 1 \times \frac{3}{4} = \frac{1}{3} \times \frac{1}{3} \times \frac{3}{4} = \frac{1}{3} \times \frac{1}{4} = \frac{1}{12}
+\]
+
+Explanation:
+
+- \(\frac{1}{3}\) is the probability of this semifinal pairing.
+
+- \(\frac{1}{3}\) is Carl's chance to beat Azar.
+
+- The J vs S winner is irrelevant since Carl always faces J or S in final; so no probability factor for who wins J vs S because Carl must face one of them.
+
+- Carl's chance to win final vs J or S is \(\frac{3}{4}\).
+
+---
+
+**Case 2: Semifinals: (A vs J) and (C vs S)**
+
+- Probability of this matchup: \(\frac{1}{3}\).
+
+- Carl plays Sergey: Carl wins semifinal with probability \(\frac{3}{4}\).
+
+- Azar plays Jon: Azar wins semifinal with probability \(\frac{3}{4}\).
+
+- Final is Carl vs Azar.
+
+- Carl plays Azar in final: Carl wins with probability \(\frac{1}{3}\).
+
+Therefore, probability Carl wins tournament in Case 2:
+
+\[
+P_2 = \left(\frac{1}{3}\right) \times \left(\frac{3}{4}\right) \times \left(\frac{3}{4}\right) \times \left(\frac{1}{3}\right) = \frac{1}{3} \times \frac{9}{16} \times \frac{1}{3} = \frac{1}{3} \times \frac{9}{48} = \frac{9}{144} = \frac{1}{16}
+\]
+
+Explanation:
+
+- \(\frac{1}{3}\) for this pairing.
+
+- Carl beats Sergey with \(\frac{3}{4}\).
+
+- Azar beats Jon with \(\frac{3}{4}\).
+
+- Final Carl vs Azar, Carl wins \(\frac{1}{3}\).
+
+---
+
+**Case 3: Semifinals: (A vs S) and (C vs J)**
+
+- Probability of this matchup: \(\frac{1}{3}\).
+
+- Carl plays Jon: Carl wins semifinal with probability \(\frac{3}{4}\).
+
+- Azar plays Sergey: Azar wins with probability \(\frac{3}{4}\).
+
+- Final is Carl vs Azar.
+
+- Carl beats Azar in final with probability \(\frac{1}{3}\).
+
+Therefore, probability Carl wins tournament in Case 3:
+
+\[
+P_3 = \left(\frac{1}{3}\right) \times \left(\frac{3}{4}\right) \times \left(\frac{3}{4}\right) \times \left(\frac{1}{3}\right) = \frac{1}{16}
+\]
+
+Same as Case 2.
+
+---
+
+**Step 4: Total probability Carl wins tournament**
+
+\[
+P = P_1 + P_2 + P_3 = \frac{1}{12} + \frac{1}{16} + \frac{1}{16} = \frac{1}{12} + \frac{2}{16}
+\]
+
+Find common denominator for \(\frac{1}{12}\) and \(\frac{2}{16}\).
+
+- \(12 = 2^2 \times 3\).
+
+- \(16 = 2^4\).
+
+Least common multiple is \(48\).
+
+Convert fractions:
+
+\[
+\frac{1}{12} = \frac{4}{48}, \quad \frac{2}{16} = \frac{2}{16} = \frac{6}{48}
+\]
+
+So,
+
+\[
+P = \frac{4}{48} + \frac{6}{48} = \frac{10}{48} = \frac{5}{24}
+\]
+
+---
+
+**Step 5: Simplify**
+
+\[
+\frac{5}{24}
+\]
+
+\(5\) and \(24\) are relatively prime.
+
+---
+
+**Step 6: Find \(p + q\)**
+
+\[
+p + q = 5 + 24 = 29
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 125.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Let $\ell_A$ and $\ell_B$ be two distinct parallel lines. For positive integers $m$ and $n$, distinct points $A_1, A_2, \allowbreak A_3, \allowbreak \ldots, \allowbreak A_m$ lie on $\ell_A$, and distinct points $B_1, B_2, B_3, \ldots, B_n$ lie on $\ell_B$. Additionally, when segments $\overline{A_iB_j}$ are drawn for all $i=1,2,3,\ldots, m$ and $j=1,\allowbreak 2,\allowbreak 3, \ldots, \allowbreak n$, no point strictly between $\ell_A$ and $\ell_B$ lies on more than 1 of the segments. Find the number of bounded regions into which this figure divides the plane when $m=7$ and $n=5$. The figure shows that there are 8 regions when $m=3$ and $n=2$.
+
+## prompt
+Carefully and methodically solve the problem using detailed step-by-step reasoning, verifying each deduction and computation for mathematical correctness and logical consistency. Clearly document all intermediate steps and logical justifications to ensure no detail is overlooked. After completing the full and thorough reasoning process, output only the final answer as a single, simplified integer without any additional explanation, formatting, or commentary.
+
+## output
+251
+
+## reasoning
+We have two parallel lines \(\ell_A\) and \(\ell_B\). On \(\ell_A\), there are \(m\) distinct points \(A_1, A_2, \ldots, A_m\), and on \(\ell_B\), there are \(n\) distinct points \(B_1, B_2, \ldots, B_n\).
+
+We draw all segments \(\overline{A_i B_j}\) for \(i=1, \ldots, m\) and \(j=1, \ldots, n\). The condition states that no point strictly between the two lines lies on more than one segment, meaning these segments only intersect on the lines themselves or at their endpoints. Thus, the segments form a complete bipartite graph \(K_{m,n}\) drawn with the two sets of points on two parallel lines, with edges as straight segments.
+
+We are asked to find the number of bounded regions into which the plane is divided by these segments and the two lines when \(m=7\) and \(n=5\).
+
+---
+
+**Step 1: Understand the problem and known cases**
+
+- The two lines \(\ell_A\) and \(\ell_B\) themselves divide the plane into 3 regions: the infinite region above \(\ell_A\), the region between \(\ell_A\) and \(\ell_B\), and the infinite region below \(\ell_B\).
+- The segments \(\overline{A_i B_j}\) lie strictly between these lines.
+- The problem shows a figure for \(m=3\), \(n=2\), where the number of bounded regions is 8.
+
+---
+
+**Step 2: Analyze the figure for \(m=3\), \(n=2\)**
+
+- When \(m=3\) and \(n=2\), the number of bounded regions is 8.
+- Let's try to find a formula that fits this.
+
+---
+
+**Step 3: General structure of intersections and regions**
+
+The segments correspond to the edges of the bipartite graph \(K_{m,n}\) drawn between the two parallel lines, with the vertices \(A_i\) on \(\ell_A\) and \(B_j\) on \(\ell_B\).
+
+- Each segment \(\overline{A_i B_j}\) connects \(A_i\) on \(\ell_A\) to \(B_j\) on \(\ell_B\).
+- Two segments \(\overline{A_i B_j}\) and \(\overline{A_k B_l}\) intersect if and only if the pairs \((i,k)\) and \((j,l)\) are "crossed" in order; i.e., \(i < k\) and \(j > l\), or \(i > k\) and \(j < l\).
+- Since the points on each line are distinct and ordered, the number of intersection points inside the strip between the lines equals the number of "inversions" when pairing the points.
+
+---
+
+**Step 4: Number of intersection points inside the strip**
+
+Each pair of edges \(\overline{A_i B_j}\) and \(\overline{A_k B_l}\) intersect if and only if \(i < k\) and \(j > l\) (or vice versa). So the number of intersection points inside the strip is the number of pairs \((i,k)\) with \(1 \leq i < k \leq m\) and \((j,l)\) with \(1 \leq l < j \leq n\).
+
+Thus, the number of intersection points is:
+
+\[
+\binom{m}{2} \cdot \binom{n}{2}
+\]
+
+---
+
+**Step 5: Counting the number of bounded regions**
+
+The segments partition the strip between the two lines into regions. We are asked for the number of bounded regions.
+
+We consider the whole figure including the two lines and the segments.
+
+---
+
+**Step 6: Recall a known formula**
+
+This problem is classical and the number of bounded regions formed by the complete bipartite graph \(K_{m,n}\) drawn as described is:
+
+\[
+(m-1)(n-1)
+\]
+
+This formula counts the number of bounded parallelogram-shaped regions formed between the two lines by the segments connecting the points.
+
+---
+
+**Step 7: Verify with the example**
+
+For \(m=3\), \(n=2\):
+
+\[
+(m-1)(n-1) = (3-1)(2-1) = 2 \times 1 = 2
+\]
+
+But the figure says there are 8 bounded regions, so this simple formula doesn't match.
+
+---
+
+**Step 8: Reconsider**
+
+The formula \((m-1)(n-1)\) counts the number of small parallelograms formed by the grid of segments, but here, because all segments are drawn between all pairs, and they cross inside the strip, more complex regions are formed.
+
+---
+
+**Step 9: Use Euler's formula**
+
+To find the number of regions, let's consider the planar graph \(G\) formed by the two lines and all segments.
+
+- Vertices: Points \(A_i\) and \(B_j\) on the lines plus intersection points inside the strip.
+- Edges: Segments between these vertices.
+
+We want to find the number of bounded faces (regions).
+
+---
+
+**Step 10: Count vertices and edges**
+
+- Vertices:
+  - \(m\) points on \(\ell_A\),
+  - \(n\) points on \(\ell_B\),
+  - plus intersection points inside the strip: \(\binom{m}{2} \binom{n}{2}\).
+
+Total vertices:
+
+\[
+V = m + n + \binom{m}{2} \binom{n}{2}
+\]
+
+---
+
+**Step 11: Count edges**
+
+Each segment \(\overline{A_i B_j}\) is divided into parts by intersection points.
+
+- Number of edges before subdivision: \(m \times n\).
+- Each segment is intersected by all segments connecting other points, so each segment \(\overline{A_i B_j}\) is crossed by all segments \(\overline{A_k B_l}\) such that \(i \neq k\) and \(j \neq l\) and the segments cross.
+
+Number of intersection points on each segment \(\overline{A_i B_j}\) equals:
+
+\[
+(\text{number of } k \neq i) \times (\text{number of } l \neq j) = (m-1)(n-1)
+\]
+
+Each segment is divided into \((m-1)(n-1) + 1\) edges.
+
+So total edges:
+
+\[
+E = m n \times \big((m-1)(n-1) + 1\big) = m n \big( (m-1)(n-1) + 1 \big)
+\]
+
+---
+
+**Step 12: Include the two lines**
+
+The two lines \(\ell_A\) and \(\ell_B\) themselves can be considered as unbounded edges.
+
+- On \(\ell_A\), the \(m\) points divide the line into \(m-1\) edges.
+- On \(\ell_B\), the \(n\) points divide the line into \(n-1\) edges.
+
+So total edges on the lines:
+
+\[
+(m-1) + (n-1) = m + n - 2
+\]
+
+Add these to the total edges:
+
+\[
+E_{\text{total}} = m n \big( (m-1)(n-1) + 1 \big) + m + n - 2
+\]
+
+---
+
+**Step 13: Total vertices including line points**
+
+Vertices on \(\ell_A\) and \(\ell_B\) are already counted, so total vertices remain:
+
+\[
+V = m + n + \binom{m}{2} \binom{n}{2}
+\]
+
+---
+
+**Step 14: Number of faces \(F\)**
+
+By Euler's formula for planar graphs:
+
+\[
+V - E + F = 2
+\]
+
+So,
+
+\[
+F = 2 - V + E
+\]
+
+---
+
+**Step 15: Number of unbounded regions**
+
+The plane is divided by two parallel lines into 3 regions: above \(\ell_A\), between \(\ell_A\) and \(\ell_B\), and below \(\ell_B\).
+
+All edges lie between \(\ell_A\) and \(\ell_B\), so the only unbounded faces are the ones above \(\ell_A\) and below \(\ell_B\).
+
+Therefore, the number of unbounded faces is 2.
+
+---
+
+**Step 16: Number of bounded faces**
+
+Number of bounded faces = \(F - 2\).
+
+---
+
+**Step 17: Substitute and simplify**
+
+Recall:
+
+\[
+V = m + n + \binom{m}{2} \binom{n}{2}
+\]
+
+\[
+E = m n \big( (m-1)(n-1) + 1 \big) + m + n - 2
+\]
+
+Then:
+
+\[
+F = 2 - V + E = 2 - (m + n + \binom{m}{2} \binom{n}{2}) + m n \big( (m-1)(n-1) + 1 \big) + m + n - 2
+\]
+
+Simplify:
+
+\[
+F = \big(2 - m - n - \binom{m}{2} \binom{n}{2}\big) + m n \big( (m-1)(n-1) + 1 \big) + m + n - 2
+\]
+
+\[
+F = - \binom{m}{2} \binom{n}{2} + m n \left( (m-1)(n-1) + 1 \right)
+\]
+
+---
+
+**Step 18: Number of bounded faces**
+
+\[
+\text{bounded faces} = F - 2 = - \binom{m}{2} \binom{n}{2} + m n \left( (m-1)(n-1) + 1 \right) - 2
+\]
+
+---
+
+**Step 19: Check with example \(m=3, n=2\)**
+
+Calculate each term:
+
+\[
+\binom{3}{2} = 3, \quad \binom{2}{2} = 1
+\]
+
+So,
+
+\[
+\binom{3}{2} \binom{2}{2} = 3 \times 1 = 3
+\]
+
+Calculate:
+
+\[
+m n = 3 \times 2 = 6
+\]
+
+\[
+(m-1)(n-1) + 1 = (3-1)(2-1) + 1 = 2 \times 1 + 1 = 3
+\]
+
+Calculate bounded faces:
+
+\[
+-3 + 6 \times 3 - 2 = -3 + 18 - 2 = 13
+\]
+
+But the problem says bounded regions are 8, so this is not matching.
+
+---
+
+**Step 20: Re-examine assumptions**
+
+The discrepancy suggests that the above counting is incorrect.
+
+---
+
+**Step 21: Alternative approach**
+
+From known results in combinatorial geometry for such configurations (complete bipartite graphs drawn on two parallel lines):
+
+- The number of intersection points inside the strip is \(\binom{m}{2} \binom{n}{2}\).
+- The number of bounded regions formed inside the strip by these segments is:
+
+\[
+(m-1)(n-1)(m+n-2)
+\]
+
+Check this with \(m=3, n=2\):
+
+\[
+(3-1)(2-1)(3+2-2) = 2 \times 1 \times 3 = 6
+\]
+
+Still not 8, but closer.
+
+---
+
+**Step 22: Try to derive a formula from the example**
+
+Given the problem states for \(m=3, n=2\), bounded regions = 8.
+
+Try to find a polynomial in \(m,n\) fitting that and the simpler cases.
+
+Try:
+
+\[
+\text{bounded regions} = \binom{m}{2} n + \binom{n}{2} m
+\]
+
+For \(m=3, n=2\):
+
+\[
+\binom{3}{2} \times 2 + \binom{2}{2} \times 3 = 3 \times 2 + 1 \times 3 = 6 + 3 = 9
+\]
+
+Close to 8.
+
+Try:
+
+\[
+\text{bounded regions} = \binom{m}{2} (n-1) + \binom{n}{2} (m-1)
+\]
+
+Calculate for \(m=3, n=2\):
+
+\[
+\binom{3}{2} (2-1) + \binom{2}{2} (3-1) = 3 \times 1 + 1 \times 2 = 3 + 2 = 5
+\]
+
+No.
+
+Try:
+
+\[
+\text{bounded regions} = (m-1)(n-1)(m+n-4)/2
+\]
+
+For \(m=3, n=2\):
+
+\[
+(3-1)(2-1)(3+2-4)/2 = 2 \times 1 \times 1 / 2 = 1
+\]
+
+No.
+
+---
+
+**Step 23: Use the problem's figure to count number of regions**
+
+The problem states: "The figure shows that there are 8 regions when \(m=3\) and \(n=2\)".
+
+---
+
+**Step 24: Alternative known formula**
+
+From a similar problem in combinatorics:
+
+- The number of regions formed by the segments connecting \(m\) points on one line to \(n\) points on a parallel line, with all segments drawn, is:
+
+\[
+(m-1)(n-1)(m+n-2) + 1
+\]
+
+Test for \(m=3, n=2\):
+
+\[
+(2)(1)(3+2-2) + 1 = 2 \times 1 \times 3 + 1 = 6 + 1 = 7
+\]
+
+Close but still not 8.
+
+---
+
+**Step 25: Since the problem is from a known source (ISL or similar), and the figure says 8 regions for \(m=3, n=2\), let's try to find an expression that matches this.**
+
+Try:
+
+\[
+\text{bounded regions} = \binom{m}{2} \binom{n}{2}
+\]
+
+For \(m=3, n=2\):
+
+\[
+\binom{3}{2} \binom{2}{2} = 3 \times 1 = 3
+\]
+
+No.
+
+Try:
+
+\[
+\text{bounded regions} = \binom{m}{2} n + \binom{n}{2} m - (m-1)(n-1)
+\]
+
+For \(m=3, n=2\):
+
+\[
+3 \times 2 + 1 \times 3 - 2 \times 1 = 6 + 3 - 2 = 7
+\]
+
+No.
+
+Try to find a direct formula from the figure.
+
+---
+
+**Step 26: Another approach**
+
+The total number of regions formed by \(K_{m,n}\) drawn between two parallel lines is known to be:
+
+\[
+R = m n + m + n + \binom{m}{2} \binom{n}{2}
+\]
+
+For \(m=3, n=2\):
+
+\[
+3 \times 2 + 3 + 2 + 3 \times 1 = 6 + 3 + 2 + 3 = 14
+\]
+
+Total regions = 14.
+
+Subtract 6 unbounded regions (3 between lines and outside?).
+
+We need bounded regions, possibly 14 - 6 = 8.
+
+This matches the problem's given value of 8.
+
+---
+
+**Step 27: Generalize**
+
+Total regions \(R = m n + m + n + \binom{m}{2} \binom{n}{2}\).
+
+Number of unbounded regions is 6 (3 strips times 2 sides?).
+
+Therefore, number of bounded regions is:
+
+\[
+\text{bounded} = R - 6 = m n + m + n + \binom{m}{2} \binom{n}{2} - 6
+\]
+
+Check for \(m=3, n=2\):
+
+\[
+3 \times 2 + 3 + 2 + 3 - 6 = 6 + 3 + 2 + 3 - 6 = 8
+\]
+
+Matches.
+
+---
+
+**Step 28: For \(m=7\), \(n=5\)**
+
+Calculate:
+
+\[
+m n = 7 \times 5 = 35
+\]
+
+\[
+m + n = 7 + 5 = 12
+\]
+
+\[
+\binom{m}{2} = \binom{7}{2} = \frac{7 \times 6}{2} = 21
+\]
+
+\[
+\binom{n}{2} = \binom{5}{2} = \frac{5 \times 4}{2} = 10
+\]
+
+\[
+\binom{m}{2} \binom{n}{2} = 21 \times 10 = 210
+\]
+
+Total regions:
+
+\[
+R = 35 + 12 + 210 = 257
+\]
+
+Bounded regions:
+
+\[
+257 - 6 = 251
+\]
+
+---
+
+**Final answer:**
+
+The number of bounded regions is \(\boxed{251}\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 244.
+
+
+
+# Example 3
+## score
+0.0
+
+## problem
+Torus $T$ is the surface produced by revolving a circle with radius $3$ around an axis in the plane of the circle that is a distance $6$ from the center of the circle (so like a donut). Let $S$ be a sphere with a radius $11$. When $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_i$, and when $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_o$. The difference $r_i-r_o$ can be written as $\tfrac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+[asy] unitsize(0.3 inch); draw(ellipse((0,0), 3, 1.75)); draw((-1.2,0.1)..(-0.8,-0.03)..(-0.4,-0.11)..(0,-0.15)..(0.4,-0.11)..(0.8,-0.03)..(1.2,0.1)); draw((-1,0.04)..(-0.5,0.12)..(0,0.16)..(0.5,0.12)..(1,0.04)); draw((0,2.4)--(0,-0.15)); draw((0,-0.15)--(0,-1.75), dashed); draw((0,-1.75)--(0,-2.25)); draw(ellipse((2,0), 1, 0.9)); draw((2.03,-0.02)--(2.9,-0.4)); [/asy]
+
+## prompt
+Carefully and methodically solve the problem using detailed step-by-step reasoning, verifying each deduction and computation for mathematical correctness and logical consistency. Clearly document all intermediate steps and logical justifications to ensure no detail is overlooked. After completing the full and thorough reasoning process, output only the final answer as a single, simplified integer without any additional explanation, formatting, or commentary.
+
+## output
+295
+
+## reasoning
+We are given a torus \( T \) formed by revolving a circle of radius 3 around an axis in the plane of the circle, with the center of the circle at a distance 6 from the axis. This means the torus has:
+- Minor radius (tube radius): \( r = 3 \)
+- Major radius (distance from center of the tube to axis): \( R = 6 \)
+
+We also have a sphere \( S \) with radius 11.
+
+The torus \( T \) is placed externally tangent to the sphere \( S \) in two different ways, each tangent along a circle on the torus. The problem states there are two such tangent circles with radii \( r_i \) and \( r_o \), and we want to find the difference \( r_i - r_o \).
+
+---
+
+**Step 1: Understanding the tangent circles**
+
+The torus \( T \) is generated by revolving a circle of radius 3 about an axis. The points on the torus satisfy:
+\[
+(\sqrt{x^2 + y^2} - R)^2 + z^2 = r^2
+\]
+where \( R = 6 \), \( r = 3 \).
+
+The torus is "donut-shaped", with a "tube" radius 3, centered at a circle of radius 6.
+
+---
+
+**Step 2: Positioning the sphere and torus**
+
+The sphere \( S \) has radius 11.
+
+When the torus rests on the outside of the sphere and is tangent along a circle, the centers of the "tube" circle of the torus lie on a circle of radius 6. The torus is tangent externally to the sphere, so the sphere is touching on the outside of the torus.
+
+The torus has two special circles where it can be tangent to the sphere:
+- One on the "inner" side of the tube, where the tube is closest to the axis (the smaller radius circle on the torus tube)
+- One on the "outer" side of the tube, where the tube is farthest from the axis (the larger radius circle on the torus tube).
+
+The torus is tangent along such a circle to the sphere. The problem labels the radius of the tangent circle on the torus as \( r_i \) (inner) and \( r_o \) (outer), and we want \( r_i - r_o \).
+
+---
+
+**Step 3: Geometry of tangent circles**
+
+The torus is a surface of revolution of a circle of radius 3 centered at distance 6 from the axis. The "tube circle" is the generating circle.
+
+The radii of the circles along which the torus can be tangent to the sphere will be the radii of circles in the torus' "tube" at points where the torus touches the sphere.
+
+Because the sphere has radius 11, and the torus is tangent externally, the centers of the circle of the torus tube lie on a circle of radius 6 (the major radius).
+
+---
+
+**Step 4: Deriving the radii \( r_i \) and \( r_o \)**
+
+Let the axis of revolution be the \( z \)-axis.
+
+The torus is generated by revolving the circle
+\[
+(x - R)^2 + z^2 = r^2
+\]
+with \( R=6 \), \( r=3 \).
+
+The torus points have distance from the \( z \)-axis given by:
+\[
+\rho = \sqrt{x^2 + y^2} = R + r \cos \theta
+\]
+where \( \theta \in [0, 2\pi) \) parameterizes the generating circle.
+
+The height (vertical coordinate) is:
+\[
+z = r \sin \theta
+\]
+
+Thus, points on the torus are given by:
+\[
+(\rho, z) = (R + r \cos \theta, r \sin \theta)
+\]
+
+---
+
+**Step 5: Tangency condition**
+
+The sphere \( S \) is centered at some point, call it \( C = (0,0,c) \), on the \( z \)-axis (since the torus is symmetric about the \( z \)-axis, the sphere must be positioned along the \( z \)-axis to be tangent in circles).
+
+The sphere has radius 11.
+
+The torus is tangent along a circle for some angle \( \theta \), which forms a circle of radius:
+\[
+r_{\text{circle}} = \rho = R + r \cos \theta
+\]
+
+At that circle, the torus and sphere surfaces touch externally along that circle.
+
+---
+
+**Step 6: Distance between centers**
+
+The sphere center is at \( (0,0,c) \).
+
+At the circle of contact, the torus points lie at radius \( \rho = R + r \cos \theta \), height \( z = r \sin \theta \).
+
+The distance from the sphere center to the circle is:
+\[
+d = \sqrt{\rho^2 + (z - c)^2} = \text{radius of sphere} + \text{radius of torus tube} = 11 + r = 11 + 3 = 14
+\]
+
+Because the torus surface is the set of points at distance \( r=3 \) from the circle of radius \( R = 6 \), the minimal distance from the sphere center to the circle is the sphere radius plus the tube radius.
+
+So,
+\[
+\sqrt{(R + r \cos \theta)^2 + (r \sin \theta - c)^2} = 14
+\]
+
+---
+
+**Step 7: Simplify the equation**
+
+Square both sides:
+\[
+(R + r \cos \theta)^2 + (r \sin \theta - c)^2 = 196
+\]
+
+Recall \( R=6 \), \( r=3 \), so:
+\[
+(6 + 3 \cos \theta)^2 + (3 \sin \theta - c)^2 = 196
+\]
+
+Expand:
+\[
+(6 + 3 \cos \theta)^2 = 36 + 36 \cos \theta + 9 \cos^2 \theta
+\]
+\[
+(3 \sin \theta - c)^2 = 9 \sin^2 \theta - 6 c \sin \theta + c^2
+\]
+
+Sum:
+\[
+36 + 36 \cos \theta + 9 \cos^2 \theta + 9 \sin^2 \theta - 6 c \sin \theta + c^2 = 196
+\]
+
+---
+
+**Step 8: Use \(\sin^2 \theta + \cos^2 \theta = 1\)**
+
+\[
+9 \cos^2 \theta + 9 \sin^2 \theta = 9(\cos^2 \theta + \sin^2 \theta) = 9
+\]
+
+So,
+\[
+36 + 36 \cos \theta + 9 - 6 c \sin \theta + c^2 = 196
+\]
+\[
+45 + 36 \cos \theta - 6 c \sin \theta + c^2 = 196
+\]
+\[
+36 \cos \theta - 6 c \sin \theta + c^2 = 196 - 45 = 151
+\]
+
+---
+
+**Step 9: Rearrange**
+
+\[
+36 \cos \theta - 6 c \sin \theta = 151 - c^2
+\]
+
+---
+
+**Step 10: Geometric interpretation**
+
+We have:
+\[
+36 \cos \theta - 6 c \sin \theta = 151 - c^2
+\]
+
+For the torus to be tangent along a circle at some \(\theta\), this equation must be satisfied. The left side is a linear combination of \(\cos \theta\) and \(\sin \theta\), the right side is a constant.
+
+The equation of the form:
+\[
+A \cos \theta + B \sin \theta = D
+\]
+with
+\[
+A = 36, \quad B = -6 c, \quad D = 151 - c^2
+\]
+
+---
+
+**Step 11: Conditions for solutions**
+
+The maximum and minimum values of the left side are:
+\[
+\pm \sqrt{A^2 + B^2} = \pm \sqrt{36^2 + (-6 c)^2} = \pm \sqrt{1296 + 36 c^2} = \pm 6 \sqrt{36 + c^2}
+\]
+
+For solutions \(\theta\) to exist, the absolute value of the right side must be less than or equal to the maximum amplitude:
+\[
+|151 - c^2| \leq 6 \sqrt{36 + c^2}
+\]
+
+---
+
+**Step 12: Tangency means exactly one solution, so equality**
+
+At tangency, the circle of contact is a single circle, so the equation has exactly one solution \(\theta\), meaning the equation:
+\[
+A \cos \theta + B \sin \theta = D
+\]
+has \(|D| = \sqrt{A^2 + B^2}\).
+
+So,
+\[
+|151 - c^2| = 6 \sqrt{36 + c^2}
+\]
+
+Square both sides:
+\[
+(151 - c^2)^2 = 36 (36 + c^2)
+\]
+\[
+(151 - c^2)^2 = 1296 + 36 c^2
+\]
+
+---
+
+**Step 13: Expand and form quadratic**
+
+\[
+(151 - c^2)^2 = 151^2 - 2 \cdot 151 \cdot c^2 + c^4 = 151^2 - 302 c^2 + c^4
+\]
+
+So,
+\[
+151^2 - 302 c^2 + c^4 = 1296 + 36 c^2
+\]
+
+Bring terms to one side:
+\[
+c^4 - 302 c^2 - 36 c^2 + 151^2 - 1296 = 0
+\]
+\[
+c^4 - 338 c^2 + (151^2 - 1296) = 0
+\]
+
+Calculate \(151^2\):
+\[
+151^2 = (150 + 1)^2 = 150^2 + 2 \cdot 150 \cdot 1 + 1^2 = 22500 + 300 + 1 = 22801
+\]
+
+So,
+\[
+c^4 - 338 c^2 + (22801 - 1296) = 0
+\]
+\[
+c^4 - 338 c^2 + 21505 = 0
+\]
+
+---
+
+**Step 14: Substitute \(u = c^2\)**
+
+\[
+u^2 - 338 u + 21505 = 0
+\]
+
+Use quadratic formula:
+\[
+u = \frac{338 \pm \sqrt{338^2 - 4 \cdot 21505}}{2}
+\]
+
+Calculate discriminant:
+\[
+338^2 = (300 + 38)^2 = 300^2 + 2 \cdot 300 \cdot 38 + 38^2 = 90000 + 22800 + 1444 = 114244
+\]
+\[
+4 \cdot 21505 = 86020
+\]
+\[
+\Delta = 114244 - 86020 = 28224
+\]
+
+\[
+\sqrt{28224} = 168
+\]
+
+Because \(168^2 = 28224\).
+
+So,
+\[
+u = \frac{338 \pm 168}{2}
+\]
+
+Two roots:
+\[
+u_1 = \frac{338 + 168}{2} = \frac{506}{2} = 253
+\]
+\[
+u_2 = \frac{338 - 168}{2} = \frac{170}{2} = 85
+\]
+
+---
+
+**Step 15: Values of \( c \)**
+
+\[
+c^2 = 253 \quad \text{or} \quad c^2 = 85
+\]
+
+So,
+\[
+c = \pm \sqrt{253} \quad \text{or} \quad c = \pm \sqrt{85}
+\]
+
+Since the sphere is below or above the torus, we consider positive or negative \( c \), but since the problem only cares about the difference \( r_i - r_o \), it's enough to consider these two values.
+
+---
+
+**Step 16: Find the corresponding \(\theta\) values**
+
+Recall from step 10:
+
+\[
+36 \cos \theta - 6 c \sin \theta = 151 - c^2
+\]
+
+At tangency,
+\[
+151 - c^2 = \pm 6 \sqrt{36 + c^2}
+\]
+
+Using positive sign for simplicity:
+\[
+151 - c^2 = 6 \sqrt{36 + c^2}
+\]
+
+---
+
+**Step 17: Find \(\cos \theta\) and \(\sin \theta\)**
+
+From the equation:
+\[
+36 \cos \theta - 6 c \sin \theta = 151 - c^2 = D
+\]
+
+Let:
+\[
+A = 36, \quad B = -6c, \quad D = 151 - c^2
+\]
+
+The vector \((A,B)\) has magnitude:
+\[
+\sqrt{A^2 + B^2} = 6 \sqrt{36 + c^2}
+\]
+
+The unit vector in direction \((A,B)\) is:
+\[
+\left(\frac{A}{\sqrt{A^2 + B^2}}, \frac{B}{\sqrt{A^2 + B^2}}\right) = \left(\frac{36}{6 \sqrt{36 + c^2}}, \frac{-6 c}{6 \sqrt{36 + c^2}}\right) = \left(\frac{6}{\sqrt{36 + c^2}}, \frac{-c}{\sqrt{36 + c^2}}\right)
+\]
+
+Since
+\[
+A \cos \theta + B \sin \theta = D,
+\]
+and \( D = \sqrt{A^2 + B^2} \), the angle \(\theta\) satisfies:
+\[
+(\cos \theta, \sin \theta) = \left(\frac{A}{\sqrt{A^2 + B^2}}, \frac{B}{\sqrt{A^2 + B^2}}\right)
+\]
+or
+\[
+\cos \theta = \frac{6}{\sqrt{36 + c^2}}, \quad \sin \theta = \frac{-c}{\sqrt{36 + c^2}}
+\]
+
+---
+
+**Step 18: Calculate the circle radius \( r_i \) and \( r_o \)**
+
+Recall:
+\[
+r_{\text{circle}} = R + r \cos \theta = 6 + 3 \cos \theta
+\]
+
+Using \(\cos \theta\) from above:
+\[
+r_{\text{circle}} = 6 + 3 \cdot \frac{6}{\sqrt{36 + c^2}} = 6 + \frac{18}{\sqrt{36 + c^2}}
+\]
+
+So for each \( c^2 \), we get a circle radius.
+
+---
+
+**Step 19: Compute difference \( r_i - r_o \)**
+
+The two values correspond to:
+\[
+c^2 = 85 \Rightarrow r_1 = 6 + \frac{18}{\sqrt{36 + 85}} = 6 + \frac{18}{\sqrt{121}} = 6 + \frac{18}{11} = 6 + \frac{18}{11} = \frac{66}{11} + \frac{18}{11} = \frac{84}{11}
+\]
+
+\[
+c^2 = 253 \Rightarrow r_2 = 6 + \frac{18}{\sqrt{36 + 253}} = 6 + \frac{18}{\sqrt{289}} = 6 + \frac{18}{17} = 6 + \frac{18}{17} = \frac{102}{17} + \frac{18}{17} = \frac{120}{17}
+\]
+
+---
+
+**Step 20: Difference**
+
+\[
+r_i - r_o = \frac{84}{11} - \frac{120}{17} = \frac{84 \cdot 17}{11 \cdot 17} - \frac{120 \cdot 11}{17 \cdot 11} = \frac{1428}{187} - \frac{1320}{187} = \frac{108}{187}
+\]
+
+---
+
+**Step 21: Answer**
+
+The fraction \(\frac{108}{187}\) is in lowest terms (108 factors as \(2 \times 2 \times 3 \times 3 \times 3\), 187 factors as \(11 \times 17\), so no common factors).
+
+Thus,
+\[
+m = 108, \quad n = 187
+\]
+and
+\[
+m + n = 108 + 187 = 295
+\]
+
+---
+
+**Final answer:**
+
+\[
+\boxed{295}
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 127.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000010 | Iter 10 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning and thorough verification before providing a concise final integer answer.
+Lesson: The outcome reveals that adding detailed reasoning and verification in the prompt does not necessarily improve performance for AIME math problems, suggesting the model's accuracy may be limited by other factors beyond prompt instruction clarity or thoroughness.
+
+### mem_000011 | Iter 11 [REJECTED -1.00]
+Intent: The edit aimed to increase answer accuracy by enforcing more explicit verification and thorough explanation at each step of the solution.
+Lesson: The outcome shows that adding more detailed instructions and explicit verification requirements can overwhelm or confuse the model, leading to a decrease in accuracy for some problems rather than improvement.
+Strong on: problems with straightforward verification
+Still failing: problems requiring concise reasoning and simplicity
+
+### mem_000012 | Iter 12 [REJECTED +0.00]
+Intent: The edit aimed to improve solution accuracy by encouraging verification of calculations and logical steps throughout the reasoning process.
+Lesson: The unchanged aggregate and per-example scores indicate that adding verification steps did not enhance performance, suggesting that this added instruction neither improved nor degraded accuracy for these AIME problems.
+
+### mem_000013 | Iter 13 [ACCEPTED +1.00]
+Intent: The edit aimed to enhance rigor and clarity in reasoning by emphasizing verification of critical steps and explicit documentation, reducing errors and premature conclusions to improve final answer accuracy.
+Lesson: The outcome shows that making instructions more explicit about verification and clarity can improve correctness on challenging problems prone to subtle mistakes, but may have limited or no effect on problems already well-handled by the original prompt.
+Strong on: complex multi-step algebraic problems, problems requiring careful verification
+
+### mem_000014 | Iter 14 [ACCEPTED +1.00]
+Intent: Improve answer accuracy on AIME math problems by encouraging explicit step-by-step reasoning and verification before providing a final answer.
+Lesson: The outcome shows that prompting for detailed, careful reasoning and explicit verification can meaningfully increase correctness on problems that previously failed, while maintaining success on problems already answered correctly.
+Strong on: multi-step calculation, logical deduction
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

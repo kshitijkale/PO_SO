@@ -1,0 +1,23 @@
+## Optimization History
+
+### mem_000001 | Iter 1 [ACCEPTED +0.60]
+Intent: Use step-by-step verification
+Lesson: Verification improved arithmetic reliability; keep explicit structure.
+Strong on: arithmetic
+Still failing: algebra
+
+### mem_000002 | Iter 2 [REJECTED -0.80]
+Intent: Use step-by-step verification
+Lesson: The bad short-cut harmed performance and should be removed.
+Strong on: arithmetic
+Still failing: algebra, logic
+
+### mem_000003 | Iter 3 [ACCEPTED +0.80]
+Intent: Use step-by-step verification
+Lesson: Verification improved arithmetic reliability; keep explicit structure.
+Strong on: arithmetic
+Still failing: algebra
+
+Persistent weak spots: algebra
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

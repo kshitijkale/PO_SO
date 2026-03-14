@@ -1,0 +1,29 @@
+{
+  "component_name": "current_candidate",
+  "prompt_template": "You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.\n\n## Optimization Goal\n\nMaximize correctness across arithmetic, algebra, and logic questions.\n\n## Current Component\n\nThe component being optimized:\n\n```\n<curr_param>\n```\n\n## Evaluation Results\n\nPerformance data from evaluating the current component across test cases:\n\n```\n<side_info>\n```\n\n## Your Task\n\nAnalyze the evaluation results systematically:\n\n- **Goal alignment**: How well does the current component achieve the stated optimization goal?\n- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?\n- **Success patterns**: What behaviors or approaches worked well and should be preserved?\n- **Root causes**: What underlying issues explain the observed failures?\n\nBased on your analysis, propose an improved version that:\n1. Addresses the identified failure patterns and root causes\n2. Preserves successful behaviors from the current version\n3. Makes meaningful improvements rather than superficial changes\n\n## Output Format\n\nProvide ONLY the improved version within ``` blocks. The output must be a complete, \ndrop-in replacement for the current component (whether it's a prompt, configuration, \ncode, or any other parameter type).\nDo not include explanations, commentary, or markdown outside the ``` blocks.\n\n## Optimization History\n\n### mem_000001 | Iter 1 [ACCEPTED +0.60]\nIntent: Use step-by-step verification\nLesson: Verification improved arithmetic reliability; keep explicit structure.\nStrong on: arithmetic\nStill failing: algebra\n\n### mem_000002 | Iter 2 [REJECTED -0.80]\nIntent: Use step-by-step verification\nLesson: The bad short-cut harmed performance and should be removed.\nStrong on: arithmetic\nStill failing: algebra, logic\n\nPersistent weak spots: algebra\n\nIMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.",
+  "rendered_prompt": "You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.\n\n## Optimization Goal\n\nMaximize correctness across arithmetic, algebra, and logic questions.\n\n## Current Component\n\nThe component being optimized:\n\n```\nSolve carefully. Use step-by-step verification for arithmetic.\n```\n\n## Evaluation Results\n\nPerformance data from evaluating the current component across test cases:\n\n```\n# Example 1\n## example_id\n6\n\n## type\nlogic\n\n## Feedback\ntype=logic score=0.20; needs arithmetic verification/units/assumption checks\n\n## score\n0.2\n\n\n\n# Example 2\n## example_id\n1\n\n## type\narith\n\n## Feedback\ntype=arith score=0.80; needs arithmetic verification/units/assumption checks\n\n## score\n0.8\n\n\n\n# Example 3\n## example_id\n5\n\n## type\nlogic\n\n## Feedback\ntype=logic score=0.20; needs arithmetic verification/units/assumption checks\n\n## score\n0.2\n\n\n```\n\n## Your Task\n\nAnalyze the evaluation results systematically:\n\n- **Goal alignment**: How well does the current component achieve the stated optimization goal?\n- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?\n- **Success patterns**: What behaviors or approaches worked well and should be preserved?\n- **Root causes**: What underlying issues explain the observed failures?\n\nBased on your analysis, propose an improved version that:\n1. Addresses the identified failure patterns and root causes\n2. Preserves successful behaviors from the current version\n3. Makes meaningful improvements rather than superficial changes\n\n## Output Format\n\nProvide ONLY the improved version within ``` blocks. The output must be a complete, \ndrop-in replacement for the current component (whether it's a prompt, configuration, \ncode, or any other parameter type).\nDo not include explanations, commentary, or markdown outside the ``` blocks.\n\n## Optimization History\n\n### mem_000001 | Iter 1 [ACCEPTED +0.60]\nIntent: Use step-by-step verification\nLesson: Verification improved arithmetic reliability; keep explicit structure.\nStrong on: arithmetic\nStill failing: algebra\n\n### mem_000002 | Iter 2 [REJECTED -0.80]\nIntent: Use step-by-step verification\nLesson: The bad short-cut harmed performance and should be removed.\nStrong on: arithmetic\nStill failing: algebra, logic\n\nPersistent weak spots: algebra\n\nIMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.",
+  "raw_response": "```\nSolve carefully. Use step-by-step verification for arithmetic. Track units. Check assumptions explicitly.\n```",
+  "extracted_instruction": "Solve carefully. Use step-by-step verification for arithmetic. Track units. Check assumptions explicitly.",
+  "model_id": "<__main__.MockReflectionLM object at 0x7c9abdfd7230>",
+  "latency_ms": 0.0042729998313006945,
+  "memory_was_injected": true,
+  "memory_selected_entry_ids": [
+    "mem_000001",
+    "mem_000002"
+  ],
+  "memory_selected_intents": [
+    "Use step-by-step verification"
+  ],
+  "memory_selected_categories": [
+    "arithmetic",
+    "algebra",
+    "logic"
+  ],
+  "memory_reused_intents": [
+    "Use step-by-step verification"
+  ],
+  "memory_reused_categories": [
+    "arithmetic"
+  ],
+  "memory_reuse_detected": true
+}

@@ -82,6 +82,7 @@ def optimize(
     use_reflection_memory: bool = False,
     reflection_memory_max_entries: int = 10,
     lesson_lm: LanguageModel | str | None = None,
+    objective: str = "",
     # Research observability
     research_mode: bool = False,
     verbose: bool = False,
@@ -406,6 +407,7 @@ def optimize(
         callbacks=effective_callbacks,
         reflection_memory=reflection_memory,
         lesson_lm=lesson_lm_callable,
+        objective=objective,
     )
 
     def evaluator_fn(

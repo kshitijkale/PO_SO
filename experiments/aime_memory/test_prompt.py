@@ -114,7 +114,7 @@ def main():
     testset = load_testset()
     print(f"  {len(testset)} examples loaded.\n")
 
-    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=0.7, max_tokens=args.max_tokens)
+    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=1.0, max_tokens=args.max_tokens)
 
     results: list[tuple[str, float]] = []
 

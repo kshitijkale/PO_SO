@@ -1,0 +1,2361 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+A cube-shaped container has vertices $A,$ $B,$ $C,$ and $D,$ where $\overline{AB}$ and $\overline{CD}$ are parallel edges of the cube, and $\overline{AC}$ and $\overline{BD}$ are diagonals of faces of the cube, as shown. Vertex $A$ of the cube is set on a horizontal plane $\mathcal{P}$ so that the plane of the rectangle $ABDC$ is perpendicular to $\mathcal{P},$ vertex $B$ is $2$ meters above $\mathcal{P},$ vertex $C$ is $8$ meters above $\mathcal{P},$ and vertex $D$ is $10$ meters above $\mathcal{P}.$ The cube contains water whose surface is parallel to $\mathcal{P}$ at a height of $7$ meters above $\mathcal{P}.$ The volume of water is $\frac{m}{n}$ cubic meters, where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+601
+
+## reasoning
+Let's first understand the problem setup:
+
+- We have a cube with vertices \( A, B, C, D \) such that:
+  - \(\overline{AB}\) and \(\overline{CD}\) are parallel edges.
+  - \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces.
+- The rectangle \(ABDC\) is perpendicular to the horizontal plane \(\mathcal{P}\).
+- Vertex \(A\) is on \(\mathcal{P}\), so its height is 0.
+- Heights given are:
+  - \(B\) at 2 meters,
+  - \(C\) at 8 meters,
+  - \(D\) at 10 meters,
+all measured from \(\mathcal{P}\).
+
+The water surface is parallel to \(\mathcal{P}\) at height 7 meters.
+
+We want the volume of water contained in the cube below the water surface.
+
+---
+
+**Step 1: Determine the edge length and coordinates of vertices**
+
+Since it's a cube, all edges have the same length. The points \(A, B, C, D\) form a rectangle perpendicular to \(\mathcal{P}\).
+
+We know the heights:
+- \(h_A = 0\),
+- \(h_B = 2\),
+- \(h_C = 8\),
+- \(h_D = 10\).
+
+Vertices \(A, B, C, D\) form the rectangle \(ABDC\) with edges \(AB\) and \(CD\) parallel.
+
+---
+
+**Step 2: Find the cube edge length**
+
+The cube edge length is the length of \(\overline{AB}\).
+
+Let the cube edges be length \(s\).
+
+Because \(ABDC\) is a rectangle perpendicular to the plane \(\mathcal{P}\), the points \(A, B, C, D\) lie in a plane perpendicular to \(\mathcal{P}\).
+
+Since \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces, and the cube edges are all equal length \(s\), we can use the coordinates to find \(s\).
+
+---
+
+**Step 3: Assign coordinates**
+
+Let \(\mathcal{P}\) be the plane \(z=0\).
+
+Given \(A\) is on \(\mathcal{P}\), so \(A = (0,0,0)\).
+
+Since \(ABDC\) is perpendicular to \(\mathcal{P}\), the rectangle \(ABDC\) lies in a vertical plane.
+
+Assume this plane is the \(xz\)-plane for convenience (the vertical plane containing the \(z\)-axis and \(x\)-axis).
+
+Let:
+- \(A = (0,0,0)\),
+- \(B = (x_B,0,z_B)\),
+- \(C = (x_C,0,z_C)\),
+- \(D = (x_D,0,z_D)\).
+
+Since \(ABDC\) is a rectangle, and \(AB\) and \(CD\) are parallel edges, and \(AC\) and \(BD\) are diagonals of faces.
+
+From the problem:
+
+- \(z_A = 0\),
+- \(z_B = 2\),
+- \(z_C = 8\),
+- \(z_D = 10\).
+
+---
+
+**Step 4: Using the rectangle \(ABDC\)**
+
+\(ABDC\) is a rectangle, so vectors \(\overrightarrow{AB}\) and \(\overrightarrow{AD}\) are perpendicular.
+
+Coordinates:
+
+- \(A = (0,0,0)\),
+- \(B = (x_B,0,2)\),
+- \(C = (x_C,0,8)\),
+- \(D = (x_D,0,10)\).
+
+Since \(ABDC\) is a rectangle, and \(C\) is the vertex diagonally opposite \(A\), \(C = B + D\).
+
+Wait, in a rectangle, diagonal \(AC\) vector = \(\overrightarrow{AB} + \overrightarrow{AD}\).
+
+So,
+\[
+\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD}.
+\]
+
+Given \(A = (0,0,0)\), then:
+
+\[
+C = B + D.
+\]
+
+Therefore,
+\[
+(x_C, 0, 8) = (x_B, 0, 2) + (x_D, 0, 10) = (x_B + x_D, 0, 12).
+\]
+
+But \(z_C = 8\), so \(12 = 8\) is impossible.
+
+So this assumption is incorrect.
+
+---
+
+**Step 5: Correction: The rectangle plane**
+
+The problem says the rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\), but not necessarily in the \(xz\)-plane.
+
+Let’s place \(A\) at the origin \((0,0,0)\).
+
+Let vector \(\overrightarrow{AB} = \mathbf{u}\) and vector \(\overrightarrow{AD} = \mathbf{v}\), both with length \(s\), and \(\mathbf{u} \perp \mathbf{v}\).
+
+Then,
+\[
+B = A + \mathbf{u}, \quad D = A + \mathbf{v}, \quad C = A + \mathbf{u} + \mathbf{v}.
+\]
+
+Given the heights (z-coordinates):
+\[
+z_A = 0, \quad z_B = 2, \quad z_D = 10, \quad z_C = 8.
+\]
+
+So,
+\[
+z_B = u_z = 2,
+\]
+\[
+z_D = v_z = 10,
+\]
+\[
+z_C = u_z + v_z = 8.
+\]
+
+But \(u_z + v_z = 2 + 10 = 12 \neq 8\).
+
+Therefore, the z-components \(u_z\) and \(v_z\) cannot be simply 2 and 10.
+
+---
+
+**Step 6: Let \(\mathbf{u} = (x_1,y_1,z_1)\), \(\mathbf{v} = (x_2,y_2,z_2)\).**
+
+Then:
+\[
+B = (x_1,y_1,z_1),
+\]
+\[
+D = (x_2,y_2,z_2),
+\]
+\[
+C = (x_1 + x_2, y_1 + y_2, z_1 + z_2).
+\]
+
+Given heights:
+\[
+z_B = z_1 = 2,
+\]
+\[
+z_D = z_2 = 10,
+\]
+\[
+z_C = z_1 + z_2 = 8.
+\]
+
+But \(2 + 10 = 12 \neq 8\), contradiction.
+
+Hence the problem is that the points are not lying in a plane parallel to the \(xy\)-plane.
+
+This suggests the direction vectors \(\mathbf{u}\) and \(\mathbf{v}\) are not perpendicular in the vertical components.
+
+---
+
+**Step 7: The problem states \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces of the cube.**
+
+Since the cube has edges of length \(s\), and the rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\), the plane of \(ABDC\) is vertical.
+
+Let the horizontal plane be \(xy\)-plane, vertical plane containing \(ABDC\).
+
+---
+
+**Step 8: Let’s analyze the vertical positions**
+
+The heights given are:
+- \(A\) at 0,
+- \(B\) at 2,
+- \(C\) at 8,
+- \(D\) at 10.
+
+Note that \(B\) is 2 meters above \(A\), and \(D\) is 10 meters above \(A\).
+
+If \(ABDC\) is a rectangle, then the vertical difference between \(A\) and \(B\) is 2, and between \(A\) and \(D\) is 10.
+
+Since edges have length \(s\), the edges \(AB\) and \(AD\) have length \(s\).
+
+Therefore,
+\[
+|AB| = s = \sqrt{(x_B - 0)^2 + (y_B - 0)^2 + (2 - 0)^2},
+\]
+\[
+|AD| = s = \sqrt{(x_D - 0)^2 + (y_D - 0)^2 + (10 - 0)^2}.
+\]
+
+---
+
+**Step 9: Since \(ABDC\) is a rectangle, vectors \(\overrightarrow{AB}\) and \(\overrightarrow{AD}\) are perpendicular:**
+
+\[
+\overrightarrow{AB} \cdot \overrightarrow{AD} = 0.
+\]
+
+Let:
+\[
+\overrightarrow{AB} = (x_1, y_1, 2),
+\]
+\[
+\overrightarrow{AD} = (x_2, y_2, 10).
+\]
+
+Then,
+\[
+x_1 x_2 + y_1 y_2 + 2 \cdot 10 = 0,
+\]
+\[
+x_1 x_2 + y_1 y_2 = -20.
+\]
+
+---
+
+**Step 10: The cube edges \(s\) satisfy:**
+
+\[
+s^2 = x_1^2 + y_1^2 + 4,
+\]
+\[
+s^2 = x_2^2 + y_2^2 + 100.
+\]
+
+---
+
+**Step 11: The vectors \(\overrightarrow{AC}\) and \(\overrightarrow{BD}\) are diagonals of faces and parallel:**
+
+Diagonal \(AC = \overrightarrow{AB} + \overrightarrow{AD} = (x_1 + x_2, y_1 + y_2, 12)\).
+
+Diagonal \(BD = \overrightarrow{AD} - \overrightarrow{AB} = (x_2 - x_1, y_2 - y_1, 8)\).
+
+Since \(AC\) and \(BD\) are diagonals of faces, they are edges of the cube faces.
+
+In a cube, the diagonals of faces have length \(\sqrt{2} s\).
+
+Therefore,
+\[
+|AC| = |BD| = \sqrt{2} s.
+\]
+
+Calculate lengths:
+
+\[
+|AC|^2 = (x_1 + x_2)^2 + (y_1 + y_2)^2 + 12^2,
+\]
+\[
+|BD|^2 = (x_2 - x_1)^2 + (y_2 - y_1)^2 + 8^2.
+\]
+
+---
+
+**Step 12: Compute \(|AC|^2 + |BD|^2\):**
+
+\[
+|AC|^2 + |BD|^2 = [(x_1 + x_2)^2 + (y_1 + y_2)^2 + 144] + [(x_2 - x_1)^2 + (y_2 - y_1)^2 + 64].
+\]
+
+Expand:
+\[
+(x_1 + x_2)^2 + (x_2 - x_1)^2 = 2(x_1^2 + x_2^2),
+\]
+\[
+(y_1 + y_2)^2 + (y_2 - y_1)^2 = 2(y_1^2 + y_2^2).
+\]
+
+Sum:
+\[
+2(x_1^2 + x_2^2 + y_1^2 + y_2^2) + 208.
+\]
+
+---
+
+**Step 13: Also note:**
+
+\[
+s^2 = x_1^2 + y_1^2 + 4 = x_2^2 + y_2^2 + 100.
+\]
+
+From this, subtracting:
+
+\[
+x_1^2 + y_1^2 + 4 = x_2^2 + y_2^2 + 100,
+\]
+\[
+x_1^2 + y_1^2 - x_2^2 - y_2^2 = 96.
+\]
+
+Let:
+\[
+A = x_1^2 + y_1^2, \quad B = x_2^2 + y_2^2,
+\]
+then
+\[
+A - B = 96.
+\]
+
+---
+
+**Step 14: Compute \( |AC|^2 + |BD|^2 \) in terms of \(A\) and \(B\):**
+
+\[
+2(A + B) + 208.
+\]
+
+---
+
+**Step 15: Use the fact that \(|AC| = |BD| = \sqrt{2} s\), so**
+
+\[
+|AC|^2 = |BD|^2 = 2 s^2,
+\]
+\[
+|AC|^2 + |BD|^2 = 4 s^2.
+\]
+
+Therefore,
+\[
+4 s^2 = 2 (A + B) + 208.
+\]
+
+Recall from Step 13:
+\[
+s^2 = A + 4 = B + 100.
+\]
+
+Using \(s^2 = A + 4\), substitute:
+\[
+4 (A + 4) = 2 (A + B) + 208,
+\]
+\[
+4 A + 16 = 2 A + 2 B + 208,
+\]
+\[
+4 A - 2 A + 16 - 208 = 2 B,
+\]
+\[
+2 A - 192 = 2 B,
+\]
+\[
+A - 96 = B,
+\]
+
+which matches Step 13.
+
+---
+
+**Step 16: From Step 9, the dot product condition:**
+
+\[
+x_1 x_2 + y_1 y_2 = -20.
+\]
+
+---
+
+**Step 17: Now, compute \(|\mathbf{u}|^2 = s^2 = A + 4\), \(|\mathbf{v}|^2 = s^2 = B + 100\), and \(A - B = 96\).
+
+From this,
+\[
+B = A - 96.
+\]
+
+---
+
+**Step 18: Calculate \(s^2\):**
+
+From \(s^2 = A + 4\),
+and \(s^2 = B + 100 = (A - 96) + 100 = A + 4\),
+consistent.
+
+---
+
+**Step 19: Use the dot product to find \(s\):**
+
+Recall that the vectors \(\mathbf{u}\) and \(\mathbf{v}\) have length \(s\) and satisfy:
+\[
+\mathbf{u} \cdot \mathbf{v} = -20.
+\]
+
+But,
+\[
+\mathbf{u} \cdot \mathbf{v} = x_1 x_2 + y_1 y_2 + z_1 z_2 = -20 + (2)(10) = -20 + 20 = 0.
+\]
+
+Since the vectors are perpendicular, the dot product must be zero, so the calculation matches.
+
+---
+
+**Step 20: So, vectors \(\mathbf{u}\) and \(\mathbf{v}\) are perpendicular.**
+
+Hence:
+\[
+\mathbf{u} \cdot \mathbf{v} = 0.
+\]
+
+We have:
+\[
+x_1 x_2 + y_1 y_2 + 2 \times 10 = 0,
+\]
+\[
+x_1 x_2 + y_1 y_2 = -20.
+\]
+
+---
+
+**Step 21: Now, compute the volume of water inside the cube**
+
+The cube has side length \(s\).
+
+---
+
+**Step 22: Determine the height \(s\) of the cube**
+
+The cube vertices' heights range from 0 to 10 (at vertex D), so the total height of the cube is 10 meters.
+
+But since the cube edges all equal \(s\), and vertex \(D\) is at height 10 meters, \(s = 10\).
+
+---
+
+**Step 23: The cube is oriented such that the rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\).
+
+The water surface is parallel to \(\mathcal{P}\) at height 7 meters.
+
+We want the volume of water below height 7 meters.
+
+---
+
+**Step 24: Set up coordinate system to find volume**
+
+Let's define the cube edges as vectors:
+
+- \(\mathbf{u} = \overrightarrow{AB} = (x_1, y_1, 2)\),
+- \(\mathbf{v} = \overrightarrow{AD} = (x_2, y_2, 10)\),
+- \(\mathbf{w} = \overrightarrow{AE}\) where \(E\) is the vertex adjacent to \(A\) but not in the plane of \(ABDC\).
+
+Since \(ABDC\) is a face perpendicular to \(\mathcal{P}\), the vector \(\mathbf{w}\) is parallel to \(\mathcal{P}\), so the \(z\)-component is 0.
+
+---
+
+**Step 25: Let \(\mathbf{w} = (a, b, 0)\), length \(s=10\), so**
+
+\[
+a^2 + b^2 = 100.
+\]
+
+---
+
+**Step 26: The cube volume is**
+
+\[
+V = |\mathbf{u} \cdot (\mathbf{v} \times \mathbf{w})|.
+\]
+
+Since the cube volume is \(s^3 = 10^3 = 1000\).
+
+---
+
+**Step 27: The water surface is at height 7, so the water fills the cube up to \(z = 7\).
+
+We want to find the volume of the portion of the cube below \(z=7\).
+
+---
+
+**Step 28: Parameterize the cube**
+
+Any point in the cube can be expressed as:
+\[
+\mathbf{r} = A + \lambda \mathbf{u} + \mu \mathbf{v} + \nu \mathbf{w},
+\]
+with \(\lambda, \mu, \nu \in [0,1]\).
+
+The \(z\)-coordinate of \(\mathbf{r}\) is:
+\[
+z = 0 + \lambda \cdot 2 + \mu \cdot 10 + \nu \cdot 0 = 2 \lambda + 10 \mu.
+\]
+
+---
+
+**Step 29: The water fills the cube where \(z \leq 7\), so**
+
+\[
+2 \lambda + 10 \mu \leq 7,
+\]
+with \(\lambda, \mu, \nu \in [0,1]\).
+
+---
+
+**Step 30: For each fixed \(\nu\), the set of \((\lambda, \mu)\) satisfying**
+
+\[
+0 \leq \lambda \leq 1, \quad 0 \leq \mu \leq 1,
+\]
+and
+\[
+2 \lambda + 10 \mu \leq 7
+\]
+defines a region in the \(\lambda \mu\)-plane.
+
+---
+
+**Step 31: Find the area of this region**
+
+- For \(\mu = 0\), \(2 \lambda \leq 7 \implies \lambda \leq 3.5\), but \(\lambda \leq 1\), so maximum \(\lambda = 1\).
+- For \(\lambda = 0\), \(10 \mu \leq 7 \implies \mu \leq 0.7\).
+
+The boundary line is:
+\[
+2 \lambda + 10 \mu = 7.
+\]
+
+---
+
+**Step 32: The region is a polygon bounded by \(\lambda = 0\), \(\mu=0\), \(\lambda=1\), \(\mu=1\), and the line \(2 \lambda + 10 \mu = 7\).
+
+Check if the line intersects \(\lambda=1\):
+\[
+2(1) + 10 \mu = 7 \implies 10 \mu = 5 \implies \mu = 0.5.
+\]
+
+Check if the line intersects \(\mu=1\):
+\[
+2 \lambda + 10 (1) = 7 \implies 2 \lambda = -3 \implies \lambda = -1.5\) (not in domain).
+
+So intersection with \(\lambda=1\) at \(\mu=0.5\), but no intersection with \(\mu=1\).
+
+---
+
+**Step 33: The feasible region is bounded by points:**
+
+- \( (0,0) \)
+- \( (1,0) \)
+- \( (1,0.5) \)
+- \( (0,0.7) \)
+
+---
+
+**Step 34: Compute area of this polygon**
+
+The polygon is quadrilateral with vertices:
+
+\[
+(0,0) \to (1,0) \to (1,0.5) \to (0,0.7).
+\]
+
+Use shoelace formula:
+
+\[
+\text{Area} = \frac{1}{2} |x_1 y_2 + x_2 y_3 + x_3 y_4 + x_4 y_1 - (y_1 x_2 + y_2 x_3 + y_3 x_4 + y_4 x_1)|.
+\]
+
+Label points:
+
+\[
+(0,0) = (x_1,y_1),
+\]
+\[
+(1,0) = (x_2,y_2),
+\]
+\[
+(1,0.5) = (x_3,y_3),
+\]
+\[
+(0,0.7) = (x_4,y_4).
+\]
+
+Calculate:
+\[
+S_1 = 0 \cdot 0 + 1 \cdot 0.5 + 1 \cdot 0.7 + 0 \cdot 0 = 0 + 0.5 + 0.7 + 0 = 1.2,
+\]
+\[
+S_2 = 0 \cdot 1 + 0 \cdot 1 + 0.5 \cdot 0 + 0.7 \cdot 0 = 0 + 0 + 0 + 0 = 0.
+\]
+
+Area:
+\[
+\frac{|1.2 - 0|}{2} = 0.6.
+\]
+
+---
+
+**Step 35: The volume of water**
+
+For each fixed \(\nu\), the cross-sectional area is 0.6 (in \(\lambda\)-\(\mu\) coordinates).
+
+Since \(\nu\) runs from 0 to 1, the volume in parameter space is \(0.6 \times 1 = 0.6\).
+
+---
+
+**Step 36: The Jacobian determinant**
+
+The volume in real coordinates is:
+
+\[
+V = 0.6 \times |\det(\mathbf{u}, \mathbf{v}, \mathbf{w})|.
+\]
+
+Since the cube edges form a cube of side length 10, the volume is:
+
+\[
+|\det(\mathbf{u}, \mathbf{v}, \mathbf{w})| = s^3 = 1000.
+\]
+
+---
+
+**Step 37: So the volume of water is**
+
+\[
+V = 0.6 \times 1000 = 600.
+\]
+
+---
+
+**Step 38: Final check**
+
+The water occupies the region \(z \leq 7\), and the total cube volume is 1000.
+
+Since the water surface is at height 7 (less than cube height 10), the volume is less than 1000.
+
+So answer is \(\frac{600}{1} = 600\).
+
+---
+
+**Step 39: Problem asks for \(\frac{m}{n}\) (reduced fraction) and find \(m + n\).**
+
+Here, \(m=600\), \(n=1\), so:
+
+\[
+m + n = 600 + 1 = 601.
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 751.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Let $ABCD$ be a parallelogram with $\angle BAD < 90^\circ.$ A circle tangent to sides $\overline{DA},$ $\overline{AB},$ and $\overline{BC}$ intersects diagonal $\overline{AC}$ at points $P$ and $Q$ with $AP < AQ,$ as shown. Suppose that $AP=3,$ $PQ=9,$ and $QC=16.$ Then the area of $ABCD$ can be expressed in the form $m\sqrt{n},$ where $m$ and $n$ are positive integers, and $n$ is not divisible by the square of any prime. Find $m+n.$
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+284
+
+## reasoning
+We are given a parallelogram \(ABCD\) with \(\angle BAD < 90^\circ\). There is a circle tangent to sides \(DA\), \(AB\), and \(BC\). This circle intersects diagonal \(AC\) at points \(P\) and \(Q\), with \(AP = 3\), \(PQ = 9\), and \(QC = 16\).
+
+First, note the length of diagonal \(AC\):
+\[
+AC = AP + PQ + QC = 3 + 9 + 16 = 28.
+\]
+
+We want to find the area of parallelogram \(ABCD\).
+
+---
+
+### Step 1: Set up coordinates and vectors
+
+Let:
+\[
+\vec{A} = \mathbf{0}, \quad \vec{B} = \vec{b}, \quad \vec{D} = \vec{d}.
+\]
+Then:
+\[
+\vec{C} = \vec{b} + \vec{d}.
+\]
+
+The diagonal \(AC\) vector is:
+\[
+\vec{AC} = \vec{b} + \vec{d}.
+\]
+
+Because \(P\) and \(Q\) lie on \(AC\), their position vectors are:
+\[
+\vec{P} = \lambda_P (\vec{b} + \vec{d}), \quad \vec{Q} = \lambda_Q (\vec{b} + \vec{d})
+\]
+with \(0 < \lambda_P < \lambda_Q < 1\).
+
+Since \(AP = 3\), \(PQ = 9\), and \(QC = 16\), and the whole length \(AC = 28\), we have:
+\[
+|\vec{P}| = \lambda_P |\vec{b} + \vec{d}| = 3,
+\]
+\[
+|\vec{Q} - \vec{P}| = (\lambda_Q - \lambda_P) \cdot 28 = 9,
+\]
+\[
+| \vec{C} - \vec{Q} | = (1 - \lambda_Q) \cdot 28 = 16.
+\]
+
+From the last two:
+\[
+(\lambda_Q - \lambda_P) \cdot 28 = 9 \implies \lambda_Q - \lambda_P = \frac{9}{28},
+\]
+\[
+(1 - \lambda_Q) \cdot 28 = 16 \implies 1 - \lambda_Q = \frac{16}{28} = \frac{4}{7} \implies \lambda_Q = \frac{3}{7}.
+\]
+
+Hence:
+\[
+\lambda_Q = \frac{3}{7}, \quad \lambda_P = \lambda_Q - \frac{9}{28} = \frac{3}{7} - \frac{9}{28} = \frac{12}{28} - \frac{9}{28} = \frac{3}{28}.
+\]
+
+Check \(AP\):
+\[
+AP = \lambda_P \cdot 28 = \frac{3}{28} \cdot 28 = 3,
+\]
+which matches perfectly.
+
+---
+
+### Step 2: Circle tangent to sides \(DA\), \(AB\), and \(BC\)
+
+The circle is tangent to three lines: \(DA\), \(AB\), and \(BC\).
+
+- \(DA\) passes through \(D\) and \(A\).
+- \(AB\) passes through \(A\) and \(B\).
+- \(BC\) passes through \(B\) and \(C\).
+
+The circle is tangent to two adjacent sides \(DA\) and \(AB\) at vertex \(A\), and also tangent to side \(BC\).
+
+This suggests the center lies on the angle bisector of angle \(A\).
+
+---
+
+### Step 3: Parametrize vectors \(\vec{b}\) and \(\vec{d}\)
+
+Let:
+\[
+\vec{b} = (b, 0),
+\]
+and since \(\angle BAD < 90^\circ\), put:
+\[
+\vec{d} = (d \cos \theta, d \sin \theta), \quad \theta \in (0, \tfrac{\pi}{2}).
+\]
+
+Then:
+\[
+\vec{AC} = \vec{b} + \vec{d} = (b + d \cos \theta, d \sin \theta).
+\]
+
+The length of \(AC\) is:
+\[
+|\vec{AC}| = \sqrt{(b + d \cos \theta)^2 + (d \sin \theta)^2} = 28.
+\]
+
+Squaring:
+\[
+(b + d \cos \theta)^2 + d^2 \sin^2 \theta = 784.
+\]
+Expand:
+\[
+b^2 + 2 b d \cos \theta + d^2 \cos^2 \theta + d^2 \sin^2 \theta = b^2 + 2 b d \cos \theta + d^2 = 784.
+\]
+
+---
+
+### Step 4: Points \(P\) and \(Q\) on \(AC\)
+
+Coordinates of \(P\):
+\[
+\vec{P} = \lambda_P \vec{AC} = \frac{3}{28} (b + d \cos \theta, d \sin \theta) = \left(\frac{3}{28}(b + d \cos \theta), \frac{3}{28} d \sin \theta \right).
+\]
+
+Coordinates of \(Q\):
+\[
+\vec{Q} = \frac{3}{7} (b + d \cos \theta, d \sin \theta) = \left(\frac{3}{7}(b + d \cos \theta), \frac{3}{7} d \sin \theta \right).
+\]
+
+---
+
+### Step 5: The circle tangent to \(DA\), \(AB\), and \(BC\)
+
+The circle is tangent to sides \(DA\), \(AB\), and \(BC\).
+
+- \(AB\) lies along the \(x\)-axis from \(A(0,0)\) to \(B(b,0)\).
+- \(DA\) lies along the vector \(\vec{d} = (d \cos \theta, d \sin \theta)\).
+- \(BC\) passes through \(B(b,0)\) in direction \(\vec{d}\), i.e., line through \(B\) in direction \(\vec{d}\).
+
+---
+
+### Step 6: Circle tangent conditions
+
+The circle is tangent to the two lines meeting at \(A\): \(AB\) (the \(x\)-axis) and \(DA\) (line through origin with angle \(\theta\)).
+
+If a circle is tangent to two lines intersecting at \(A\), and tangent to a third line \(BC\), its center lies on the angle bisector of the angle at \(A\).
+
+---
+
+### Step 7: Find the angle bisector
+
+The angle between lines \(AB\) and \(AD\) is \(\theta\).
+
+The angle bisector of the angle at \(A\) lies at angle \(\theta/2\) from the \(x\)-axis.
+
+Let the radius of the circle be \(r\), and the center be at:
+\[
+O = (x_0, y_0) = (t \cos(\theta/2), t \sin(\theta/2)).
+\]
+
+---
+
+### Step 8: Distance from center to lines \(AB\) and \(AD\)
+
+The radius \(r\) of the circle equals its distance from each tangent line.
+
+- Distance from \(O\) to \(AB\) (the \(x\)-axis) is simply \(|y_0| = t \sin(\theta/2)\).
+- Distance from \(O\) to \(AD\), the line through origin with angle \(\theta\), is:
+\[
+\text{distance} = |x_0 \sin \theta - y_0 \cos \theta| = |t \cos(\theta/2) \sin \theta - t \sin(\theta/2) \cos \theta|.
+\]
+
+Use the sine difference formula:
+\[
+\sin \alpha \cos \beta - \cos \alpha \sin \beta = \sin(\alpha - \beta).
+\]
+
+So:
+\[
+|t (\cos(\theta/2) \sin \theta - \sin(\theta/2) \cos \theta)| = t |\sin(\theta - \theta/2)| = t \sin(\theta/2).
+\]
+
+Therefore, the distances to \(AB\) and \(AD\) are both \(t \sin(\theta/2)\).
+
+Hence:
+\[
+r = t \sin(\theta/2).
+\]
+
+---
+
+### Step 9: Distance from center to line \(BC\)
+
+Line \(BC\) passes through \(B(b,0)\) with direction vector \(\vec{d} = (d \cos \theta, d \sin \theta)\).
+
+The distance from center \(O\) to line \(BC\) is:
+\[
+\text{distance} = \frac{|(O - B) \times \vec{d}|}{|\vec{d}|}.
+\]
+
+Here, the 2D cross product magnitude for vectors \(u = (u_x, u_y)\) and \(v = (v_x, v_y)\) is:
+\[
+u_x v_y - u_y v_x.
+\]
+
+Calculate:
+\[
+O - B = (t \cos(\theta/2) - b, \quad t \sin(\theta/2) - 0) = (t \cos(\theta/2) - b, t \sin(\theta/2)).
+\]
+
+Cross product with \(\vec{d} = (d \cos \theta, d \sin \theta)\):
+\[
+(t \cos(\theta/2) - b) \cdot d \sin \theta - t \sin(\theta/2) \cdot d \cos \theta = d \left[ (t \cos(\theta/2) - b) \sin \theta - t \sin(\theta/2) \cos \theta \right].
+\]
+
+Distance:
+\[
+\frac{|d \left[ (t \cos(\theta/2) - b) \sin \theta - t \sin(\theta/2) \cos \theta \right]|}{d} = \left| (t \cos(\theta/2) - b) \sin \theta - t \sin(\theta/2) \cos \theta \right|.
+\]
+
+---
+
+### Step 10: Equate this distance to radius \(r\)
+
+Since the circle is tangent to \(BC\), this distance equals \(r = t \sin(\theta/2)\).
+
+So:
+\[
+\left| (t \cos(\theta/2) - b) \sin \theta - t \sin(\theta/2) \cos \theta \right| = t \sin(\theta/2).
+\]
+
+Rewrite inside absolute value:
+\[
+= t \cos(\theta/2) \sin \theta - b \sin \theta - t \sin(\theta/2) \cos \theta.
+\]
+
+Using sine difference formula again:
+\[
+t [\cos(\theta/2) \sin \theta - \sin(\theta/2) \cos \theta] - b \sin \theta = t \sin(\theta/2) - b \sin \theta.
+\]
+
+Therefore:
+\[
+|t \sin(\theta/2) - b \sin \theta| = t \sin(\theta/2).
+\]
+
+This absolute value equality gives two cases:
+
+**Case 1:**
+\[
+t \sin(\theta/2) - b \sin \theta = t \sin(\theta/2) \implies -b \sin \theta = 0 \implies b = 0,
+\]
+which is impossible since \(b\) is the length of \(AB\).
+
+**Case 2:**
+\[
+t \sin(\theta/2) - b \sin \theta = - t \sin(\theta/2) \implies t \sin(\theta/2) + t \sin(\theta/2) = b \sin \theta,
+\]
+\[
+2 t \sin(\theta/2) = b \sin \theta.
+\]
+Recall \(r = t \sin(\theta/2)\), so:
+\[
+2 r = b \sin \theta \implies r = \frac{b \sin \theta}{2}.
+\]
+
+---
+
+### Step 11: The radius \(r\) equals distance from center to \(AB\) (the \(x\)-axis):
+
+\[
+r = t \sin(\theta/2).
+\]
+
+From step 10:
+\[
+r = \frac{b \sin \theta}{2}.
+\]
+
+Therefore:
+\[
+t \sin(\theta/2) = \frac{b \sin \theta}{2} \implies t = \frac{b \sin \theta}{2 \sin(\theta/2)}.
+\]
+
+---
+
+### Step 12: Circle passes through points \(P\) and \(Q\) on diagonal \(AC\)
+
+The circle passes through \(P\) and \(Q\), which lie on line \(AC\):
+\[
+\vec{P} = \frac{3}{28} (b + d \cos \theta, d \sin \theta), \quad \vec{Q} = \frac{3}{7} (b + d \cos \theta, d \sin \theta).
+\]
+
+---
+
+### Step 13: Compute distances \(OP\) and \(OQ\)
+
+Since \(P,Q\) lie on the circle, their distances to the center \(O\) equal \(r\).
+
+Recall:
+\[
+O = (t \cos(\theta/2), t \sin(\theta/2)).
+\]
+
+Calculate \(OP^2 = r^2\):
+
+\[
+OP^2 = (x_P - x_O)^2 + (y_P - y_O)^2.
+\]
+
+Coordinates:
+\[
+x_P = \frac{3}{28} (b + d \cos \theta), \quad y_P = \frac{3}{28} d \sin \theta,
+\]
+\[
+x_O = t \cos(\theta/2), \quad y_O = t \sin(\theta/2).
+\]
+
+Substitute:
+\[
+OP^2 = \left(\frac{3}{28} (b + d \cos \theta) - t \cos(\theta/2)\right)^2 + \left(\frac{3}{28} d \sin \theta - t \sin(\theta/2)\right)^2 = r^2.
+\]
+
+Similarly for \(Q\):
+\[
+x_Q = \frac{3}{7} (b + d \cos \theta), \quad y_Q = \frac{3}{7} d \sin \theta,
+\]
+\[
+OQ^2 = \left(\frac{3}{7} (b + d \cos \theta) - t \cos(\theta/2)\right)^2 + \left(\frac{3}{7} d \sin \theta - t \sin(\theta/2)\right)^2 = r^2.
+\]
+
+---
+
+### Step 14: Subtract equations \(OQ^2 = r^2\) and \(OP^2 = r^2\)
+
+\[
+OQ^2 - OP^2 = 0.
+\]
+
+Write difference:
+\[
+\left(\frac{3}{7} (b + d \cos \theta) - t \cos(\theta/2)\right)^2 - \left(\frac{3}{28} (b + d \cos \theta) - t \cos(\theta/2)\right)^2 + \left(\frac{3}{7} d \sin \theta - t \sin(\theta/2)\right)^2 - \left(\frac{3}{28} d \sin \theta - t \sin(\theta/2)\right)^2 = 0.
+\]
+
+This is:
+\[
+[A_{Qx} - t c]^2 - [A_{Px} - t c]^2 + [A_{Qy} - t s]^2 - [A_{Py} - t s]^2 = 0,
+\]
+where \(c = \cos(\theta/2)\), \(s = \sin(\theta/2)\),
+\[
+A_{Qx} = \frac{3}{7}(b + d \cos \theta), \quad A_{Px} = \frac{3}{28}(b + d \cos \theta),
+\]
+\[
+A_{Qy} = \frac{3}{7} d \sin \theta, \quad A_{Py} = \frac{3}{28} d \sin \theta.
+\]
+
+Using difference of squares:
+\[
+(X^2 - Y^2) = (X - Y)(X + Y).
+\]
+
+Calculate the differences:
+
+\[
+(A_{Qx} - t c)^2 - (A_{Px} - t c)^2 = \big( A_{Qx} - t c - (A_{Px} - t c) \big) \cdot \big( A_{Qx} - t c + A_{Px} - t c \big) = (A_{Qx} - A_{Px}) \cdot (A_{Qx} + A_{Px} - 2 t c).
+\]
+
+Similarly for the \(y\) part:
+\[
+(A_{Qy} - t s)^2 - (A_{Py} - t s)^2 = (A_{Qy} - A_{Py}) \cdot (A_{Qy} + A_{Py} - 2 t s).
+\]
+
+Sum equals zero:
+\[
+(A_{Qx} - A_{Px})(A_{Qx} + A_{Px} - 2 t c) + (A_{Qy} - A_{Py})(A_{Qy} + A_{Py} - 2 t s) = 0.
+\]
+
+---
+
+### Step 15: Compute the differences and sums
+
+Compute differences:
+
+\[
+A_{Qx} - A_{Px} = \frac{3}{7} (b + d \cos \theta) - \frac{3}{28} (b + d \cos \theta) = \left(\frac{12}{28} - \frac{3}{28}\right)(b + d \cos \theta) = \frac{9}{28} (b + d \cos \theta).
+\]
+
+\[
+A_{Qy} - A_{Py} = \frac{3}{7} d \sin \theta - \frac{3}{28} d \sin \theta = \frac{9}{28} d \sin \theta.
+\]
+
+Compute sums:
+
+\[
+A_{Qx} + A_{Px} = \frac{3}{7} (b + d \cos \theta) + \frac{3}{28} (b + d \cos \theta) = \left(\frac{12}{28} + \frac{3}{28}\right)(b + d \cos \theta) = \frac{15}{28} (b + d \cos \theta).
+\]
+
+\[
+A_{Qy} + A_{Py} = \frac{3}{7} d \sin \theta + \frac{3}{28} d \sin \theta = \frac{15}{28} d \sin \theta.
+\]
+
+---
+
+### Step 16: Substitute back
+
+Equation becomes:
+\[
+\frac{9}{28} (b + d \cos \theta) \left( \frac{15}{28} (b + d \cos \theta) - 2 t c \right) + \frac{9}{28} d \sin \theta \left( \frac{15}{28} d \sin \theta - 2 t s \right) = 0.
+\]
+
+Multiply both sides by \(\frac{28}{9}\):
+\[
+(b + d \cos \theta) \left( \frac{15}{28} (b + d \cos \theta) - 2 t c \right) + d \sin \theta \left( \frac{15}{28} d \sin \theta - 2 t s \right) = 0.
+\]
+
+Expand terms:
+\[
+\frac{15}{28} (b + d \cos \theta)^2 - 2 t c (b + d \cos \theta) + \frac{15}{28} d^2 \sin^2 \theta - 2 t s d \sin \theta = 0.
+\]
+
+Group terms:
+\[
+\frac{15}{28} \left( (b + d \cos \theta)^2 + d^2 \sin^2 \theta \right) = 2 t \left( c (b + d \cos \theta) + s d \sin \theta \right).
+\]
+
+Recall:
+\[
+(b + d \cos \theta)^2 + d^2 \sin^2 \theta = 784.
+\]
+
+Also, \(c = \cos(\theta/2)\), \(s = \sin(\theta/2)\).
+
+---
+
+### Step 17: Simplify right side
+
+\[
+c (b + d \cos \theta) + s d \sin \theta = b c + d (c \cos \theta + s \sin \theta).
+\]
+
+Use the cosine addition formula:
+\[
+\cos(a - b) = \cos a \cos b + \sin a \sin b.
+\]
+
+Set:
+\[
+c \cos \theta + s \sin \theta = \cos(\theta - \theta/2) = \cos(\theta/2).
+\]
+
+Hence,
+\[
+c (b + d \cos \theta) + s d \sin \theta = b c + d c = c (b + d).
+\]
+
+Equation becomes:
+\[
+\frac{15}{28} \times 784 = 2 t c (b + d).
+\]
+
+Calculate left side:
+\[
+\frac{15}{28} \times 784 = 15 \times 28 = 420.
+\]
+
+So:
+\[
+420 = 2 t c (b + d).
+\]
+
+Recall from Step 11:
+\[
+t = \frac{b \sin \theta}{2 \sin(\theta/2)}.
+\]
+
+Substitute \(t\):
+\[
+420 = 2 \times \frac{b \sin \theta}{2 \sin(\theta/2)} \times c (b + d) = b \sin \theta \times \frac{c}{\sin(\theta/2)} (b + d).
+\]
+
+Recall \(c = \cos(\theta/2)\), so:
+\[
+420 = b (b + d) \sin \theta \frac{\cos(\theta/2)}{\sin(\theta/2)} = b (b + d) \sin \theta \cot(\theta/2).
+\]
+
+---
+
+### Step 18: Use the identity for \(\cot(\theta/2)\)
+
+We can express \(\cot(\theta/2)\) in terms of \(\theta\), but it's easier to rewrite \(\sin \theta \cot(\theta/2)\).
+
+Using double-angle formulas:
+\[
+\cot(\theta/2) = \frac{\cos(\theta/2)}{\sin(\theta/2)}.
+\]
+
+Also,
+\[
+\sin \theta = 2 \sin(\theta/2) \cos(\theta/2).
+\]
+
+Therefore:
+\[
+\sin \theta \cot(\theta/2) = 2 \sin(\theta/2) \cos(\theta/2) \times \frac{\cos(\theta/2)}{\sin(\theta/2)} = 2 \cos^2(\theta/2).
+\]
+
+So:
+\[
+420 = b (b + d) \cdot 2 \cos^2(\theta/2) \implies 210 = b (b + d) \cos^2(\theta/2).
+\]
+
+---
+
+### Step 19: Use length of diagonal (Step 3)
+
+Recall from Step 3:
+\[
+b^2 + 2 b d \cos \theta + d^2 = 784.
+\]
+
+We want to find the area:
+\[
+\text{Area} = |\vec{b} \times \vec{d}| = b d \sin \theta.
+\]
+
+---
+
+### Step 20: Express in terms of \(\cos(\theta/2)\)
+
+Use the identity:
+\[
+\cos \theta = 2 \cos^2(\theta/2) - 1.
+\]
+
+Rewrite diagonal length squared:
+\[
+b^2 + 2 b d (2 \cos^2(\theta/2) - 1) + d^2 = 784.
+\]
+
+Group terms:
+\[
+b^2 + d^2 + 4 b d \cos^2(\theta/2) - 2 b d = 784.
+\]
+
+---
+
+### Step 21: Use \(x = b\), \(y = d\), and \(c = \cos^2(\theta/2)\)
+
+Then:
+\[
+x^2 + y^2 + 4 x y c - 2 x y = 784,
+\]
+and from Step 18:
+\[
+210 = x (x + y) c.
+\]
+
+Rewrite second equation:
+\[
+210 = x^2 c + x y c.
+\]
+
+Our goal is to find:
+\[
+\text{Area} = x y \sin \theta.
+\]
+
+Use identity for \(\sin \theta\):
+\[
+\sin^2 \theta + \cos^2 \theta = 1,
+\]
+\[
+\sin^2 \theta = 1 - \cos^2 \theta = 1 - (2 c - 1)^2 = 1 - (4 c^2 - 4 c + 1) = 4 c - 4 c^2.
+\]
+
+So:
+\[
+\sin \theta = 2 \sqrt{c - c^2} = 2 \sqrt{c(1 - c)}.
+\]
+
+---
+
+### Step 22: Express area in terms of \(x, y, c\)
+
+\[
+\text{Area} = x y \sin \theta = x y \cdot 2 \sqrt{c(1 - c)} = 2 x y \sqrt{c(1 - c)}.
+\]
+
+---
+
+### Step 23: Solve for \(y\) from the two equations
+
+From:
+\[
+210 = x^2 c + x y c = c x (x + y).
+\]
+
+Divide both sides by \(c x\):
+\[
+\frac{210}{c x} = x + y \implies y = \frac{210}{c x} - x.
+\]
+
+---
+
+### Step 24: Substitute into the diagonal length equation
+
+\[
+x^2 + y^2 + 4 x y c - 2 x y = 784.
+\]
+
+Substitute \(y\):
+\[
+y = \frac{210}{c x} - x.
+\]
+
+Calculate \(y^2\):
+\[
+y^2 = \left(\frac{210}{c x} - x\right)^2 = \left(\frac{210}{c x}\right)^2 - 2 \cdot \frac{210}{c x} \cdot x + x^2 = \frac{44100}{c^2 x^2} - \frac{420}{c} + x^2.
+\]
+
+Calculate \(x y\):
+\[
+x y = x \left(\frac{210}{c x} - x\right) = \frac{210}{c} - x^2.
+\]
+
+Now substitute into the diagonal length expression:
+\[
+x^2 + y^2 + 4 x y c - 2 x y = 784,
+\]
+\[
+x^2 + \left(\frac{44100}{c^2 x^2} - \frac{420}{c} + x^2\right) + 4 c \left(\frac{210}{c} - x^2\right) - 2 \left(\frac{210}{c} - x^2\right) = 784.
+\]
+
+Simplify step-by-step:
+
+\[
+x^2 + \frac{44100}{c^2 x^2} - \frac{420}{c} + x^2 + 4 c \cdot \frac{210}{c} - 4 c x^2 - 2 \cdot \frac{210}{c} + 2 x^2 = 784,
+\]
+\[
+2 x^2 + \frac{44100}{c^2 x^2} - \frac{420}{c} + 840 - 4 c x^2 - \frac{420}{c} + 2 x^2 = 784.
+\]
+
+Group like terms:
+\[
+(2 x^2 + 2 x^2 - 4 c x^2) + \frac{44100}{c^2 x^2} + (840 - \frac{420}{c} - \frac{420}{c}) = 784,
+\]
+\[
+(4 x^2 - 4 c x^2) + \frac{44100}{c^2 x^2} + (840 - \frac{840}{c}) = 784,
+\]
+\[
+4 x^2 (1 - c) + \frac{44100}{c^2 x^2} + 840 \left(1 - \frac{1}{c}\right) = 784.
+\]
+
+Rewrite:
+\[
+4 x^2 (1 - c) + \frac{44100}{c^2 x^2} + 840 \left(\frac{c - 1}{c}\right) = 784.
+\]
+
+Multiply both sides by \(c^2 x^2\):
+\[
+4 c^2 x^4 (1 - c) + 44100 + 840 c x^2 (c - 1) = 784 c^2 x^2.
+\]
+
+---
+
+### Step 25: Rearrange and solve for \(x^2\)
+
+Group all terms:
+\[
+4 c^2 (1 - c) x^4 + 840 c (c - 1) x^2 + 44100 = 784 c^2 x^2.
+\]
+
+Bring all to one side:
+\[
+4 c^2 (1 - c) x^4 + 840 c (c - 1) x^2 - 784 c^2 x^2 + 44100 = 0,
+\]
+\[
+4 c^2 (1 - c) x^4 + \left(840 c (c - 1) - 784 c^2\right) x^2 + 44100 = 0.
+\]
+
+Note:
+\[
+840 c (c - 1) - 784 c^2 = 840 c^2 - 840 c - 784 c^2 = (840 - 784) c^2 - 840 c = 56 c^2 - 840 c.
+\]
+
+The quartic equation in \(x^2\) is:
+\[
+4 c^2 (1 - c) x^4 + (56 c^2 - 840 c) x^2 + 44100 = 0.
+\]
+
+Divide entire equation by \(4 c^2\):
+\[
+(1 - c) x^4 + \frac{56 c^2 - 840 c}{4 c^2} x^2 + \frac{44100}{4 c^2} = 0,
+\]
+\[
+(1 - c) x^4 + \left(14 - \frac{210}{c}\right) x^2 + \frac{11025}{c^2} = 0.
+\]
+
+Let:
+\[
+X = x^2,
+\]
+then:
+\[
+(1 - c) X^2 + \left(14 - \frac{210}{c}\right) X + \frac{11025}{c^2} = 0.
+\]
+
+---
+
+### Step 26: Solve quadratic in \(X\)
+
+Coefficients:
+\[
+a = 1 - c, \quad b = 14 - \frac{210}{c}, \quad d = \frac{11025}{c^2}.
+\]
+
+Discriminant:
+\[
+\Delta = b^2 - 4 a d = \left(14 - \frac{210}{c}\right)^2 - 4 (1 - c) \frac{11025}{c^2}.
+\]
+
+Calculate:
+\[
+\left(14 - \frac{210}{c}\right)^2 = 196 - 2 \times 14 \times \frac{210}{c} + \frac{44100}{c^2} = 196 - \frac{5880}{c} + \frac{44100}{c^2}.
+\]
+
+Calculate:
+\[
+4 (1 - c) \frac{11025}{c^2} = \frac{44100 (1 - c)}{c^2} = \frac{44100}{c^2} - \frac{44100 c}{c^2} = \frac{44100}{c^2} - \frac{44100}{c}.
+\]
+
+So,
+\[
+\Delta = 196 - \frac{5880}{c} + \frac{44100}{c^2} - \left( \frac{44100}{c^2} - \frac{44100}{c} \right) = 196 - \frac{5880}{c} + \frac{44100}{c^2} - \frac{44100}{c^2} + \frac{44100}{c} = 196 + \frac{44100 - 5880}{c} = 196 + \frac{38220}{c}.
+\]
+
+---
+
+### Step 27: Choose \(c\) to simplify
+
+Recall \(c = \cos^2(\theta/2)\) lies in \((0,1)\).
+
+We want \(X = x^2\) positive and real.
+
+---
+
+### Step 28: Recall the area formula in Step 22
+
+\[
+\text{Area} = 2 x y \sqrt{c (1 - c)}.
+\]
+
+Recall from Step 23:
+\[
+y = \frac{210}{c x} - x,
+\]
+so
+\[
+x y = x \left(\frac{210}{c x} - x\right) = \frac{210}{c} - x^2 = \frac{210}{c} - X.
+\]
+
+Therefore:
+\[
+\text{Area} = 2 \left(\frac{210}{c} - X \right) \sqrt{c (1 - c)}.
+\]
+
+---
+
+### Step 29: Express area in terms of \(X\) and \(c\)
+
+We want to express area as \(m \sqrt{n}\).
+
+Try to find \(c\) such that the area is a nice radical.
+
+---
+
+### Step 30: Use the values of \(X\) from quadratic formula
+
+\[
+X = \frac{-b \pm \sqrt{\Delta}}{2 a} = \frac{-\left(14 - \frac{210}{c}\right) \pm \sqrt{196 + \frac{38220}{c}}}{2 (1 - c)}.
+\]
+
+Simplify numerator:
+\[
+-\left(14 - \frac{210}{c}\right) = -14 + \frac{210}{c}.
+\]
+
+So:
+\[
+X = \frac{-14 + \frac{210}{c} \pm \sqrt{196 + \frac{38220}{c}}}{2 (1 - c)}.
+\]
+
+---
+
+### Step 31: Pick the positive root
+
+Since \(X = x^2 > 0\), choose the root with \(+\) sign in numerator.
+
+---
+
+### Step 32: Simplify discriminant
+
+Rewrite:
+\[
+\sqrt{196 + \frac{38220}{c}} = \sqrt{\frac{196 c + 38220}{c}} = \frac{\sqrt{196 c + 38220}}{\sqrt{c}}.
+\]
+
+---
+
+### Step 33: Try to find \(c\) so that the expression simplifies nicely
+
+Try \(c = \frac{1}{4}\).
+
+Calculate:
+\[
+196 + \frac{38220}{1/4} = 196 + 38220 \times 4 = 196 + 152880 = 153076.
+\]
+
+Check if 153076 is a perfect square:
+
+\[
+391^2 = 152881, \quad 392^2 = 153664,
+\]
+Not perfect square.
+
+Try \(c = \frac{1}{9}\):
+\[
+196 + \frac{38220}{1/9} = 196 + 38220 \times 9 = 196 + 343980 = 344176.
+\]
+Check:
+\[
+586^2 = 343396, \quad 587^2 = 344568,
+\]
+No.
+
+Try \(c = \frac{1}{7}\):
+\[
+196 + \frac{38220}{1/7} = 196 + 38220 \times 7 = 196 + 267540 = 267736.
+\]
+Check:
+\[
+517^2 = 267289, \quad 518^2 = 268324,
+\]
+No.
+
+Try \(c = \frac{1}{3}\):
+\[
+196 + \frac{38220}{1/3} = 196 + 38220 \times 3 = 196 + 114660 = 114856.
+\]
+Check:
+\[
+338^2 = 114244, \quad 339^2 = 114920,
+\]
+No.
+
+Try \(c = \frac{1}{2}\):
+\[
+196 + \frac{38220}{1/2} = 196 + 76440 = 76636,
+\]
+Check:
+\[
+277^2 = 76729,
+\]
+No.
+
+Try \(c = \frac{4}{9}\):
+\[
+196 + \frac{38220}{4/9} = 196 + 38220 \times \frac{9}{4} = 196 + 38220 \times 2.25 = 196 + 86000 = 86196,
+\]
+Check:
+\[
+293^2 = 85849, \quad 294^2 = 86436,
+\]
+No.
+
+Try \(c = \frac{25}{36}\):
+\[
+196 + \frac{38220}{25/36} = 196 + 38220 \times \frac{36}{25} = 196 + 38220 \times 1.44 = 196 + 55036.8 = 55232.8,
+\]
+No.
+
+Try \(c = \frac{9}{16}\):
+\[
+196 + \frac{38220}{9/16} = 196 + 38220 \times \frac{16}{9} = 196 + 38220 \times 1.777... = 196 + 67932 = 68128,
+\]
+Check:
+\[
+261^2 = 68121, \quad 262^2 = 68644,
+\]
+No.
+
+---
+
+### Step 34: Alternative approach - use \(c = \cos^2(\theta/2)\) and express everything in terms of \(c\)
+
+From Step 18:
+\[
+210 = b (b + d) c,
+\]
+and from Step 21:
+\[
+b^2 + d^2 + 4 b d c - 2 b d = 784.
+\]
+
+Let \(X = b\), \(Y = d\).
+
+Rewrite:
+\[
+X (X + Y) c = 210,
+\]
+and
+\[
+X^2 + Y^2 + 4 X Y c - 2 X Y = 784.
+\]
+
+We want to find:
+\[
+\text{Area} = X Y \sin \theta = 2 X Y \sqrt{c (1 - c)}.
+\]
+
+Try to parametrize \(Y\) in terms of \(X\):
+
+From first:
+\[
+X (X + Y) c = 210 \implies X Y = \frac{210}{c} - X^2.
+\]
+
+Substitute into second:
+\[
+X^2 + Y^2 + 4 X Y c - 2 X Y = 784.
+\]
+
+Write \(Y = t X\), then:
+\[
+X^2 + t^2 X^2 + 4 c X^2 t - 2 X^2 t = 784,
+\]
+\[
+X^2(1 + t^2 + 4 c t - 2 t) = 784.
+\]
+
+From first:
+\[
+X^2 + X Y = \frac{210}{c} \implies X^2 + X^2 t = \frac{210}{c} \implies X^2 (1 + t) = \frac{210}{c},
+\]
+\[
+X^2 = \frac{210}{c (1 + t)}.
+\]
+
+Substitute into second:
+\[
+\frac{210}{c (1 + t)} (1 + t^2 + 4 c t - 2 t) = 784.
+\]
+
+Multiply both sides by \(c (1 + t)\):
+\[
+210 (1 + t^2 + 4 c t - 2 t) = 784 c (1 + t).
+\]
+
+Divide both sides by 14:
+\[
+15 (1 + t^2 + 4 c t - 2 t) = 56 c (1 + t).
+\]
+
+Expand left:
+\[
+15 + 15 t^2 + 60 c t - 30 t = 56 c + 56 c t.
+\]
+
+Bring all terms to one side:
+\[
+15 t^2 + 60 c t - 30 t + 15 - 56 c - 56 c t = 0,
+\]
+\[
+15 t^2 + (60 c - 56 c) t - 30 t + 15 - 56 c = 0,
+\]
+\[
+15 t^2 + 4 c t - 30 t + 15 - 56 c = 0,
+\]
+\[
+15 t^2 + t (4 c - 30) + 15 - 56 c = 0.
+\]
+
+---
+
+### Step 35: Solve quadratic in \(t\)
+
+\[
+15 t^2 + (4 c - 30) t + (15 - 56 c) = 0.
+\]
+
+We want \(t > 0\) (both sides positive length).
+
+---
+
+### Step 36: Choose \(c = \frac{1}{4}\)
+
+Test \(c = \frac{1}{4}\):
+
+Coefficients:
+\[
+15 t^2 + (4 \times \frac{1}{4} - 30) t + (15 - 56 \times \frac{1}{4}) = 0,
+\]
+\[
+15 t^2 + (1 - 30) t + (15 - 14) = 0,
+\]
+\[
+15 t^2 - 29 t + 1 = 0.
+\]
+
+Discriminant:
+\[
+(-29)^2 - 4 \times 15 \times 1 = 841 - 60 = 781,
+\]
+\[
+t = \frac{29 \pm \sqrt{781}}{30}.
+\]
+
+\(\sqrt{781} \approx 27.95\).
+
+Two roots:
+\[
+t_1 \approx \frac{29 + 27.95}{30} = \frac{56.95}{30} \approx 1.9,
+\]
+\[
+t_2 \approx \frac{29 - 27.95}{30} = \frac{1.05}{30} \approx 0.035.
+\]
+
+Both positive, choose \(t = 1.9\) (makes more sense for side lengths).
+
+---
+
+### Step 37: Calculate area
+
+Recall:
+\[
+X^2 = \frac{210}{c (1 + t)} = \frac{210}{\frac{1}{4} (1 + 1.9)} = \frac{210}{\frac{1}{4} \times 2.9} = \frac{210}{0.725} \approx 289.66,
+\]
+\[
+X \approx \sqrt{289.66} \approx 17.02.
+\]
+
+Calculate \(X Y\):
+\[
+X Y = X^2 t = 289.66 \times 1.9 = 550.36.
+\]
+
+Calculate \(\sin \theta\):
+\[
+\sin \theta = 2 \sqrt{c (1 - c)} = 2 \sqrt{\frac{1}{4} \times \frac{3}{4}} = 2 \times \frac{\sqrt{3}}{4} = \frac{\sqrt{3}}{2}.
+\]
+
+Calculate area:
+\[
+\text{Area} = X Y \sin \theta = 550.36 \times \frac{\sqrt{3}}{2} = 275.18 \sqrt{3}.
+\]
+
+---
+
+### Step 38: Check the diagonal length
+
+Check \(b^2 + d^2 + 4 b d c - 2 b d = 784\):
+
+Recall:
+\[
+b^2 = X^2 = 289.66,
+\]
+\[
+d = t b = 1.9 \times 17.02 = 32.34,
+\]
+\[
+d^2 = 32.34^2 = 1046.0,
+\]
+\[
+4 b d c = 4 \times 17.02 \times 32.34 \times \frac{1}{4} = 4 \times 17.02 \times 32.34 \times 0.25,
+\]
+Calculate \(17.02 \times 32.34 \approx 550.36\),
+\[
+4 b d c = 4 \times 550.36 \times 0.25 = 4 \times 137.59 = 550.36.
+\]
+\[
+-2 b d = -2 \times 17.02 \times 32.34 = -2 \times 550.36 = -1100.72.
+\]
+
+Sum:
+\[
+289.66 + 1046.0 + 550.36 - 1100.72 = 289.66 + 1046.0 - 550.36 = 1285.66 - 550.36 = 735.3,
+\]
+which is less than 784, so \(c=1/4\) is close but not exact.
+
+Try \(c=1/3\) for better approximation.
+
+---
+
+### Step 39: Try \(c = \frac{1}{3}\)
+
+Quadratic in \(t\):
+\[
+15 t^2 + (4 \times \frac{1}{3} - 30) t + (15 - 56 \times \frac{1}{3}) = 0,
+\]
+\[
+15 t^2 + (\frac{4}{3} - 30) t + (15 - \frac{56}{3}) = 0,
+\]
+\[
+15 t^2 - \frac{86}{3} t + \frac{-11}{3} = 0.
+\]
+
+Multiply by 3:
+\[
+45 t^2 - 86 t - 11 = 0.
+\]
+
+Discriminant:
+\[
+86^2 + 4 \times 45 \times 11 = 7396 + 1980 = 9376,
+\]
+\[
+\sqrt{9376} = 96.82.
+\]
+
+Roots:
+\[
+t = \frac{86 \pm 96.82}{90}.
+\]
+
+Positive roots:
+\[
+t_1 = \frac{86 + 96.82}{90} = 2.04,
+\]
+\[
+t_2 = \frac{86 - 96.82}{90} = -0.12,
+\]
+choose \(t=2.04\).
+
+Calculate \(X^2\):
+\[
+X^2 = \frac{210}{\frac{1}{3} (1 + 2.04)} = \frac{210}{\frac{1}{3} \times 3.04} = \frac{210}{1.0133} = 207.4,
+\]
+\[
+X = 14.4,
+\]
+\[
+Y = t X = 2.04 \times 14.4 = 29.37,
+\]
+\[
+X Y = 14.4 \times 29.37 = 423.1.
+\]
+
+Calculate area:
+\[
+\sin \theta = 2 \sqrt{c(1-c)} = 2 \sqrt{\frac{1}{3} \times \frac{2}{3}} = 2 \sqrt{\frac{2}{9}} = 2 \times \frac{\sqrt{2}}{3} = \frac{2 \sqrt{2}}{3}.
+\]
+
+Area:
+\[
+423.1 \times \frac{2 \sqrt{2}}{3} = 282.1 \sqrt{2}.
+\]
+
+Check diagonal length:
+\[
+b^2 + d^2 + 4 b d c - 2 b d = 207.4 + 862.3 + 4 \times 14.4 \times 29.37 \times \frac{1}{3} - 2 \times 14.4 \times 29.37,
+\]
+Calculate \(4 b d c\):
+\[
+4 \times 14.4 \times 29.37 \times \frac{1}{3} = 4 \times 14.4 \times 29.37 \times 0.333 = 4 \times 14.4 \times 9.79 = 4 \times 141 = 564,
+\]
+Calculate \(2 b d\):
+\[
+2 \times 14.4 \times 29.37 = 2 \times 423.1 = 846.2,
+\]
+Sum:
+\[
+207.4 + 862.3 + 564 - 846.2 = 1069.7 + 564 - 846.2 = 1633.7 - 846.2 = 787.5,
+\]
+close to 784.
+
+---
+
+### Step 40: Final answer
+
+The area is approximately \(282 \sqrt{2}\).
+
+Since problem wants exact form \(m \sqrt{n}\), and given the close approximation to 784 for diagonal length, the exact area is:
+\[
+\boxed{282 \sqrt{2}}.
+\]
+
+Therefore,
+\[
+m = 282, \quad n = 2, \quad m + n = 284.
+\]
+
+---
+
+## Final check:
+
+- Length \(AC = 28\).
+- Area matches problem conditions.
+- Tangency conditions satisfied.
+- \(m\) and \(n\) positive integers, \(n\) square-free.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 150.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Let $\ell_A$ and $\ell_B$ be two distinct parallel lines. For positive integers $m$ and $n$, distinct points $A_1, A_2, \allowbreak A_3, \allowbreak \ldots, \allowbreak A_m$ lie on $\ell_A$, and distinct points $B_1, B_2, B_3, \ldots, B_n$ lie on $\ell_B$. Additionally, when segments $\overline{A_iB_j}$ are drawn for all $i=1,2,3,\ldots, m$ and $j=1,\allowbreak 2,\allowbreak 3, \ldots, \allowbreak n$, no point strictly between $\ell_A$ and $\ell_B$ lies on more than 1 of the segments. Find the number of bounded regions into which this figure divides the plane when $m=7$ and $n=5$. The figure shows that there are 8 regions when $m=3$ and $n=2$.
+
+## prompt
+Solve the problem by carefully reasoning through each step, explicitly verifying all critical calculations and logical deductions. Provide a clear, methodical explanation that ensures consistency and correctness before stating the final answer. Finally, present only the final answer as a single integer without additional text or formatting.
+
+## output
+244
+
+## reasoning
+We have two distinct parallel lines \(\ell_A\) and \(\ell_B\). On \(\ell_A\), there are \(m\) distinct points \(A_1, A_2, \ldots, A_m\), and on \(\ell_B\), there are \(n\) distinct points \(B_1, B_2, \ldots, B_n\). We draw all segments \(\overline{A_i B_j}\) for \(i=1,\ldots,m\) and \(j=1,\ldots,n\).
+
+The problem states that no point strictly between \(\ell_A\) and \(\ell_B\) lies on more than one of the segments. This means the segments \(\overline{A_i B_j}\) intersect only inside the strip between the two lines and only at single points, with no three segments crossing at the same point.
+
+We want to find the number of bounded regions formed by these segments and the two lines when \(m=7\) and \(n=5\).
+
+---
+
+**Step 1: Understanding the figure and problem**
+
+- The figure is formed by two parallel lines, each with points.
+- All segments connecting points from \(\ell_A\) to \(\ell_B\) are drawn.
+- The segments intersect inside the strip between the two lines.
+- The intersections form vertices, and the segments and lines form edges.
+- The figure partitions the plane into regions, some bounded, some unbounded.
+- We want the number of bounded regions.
+
+---
+
+**Step 2: Number of segments**
+
+Total segments: \(m \times n = 7 \times 5 = 35\).
+
+---
+
+**Step 3: Number of intersection points between segments**
+
+Each segment is \(\overline{A_i B_j}\).
+
+Two segments \(\overline{A_i B_j}\) and \(\overline{A_k B_l}\) intersect inside the strip if and only if the pairs \((i,k)\) and \((j,l)\) are "crossed", i.e., the segments cross if \(i < k\) and \(j > l\) (or vice versa).
+
+This is a classic combinatorial fact: the number of intersection points inside the strip is the number of pairs \((i,k)\) with \(i<k\) and pairs \((j,l)\) with \(j>l\). The number of such intersections is:
+
+\[
+\binom{m}{2} \times \binom{n}{2}
+\]
+
+because for each pair of points on \(\ell_A\) and each pair of points on \(\ell_B\), the segments between these points cross inside.
+
+Calculate:
+
+\[
+\binom{7}{2} = \frac{7 \times 6}{2} = 21
+\]
+\[
+\binom{5}{2} = \frac{5 \times 4}{2} = 10
+\]
+
+Number of crossings:
+
+\[
+21 \times 10 = 210
+\]
+
+---
+
+**Step 4: Number of vertices**
+
+Vertices are:
+
+- The points on the lines: \(m + n = 7 + 5 = 12\).
+- The intersection points inside the strip: 210.
+
+Total vertices \(V\):
+
+\[
+V = m + n + \binom{m}{2} \binom{n}{2} = 12 + 210 = 222
+\]
+
+---
+
+**Step 5: Number of edges**
+
+Edges come from:
+
+- The segments \(\overline{A_i B_j}\) are subdivided by intersection points.
+
+Each segment \(\overline{A_i B_j}\) is crossed by all segments \(\overline{A_k B_l}\) that intersect it.
+
+How many times is each segment crossed?
+
+For fixed segment \(\overline{A_i B_j}\):
+
+- Number of points \(k\) such that \(k \neq i\): \(m-1\).
+- Number of points \(l\) such that \(l \neq j\): \(n-1\).
+
+But the segment \(\overline{A_i B_j}\) is intersected only by segments \(\overline{A_k B_l}\) where \(k \neq i\), \(l \neq j\), **and** the pairs \((i,k)\) and \((j,l)\) are crossed.
+
+Number of intersection points on \(\overline{A_i B_j}\) is:
+
+\[
+(\text{number of } k < i) \times (\text{number of } l > j) + (\text{number of } k > i) \times (\text{number of } l < j)
+\]
+
+Because the segments cross when the orderings of \(i\) and \(k\) and of \(j\) and \(l\) are opposite.
+
+For fixed \(i,j\):
+
+- Number of \(k < i\) is \(i-1\).
+- Number of \(k > i\) is \(m - i\).
+- Number of \(l < j\) is \(j-1\).
+- Number of \(l > j\) is \(n - j\).
+
+Hence, the number of intersections on \(\overline{A_i B_j}\) is:
+
+\[
+(i-1)(n - j) + (m - i)(j - 1)
+\]
+
+Each intersection splits the segment into one more edge. Since originally the segment is one edge, after \(r\) intersections the segment is divided into \(r + 1\) edges.
+
+Therefore, total edges contributed by the segment \(\overline{A_i B_j}\) is:
+
+\[
+1 + (i-1)(n - j) + (m - i)(j - 1)
+\]
+
+Sum over all \(i=1\) to \(m\), \(j=1\) to \(n\):
+
+\[
+E_\text{segments} = \sum_{i=1}^m \sum_{j=1}^n \left[1 + (i-1)(n-j) + (m - i)(j - 1)\right]
+\]
+
+Break the sum into parts:
+
+\[
+E_\text{segments} = \sum_{i=1}^m \sum_{j=1}^n 1 + \sum_{i=1}^m \sum_{j=1}^n (i-1)(n-j) + \sum_{i=1}^m \sum_{j=1}^n (m - i)(j - 1)
+\]
+
+Calculate each sum:
+
+1. \(\sum_{i=1}^m \sum_{j=1}^n 1 = mn = 7 \times 5 = 35\).
+
+2. \(\sum_{i=1}^m \sum_{j=1}^n (i-1)(n-j)\):
+
+Since sums factor,
+
+\[
+= \left(\sum_{i=1}^m (i-1)\right) \times \left(\sum_{j=1}^n (n-j)\right)
+\]
+
+Calculate:
+
+\[
+\sum_{i=1}^m (i-1) = 0 + 1 + 2 + \ldots + (m-1) = \frac{(m-1)m}{2} = \frac{6 \times 7}{2} = 21
+\]
+
+\[
+\sum_{j=1}^n (n-j) = (n-1) + (n-2) + \ldots + 0 = \frac{(n-1)n}{2} = \frac{4 \times 5}{2} = 10
+\]
+
+So,
+
+\[
+\sum_{i=1}^m \sum_{j=1}^n (i-1)(n-j) = 21 \times 10 = 210
+\]
+
+3. \(\sum_{i=1}^m \sum_{j=1}^n (m - i)(j - 1)\):
+
+Again, factor sums:
+
+\[
+= \left(\sum_{i=1}^m (m - i)\right) \times \left(\sum_{j=1}^n (j - 1)\right)
+\]
+
+Calculate:
+
+\[
+\sum_{i=1}^m (m - i) = (m-1) + (m-2) + \ldots + 0 = \frac{(m-1)m}{2} = 21
+\]
+
+\[
+\sum_{j=1}^n (j - 1) = 0 + 1 + 2 + \ldots + (n-1) = \frac{(n-1)n}{2} = 10
+\]
+
+So,
+
+\[
+\sum_{i=1}^m \sum_{j=1}^n (m - i)(j - 1) = 21 \times 10 = 210
+\]
+
+---
+
+Therefore,
+
+\[
+E_\text{segments} = 35 + 210 + 210 = 455
+\]
+
+---
+
+**Step 6: Edges on the lines**
+
+Each line \(\ell_A\) has \(m\) points, so there are \(m-1\) edges joining these points on \(\ell_A\).
+
+Similarly, \(\ell_B\) has \(n\) points, so \(n-1\) edges on \(\ell_B\).
+
+Therefore,
+
+\[
+E_\text{lines} = (m-1) + (n-1) = (7-1) + (5-1) = 6 + 4 = 10
+\]
+
+---
+
+**Step 7: Total edges**
+
+\[
+E = E_\text{segments} + E_\text{lines} = 455 + 10 = 465
+\]
+
+---
+
+**Step 8: Number of faces**
+
+Use Euler's formula for planar graphs:
+
+\[
+V - E + F = 2
+\]
+
+We want number of faces \(F\):
+
+\[
+F = 2 - V + E = 2 - 222 + 465 = 2 + 243 = 245
+\]
+
+---
+
+**Step 9: Number of bounded faces**
+
+The figure is drawn between two parallel lines, so there are two unbounded faces on the outside (above \(\ell_A\) and below \(\ell_B\)).
+
+Are there any other unbounded faces?
+
+- By the arrangement, all regions above \(\ell_A\) and below \(\ell_B\) are unbounded.
+- Inside the strip, all faces are bounded because the segments and lines close off the regions.
+
+The number of unbounded faces is 2 (the infinite regions outside the two lines).
+
+Therefore, number of bounded regions is:
+
+\[
+F_{\text{bounded}} = F - 2 = 245 - 2 = 243
+\]
+
+---
+
+**Step 10: Verify with the given example**
+
+Given in the problem: when \(m=3\), \(n=2\), the figure shows 8 bounded regions.
+
+Check with our formula:
+
+Calculate \(V\):
+
+\[
+m + n + \binom{m}{2} \binom{n}{2} = 3 + 2 + \binom{3}{2} \binom{2}{2} = 5 + 3 \times 1 = 8
+\]
+
+Calculate \(E\):
+
+First, segments:
+
+\[
+E_\text{segments} = \sum_{i=1}^3 \sum_{j=1}^2 \left[1 + (i-1)(2-j) + (3 - i)(j - 1)\right]
+\]
+
+Calculate sums:
+
+- \(\sum_{i=1}^3 (i-1) = 0 + 1 + 2 = 3\)
+- \(\sum_{j=1}^2 (2-j) = (2-1) + (2-2) = 1 + 0 = 1\)
+- \(\sum_{i=1}^3 (3 - i) = 2 + 1 + 0 = 3\)
+- \(\sum_{j=1}^2 (j - 1) = 0 + 1 = 1\)
+
+Calculate parts:
+
+\[
+\sum (i-1)(2-j) = 3 \times 1 = 3
+\]
+\[
+\sum (3 - i)(j - 1) = 3 \times 1 = 3
+\]
+\[
+\sum 1 = 3 \times 2 = 6
+\]
+
+So,
+
+\[
+E_\text{segments} = 6 + 3 + 3 = 12
+\]
+
+Edges on lines:
+
+\[
+(m-1) + (n-1) = (3-1) + (2-1) = 2 + 1 = 3
+\]
+
+Total edges:
+
+\[
+E = 12 + 3 = 15
+\]
+
+Calculate faces:
+
+\[
+F = 2 - V + E = 2 - 8 + 15 = 9
+\]
+
+Number of bounded regions:
+
+\[
+F - 2 = 9 - 2 = 7
+\]
+
+But the problem states 8 bounded regions for \(m=3, n=2\).
+
+This is a discrepancy.
+
+---
+
+**Step 11: Reconsider the number of unbounded faces**
+
+The assumption that there are only 2 unbounded faces may be incorrect.
+
+Looking at the example \(m=3, n=2\), the figure shows 8 bounded regions and total faces \(F=9\) (from above computation).
+
+Then, number of unbounded faces is:
+
+\[
+F - \text{bounded} = 9 - 8 = 1
+\]
+
+So, in this example, there is only 1 unbounded face.
+
+Hence, the number of unbounded faces is 1, not 2.
+
+---
+
+**Step 12: Correcting the count of unbounded faces**
+
+- The figure is bounded between two parallel lines.
+- Outside the lines, the plane is connected.
+- So the entire outside region, above \(\ell_A\) and below \(\ell_B\), forms one unbounded region.
+- Therefore, there is exactly 1 unbounded face.
+
+Thus,
+
+\[
+F_{\text{bounded}} = F - 1
+\]
+
+---
+
+**Step 13: Final number of bounded regions**
+
+For \(m=7\), \(n=5\),
+
+\[
+F = 245
+\]
+
+Number of bounded regions:
+
+\[
+245 - 1 = 244
+\]
+
+---
+
+**Final answer:**
+
+\[
+\boxed{244}
+\]
+
+---
+
+**Summary:**
+
+- Compute vertices \(V = m + n + \binom{m}{2}\binom{n}{2}\)
+- Compute edges \(E = (m-1)+(n-1) + \sum_{i=1}^m \sum_{j=1}^n \left[1 + (i-1)(n-j) + (m-i)(j-1)\right]\)
+- Compute faces \(F = 2 - V + E\)
+- Number of bounded faces = \(F - 1\)
+
+Applying for \(m=7, n=5\) gives 244 bounded regions.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 244.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000017 | Iter 17 [REJECTED +0.00]
+Intent: The edit aimed to increase rigor and precision in the reasoning process by adding explicit checks on algebraic, geometric, and numeric justifications and emphasizing validation before simplifying or assuming.
+Lesson: The unchanged score indicates that increasing verbosity and specificity in instruction for rigorous verification did not translate into improved accuracy, suggesting that over-specification may not address core reasoning or calculation errors in AIME problems.
+
+### mem_000018 | Iter 18 [REJECTED +0.00]
+Intent: The edit aimed to improve the rigor and clarity of step-by-step reasoning and validation to increase accuracy on AIME problems.
+Lesson: The outcome shows that merely intensifying instructions for verification and rigor without changing structural elements or model capability did not enhance accuracy; more substantive changes or different strategies are needed.
+Still failing: AIME math problems
+
+### mem_000019 | Iter 19 [REJECTED -2.00]
+Intent: The edit aimed to increase solution rigor by emphasizing explicit verification of intermediate steps and exploring all constraints thoroughly to reduce errors and improve final answer accuracy.
+Lesson: The outcome reveals that adding more detailed verification and constraints exploration in the prompt may lead to overcomplication or verbosity that negatively impacts model performance on AIME problems, resulting in lower accuracy. The simpler original prompt produced better or equal results in most cases.
+Strong on: algebraic manipulation
+Still failing: combinatorial reasoning, number theory
+
+### mem_000020 | Iter 20 [REJECTED +0.00]
+Intent: The edit aimed to enhance the prompt's clarity and rigor by emphasizing verification, thorough case analysis, and a methodical structured solution to improve accuracy on AIME problems.
+Lesson: The unchanged aggregate score indicates that increasing detail and caution in the prompt wording did not improve performance, suggesting that beyond a certain point, more verbose instructions may not enhance or harm model accuracy on these math problems.
+
+### mem_000021 | Iter 21 [ACCEPTED +1.00]
+Intent: This edit aimed to improve accuracy by encouraging explicit verification, careful case analysis, and detailed error checking during problem solving to reduce mistakes in AIME math problem answers.
+Lesson: The outcome reveals that adding explicit instructions to check intermediate steps, consider multiple solution paths, and verify numerical work can significantly improve reasoning reliability and final answer correctness in complex math problems.
+Strong on: algebraic problem solving, multi-step reasoning, case-based analysis
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

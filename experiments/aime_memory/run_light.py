@@ -10,7 +10,7 @@ Usage
 Config
 ------
   - 45 train / 10 val examples from AI-MO/aimo-validation-aime
-  - max_candidate_proposals = 10   (light budget)
+  - max_metric_calls = 200  (light budget)
   - reflection_minibatch_size = 3
   - parallel = True, max_workers = 8
   - memory ON, max_entries = 10
@@ -26,23 +26,16 @@ from pathlib import Path
 import dspy
 from dotenv import load_dotenv
 
+from experiments.aime_memory.adapter import AIMEAdapter
 from experiments.aime_memory.dataset import load_aime_dataset
-from experiments.aime_memory.solver import math_metric, run_llm
-from gepa.optimize_anything import (
-    EngineConfig,
-    GEPAConfig,
-    ReflectionConfig,
-    SideInfo,
-    TrackingConfig,
-    optimize_anything,
-)
+from gepa.api import optimize
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
 
 MODEL = "openai/gpt-4.1-mini"
 RUN_DIR = "outputs/aime_light_memory_on"
-MAX_PROPOSALS = 10
+MAX_METRIC_CALLS = 200
 MINIBATCH_SIZE = 3
 MAX_WORKERS = 8
 TRAIN_SIZE = 45
@@ -54,28 +47,7 @@ INITIAL_PROMPT = (
 
 
 # ---------------------------------------------------------------------------
-# Evaluator
-# ---------------------------------------------------------------------------
-
-def make_evaluator(solver_lm: dspy.LM):
-    dspy.configure(lm=solver_lm)
-
-    def evaluate(candidate: str, example) -> tuple[float, SideInfo]:
-        prediction = run_llm(example, candidate)
-        score, feedback = math_metric(example, prediction)
-        return score, {
-            "problem": example.problem,
-            "prompt": candidate,
-            "output": prediction.answer,
-            "reasoning": getattr(prediction, "reasoning", ""),
-            "Feedback": feedback,
-        }
-
-    return evaluate
-
-
-# ---------------------------------------------------------------------------
-# Memory report helpers (same as memory_check.py)
+# Memory report helpers
 # ---------------------------------------------------------------------------
 
 def load_jsonl(path: Path) -> list[dict]:
@@ -173,48 +145,43 @@ def main() -> None:
 
     # --- Solver LM ---
     solver_lm = dspy.LM(MODEL, api_key=api_key, temperature=0.7, max_tokens=32000)
-    evaluator = make_evaluator(solver_lm)
 
-    # --- Config ---
-    config = GEPAConfig(
-        engine=EngineConfig(
-            run_dir=RUN_DIR,
-            max_candidate_proposals=MAX_PROPOSALS,
-            seed=0,
-            display_progress_bar=True,
-            parallel=True,
-            max_workers=MAX_WORKERS,
-            cache_evaluation=True,
-        ),
-        reflection=ReflectionConfig(
-            reflection_lm=MODEL,
-            reflection_minibatch_size=MINIBATCH_SIZE,
-            use_reflection_memory=True,
-            reflection_memory_max_entries=10,
-        ),
-        tracking=TrackingConfig(research_mode=True),
-    )
+    # --- Adapter ---
+    adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=MAX_WORKERS)
+
+    seed_candidate = {AIMEAdapter.COMPONENT_NAME: INITIAL_PROMPT}
 
     print(f"\n=== AIME Light Run — Memory ON ===")
     print(f"  solver LLM      : {MODEL}")
     print(f"  reflection LLM  : {MODEL}")
     print(f"  train / val     : {len(trainset)} / {len(valset)}")
-    print(f"  max_proposals   : {MAX_PROPOSALS}")
+    print(f"  max_metric_calls: {MAX_METRIC_CALLS}")
     print(f"  minibatch_size  : {MINIBATCH_SIZE}")
     print(f"  max_workers     : {MAX_WORKERS}")
     print(f"  run_dir         : {RUN_DIR}")
     print()
 
-    result = optimize_anything(
-        seed_candidate=INITIAL_PROMPT,
-        evaluator=evaluator,
-        dataset=trainset,
+    result = optimize(
+        seed_candidate=seed_candidate,
+        trainset=trainset,
         valset=valset,
-        config=config,
+        adapter=adapter,
+        reflection_lm=MODEL,
+        max_metric_calls=MAX_METRIC_CALLS,
+        reflection_minibatch_size=MINIBATCH_SIZE,
+        run_dir=RUN_DIR,
+        cache_evaluation=True,
+        seed=0,
+        research_mode=True,
+        display_progress_bar=True,
+        use_reflection_memory=True,
+        reflection_memory_max_entries=10,
         objective="Maximize accuracy on AIME math problems. The answer must be a single integer.",
     )
 
-    print(f"\nBest candidate:\n{result.best_candidate}")
+    best_candidate = result.best_candidate
+    assert isinstance(best_candidate, dict)
+    print(f"\nBest candidate:\n{best_candidate[AIMEAdapter.COMPONENT_NAME]}")
 
     print_memory_report(Path(RUN_DIR))
 

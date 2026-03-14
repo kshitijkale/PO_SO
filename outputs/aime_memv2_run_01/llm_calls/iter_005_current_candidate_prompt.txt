@@ -1,0 +1,901 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize accuracy on AIME math problems. The answer must be a single integer.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## score
+0.0
+
+## problem
+Find the number of collections of $16$ distinct subsets of $\{1,2,3,4,5\}$ with the property that for any two subsets $X$ and $Y$ in the collection, $X \cap Y \not= \emptyset.$
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+5
+
+## reasoning
+We want to find the number of collections of 16 distinct subsets of the set \(\{1,2,3,4,5\}\) such that for any two subsets \(X\) and \(Y\) in the collection, \(X \cap Y \neq \emptyset\).
+
+First, let's analyze the problem carefully:
+
+1. The universe set is \(U = \{1,2,3,4,5\}\). The number of all subsets of \(U\) is \(2^5 = 32\).
+
+2. We want to select 16 distinct subsets (collections of subsets) from these 32 such that any two subsets in the chosen collection have a non-empty intersection.
+
+3. Equivalently, the chosen collection is an *intersecting family* of subsets of \(U\) of size 16.
+
+We need to count how many such collections of size 16 exist.
+
+---
+
+**Step 1: Characterize the condition \(X \cap Y \neq \emptyset\) for all \(X, Y\) in the collection**
+
+- If the family contains the empty set \(\emptyset\), then for any other subset \(Y\), \(\emptyset \cap Y = \emptyset\), which violates the condition. So \(\emptyset\) cannot be included in the collection.
+
+- Therefore, all subsets in the family are non-empty subsets.
+
+There are \(2^5 = 32\) subsets total, and only one is empty, so there are \(31\) non-empty subsets.
+
+---
+
+**Step 2: Can the family include the complement of a subset?**
+
+Consider two subsets \(X\) and \(Y\) such that \(Y = U \setminus X\). Then \(X \cap Y = \emptyset\). So sets that are complements cannot both be in the family.
+
+---
+
+**Step 3: Structure of intersecting families**
+
+The problem of finding large intersecting families is classical:
+
+- A family of subsets is *intersecting* if every two members intersect.
+
+- The largest size of an intersecting family can be found from the Erdős–Ko–Rado theorem for uniform families, but here the family is not uniform.
+
+- The largest intersecting family of subsets of \(U\) (without restriction on size) is known to be the family of all subsets containing a fixed element.
+
+For example, the family \(\mathcal{F}_1 = \{ S \subseteq U : 1 \in S \}\) consists of all subsets containing 1.
+
+The size of \(\mathcal{F}_1\) is:
+
+- Number of subsets of \(U\) containing element 1 is half of all subsets except the empty set does not contain 1. Since the total subsets are 32, subsets containing 1 are exactly \(2^{4} = 16\).
+
+---
+
+**Step 4: Size of the family**
+
+The family \(\mathcal{F}_1\) has size 16, and it is an intersecting family because any two subsets contain element 1, so their intersection contains 1, which is not empty.
+
+- So there exists at least one intersecting family of size 16.
+
+- Is there any other intersecting family of size 16?
+
+---
+
+**Step 5: Are there other maximal intersecting families of size 16?**
+
+For each \(i \in \{1,2,3,4,5\}\), the family \(\mathcal{F}_i = \{ S \subseteq U : i \in S \}\) has size 16 and is intersecting.
+
+- Are there other distinct intersecting families of size 16?
+
+- Any intersecting family that contains subsets that do not share a common element will have smaller size.
+
+- The maximum size of an intersecting family that does not contain a fixed element is less than 16.
+
+Therefore, the maximum size of an intersecting family is 16, and these are exactly the families of all subsets containing a fixed element.
+
+---
+
+**Step 6: Counting the collections**
+
+We want to find the number of collections of size exactly 16, all subsets distinct, that are intersecting.
+
+- We have identified the only possible intersecting families of size 16 are those consisting of all subsets containing a fixed element.
+
+- For each \(i = 1, 2, 3, 4, 5\), the family \(\mathcal{F}_i\) is of size 16 and intersecting.
+
+Hence, the number of such collections is exactly the number of such fixed-element families, i.e., 5.
+
+---
+
+**Step 7: Could there be other families of size 16 that are intersecting but not equal to \(\mathcal{F}_i\)?**
+
+- Suppose there is a different family \(\mathcal{G}\) of size 16 which is intersecting but not equal to any \(\mathcal{F}_i\).
+
+- Since the maximum size of an intersecting family without a fixed element is less than the size of \(\mathcal{F}_i\), any intersecting family of size 16 must contain a fixed element.
+
+- Moreover, since the family of all subsets containing a fixed element has size exactly 16, to have size 16 and still be intersecting, the family must be exactly \(\mathcal{F}_i\).
+
+Thus, no other such families exist.
+
+---
+
+**Final conclusion:**
+
+The number of collections of 16 distinct subsets of \(\{1,2,3,4,5\}\) with the property that any two subsets intersect is exactly 5.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 81.
+
+
+
+# Example 2
+## score
+0.0
+
+## problem
+Find the number of ordered pairs of integers $(a, b)$ such that the sequence\[3, 4, 5, a, b, 30, 40, 50\]is strictly increasing and no set of four (not necessarily consecutive) terms forms an arithmetic progression.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+238
+
+## reasoning
+We are given a sequence of 8 terms:
+\[3, 4, 5, a, b, 30, 40, 50\]
+where \(a\) and \(b\) are integers to be chosen such that:
+1. The sequence is strictly increasing.
+2. No set of four terms (not necessarily consecutive) forms an arithmetic progression.
+
+First, analyze the conditions step-by-step.
+
+**Step 1: Strictly increasing**
+Since the sequence is strictly increasing:
+\[
+3 < 4 < 5 < a < b < 30 < 40 < 50
+\]
+From this, we get:
+\[
+5 < a < b < 30
+\]
+Since \(a\) and \(b\) are integers, \(a \geq 6\) and \(b \leq 29\).
+
+**Step 2: No 4-term arithmetic progression anywhere in the sequence**
+
+We must ensure that no 4-term arithmetic progression (AP) exists among any 4 terms of the 8-term sequence.
+
+Given the known parts of the sequence:
+\[
+3,4,5, \_, \_, 30, 40, 50
+\]
+
+Check if any 4-term AP already exists in the fixed terms (without \(a,b\)):
+
+- 3,4,5 are consecutive integers.
+- 30, 40, 50 are also arithmetic progression of length 3 with common difference 10.
+- Check if these or subsets create a 4-term AP:
+    - 3,4,5,30? No (differences not equal).
+    - 4,5,30,40? No.
+    - 5,30,40,50? No.
+    - 3,4,5,40? No.
+    - 3,4,5,50? No.
+    - 30,40,50 plus one more? No, since only 3 terms are fixed there.
+
+So no 4-term AP among fixed terms alone.
+
+Now, the presence of \(a,b\) might create 4-term APs.
+
+**Step 3: Understand where 4-term APs could form**
+
+We want to avoid any 4-term AP involving any combination of the 8 terms.
+
+Let’s consider the possibilities of 4-term APs, focusing on those that include \(a\) and/or \(b\).
+
+Key observations:
+
+- Since the sequence is strictly increasing, any 4-term AP must have terms in ascending order.
+- The sequence terms are: 3,4,5,a,b,30,40,50 with \(5 < a < b < 30\).
+
+**Step 4: Check for 4-term APs formed by subsets including \(a,b\)**
+
+We must rule out any 4-term AP in the set \(\{3,4,5,a,b,30,40,50\}\).
+
+The hardest is to check all 4-element subsets, but we can use pattern recognition.
+
+Because 3,4,5 are close together and 30,40,50 are far apart, the main risk is APs crossing the gap, especially involving \(a,b\).
+
+---
+
+**Step 5: Use known results about avoiding 4-term APs in sets of integers**
+
+The problem asks for pairs \((a,b)\) with \(5 < a < b < 30\).
+
+We want no 4-term AP in
+\[
+S = \{3,4,5,a,b,30,40,50\}
+\]
+
+We already have 30,40,50 forming a 3-term AP with difference 10; adding \(a,b\) must not create a 4-term AP.
+
+We can consider the "dangerous" APs could have common differences \(d\) such that the 4 terms fit.
+
+---
+
+**Step 6: Check potential arithmetic progressions involving \(a,b\)**
+
+Let’s consider possible 4-term APs with the terms:
+
+- (3,4,5,a)
+- (4,5,a,b)
+- (5,a,b,30)
+- (a,b,30,40)
+- (b,30,40,50)
+- or any other combination.
+
+Check these systematically.
+
+---
+
+**Case 1: AP involving (3,4,5,a)**
+
+Terms: 3,4,5,a
+
+The first three terms are 3,4,5 with differences 1.
+
+If \(a\) continues this AP with difference 1, then \(a=6\).
+
+So (3,4,5,6) is a 4-term AP.
+
+Therefore, \(a \neq 6\).
+
+---
+
+**Case 2: AP involving (4,5,a,b)**
+
+If these four are in AP, the common difference \(d\) satisfies:
+
+\[
+5 - 4 = d = a - 5 = b - a
+\]
+
+So,
+\[
+1 = a - 5 \implies a=6
+\]
+and
+\[
+b - a = 1 \implies b = a + 1 = 7
+\]
+
+So (4,5,6,7) is a 4-term AP.
+
+Therefore, \((a,b) \neq (6,7)\).
+
+---
+
+**Case 3: AP involving (5,a,b,30)**
+
+If these four are in AP with common difference \(d\):
+\[
+a - 5 = d, \quad b - a = d, \quad 30 - b = d
+\]
+
+Therefore,
+\[
+a - 5 = b - a = 30 - b = d
+\]
+
+From first equality:
+\[
+b = 2a - 5
+\]
+
+From second equality:
+\[
+30 - b = d = a - 5
+\implies 30 - b = a - 5
+\implies b = 35 - a
+\]
+
+Equate expressions for \(b\):
+\[
+2a - 5 = 35 - a \implies 3a = 40 \implies a = \frac{40}{3} \notin \mathbb{Z}
+\]
+
+So no integer solution, no 4-term AP here.
+
+---
+
+**Case 4: AP involving (a,b,30,40)**
+
+Common difference \(d\):
+
+\[
+b - a = d, \quad 30 - b = d, \quad 40 - 30 = d
+\]
+
+From the last equality, \(d = 10\).
+
+Check if \(b - a = 10\) and \(30 - b = 10\):
+
+\[
+b - a = 10
+\]
+\[
+30 - b = 10 \implies b = 20
+\]
+
+From above:
+\[
+b = 20 \implies b - a = 10 \implies a = 10
+\]
+
+So (10,20,30,40) is a 4-term AP.
+
+Therefore, \((a,b) \neq (10,20)\).
+
+---
+
+**Case 5: AP involving (b,30,40,50)**
+
+Common difference \(d\):
+
+\[
+30 - b = d, \quad 40 - 30 = d, \quad 50 - 40 = d
+\]
+
+Since differences between 30,40,50 are 10, \(d=10\).
+
+So,
+\[
+30 - b = 10 \implies b = 20
+\]
+
+If \(b=20\), then (20,30,40,50) is a 4-term AP.
+
+Therefore, \(b \neq 20\).
+
+---
+
+**Case 6: AP involving (3,4,a,b)**
+
+Try to check if (3,4,a,b) can be a 4-term AP.
+
+Common difference \(d\):
+
+\[
+4 - 3 = 1 = a - 4 = b - a
+\]
+
+From \(a - 4 = 1\), \(a=5\), but \(a > 5\), so no.
+
+No 4-term AP here.
+
+---
+
+**Case 7: AP involving (4,a,b,30)**
+
+Common difference \(d\):
+
+\[
+a - 4 = d, \quad b - a = d, \quad 30 - b = d
+\]
+
+Sum:
+\[
+(a-4) + (b - a) + (30 - b) = d + d + d = 3d
+\]
+
+Sum of differences = \(30 - 4 = 26\), so
+\[
+3d = 26 \implies d = \frac{26}{3} \notin \mathbb{Z}
+\]
+
+No integer \(d\), no 4-term AP.
+
+---
+
+**Case 8: AP involving (3,a,b,30)**
+
+Common difference \(d\):
+
+\[
+a - 3 = d, \quad b - a = d, \quad 30 - b = d
+\]
+
+Sum differences:
+\[
+( a - 3 ) + ( b - a ) + ( 30 - b ) = 3d
+\]
+Sum is \(30 - 3 = 27\), so:
+\[
+3d = 27 \implies d=9
+\]
+
+Then:
+\[
+a - 3 = 9 \implies a = 12
+\]
+\[
+b - a = 9 \implies b = 21
+\]
+\[
+30 - b = 9 \implies b = 21
+\]
+
+Consistent.
+
+So (3,12,21,30) is a 4-term AP.
+
+If we pick \((a,b) = (12,21)\), then the sequence contains a 4-term AP.
+
+Therefore, \((a,b) \neq (12,21)\).
+
+---
+
+**Case 9: AP involving (4,a,b,40)**
+
+Common difference \(d\):
+
+\[
+a - 4 = d, \quad b - a = d, \quad 40 - b = d
+\]
+
+Sum differences:
+
+\[
+( a - 4 ) + ( b - a ) + ( 40 - b ) = 3d = 40 - 4 = 36
+\]
+\[
+3d = 36 \implies d = 12
+\]
+
+Then:
+\[
+a - 4 = 12 \implies a = 16
+\]
+\[
+b - a = 12 \implies b = 28
+\]
+\[
+40 - b = 12 \implies b = 28
+\]
+
+Consistent.
+
+So (4,16,28,40) is a 4-term AP.
+
+Therefore, \((a,b) \neq (16,28)\).
+
+---
+
+**Case 10: AP involving (5,a,b,40)**
+
+Sum differences:
+
+\[
+a - 5 = d, \quad b - a = d, \quad 40 - b = d
+\]
+
+Sum:
+\[
+( a - 5 ) + ( b - a ) + ( 40 - b ) = 3d = 40 - 5 = 35
+\]
+
+\[
+3d = 35 \implies d = \frac{35}{3} \notin \mathbb{Z}
+\]
+
+No AP here.
+
+---
+
+**Case 11: AP involving (a,b,40,50)**
+
+Sum differences:
+
+\[
+b - a = d, \quad 40 - b = d, \quad 50 - 40 = d
+\]
+
+Last difference is 10, so \(d=10\).
+
+Then:
+
+\[
+b - a = 10
+\]
+\[
+40 - b = 10 \implies b = 30
+\]
+
+But \(b < 30\), so \(b\) cannot be 30.
+
+No AP here.
+
+---
+
+**Summary of forbidden pairs \((a,b)\):**
+
+- \((6,7)\) because (4,5,6,7) AP.
+- \((10,20)\) because (10,20,30,40) AP.
+- \((12,21)\) because (3,12,21,30) AP.
+- \((16,28)\) because (4,16,28,40) AP.
+- \(a=6\) alone is forbidden because (3,4,5,6) AP.
+- \(b=20\) alone is forbidden because (20,30,40,50) AP.
+
+Also, \(a\) and \(b\) must satisfy \(5 < a < b < 30\).
+
+---
+
+**Step 7: Count valid pairs \((a,b)\) with \(6 \leq a < b \leq 29\), excluding forbidden pairs**
+
+Total number of pairs \((a,b)\) with \(6 \leq a < b \leq 29\):
+
+Number of integers from 6 to 29 inclusive is \(29 - 6 + 1 = 24\).
+
+Number of pairs is:
+\[
+\binom{24}{2} = \frac{24 \times 23}{2} = 276
+\]
+
+Now, exclude pairs that violate conditions:
+
+- Exclude all pairs with \(a=6\) because \(a=6\) creates AP with (3,4,5,6).
+
+Possible pairs with \(a=6\) are:
+\[
+(6,7), (6,8), ..., (6,29)
+\]
+Number of such pairs:
+\[
+29 - 6 = 23
+\]
+
+- Exclude pairs with \(b=20\) because \(b=20\) creates APs with (20,30,40,50).
+
+Possible pairs with \(b=20\) and \(a < 20\), but \(a \geq 6\):
+\[
+(6,20), (7,20), ..., (19,20)
+\]
+Number of such pairs:
+\[
+20 - 6 = 14
+\]
+
+- Exclude specifically the forbidden pairs identified:
+\[
+(6,7), (10,20), (12,21), (16,28)
+\]
+
+Note that (6,7) is already excluded due to \(a=6\) and \(b=20\) is excluded due to \(b=20\).
+
+But (10,20) and (12,21), (16,28) are not yet necessarily excluded.
+
+Check if these have \(a=6\) or \(b=20\):
+
+- (10,20): \(b=20\), so already excluded.
+- (12,21): neither \(a=6\) nor \(b=20\), so exclude explicitly.
+- (16,28): neither \(a=6\) nor \(b=20\), exclude explicitly.
+
+---
+
+**Step 8: Calculate the total allowed pairs**
+
+Start from total:
+
+\[
+276
+\]
+
+Subtract pairs with \(a=6\):
+
+\[
+276 - 23 = 253
+\]
+
+Subtract pairs with \(b=20\):
+
+\[
+253 - 14 = 239
+\]
+
+Now, subtract (12,21) and (16,28):
+
+\[
+239 - 2 = 237
+\]
+
+---
+
+**Step 9: Verify no double counting of exclusions**
+
+Are there overlaps between pairs with \(a=6\) and \(b=20\)?
+
+No, because \(a=6\) pairs have \(b>6\), \(b=20\) pairs have \(a<20\), but \(a=6\) and \(b=20\) is a single pair (6,20) counted in both sets?
+
+No, (6,20) has \(a=6\) and \(b=20\), so it's counted in both sets. We subtracted it twice.
+
+So, the intersection of these sets is \(\{(6,20)\}\).
+
+We need to add back one to correct double subtraction:
+
+\[
+237 + 1 = 238
+\]
+
+---
+
+**Step 10: Final answer**
+
+Number of ordered pairs \((a,b)\) of integers with \(5 < a < b < 30\), no 4-term AP, and strictly increasing sequence is:
+
+\[
+\boxed{238}
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 228.
+
+
+
+# Example 3
+## score
+1.0
+
+## problem
+Let $x_1\leq x_2\leq \cdots\leq x_{100}$ be real numbers such that $|x_1| + |x_2| + \cdots + |x_{100}| = 1$ and $x_1 + x_2 + \cdots + x_{100} = 0$. Among all such $100$-tuples of numbers, the greatest value that $x_{76} - x_{16}$ can achieve is $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## prompt
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+## output
+841
+
+## reasoning
+We are given 100 real numbers \( x_1 \leq x_2 \leq \cdots \leq x_{100} \) satisfying:
+1. \(\sum_{i=1}^{100} |x_i| = 1\),
+2. \(\sum_{i=1}^{100} x_i = 0\).
+
+We want to maximize \( x_{76} - x_{16} \).
+
+---
+
+**Step 1: Understand the problem constraints**
+
+- The numbers are ordered non-decreasingly.
+- The sum of absolute values is 1.
+- The sum of the numbers is zero.
+
+We want to find the maximum possible gap between the 76th and 16th numbers.
+
+---
+
+**Step 2: Intuition about the problem**
+
+Since the sum of the numbers is zero, and their absolute values add to 1, the positive and negative parts must "balance" each other.
+
+The ordering implies:
+\[
+x_1 \leq x_2 \leq \cdots \leq x_{16} \leq \cdots \leq x_{76} \leq \cdots \leq x_{100}
+\]
+
+Because \(x_{76}\) is relatively high in the ordering, it is among the larger numbers, and \(x_{16}\) is quite low, among the smaller numbers.
+
+Maximizing the difference \(x_{76} - x_{16}\) suggests:
+- \(x_{76}\) should be as large as possible,
+- \(x_{16}\) should be as small as possible.
+
+But the sums and absolute values constrain how large or small these can be.
+
+---
+
+**Step 3: Structure of the maximizing sequence**
+
+Since the sum of all \(x_i\) is zero and \(\sum |x_i| = 1\), the total positive part equals the absolute value of the total negative part:
+
+\[
+\sum_{x_i \geq 0} x_i = -\sum_{x_i < 0} x_i = \frac{1}{2}
+\]
+
+Because the sum of absolute values is 1, the positive part sums to \(\frac{1}{2}\) and the negative part sums to \(-\frac{1}{2}\).
+
+---
+
+**Step 4: Using the ordering to assign values**
+
+We want to maximize \(x_{76} - x_{16}\).
+
+- Since the numbers are sorted, \(x_{16}\) is the 16th smallest number.
+- \(x_{76}\) is the 76th smallest number.
+
+We can try to create a sequence where:
+
+- The first 16 numbers are all equal to \(a\),
+- The numbers from 17 to 75 are equal to some value \(b\),
+- The numbers from 76 to 100 are equal to \(c\).
+
+But we want to maximize \(x_{76} - x_{16} = c - a\).
+
+Since \(x_1 \leq x_2 \leq \cdots \leq x_{16} = a \leq b \leq c = x_{76} \leq \cdots \leq x_{100}\),
+
+and there are 100 numbers total, the groups are:
+
+- Group 1: positions 1 to 16, count = 16, value = \(a\)
+- Group 2: positions 17 to 75, count = 59, value = \(b\)
+- Group 3: positions 76 to 100, count = 25, value = \(c\)
+
+---
+
+**Step 5: Conditions**
+
+Sum of \(x_i = 0\):
+\[
+16a + 59b + 25c = 0
+\]
+
+Sum of absolute values = 1:
+\[
+16|a| + 59|b| + 25|c| = 1
+\]
+
+Ordering:
+\[
+a \leq b \leq c
+\]
+
+Goal:
+\[
+\text{maximize } c - a
+\]
+
+---
+
+**Step 6: Choosing signs to maximize \(c - a\)**
+
+To maximize \(c - a\), it makes sense to take \(a\) negative and \(c\) positive.
+
+What about \(b\)? Since \(a \leq b \leq c\), and \(a < 0 < c\), \(b\) is between negative and positive. To simplify, consider \(b = 0\) (the midpoint).
+
+Check if this choice is possible.
+
+Then:
+\[
+16a + 59 \cdot 0 + 25 c = 0 \implies 25 c = -16 a
+\]
+\[
+c = -\frac{16}{25} a
+\]
+
+Sum of absolute values:
+\[
+16|a| + 59 \cdot 0 + 25|c| = 16|a| + 25|c| = 16|a| + 25 \times \frac{16}{25} |a| = 16|a| + 16|a| = 32 |a| = 1
+\]
+Thus,
+\[
+|a| = \frac{1}{32}
+\]
+
+Since \(a\) is negative,
+\[
+a = -\frac{1}{32}, \quad c = -\frac{16}{25} a = -\frac{16}{25} \times \left(-\frac{1}{32}\right) = \frac{16}{25} \cdot \frac{1}{32} = \frac{16}{800} = \frac{1}{50}
+\]
+
+So,
+\[
+a = -\frac{1}{32}, \quad b = 0, \quad c = \frac{1}{50}
+\]
+
+Check ordering:
+\[
+a = -\frac{1}{32} \approx -0.03125, \quad b=0, \quad c=0.02
+\]
+Ordering holds: \(-0.03125 \leq 0 \leq 0.02\).
+
+---
+
+**Step 7: Compute \(x_{76} - x_{16} = c - a\)**
+
+\[
+c - a = \frac{1}{50} - \left(-\frac{1}{32}\right) = \frac{1}{50} + \frac{1}{32} = \frac{32}{1600} + \frac{50}{1600} = \frac{82}{1600} = \frac{41}{800}
+\]
+
+---
+
+**Step 8: Check if this is maximum**
+
+Could we do better by making \(b\) nonzero?
+
+If \(b > 0\), then to keep the sum zero, \(a\) must be more negative and/or \(c\) adjusted accordingly.
+
+But having \(b=0\) minimizes the absolute values in the middle segment, making the sum of absolute values more "efficient" for maximizing \(c - a\).
+
+If \(b<0\), then since \(b \geq a\), \(b\) close to \(a\) and negative will increase the total absolute value sum on the negative side, possibly reducing \(c - a\).
+
+If \(b>0\), it shifts some mass to positive, but then sum zero forces more negative \(a\), increasing absolute value sum.
+
+Hence, intuitively, \(b=0\) is optimal.
+
+---
+
+**Step 9: Final answer**
+
+The maximum value of \(x_{76} - x_{16}\) is \(\frac{41}{800}\).
+
+Therefore,
+\[
+m = 41, \quad n = 800, \quad m + n = 41 + 800 = 841.
+\]
+
+---
+
+**Answer:**
+
+\[
+\boxed{841}
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 841.
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000001 | Iter 1 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by encouraging detailed, step-by-step solutions that include all necessary reasoning and conclude with a clearly boxed integer answer.
+Lesson: The outcome reveals that requiring more detailed explanations and justifications did not improve the accuracy on AIME problems, suggesting that increased verbosity or explicitness in the prompt does not necessarily lead to better final answers.
+Still failing: AIME math problems
+
+### mem_000002 | Iter 2 [REJECTED +0.00]
+Intent: The edit aimed to improve answer accuracy by encouraging detailed, verified, step-by-step reasoning leading to a uniquely justified integer answer.
+Lesson: Despite adding more rigorous reasoning instructions, the strategy did not yield accuracy improvement, suggesting that enhancing explanation detail alone may not address underlying issues impacting correctness.
+Still failing: AIME math problem solving
+
+### mem_000003 | Iter 3 [REJECTED +0.00]
+Intent: The edit aimed to improve answer accuracy by enforcing detailed step-by-step reasoning and explicit verification while ensuring the final response is a single simplified integer.
+Lesson: The unchanged aggregate and per-example scores indicate that adding instructions for detailed reasoning and verification did not improve or worsen accuracy on these problems, suggesting that increased explicit reasoning steps may not directly translate to better answer correctness in this context.
+
+### mem_000004 | Iter 4 [REJECTED -1.00]
+Intent: The edit aimed to improve accuracy by encouraging detailed, step-by-step reasoning and careful verification before providing a final integer answer.
+Lesson: The outcome shows that adding complexity and emphasis on detailed explanation may introduce confusion or errors, potentially lowering accuracy; simpler, direct prompts may be more effective for generating correct final answers on AIME problems.
+Still failing: AIME integer answer extraction
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

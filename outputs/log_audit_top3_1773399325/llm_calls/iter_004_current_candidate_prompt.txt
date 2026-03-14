@@ -1,0 +1,109 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize correctness across arithmetic, algebra, and logic questions.
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve carefully. Use step-by-step verification for arithmetic. Track units. Check assumptions explicitly.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## example_id
+2
+
+## type
+arith
+
+## Feedback
+type=arith score=0.80; needs arithmetic verification/units/assumption checks
+
+## score
+0.8
+
+
+
+# Example 2
+## example_id
+3
+
+## type
+algebra
+
+## Feedback
+type=algebra score=0.70; needs arithmetic verification/units/assumption checks
+
+## score
+0.7
+
+
+
+# Example 3
+## example_id
+4
+
+## type
+algebra
+
+## Feedback
+type=algebra score=0.70; needs arithmetic verification/units/assumption checks
+
+## score
+0.7
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### mem_000001 | Iter 1 [ACCEPTED +0.60]
+Intent: Use step-by-step verification
+Lesson: Verification improved arithmetic reliability; keep explicit structure.
+Strong on: arithmetic
+Still failing: algebra
+
+### mem_000002 | Iter 2 [REJECTED -0.80]
+Intent: Use step-by-step verification
+Lesson: The bad short-cut harmed performance and should be removed.
+Strong on: arithmetic
+Still failing: algebra, logic
+
+### mem_000003 | Iter 3 [ACCEPTED +0.80]
+Intent: Use step-by-step verification
+Lesson: Verification improved arithmetic reliability; keep explicit structure.
+Strong on: arithmetic
+Still failing: algebra
+
+Persistent weak spots: algebra
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

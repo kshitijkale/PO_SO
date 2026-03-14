@@ -1,0 +1,27 @@
+## Optimization History
+
+### mem_000010 | Iter 10 [REJECTED +0.00]
+Intent: The edit aimed to improve accuracy by enforcing detailed step-by-step reasoning and thorough verification before providing a concise final integer answer.
+Lesson: The outcome reveals that adding detailed reasoning and verification in the prompt does not necessarily improve performance for AIME math problems, suggesting the model's accuracy may be limited by other factors beyond prompt instruction clarity or thoroughness.
+
+### mem_000011 | Iter 11 [REJECTED -1.00]
+Intent: The edit aimed to increase answer accuracy by enforcing more explicit verification and thorough explanation at each step of the solution.
+Lesson: The outcome shows that adding more detailed instructions and explicit verification requirements can overwhelm or confuse the model, leading to a decrease in accuracy for some problems rather than improvement.
+Strong on: problems with straightforward verification
+Still failing: problems requiring concise reasoning and simplicity
+
+### mem_000012 | Iter 12 [REJECTED +0.00]
+Intent: The edit aimed to improve solution accuracy by encouraging verification of calculations and logical steps throughout the reasoning process.
+Lesson: The unchanged aggregate and per-example scores indicate that adding verification steps did not enhance performance, suggesting that this added instruction neither improved nor degraded accuracy for these AIME problems.
+
+### mem_000013 | Iter 13 [ACCEPTED +1.00]
+Intent: The edit aimed to enhance rigor and clarity in reasoning by emphasizing verification of critical steps and explicit documentation, reducing errors and premature conclusions to improve final answer accuracy.
+Lesson: The outcome shows that making instructions more explicit about verification and clarity can improve correctness on challenging problems prone to subtle mistakes, but may have limited or no effect on problems already well-handled by the original prompt.
+Strong on: complex multi-step algebraic problems, problems requiring careful verification
+
+### mem_000014 | Iter 14 [ACCEPTED +1.00]
+Intent: Improve answer accuracy on AIME math problems by encouraging explicit step-by-step reasoning and verification before providing a final answer.
+Lesson: The outcome shows that prompting for detailed, careful reasoning and explicit verification can meaningfully increase correctness on problems that previously failed, while maintaining success on problems already answered correctly.
+Strong on: multi-step calculation, logical deduction
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.

@@ -27,15 +27,10 @@ from pathlib import Path
 import dspy
 from dotenv import load_dotenv
 
+from experiments.aime_memory.adapter import AIMEAdapter
 from experiments.aime_memory.dataset import load_aime_dataset
-from experiments.aime_memory.solver import evaluate_on_dataset, math_metric, run_llm
-from gepa.optimize_anything import (
-    EngineConfig,
-    GEPAConfig,
-    ReflectionConfig,
-    SideInfo,
-    optimize_anything,
-)
+from experiments.aime_memory.solver import evaluate_on_dataset
+from gepa.api import optimize
 
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -45,25 +40,6 @@ load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
 INITIAL_PROMPT = (
     "Solve the problem and provide the answer provide the final answer as a single integer."
 )
-
-
-def make_evaluator(solver_lm: dspy.LM):
-    """Return a GEPA evaluator closure bound to the given dspy LM."""
-    dspy.configure(lm=solver_lm)
-
-    def evaluate(candidate: str, example) -> tuple[float, SideInfo]:
-        prediction = run_llm(example, candidate)
-        score, feedback = math_metric(example, prediction)
-        return score, {
-            "score": score,
-            "problem": example.problem,
-            "prompt": candidate,
-            "output": prediction.answer,
-            "reasoning": getattr(prediction, "reasoning", ""),
-            "execution_feedback": feedback,
-        }
-
-    return evaluate
 
 
 def parse_args() -> argparse.Namespace:
@@ -104,41 +80,38 @@ def main():
             "OPENAI_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
         )
     solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=1.0, max_tokens=32000)
-    evaluator = make_evaluator(solver_lm)
 
-    # --- GEPA config ---
-    config = GEPAConfig(
-        engine=EngineConfig(
-            run_dir=run_dir,
-            max_metric_calls=args.max_calls,
-            track_best_outputs=True,
-            parallel=True,
-            max_workers=args.workers,
-            cache_evaluation=True,
-            seed=args.seed,
-        ),
-        reflection=ReflectionConfig(
-            reflection_lm=args.reflection_lm,
-            use_reflection_memory=args.memory,
-            reflection_memory_max_entries=args.memory_entries,
-        ),
-    )
+    # --- Adapter ---
+    adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=args.workers)
 
     # --- Optimize ---
-    result = optimize_anything(
-        seed_candidate=INITIAL_PROMPT,
-        evaluator=evaluator,
-        dataset=trainset,
+    seed_candidate = {AIMEAdapter.COMPONENT_NAME: INITIAL_PROMPT}
+
+    result = optimize(
+        seed_candidate=seed_candidate,
+        trainset=trainset,
         valset=valset,
-        config=config,
+        adapter=adapter,
+        reflection_lm=args.reflection_lm,
+        max_metric_calls=args.max_calls,
+        run_dir=run_dir,
+        cache_evaluation=True,
+        seed=args.seed,
+        research_mode=True,
+        use_reflection_memory=args.memory,
+        reflection_memory_max_entries=args.memory_entries,
+        objective="Optimize the system prompt to maximize correct answers on AIME math competition problems.",
     )
 
     # --- Evaluate baseline and best prompt on test set ---
+    dspy.configure(lm=solver_lm)
+
     print("\n--- Baseline evaluation ---")
     baseline_score = evaluate_on_dataset(INITIAL_PROMPT, testset)
 
     print("\n--- Best optimized prompt ---")
-    best_prompt = result.best_candidate
+    best_candidate = result.best_candidate
+    best_prompt = best_candidate[AIMEAdapter.COMPONENT_NAME]
     print(best_prompt)
 
     print("\n--- Optimized evaluation ---")

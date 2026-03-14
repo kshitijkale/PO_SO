@@ -20,22 +20,15 @@ from __future__ import annotations
 
 import argparse
 import os
-import sys
+from pathlib import Path
 
 import dspy
 from dotenv import load_dotenv
-from pathlib import Path
 
+from experiments.aime_memory.adapter import AIMEAdapter
 from experiments.aime_memory.dataset import load_aime_dataset
-from experiments.aime_memory.solver import evaluate_on_dataset, math_metric, run_llm
-from gepa.optimize_anything import (
-    EngineConfig,
-    GEPAConfig,
-    ReflectionConfig,
-    SideInfo,
-    TrackingConfig,
-    optimize_anything,
-)
+from experiments.aime_memory.solver import evaluate_on_dataset
+from gepa.api import optimize
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
@@ -46,34 +39,6 @@ VAL_SIZE = 45
 INITIAL_PROMPT = (
     "Solve the problem and provide the answer provide the final answer as a single integer."
 )
-
-
-def make_evaluator(solver_lm: dspy.LM):
-    import threading
-    dspy.configure(lm=solver_lm)
-    _lock = threading.Lock()
-    _state = {"n": 0, "correct": 0}
-
-    def evaluate(candidate: str, example) -> tuple[float, SideInfo]:
-        prediction = run_llm(example, candidate)
-        score, feedback = math_metric(example, prediction)
-        with _lock:
-            _state["n"] += 1
-            _state["correct"] += int(score >= 1.0)
-            n, c = _state["n"], _state["correct"]
-        mark = "+" if score >= 1.0 else "-"
-        sys.stdout.write(f"  [{mark}] #{n}  pred={prediction.answer}  gt={example.answer}  running={c}/{n}\n")
-        sys.stdout.flush()
-        return score, {
-            "score": score,
-            "problem": example.problem,
-            "prompt": candidate,
-            "output": prediction.answer,
-            "reasoning": getattr(prediction, "reasoning", ""),
-            "Feedback": feedback,
-        }
-
-    return evaluate
 
 
 def parse_args() -> argparse.Namespace:
@@ -118,49 +83,44 @@ def main():
             "OPENAI_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
         )
     solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=0.7, max_tokens=32000)
-    evaluator = make_evaluator(solver_lm)
 
-    # --- Config ---
-    config = GEPAConfig(
-        engine=EngineConfig(
-            run_dir=run_dir,
-            max_metric_calls=args.max_calls,
-            track_best_outputs=True,
-            parallel=True,
-            max_workers=args.workers,
-            cache_evaluation=True,
-            seed=args.seed,
-        ),
-        reflection=ReflectionConfig(
-            reflection_lm=args.reflection_lm,
-            use_reflection_memory=use_memory,
-            reflection_memory_max_entries=args.memory_entries,
-        ),
-        tracking=TrackingConfig(
-            research_mode=True,
-            verbose=True,
-        ),
-    )
+    # --- Adapter ---
+    adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=args.workers)
+
+    seed_candidate = {AIMEAdapter.COMPONENT_NAME: INITIAL_PROMPT}
 
     # --- Optimize ---
-    result = optimize_anything(
-        seed_candidate=INITIAL_PROMPT,
-        evaluator=evaluator,
-        dataset=trainset,
+    result = optimize(
+        seed_candidate=seed_candidate,
+        trainset=trainset,
         valset=valset,
-        config=config,
+        adapter=adapter,
+        reflection_lm=args.reflection_lm,
+        max_metric_calls=args.max_calls,
+        run_dir=run_dir,
+        cache_evaluation=True,
+        seed=args.seed,
+        research_mode=True,
+        verbose=True,
+        use_reflection_memory=use_memory,
+        reflection_memory_max_entries=args.memory_entries,
         objective="Maximize accuracy on AIME math problems. The answer must be a single integer.",
     )
 
     # --- Results ---
-    print(f"\nBest candidate:\n{result.best_candidate}")
+    best_candidate = result.best_candidate
+    assert isinstance(best_candidate, dict)
+    best_prompt = best_candidate[AIMEAdapter.COMPONENT_NAME]
+    print(f"\nBest candidate:\n{best_prompt}")
 
     # --- Test set evaluation ---
+    dspy.configure(lm=solver_lm)
+
     print("\n--- Baseline test evaluation ---")
     baseline_score = evaluate_on_dataset(INITIAL_PROMPT, testset, print_examples=True)
 
     print("\n--- Optimized test evaluation ---")
-    optimized_score = evaluate_on_dataset(result.best_candidate, testset, print_examples=True)
+    optimized_score = evaluate_on_dataset(best_prompt, testset, print_examples=True)
 
     print(f"\nBaseline  : {baseline_score:.2%}")
     print(f"Optimized : {optimized_score:.2%}")

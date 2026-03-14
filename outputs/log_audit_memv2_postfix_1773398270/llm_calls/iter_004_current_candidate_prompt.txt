@@ -1,0 +1,94 @@
+You are an expert optimization assistant. Your task is to analyze evaluation feedback and propose an improved version of a system component.
+
+## Optimization Goal
+
+Maximize score
+
+## Current Component
+
+The component being optimized:
+
+```
+Solve carefully and include GOOD1 and GOOD2.
+```
+
+## Evaluation Results
+
+Performance data from evaluating the current component across test cases:
+
+```
+# Example 1
+## Feedback
+Need token GOOD2
+
+## required
+GOOD2
+
+## candidate
+Solve carefully and include GOOD1 and GOOD2.
+
+## score
+1.0
+
+
+
+# Example 2
+## Feedback
+Need token GOOD1
+
+## required
+GOOD1
+
+## candidate
+Solve carefully and include GOOD1 and GOOD2.
+
+## score
+1.0
+
+
+```
+
+## Your Task
+
+Analyze the evaluation results systematically:
+
+- **Goal alignment**: How well does the current component achieve the stated optimization goal?
+- **Failure patterns**: What specific errors, edge cases, or failure modes appear in the evaluation data?
+- **Success patterns**: What behaviors or approaches worked well and should be preserved?
+- **Root causes**: What underlying issues explain the observed failures?
+
+Based on your analysis, propose an improved version that:
+1. Addresses the identified failure patterns and root causes
+2. Preserves successful behaviors from the current version
+3. Makes meaningful improvements rather than superficial changes
+
+## Output Format
+
+Provide ONLY the improved version within ``` blocks. The output must be a complete, 
+drop-in replacement for the current component (whether it's a prompt, configuration, 
+code, or any other parameter type).
+Do not include explanations, commentary, or markdown outside the ``` blocks.
+
+## Optimization History
+
+### Iter 1 [ACCEPTED +1.00]
+Intent: Target missing pattern
+Lesson: Adding explicit pattern words improved matching.
+Strong on: pattern_match
+Still failing: edge_case
+
+### Iter 2 [REJECTED +0.00]
+Intent: Target missing pattern
+Lesson: Adding explicit pattern words improved matching.
+Strong on: pattern_match
+Still failing: edge_case
+
+### Iter 3 [ACCEPTED +1.00]
+Intent: Target missing pattern
+Lesson: Adding explicit pattern words improved matching.
+Strong on: pattern_match
+Still failing: edge_case
+
+Persistent weak spots: edge_case
+
+IMPORTANT: Do not repeat REJECTED strategies. Build on ACCEPTED ones.
