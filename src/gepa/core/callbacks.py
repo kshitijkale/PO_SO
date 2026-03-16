@@ -32,7 +32,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Protocol, TypedDict, runtime_checkable
+from typing import TYPE_CHECKING, Any, Literal, Protocol, TypedDict, runtime_checkable
 
 if TYPE_CHECKING:
     from gepa.core.state import GEPAState, ProgramIdx
@@ -335,6 +335,68 @@ class LessonGeneratedEvent(TypedDict):
     memory_reuse_detected: bool
 
 
+# =============================================================================
+# MemV0 Events
+# =============================================================================
+
+
+class OutcomeInterpreterCallEvent(TypedDict):
+    """Fired when the OutcomeInterpreter makes an LLM call."""
+
+    type: Literal["outcome_interpreter_call"]
+    iteration: int
+    node_id: int  # -1 if not applicable
+    candidate: dict[str, str]
+    oi_prompt: str  # full formatted OI prompt
+    oi_raw_response: str  # raw LLM response ("" if fallback)
+    outcomes: list[dict[str, Any]]  # serialized OutcomeDescription list
+    num_records: int
+    fallback_used: bool
+
+
+class OIEvictionSummaryEvent(TypedDict):
+    """Fired when the OutcomeInterpreter produces an eviction summary."""
+
+    type: Literal["oi_eviction_summary"]
+    iteration: int
+    node_id: int
+    summary_type: str  # "node" | "global"
+    prompt: str
+    response: str
+    existing_summary: str
+    evicted_count: int
+    new_summary: str
+
+
+class MemoryTreeUpdatedEvent(TypedDict):
+    """Fired when the MemoryTree is mutated."""
+
+    type: Literal["memory_tree_updated"]
+    iteration: int
+    operation: str  # "add_root"|"add_disconnected"|"add_child"|"add_outcomes"|"set_val_score"|"eviction"
+    node_id: int
+    parent_id: int | None
+    accepted: bool | None  # None for non-edge operations
+    rejection_reason: str
+    prompt: dict[str, str]
+    outcomes_added: list[dict[str, Any]]  # populated for "add_outcomes"
+    val_score: float | None  # populated for "set_val_score"
+    evicted_count: int  # populated for "eviction"
+    new_node_summary: str  # populated for "eviction"
+    tree_node_count: int
+
+
+class MemoryRenderedEvent(TypedDict):
+    """Fired when the TieredMemoryRenderer produces rendered text."""
+
+    type: Literal["memory_rendered"]
+    iteration: int
+    current_node_id: int
+    rendered_text: str
+    char_count: int
+    was_injected: bool
+
+
 @runtime_checkable
 class GEPACallback(Protocol):
     """Protocol for GEPA optimization callbacks.
@@ -499,6 +561,26 @@ class GEPACallback(Protocol):
         """Called when a V2 lesson is generated after an optimization step."""
         ...
 
+    # =========================================================================
+    # MemV0 Events
+    # =========================================================================
+
+    def on_outcome_interpreter_call(self, event: OutcomeInterpreterCallEvent) -> None:
+        """Called when the OutcomeInterpreter makes an LLM call."""
+        ...
+
+    def on_oi_eviction_summary(self, event: OIEvictionSummaryEvent) -> None:
+        """Called when the OutcomeInterpreter produces an eviction summary."""
+        ...
+
+    def on_memory_tree_updated(self, event: MemoryTreeUpdatedEvent) -> None:
+        """Called when the MemoryTree is mutated."""
+        ...
+
+    def on_memory_rendered(self, event: MemoryRenderedEvent) -> None:
+        """Called when the TieredMemoryRenderer produces rendered text."""
+        ...
+
 
 class CompositeCallback:
     """A callback that delegates to multiple child callbacks.
@@ -647,6 +729,18 @@ class CompositeCallback:
 
     def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
         self._notify("on_lesson_generated", event)
+
+    def on_outcome_interpreter_call(self, event: OutcomeInterpreterCallEvent) -> None:
+        self._notify("on_outcome_interpreter_call", event)
+
+    def on_oi_eviction_summary(self, event: OIEvictionSummaryEvent) -> None:
+        self._notify("on_oi_eviction_summary", event)
+
+    def on_memory_tree_updated(self, event: MemoryTreeUpdatedEvent) -> None:
+        self._notify("on_memory_tree_updated", event)
+
+    def on_memory_rendered(self, event: MemoryRenderedEvent) -> None:
+        self._notify("on_memory_rendered", event)
 
 
 def notify_callbacks(

@@ -21,8 +21,10 @@ from __future__ import annotations
 import argparse
 import os
 from pathlib import Path
+from typing import Any
 
 import dspy
+import litellm
 from dotenv import load_dotenv
 
 from experiments.aime_memory.adapter import AIMEAdapter
@@ -51,6 +53,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--memory-entries", type=int, default=10)
     parser.add_argument("--no-memory", action="store_true", default=False)
+    parser.add_argument("--memory-version", choices=["v2", "v0"], default=None)
+    parser.add_argument("--oi-lm", type=str, default=None)
+    parser.add_argument("--outcome-eviction-k", type=int, default=10)
+    parser.add_argument("--solver-temperature", type=float, default=0.0)
+    parser.add_argument("--reflection-temperature", type=float, default=0.7)
+    parser.add_argument("--minibatch-size", type=int, default=3)
     return parser.parse_args()
 
 
@@ -65,7 +73,7 @@ def main():
     trainset = trainset_full[:TRAIN_SIZE]
     valset = valset_full[:VAL_SIZE]
 
-    print(f"\n=== AIME Verbose Run ===")
+    print("\n=== AIME Verbose Run ===")
     print(f"  solver LLM      : {args.solver_lm}")
     print(f"  reflection LLM  : {args.reflection_lm}")
     print(f"  train / val     : {len(trainset)} / {len(valset)}")
@@ -73,6 +81,9 @@ def main():
     print(f"  memory          : {'ON' if use_memory else 'OFF'}")
     print(f"  workers         : {args.workers}")
     print(f"  seed            : {args.seed}")
+    print(f"  solver temp     : {args.solver_temperature}")
+    print(f"  reflection temp : {args.reflection_temperature}")
+    print(f"  minibatch_size  : {args.minibatch_size}")
     print(f"  run_dir         : {run_dir}")
     print()
 
@@ -82,7 +93,16 @@ def main():
         raise RuntimeError(
             "OPENAI_API_KEY is missing. Set it in the environment or in .claude/.env before running this script."
         )
-    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=0.7, max_tokens=32000)
+    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=args.solver_temperature, max_tokens=32000)
+
+    # --- Reflection LM callable with explicit temperature ---
+    reflection_lm_name = args.reflection_lm
+    reflection_temperature = args.reflection_temperature
+
+    def _reflection_lm(prompt: str | list[dict[str, Any]]) -> str:
+        msgs: list[dict[str, Any]] = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
+        completion = litellm.completion(model=reflection_lm_name, messages=msgs, temperature=reflection_temperature)
+        return completion.choices[0].message.content  # type: ignore[union-attr]
 
     # --- Adapter ---
     adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=args.workers)
@@ -95,16 +115,20 @@ def main():
         trainset=trainset,
         valset=valset,
         adapter=adapter,
-        reflection_lm=args.reflection_lm,
+        reflection_lm=_reflection_lm,
         max_metric_calls=args.max_calls,
+        reflection_minibatch_size=args.minibatch_size,
         run_dir=run_dir,
         cache_evaluation=True,
         seed=args.seed,
         research_mode=True,
         verbose=True,
-        use_reflection_memory=use_memory,
+        use_reflection_memory=use_memory and args.memory_version != "v0",
         reflection_memory_max_entries=args.memory_entries,
         objective="Maximize accuracy on AIME math problems. The answer must be a single integer.",
+        memory_version=args.memory_version if use_memory else None,
+        oi_lm=args.oi_lm,
+        outcome_eviction_k=args.outcome_eviction_k,
     )
 
     # --- Results ---

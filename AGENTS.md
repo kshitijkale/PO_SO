@@ -1,38 +1,47 @@
-# GEPA
-
-GEPA (Genetic-Pareto) is a Python framework for optimizing text components (AI prompts, code, instructions) using LLM-based reflection and Pareto-efficient evolutionary search.
-
-## Setup
-
-We use **uv** for dependency management. The project uses setuptools as the build backend. All python executions must be done through uv.
-
-```bash
-uv sync --extra dev
-```
-
-## Project Structure
-
-- `src/gepa/` — main package source
-  - `core/` — optimization loop, state, evaluation
-  - `proposer/` — candidate proposal and mutation logic
-  - `adapters/` — integration adapters (DSPy, RAG, MCP, etc.)
-  - `strategies/` — batch sampling and candidate selection
-  - `logging/` — experiment tracking and logging
-- `tests/` — pytest test suite
-- `docs/` — mkdocs documentation site
-
-## Build & Test
-
-```bash
-uv run pytest
-uv run ruff check src/
-uv run ruff format src/
-uv run pyright src/
-```
+# Project Guidelines
 
 ## Code Style
+- Python: 3.10+, 4-space indent, double quotes, line length 120 (see `pyproject.toml`).
+- Lint/format with Ruff; run formatting only on touched files when possible.
+- No relative imports in `src/` (`ban-relative-imports = "all"`).
+- Keep typed event payloads explicit using `TypedDict` patterns from `src/gepa/core/callbacks.py`.
+- Follow existing naming and dataclass-first style in MemV0 modules:
+  - `src/gepa/proposer/reflective_mutation/memory_tree.py`
+  - `src/gepa/proposer/reflective_mutation/outcome_interpreter.py`
+  - `src/gepa/proposer/reflective_mutation/memory_renderer.py`
 
-- Linter/formatter: ruff (line length 120, double quotes, space indent)
-- Type checking: pyright
-- Python target: 3.10+
-- No relative imports (enforced by ruff)
+## Architecture
+- Main API: `gepa.optimize()` in `src/gepa/api.py`; this wires adapters, proposer(s), callbacks, and engine.
+- Core loop lives in `src/gepa/core/engine.py`; state and cache behavior live in `src/gepa/core/state.py`.
+- Reflective mutation path is implemented in `src/gepa/proposer/reflective_mutation/reflective_mutation.py`.
+- Adapter boundary is strict: evaluation via `adapter.evaluate(...)`, reflection data via `adapter.make_reflective_dataset(...)`.
+- MemV0 path (`memory_version="v0"`) uses `MemoryTree + OutcomeInterpreter + TieredMemoryRenderer` and emits dedicated callback events.
+
+## Build and Test
+- Always use `uv`:
+  - `uv sync --extra dev`
+  - `uv run pytest`
+  - `uv run pytest tests/test_outcome_interpreter.py -v`
+  - `uv run ruff check src/`
+  - `uv run ruff format src/`
+  - `uv run pyright`
+- For MemV0 smoke runs, use experiment entry points in `experiments/aime_memory/run.py` and `run_verbose.py`.
+
+## Project Conventions
+- Do not bypass callback plumbing: new observability should go through `notify_callbacks(...)`.
+- Keep callback payloads serializable and consistent with `GEPACallback` method names.
+- In `ReflectiveMutationProposer`, preserve the two evaluation paths:
+  - cached non-trace path for normal mutation scoring,
+  - trace-capturing path when MemV0/OI needs reflective records.
+- Outcome Interpreter must never raise to callers; it falls back on parse/LM failure.
+- Tests use deterministic mocks for unit behavior and record/replay for live LLM tests (`tests/conftest.py`, `RECORD_TESTS=true`).
+
+## Integration Points
+- External LLM access is via LiteLLM callables (`reflection_lm`, `lesson_lm`, `oi_lm`) and adapter-specific model clients.
+- `optimize_anything` (`src/gepa/optimize_anything.py`) shares core engine/proposer wiring; keep API parity when adding cross-cutting options.
+- Research callbacks are in `src/gepa/callbacks/`; MemV0 observer output files are `memv0_trace.log` and `memv0_trace.jsonl`.
+
+## Security
+- Never hardcode secrets; use environment variables (e.g., `OPENAI_API_KEY`) and local dotenv loading in experiments.
+- Treat logs as sensitive: MemV0 observer and proposal traces can include full prompts, model outputs, and evaluation content.
+- Avoid printing/storing credentials or raw private dataset content in new callbacks.

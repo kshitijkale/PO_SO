@@ -1,4 +1,4 @@
-"""AIME light run — memory ON, 45 train / 10 val, small iteration budget.
+"""AIME light run — memory ON, 45 train / 45 val, small iteration budget.
 
 Verifies that ReflectionMemory records and injects entries correctly on a real
 math-reasoning task.  Uses gpt-4.1-mini for both solver and reflection LLM.
@@ -9,12 +9,14 @@ Usage
 
 Config
 ------
-  - 45 train / 10 val examples from AI-MO/aimo-validation-aime
+  - 45 train / 45 val examples from AI-MO/aimo-validation-aime
   - max_metric_calls = 200  (light budget)
   - reflection_minibatch_size = 3
   - parallel = True, max_workers = 8
   - memory ON, max_entries = 10
   - research_mode = True  (full logging to run_dir)
+  - solver temperature = 0.0, reflection temperature = 0.7
+  - max_tokens = 32000
 """
 
 from __future__ import annotations
@@ -22,8 +24,10 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+from typing import Any
 
 import dspy
+import litellm
 from dotenv import load_dotenv
 
 from experiments.aime_memory.adapter import AIMEAdapter
@@ -39,7 +43,10 @@ MAX_METRIC_CALLS = 200
 MINIBATCH_SIZE = 3
 MAX_WORKERS = 8
 TRAIN_SIZE = 45
-VAL_SIZE = 10
+VAL_SIZE = 45
+SOLVER_TEMPERATURE = 0.0
+REFLECTION_TEMPERATURE = 0.7
+MAX_TOKENS = 32000
 
 INITIAL_PROMPT = (
     "Solve the problem and provide the answer provide the final answer as a single integer."
@@ -143,30 +150,40 @@ def main() -> None:
     valset = valset_full[:VAL_SIZE]
     print(f"  train={len(trainset)}  val={len(valset)}")
 
+    # --- Reflection LM callable with explicit temperature ---
+    def _reflection_lm(prompt: str | list[dict[str, Any]]) -> str:
+        msgs: list[dict[str, Any]] = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
+        completion = litellm.completion(model=MODEL, messages=msgs, temperature=REFLECTION_TEMPERATURE)
+        return completion.choices[0].message.content  # type: ignore[union-attr]
+
     # --- Solver LM ---
-    solver_lm = dspy.LM(MODEL, api_key=api_key, temperature=0.7, max_tokens=32000)
+    solver_lm = dspy.LM(MODEL, api_key=api_key, temperature=SOLVER_TEMPERATURE, max_tokens=MAX_TOKENS)
 
     # --- Adapter ---
     adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=MAX_WORKERS)
 
     seed_candidate = {AIMEAdapter.COMPONENT_NAME: INITIAL_PROMPT}
 
-    print(f"\n=== AIME Light Run — Memory ON ===")
-    print(f"  solver LLM      : {MODEL}")
-    print(f"  reflection LLM  : {MODEL}")
-    print(f"  train / val     : {len(trainset)} / {len(valset)}")
-    print(f"  max_metric_calls: {MAX_METRIC_CALLS}")
-    print(f"  minibatch_size  : {MINIBATCH_SIZE}")
-    print(f"  max_workers     : {MAX_WORKERS}")
-    print(f"  run_dir         : {RUN_DIR}")
+    print("\n=== AIME Light Run — Memory ON ===")
+    print(f"  solver LLM           : {MODEL} (temp={SOLVER_TEMPERATURE}, max_tokens={MAX_TOKENS})")
+    print(f"  reflection LLM       : {MODEL} (temp={REFLECTION_TEMPERATURE})")
+    print(f"  train / val          : {len(trainset)} / {len(valset)}")
+    print(f"  max_metric_calls     : {MAX_METRIC_CALLS}")
+    print(f"  minibatch_size       : {MINIBATCH_SIZE}")
+    print(f"  max_workers          : {MAX_WORKERS}")
+    print(f"  run_dir              : {RUN_DIR}")
     print()
+
+    # Toggle memory version: set to "v0" for MemV0, None for V2
+    memory_version = os.environ.get("GEPA_MEMORY_VERSION") or None  # "v0" or None
+    use_v0 = memory_version == "v0"
 
     result = optimize(
         seed_candidate=seed_candidate,
         trainset=trainset,
         valset=valset,
         adapter=adapter,
-        reflection_lm=MODEL,
+        reflection_lm=_reflection_lm,
         max_metric_calls=MAX_METRIC_CALLS,
         reflection_minibatch_size=MINIBATCH_SIZE,
         run_dir=RUN_DIR,
@@ -174,9 +191,10 @@ def main() -> None:
         seed=0,
         research_mode=True,
         display_progress_bar=True,
-        use_reflection_memory=True,
+        use_reflection_memory=not use_v0,
         reflection_memory_max_entries=10,
         objective="Maximize accuracy on AIME math problems. The answer must be a single integer.",
+        memory_version=memory_version,  # type: ignore[arg-type]
     )
 
     best_candidate = result.best_candidate

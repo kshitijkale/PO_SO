@@ -83,6 +83,14 @@ def optimize(
     reflection_memory_max_entries: int = 10,
     lesson_lm: LanguageModel | str | None = None,
     objective: str = "",
+    # MemV0: tree-based memory with Outcome Interpreter
+    memory_version: Literal["v2", "v0"] | None = None,
+    oi_lm: LanguageModel | str | None = None,
+    outcome_eviction_k: int = 10,
+    memory_ring1_budget: int = 6000,
+    memory_ring2_budget: int = 2000,
+    memory_ring3_budget: int = 2000,
+    memory_ring4_budget: int = 1200,
     # Research observability
     research_mode: bool = False,
     verbose: bool = False,
@@ -352,7 +360,7 @@ def optimize(
         evaluation_cache = EvaluationCache[RolloutOutput, DataId]()
 
     # Build research mode callbacks if enabled
-    active_callbacks = list(callbacks) if callbacks else []
+    active_callbacks: list[Any] = list(callbacks) if callbacks else []
     if research_mode:
         from gepa.callbacks import LineageTracker, LiveDisplay, ResearchLogger, StateLogger
 
@@ -368,7 +376,7 @@ def optimize(
         from gepa.callbacks import VerboseDisplay
 
         active_callbacks.append(VerboseDisplay())
-    effective_callbacks: list[GEPACallback] | None = active_callbacks if active_callbacks else None
+    effective_callbacks: list[Any] | None = active_callbacks if active_callbacks else None
 
     # Create reflection memory if enabled
     reflection_memory: ReflectionMemory | None = None
@@ -377,6 +385,10 @@ def optimize(
             max_entries=reflection_memory_max_entries,
             callbacks=effective_callbacks,
         )
+
+    # Validate memory_version vs use_reflection_memory
+    if memory_version == "v0" and use_reflection_memory:
+        raise ValueError("Cannot use both memory_version='v0' and use_reflection_memory=True. Choose one.")
 
     # Resolve lesson_lm for V2 memory: explicit override > reflection_lm > None
     lesson_lm_callable: LanguageModel | None = None
@@ -390,6 +402,45 @@ def optimize(
                 lesson_lm_callable = lesson_lm
         else:
             lesson_lm_callable = reflection_lm_callable
+
+    # MemV0: tree-based memory with Outcome Interpreter
+    memory_tree = None
+    outcome_interpreter = None
+    memory_renderer = None
+    if memory_version == "v0":
+        from gepa.proposer.reflective_mutation.memory_renderer import TieredMemoryRenderer
+        from gepa.proposer.reflective_mutation.memory_tree import MemoryTree
+        from gepa.proposer.reflective_mutation.outcome_interpreter import OutcomeInterpreter
+
+        # Resolve OI language model
+        if oi_lm is not None:
+            if isinstance(oi_lm, str):
+                from gepa.optimize_anything import make_litellm_lm
+
+                oi_lm_callable = make_litellm_lm(oi_lm)
+            else:
+                oi_lm_callable = oi_lm
+        else:
+            oi_lm_callable = reflection_lm_callable
+
+        if oi_lm_callable is None:
+            raise ValueError("oi_lm or reflection_lm must be provided when memory_version='v0'")
+
+        from gepa.callbacks.memv0_observer import MemV0Observer
+
+        active_callbacks.append(MemV0Observer(log_dir=run_dir, print_output=True))
+        effective_callbacks = active_callbacks if active_callbacks else None
+
+        memory_tree = MemoryTree(outcome_eviction_k=outcome_eviction_k)
+        outcome_interpreter = OutcomeInterpreter(lm=oi_lm_callable, callbacks=effective_callbacks)
+        memory_renderer = TieredMemoryRenderer(
+            ring1_char_budget=memory_ring1_budget,
+            ring2_char_budget=memory_ring2_budget,
+            ring3_char_budget=memory_ring3_budget,
+            ring4_char_budget=memory_ring4_budget,
+        )
+        # Disable V2 memory when V0 is active
+        reflection_memory = None
 
     reflective_proposer = ReflectiveMutationProposer(
         logger=logger,
@@ -408,6 +459,9 @@ def optimize(
         reflection_memory=reflection_memory,
         lesson_lm=lesson_lm_callable,
         objective=objective,
+        memory_tree=memory_tree,
+        outcome_interpreter=outcome_interpreter,
+        memory_renderer=memory_renderer,
     )
 
     def evaluator_fn(

@@ -146,6 +146,18 @@ class RecordingCallback:
     def on_lesson_generated(self, event):
         self._record("on_lesson_generated", event)
 
+    def on_outcome_interpreter_call(self, event):
+        self._record("on_outcome_interpreter_call", event)
+
+    def on_oi_eviction_summary(self, event):
+        self._record("on_oi_eviction_summary", event)
+
+    def on_memory_tree_updated(self, event):
+        self._record("on_memory_tree_updated", event)
+
+    def on_memory_rendered(self, event):
+        self._record("on_memory_rendered", event)
+
 
 class FailingCallback:
     """A callback that raises exceptions for testing error handling.

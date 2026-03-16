@@ -32,6 +32,7 @@ Or register individual callbacks::
 
 from gepa.callbacks.lineage_tracker import LineageTracker
 from gepa.callbacks.live_display import LiveDisplay
+from gepa.callbacks.memv0_observer import MemV0Observer
 from gepa.callbacks.research_logger import ResearchLogger
 from gepa.callbacks.state_logger import StateLogger
 from gepa.callbacks.verbose_display import VerboseDisplay
@@ -42,4 +43,5 @@ __all__ = [
     "LineageTracker",
     "LiveDisplay",
     "VerboseDisplay",
+    "MemV0Observer",
 ]
