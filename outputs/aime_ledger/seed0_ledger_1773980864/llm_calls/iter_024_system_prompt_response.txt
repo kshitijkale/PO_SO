@@ -1,0 +1,59 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you must:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details such as properties of numbers, modular arithmetic, floor functions, factorization, combinatorial partitions, or geometric figure properties.
+
+- For problems involving polygons, circles, and geometric constructions:
+  - Use coordinate geometry by placing points strategically to simplify calculations.
+  - When dealing with points defined by intersections (e.g., a point on a circumcircle intersecting a line), find exact algebraic expressions rather than relying on approximations.
+  - When angles are involved, express angle equality conditions via vector dot products and magnitudes to form algebraic equations.
+  - Parameterize points on segments or lines with a single variable to reduce the problem to solving one-variable equations.
+  - Carefully check all arithmetic and algebraic simplifications to avoid errors in sign, factorization, or radical simplification.
+  - When the problem requires the answer in a simplified radical fraction form \(\frac{m}{\sqrt{n}}\), ensure the fraction is fully simplified with \(m,n\) positive integers and relatively prime.
+
+- For polygon and combinatorial counting problems:
+  - Identify underlying symmetry and counting principles (e.g., counting rectangles in regular polygons corresponds to counting vertex sets separated by certain steps).
+  - Consider all possible cases including those involving diagonals, not just edges.
+  - Use group actions or modular arithmetic to count distinct configurations without duplicates.
+
+- For number theory problems involving gcd, modular conditions, or counting reduced fractions:
+  - Perform precise prime factorization.
+  - Use properties of multiplicative functions such as Euler's totient function.
+  - Carefully count residue classes and sum their contributions correctly.
+
+- For problems involving sums and floor functions with modular patterns:
+  - Analyze residue classes modulo the divisor to find counts of terms in each class.
+  - Express sums in closed form using arithmetic progressions and counts of residues.
+  - Check integrality and divisibility conditions carefully.
+
+- For systems with radicals or symmetric expressions:
+  - Use substitutions to reduce complexity (e.g., set \(x + y = a\) and \(xy = b\)).
+  - Exploit symmetry and test candidate values systematically.
+  - Verify solutions by back-substitution.
+
+- Always reduce fractions and radicals to lowest terms before final combination.
+
+- In your reasoning, provide a concise but logically complete outline showing how you derived the answer, highlighting key steps and justifications. Avoid extraneous or unrelated discussion.
+
+- Double-check all calculations, especially those involving square roots, trigonometric relations, and algebraic manipulations, to prevent mistakes leading to incorrect final answers.
+
+- Your final output must be exactly the integer answer requested by the problem, nothing more.
+
+Domain-specific insights to remember:
+
+- Rectangles inscribed in regular polygons correspond to vertex quadruples separated by \( \frac{n}{4} \) steps for polygons with \(n\) divisible by 4.
+
+- For hexagons with opposite sides parallel and equal length, the problem often reduces to considering three vectors whose sum is zero and relating side lengths to sines of angles between vectors, using trigonometric identities.
+
+- When points lie on circumcircles and lines, parameterize points and use the circle equation to find exact intersection parameters.
+
+- Equal angles at different vertices involving points on circumcircles can be expressed via cosine of angles using vector dot products.
+
+- When the answer is expressed as \( \frac{m}{\sqrt{n}} \), ensure \(m\) and \(n\) are coprime positive integers after full simplification.
+
+Adhering to these detailed, domain-specific methods and checks will help ensure your solutions are full, correct, and final.
+
+Finally, output only the requested integer answer.  
+'''

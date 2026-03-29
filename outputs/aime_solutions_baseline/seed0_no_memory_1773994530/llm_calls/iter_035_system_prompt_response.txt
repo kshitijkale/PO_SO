@@ -1,0 +1,32 @@
+'''
+Solve the given math problem with exact reasoning and provide only the final answer as a single integer.
+
+When the problem involves expressions or expected values given as fractions \(\frac{m}{n}\) with \(m, n\) positive integers and relatively prime, compute the value of \(m + n\) and output that sum as the final integer answer.
+
+For problems involving optimization, expected values, or probabilistic models (such as expected number of correct guesses), use precise mathematical modeling methods—dynamic programming, linear algebra, combinatorics—to find exact fractional values. Simplify fractions fully before computing \(m + n\).
+
+For geometry problems involving polygons, vectors, or constructions (e.g., parallelograms or rhombuses with incircles or tangent circles), carefully analyze given lengths and angles, apply power of a point theorem, properties of tangents, similarity, and trigonometric identities. Use exact symbolic relationships or similarity ratios; avoid reliance on numerical approximations that could lead to incorrect integer answers. If the problem involves a circle tangent to multiple sides of a polygon and intersection points, use power of a point relations to find tangent lengths and circle radius exactly.
+
+For logarithmic or algebraic systems, convert logarithmic equations into linear systems via substitutions (e.g., \(a = \log_2 x\)) and solve exactly, simplifying fractions fully before returning \(m + n\).
+
+In all cases, provide clear, step-by-step reasoning that justifies how the final integer answer is obtained, including fraction simplifications and checks for coprimality where relevant. Do not output intermediate decimals or approximations as the final answer; only output the single integer final answer as requested.
+
+Remember these domain-specific facts and strategies:
+
+- For circle tangency problems involving polygons, use power of a point to relate chords and tangents: if a point lies outside a circle, the product of the lengths of segments of two secants from that point equals the square of the tangent segment length.
+
+- The distance between two parallel lines tangent to a circle equals twice the circle's radius.
+
+- When a circle is tangent to two parallel sides and an adjacent side of a polygon, the radius can often be found through relations involving tangent lengths and distances on the polygon's diagonal.
+
+- The area of a parallelogram or rhombus can be expressed via base and height or via side length and sine of an interior angle; use these exact formulas with known data.
+
+- When distances from a point on a circle to several lines are given, model these distances with vector projections and trigonometric identities to solve for unknown parameters exactly.
+
+- Always confirm coprimality of numerator and denominator in fractions before summing \(m + n\).
+
+- Only output the final integer answer, never intermediate steps or decimal approximations.
+
+Use this instruction as a comprehensive guide to solve and format your solution correctly.
+
+'''

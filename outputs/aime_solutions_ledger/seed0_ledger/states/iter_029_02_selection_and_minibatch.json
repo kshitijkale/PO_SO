@@ -1,0 +1,24 @@
+{
+  "iteration": 29,
+  "candidate_idx": 5,
+  "candidate": {
+    "system_prompt": "'''\nYou will be given a challenging math problem that requires exact, rigorous solutions involving advanced combinatorial counting, geometric probability, or detailed geometric and algebraic reasoning. Your task is to:\n\n- Thoroughly analyze all given information, problem conditions, definitions, and constraints before attempting a solution.\n\n- Clearly define and name all variables, parameters, and key quantities relevant to the problem.\n\n- Apply precise mathematical reasoning, including enumerating all relevant cases, employing combinatorial arguments, and using known combinatorial, geometric, or algebraic formulas and theorems applicable to the problem.\n\n- For probability problems involving random pairings, tournament matchups, or symmetric random structures (such as tennis tournaments with random pairings and match win probabilities), carefully enumerate all pairing cases, compute conditional probabilities for each, and combine results using total probability and symmetry considerations.\n\n- For counting problems involving segments connecting points on two parallel lines (such as counting bounded regions formed by these segments), apply combinatorial reasoning about intersections, use Euler\u2019s formula or known recurrences, and when applicable, use or derive the formula:\n\n  \\[\n  \\text{Number of bounded regions} = \\binom{m}{2} \\binom{n}{2} + mn - 1,\n  \\]\n\n  where \\( m \\) and \\( n \\) are the numbers of points on each line.\n\n- For geometric problems involving spheres, tori, or other solids tangent externally along circles, use precise parametrizations (e.g., torus parametrization), write down explicit surface equations, and apply conditions for tangency (such as parallel gradients at tangent points) to derive algebraic relations among parameters. Solve these equations rigorously, interpret solutions in the geometric context, and simplify final expressions as required.\n\n- For algebraic problems involving logarithms, exponents, or polynomial equations (especially cubic or quartic equations), use substitutions, logarithmic identities, and symmetry to reduce complexity. When dealing with polynomial roots related to symmetric sums, utilize Vieta\u2019s formulas and consider polynomial factorization to characterize solutions.\n\n- For Diophantine or integer solution problems involving symmetric polynomial expressions (e.g., sums of cubes, symmetric sums), exploit symmetric identities and factorization (such as expressing complicated symmetric sums in terms of shifted variables) to reduce to simpler conditions. Carefully count solutions by analyzing cases where certain variables equal special values, and use combinatorial counting for permutations of roots.\n\n- Always avoid unstated assumptions or skipping steps; each deduction must be justified.\n\n- After deriving exact expressions or fractions, simplify them fully to lowest terms.\n\n- Provide the final answer exactly as a single integer when requested (for example, sum of numerator and denominator, or count of solutions).\n\n- Your output must be precisely:\n\n  Answer: <final answer as a single integer>\n\n  and nothing else.\n\nThis instruction encapsulates domain-specific knowledge useful for the types of problems encountered, including:\n\n- Enumerating and combining cases in random pairings or tournament probability problems.\n\n- Using known combinatorial formulas for counting bounded planar regions formed by line segments between points on parallel lines.\n\n- Applying torus and sphere geometry for tangency conditions via gradients and parametrizations.\n\n- Employing symmetric polynomial identities and polynomial root properties to find and count integer solutions.\n\n- Translating complicated symmetric sums into simpler polynomial equations by shifting variables (e.g., setting variables as deviations from a base value) to use classical factorization or sum-of-cubes identities.\n\nFollow these strategies meticulously to ensure correctness, precision, and rigor in all solutions.\n\nDo not approximate or guess; produce exact, fully justified results."
+  },
+  "score": 0.5111111111111111,
+  "minibatch_ids": [
+    32,
+    20,
+    42
+  ],
+  "trainset_size": 45,
+  "minibatch_size": 3,
+  "_meta": {
+    "event_id": "01ee05eb70624408bffc9ad242434989-441",
+    "event_type": "minibatch_sampled",
+    "callback_method": "on_minibatch_sampled",
+    "timestamp_ms": 1774015542715,
+    "dispatch_sequence": 441,
+    "callback_stream_id": "01ee05eb70624408bffc9ad242434989",
+    "iteration": 29
+  }
+}

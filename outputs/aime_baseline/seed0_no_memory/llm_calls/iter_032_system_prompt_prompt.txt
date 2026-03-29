@@ -1,0 +1,2232 @@
+I provided an assistant with the following instructions to perform a task for me:
+'''
+'''
+You will be given challenging mathematical problems involving algebraic expressions, number theory, combinatorics, summations, or systems of equations, often with integral or positive real variable constraints. Your task is to produce fully rigorous, step-by-step solutions that adhere strictly to exact symbolic reasoning and domain-specific mathematical facts.
+
+When solving, apply the following detailed guidelines and domain knowledge:
+
+1. **Problem Understanding and Setup**  
+   - Carefully parse the problem, noting all variable constraints (e.g., positivity, integrality).  
+   - Identify key mathematical objects involved: sets with divisibility or coprimality conditions, systems involving radicals or logarithms, combinatorial families, or summations with floor/modular components.  
+   - Translate word problems into precise algebraic or number-theoretic formulations.
+
+2. **Algebraic and Number-Theoretic Reasoning**  
+   - Use prime factorizations to analyze numerators, denominators, gcd conditions, and fraction reductions.  
+   - Apply modular arithmetic methods rigorously to handle congruences, residues, and counting arguments in floor function sums or divisibility problems.  
+   - For repeating decimals with fixed-length periods, recall that such decimals correspond to rational fractions with denominators of the form \(10^{k} - 1\), and use this to reduce fractions to lowest terms.  
+   - For counting distinct simplified fractions, carefully characterize the set of possible numerators by factoring and using gcd properties. Use inclusion-exclusion principles to avoid overcounting.
+
+3. **Systems of Equations and Radical Expressions**  
+   - Exploit symmetry and substitutions to reduce complex systems involving logs, radicals, or symmetric sums/products.  
+   - Verify solutions by substitution and check variable domains, uniqueness, and existence via bounding or modular arguments.
+
+4. **Combinatorial and Set-Theoretic Problems**  
+   - When counting families of subsets with intersection properties, apply known extremal set theory results (e.g., Erdős–Ko–Rado theorem).  
+   - Consider both maximal and non-maximal families; test whether given size constraints enforce particular structural properties (such as all subsets containing a fixed element).  
+   - Account for all possible families meeting the criteria, not just obvious or maximal examples.
+
+5. **Summations Involving Floor Functions and Residues**  
+   - Decompose summations into residue classes modulo the divisor.  
+   - Count frequencies of each residue class carefully and express sums in closed form using arithmetic series or known formulas.
+
+6. **Exactness and Final Answers**  
+   - Avoid approximations except for intuition checks; final answers must be exact (integers or reduced fractions).  
+   - When expressing areas or quantities involving radicals, present simplified forms with square-free radicands.  
+   - If the problem requests a combined integer (e.g., \(m+n\) from \(m \sqrt{n}\)), provide that as the final answer.
+
+7. **Verification and Consistency Checks**  
+   - Cross-verify intermediate results for consistency with problem constraints.  
+   - Confirm that all solutions respect positivity, integrality, or other domain requirements.
+
+8. **Presentation**  
+   - Show all reasoning steps clearly and logically, justifying each manipulation or conclusion.  
+   - Explicitly state when classical theorems or known results are used, citing them precisely.  
+   - When using substitution or parameterization, clearly define variables and their ranges.
+
+By following these domain-specific mathematical strategies carefully and thoroughly, you will produce logically sound, fully justified solutions with correct final integer answers suitable for rigorous mathematical problem solving.
+
+'''
+'''
+The following are examples of different task inputs provided to the assistant
+along with the assistant's response for each of them, and some feedback on how
+the assistant's response could be better:
+'''
+# Example 1
+## Inputs
+Problem: Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## Generated Outputs
+Answer: 154
+Reasoning: Let the initial total number of people at the concert be \( N \), and the number of adults initially be \( A \).
+
+Given:
+\[
+\frac{A}{N} = \frac{5}{12} \implies A = \frac{5}{12} N.
+\]
+
+After a bus carrying 50 more people arrives, the total becomes:
+\[
+N + 50.
+\]
+
+We are told adults then make up \(\frac{11}{25}\) of the crowd after the bus arrives. We assume no additional adults arrived on the bus, so the number of adults remains:
+\[
+A = \frac{5}{12} N.
+\]
+
+So,
+\[
+\frac{A}{N + 50} = \frac{11}{25}.
+\]
+
+Substituting \( A = \frac{5}{12}N \):
+\[
+\frac{\frac{5}{12} N}{N + 50} = \frac{11}{25}.
+\]
+
+Cross-multiply:
+\[
+\frac{5}{12} N \cdot 25 = 11 (N + 50).
+\]
+
+Calculate the left side:
+\[
+\frac{5 \times 25}{12} N = \frac{125}{12} N.
+\]
+
+So:
+\[
+\frac{125}{12} N = 11 N + 550.
+\]
+
+Multiply both sides by 12:
+\[
+125 N = 132 N + 6600.
+\]
+
+Bring all terms to one side:
+\[
+125 N - 132 N = 6600 \implies -7 N = 6600 \implies N = -\frac{6600}{7}.
+\]
+
+This is negative, which is impossible for a number of people.
+
+So the assumption that no adults arrived is invalid; adults must have arrived on the bus.
+
+Let \( x \) be the number of adults arriving on the bus. Then:
+- Total adults after arrival: 
+\[
+A + x = \frac{5}{12} N + x.
+\]
+- Total people after arrival:
+\[
+N + 50.
+\]
+
+We are told:
+\[
+\frac{\frac{5}{12} N + x}{N + 50} = \frac{11}{25}.
+\]
+
+Rewrite:
+\[
+\frac{5N}{12} + x = \frac{11}{25} (N + 50).
+\]
+
+Multiply both sides by 300 (the least common multiple of 12 and 25) to clear denominators:
+\[
+300 \left( \frac{5 N}{12} + x \right) = 300 \times \frac{11}{25} (N + 50).
+\]
+
+Calculate:
+\[
+300 \times \frac{5 N}{12} = 25 \times 5 N = 125 N,
+\]
+so,
+\[
+125 N + 300 x = 12 \times 11 (N + 50) = 132 (N + 50) = 132 N + 6600.
+\]
+
+Bring terms to one side:
+\[
+125 N + 300 x = 132 N + 6600
+\implies 300 x = 132 N + 6600 - 125 N = 7 N + 6600.
+\]
+
+So,
+\[
+x = \frac{7 N + 6600}{300}.
+\]
+
+Recall:
+- \(N\), \(A = \frac{5}{12} N\), \(x\), and \(A+x\) all represent numbers of people and must be integers.
+- \(x \geq 0\) since number of adults arriving can't be negative.
+- \(N\) must be such that \(A = \frac{5}{12} N\) is an integer, so \(N\) must be a multiple of 12.
+
+Let:
+\[
+N = 12 k, \quad k \in \mathbb{Z}^+.
+\]
+
+Then:
+\[
+x = \frac{7 \cdot 12 k + 6600}{300} = \frac{84 k + 6600}{300} = \frac{84 k}{300} + \frac{6600}{300} = \frac{7 k}{25} + 22.
+\]
+
+For \(x\) to be an integer, \(\frac{7 k}{25}\) must be an integer.
+
+Since \(7\) and \(25\) are coprime, this means \(k\) must be divisible by \(25\).
+
+Set:
+\[
+k = 25 m, \quad m \in \mathbb{Z}^+.
+\]
+
+Then:
+\[
+x = \frac{7 \times 25 m}{25} + 22 = 7 m + 22.
+\]
+
+Recall number of adults after arrival is:
+\[
+A + x = \frac{5}{12} N + x = \frac{5}{12} \times 12 k + x = 5 k + x = 5 \times 25 m + 7 m + 22 = 125 m + 7 m + 22 = 132 m + 22.
+\]
+
+Our goal is to find the minimum number of adults after the bus arrives, so minimize:
+\[
+132 m + 22,
+\]
+with \(m \geq 1\).
+
+For \(m = 1\),
+\[
+132 (1) + 22 = 154.
+\]
+
+So, the minimum number of adults after the bus arrives is 154.
+
+Check total initial number of people:
+\[
+N = 12 k = 12 \times 25 = 300.
+\]
+
+Initial adults:
+\[
+A = \frac{5}{12} \times 300 = 5 \times 25 = 125.
+\]
+
+Adults arriving on bus:
+\[
+x = 7 m + 22 = 7 \times 1 + 22 = 29.
+\]
+
+Total adults after arrival:
+\[
+125 + 29 = 154.
+\]
+
+Total people after arrival:
+\[
+300 + 50 = 350.
+\]
+
+Check final fraction:
+\[
+\frac{154}{350} = \frac{11}{25}.
+\]
+
+Yes, it matches perfectly.
+
+Therefore, the minimum number of adults after the bus arrived is \(\boxed{154}\).
+
+## Feedback
+Your answer is correct. The correct answer is 154.
+
+
+
+# Example 2
+## Inputs
+Problem: Torus $T$ is the surface produced by revolving a circle with radius $3$ around an axis in the plane of the circle that is a distance $6$ from the center of the circle (so like a donut). Let $S$ be a sphere with a radius $11$. When $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_i$, and when $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_o$. The difference $r_i-r_o$ can be written as $\tfrac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+[asy] unitsize(0.3 inch); draw(ellipse((0,0), 3, 1.75)); draw((-1.2,0.1)..(-0.8,-0.03)..(-0.4,-0.11)..(0,-0.15)..(0.4,-0.11)..(0.8,-0.03)..(1.2,0.1)); draw((-1,0.04)..(-0.5,0.12)..(0,0.16)..(0.5,0.12)..(1,0.04)); draw((0,2.4)--(0,-0.15)); draw((0,-0.15)--(0,-1.75), dashed); draw((0,-1.75)--(0,-2.25)); draw(ellipse((2,0), 1, 0.9)); draw((2.03,-0.02)--(2.9,-0.4)); [/asy]
+
+## Generated Outputs
+Answer: 47
+Reasoning: First, let's understand the problem setup:
+
+- We have a torus \( T \) generated by revolving a circle of radius 3 around an axis in its plane, the axis being 6 units away from the center of the circle. This produces a torus with:
+  - Minor radius \( r = 3 \),
+  - Major radius \( R = 6 \).
+
+- We also have a sphere \( S \) of radius 11.
+
+When \( T \) "rests on the outside of \( S \)" in two different ways, it is tangent externally along circles of radius \( r_i \) and \( r_o \). The problem asks for the difference \( r_i - r_o \), reduced to simplest fraction form \( \frac{m}{n} \), and then for \( m + n \).
+
+---
+
+**Step 1: Understand the geometry of the torus**
+
+The torus can be described as the set of points at a distance 3 from a circle of radius 6 in space. The "circle" (major circle) lies in some plane; the torus is formed by rotating the small circle of radius 3 around an axis offset by 6.
+
+The cross-section of the torus is a circle of radius 3, and the center of that small circle moves along a circle of radius 6.
+
+---
+
+**Step 2: Determine the radius of the tangent circle of intersection when the torus touches the sphere**
+
+When the torus is tangent to the sphere externally, their surfaces meet along a circle.
+
+For a sphere tangent to a torus, the circle of contact radius \( r_{\text{contact}} \) is the radius of the intersection "circle" where both surfaces touch.
+
+Typically, this circle radius is derived from the difference in distances from the centers and the radii involved.
+
+---
+
+**Step 3: Interpreting the problem's \( r_i \) and \( r_o \)**
+
+The problem gives two configurations:
+
+- \( r_i \) corresponds to the torus resting "on the inside" of the sphere.
+- \( r_o \) corresponds to the torus resting "on the outside" of the sphere.
+
+But the problem says "it is externally tangent to \( S \) along a circle with radius \( r_i \)" and also similarly for \( r_o \), both times when \( T \) rests on the "outside" of \( S \). So it seems \( r_i \) and \( r_o \) correspond to two tangent circles, one "internally" (smaller radius circle) and one "externally" (larger radius circle) on the torus surface.
+
+Alternatively, since the problem mentions "difference \( r_i - r_o \)", likely the torus touches the sphere in two distinct positions, each producing a different radius of tangency circle: the inner radius \( r_i \) and the outer radius \( r_o \) circle of intersection.
+
+---
+
+**Step 4: Using the known formula for the radius of the circle of intersection**
+
+For a torus generated by revolving a circle of radius \( r \) about an axis offset by \( R \), at a distance \( d \) from the axis of revolution, the cross-section circle center lies on a circle of radius \( R \).
+
+A circle of radius \( r \) is revolved about an axis distance \( R \) away, producing a torus with the embedded distance to axis \( R \).
+
+When a sphere of radius \( 11 \) touches the torus externally along some circle, the circle of tangency sits on the torus at some position, characterized by an angle \( \theta \) along the "minor" circle.
+
+The radius of the tangent circle on the torus is given by \( r \sin \theta \).
+
+The center of that circle lies at distance \( R + r \cos \theta \) from the axis (the major radius plus the minor radius in that direction).
+
+---
+
+**Step 5: Geometric relations for the tangency**
+
+For the external tangent circle, the sphere tangent to the torus must have its center at some point on the axis such that the spheres of influence match.
+
+Let \( O \) be the axis of revolution, and place coordinates conveniently:
+
+- The center of the small circle generating the torus is at distance \( R = 6 \) from the axis.
+- Points on the torus can be parameterized by angular coordinates \( \theta \) around the minor circle.
+
+At an angle \( \theta \), the cross section has "circle of radius" \( r \sin \theta \) (the "radius" of the circle of contact on the torus surface at that angle), and the center of that circle is at distance \( R + r \cos \theta \) from the axis.
+
+---
+
+**Step 6: Setup the sphere tangent condition**
+
+The sphere has radius 11.
+
+For the torus to be tangent externally to the sphere along a circle of radius \( r_\theta = r \sin \theta \), the sphere's center must be located at a distance \( d_\theta \) from the axis such that the sphere radius and the torus's tube radius at \( \theta \) satisfy the tangent geometry.
+
+Because the torus is formed by rotating the generating circle around the axis, the sphere and the torus will touch along a circle where:
+
+\[
+\text{Distance between circle centers} = \text{sum of radii} \quad \Rightarrow \quad |R + r \cos \theta - c| = 11 \pm r \sin \theta
+\]
+
+where \( c \) is the distance from the axis to the center line of the sphere. 
+
+Because the torus touches the sphere externally, we can consider the sphere center as fixed and the torus touching at points parameterized by \( \theta \).
+
+---
+
+**Step 7: More specific approach using external tangent condition**
+
+Let \( x = R + r \cos \theta \).
+
+At this ring (at \( x \)) the cross-section circle has radius \( y = r \sin \theta \).
+
+The sphere of radius 11 is centered somewhere on the axis line (distance from the axis is zero). The distance from the ring at \( x \) on the axis to the sphere center (on the axis) is the radius of the sphere minus or plus the radius of the circle on the torus tube:
+
+\[
+\sqrt{x^2 + z^2} = 11 \pm y
+\]
+
+where \( z \) is the vertical displacement of the tangent circle from the sphere center.
+
+---
+
+**Step 8: Simplify setting the sphere center at the origin**
+
+The sphere center is at the origin \( (0,0,0) \).
+
+The ring of points on the torus at angle \( \theta \) correspond to a circle of radius \( y = r \sin \theta \) in the plane orthogonal to the axis at distance \( x = R + r \cos \theta \).
+
+So, for the sphere and torus to be tangent along a circle, the locus of the circle's points lies on both surfaces and is at distance 11 from the center.
+
+Thus, the ring circle of radius \( y \) lies on the sphere of radius 11 centered at origin, so:
+
+\[
+x^2 + y^2 = 11^2 = 121
+\]
+
+Plug in \( x = R + r \cos \theta = 6 + 3 \cos \theta \),
+and \( y = r \sin \theta = 3 \sin \theta \).
+
+\[
+(6 + 3 \cos \theta)^2 + (3 \sin \theta)^2 = 121
+\]
+
+Expanding and simplifying:
+
+\[
+(6 + 3 \cos \theta)^2 + 9 \sin^2 \theta = 121
+\]
+
+\[
+36 + 36 \cos \theta + 9 \cos^2 \theta + 9 \sin^2 \theta = 121
+\]
+
+Note that \( \cos^2 \theta + \sin^2 \theta = 1 \), so:
+
+\[
+36 + 36 \cos \theta + 9 ( \cos^2 \theta + \sin^2 \theta ) = 121
+\]
+\[
+36 + 36 \cos \theta + 9 = 121
+\]
+\[
+45 + 36 \cos \theta = 121
+\]
+\[
+36 \cos \theta = 121 - 45 = 76
+\]
+\[
+\cos \theta = \frac{76}{36} = \frac{19}{9} > 1,
+\]
+
+which is impossible.
+
+---
+
+**Step 9: Reconsider the location**
+
+The prior step assumed the circle of centers lies at distance \( x = R + r \cos \theta \), but this is true for the torus's generating circle in the plane of the axis. But the torus "rests" on the sphere, so the sphere center is not at origin; the sphere is fixed and torus is moved.
+
+Instead, the sphere is fixed with center at origin, radius 11.
+
+The torus lies outside the sphere, tangent along a circle.
+
+The centers of the circle of tangency lie somewhere on the torus—on the torus surface (parametrized by angles).
+
+---
+
+**Step 10: Parametric formula for the torus**
+
+The torus can be parametrized as:
+
+\[
+\begin{cases}
+x = (R + r \cos \phi) \cos \theta \\
+y = (R + r \cos \phi) \sin \theta \\
+z = r \sin \phi
+\end{cases}
+\]
+
+for \( \theta, \phi \in [0, 2\pi) \).
+
+The set of points on the torus satisfy:
+
+\[
+\left(\sqrt{x^2 + y^2} - R \right)^2 + z^2 = r^2
+\]
+
+The sphere of radius 11 centered at origin satisfies:
+
+\[
+x^2 + y^2 + z^2 = 121
+\]
+
+---
+
+**Step 11: Find the circle of intersection of torus and sphere**
+
+The torus and sphere intersect on a set of points satisfying both:
+
+\[
+(x^2 + y^2 + z^2) = 121
+\]
+and
+\[
+(\sqrt{x^2 + y^2} - R)^2 + z^2 = r^2
+\]
+
+Let \( \rho = \sqrt{x^2 + y^2} \).
+
+Then the torus equation is:
+
+\[
+(\rho - R)^2 + z^2 = r^2
+\]
+
+Sphere:
+
+\[
+\rho^2 + z^2 = 121
+\]
+
+---
+
+Subtract the torus equation from the sphere equation:
+
+\[
+\rho^2 + z^2 - [( \rho - R)^2 + z^2] = 121 - r^2
+\]
+\[
+\rho^2 - (\rho - R)^2 = 121 - r^2
+\]
+
+Expand \( (\rho - R)^2 = \rho^2 - 2 R \rho + R^2 \):
+
+\[
+\rho^2 - [\rho^2 - 2 R \rho + R^2] = 121 - r^2
+\]
+\[
+\rho^2 - \rho^2 + 2 R \rho - R^2 = 121 - r^2
+\]
+\[
+2 R \rho = 121 - r^2 + R^2
+\]
+\[
+\rho = \frac{121 - r^2 + R^2}{2 R}
+\]
+
+---
+
+**Step 12: Find \( \rho \) value**
+
+Given \( R=6 \), \( r=3 \), then:
+
+\[
+\rho = \frac{121 - 9 + 36}{2 \times 6} = \frac{148}{12} = \frac{37}{3} \approx 12.3333
+\]
+
+---
+
+**Step 13: Radius of the circle of intersection**
+
+The intersection of the torus and sphere is a circle lying in a plane parallel to the \( xy \)-plane at height \( z \) such that:
+
+\[
+z^2 = 121 - \rho^2
+\]
+
+Calculate \( z^2 \):
+
+\[
+z^2 = 121 - \left( \frac{37}{3} \right)^2 = 121 - \frac{1369}{9} = \frac{1089}{9} - \frac{1369}{9} = - \frac{280}{9}
+\]
+
+Negative number! So the intersection circle lies in complex plane — no real intersection if we pick \( \rho = 37/3 \).
+
+But we've just derived that \( \rho = (121 - r^2 + R^2)/(2R) \).
+
+What does this mean?
+
+---
+
+**Step 14: Interpretation**
+
+From the prior step, the difference of the two equations yields a fixed radius \( \rho \) where the intersection circle lies, for given \( R, r \).
+
+If the calculated \( z^2 = 121 - \rho^2 < 0 \), no real intersection at this \( \rho \).
+
+This means no intersection circle exists at the chosen parameters.
+
+But these are given parameters, so the torus and sphere may intersect or touch only at one or two points or a circle if tangent.
+
+---
+
+**Step 15: Alternative approach: Using the formula for circle of contact radius**
+
+The distance from the \( z \)-axis to any point on the intersection circle is fixed (\( \rho \)):
+
+\[
+\rho = \frac{d^2 - r^2 + R^2}{2R}
+\]
+
+where \( d \) is the distance from the axis of revolution to the sphere center.
+
+We wish to find the distances \( d \) where the torus and sphere are externally tangent.
+
+Given sphere radius = 11.
+
+---
+
+**Step 16: Using general formula from geometry**
+
+According to a known formula (see standard torus-sphere intersection formula), the radius of the circle of intersection between a sphere of radius \( S \) centered at \( (d, 0, 0) \), and torus with \( R, r \) at origin is:
+
+\[
+r_c = \sqrt{r^2 - (\rho - R)^2}
+\]
+
+where:
+
+\[
+\rho^2 = S^2 - z^2
+\]
+and
+
+\[
+(\rho - R)^2 + z^2 = r^2
+\]
+
+From the previous, we have:
+
+\[
+(\rho - R)^2 + z^2 = r^2
+\]
+\[
+\rho^2 + z^2 = S^2
+\]
+
+We can combine these to get:
+
+\[
+r^2 - (\rho - R)^2 = S^2 - \rho^2
+\]
+\[
+r^2 + \rho^2 - 2 R \rho + R^2 = S^2 - \rho^2
+\]
+\[
+r^2 + R^2 - 2 R \rho + \rho^2 = S^2 - \rho^2
+\]
+\[
+r^2 + R^2 - 2 R \rho + \rho^2 + \rho^2 = S^2
+\]
+\[
+r^2 + R^2 - 2 R \rho + 2 \rho^2 = S^2
+\]
+
+---
+
+But this seems complicated; maybe a cleaner way is to analyze:
+
+From the start,
+
+\[
+\rho = d
+\]
+
+where \( d \) is the distance from the torus center axis to the sphere center.
+
+The sphere center lies somewhere on the axis; the torus is located at the origin.
+
+---
+
+**Step 17: The key to differentiating two tangent positions**
+
+Consider two possible positions of the torus tangent to the sphere:
+
+- The torus shifted towards the axis (inside position): sphere center at distance \( d_i \) from axis, torus axis at origin.
+- The torus shifted away from axis (outside position): sphere center at distance \( d_o \).
+
+From the formula found in 11:
+
+\[
+2 R d = S^2 - r^2 + R^2
+\]
+
+Therefore,
+
+\[
+d = \frac{S^2 - r^2 + R^2}{2 R} = \frac{121 - 9 + 36}{12} = \frac{148}{12} = \frac{37}{3}
+\]
+
+This indicates the distance from axis where the circle of contact lies.
+
+---
+
+**Step 18: Find the circle radius \( r_c \) of intersection**
+
+The radius of circle of intersection is:
+
+\[
+r_c^2 = r^2 - (d - R)^2
+\]
+
+Calculate \( d - R \):
+
+\[
+d - R = \frac{37}{3} - 6 = \frac{37}{3} - \frac{18}{3} = \frac{19}{3}
+\]
+
+So:
+
+\[
+r_c^2 = 3^2 - \left(\frac{19}{3}\right)^2 = 9 - \frac{361}{9} = \frac{81}{9} - \frac{361}{9} = -\frac{280}{9}
+\]
+
+Negative! No real circle.
+
+---
+
+Therefore, no circle of intersection exists at this \( d \). So the previously assumed \( d \) must be further examined.
+
+---
+
+**Step 19: Return to prior relation**
+
+Let \( d \) be the variable distance from the axis to the sphere center.
+
+The two surfaces are tangent at points where sphere and torus meet:
+
+\[
+(x^2 + y^2 + z^2) = S^2
+\]
+\[
+(\sqrt{x^2 + y^2} - R)^2 + z^2 = r^2
+\]
+
+The difference gives:
+
+\[
+2 R \sqrt{x^2 + y^2} = S^2 - r^2 + R^2
+\]
+or
+\[
+\sqrt{x^2 + y^2} = \frac{S^2 - r^2 + R^2}{2 R} = d
+\]
+
+But if the sphere is at center \( (a,0,0) \) (on axis), the distance from axis to sphere center is zero — so \( a=0 \).
+
+The problem may want the torus to be shifted along the axis, in which case the sphere stays at origin.
+
+Thus, for a fixed sphere center at origin, as the torus moves along the axis, the distance between their axes changes — call that shift \( d \).
+
+---
+
+**Step 20: Applying the logic for two positions**
+
+At tangency positions, the sphere of radius 11 and the torus of radii \( R=6 \), \( r=3 \) satisfy the external tangent condition:
+
+\[
+(R - d)^2 + r^2 = (S \pm r_c)^2
+\]
+
+Better yet, use the external tangent circle approach as follows:
+
+1. The center of the circle of tangency on the torus is at distance \( d_c \) from sphere center.
+
+2. The circle has radius \( r_c = r \sin \phi \) (for some minor angle \( \phi \)).
+
+3. The distance from sphere center to the circle center is \( R + r \cos \phi \).
+
+The sphere of radius 11 externally tangent to the torus along a circle of radius \( r_c \) implies:
+
+\[
+\text{distance between centers} = 11 \pm r_c
+\]
+
+Set:
+
+\[
+d_c = R + r \cos \phi
+\]
+\[
+r_c = r \sin \phi
+\]
+
+Then:
+
+\[
+d_c = 11 \pm r_c
+\]
+\[
+R + r \cos \phi = 11 \pm r \sin \phi
+\]
+
+This creates two equations (with \( + \) or \( - \)).
+
+Rearranged:
+
+\[
+R + r \cos \phi - 11 = \pm r \sin \phi
+\]
+
+---
+
+**Step 21: Square both sides**
+
+Square:
+
+\[
+(R + r \cos \phi - 11)^2 = r^2 \sin^2 \phi
+\]
+
+Let \( A = R - 11 = 6 - 11 = -5 \).
+
+Then:
+
+\[
+(A + r \cos \phi)^2 = r^2 \sin^2 \phi
+\]
+\[
+(A + r \cos \phi)^2 = r^2 (1 - \cos^2 \phi)
+\]
+
+Let \( x = \cos \phi \). Then:
+
+\[
+(A + r x)^2 = r^2 (1 - x^2)
+\]
+\[
+A^2 + 2 A r x + r^2 x^2 = r^2 - r^2 x^2
+\]
+\[
+A^2 + 2 A r x + r^2 x^2 + r^2 x^2 = r^2
+\]
+\[
+A^2 + 2 A r x + 2 r^2 x^2 = r^2
+\]
+
+Bring all terms to one side:
+
+\[
+2 r^2 x^2 + 2 A r x + (A^2 - r^2) = 0
+\]
+
+---
+
+**Step 22: Plug values into quadratic in \( x \)**
+
+Recall:
+
+- \( r = 3 \)
+- \( A = -5 \)
+
+So:
+
+\[
+2 \cdot 9 x^2 + 2 \cdot (-5) \cdot 3 x + (-5)^2 - 9 = 0
+\]
+\[
+18 x^2 - 30 x + (25 - 9) = 0
+\]
+\[
+18 x^2 - 30 x + 16 = 0
+\]
+
+Divide by 2:
+
+\[
+9 x^2 - 15 x + 8 = 0
+\]
+
+---
+
+**Step 23: Solve the quadratic**
+
+Use quadratic formula:
+
+\[
+x = \frac{15 \pm \sqrt{15^2 - 4 \cdot 9 \cdot 8}}{2 \cdot 9} = \frac{15 \pm \sqrt{225 - 288}}{18} = \frac{15 \pm \sqrt{-63}}{18}
+\]
+
+Discriminant negative, no real solutions.
+
+Hence, no solution for \( + r_c \).
+
+Try the other sign in equation:
+
+\[
+R + r \cos \phi = 11 - r \sin \phi
+\]
+\[
+A + r x = - r \sin \phi
+\]
+Square both sides:
+
+\[
+(A + r x)^2 = r^2 \sin^2 \phi
+\]
+Again the same as above, providing no real solutions.
+
+---
+
+**Step 24: Other interpretation: Using both signs in the equation**
+
+Instead, write:
+
+\[
+R + r \cos \phi = 11 \pm r \sin \phi
+\]
+
+Using the \( + \) sign gives one quadratic, \( - \) sign gives another.
+
+For the \( - \) sign:
+
+\[
+R + r \cos \phi = 11 - r \sin \phi
+\]
+\[
+A + r x = - r \sin \phi
+\]
+
+Square as in step 21 yields the same quadratic with positive discriminant:
+
+Check:
+
+\[
+( A + r x)^2 = r^2 (1 - x^2)
+\]
+
+is always the same quadratic with negative discriminant.
+
+Thus contradicts.
+
+---
+
+**Step 25: Alternate formulation**
+
+Try rearranging to express \( \sin \phi \) as a function of \( \cos \phi \).
+
+From:
+
+\[
+R + r \cos \phi = 11 \pm r \sin \phi
+\]
+isolating:
+
+\[
+r \sin \phi = \pm (11 - R - r \cos \phi)
+\]
+
+Square both sides:
+
+\[
+r^2 \sin^2 \phi = (11 - R - r \cos \phi)^2
+\]
+\[
+r^2 (1 - \cos^2 \phi) = (11 - R - r \cos \phi)^2
+\]
+
+Let \( x = \cos \phi \), then:
+
+\[
+r^2 - r^2 x^2 = (11 - R - r x)^2
+\]
+
+Use values \( R=6, r=3 \):
+
+\[
+9 - 9 x^2 = (11 - 6 - 3 x)^2 = (5 - 3x)^2 = 25 - 30 x + 9 x^2
+\]
+
+Rearranged:
+
+\[
+9 - 9 x^2 = 25 - 30 x + 9 x^2
+\]
+\[
+9 - 9 x^2 - 25 + 30 x - 9 x^2 = 0
+\]
+\[
+-16 + 30 x - 18 x^2 = 0
+\]
+Multiply both sides by -1:
+
+\[
+16 - 30 x + 18 x^2 = 0
+\]
+Divide by 2:
+
+\[
+8 - 15 x + 9 x^2 = 0
+\]
+
+Rearranged as:
+
+\[
+9 x^2 - 15 x + 8 = 0
+\]
+
+This quadratic is exactly the same previously found, with negative discriminant:
+
+\[
+\Delta = (-15)^2 - 4 \times 9 \times 8 = 225 - 288 = -63 < 0
+\]
+
+No real solutions.
+
+Try the opposite sign: 
+
+\[
+r \sin \phi = -(11 - R - r \cos \phi)
+\]
+so
+
+\[
+9 - 9 x^2 = (6 - 11 + 3 x)^2 = (-5 + 3 x)^2 = 25 - 30 x + 9 x^2
+\]
+
+Following the same steps as above, which leads to the quadratic:
+
+\[
+18 x^2 -30 x + 16 = 0
+\]
+
+which simplifies to:
+
+\[
+9 x^2 -15 x + 8 = 0
+\]
+
+Also no real roots.
+
+---
+
+**Step 26: Conclusion**
+
+No real solution obtained by this approach — discrepancy suggests missing an essential part.
+
+---
+
+**Step 27: Re-examining initial assumption**
+
+The problem describes a torus produced by revolving a circle radius 3 around an axis distance 6, giving major radius 6 and minor radius 3.
+
+The sphere has radius 11.
+
+When the torus rests on the sphere's outside along a circle of radius \( r_i \), and also along a circle of radius \( r_o \), so the torus contacts the sphere in two distinct manners, producing two circles on the torus surface.
+
+The problem likely refers to the circle radius on the surface of the torus as:
+
+\[
+r_c = \text{minor radius} \times \sin \phi = 3 \sin \phi
+\]
+
+where \( \phi \) is angle on the minor circle.
+
+The circle center is at a distance:
+
+\[
+R + r \cos \phi = 6 + 3 \cos \phi
+\]
+
+from the axis centered at the origin.
+
+These circles are tangent to the sphere of radius 11 centered at origin, so their centers lie at distance 11 from origin.
+
+Therefore, the circle centers satisfy:
+
+\[
+(R + r \cos \phi)^2 = 11^2 - (r \sin \phi)^2 = 121 - 9 \sin^2 \phi
+\]
+
+That is,
+
+\[
+(6 + 3 \cos \phi)^2 = 121 - 9 \sin^2 \phi
+\]
+
+Expanding left:
+
+\[
+36 + 36 \cos \phi + 9 \cos^2 \phi = 121 - 9 (1 - \cos^2 \phi)
+\]
+\[
+36 + 36 \cos \phi + 9 \cos^2 \phi = 121 - 9 + 9 \cos^2 \phi
+\]
+\[
+36 + 36 \cos \phi + 9 \cos^2 \phi = 112 + 9 \cos^2 \phi
+\]
+
+Subtract \( 9 \cos^2 \phi \) from both sides:
+
+\[
+36 + 36 \cos \phi = 112
+\]
+\[
+36 \cos \phi = 112 - 36 = 76
+\]
+\[
+\cos \phi = \frac{76}{36} = \frac{19}{9}
+\]
+
+No real solution, since \( \cos \phi > 1 \).
+
+---
+
+**Step 28: Try the negative sign for \( (R + r \cos \phi)^2 \)**
+
+Alternatively, if the sphere center lies offset along \( z \) axis, e.g., at \( z = h \), then the distance squared is:
+
+\[
+(R + r \cos \phi)^2 + h^2 = (r \sin \phi + 11)^2
+\]
+
+Or something similar.
+
+But the problem states "rest on outside," so set \( h = 0 \).
+
+---
+
+**Step 29: Use direct formula from torus theory**
+
+The circle of contact forms at points satisfying:
+
+\[
+\Vert P - C_s \Vert = 11
+\]
+where \( C_s \) is the center of the sphere (assumed at origin).
+
+\( P \) is on torus, where
+
+\[
+\sqrt{x^2 + y^2} = R + r \cos \phi
+\]
+\[
+z = r \sin \phi
+\]
+
+Distance squared:
+
+\[
+(R + r \cos \phi)^2 + (r \sin \phi)^2 = D^2 = 11^2 = 121
+\]
+
+Expand:
+
+\[
+(R + r \cos \phi)^2 + r^2 \sin^2 \phi = 121
+\]
+\[
+R^2 + 2 R r \cos \phi + r^2 \cos^2 \phi + r^2 \sin^2 \phi = 121
+\]
+\[
+R^2 + 2 R r \cos \phi + r^2 (\cos^2 \phi + \sin^2 \phi) = 121
+\]
+\[
+R^2 + 2 R r \cos \phi + r^2 = 121
+\]
+\[
+2 R r \cos \phi = 121 - R^2 - r^2
+\]
+\[
+\cos \phi = \frac{121 - R^2 - r^2}{2 R r}
+\]
+
+Plugging numbers:
+
+\[
+R = 6, \quad r = 3,
+\]
+\[
+\cos \phi = \frac{121 - 36 - 9}{2 \times 6 \times 3} = \frac{76}{36} = \frac{19}{9},
+\]
+which is \(> 1\), impossible.
+
+---
+
+**Step 30: Consider sphere center not at origin**
+
+The sphere can be translated along the axis so that the torus rests on outside of \( S \).
+
+Let \( h \) be distance along axis between sphere center and torus axis.
+
+Then:
+
+\[
+(R + r \cos \phi)^2 + (r \sin \phi - h)^2 = 121
+\]
+
+Goal: Find \( h \) and \(\phi\) such that tangent circles of radius \( r \sin \phi \) exist at the two positions:
+
+- \( r_i = 3 \sin \phi_i \)
+- \( r_o = 3 \sin \phi_o \)
+
+with \(\phi_i\) and \(\phi_o\) corresponding to two tangent positions.
+
+---
+
+**Step 31: Geometry setup**
+
+At tangency, the torus and sphere contact along a circle.
+
+If the sphere is at \( (0,0,h) \), the point on torus is:
+
+\[
+P = \big( (6+3 \cos \phi) \cos \theta, (6+3 \cos \phi) \sin \theta, 3 \sin \phi \big)
+\]
+
+The distance squared from \( P \) to sphere center \( (0,0,h) \) is:
+
+\[
+(6 + 3 \cos \phi)^2 + (3 \sin \phi - h)^2 = 11^2 = 121
+\]
+
+Let \( x = \cos \phi \), \( y = \sin \phi \).
+
+Since \( y^2 = 1 - x^2 \).
+
+The previous equation:
+
+\[
+(6 + 3 x)^2 + (3 y - h)^2 = 121
+\]
+
+---
+
+**Step 32: Express \( y = \sqrt{1 - x^2} \)**
+
+\( y \ge 0 \), assume first quadrant.
+
+Expand:
+
+\[
+(6 + 3 x)^2 + (3 \sqrt{1 - x^2} - h)^2 = 121
+\]
+
+Rewrite:
+
+\[
+(6 + 3x)^2 + 9 (1 - x^2) - 6 h \sqrt{1 - x^2} + h^2 = 121
+\]
+
+Calculate:
+
+\[
+(6 + 3x)^2 = 36 + 36 x + 9 x^2
+\]
+so:
+
+\[
+36 + 36 x + 9 x^2 + 9 - 9 x^2 - 6 h \sqrt{1 - x^2} + h^2 = 121
+\]
+\[
+36 + 36 x + 9 - 6 h \sqrt{1 - x^2} + h^2 = 121
+\]
+\[
+45 + 36 x + h^2 - 6 h \sqrt{1 - x^2} = 121
+\]
+
+Rearranged:
+
+\[
+36 x - 6 h \sqrt{1 - x^2} = 121 - 45 - h^2 = 76 - h^2
+\]
+
+Divide both sides by 6:
+
+\[
+6 x - h \sqrt{1 - x^2} = \frac{76 - h^2}{6}
+\]
+
+---
+
+**Step 33: Square both sides to solve for \( x \)**
+
+Let:
+
+\[
+S = \frac{76 - h^2}{6}
+\]
+
+Then:
+
+\[
+6 x - h \sqrt{1 - x^2} = S
+\]
+
+Isolate the root:
+
+\[
+h \sqrt{1 - x^2} = 6 x - S
+\]
+
+Square both sides:
+
+\[
+h^2 (1 - x^2) = (6 x - S)^2
+\]
+\[
+h^2 - h^2 x^2 = 36 x^2 - 12 S x + S^2
+\]
+Bring all terms to one side:
+
+\[
+0 = 36 x^2 - 12 S x + S^2 + h^2 x^2 - h^2
+\]
+\[
+(36 + h^2) x^2 - 12 S x + (S^2 - h^2) = 0
+\]
+
+---
+
+**Step 34: Quadratic in \( x \)**
+
+\[
+a = 36 + h^2, \quad b = -12 S, \quad c = S^2 - h^2
+\]
+
+---
+
+**Step 35: For the torus to just touch the sphere, the quadratic must have exactly one root, i.e., discriminant 0.**
+
+Discriminant:
+
+\[
+\Delta = b^2 - 4 a c = 144 S^2 - 4 (36 + h^2)(S^2 - h^2) = 0
+\]
+
+Substitute \( S = (76 - h^2)/6 \):
+
+Calculate stepwise:
+
+\[
+144 S^2 = 144 \times \frac{(76 - h^2)^2}{36} = 4 (76 - h^2)^2
+\]
+\[
+4 a c = 4 (36 + h^2)(S^2 - h^2)
+\]
+
+Set
+
+\[
+4 (76 - h^2)^2 = 4 (36 + h^2)(S^2 - h^2)
+\]
+Divide by 4:
+
+\[
+(76 - h^2)^2 = (36 + h^2)(S^2 - h^2)
+\]
+
+Recall
+
+\[
+S = \frac{76 - h^2}{6}
+\Rightarrow S^2 = \frac{(76 - h^2)^2}{36}
+\]
+
+So:
+
+\[
+(76 - h^2)^2 = (36 + h^2) \left( \frac{(76 - h^2)^2}{36} - h^2 \right )
+\]
+
+Multiply both sides by 36:
+
+\[
+36 (76 - h^2)^2 = (36 + h^2) \left((76 - h^2)^2 - 36 h^2\right)
+\]
+
+---
+
+**Step 36: Let \( X = h^2 \), simplify:**
+
+\[
+36 (76 - X)^2 = (36 + X)((76 - X)^2 - 36 X)
+\]
+
+Bring all terms to one side:
+
+\[
+36 (76 - X)^2 - (36 + X) ((76 - X)^2 - 36 X) = 0
+\]
+
+Simplify:
+
+\[
+36 (76 - X)^2 - (36 + X)(76 - X)^2 + 36 X (36 + X) = 0
+\]
+\[
+(76 - X)^2 [36 - (36 + X)] + 36 X (36 + X) = 0
+\]
+\[
+(76 - X)^2 (-X) + 36 X (36 + X) = 0
+\]
+\[
+- X (76 - X)^2 + 36 X (36 + X) = 0
+\]
+
+Divide both sides by \( X \) (assuming \( X \neq 0 \)):
+
+\[
+- (76 - X)^2 + 36 (36 + X) = 0
+\]
+\[
+36 (36 + X) = (76 - X)^2
+\]
+
+Expand RHS:
+
+\[
+(76 - X)^2 = 76^2 - 2 \cdot 76 X + X^2 = 5776 - 152 X + X^2
+\]
+
+LHS:
+
+\[
+36 \times 36 + 36 X = 1296 + 36 X
+\]
+
+Equate:
+
+\[
+1296 + 36 X = 5776 - 152 X + X^2
+\]
+\[
+0 = 5776 - 152 X + X^2 - 1296 - 36 X
+\]
+\[
+0 = 4480 - 188 X + X^2
+\]
+
+Rewrite:
+
+\[
+X^2 - 188 X + 4480 = 0
+\]
+
+---
+
+**Step 37: Solve quadratic in \( X \)**
+
+Use quadratic formula:
+
+\[
+X = \frac{188 \pm \sqrt{188^2 - 4 \times 4480}}{2}
+\]
+
+Calculate discriminant:
+
+\[
+188^2 = 35344
+\]
+\[
+4 \times 4480 = 17920
+\]
+\[
+\Delta = 35344 - 17920 = 17424
+\]
+
+Simplify \(\sqrt{17424}\):
+
+\[
+17424 = 16 \times 1089
+\]
+\[
+\sqrt{17424} = 4 \times 33 = 132
+\]
+
+Therefore,
+
+\[
+X = \frac{188 \pm 132}{2}
+\]
+
+Two solutions:
+
+\[
+X_1 = \frac{188 + 132}{2} = \frac{320}{2} = 160
+\]
+\[
+X_2 = \frac{188 - 132}{2} = \frac{56}{2} = 28
+\]
+
+---
+
+**Step 38: Recall \( X = h^2 \), so possible \( h \) values:**
+
+\[
+h = \sqrt{160} = 4 \sqrt{10}
+\]
+\[
+h = \sqrt{28} = 2 \sqrt{7}
+\]
+
+---
+
+**Step 39: Calculate corresponding \( r_c \) (circle radius) for these \( h \) values**
+
+Return to the formula for circle radius \( r_c \) at the tangency:
+
+\[
+r_c = |3 \sin \phi|
+\]
+
+From step 32,
+
+\[
+6 x - h \sqrt{1 - x^2} = \frac{76 - h^2}{6}
+\]
+
+Recall \( x = \cos \phi \).
+
+At discriminant zero, the quadratic in \( x \) has a single root, so there is a unique \( x \) solving it:
+
+From step 34,
+
+\[
+(36 + h^2) x^2 - 12 S x + (S^2 - h^2) = 0
+\]
+
+where
+
+\[
+S = \frac{76 - h^2}{6}
+\]
+
+At discriminant zero, the root \( x \) (cos \(\phi\)) is:
+
+\[
+x = \frac{-b}{2a} = \frac{12 S}{2 (36 + h^2)} = \frac{6 S}{36 + h^2}
+\]
+
+Compute
+
+\[
+x = \frac{6 S}{36 + h^2} = \frac{6 \times \frac{76 - h^2}{6}}{36 + h^2} = \frac{76 - h^2}{36 + h^2}
+\]
+
+---
+
+**Step 40: Calculate \( \sin \phi \)**
+
+\[
+\sin^2 \phi = 1 - x^2 = 1 - \left( \frac{76 - h^2}{36 + h^2} \right)^2
+\]
+
+Calculate \( r_c = 3 \sin \phi = 3 \sqrt{1 - x^2} \).
+
+---
+
+**Step 41: Calculate for both \( h = 4 \sqrt{10} \) and \( h = 2 \sqrt{7} \)**
+
+1. For \( h = 4 \sqrt{10} \):
+
+\[
+h^2 = 160
+\]
+
+Calculate \( x \):
+
+\[
+x = \frac{76 - 160}{36 + 160} = \frac{-84}{196} = -\frac{84}{196} = -\frac{21}{49} = -\frac{3}{7}
+\]
+
+Calculate \( \sin \phi \):
+
+\[
+\sin^2 \phi = 1 - \left(-\frac{3}{7}\right)^2 = 1 - \frac{9}{49} = \frac{40}{49}
+\]
+
+So
+
+\[
+r_c = 3 \sqrt{\frac{40}{49}} = 3 \times \frac{\sqrt{40}}{7} = \frac{3 \sqrt{40}}{7} = \frac{3 \times 2 \sqrt{10}}{7} = \frac{6 \sqrt{10}}{7}
+\]
+
+2. For \( h = 2 \sqrt{7} \):
+
+\[
+h^2 = 28
+\]
+
+Calculate \( x \):
+
+\[
+x = \frac{76 - 28}{36 + 28} = \frac{48}{64} = \frac{3}{4}
+\]
+
+Calculate \( \sin^2 \phi \):
+
+\[
+1 - \left(\frac{3}{4}\right)^2 = 1 - \frac{9}{16} = \frac{7}{16}
+\]
+\[
+r_c = 3 \sqrt{\frac{7}{16}} = 3 \times \frac{\sqrt{7}}{4} = \frac{3 \sqrt{7}}{4}
+\]
+
+---
+
+**Step 42: Compute \( r_i - r_o \)**
+
+The problem asks for \( r_i - r_o \).
+
+Note that \( h = 2 \sqrt{7} \) corresponds to smaller \( h \), smaller \( r_c \) or larger \( r_c \)? 
+
+We compare both:
+
+- \( r_1 = \frac{6 \sqrt{10}}{7} \approx \frac{6 \times 3.1623}{7} = \frac{18.9738}{7} \approx 2.71 \)
+- \( r_2 = \frac{3 \sqrt{7}}{4} \approx \frac{3 \times 2.6458}{4} = \frac{7.9374}{4} \approx 1.984 \)
+
+So \( r_i = \frac{6 \sqrt{10}}{7} \), \( r_o = \frac{3 \sqrt{7}}{4} \).
+
+Difference:
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4}
+\]
+
+---
+
+**Step 43: Rationalize the difference to a single fraction**
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4} = \frac{24 \sqrt{10}}{28} - \frac{21 \sqrt{7}}{28} = \frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+But the problem wants the answer in the form \( \frac{m}{n} \), hence it's more plausible that the difference is rational.
+
+Given the problem asks for the difference \( r_i - r_o \) expressed as a fraction of positive integers, the above expression suggests \( r_i - r_o \) itself is not rational.
+
+---
+
+**Step 44: Re-examining the problem statement**
+
+The problem says:
+
+"When \( T \) rests on the outside of \( S \), it is tangent to \( S \) along a circle with radius \( r_i \), and when \( T \) rests on the outside of \( S \), it is tangent to the sphere along a circle with radius \( r_o \)."
+
+Likely the torus can rest in two different orientations: outside the sphere at two different "heights," corresponding to the two tangent circles with radii \( r_i \) and \( r_o \).
+
+---
+
+But in **Step 42**, these calculated values are the possible radii, involving surds.
+
+Neither are purely rational, so possibly the problem expects the difference expressed in simplest form as a fraction.
+
+---
+
+**Step 45: Get the difference numerically**
+
+Calculate:
+
+\[
+r_i \approx 2.71, \quad r_o \approx 1.984
+\]
+\[
+r_i - r_o \approx 0.726
+\]
+
+Try to write this as a fraction:
+
+\[
+0.726 \approx \frac{8}{11} = 0.7272
+\]
+
+Close, but not exact.
+
+Try exact expression:
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4}
+\]
+
+Multiply numerator and denominator of each fraction to get common denominator 28:
+
+\[
+r_i - r_o = \frac{24 \sqrt{10}}{28} - \frac{21 \sqrt{7}}{28} = \frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+So this is not a rational number, so the problem likely asks to express difference \( r_i - r_o \) as a fraction, meaning that the problem likely wants:
+
+\[
+r_i - r_o = \frac{m}{n}
+\]
+
+where \( m, n \) are integers (with no radicals).
+
+Therefore, the problem must have meant the *circle radii* \( r_i \) and \( r_o \) for the circle of tangency on the sphere, which are perpendicular to the axis of the torus, or the radii of the circles on the sphere.
+
+---
+
+**Step 46: Radius of tangent circle on the sphere**
+
+For two spheres (say the torus swept circle and the large sphere), the radius \( r_s \) of the tangent circle on the sphere satisfies:
+
+\[
+r_s^2 = S^2 - d^2,
+\]
+
+where \( d \) is distance from sphere center to the plane of the tangent circle.
+
+---
+
+The circle of intersection between the torus and sphere lies on a plane perpendicular to the axis at distance \( d \) from sphere center.
+
+From step 12,
+
+\[
+\rho = d = \frac{S^2 - r^2 + R^2}{2 R} = \frac{121 - 9 + 36}{12} = \frac{148}{12} = \frac{37}{3}
+\]
+
+The circle radius on the sphere is:
+
+\[
+r_s = \sqrt{S^2 - d^2} = \sqrt{121 - \left( \frac{37}{3} \right)^2} = \sqrt{121 - \frac{1369}{9}} = \sqrt{\frac{1089}{9} - \frac{1369}{9}} = \sqrt{-\frac{280}{9}} \text{ no real solution.}
+\]
+
+No real solution implies no circle of intersection in that configuration.
+
+---
+
+**Step 47: Consider two values of \( d \).**
+
+Recall from the previous quadratic in \( h^2 \), we had two values for \( h = d \):
+
+\[
+d_1 = 4 \sqrt{10} = \frac{4 \times 3.162}{1} = 12.648...
+\]
+\[
+d_2 = 2 \sqrt{7} = 5.2915...
+\]
+
+Calculate:
+
+\[
+r_s^2 = 121 - d^2,
+\]
+corresponding to these two \( d \):
+
+- For \( d_1 \):
+
+\[
+121 - (12.648)^2 = 121 - 160 = -39 < 0, \text{ no circle}
+\]
+
+- For \( d_2 \):
+
+\[
+121 - (5.2915)^2 = 121 - 28 = 93,
+\]
+\[
+r_s = \sqrt{93} = 3 \sqrt{31}.
+\]
+
+So only for \( d = 2 \sqrt{7} \) there is a valid circle.
+
+---
+
+**Step 48: Circle radius on the torus vs circle radius on the sphere**
+
+Because the sphere is tangent to the torus along a circle, that circle lies on both surfaces:
+
+- Radius on torus tube = \( r c = 3 \sin \phi \),
+- Radius on sphere = \( r_s = \sqrt{121 - d^2} \).
+
+From previous steps, for \( d=2 \sqrt{7} \), we have:
+
+\[
+r_c = \frac{3 \sqrt{7}}{4} \approx 1.984,
+\]
+\[
+r_s = 3 \sqrt{31} \approx 16.73.
+\]
+
+Similarly, for \( d = 4 \sqrt{10} \), no circle on sphere, so disregard.
+
+---
+
+**Step 49: Final step — the problem VERY LIKELY wants \( r_i \) and \( r_o \) as the minor radii of the two tangent circles on the torus, which we found as**
+
+\[
+r_i = \frac{6 \sqrt{10}}{7}, \quad r_o = \frac{3 \sqrt{7}}{4}
+\]
+
+We already calculated their difference:
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4}
+\]
+
+Express difference as:
+
+\[
+\frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+Since problem asks for fraction \( \frac{m}{n} \), maybe the difference is \( \frac{m}{n} \) times some square root and the problem expects answering \( m + n \).
+
+Alternatively, the problem must accept answer in form \( \frac{m}{n} \) with radicals simplified away.
+
+---
+
+**Step 50: Alternative approach (likely the intended one)**
+
+Back in step 41, the solutions for \( h \) were at:
+
+\[
+h_1 = 4 \sqrt{10}, \quad r_i = 3 \sin \phi_1 = \frac{6 \sqrt{10}}{7},
+\]
+\[
+h_2 = 2 \sqrt{7}, \quad r_o = 3 \sin \phi_2 = \frac{3 \sqrt{7}}{4}.
+\]
+
+Calculate difference:
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4} = \frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+We can rationalize and leave answer as \( \frac{m}{n} \) by taking it as a fraction with numerator and denominator integers, so,
+
+\[
+m = 24 \sqrt{10} - 21 \sqrt{7}, \quad n = 28,
+\]
+
+which is not integers \( m,n \) but rational numbers with radicals.
+
+---
+
+**Step 51: The problem wording is ambiguous, but if the problem wants \( m+n \) where \( \frac{m}{n} = r_i - r_o \) and both \( m,n \) are integers, then the difference between \( r_i \) and \( r_o \) expressed as a fraction in simplest form is**
+
+Looking back, the solution to the quadratic for \( x \) gave us:
+
+\[
+r_i = \frac{6 \sqrt{10}}{7}, \quad r_o = \frac{3 \sqrt{7}}{4}
+\]
+and difference:
+
+\[
+r_i - r_o = \frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+No further simplification possible without radicals. So put \( m = 24 \sqrt{10} - 21 \sqrt{7} \), \( n = 28 \), not integers.
+
+Thus, answer is:
+
+\[
+m + n = 24 + 10 + 21 + 7 + 28 = ?
+\]
+
+No, that would be incorrect.
+
+---
+
+**Step 52: The problem likely wants \( r_i - r_o = \frac{m}{n} \) with integers \( m,n \), meaning the difference computed is**
+
+Check that difference \( r_i - r_o \) equals \( \frac{1}{28} \times (24 \sqrt{10} - 21 \sqrt{7}) \).
+
+Assuming \( r_i - r_o = \frac{1}{28} (24 \sqrt{10} - 21 \sqrt{7}) \).
+
+Since the problem requires \( m,n \) positive integers, relatively prime, possibly it wants the fraction's numerator and denominator as integers representing the entire expression after rationalization.
+
+To rationalize:
+
+Square the difference:
+
+\[
+\left( \frac{24 \sqrt{10} - 21 \sqrt{7}}{28} \right)^2 = \frac{(24 \sqrt{10} - 21 \sqrt{7})^2}{28^2}
+\]
+
+Calculate numerator:
+
+\[
+(24 \sqrt{10})^2 = 24^2 \times 10 = 576 \times 10 = 5760,
+\]
+\[
+(21 \sqrt{7})^2 = 441 \times 7 = 3087,
+\]
+\[
+2 \times 24 \sqrt{10} \times 21 \sqrt{7} = 2 \times 24 \times 21 \times \sqrt{70} = 1008 \sqrt{70}.
+\]
+
+Thus,
+
+\[
+(24 \sqrt{10} - 21 \sqrt{7})^2 = 5760 + 3087 - 1008 \sqrt{70} = 8847 - 1008 \sqrt{70}
+\]
+
+This is not rational, so unhelpful.
+
+---
+
+**Step 53: Final check**
+
+Given the complexity, the problem corresponds exactly to step 42:
+
+\[
+r_i = \frac{6 \sqrt{10}}{7}
+\]
+\[
+r_o = \frac{3 \sqrt{7}}{4}
+\]
+and asked for \( r_i - r_o = \frac{m}{n} \), where \( m, n \) relatively prime positive integers.
+
+Assuming the difference can be expressed as a rational number by writing the difference as:
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4} = \frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+The denominator 28 and numerator look reducible by 3:
+
+Dividing numerator and denominator by 3:
+
+\[
+\frac{8 \sqrt{10} - 7 \sqrt{7}}{28 / 3}
+\]
+
+No, denominator is no longer integer.
+
+So best is to take \( m = 24 \sqrt{10} - 21 \sqrt{7} \), \( n=28 \).
+
+Sum:
+
+\[
+m + n = 24 + 10 + 21 + 7 + 28 = 90
+\]
+
+But this is an assumption, likely incorrect.
+
+---
+
+**Step 54: Problem likely wants rationalization**
+
+Let:
+
+\[
+r_i - r_o = \frac{6 \sqrt{10}}{7} - \frac{3 \sqrt{7}}{4} = \frac{24 \sqrt{10} - 21 \sqrt{7}}{28}
+\]
+
+Multiply numerator and denominator by \( 24 \sqrt{10} + 21 \sqrt{7} \) to rationalize denominator:
+
+\[
+\frac{(24 \sqrt{10} - 21 \sqrt{7})(24 \sqrt{10} + 21 \sqrt{7})}{28 (24 \sqrt{10} + 21 \sqrt{7}) } = \frac{24^2 \times 10 - 21^2 \times 7}{28 (24 \sqrt{10} + 21 \sqrt{7})} = \frac{5760 - 3087}{28 (24 \sqrt{10} + 21 \sqrt{7})} = \frac{2673}{28 (24 \sqrt{10} + 21 \sqrt{7})}
+\]
+
+This is a complicated irrational expression, so no simplification.
+
+---
+
+**Step 55: Since problem states "difference \( r_i - r_o \) can be written as \(\tfrac{m}{n}\), where \( m \), \( n \) coprime positive integers", most probably the problem wants not the difference of the circle radii (which are irrational), but something else.
+
+Given the torus is built by revolving circle of radius 3 around axis at 6 units, sphere radius 11.
+
+Using step 17, the value:
+
+\[
+d = \frac{S^2 - r^2 + R^2}{2 R} = \frac{121 - 9 + 36}{12} = \frac{148}{12} = \frac{37}{3}
+\]
+
+Circle radius on sphere:
+
+\[
+r_{\text{sphere}} = \sqrt{S^2 - d^2} = \sqrt{121 - \left(\frac{37}{3}\right)^2} = \sqrt{121 - \frac{1369}{9}} = \sqrt{\frac{1089 - 1369}{9}} = \sqrt{\frac{-280}{9}}
+\]
+
+No solution.
+
+---
+
+**Step 56: The sphere touches torus at two points — major and minor radii**
+
+When the torus rests "on the outside" of the sphere (at two possible positions), the tangent circle radius on the torus corresponds to the minor radius sphere \( r_i \) and the major radius sphere \( r_o \).
+
+Given that:
+
+- Minor radius of torus \( r = 3 \),
+- Major radius \( R = 6 \),
+- Sphere radius \( S = 11 \).
+
+The two circle radii of intersection satisfy:
+
+\[
+r_{\pm} = \frac{S^2 - (R \mp r)^2}{2 S}
+\]
+
+This formula comes from the formula for the distance from sphere center to circle of intersection of two spheres.
+
+Calculate:
+
+\[
+r_i = \frac{121 - (6 - 3)^2}{2 \times 11} = \frac{121 - 9}{22} = \frac{112}{22} = \frac{56}{11}
+\]
+\[
+r_o = \frac{121 - (6 + 3)^2}{22} = \frac{121 - 81}{22} = \frac{40}{22} = \frac{20}{11}
+\]
+
+Difference:
+
+\[
+r_i - r_o = \frac{56}{11} - \frac{20}{11} = \frac{36}{11}
+\]
+
+\( m = 36 \), \( n = 11 \), relatively prime.
+
+Sum:
+
+\[
+m + n = 36 + 11 = 47
+\]
+
+---
+
+**Step 57: Final answer**
+
+\[
+\boxed{47}
+\]
+
+---
+
+**Summary:**
+
+- The torus formed by circle radius 3 revolved around axis 6 units away.
+- Sphere radius 11.
+- The difference between two tangent circle radii on the sphere when torus is resting on the sphere outside is:
+
+\[
+r_i - r_o = \frac{36}{11}
+\]
+
+Sum numerator and denominator:
+
+\[
+36 + 11 = 47
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 127.
+
+
+
+# Example 3
+## Inputs
+Problem: A list of positive integers has the following properties:
+$\bullet$ The sum of the items in the list is $30$.
+$\bullet$ The unique mode of the list is $9$.
+$\bullet$ The median of the list is a positive integer that does not appear in the list itself.
+Find the sum of the squares of all the items in the list.
+
+## Generated Outputs
+Answer: 236
+Reasoning: We are given a list of positive integers with the following properties:
+
+1. The sum of the list is 30.
+2. The unique mode of the list is 9.
+3. The median of the list is a positive integer that does not appear in the list.
+
+Our goal: Find the sum of the squares of all the items in the list.
+
+---
+
+**Step 1: Understand the conditions**
+
+- The list elements are positive integers.
+- The mode is unique and equal to 9, so 9 appears more times than any other number in the list.
+- The median is a positive integer, but this integer does *not* appear in the list.
+- The sum of all items is 30.
+
+---
+
+**Step 2: Consider the implications of the median condition**
+
+The median is the middle value once the list is sorted.
+
+- If the number of items \( n \) is odd, the median is the middle element \( \frac{n+1}{2} \)-th item.
+- If \( n \) is even, the median is the average of the two middle elements, so unless those two are equal, the median will not be an integer or will be an integer that appears in the list.
+
+But the problem says the median is an integer (positive integer) that does *not* appear in the list.
+
+- If \(n\) is odd, the median is an element in the list (the middle element). So the median would be a number in the list, violating the condition. Therefore, the length of the list must be even.
+
+- If \(n\) is even, the median is the average of two middle elements. For the median to be an integer that does not appear in the list, these two middle elements must be distinct integers \(a\) and \(b\), with:
+\[
+\frac{a + b}{2} = m \in \mathbb{Z}^+, \quad m \notin \{\text{list elements}\}
+\]
+
+Thus:
+- \(a\) and \(b\) are integers in the list.
+- \(m = \frac{a + b}{2}\) is an integer but not in the list.
+
+This is only possible if \(a\) and \(b\) are consecutive integers differing by 2:
+Indeed, suppose \(a < b\) (since the list is sorted, \(a\) is the lower middle, \(b\) is the upper middle):
+
+- Then \(a + b\) is even.
+- For \(m = \frac{a + b}{2}\) not to be in the list, \(m\) must lie strictly between \(a\) and \(b\).
+- Hence \(b = a + 2\), so median \(m = a + 1\), which does **not** appear in the list.
+
+In other words, the two middle elements are two integers with difference 2, and the median is the integer between them, which is not in the list.
+
+---
+
+**Step 3: List length \(n\) is even**
+
+So \(n = 2k\) for some integer \(k \geq 1\).
+
+Specific median position:
+- The middle two elements are positions \(k\) and \(k+1\).
+- The median is \(\frac{L_k + L_{k+1}}{2} = m\), \(m \notin L\).
+
+---
+
+**Step 4: The unique mode is 9**
+
+Among the elements, 9 appears more times than any other number.
+
+This means:
+
+- At least two 9s (since it is the mode and unique).
+- No other number appears as many times as 9.
+
+---
+
+**Step 5: We want to find a list (length even) satisfying:**
+
+- Sum = 30,
+- 9 appears more than any other number,
+- Median is an integer between \(L_k\) and \(L_{k+1}\) differs by 2,
+- Median \(m\) not in the list,
+- Elements positive integers.
+
+---
+
+**Step 6: Try small values of \(n\)**
+
+Let's check \(n=2\):
+
+- Median is average of first and second, but then the median is the average of the two numbers. They differ by 2, say \(a\) and \(a+2\).
+- Sum is \(a + (a+2) = 2a + 2 = 30\), so \(2a = 28 \Rightarrow a=14\).
+- List: \([14,16]\)
+- Median: \(\frac{14 + 16}{2} = 15\), which is not in the list.
+- Mode: both appear once (14 and 16), so no unique mode.
+- So fails mode condition.
+
+---
+
+Try \(n=4\):
+
+Positions 2 and 3 are the two middle elements.
+
+Let list sorted: \(L_1 \leq L_2 \leq L_3 \leq L_4\).
+
+Given:
+
+- \(L_3 = L_2 + 2\),
+- Median \(m = (L_2 + L_3)/2 = L_2 + 1\),
+- \(m \notin \{L_i\}\).
+
+Also, 9 is the unique mode.
+
+Try placing two 9s, since 9 must appear more frequently than any other number.
+
+Try 2 occurrences of 9.
+
+Set:
+
+- \(L_2 = x\),
+- \(L_3 = x + 2\),
+- \(m = x + 1\),
+- Elements sorted: \(L_1 \leq x \leq x + 2 \leq L_4\).
+
+We need to include 9 twice and sum total is 30.
+
+Check possibilities for \(L_2 = 9\):
+
+- Then \(L_2 = 9\),
+- \(L_3 = 11\),
+- \(m=10\), which is not in the list.
+
+Set the list:
+
+\[
+L_1, 9, 11, L_4
+\]
+
+9 should appear twice, so we need to add another 9.
+
+Only positions left are \(L_1\) or \(L_4\).
+
+- \(L_1 \leq 9\), so put 9 as \(L_1\).
+- So list: \([9, 9, 11, L_4]\), sum = \(9 + 9 + 11 + L_4 = 29 + L_4 = 30 \Rightarrow L_4 = 1\).
+- But \(L_4\) is last and must be \(\geq 11\), since \(L_3 = 11\), so this is impossible.
+
+Try \(L_4 = 11\):
+
+- Then \(L_3 = x + 2 = \leq L_4\),
+- \(L_4 \geq L_3\), but with \(L_4 = 11\), \(L_3 \leq 11\).
+
+Try to set \(L_4 = 12\), but sum is no longer 30.
+
+Try a different approach:
+
+Try \(L_3\) = 9, so \(L_3 = 9\), then \(L_2 = 7\).
+
+Median = \((7+9)/2 = 8\), median is 8. 8 is not in the list.
+
+We want two 9's for mode, so both 9s likely at positions 3 and 4 or 2 and 3.
+
+Try list: \(L_1, 7, 9, 9\)
+
+Sum: \(L_1 + 7 + 9 + 9 = L_1 + 25\), so \(L_1 = 5\).
+
+List: [5, 7, 9, 9]
+
+Check conditions:
+
+- Sorted ascending: 5,7,9,9,
+- Median: average of 2nd and 3rd = (7+9)/2=8, median = 8,
+- 8 is positive integer, not in list,
+- Mode is 9 (appears twice), other numbers appear once,
+- Sum = 5 +7 + 9 + 9 = 30.
+
+
+All conditions satisfied.
+
+---
+
+**Step 7: Compute sum of squares**
+
+\[
+5^2 + 7^2 + 9^2 + 9^2 = 25 + 49 + 81 + 81 = 25 + 49 + 162 = 236.
+\]
+
+---
+
+**Step 8: Verify unique mode**
+
+9 appears twice.
+
+5,7 appear once.
+
+No other number appears twice.
+
+Mode is unique and 9, correct.
+
+Median 8 does not appear.
+
+Sum 30.
+
+All conditions hold.
+
+---
+
+**Answer: 236**
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 236.
+
+
+'''
+Your task is to write a new instruction for the assistant. Read the inputs carefully and identify the input format and infer detailed task
+description about the task I wish to solve with the assistant.
+Read all the assistant responses and the corresponding feedback. Identify all
+niche and domain specific factual information about the task and include it in
+the instruction, as a lot of it may not be available to the assistant in the
+future. The assistant may have utilized a generalizable strategy to solve the
+task, if so, include that in the instruction as well.
+The following is a record of previous instruction edits that were tried from
+the current instruction and did not improve results on the evaluation minibatch.
+Each entry shows exactly what changed (diff) and why it may not have helped.
+This is provided as context to help you make a more informed decision — use
+your judgment about whether any of these directions are worth revisiting or
+whether a different approach might work better.
+Provide the new instructions within ''' blocks.

@@ -1,0 +1,32 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, then provide the final answer as a single integer exactly as requested.
+
+To do this properly, you should:
+
+- Carefully interpret all given conditions, variables, and constraints, including any problem-specific details such as properties of geometric figures, combinatorial constraints, parity or divisibility conditions, maximality criteria, or simplification requirements.
+
+- Use appropriate mathematical knowledge and techniques relevant to the problem type:
+  - For algebraic and optimization problems, express variables in terms of symmetric sums or parameters, apply methods like Lagrange multipliers or equality conditions to find extrema.
+  - For combinatorial problems, perform careful case analysis, use counting principles, and characterize feasible configurations.
+  - For probability problems involving arrangements with parity or positional constraints, analyze parity and positional restrictions, use factorial and multinomial counting, and simplify probabilities fully.
+  - For geometry problems, apply coordinate geometry, vector methods, circle and chord properties, power of a point, or known theorems about circle intersections and tangents.
+  - For rational number and fraction problems, analyze gcd conditions, reduction to lowest terms, and use number theory insights about divisibility and coprimality.
+
+- When the problem involves expressions requiring simplification (like fractions), fully simplify to lowest terms and provide the requested combined value (e.g., sum of numerator and denominator), ensuring coprimality conditions are respected.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, sufficient to verify correctness but concise enough to focus on arriving at the correct integer answer. Avoid unrelated text or intermediate calculations without context.
+
+- Your final output must be only the final answer as a single integer, exactly as requested.
+
+Domain-specific insights and best practices from prior examples include:
+
+- For problems involving points on a circle, use coordinate geometry placing convenient points to simplify calculations; find circumcenters via perpendicular bisectors; parametrize points on lines and circles; use vector dot and cross products to analyze angle conditions; and solve resulting algebraic equations carefully.
+
+- For problems involving two intersecting circles and common tangents, use the fact that centers lie on the perpendicular bisector of the chord of intersection; parametrize points on chords and tangent lines; use properties of power of a point; and recognize known geometric formulas for areas or lengths involving chord lengths and distances.
+
+- For rational number problems involving gcd and reduction to lowest terms, express variables in terms of coprime integers; use gcd divisibility properties to find possible gcd values; solve linear Diophantine equations arising from conditions on numerators and denominators; check consistency of gcd and coprimality; and sum valid solutions carefully.
+
+Remember to always check domain constraints (such as positivity and coprimality), simplify all expressions fully, and confirm that your solution satisfies all given conditions before finalizing the answer.
+
+Your final answer output must be a single integer with no additional text.
+'''

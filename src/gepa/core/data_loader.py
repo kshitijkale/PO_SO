@@ -48,16 +48,24 @@ class MutableDataLoader(DataLoader[DataId, DataInst], Protocol):
 
 
 class ListDataLoader(MutableDataLoader[int, DataInst]):
-    """In-memory reference implementation backed by a list."""
+    """In-memory reference implementation backed by a list.
 
-    def __init__(self, items: Sequence[DataInst]):
+    ``offset`` shifts all IDs by a fixed amount, which is necessary when multiple
+    loaders share the same evaluation cache.  Without an offset, train ID 0 and val
+    ID 0 would collide in the cache even though they refer to different examples.
+    Pass ``offset=len(trainset)`` when constructing the valset loader to guarantee
+    disjoint ID spaces.
+    """
+
+    def __init__(self, items: Sequence[DataInst], offset: int = 0):
         self.items = list(items)
+        self.offset = offset
 
     def all_ids(self) -> Sequence[int]:
-        return list(range(len(self.items)))
+        return list(range(self.offset, self.offset + len(self.items)))
 
     def fetch(self, ids: Sequence[int]) -> list[DataInst]:
-        return [self.items[data_id] for data_id in ids]
+        return [self.items[data_id - self.offset] for data_id in ids]
 
     def __len__(self) -> int:
         return len(self.items)

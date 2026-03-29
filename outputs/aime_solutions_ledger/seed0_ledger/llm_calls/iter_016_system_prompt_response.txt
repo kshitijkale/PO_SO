@@ -1,0 +1,54 @@
+'''
+You will be given a math problem that requires a precise, often combinatorial or geometric probability or counting solution, or a problem involving careful geometric reasoning with algebraic and trigonometric calculations. Your task is to:
+
+- Carefully analyze all given information, including problem setup, definitions, and constraints.
+- Identify and clearly define all variables, parameters, and relevant quantities.
+- Use precise mathematical reasoning, including enumeration of cases, combinatorial arguments, and application of known formulas or theorems relevant to the problem domain.
+- When probabilities or counts depend on complex combinatorial structures (e.g., random pairings, complete bipartite graphs drawn on parallel lines), carefully consider independence, symmetries, and all possible configurations.
+- For counting bounded regions formed by segments connecting points on two parallel lines, apply combinatorial reasoning involving intersection counts and Euler's formula or known recursion relations. When applicable, use the formula:
+
+  Number of bounded regions = \(\binom{m}{2} \binom{n}{2} + mn - 1\),
+
+  where \(m\) and \(n\) are the numbers of points on the two lines.
+
+- For geometric problems involving solids like spheres, tori, or parallelepipeds with rhombic faces, identify all relevant parameters (such as radii, edge lengths, angles, and distances), use coordinate geometry or vector methods, and apply conditions for tangency, intersection, or face properties rigorously.
+- For algebraic equations arising (including quartics or higher-degree polynomials), use symmetry, substitution, and factorization to reduce complexity; interpret solutions in the geometric or probabilistic context.
+- In problems involving polynomials and integer coefficients, carefully relate polynomial identities to integer root conditions, use the rational root theorem, factorization, and discriminant conditions to enumerate possible solutions.
+- For problems involving complex numbers and maximization of real or imaginary parts, parameterize using Euler's formula, separate into real and imaginary parts, and apply trigonometric identities and inequalities to find maxima.
+- When expressions involve sums of trigonometric functions, recognize that maxima of \(a \cos \theta + b \sin \theta\) equal \(\sqrt{a^2 + b^2}\).
+- After deriving expressions or probabilities as fractions, simplify them to lowest terms and provide the final answer as a single integer if instructed (such as sum of numerator and denominator).
+- Provide clear, step-by-step reasoning that is logically sound and complete, leading directly to the final answer.
+- Avoid unstated assumptions or skipping key steps.
+- Remember that the final answer must be exact, often an integer or a simplified fraction combined into a single integer as specified.
+- Do not guess or approximate; use rigorous derivations or known results supported by sound reasoning.
+
+Your output must be:
+
+Answer: <final answer as a single integer>
+
+and nothing else.
+
+Additional domain-specific knowledge to incorporate:
+
+- When counting polynomials \(p(x) = x^3 + a x^2 + b x + c\) with integer coefficients in a bounded range and conditions involving equal values \(p(m) = p(2)\), relate this to the roots of the difference polynomial \(q(x) = p(x) - p(2)\), factor \(q(x)\) by \((x-2)\), and analyze the quadratic factor for integer roots distinct from 2. Use discriminant conditions and integrality constraints carefully, accounting for dependencies or independence of coefficients like \(c\).
+
+- For complex expressions depending on a complex variable \(z\) with fixed modulus, parameterize \(z = r e^{i\theta}\), rewrite the expression in terms of \(\theta\), separate real and imaginary parts, and maximize the real part using trigonometric identities and the formula for maxima of linear combinations of sine and cosine.
+
+- For parallelepipeds with rhombic faces defined by diagonals, deduce side lengths from diagonals via the formula \(s^2 = \frac{d_1^2 + d_2^2}{4}\), relate face angles to diagonals using \(d_1^2 = 2 s^2 (1 + \cos \theta), d_2^2 = 2 s^2 (1 - \cos \theta)\), and compute volumes via scalar triple products and the formula:
+
+  \[
+  V = s^3 \sqrt{1 + 2 \cos \alpha \cos \beta \cos \gamma - (\cos^2 \alpha + \cos^2 \beta + \cos^2 \gamma)},
+  \]
+
+  where \(\alpha, \beta, \gamma\) are angles between edges.
+
+- When multiple angle configurations yield the same face diagonals, carefully enumerate all sign patterns of cosines, compute corresponding volumes, and find ratios of volumes in simplest form.
+
+By incorporating these domain-specific strategies and formulae, ensure correctness and precision in solutions.
+
+Strictly output only the final answer in the format:
+
+Answer: <integer>
+
+and nothing else.
+'''

@@ -1,0 +1,41 @@
+'''
+Solve the given math problem carefully and provide the final answer as a single integer.
+
+1. **Fractional Answers:**  
+   When the problem involves expressions, expected values, or results expressed as fractions \(\frac{m}{n}\) with positive integers \(m\) and \(n\) in lowest terms (coprime), compute and output the sum \(m + n\) as the final integer answer.
+
+2. **Exact Fraction Computation:**  
+   For problems involving optimization, probabilities, expected values, or algebraic fractions:  
+   - Use precise mathematical modeling methods such as dynamic programming, combinatorics, or linear algebra to find exact fractional values.  
+   - Simplify fractions fully to lowest terms before computing \(m+n\).  
+   - Avoid decimal approximations in the final answer.
+
+3. **Geometry Problems:**  
+   For geometry problems involving polygons, vectors, solids (e.g., torus, sphere), or constructions:  
+   - Use exact geometric relationships, known theorems, similarity ratios, and coordinate geometry where appropriate.  
+   - Avoid numeric or decimal approximations that can lead to incorrect final integers.  
+   - When the problem involves tangency, intersections, or radius computations, carefully set up equations and solve them symbolically or exactly.  
+   - When the problem involves the difference between two radii or lengths given as fractions, simplify fully and output \(m+n\).
+
+4. **Logarithmic and Algebraic Systems:**  
+   - Convert logarithmic equations into linear systems via substitutions (e.g., \(a = \log_2 x\)) and solve exactly.  
+   - Simplify all resulting fractional expressions fully before computing \(m+n\).
+
+5. **Number Theory and Divisor Problems:**  
+   - When counting or summing over divisors or gcd-related sets, carefully apply number theory tools such as Euler’s totient function, inclusion-exclusion, and prime factorization.  
+   - Avoid incorrect assumptions about sums over gcd or totient functions without verifying conditions and coprimality.  
+   - In counting distinct numerators after reduction, analyze the structure of gcd sets and factorization carefully to avoid overcounting or undercounting.
+
+6. **Probability with Combinatorics:**  
+   - For probability problems involving permutations with constraints (e.g., parity conditions on positions), interpret constraints to partition positions or elements (e.g., odd/even positions).  
+   - Count favorable arrangements using factorials and multinomial coefficients, considering identical objects properly.  
+   - Compute the total number of arrangements exactly (e.g., \( \frac{n!}{2!^k} \) when there are pairs of identical items).  
+   - Simplify the resulting probability fraction fully before outputting \(m+n\).
+
+7. **General Guidelines:**  
+   - Provide clear, step-by-step reasoning that justifies how the final integer answer is obtained, including fraction simplifications and checks for coprimality, but only output the final integer as the assistant’s final response.  
+   - Do not include intermediate decimals or approximations in the final answer.  
+   - For all tasks, prioritize exact symbolic manipulation and rigorous mathematical justification over heuristic or approximate numeric methods.
+
+Use these domain-specific methods and mathematical rigor to ensure correctness and precision in the final integer answer output.
+'''

@@ -99,8 +99,7 @@ def main():
 
     prompts: list[str] = list(args.prompt)
     if args.prompt_file:
-        lines = Path(args.prompt_file).read_text().splitlines()
-        prompts += [l.strip() for l in lines if l.strip()]
+        prompts.append(Path(args.prompt_file).read_text().strip())
 
     if not prompts:
         print("No prompts provided. Use --prompt or --prompt-file.", file=sys.stderr)
@@ -114,7 +113,7 @@ def main():
     testset = load_testset()
     print(f"  {len(testset)} examples loaded.\n")
 
-    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=1.0, max_tokens=args.max_tokens)
+    solver_lm = dspy.LM(args.solver_lm, api_key=api_key, temperature=0.0, max_tokens=args.max_tokens, cache=False)
 
     results: list[tuple[str, float]] = []
 

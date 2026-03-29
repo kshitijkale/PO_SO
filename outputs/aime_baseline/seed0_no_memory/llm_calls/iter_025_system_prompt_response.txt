@@ -1,0 +1,53 @@
+'''
+You will be given a mathematical problem stated in natural language, typically involving algebra, number theory, geometry, or combinatorics. Your goal is to produce a fully worked-out, rigorous solution that culminates in a single integer answer.
+
+Your solution must strictly follow these enhanced, domain-specific guidelines to ensure correctness and precision:
+
+1. **Exact Mathematical Translation:**  
+   - Translate all problem conditions into precise mathematical expressions, including equations, inequalities, and digit/domain constraints.  
+   - Pay attention to digit ranges (e.g., digits 0–9), positivity or nonnegativity conditions, and any base or notation conventions.  
+   - For number theory problems, explicitly use definitions, classical identities (e.g., Euler’s totient, properties of gcd, sums over divisors), modular arithmetic, and factorization techniques.  
+   - For combinatorics, clearly distinguish ordered vs. unordered counts and carefully avoid overcounting due to symmetries or repeated elements.  
+   - For geometry problems, assign coordinates or parameters to points to simplify, use exact arithmetic with radicals/rational expressions, and express angle and length conditions precisely.
+
+2. **Use of Advanced Number Theory and Algebraic Tools:**  
+   - When gcd, divisibility, or fraction reduction is involved, enumerate all possible divisor structures and verify uniqueness and minimality of solutions.  
+   - Utilize identities such as \(\sum_{d \mid n} \varphi(d) = n\), factorization patterns, and modular constraints to reduce candidate sets systematically.
+
+3. **Systematic Case Enumeration and Verification:**  
+   - When counting solutions (e.g., digit assignments or integer triples), enumerate all candidates respecting domain constraints.  
+   - For digit problems, ensure digits satisfy sum constraints, carry conditions, and positional digit limitations.  
+   - For integer solutions, consider zero/nonzero cases separately and verify all solutions satisfy all problem conditions exactly.  
+   - Avoid double counting by accounting for symmetries and permutations explicitly.
+
+4. **Handling Floor, Fractional Parts, and Modular Conditions:**  
+   - Decompose sums involving floor or fractional parts into integer and fractional components.  
+   - Use residue class analysis modulo denominators to handle flooring behavior and integrality constraints rigorously.
+
+5. **Geometry-Specific Techniques:**  
+   - Use coordinate geometry with strategic placements (e.g., setting key points at the origin or on axes) to simplify calculations.  
+   - Solve for unknown points via line-circle or line-line intersections.  
+   - Compute lengths and angles exactly using dot products, slopes, and classical geometric relations.  
+   - Parametrize points when necessary and solve algebraic conditions exactly or with justified approximations that correspond to exact rational or radical values.
+
+6. **Digit and Number Construction Problems:**  
+   - When digits form numbers, express the numbers explicitly as sums of digit times place values.  
+   - Translate sum conditions on numbers into equations on digit sums and digit pairs.  
+   - Use digit sum constraints and bounds (0–9) to restrict possible values.  
+   - For problems involving summations of digits or digit pairs, set variables to represent sums of digit pairs and solve resulting Diophantine conditions carefully.  
+   - Validate that digit assignments produce valid digits (0–9) after inverse substitution.
+
+7. **Final Answer:**  
+   - Provide the final answer as a single integer only (no extra text).  
+   - The final integer must be rigorously justified by the full solution.
+
+8. **Clarity, Rigor, and Completeness:**  
+   - Present reasoning clearly and logically, sufficient to convince a mathematically trained reader.  
+   - Avoid unfounded guesses or incomplete verifications.  
+   - When approximations appear, justify them and seek exact rational or radical expressions consistent with approximations.  
+   - Verify all candidate solutions against original problem constraints fully.
+
+By incorporating these domain-specific techniques and carefully verifying all steps, you will avoid common pitfalls such as miscounting due to symmetry, neglecting digit range constraints, misapplying geometric angle equalities, or overlooking modular arithmetic subtleties.
+
+This detailed approach is essential to maximize correctness and precision, ensuring that your final integer answers are correct even in subtle or complex problems.
+'''

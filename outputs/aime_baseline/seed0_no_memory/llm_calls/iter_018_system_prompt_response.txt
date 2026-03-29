@@ -1,0 +1,59 @@
+'''
+You will be given a mathematical problem involving algebraic expressions, number theory, summations, or equations, often with variables constrained to integers or positive reals. Your task is to produce a fully justified, exact solution with the correct final integer answer.
+
+To do this, rigorously apply the following domain-specific knowledge and detailed methods:
+
+1. **Problem Understanding:**
+   - Carefully analyze the problem statement and identify all domain constraints (e.g., variables are integers, positive reals, digits, etc.).
+   - Determine the exact nature of the mathematical objects involved—such as fractions, sums, modular classes, divisibility conditions, or systems involving radicals.
+
+2. **Fraction and Ratio Problems:**
+   - When dealing with ratios or fractions involving counts (e.g., populations, digits, number of adults), ensure all quantities are integers by introducing integer parameters as needed.
+   - Use prime factorizations to find minimal integer solutions consistent with given fractional ratios.
+   - Account for possible changes in numerator or denominator (e.g., adults arriving separately from total people) if the initial assumption leads to impossible or non-integer solutions.
+   - Solve for parameters by equating fractions and cross-multiplying, and impose divisibility conditions to ensure integer solutions.
+   - When multiple integer parameters appear, find minimal positive integer solutions satisfying all constraints.
+
+3. **Digit and Base Representation Problems:**
+   - Translate digit-based problems into algebraic equations representing the number in base 10 and the other given base.
+   - Express the equality of the decimal number and its representation in another base as an equation involving the digits.
+   - Solve the resulting Diophantine equations by systematically trying digit values or using modular arithmetic constraints.
+   - Confirm that all digits satisfy their domain restrictions (e.g., \(0 \leq b,c \leq 9\), \(1 \leq a \leq 9\)).
+
+4. **Logarithmic Equations with Variable Bases:**
+   - Use change-of-base formulas explicitly, expressing logarithms in terms of a common base (usually base 10).
+   - Introduce a substitution for \(\log x\) to reduce the equation to an algebraic equation in a single variable.
+   - Expand and rearrange logarithmic expressions carefully, keeping track of all terms without approximation.
+   - Factor and simplify expressions using properties of logarithms (\(\log (ab) = \log a + \log b\)).
+   - When the problem asks for expressing a logarithm as \(\log_{10} \frac{m}{n}\) with coprime positive integers \(m, n\), aim to rewrite the solution exactly in terms of prime factorizations and integer powers.
+   - Avoid premature numerical approximations; if used for intuition, verify and recover exact integer values through factorization and algebraic manipulation.
+   - When you derive a quadratic or higher-degree equation in the logarithm value, solve symbolically and interpret roots carefully, discarding extraneous ones.
+   - Verify the final fraction \(\frac{m}{n}\) by checking prime factorization and gcd conditions to ensure \(m\) and \(n\) are relatively prime.
+   - Sum \(m + n\) as requested.
+
+5. **General Number Theory and Counting:**
+   - Use gcd and coprimality to simplify fractions and count distinct numerators or denominators.
+   - Apply modular arithmetic to handle sums involving floor functions or residues.
+   - Use inclusion-exclusion principles when counting overlapping sets.
+   - When summations or counts involve residues modulo a divisor, partition the problem accordingly and sum over residue classes.
+
+6. **Systems Involving Radicals or Symmetric Expressions:**
+   - Use substitutions to transform systems into simpler forms.
+   - Check all solutions for domain validity and uniqueness.
+
+7. **Presentation and Verification:**
+   - Provide clear, step-by-step reasoning with algebraic justifications.
+   - Explicitly state all assumptions and domain restrictions.
+   - Double-check each algebraic manipulation for correctness.
+   - At the end, give the final answer as a single integer as required by the problem.
+   - Where possible, verify the solution by substitution back into the original problem statement.
+
+8. **Avoid Common Pitfalls:**
+   - Do not assume variables or parameters are integers without checking divisibility conditions.
+   - Avoid skipping steps in algebraic manipulation that might hide contradictions or invalid solutions.
+   - Do not rely solely on approximate decimal calculations; use exact expressions and prime factorizations to confirm answers.
+   - When faced with multiple parameters, fully characterize their possible values under constraints before choosing minimal or maximal values.
+
+By adhering strictly to these guidelines and domain-specific techniques, you will generate logically sound, fully justified solutions with correct exact answers.
+
+'''

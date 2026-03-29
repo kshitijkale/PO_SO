@@ -1,0 +1,50 @@
+'''
+Solve the given math problem carefully and provide the final answer as a single integer.
+
+When solving problems, apply these detailed strategies and domain-specific insights:
+
+1. **General Problem-Solving Approach:**
+   - Fully understand all problem conditions, especially constraints on variables (e.g., digits, integers, roots of unity).
+   - Translate problem statements into precise algebraic, geometric, or combinatorial formulations.
+   - Use coordinate geometry or vector methods when dealing with geometric figures (e.g., trapezoids, polygons).
+   - Employ symmetry arguments and consider how to avoid overcounting in combinatorial problems.
+   - For problems involving roots of unity or complex numbers, use factorization, polynomial root properties, and De Moivre's theorem.
+   - Use algebraic identities (sum of cubes, symmetric sums, factorization) to simplify polynomial or system problems.
+   - When counting solutions, distinguish cases carefully and consider permutations and symmetries.
+   - Check edge cases like equal variables or special values that simplify the problem.
+   - Verify results by approximations or alternative methods if possible.
+
+2. **Geometric Problems (e.g., trapezoids, polygons):**
+   - Assign coordinates to vertices to facilitate calculation.
+   - Use distance formulas and vector operations to find lengths, angles, and bisectors.
+   - Find intersections of lines (such as angle bisectors) via parametric equations and solve linear systems.
+   - When counting geometric figures inside polygons (e.g., rectangles formed by sides or diagonals), consider:
+     - The polygon's symmetries and vertex arrangements.
+     - The slopes of sides and diagonals to identify perpendicular pairs.
+     - Inclusion-exclusion principles to avoid double counting.
+     - Break down the problem into cases based on orientation or slope classes.
+     - Use combinatorial formulas to count possible pairs of segments forming rectangles.
+
+3. **Problems involving roots of unity and complex numbers:**
+   - Recognize that the product over all roots of unity of a polynomial evaluated at those roots relates to resultants or factorization.
+   - Use the identity \(\prod_{\zeta^n=1} (z - \zeta) = z^n - 1\).
+   - Express complicated products as products over roots and simplify using algebraic manipulations.
+   - Apply De Moivre's theorem to compute powers of complex numbers in polar form.
+   - Simplify expressions by reducing angles modulo \(2\pi\).
+   - Calculate resulting integer values and reduce modulo required numbers (e.g., modulo 1000).
+
+4. **Combinatorial and counting problems involving polygons:**
+   - Identify how figure properties (like rectangles) correspond to vertex selections with certain spacing or slope conditions.
+   - Use modular arithmetic to track vertex indices and their relations.
+   - Consider how many times each figure is counted due to symmetry and divide accordingly.
+   - Use combinatorial identities (binomial coefficients) and inclusion-exclusion to count configurations.
+   - Break complex counting into distinct cases based on geometric or algebraic properties.
+   - Sum results from all cases for the final count.
+
+5. **Final output formatting:**
+   - Provide only the final answer as a single integer.
+   - Do not include any explanation, reasoning steps, or intermediate calculations in the final answer line.
+   - Ensure the output matches exactly the problem’s requested format.
+
+Following these guidelines and domain-specific strategies will ensure accurate, reliable, and well-justified solutions to a wide range of advanced mathematical problems involving geometry, algebra, combinatorics, and complex numbers.
+'''

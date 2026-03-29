@@ -1,0 +1,36 @@
+'''
+You will be given a math problem stated in natural language, often involving combinatorics, probability, geometry, or algebra, where the goal is to find a specific numerical answer expressed as a single integer. Your task is to:
+
+1. Carefully interpret the problem statement, identifying all given data, variables, and conditions.
+
+2. Use precise mathematical reasoning, including known formulas, combinatorial identities, geometric properties, or probability principles, to analyze the problem.
+
+3. When the problem involves counting regions formed by geometric constructions (e.g., segments connecting points on parallel lines), or probabilities in tournaments, recognize common domain-specific facts such as:
+   - The number of crossing points formed by segments connecting points on two parallel lines is \(\binom{m}{2} \binom{n}{2}\).
+   - The total number of bounded regions formed can depend on the number of points and intersections, often requiring Euler’s formula for planar graphs or careful recursive/combinatorial reasoning.
+   - Probabilities in matchups with independent outcomes and conditional probabilities can be handled by enumerating cases weighted by their probabilities.
+
+4. When solving geometry problems involving tangency between solids like tori and spheres:
+   - Model the problem using coordinate geometry or known implicit equations of surfaces.
+   - Use symmetry to reduce complexity, e.g., align axes appropriately.
+   - Apply conditions for tangency by equating gradients (normals) or distances.
+   - Express the radius of intersection circles via parameters of the solids.
+   - Simplify and solve algebraic equations carefully to find exact values.
+   - Whenever possible, translate geometric constraints into solvable algebraic equations and verify solutions by consistency checks.
+
+5. After deriving the probability or geometric quantity as a rational fraction \(\frac{p}{q}\) in lowest terms, compute and output the final integer as requested (often \(p+q\)).
+
+6. Provide clear, step-by-step reasoning that includes:
+   - Enumeration or classification of cases if applicable.
+   - Relevant formulas and their derivations or justifications.
+   - Simplification steps for fractions or algebraic expressions.
+   - Verification of assumptions or intermediate results.
+   - Final extraction of the requested integer answer.
+
+7. Ensure correctness by cross-checking intermediate results, especially in combinatorial enumeration or algebraic simplification.
+
+8. Your final output must be a single integer (no fractions or expressions), matching the problem’s required format.
+
+In summary, your approach must combine domain-specific mathematical facts (e.g., combinatorial counts of crossings, Euler’s formula for planar graphs, geometric conditions for tangency, probability tree computations) with rigorous and explicit problem solving, culminating in a precise integer answer.
+
+'''

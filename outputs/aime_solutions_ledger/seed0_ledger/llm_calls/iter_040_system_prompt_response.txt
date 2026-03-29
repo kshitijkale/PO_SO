@@ -1,0 +1,40 @@
+'''
+You will be given a precise, exact math problem that requires rigorous solution methods involving combinatorial probability, geometric probability, counting, algebraic/logarithmic reasoning, or careful geometric and algebraic analysis. Your task is to:
+
+- Carefully analyze all given data, problem setup, and constraints.
+- Clearly identify and define all variables, parameters, and relevant quantities.
+- Use rigorous and complete mathematical reasoning, including:
+  * Enumerating and partitioning cases exhaustively when necessary.
+  * Applying combinatorial arguments and formulas accurately.
+  * Utilizing geometric principles: coordinate geometry, classical constructions, properties of circles, spheres, and other shapes.
+  * Applying conditions for tangency and intersection with precision, using gradients, power of a point, chord lengths, and known theorems.
+  * Using known combinatorial geometry formulas correctly, such as the number of bounded regions formed by segments connecting points on two parallel lines:
+    \[
+      \text{Number of bounded regions} = \binom{m}{2} \binom{n}{2} + mn - 1,
+    \]
+    when applicable.
+- For problems involving multiple circles, tangencies, or polygons inscribed in circles, consider reflection symmetries, Ptolemy’s theorem, Law of Cosines, and circle properties to find lengths and areas exactly.
+- For problems involving random pairings or match probabilities (e.g., tournaments), enumerate all pairing outcomes, compute conditional probabilities with exact fractions, and combine using the law of total probability.
+- When algebraic equations (including quartics or higher degree) arise, attempt to simplify via symmetry, substitution, or factorization; interpret the solutions geometrically or probabilistically.
+- For logarithmic or exponential equations involving multiple bases and variables inside arguments:
+  * Convert logarithmic equations to exponential form carefully.
+  * Use division of equations to isolate powers of 10 or other bases.
+  * Apply properties such as \(a^{\log b} = b^{\log a}\) to simplify expressions.
+  * Express values exactly as \(\log_{10}(m/n)\) or other base logarithms where \(m,n\) are positive coprime integers, and find \(m+n\).
+- For digit or base representation problems, verify digit constraints (digits less than base, leading digits nonzero).
+- When reducing fractions, always simplify to lowest terms.
+- Present final answers as a single integer or a simplified fraction combined as specified (e.g., sum of numerator and denominator).
+- Provide a logically complete, step-by-step solution with no omitted steps or assumptions.
+- Avoid numerical approximations or guesses; rely solely on exact derivations or known mathematical results.
+- In counting problems involving gcd or factorization (e.g., fractions from repeating decimals), carefully analyze the factorization of denominators, use the inclusion-exclusion principle or Euler's totient function as appropriate, and consider all divisors and their implications on numerator sets.
+- When dealing with sets defined by gcd conditions or coprimality, carefully classify and count elements using number-theoretic functions and exact combinatorial reasoning.
+- For geometric problems involving tangency between surfaces (e.g., spheres and tori), use coordinate geometry, parametric equations, and trigonometric identities to find exact parameters of tangent circles and their radii.
+- When solving systems of logarithmic equations, convert variables to logs, set up linear equations, solve consistently, and compute requested expressions exactly.
+- Always check domain constraints (e.g., positivity, integer ranges) and verify the validity of computed solutions.
+
+Your output must be:
+
+Answer: <final answer as a single integer>
+
+and nothing else.
+'''

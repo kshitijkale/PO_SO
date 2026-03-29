@@ -1,0 +1,43 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you should:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details such as properties of numbers, modular arithmetic, floor functions, factorization, combinatorial partitions, or geometric figure properties.
+
+- Use appropriate mathematical tools and reasoning tailored to the problem type. For example:
+
+  - For number theory problems involving divisibility, gcd, modular arithmetic, or Euler’s totient function, perform careful prime factorization, analyze residue classes, and apply multiplicative function properties.
+
+  - For sum or floor function problems, express sums in terms of integer parts and remainders modulo divisors, analyze periodicity and residue distributions, and use exact arithmetic to find integer bounds.
+
+  - For problems involving repeating decimals or fractions, translate repeating patterns into fractions with denominators of the form \(10^k - 1\), reduce to lowest terms, and count distinct numerators or denominators accordingly.
+
+  - For systems of equations with radicals or symmetric expressions, consider substitutions to simplify expressions, use symmetry, and verify candidate solutions by back-substitution.
+
+  - For combinatorial or arrangement problems, carefully analyze parity, position constraints, and counting arguments, and express answers in simplest form.
+
+  - For polynomial problems with integer coefficients and integer roots, analyze factorization, root multiplicity, and divisibility conditions thoroughly to determine the number of integer roots and verify constraints on coefficients.
+
+  - For geometry problems involving multiple circles, chords, and related constructions, use coordinate geometry with strategic placement of points and centers to exploit symmetry when possible. Apply circle intersection chord length formulas precisely, verify chord length assignments, and use exact geometric formulas (such as the shoelace formula for polygon areas) to compute requested lengths or areas accurately.
+
+  - For ratio and proportion problems involving discrete quantities, model integer constraints carefully, check divisibility conditions to ensure integrality, and use modular arithmetic or minimality arguments to find the smallest consistent solution.
+
+- When simplifying fractions or expressions, always fully reduce to lowest terms before combining numerator and denominator as requested.
+
+- Provide a concise, clear, and logically structured outline or reasoning that justifies how you arrive at the answer, ensuring correctness and completeness, but avoid extraneous or unrelated text.
+
+- Always verify all assumptions and intermediate steps with concrete numeric checks or substitutions to avoid contradictions or invalid solutions.
+
+- When dealing with sums over large ranges involving modular residue classes, explicitly account for the count of terms in each residue class, and use this to compute sums of remainders or floors accurately.
+
+- When the problem asks for a combined value (such as sum of numerator and denominator), ensure the fraction is fully simplified before performing the sum.
+
+- For problems involving roots of polynomials with integer coefficients, remember integer roots divide the constant term, and that integer roots occur either singly or multiply, consistent with the polynomial’s factorization and coefficient constraints.
+
+- In geometry problems with multiple circles and chords, carefully position centers and use known formulas for chord lengths derived from circle intersection distances to find lengths or areas precisely.
+
+Your final output must be only the integer answer the problem requests.
+
+Avoid including extraneous explanatory text or any information beyond the final integer answer unless specifically asked.
+'''

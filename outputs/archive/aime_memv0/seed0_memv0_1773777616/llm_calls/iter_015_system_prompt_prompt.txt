@@ -1,0 +1,1339 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Azar, Carl, Jon, and Sergey are the four players left in a singles tennis tournament. They are randomly assigned opponents in the semifinal matches, and the winners of those matches play each other in the final match to determine the winner of the tournament. When Azar plays Carl, Azar will win the match with probability $\frac23$. When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win the match with probability $\frac34$. Assume that outcomes of different matches are independent. The probability that Carl will win the tournament is $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## Generated Outputs
+Answer: 125
+Reasoning: There are four players: Azar (A), Carl (C), Jon (J), and Sergey (S). The semifinal matches are randomly assigned, so the possible pairings are:
+
+1. (A vs C) and (J vs S)
+2. (A vs J) and (C vs S)
+3. (A vs S) and (C vs J)
+
+Each pairing is equally likely with probability 1/3.
+
+We want the probability that Carl wins the tournament.
+
+---
+
+**Given probabilities:**
+
+- If A plays C, A wins with probability 2/3, so C wins with probability 1/3.
+- If A or C plays J or S, then A or C wins with probability 3/4, so J or S wins with probability 1/4.
+
+---
+
+### Case 1: (A vs C) and (J vs S)
+
+- Semifinal 1: A vs C
+  - C wins with probability 1/3
+- Semifinal 2: J vs S
+  - No info given, so assume 50-50 chance for J or S (since no probabilities given, and they are symmetric)
+  - Probability J wins = 1/2, S wins = 1/2
+
+If Carl wins semifinal 1, he faces the winner of J vs S in the final.
+
+In the final, Carl plays either J or S.
+
+- Probability Carl wins final = 3/4 (since Carl vs J or S)
+
+So, probability Carl wins tournament in Case 1:
+
+= P(C wins semifinal 1) * P(C wins final)
+
+= (1/3) * (3/4) = 1/4
+
+---
+
+### Case 2: (A vs J) and (C vs S)
+
+- Semifinal 1: A vs J
+  - A or C vs J or S: A wins with probability 3/4, so J wins with 1/4
+- Semifinal 2: C vs S
+  - C wins with probability 3/4, S wins with 1/4
+
+We want the probability Carl wins the tournament.
+
+Carl must win semifinal 2, then win final against winner of semifinal 1.
+
+- P(C wins semifinal 2) = 3/4
+
+The final opponent is either A or J.
+
+- P(A wins semifinal 1) = 3/4
+- P(J wins semifinal 1) = 1/4
+
+If Carl plays A in final:
+
+- A vs C: A wins with 2/3, so C wins with 1/3
+
+If Carl plays J in final:
+
+- C vs J: C wins with 3/4
+
+Therefore, probability Carl wins final:
+
+= P(A wins semifinal 1) * P(C beats A) + P(J wins semifinal 1) * P(C beats J)
+
+= (3/4)*(1/3) + (1/4)*(3/4) = (3/12) + (3/16) = (1/4) + (3/16) = (4/16) + (3/16) = 7/16
+
+So, probability Carl wins tournament in Case 2:
+
+= P(C wins semifinal 2) * P(C wins final)
+
+= (3/4) * (7/16) = 21/64
+
+---
+
+### Case 3: (A vs S) and (C vs J)
+
+- Semifinal 1: A vs S
+  - A vs S: A or C vs J or S, so A wins with 3/4, S wins with 1/4
+- Semifinal 2: C vs J
+  - C wins with 3/4, J wins with 1/4
+
+Carl must win semifinal 2, then win final against winner of semifinal 1.
+
+- P(C wins semifinal 2) = 3/4
+
+Final opponent is either A or S.
+
+- P(A wins semifinal 1) = 3/4
+- P(S wins semifinal 1) = 1/4
+
+If Carl plays A in final:
+
+- C wins with 1/3 (since A wins with 2/3)
+
+If Carl plays S in final:
+
+- C vs S: C wins with 3/4
+
+Probability Carl wins final:
+
+= P(A wins semifinal 1) * P(C beats A) + P(S wins semifinal 1) * P(C beats S)
+
+= (3/4)*(1/3) + (1/4)*(3/4) = (3/12) + (3/16) = (1/4) + (3/16) = (4/16) + (3/16) = 7/16
+
+Probability Carl wins tournament in Case 3:
+
+= (3/4) * (7/16) = 21/64
+
+---
+
+### Combine all cases:
+
+Each case has probability 1/3.
+
+Total probability Carl wins tournament:
+
+= (1/3)*(1/4) + (1/3)*(21/64) + (1/3)*(21/64)
+
+= (1/3)*(1/4 + 21/64 + 21/64)
+
+= (1/3)*(1/4 + 42/64)
+
+Convert 1/4 to 16/64:
+
+= (1/3)*(16/64 + 42/64) = (1/3)*(58/64) = 58/(3*64) = 58/192
+
+Simplify numerator and denominator:
+
+58 and 192 share a factor of 2:
+
+58/192 = 29/96
+
+---
+
+### Final answer:
+
+Probability Carl wins tournament = 29/96
+
+Sum p + q = 29 + 96 = 125
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+
+# Example 2
+## Inputs
+Problem: Let $\ell_A$ and $\ell_B$ be two distinct parallel lines. For positive integers $m$ and $n$, distinct points $A_1, A_2, \allowbreak A_3, \allowbreak \ldots, \allowbreak A_m$ lie on $\ell_A$, and distinct points $B_1, B_2, B_3, \ldots, B_n$ lie on $\ell_B$. Additionally, when segments $\overline{A_iB_j}$ are drawn for all $i=1,2,3,\ldots, m$ and $j=1,\allowbreak 2,\allowbreak 3, \ldots, \allowbreak n$, no point strictly between $\ell_A$ and $\ell_B$ lies on more than 1 of the segments. Find the number of bounded regions into which this figure divides the plane when $m=7$ and $n=5$. The figure shows that there are 8 regions when $m=3$ and $n=2$.
+
+## Generated Outputs
+Answer: 59
+Reasoning: We have two distinct parallel lines \(\ell_A\) and \(\ell_B\). On \(\ell_A\), there are \(m\) distinct points \(A_1, A_2, \ldots, A_m\), and on \(\ell_B\), there are \(n\) distinct points \(B_1, B_2, \ldots, B_n\). We draw all segments \(\overline{A_i B_j}\) for \(i=1,\ldots,m\) and \(j=1,\ldots,n\).
+
+The problem states that no point strictly between \(\ell_A\) and \(\ell_B\) lies on more than one of these segments, which means the segments only intersect at their endpoints or not at all inside the strip between the two lines. This implies the segments form a complete bipartite graph \(K_{m,n}\) drawn in a "planar" way between two parallel lines, with edges drawn as straight segments between points on the two lines.
+
+We want to find the number of bounded regions into which the plane is divided by this figure when \(m=7\) and \(n=5\).
+
+---
+
+**Step 1: Understanding the figure**
+
+- The figure consists of two parallel lines with points on each.
+- All segments between points on \(\ell_A\) and \(\ell_B\) are drawn.
+- The segments do not intersect inside the strip between the lines.
+- The figure partitions the plane into regions, some bounded and some unbounded.
+
+---
+
+**Step 2: Known example**
+
+The problem gives an example: when \(m=3\) and \(n=2\), the number of bounded regions is 8.
+
+Let's verify this example to find a pattern.
+
+- For \(m=3\), \(n=2\), the number of edges is \(3 \times 2 = 6\).
+- The figure shows 8 bounded regions.
+
+---
+
+**Step 3: General structure**
+
+The segments form a grid-like structure between the two lines.
+
+- The points on \(\ell_A\) are ordered \(A_1, A_2, \ldots, A_m\).
+- The points on \(\ell_B\) are ordered \(B_1, B_2, \ldots, B_n\).
+- The segments \(\overline{A_i B_j}\) connect every \(A_i\) to every \(B_j\).
+
+Because the lines are parallel and the points are distinct and ordered, the segments do not cross inside the strip.
+
+---
+
+**Step 4: Counting bounded regions**
+
+The bounded regions correspond to the "cells" formed by the segments.
+
+Each bounded region is formed by four segments:
+
+- Two segments connecting adjacent points on \(\ell_A\) to the same point on \(\ell_B\).
+- Two segments connecting adjacent points on \(\ell_B\) to the same point on \(\ell_A\).
+
+In other words, the bounded regions correspond to the rectangles formed by pairs of adjacent points on \(\ell_A\) and pairs of adjacent points on \(\ell_B\).
+
+- Number of intervals between points on \(\ell_A\) is \(m-1\).
+- Number of intervals between points on \(\ell_B\) is \(n-1\).
+
+Each pair of adjacent points on \(\ell_A\) and \(\ell_B\) forms one bounded region.
+
+Therefore, the number of bounded regions is:
+
+\[
+(m-1)(n-1)
+\]
+
+---
+
+**Step 5: Check with the example**
+
+For \(m=3\), \(n=2\):
+
+\[
+(3-1)(2-1) = 2 \times 1 = 2
+\]
+
+But the problem states there are 8 bounded regions in this case, so this simple rectangle counting is not sufficient.
+
+---
+
+**Step 6: Reconsider the problem**
+
+The problem states that no point strictly between the lines lies on more than one segment, so the segments do not intersect inside the strip.
+
+But the figure for \(m=3, n=2\) shows 8 bounded regions, which is more than the 2 rectangles formed by adjacent points.
+
+This suggests that the figure includes the segments \(\overline{A_i B_j}\) for all \(i,j\), but the segments are drawn in such a way that the figure is a complete bipartite graph \(K_{m,n}\) drawn with no crossings.
+
+---
+
+**Step 7: Number of bounded regions in \(K_{m,n}\) drawn between two parallel lines**
+
+This is a known problem in combinatorial geometry.
+
+When \(K_{m,n}\) is drawn with vertices on two parallel lines and edges drawn as straight segments, the number of bounded regions formed is:
+
+\[
+(m-1)(n-1)
+\]
+
+But the problem's example contradicts this.
+
+---
+
+**Step 8: Re-examining the example**
+
+The problem states: "The figure shows that there are 8 regions when \(m=3\) and \(n=2\)."
+
+It says "regions," not necessarily "bounded regions."
+
+Are these 8 regions bounded or total regions?
+
+The problem asks for the number of bounded regions, so the example must be consistent.
+
+---
+
+**Step 9: Alternative approach**
+
+The problem states: "no point strictly between \(\ell_A\) and \(\ell_B\) lies on more than 1 of the segments."
+
+This means the segments do not intersect inside the strip.
+
+Therefore, the figure is planar with no edge crossings.
+
+The number of bounded regions formed by the complete bipartite graph \(K_{m,n}\) drawn between two parallel lines with edges drawn as straight segments is:
+
+\[
+(m-1)(n-1)
+\]
+
+But the problem's example says 8 regions for \(m=3, n=2\).
+
+Calculate \((3-1)(2-1) = 2 \times 1 = 2\), which is not 8.
+
+---
+
+**Step 10: Counting total regions**
+
+Maybe the problem counts all regions, bounded and unbounded.
+
+The total number of regions formed by the drawing is:
+
+\[
+(m-1)(n-1) + m + n
+\]
+
+Check for \(m=3, n=2\):
+
+\[
+(3-1)(2-1) + 3 + 2 = 2 \times 1 + 3 + 2 = 2 + 5 = 7
+\]
+
+Still not 8.
+
+---
+
+**Step 11: Try another formula**
+
+The number of regions formed by \(K_{m,n}\) drawn between two parallel lines with edges drawn as straight segments is:
+
+\[
+(m-1)(n-1) + 1
+\]
+
+Check for \(m=3, n=2\):
+
+\[
+(3-1)(2-1) + 1 = 2 \times 1 + 1 = 3
+\]
+
+No.
+
+---
+
+**Step 12: Consider the number of faces in the planar graph**
+
+The graph formed is \(K_{m,n}\) drawn in a planar way.
+
+- Number of vertices: \(m + n\)
+- Number of edges: \(m \times n\)
+- Number of faces \(F\) in a planar graph satisfies Euler's formula:
+
+\[
+V - E + F = 2
+\]
+
+So,
+
+\[
+F = 2 - V + E = 2 - (m+n) + (m n) = m n - m - n + 2
+\]
+
+The number of faces includes the unbounded face.
+
+Therefore, the number of bounded faces is:
+
+\[
+F - 1 = m n - m - n + 1
+\]
+
+Check for \(m=3, n=2\):
+
+\[
+3 \times 2 - 3 - 2 + 1 = 6 - 3 - 2 + 1 = 2
+\]
+
+But the problem says 8 bounded regions.
+
+---
+
+**Step 13: The problem's example is crucial**
+
+The problem states: "The figure shows that there are 8 regions when \(m=3\) and \(n=2\)."
+
+This suggests the figure is not just the complete bipartite graph \(K_{3,2}\) drawn with straight edges, but the figure formed by all segments \(\overline{A_i B_j}\) drawn, and the regions formed by these segments and the two lines.
+
+---
+
+**Step 14: Alternative interpretation**
+
+The problem says: "no point strictly between \(\ell_A\) and \(\ell_B\) lies on more than 1 of the segments."
+
+This means the segments do not intersect inside the strip.
+
+Therefore, the segments form a grid-like pattern.
+
+The number of bounded regions formed is the number of quadrilaterals formed by the segments.
+
+Each bounded region corresponds to choosing two adjacent points on \(\ell_A\) and two adjacent points on \(\ell_B\).
+
+Number of such quadrilaterals is:
+
+\[
+(m-1)(n-1)
+\]
+
+For \(m=3, n=2\), this is \(2 \times 1 = 2\), but the problem says 8.
+
+---
+
+**Step 15: The problem's figure likely includes the two lines \(\ell_A\) and \(\ell_B\) as boundaries**
+
+The problem says "the figure shows that there are 8 regions when \(m=3\) and \(n=2\)."
+
+This suggests the figure includes the two lines and the segments between points.
+
+The total number of regions formed by the two lines and the segments is 8.
+
+---
+
+**Step 16: Counting regions formed by the two lines and the segments**
+
+- The two lines divide the plane into 3 strips: above \(\ell_A\), between \(\ell_A\) and \(\ell_B\), and below \(\ell_B\).
+- The segments are drawn between \(\ell_A\) and \(\ell_B\).
+- The segments partition the strip between the lines into regions.
+
+---
+
+**Step 17: Number of regions in the strip**
+
+The segments form a grid of \(m \times n\) segments.
+
+The number of bounded regions inside the strip is:
+
+\[
+(m-1)(n-1)
+\]
+
+But the problem's example says 8 regions for \(m=3, n=2\).
+
+---
+
+**Step 18: Try to find a formula matching the example**
+
+Try to find a formula \(R(m,n)\) such that \(R(3,2) = 8\).
+
+Try \(R(m,n) = (m-1)(n-1) + (m-1) + (n-1)\).
+
+For \(m=3, n=2\):
+
+\[
+(3-1)(2-1) + (3-1) + (2-1) = 2 \times 1 + 2 + 1 = 2 + 3 = 5
+\]
+
+No.
+
+Try \(R(m,n) = (m-1)(n-1) + m + n - 1\).
+
+For \(m=3, n=2\):
+
+\[
+2 \times 1 + 3 + 2 - 1 = 2 + 4 = 6
+\]
+
+No.
+
+Try \(R(m,n) = m n - m - n + 2\).
+
+For \(m=3, n=2\):
+
+\[
+6 - 3 - 2 + 2 = 3
+\]
+
+No.
+
+Try \(R(m,n) = m n - m - n + 1\).
+
+For \(m=3, n=2\):
+
+\[
+6 - 3 - 2 + 1 = 2
+\]
+
+No.
+
+Try \(R(m,n) = m n - m - n + 4\).
+
+For \(m=3, n=2\):
+
+\[
+6 - 3 - 2 + 4 = 5
+\]
+
+No.
+
+Try \(R(m,n) = 2(m-1)(n-1)\).
+
+For \(m=3, n=2\):
+
+\[
+2 \times 2 \times 1 = 4
+\]
+
+No.
+
+Try \(R(m,n) = 2(m-1)(n-1) + (m-1) + (n-1)\).
+
+For \(m=3, n=2\):
+
+\[
+2 \times 2 \times 1 + 2 + 1 = 4 + 3 = 7
+\]
+
+No.
+
+Try \(R(m,n) = 2(m-1)(n-1) + m + n - 2\).
+
+For \(m=3, n=2\):
+
+\[
+2 \times 2 \times 1 + 3 + 2 - 2 = 4 + 3 = 7
+\]
+
+No.
+
+Try \(R(m,n) = 2(m-1)(n-1) + m + n - 1\).
+
+For \(m=3, n=2\):
+
+\[
+4 + 3 + 1 = 8
+\]
+
+Yes!
+
+So the formula that fits the example is:
+
+\[
+\boxed{2(m-1)(n-1) + m + n - 1}
+\]
+
+---
+
+**Step 19: Verify the formula for other values**
+
+Try \(m=2, n=2\):
+
+\[
+2(1)(1) + 2 + 2 - 1 = 2 + 3 = 5
+\]
+
+Try to imagine the figure: two points on each line, four segments forming a rectangle, plus the two lines.
+
+Number of bounded regions should be 1 (the rectangle), but the formula gives 5.
+
+So maybe the formula counts total regions, not just bounded.
+
+---
+
+**Step 20: The problem asks for bounded regions**
+
+Given the problem's example, the number of bounded regions for \(m=3, n=2\) is 8.
+
+Therefore, the formula for bounded regions is:
+
+\[
+\boxed{2(m-1)(n-1) + m + n - 1}
+\]
+
+---
+
+**Step 21: Calculate for \(m=7, n=5\)**
+
+\[
+2(7-1)(5-1) + 7 + 5 - 1 = 2 \times 6 \times 4 + 7 + 5 - 1 = 2 \times 24 + 11 = 48 + 11 = 59
+\]
+
+---
+
+**Step 22: Final answer**
+
+The number of bounded regions into which the figure divides the plane when \(m=7\) and \(n=5\) is:
+
+\[
+\boxed{59}
+\]
+
+---
+
+**Summary:**
+
+- The problem's example suggests the formula for bounded regions is:
+
+\[
+2(m-1)(n-1) + m + n - 1
+\]
+
+- For \(m=7, n=5\), the number of bounded regions is 59.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 244.
+
+
+
+# Example 3
+## Inputs
+Problem: Torus $T$ is the surface produced by revolving a circle with radius $3$ around an axis in the plane of the circle that is a distance $6$ from the center of the circle (so like a donut). Let $S$ be a sphere with a radius $11$. When $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_i$, and when $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_o$. The difference $r_i-r_o$ can be written as $\tfrac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+[asy] unitsize(0.3 inch); draw(ellipse((0,0), 3, 1.75)); draw((-1.2,0.1)..(-0.8,-0.03)..(-0.4,-0.11)..(0,-0.15)..(0.4,-0.11)..(0.8,-0.03)..(1.2,0.1)); draw((-1,0.04)..(-0.5,0.12)..(0,0.16)..(0.5,0.12)..(1,0.04)); draw((0,2.4)--(0,-0.15)); draw((0,-0.15)--(0,-1.75), dashed); draw((0,-1.75)--(0,-2.25)); draw(ellipse((2,0), 1, 0.9)); draw((2.03,-0.02)--(2.9,-0.4)); [/asy]
+
+## Generated Outputs
+Answer: 5
+Reasoning: We have a torus \( T \) generated by revolving a circle of radius 3 around an axis in the plane of the circle, at a distance 6 from the center of the circle. This means the torus has a "major radius" \( R = 6 \) (distance from the center of the tube to the axis of revolution) and a "minor radius" \( r = 3 \) (radius of the tube).
+
+The torus is placed externally tangent to a sphere \( S \) of radius 11. The torus touches the sphere along a circle of radius \( r_i \) in one configuration and along a circle of radius \( r_o \) in another configuration. The problem states that when the torus rests on the outside of the sphere, it is tangent along a circle of radius \( r_i \), and when it rests on the outside of the sphere (presumably in a different orientation), it is tangent along a circle of radius \( r_o \).
+
+We want to find the difference \( r_i - r_o \) in simplest form.
+
+---
+
+**Step 1: Understand the geometry of the torus**
+
+The torus is generated by revolving a circle of radius 3 centered at \((6,0)\) in the plane around the vertical axis (say the \(y\)-axis). The torus is symmetric about the axis of revolution.
+
+The torus surface points satisfy:
+
+\[
+(\sqrt{x^2 + z^2} - R)^2 + y^2 = r^2
+\]
+
+where \( R = 6 \), \( r = 3 \).
+
+---
+
+**Step 2: Sphere and torus tangent condition**
+
+The sphere \( S \) has radius 11 and is fixed. The torus is placed so that it is tangent externally to the sphere.
+
+The sphere is centered at the origin (assumed), so its surface is:
+
+\[
+x^2 + y^2 + z^2 = 11^2 = 121
+\]
+
+---
+
+**Step 3: Tangency along a circle**
+
+The torus touches the sphere along a circle. The circle of tangency lies on the torus and on the sphere.
+
+Because the torus is symmetric about the \(y\)-axis, the circle of tangency will be a circle of revolution around the \(y\)-axis.
+
+The radius of the circle of tangency on the torus is the radius of the circle in the \(x,z\)-plane at some fixed \(y\).
+
+The torus cross-section at height \(y\) is a circle centered at \((6,0)\) with radius 3, so the cross-section circle is:
+
+\[
+(x - 6)^2 + y^2 = 3^2 = 9
+\]
+
+But since the torus is generated by revolving this circle around the \(y\)-axis, the points on the torus satisfy:
+
+\[
+(\sqrt{x^2 + z^2} - 6)^2 + y^2 = 9
+\]
+
+At a fixed \(y\), the cross-section circle in the \(x,z\)-plane is:
+
+\[
+(\sqrt{x^2 + z^2} - 6)^2 = 9 - y^2
+\]
+
+So the radius of the circle of points on the torus at height \(y\) is:
+
+\[
+\rho = \sqrt{x^2 + z^2} = 6 \pm \sqrt{9 - y^2}
+\]
+
+The torus has two "circles" at each height \(y\), one with radius \(6 + \sqrt{9 - y^2}\) (outer circle) and one with radius \(6 - \sqrt{9 - y^2}\) (inner circle).
+
+---
+
+**Step 4: Sphere cross-section at height \(y\)**
+
+The sphere at height \(y\) has cross-section radius:
+
+\[
+r_s(y) = \sqrt{121 - y^2}
+\]
+
+---
+
+**Step 5: Tangency condition**
+
+The torus and sphere are tangent along a circle at some height \(y\). At that height, the circle of the torus and the circle of the sphere coincide and are tangent.
+
+The torus circle radii at height \(y\) are:
+
+\[
+r_{\text{torus, outer}} = 6 + \sqrt{9 - y^2}
+\]
+\[
+r_{\text{torus, inner}} = 6 - \sqrt{9 - y^2}
+\]
+
+The sphere circle radius is:
+
+\[
+r_s = \sqrt{121 - y^2}
+\]
+
+For tangency, the distance from the origin to the circle on the torus must equal the radius of the sphere cross-section, and the surfaces must be tangent.
+
+Because the torus is outside the sphere, the distance from the origin to the torus circle must be equal to the sphere radius at that height.
+
+So the torus circle radius equals the sphere circle radius:
+
+\[
+r_s = r_{\text{torus}}
+\]
+
+---
+
+**Step 6: Find \(y\) for each tangent circle**
+
+We have two possible radii for the torus circle at height \(y\):
+
+1. Outer circle: \(6 + \sqrt{9 - y^2}\)
+2. Inner circle: \(6 - \sqrt{9 - y^2}\)
+
+Set each equal to the sphere radius:
+
+\[
+\sqrt{121 - y^2} = 6 + \sqrt{9 - y^2}
+\]
+and
+\[
+\sqrt{121 - y^2} = 6 - \sqrt{9 - y^2}
+\]
+
+We will solve each for \(y^2\).
+
+---
+
+**Case 1:**
+
+\[
+\sqrt{121 - y^2} = 6 + \sqrt{9 - y^2}
+\]
+
+Let \(a = \sqrt{121 - y^2}\), \(b = \sqrt{9 - y^2}\).
+
+Then:
+
+\[
+a = 6 + b
+\]
+
+Square both sides:
+
+\[
+a^2 = (6 + b)^2 = 36 + 12b + b^2
+\]
+
+But \(a^2 = 121 - y^2\), \(b^2 = 9 - y^2\), so:
+
+\[
+121 - y^2 = 36 + 12b + 9 - y^2
+\]
+
+Simplify:
+
+\[
+121 - y^2 = 45 + 12b - y^2
+\]
+
+Cancel \(- y^2\) on both sides:
+
+\[
+121 = 45 + 12b
+\]
+
+\[
+12b = 76 \implies b = \frac{76}{12} = \frac{19}{3}
+\]
+
+Recall \(b = \sqrt{9 - y^2} = \frac{19}{3}\).
+
+But \(\sqrt{9 - y^2} = \frac{19}{3} > 3\), which is impossible since \(9 - y^2 \leq 9\).
+
+So no solution here.
+
+---
+
+**Case 2:**
+
+\[
+\sqrt{121 - y^2} = 6 - \sqrt{9 - y^2}
+\]
+
+Again, let \(a = \sqrt{121 - y^2}\), \(b = \sqrt{9 - y^2}\).
+
+Then:
+
+\[
+a = 6 - b
+\]
+
+Square both sides:
+
+\[
+a^2 = (6 - b)^2 = 36 - 12b + b^2
+\]
+
+Substitute \(a^2 = 121 - y^2\), \(b^2 = 9 - y^2\):
+
+\[
+121 - y^2 = 36 - 12b + 9 - y^2
+\]
+
+Simplify:
+
+\[
+121 - y^2 = 45 - 12b - y^2
+\]
+
+Cancel \(- y^2\):
+
+\[
+121 = 45 - 12b
+\]
+
+\[
+-12b = 121 - 45 = 76 \implies b = -\frac{76}{12} = -\frac{19}{3}
+\]
+
+But \(b = \sqrt{9 - y^2} \geq 0\), so no solution here either.
+
+---
+
+**Step 7: Reconsider the approach**
+
+The above direct approach leads to contradictions. The problem states the torus is tangent to the sphere along two different circles when resting on the outside of the sphere.
+
+Possibility: The torus can be placed in two different orientations, leading to two different tangent circles.
+
+The torus is generated by revolving a circle of radius 3 centered at (6,0) around the \(y\)-axis.
+
+The torus surface points satisfy:
+
+\[
+(\sqrt{x^2 + z^2} - 6)^2 + y^2 = 9
+\]
+
+The sphere is centered at the origin with radius 11.
+
+---
+
+**Step 8: Distance from origin to torus points**
+
+The distance from the origin to a point on the torus is:
+
+\[
+d = \sqrt{x^2 + y^2 + z^2}
+\]
+
+At a fixed \(y\), the torus points lie on two circles of radius:
+
+\[
+\rho = 6 \pm \sqrt{9 - y^2}
+\]
+
+So the distance squared is:
+
+\[
+d^2 = \rho^2 + y^2 = (6 \pm \sqrt{9 - y^2})^2 + y^2
+\]
+
+We want the torus to be tangent to the sphere of radius 11, so:
+
+\[
+d = 11 \implies d^2 = 121
+\]
+
+Set:
+
+\[
+(6 \pm \sqrt{9 - y^2})^2 + y^2 = 121
+\]
+
+---
+
+**Step 9: Solve for \(y^2\) in each case**
+
+Let \(s = \sqrt{9 - y^2}\).
+
+Then:
+
+\[
+(6 \pm s)^2 + y^2 = 121
+\]
+
+Expand:
+
+\[
+36 \pm 12 s + s^2 + y^2 = 121
+\]
+
+But \(s^2 = 9 - y^2\), so:
+
+\[
+36 \pm 12 s + 9 - y^2 + y^2 = 121
+\]
+
+Simplify:
+
+\[
+45 \pm 12 s = 121
+\]
+
+\[
+\pm 12 s = 121 - 45 = 76
+\]
+
+So:
+
+- For \(+\) sign:
+
+\[
+12 s = 76 \implies s = \frac{76}{12} = \frac{19}{3} \approx 6.333
+\]
+
+- For \(-\) sign:
+
+\[
+-12 s = 76 \implies s = -\frac{76}{12} = -\frac{19}{3}
+\]
+
+But \(s = \sqrt{9 - y^2} \geq 0\), so only the first case is possible if \(s = \frac{19}{3}\).
+
+But \(s = \sqrt{9 - y^2} \leq 3\), so \(s = \frac{19}{3} > 3\) is impossible.
+
+No solution here.
+
+---
+
+**Step 10: Re-express the problem**
+
+The problem states:
+
+- When the torus rests on the outside of the sphere, it is tangent along a circle with radius \(r_i\).
+- When the torus rests on the outside of the sphere, it is tangent along a circle with radius \(r_o\).
+
+This suggests two different placements of the torus on the sphere, each producing a circle of tangency with radius \(r_i\) or \(r_o\).
+
+The torus has two "circles" of revolution at each height \(y\), with radii:
+
+\[
+r_{\text{outer}} = 6 + \sqrt{9 - y^2}
+\]
+\[
+r_{\text{inner}} = 6 - \sqrt{9 - y^2}
+\]
+
+The sphere has radius 11.
+
+---
+
+**Step 11: Consider the distance from the sphere center to the torus center**
+
+The torus is a surface of revolution of a circle of radius 3 centered at (6,0) in the \(x,y\)-plane.
+
+The torus "tube" is a circle of radius 3 centered at a circle of radius 6 around the \(y\)-axis.
+
+The torus can be placed so that its center circle is at a distance \(d\) from the sphere center.
+
+The torus is tangent to the sphere externally along a circle.
+
+The radius of the circle of tangency on the torus is the radius of the cross-section circle at the point of contact.
+
+---
+
+**Step 12: Use the formula for the radius of the circle of tangency**
+
+The torus is tangent to the sphere along a circle of radius \(r\) (the radius of the circle of tangency).
+
+The problem asks for the difference \(r_i - r_o\).
+
+---
+
+**Step 13: Use the formula for the radius of the circle of tangency between a sphere and a torus**
+
+The torus is generated by revolving a circle of radius 3 centered at (6,0).
+
+The sphere has radius 11.
+
+The torus can be placed so that the distance between the centers of the sphere and the torus tube circle is \(D\).
+
+The torus tube circle has radius 3.
+
+The sphere has radius 11.
+
+The torus is tangent to the sphere externally along a circle.
+
+The radius of the circle of tangency is given by:
+
+\[
+r = \sqrt{r_{\text{tube}}^2 - (D - R_{\text{sphere}})^2}
+\]
+
+where \(r_{\text{tube}} = 3\), \(R_{\text{sphere}} = 11\), and \(D\) is the distance between the centers of the sphere and the torus tube circle.
+
+---
+
+**Step 14: Find \(D\) for the two positions**
+
+The torus tube circle is centered at a distance \(6\) from the axis of revolution.
+
+When the torus rests on the sphere, the distance between the centers is:
+
+- \(D = 11 + 6 = 17\) (torus tube circle outside the sphere)
+- \(D = 11 - 6 = 5\) (torus tube circle inside the sphere)
+
+But the torus is outside the sphere, so the torus tube circle center is at distance \(D\) from the sphere center.
+
+---
+
+**Step 15: Compute the radii of the circles of tangency**
+
+Using the formula:
+
+\[
+r = \sqrt{r_{\text{tube}}^2 - (D - R_{\text{sphere}})^2}
+\]
+
+For \(D = 17\):
+
+\[
+r_o = \sqrt{3^2 - (17 - 11)^2} = \sqrt{9 - 6^2} = \sqrt{9 - 36} = \sqrt{-27}
+\]
+
+No real solution.
+
+For \(D = 5\):
+
+\[
+r_i = \sqrt{9 - (5 - 11)^2} = \sqrt{9 - (-6)^2} = \sqrt{9 - 36} = \sqrt{-27}
+\]
+
+No real solution.
+
+---
+
+**Step 16: Reconsider the problem**
+
+The problem states the torus is tangent to the sphere externally along two circles with radii \(r_i\) and \(r_o\).
+
+The torus is generated by revolving a circle of radius 3 centered at 6 units from the axis.
+
+The sphere has radius 11.
+
+The torus is tangent to the sphere externally along a circle of radius \(r_i\) when resting on the outside of the sphere, and along a circle of radius \(r_o\) when resting on the outside of the sphere (two different positions).
+
+---
+
+**Step 17: Use the formula for the radius of the circle of tangency between two spheres**
+
+The torus can be thought of as a set of circles of radius 3 centered on a circle of radius 6.
+
+The sphere has radius 11.
+
+The torus is tangent to the sphere along a circle.
+
+The radius of the circle of tangency between two spheres of radii \(r_1\) and \(r_2\) with centers separated by distance \(d\) is:
+
+\[
+r = \frac{1}{2d} \sqrt{(d^2 - (r_1 - r_2)^2)((r_1 + r_2)^2 - d^2)}
+\]
+
+---
+
+**Step 18: Model the torus tube circle as a sphere of radius 3 centered at distance 6 from the axis**
+
+The torus tube circle is a circle of radius 6.
+
+The sphere has radius 11.
+
+The torus is tangent to the sphere along a circle.
+
+The circle of tangency radius is:
+
+\[
+r = \sqrt{r_{\text{tube}}^2 - (d - R_{\text{sphere}})^2}
+\]
+
+where \(d\) is the distance between the centers of the sphere and the torus tube circle.
+
+---
+
+**Step 19: The torus can be tangent to the sphere in two ways**
+
+- When the torus is placed so that the center of the tube circle is at distance \(d = 11 + 6 = 17\) from the sphere center.
+- When the torus is placed so that the center of the tube circle is at distance \(d = 11 - 6 = 5\) from the sphere center.
+
+---
+
+**Step 20: Calculate the radii of the circles of tangency**
+
+For \(d = 17\):
+
+\[
+r_o = \sqrt{3^2 - (17 - 11)^2} = \sqrt{9 - 6^2} = \sqrt{9 - 36} = \sqrt{-27}
+\]
+
+No real solution.
+
+For \(d = 5\):
+
+\[
+r_i = \sqrt{9 - (5 - 11)^2} = \sqrt{9 - (-6)^2} = \sqrt{9 - 36} = \sqrt{-27}
+\]
+
+No real solution.
+
+---
+
+**Step 21: Alternative approach**
+
+The problem is likely referring to the radii of the circles of tangency on the torus, which are:
+
+\[
+r = 6 \pm \sqrt{9 - y^2}
+\]
+
+and the sphere radius at height \(y\) is:
+
+\[
+\sqrt{121 - y^2}
+\]
+
+Set:
+
+\[
+6 + \sqrt{9 - y^2} = \sqrt{121 - y^2}
+\]
+
+Square both sides:
+
+\[
+(6 + \sqrt{9 - y^2})^2 = 121 - y^2
+\]
+
+\[
+36 + 12 \sqrt{9 - y^2} + 9 - y^2 = 121 - y^2
+\]
+
+Simplify:
+
+\[
+45 + 12 \sqrt{9 - y^2} = 121
+\]
+
+\[
+12 \sqrt{9 - y^2} = 76
+\]
+
+\[
+\sqrt{9 - y^2} = \frac{19}{3}
+\]
+
+No solution since \(\sqrt{9 - y^2} \leq 3\).
+
+---
+
+**Step 22: Try the other sign**
+
+\[
+6 - \sqrt{9 - y^2} = \sqrt{121 - y^2}
+\]
+
+Square both sides:
+
+\[
+(6 - \sqrt{9 - y^2})^2 = 121 - y^2
+\]
+
+\[
+36 - 12 \sqrt{9 - y^2} + 9 - y^2 = 121 - y^2
+\]
+
+Simplify:
+
+\[
+45 - 12 \sqrt{9 - y^2} = 121
+\]
+
+\[
+-12 \sqrt{9 - y^2} = 76
+\]
+
+\[
+\sqrt{9 - y^2} = -\frac{19}{3}
+\]
+
+No solution.
+
+---
+
+**Step 23: Conclusion**
+
+The problem as stated is ambiguous or missing some detail.
+
+---
+
+**Step 24: Alternative interpretation**
+
+The problem states:
+
+- The torus is tangent to the sphere externally along a circle with radius \(r_i\) when resting on the outside of the sphere.
+- The torus is tangent to the sphere externally along a circle with radius \(r_o\) when resting on the outside of the sphere.
+
+This suggests two different tangent circles on the torus, corresponding to the inner and outer radii of the torus tube.
+
+The radii of these circles are:
+
+\[
+r_i = R - r = 6 - 3 = 3
+\]
+\[
+r_o = R + r = 6 + 3 = 9
+\]
+
+The difference is:
+
+\[
+r_i - r_o = 3 - 9 = -6
+\]
+
+But the problem wants \(r_i - r_o\) as a positive fraction.
+
+---
+
+**Step 25: Final step**
+
+The problem likely wants the difference between the radii of the circles of tangency on the sphere, which correspond to the inner and outer radii of the torus tube.
+
+The difference is:
+
+\[
+r_i - r_o = \frac{33}{4} - \frac{27}{4} = \frac{6}{4} = \frac{3}{2}
+\]
+
+Sum numerator and denominator:
+
+\[
+3 + 2 = 5
+\]
+
+---
+
+**Answer:**
+
+\[
+\boxed{5}
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 127.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently excels in algebraic manipulation, systematic case analysis, geometric coordinate setups, and careful arithmetic verification, especially in polynomial, number theory, and geometry problems. However, it tends to err in problems requiring comprehensive combinatorial enumeration or full exploration of solution spaces, occasionally prematurely concluding with incomplete logic. Overall, successes involve detailed stepwise reasoning and explicit checks, while failures arise from oversimplified assumptions or incomplete consideration of all configurations.
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=e467ae4e9b, status=REJECTED, val=?, minibatch=0.67: Added: 'Your response should include clear, step-by-step mathematical reasoning, showing all relevant work and justifications, i...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose base-9 representation is \(\underline{b}\,\underline{c}\,\underline{a}_9\).: Th...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=2, iter=2, fp=b62ce0eefa, status=REJECTED, val=?, minibatch=0.33: Added: 'Ensure that: - All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geo...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Finding length \(PQ\) where \(P, Q\) are intersections of angle bisectors in an isosceles trapezoid: The model set up a coordinate system placing the trapezoid on...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=3, iter=3, fp=eab1cae8a7, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include clear, step-by-step mathematical reasoning that fully justifies each step and uses all given ...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in congruent circles, find \(AC^2\).: The model correctly identified the relation between distances and proj...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=4, iter=4, fp=2f47cde299, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include a clear, step-by-step mathematical reasoning process that fully justifies each step and uses ...'
+  Outcomes (for this node only): iter=4, result=incorrect, error=arithmetic, q=Find \(p+q\) given \(r^2 = \frac{p}{q}\) where \(r\) is radius of smallest sphere containing boxes with given surface area and volume.: The model attempte...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=5, iter=5, fp=54fb2674d5, status=REJECTED, val=?, minibatch=0.33: Added: '..".  Ensure your reasoning explicitly addresses all problem conditions and edge cases, and justifies why alternative po...'
+  Outcomes (for this node only): iter=5, result=incorrect, error=logic, q=Counting intersecting families of size 16 from subsets of \(\{1,2,3,4,5\}\): The model correctly identified the problem as counting intersecting families, appl...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=10, iter=10, fp=bb1d7df487, status=REJECTED, val=?, minibatch=0.33: Added: 'as a single integer.  Your response must include a thorough, step-by-step mathematical reasoning process that explicitly...'
+  Outcomes (for this node only): iter=10, result=incorrect, error=interpretation, q=Area of convex hexagon formed by two tangent circles and a third circle passing through their centers: The model carefully analyzed the geometric set...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=11, iter=12, fp=bf0a77afc1, status=REJECTED, val=?, minibatch=0.33: Added: 'To ensure correctness and clarity, include a detailed, step-by-step reasoning process that:  - Clearly states and define...'
+  Outcomes (for this node only): iter=12, result=incorrect, error=interpretation, q=Expected number of correct guesses by Alice guessing colors of 3 red and 3 black cards revealed in random order: The model correctly set up a dynamic...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=12, iter=13, fp=162f130742, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include a complete, detailed, step-by-step mathematical reasoning process that:  - Clearly interprets...'
+  Outcomes (for this node only): iter=13, result=correct, error=none, q=Solve for \(x\) given \(\log_{20x}(22x) = \log_{2x}(202x)\) and find \(m+n\) from \(\log_{20x}(22x) = \log_{10}(\frac{m}{n})\).: The model correctly transformed ...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=e467ae4e9b, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=b62ce0eefa, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=eab1cae8a7, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=2f47cde299, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=54fb2674d5, status=REJECTED
+• From node 0: 2 node(s), peaked val=0.47, accepted, branch root=node=6, iter=6, fp=cedb65cbb4, status=ACCEPTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=10, iter=10, fp=bb1d7df487, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=11, iter=12, fp=bf0a77afc1, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=12, iter=13, fp=162f130742, status=REJECTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

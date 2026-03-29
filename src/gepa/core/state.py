@@ -653,6 +653,21 @@ def initialize_gepa_state(
                 eval_result.outputs_by_val_id, os.path.join(run_dir, "generated_best_outputs_valset")
             )
 
+        if evaluation_cache is not None:
+            val_ids = list(eval_result.scores_by_val_id.keys())
+            outputs = [eval_result.outputs_by_val_id[val_id] for val_id in val_ids]
+            scores = [eval_result.scores_by_val_id[val_id] for val_id in val_ids]
+            objective_scores_list = None
+            if eval_result.objective_scores_by_val_id is not None:
+                objective_scores_list = [eval_result.objective_scores_by_val_id[val_id] for val_id in val_ids]
+            evaluation_cache.put_batch(
+                seed_candidate,
+                val_ids,
+                outputs,
+                scores,
+                objective_scores_list,
+            )
+
         num_evals_run += len(eval_result.scores_by_val_id)
 
         gepa_state = GEPAState(

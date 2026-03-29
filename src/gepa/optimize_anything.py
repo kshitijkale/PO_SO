@@ -132,7 +132,6 @@ from gepa.logging.experiment_tracker import create_experiment_tracker
 from gepa.logging.logger import LoggerProtocol, StdOutLogger
 from gepa.proposer.merge import MergeProposer
 from gepa.proposer.reflective_mutation.base import CandidateSelector, LanguageModel, ReflectionComponentSelector
-from gepa.proposer.reflective_mutation.memory import ReflectionMemory
 from gepa.proposer.reflective_mutation.reflective_mutation import ReflectiveMutationProposer
 from gepa.strategies.batch_sampler import BatchSampler, EpochShuffledBatchSampler
 from gepa.strategies.candidate_selector import (
@@ -715,9 +714,6 @@ class ReflectionConfig:
     reflection_lm: LanguageModel | str | None = "openai/gpt-5.1"
     reflection_prompt_template: str | dict[str, str] | None = optimize_anything_reflection_prompt_template
     custom_candidate_proposer: ProposalFn | None = None
-    use_reflection_memory: bool = False
-    reflection_memory_max_entries: int = 10
-    lesson_lm: LanguageModel | str | None = None
 
 
 @dataclass
@@ -1429,21 +1425,6 @@ def optimize_anything(
     effective_callbacks: list[Any] | None = active_callbacks if active_callbacks else None
 
     # --- 11. Build reflective proposer from ReflectionConfig ---
-    reflection_memory: ReflectionMemory | None = None
-    if config.reflection.use_reflection_memory:
-        reflection_memory = ReflectionMemory(
-            max_entries=config.reflection.reflection_memory_max_entries,
-            callbacks=effective_callbacks,
-        )
-    # Resolve lesson_lm: explicit override > reflection_lm > None
-    resolved_lesson_lm: LanguageModel | None = None
-    if config.reflection.use_reflection_memory:
-        _raw_lesson_lm = config.reflection.lesson_lm or config.reflection.reflection_lm
-        if isinstance(_raw_lesson_lm, str):
-            resolved_lesson_lm = make_litellm_lm(_raw_lesson_lm)
-        else:
-            resolved_lesson_lm = _raw_lesson_lm
-
     reflective_proposer = ReflectiveMutationProposer(
         logger=config.tracking.logger,
         trainset=train_loader,
@@ -1457,10 +1438,7 @@ def optimize_anything(
         reflection_lm=config.reflection.reflection_lm,
         reflection_prompt_template=config.reflection.reflection_prompt_template,
         custom_candidate_proposer=config.reflection.custom_candidate_proposer,
-        reflection_memory=reflection_memory,
         callbacks=effective_callbacks,
-        lesson_lm=resolved_lesson_lm,
-        objective=objective or "",
     )
 
     # Define evaluator function for merge proposer

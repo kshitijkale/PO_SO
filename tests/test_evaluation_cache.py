@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from gepa.core.data_loader import ListDataLoader
 from gepa.core.state import EvaluationCache
 
 # RECORDER_DIR paths for cached tests (imported lazily to avoid module conflicts)
@@ -100,10 +101,13 @@ class TestEvaluationCacheIntegration:
         """Test that optimize runs correctly with caching enabled."""
         import gepa
 
+        trainset = [{"id": i} for i in range(5)]
+        valset = ListDataLoader([{"id": i} for i in range(5)], offset=len(trainset))
+
         result = gepa.optimize(
             seed_candidate={"system_prompt": "test"},
-            trainset=[{"id": i} for i in range(5)],
-            valset=[{"id": i} for i in range(5)],
+            trainset=trainset,
+            valset=valset,
             adapter=self._create_dummy_adapter(),
             max_metric_calls=20,
             reflection_lm=None,
@@ -117,7 +121,7 @@ class TestEvaluationCacheIntegration:
         import gepa
 
         trainset = [{"id": i} for i in range(5)]
-        valset = [{"id": i} for i in range(5)]
+        valset = ListDataLoader([{"id": i} for i in range(5)], offset=len(trainset))
         seed = {"system_prompt": "test"}
 
         result_no_cache = gepa.optimize(
@@ -174,9 +178,9 @@ def test_aime_prompt_optimize_with_cache(mocked_lms, recorder_dir):
     task_lm, reflection_lm = mocked_lms
     adapter = DefaultAdapter(model=task_lm)
 
-    trainset, valset, _ = gepa.examples.aime.init_dataset()
+    trainset, valset_raw, _ = gepa.examples.aime.init_dataset()
     trainset = trainset[:10]
-    valset = valset[:10]
+    valset = ListDataLoader(valset_raw[:10], offset=len(trainset))
 
     seed_prompt = {
         "system_prompt": "You are a helpful assistant. You are given a question and you need to answer it. The answer should be given at the end of your response in exactly the format '### <final answer>'"
@@ -300,9 +304,9 @@ def test_pareto_frontier_type_with_cache(pareto_mocked_lms, pareto_recorder_dir,
 
     adapter = DefaultAdapter(model=task_lm, evaluator=evaluator)
 
-    trainset, valset, _ = init_pupa_dataset()
-    trainset = trainset[:20]
-    valset = valset[:12]
+    trainset_raw, valset_raw, _ = init_pupa_dataset()
+    trainset = trainset_raw[:20]
+    valset = ListDataLoader(valset_raw[:12], offset=len(trainset))
 
     seed_prompt = {"system_prompt": "You are a helpful assistant."}
 

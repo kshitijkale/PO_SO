@@ -1,0 +1,860 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem thoroughly and provide the final answer as a single integer. Your response must include clear, step-by-step mathematical reasoning that explicitly justifies each step and carefully uses all given information and problem conditions. When the problem involves geometric or algebraic objects (e.g., polygons, polyhedra, circles, spheres), incorporate relevant domain-specific facts such as properties of shapes, coordinate assignments, relationships among angles, lengths, areas, volumes, and conditions for concurrency or cyclicity. If multiple interpretations or configurations are possible, explicitly consider and rule out inconsistent cases, explaining why.
+
+Perform exact symbolic manipulation as far as possible before approximating any quantities. When you derive a numeric answer, ensure it matches the problem’s expected format (e.g., integer), and confirm your final result is consistent with all constraints. Avoid assumptions without justification and clearly indicate any coordinate systems or variable assignments used in your approach.
+
+In summary, your solution should:
+
+- Show a comprehensive, logically structured reasoning process.
+- Use geometric and algebraic principles appropriate to the problem type.
+- Address all problem conditions and verify the consistency of intermediate results.
+- Provide the final answer as a single integer, as requested.
+
+This approach will minimize errors due to oversight, incorrect assumptions, or incomplete reasoning.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## Generated Outputs
+Answer: 104
+Reasoning: We are given two rectangles \(ABCD\) and \(EFGH\) with the following conditions:
+
+1. Points \(D, E, C, F\) are collinear.
+2. Points \(A, D, H, G\) lie on a circle.
+3. Dimensions:
+   - Rectangle \(ABCD\): \(BC = 16\), \(AB = 107\).
+   - Rectangle \(EFGH\): \(FG = 17\), \(EF = 184\).
+
+We want to find the length \(CE\).
+
+---
+
+**Step 1: Understand the rectangles and their orientation**
+
+Since \(ABCD\) is a rectangle, sides \(AB\) and \(BC\) are perpendicular, and opposite sides are equal. Similarly for \(EFGH\).
+
+Assign coordinates to \(ABCD\) for convenience:
+
+- Let \(A = (0,0)\).
+- Since \(AB = 107\), let \(B = (107,0)\).
+- Since \(BC = 16\), and \(BC \perp AB\), let \(C = (107,16)\).
+- Then \(D = (0,16)\).
+
+So rectangle \(ABCD\) has corners:
+\[
+A(0,0), B(107,0), C(107,16), D(0,16).
+\]
+
+---
+
+**Step 2: Assign coordinates to \(EFGH\)**
+
+We know \(EFGH\) is a rectangle with sides \(EF = 184\) and \(FG = 17\).
+
+We don't know the orientation or position of \(EFGH\), but we know points \(D, E, C, F\) are collinear.
+
+Since \(D = (0,16)\) and \(C = (107,16)\), points \(D\) and \(C\) lie on the horizontal line \(y=16\).
+
+Points \(E\) and \(F\) lie on the same line as \(D\) and \(C\), so \(E\) and \(F\) also lie on the line \(y=16\).
+
+Therefore, \(D, E, C, F\) are collinear on the line \(y=16\).
+
+---
+
+**Step 3: Place \(E\) and \(F\) on the line \(y=16\)**
+
+Let:
+\[
+E = (x_E, 16), \quad F = (x_F, 16).
+\]
+
+Since \(EFGH\) is a rectangle, and \(EF = 184\), the length between \(E\) and \(F\) is 184.
+
+So:
+\[
+|x_F - x_E| = 184.
+\]
+
+---
+
+**Step 4: Determine the orientation of \(EFGH\)**
+
+Since \(EFGH\) is a rectangle, sides \(EF\) and \(FG\) are perpendicular.
+
+We know \(FG = 17\).
+
+If \(EF\) lies along the line \(y=16\), then \(FG\) must be perpendicular to this line, i.e., vertical.
+
+Therefore, if \(E = (x_E,16)\) and \(F = (x_F,16)\), then:
+
+- \(G\) is vertically above or below \(F\) by 17 units.
+- \(H\) is vertically above or below \(E\) by 17 units.
+
+So:
+\[
+G = (x_F, 16 \pm 17), \quad H = (x_E, 16 \pm 17).
+\]
+
+---
+
+**Step 5: Use the cyclic condition \(A, D, H, G\) lie on a circle**
+
+Recall:
+- \(A = (0,0)\),
+- \(D = (0,16)\),
+- \(H = (x_E, 16 \pm 17)\),
+- \(G = (x_F, 16 \pm 17)\).
+
+We want to find \(x_E\) and \(x_F\) such that these four points lie on a circle.
+
+---
+
+**Step 6: Choose the vertical direction for \(H\) and \(G\)**
+
+There are two choices: \(H\) and \(G\) are either at \(y=16+17=33\) or \(y=16-17=-1\).
+
+Try \(y=33\) first:
+
+\[
+H = (x_E, 33), \quad G = (x_F, 33).
+\]
+
+---
+
+**Step 7: Use the fact that \(A, D, H, G\) lie on a circle**
+
+Four points lie on a circle if and only if the opposite angles of the quadrilateral sum to 180°, or equivalently, the points satisfy the equation of a circle.
+
+Alternatively, use the property that the power of point \(A\) with respect to the circle equals the power of point \(D\).
+
+But a more straightforward approach is to find the circle passing through \(A, D, H\) and check if \(G\) lies on it.
+
+---
+
+**Step 8: Find the circle through \(A(0,0)\), \(D(0,16)\), and \(H(x_E,33)\)**
+
+The general equation of a circle is:
+\[
+(x - h)^2 + (y - k)^2 = r^2,
+\]
+where \((h,k)\) is the center.
+
+Plug in the three points:
+
+1. For \(A(0,0)\):
+\[
+h^2 + k^2 = r^2.
+\]
+
+2. For \(D(0,16)\):
+\[
+(h)^2 + (16 - k)^2 = r^2.
+\]
+
+3. For \(H(x_E,33)\):
+\[
+(x_E - h)^2 + (33 - k)^2 = r^2.
+\]
+
+Subtract (1) from (2):
+\[
+h^2 + (16 - k)^2 - (h^2 + k^2) = 0 \implies (16 - k)^2 - k^2 = 0.
+\]
+
+Expand:
+\[
+(16 - k)^2 - k^2 = (256 - 32k + k^2) - k^2 = 256 - 32k = 0.
+\]
+
+Solve for \(k\):
+\[
+256 - 32k = 0 \implies 32k = 256 \implies k = 8.
+\]
+
+So the center's \(y\)-coordinate is 8.
+
+---
+
+**Step 9: Use \(k=8\) to find \(h\) and \(r^2\)**
+
+From (1):
+\[
+h^2 + 8^2 = r^2 \implies h^2 + 64 = r^2.
+\]
+
+From (3):
+\[
+(x_E - h)^2 + (33 - 8)^2 = r^2 \implies (x_E - h)^2 + 25^2 = r^2.
+\]
+
+Substitute \(r^2 = h^2 + 64\):
+\[
+(x_E - h)^2 + 625 = h^2 + 64.
+\]
+
+Rearranged:
+\[
+(x_E - h)^2 - h^2 = 64 - 625 = -561.
+\]
+
+Expand:
+\[
+(x_E - h)^2 - h^2 = (x_E^2 - 2 x_E h + h^2) - h^2 = x_E^2 - 2 x_E h = -561.
+\]
+
+So:
+\[
+x_E^2 - 2 x_E h = -561.
+\]
+
+---
+
+**Step 10: Check if \(G = (x_F, 33)\) lies on the circle**
+
+Similarly, for \(G\):
+\[
+(x_F - h)^2 + (33 - 8)^2 = r^2 = h^2 + 64.
+\]
+
+So:
+\[
+(x_F - h)^2 + 625 = h^2 + 64 \implies (x_F - h)^2 - h^2 = -561.
+\]
+
+Expanding:
+\[
+x_F^2 - 2 x_F h = -561.
+\]
+
+---
+
+**Step 11: We have two equations:**
+\[
+x_E^2 - 2 x_E h = -561,
+\]
+\[
+x_F^2 - 2 x_F h = -561.
+\]
+
+Subtracting these:
+\[
+x_E^2 - x_F^2 - 2 h (x_E - x_F) = 0.
+\]
+
+Factor:
+\[
+(x_E - x_F)(x_E + x_F) - 2 h (x_E - x_F) = 0.
+\]
+
+If \(x_E \neq x_F\), divide both sides by \(x_E - x_F\):
+\[
+x_E + x_F - 2 h = 0 \implies 2 h = x_E + x_F \implies h = \frac{x_E + x_F}{2}.
+\]
+
+---
+
+**Step 12: Recall \(EF = 184\), so \(|x_F - x_E| = 184\).**
+
+Let:
+\[
+x_F = x_E + 184.
+\]
+
+Then:
+\[
+h = \frac{x_E + x_F}{2} = \frac{x_E + x_E + 184}{2} = x_E + 92.
+\]
+
+---
+
+**Step 13: Use one of the equations to solve for \(x_E\)**
+
+From:
+\[
+x_E^2 - 2 x_E h = -561,
+\]
+substitute \(h = x_E + 92\):
+\[
+x_E^2 - 2 x_E (x_E + 92) = -561,
+\]
+\[
+x_E^2 - 2 x_E^2 - 184 x_E = -561,
+\]
+\[
+- x_E^2 - 184 x_E = -561,
+\]
+\[
+x_E^2 + 184 x_E - 561 = 0.
+\]
+
+---
+
+**Step 14: Solve quadratic for \(x_E\)**
+
+\[
+x_E^2 + 184 x_E - 561 = 0.
+\]
+
+Use quadratic formula:
+\[
+x_E = \frac{-184 \pm \sqrt{184^2 - 4 \cdot 1 \cdot (-561)}}{2}.
+\]
+
+Calculate discriminant:
+\[
+184^2 = 33856,
+\]
+\[
+4 \times 561 = 2244,
+\]
+\[
+\Delta = 33856 + 2244 = 36100.
+\]
+
+\[
+\sqrt{36100} = 190.
+\]
+
+So:
+\[
+x_E = \frac{-184 \pm 190}{2}.
+\]
+
+Two solutions:
+1. \(\frac{-184 + 190}{2} = \frac{6}{2} = 3\).
+2. \(\frac{-184 - 190}{2} = \frac{-374}{2} = -187\).
+
+---
+
+**Step 15: Determine \(x_F\) for each \(x_E\)**
+
+Recall:
+\[
+x_F = x_E + 184.
+\]
+
+- If \(x_E = 3\), then \(x_F = 3 + 184 = 187\).
+- If \(x_E = -187\), then \(x_F = -187 + 184 = -3\).
+
+---
+
+**Step 16: Check the order of points \(D, E, C, F\) on the line \(y=16\)**
+
+Recall:
+- \(D = (0,16)\),
+- \(C = (107,16)\),
+- \(E = (x_E,16)\),
+- \(F = (x_F,16)\).
+
+The points \(D, E, C, F\) are collinear on \(y=16\).
+
+We want to find \(CE = |x_C - x_E| = |107 - x_E|\).
+
+Check which solution makes sense:
+
+- For \(x_E = 3\), \(x_F = 187\), the order on the line is:
+\[
+D(0), E(3), C(107), F(187),
+\]
+which is increasing order \(0 < 3 < 107 < 187\).
+
+- For \(x_E = -187\), \(x_F = -3\), order is:
+\[
+E(-187), F(-3), D(0), C(107),
+\]
+which is \(E < F < D < C\).
+
+Since the problem states \(D, E, C, F\) are collinear, the order is not explicitly given, but the first order seems more natural (points arranged left to right).
+
+---
+
+**Step 17: Calculate \(CE\)**
+
+Using \(x_E = 3\):
+\[
+CE = |107 - 3| = 104.
+\]
+
+---
+
+**Step 18: Verify the other vertical direction \(y=16 - 17 = -1\)**
+
+If \(H = (x_E, -1)\), \(G = (x_F, -1)\), repeat the process:
+
+From step 8, the center \(k\) would be found similarly:
+
+\[
+(16 - k)^2 - k^2 = 0 \implies 256 - 32k = 0 \implies k=8,
+\]
+which is the same.
+
+Then the rest of the calculations would be similar, but \(H\) and \(G\) would be at \(y=-1\).
+
+This would lead to the same quadratic and solutions for \(x_E\), so the length \(CE\) would be the same.
+
+---
+
+**Final answer:**
+
+\[
+\boxed{104}.
+\]
+
+---
+
+**Summary:**
+
+- Placed \(ABCD\) on coordinate plane.
+- Found \(D, E, C, F\) collinear on \(y=16\).
+- Used rectangle \(EFGH\) properties to find coordinates of \(E, F, G, H\).
+- Used cyclic condition for \(A, D, H, G\) to find \(x_E\).
+- Calculated \(CE = |107 - x_E| = 104\).
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 104.
+
+
+
+# Example 2
+## Inputs
+Problem: Alice knows that $3$ red cards and $3$ black cards will be revealed to her one at a time in random order. Before each card is revealed, Alice must guess its color. If Alice plays optimally, the expected number of cards she will guess correctly is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## Generated Outputs
+Answer: 31
+Reasoning: We have 3 red cards and 3 black cards, revealed one at a time in random order. Before each card is revealed, Alice must guess its color. She wants to maximize the expected number of correct guesses.
+
+**Key points:**
+- There are 6 cards total: 3 red (R) and 3 black (B).
+- The order is random and unknown to Alice.
+- Before each card is revealed, Alice guesses its color.
+- She wants to maximize the expected number of correct guesses.
+- We want the expected number of correct guesses under optimal play.
+
+---
+
+### Step 1: Understanding the problem
+
+Alice sees no cards initially. She knows the deck has 3 R and 3 B cards, but the order is random. After each card is revealed, she knows the colors of the revealed cards and the remaining counts of R and B cards.
+
+At each step, she must guess the color of the next card before it is revealed.
+
+---
+
+### Step 2: Optimal strategy intuition
+
+At any point, Alice knows how many red and black cards remain unrevealed. The best guess is to guess the color that is more likely to appear next, i.e., the color with the greater number of remaining cards.
+
+If the counts are equal, she can guess either color (both have equal probability).
+
+---
+
+### Step 3: Formalizing the problem
+
+Let \( E(r,b) \) be the expected number of correct guesses remaining when there are \( r \) red cards and \( b \) black cards left to be revealed.
+
+- Base case: \( E(0,0) = 0 \) (no cards left).
+- If \( r > 0 \) and \( b > 0 \), Alice guesses the color with the higher count.
+- If \( r = b \), she can guess either color (both have equal probability).
+
+---
+
+### Step 4: Recurrence relation
+
+At state \( (r,b) \):
+
+- If \( r > b \), guess red:
+  - Probability next card is red: \( \frac{r}{r+b} \)
+  - Probability next card is black: \( \frac{b}{r+b} \)
+  
+  Expected correct guesses:
+  \[
+  E(r,b) = \frac{r}{r+b} \times (1 + E(r-1,b)) + \frac{b}{r+b} \times E(r,b-1)
+  \]
+
+- If \( b > r \), guess black:
+  \[
+  E(r,b) = \frac{b}{r+b} \times (1 + E(r,b-1)) + \frac{r}{r+b} \times E(r-1,b)
+  \]
+
+- If \( r = b \), guess either color (both equal probability):
+  \[
+  E(r,b) = \frac{r}{r+b} \times (1 + E(r-1,b)) + \frac{b}{r+b} \times E(r,b-1)
+  \]
+  or equivalently,
+  \[
+  E(r,b) = \frac{1}{2} \left[ \frac{r}{r+b} (1 + E(r-1,b)) + \frac{b}{r+b} E(r,b-1) \right] + \frac{1}{2} \left[ \frac{b}{r+b} (1 + E(r,b-1)) + \frac{r}{r+b} E(r-1,b) \right]
+  \]
+  But since \( r = b \), \( \frac{r}{r+b} = \frac{1}{2} \), so the expected value simplifies to:
+  \[
+  E(r,r) = \frac{1}{2} (1 + E(r-1,r)) + \frac{1}{2} (1 + E(r,r-1)) = 1 + \frac{E(r-1,r) + E(r,r-1)}{2}
+  \]
+
+---
+
+### Step 5: Compute values starting from base cases
+
+We want \( E(3,3) \).
+
+Base cases:
+- \( E(0,0) = 0 \)
+- \( E(r,0) = r \) because if only red cards remain, guess red every time and be correct all times.
+- \( E(0,b) = b \) similarly.
+
+---
+
+### Step 6: Calculate \( E(r,b) \) for small values
+
+- \( E(0,0) = 0 \)
+- \( E(1,0) = 1 \), \( E(0,1) = 1 \)
+- \( E(1,1) \):
+  \[
+  E(1,1) = 1 + \frac{E(0,1) + E(1,0)}{2} = 1 + \frac{1 + 1}{2} = 1 + 1 = 2
+  \]
+
+- \( E(2,0) = 2 \), \( E(0,2) = 2 \)
+
+- \( E(2,1) \) (since \( r > b \), guess red):
+  \[
+  E(2,1) = \frac{2}{3} (1 + E(1,1)) + \frac{1}{3} E(2,0) = \frac{2}{3} (1 + 2) + \frac{1}{3} \times 2 = \frac{2}{3} \times 3 + \frac{2}{3} = 2 + \frac{2}{3} = \frac{8}{3} \approx 2.6667
+  \]
+
+- \( E(1,2) \) (since \( b > r \), guess black):
+  \[
+  E(1,2) = \frac{2}{3} (1 + E(1,1)) + \frac{1}{3} E(0,2) = \frac{2}{3} (1 + 2) + \frac{1}{3} \times 2 = \frac{2}{3} \times 3 + \frac{2}{3} = 2 + \frac{2}{3} = \frac{8}{3}
+  \]
+
+- \( E(2,2) \):
+  \[
+  E(2,2) = 1 + \frac{E(1,2) + E(2,1)}{2} = 1 + \frac{\frac{8}{3} + \frac{8}{3}}{2} = 1 + \frac{\frac{16}{3}}{2} = 1 + \frac{8}{3} = \frac{11}{3} \approx 3.6667
+  \]
+
+- \( E(3,0) = 3 \), \( E(0,3) = 3 \)
+
+- \( E(3,1) \) (guess red):
+  \[
+  E(3,1) = \frac{3}{4} (1 + E(2,1)) + \frac{1}{4} E(3,0) = \frac{3}{4} (1 + \frac{8}{3}) + \frac{1}{4} \times 3 = \frac{3}{4} \times \frac{11}{3} + \frac{3}{4} = \frac{11}{4} + \frac{3}{4} = \frac{14}{4} = \frac{7}{2} = 3.5
+  \]
+
+- \( E(1,3) \) (guess black):
+  \[
+  E(1,3) = \frac{3}{4} (1 + E(1,2)) + \frac{1}{4} E(0,3) = \frac{3}{4} (1 + \frac{8}{3}) + \frac{1}{4} \times 3 = \frac{3}{4} \times \frac{11}{3} + \frac{3}{4} = \frac{11}{4} + \frac{3}{4} = \frac{14}{4} = \frac{7}{2} = 3.5
+  \]
+
+- \( E(3,2) \) (guess red):
+  \[
+  E(3,2) = \frac{3}{5} (1 + E(2,2)) + \frac{2}{5} E(3,1) = \frac{3}{5} (1 + \frac{11}{3}) + \frac{2}{5} \times \frac{7}{2}
+  \]
+  Calculate inside:
+  \[
+  1 + \frac{11}{3} = \frac{3}{3} + \frac{11}{3} = \frac{14}{3}
+  \]
+  So:
+  \[
+  E(3,2) = \frac{3}{5} \times \frac{14}{3} + \frac{2}{5} \times \frac{7}{2} = \frac{14}{5} + \frac{7}{5} = \frac{21}{5} = 4.2
+  \]
+
+- \( E(2,3) \) (guess black):
+  \[
+  E(2,3) = \frac{3}{5} (1 + E(2,2)) + \frac{2}{5} E(1,3) = \frac{3}{5} \times \frac{14}{3} + \frac{2}{5} \times \frac{7}{2} = \frac{14}{5} + \frac{7}{5} = \frac{21}{5} = 4.2
+  \]
+
+- Finally, \( E(3,3) \):
+  \[
+  E(3,3) = 1 + \frac{E(2,3) + E(3,2)}{2} = 1 + \frac{4.2 + 4.2}{2} = 1 + \frac{8.4}{2} = 1 + 4.2 = 5.2
+  \]
+
+---
+
+### Step 7: Express as fraction
+
+\( 5.2 = \frac{26}{5} \).
+
+Since \( 26 \) and \( 5 \) are relatively prime, the expected number of correct guesses is \( \frac{26}{5} \).
+
+---
+
+### Step 8: Final answer
+
+We want \( m + n \) where the expected value is \( \frac{m}{n} = \frac{26}{5} \).
+
+\[
+m + n = 26 + 5 = 31
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 51.
+
+
+
+# Example 3
+## Inputs
+Problem: Azar, Carl, Jon, and Sergey are the four players left in a singles tennis tournament. They are randomly assigned opponents in the semifinal matches, and the winners of those matches play each other in the final match to determine the winner of the tournament. When Azar plays Carl, Azar will win the match with probability $\frac23$. When either Azar or Carl plays either Jon or Sergey, Azar or Carl will win the match with probability $\frac34$. Assume that outcomes of different matches are independent. The probability that Carl will win the tournament is $\frac{p}{q}$, where $p$ and $q$ are relatively prime positive integers. Find $p+q$.
+
+## Generated Outputs
+Answer: 125
+Reasoning: We have four players: Azar (A), Carl (C), Jon (J), and Sergey (S). They are randomly paired in the semifinals, and the winners play in the final.
+
+We want the probability that Carl wins the tournament.
+
+---
+
+**Step 1: Possible semifinal pairings**
+
+There are 3 ways to pair the 4 players into two matches:
+
+1. (A vs C) and (J vs S)
+2. (A vs J) and (C vs S)
+3. (A vs S) and (C vs J)
+
+Each pairing is equally likely with probability \( \frac{1}{3} \).
+
+---
+
+**Step 2: Probabilities of winning each match**
+
+- When A plays C, A wins with probability \( \frac{2}{3} \), so C wins with probability \( \frac{1}{3} \).
+- When A or C plays J or S, A or C wins with probability \( \frac{3}{4} \), so J or S wins with probability \( \frac{1}{4} \).
+- When J plays S, no probability is given, but since the problem only specifies probabilities involving A and C, we can assume J and S are equally likely to win, so each has probability \( \frac{1}{2} \).
+
+---
+
+**Step 3: Calculate the probability Carl wins in each pairing**
+
+---
+
+**Pairing 1: (A vs C) and (J vs S)**
+
+- Semifinal 1: A vs C
+  - C wins with probability \( \frac{1}{3} \).
+- Semifinal 2: J vs S
+  - J wins with probability \( \frac{1}{2} \).
+  - S wins with probability \( \frac{1}{2} \).
+
+If Carl wins semifinal 1, he faces the winner of J vs S in the final.
+
+- Carl vs J: Carl wins with probability \( \frac{3}{4} \).
+- Carl vs S: Carl wins with probability \( \frac{3}{4} \).
+
+So, the probability Carl wins the tournament in this pairing is:
+
+\[
+P = P(\text{Carl wins semifinal}) \times \left[ P(J \text{ wins semifinal}) \times P(\text{Carl beats J}) + P(S \text{ wins semifinal}) \times P(\text{Carl beats S}) \right]
+\]
+
+\[
+= \frac{1}{3} \times \left( \frac{1}{2} \times \frac{3}{4} + \frac{1}{2} \times \frac{3}{4} \right) = \frac{1}{3} \times \left( \frac{3}{8} + \frac{3}{8} \right) = \frac{1}{3} \times \frac{6}{8} = \frac{1}{3} \times \frac{3}{4} = \frac{1}{4}
+\]
+
+---
+
+**Pairing 2: (A vs J) and (C vs S)**
+
+- Semifinal 1: A vs J
+  - A wins with probability \( \frac{3}{4} \).
+  - J wins with probability \( \frac{1}{4} \).
+- Semifinal 2: C vs S
+  - C wins with probability \( \frac{3}{4} \).
+  - S wins with probability \( \frac{1}{4} \).
+
+If Carl wins semifinal 2, he faces the winner of A vs J in the final.
+
+- Carl vs A: Carl wins with probability \( \frac{1}{3} \) (since A vs C, A wins with \( \frac{2}{3} \), so C wins with \( \frac{1}{3} \)).
+- Carl vs J: Carl wins with probability \( \frac{3}{4} \).
+
+So, the probability Carl wins the tournament in this pairing is:
+
+\[
+P = P(\text{Carl wins semifinal}) \times \left[ P(A \text{ wins semifinal}) \times P(\text{Carl beats A}) + P(J \text{ wins semifinal}) \times P(\text{Carl beats J}) \right]
+\]
+
+\[
+= \frac{3}{4} \times \left( \frac{3}{4} \times \frac{1}{3} + \frac{1}{4} \times \frac{3}{4} \right) = \frac{3}{4} \times \left( \frac{3}{12} + \frac{3}{16} \right)
+\]
+
+Calculate inside the parentheses:
+
+\[
+\frac{3}{12} = \frac{1}{4}, \quad \frac{3}{16} = \frac{3}{16}
+\]
+
+Sum:
+
+\[
+\frac{1}{4} + \frac{3}{16} = \frac{4}{16} + \frac{3}{16} = \frac{7}{16}
+\]
+
+So,
+
+\[
+P = \frac{3}{4} \times \frac{7}{16} = \frac{21}{64}
+\]
+
+---
+
+**Pairing 3: (A vs S) and (C vs J)**
+
+- Semifinal 1: A vs S
+  - A wins with probability \( \frac{3}{4} \).
+  - S wins with probability \( \frac{1}{4} \).
+- Semifinal 2: C vs J
+  - C wins with probability \( \frac{3}{4} \).
+  - J wins with probability \( \frac{1}{4} \).
+
+If Carl wins semifinal 2, he faces the winner of A vs S in the final.
+
+- Carl vs A: Carl wins with probability \( \frac{1}{3} \).
+- Carl vs S: Carl wins with probability \( \frac{3}{4} \).
+
+Probability Carl wins the tournament:
+
+\[
+P = \frac{3}{4} \times \left( \frac{3}{4} \times \frac{1}{3} + \frac{1}{4} \times \frac{3}{4} \right)
+\]
+
+This is the same expression as in pairing 2, so:
+
+\[
+P = \frac{21}{64}
+\]
+
+---
+
+**Step 4: Combine all cases**
+
+Total probability Carl wins:
+
+\[
+\frac{1}{3} \times \frac{1}{4} + \frac{1}{3} \times \frac{21}{64} + \frac{1}{3} \times \frac{21}{64} = \frac{1}{12} + \frac{21}{192} + \frac{21}{192}
+\]
+
+Convert all to a common denominator, 192:
+
+\[
+\frac{1}{12} = \frac{16}{192}
+\]
+
+So,
+
+\[
+\frac{16}{192} + \frac{21}{192} + \frac{21}{192} = \frac{16 + 21 + 21}{192} = \frac{58}{192}
+\]
+
+Simplify numerator and denominator by dividing by 2:
+
+\[
+\frac{58}{192} = \frac{29}{96}
+\]
+
+---
+
+**Step 5: Final answer**
+
+The probability Carl wins the tournament is \( \frac{29}{96} \).
+
+Sum of numerator and denominator:
+
+\[
+29 + 96 = 125
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently excels in geometry and algebra problems involving coordinate setups, vector reasoning, and exact symbolic manipulation, reliably producing correct and well-verified answers in circle, pyramid, rhombus, and combinatorial grid problems. However, it frequently errs in problems requiring complete combinatorial enumeration, subtle case distinctions, or intricate arithmetic counts, often stopping short of full enumeration or misinterpreting numeric finalizations. Overall, successes arise from explicit, stepwise algebraic and geometric reasoning, while failures stem from incomplete combinatorial logic and occasional misinterpretation of final numeric expressions.
+
+[Parent prompt — node=0, iter=1, fp=38b1fe8788, status=ACCEPTED, val=0.47, minibatch=?]
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+
+[What changed to get current prompt — current=node=6, iter=6, fp=cedb65cbb4, status=ACCEPTED, val=0.47, minibatch=1.00]
+Added: 'Your response must include clear, step-by-step mathematical reasoning that explicitly justifies each step and carefully ...'
+
+[Other attempts from same parent]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=14, iter=16, fp=439d9a4c97, status=REJECTED, val=?, minibatch=0.67: Added: 'the given problem by providing a clear, thorough, and logically complete step-by-step mathematical solution that explici...'
+  Outcomes (for this node only): iter=16, result=incorrect, error=logic, q=Counting cubic polynomials with integer coefficients such that there is a unique integer \(m \neq 2\) with \(p(m) = p(2)\): The model correctly identified tha...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=13, iter=15, fp=b9cf833f69, status=REJECTED, val=?, minibatch=0.33: Added: 'into cases or subproblems if needed.    - Applies relevant domain-specific facts, formulas, and theorems correctly.    -...'
+  Outcomes (for this node only): iter=15, result=correct, error=none, q=Probability Carl wins a tennis tournament with given match win probabilities: The model correctly enumerated all possible semifinal pairings, carefully computed ...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=12, iter=13, fp=162f130742, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include a complete, detailed, step-by-step mathematical reasoning process that:  - Clearly interprets...'
+  Outcomes (for this node only): iter=13, result=correct, error=none, q=Solve for \(x\) given \(\log_{20x}(22x) = \log_{2x}(202x)\) and find \(m+n\) from \(\log_{20x}(22x) = \log_{10}(\frac{m}{n})\).: The model correctly transformed ...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=11, iter=12, fp=bf0a77afc1, status=REJECTED, val=?, minibatch=0.33: Added: 'To ensure correctness and clarity, include a detailed, step-by-step reasoning process that:  - Clearly states and define...'
+  Outcomes (for this node only): iter=12, result=incorrect, error=interpretation, q=Expected number of correct guesses by Alice guessing colors of 3 red and 3 black cards revealed in random order: The model correctly set up a dynamic...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=10, iter=10, fp=bb1d7df487, status=REJECTED, val=?, minibatch=0.33: Added: 'as a single integer.  Your response must include a thorough, step-by-step mathematical reasoning process that explicitly...'
+  Outcomes (for this node only): iter=10, result=incorrect, error=interpretation, q=Area of convex hexagon formed by two tangent circles and a third circle passing through their centers: The model carefully analyzed the geometric set...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=5, iter=5, fp=54fb2674d5, status=REJECTED, val=?, minibatch=0.33: Added: '..".  Ensure your reasoning explicitly addresses all problem conditions and edge cases, and justifies why alternative po...'
+  Outcomes (for this node only): iter=5, result=incorrect, error=logic, q=Counting intersecting families of size 16 from subsets of \(\{1,2,3,4,5\}\): The model correctly identified the problem as counting intersecting families, appl...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=4, iter=4, fp=2f47cde299, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include a clear, step-by-step mathematical reasoning process that fully justifies each step and uses ...'
+  Outcomes (for this node only): iter=4, result=incorrect, error=arithmetic, q=Find \(p+q\) given \(r^2 = \frac{p}{q}\) where \(r\) is radius of smallest sphere containing boxes with given surface area and volume.: The model attempte...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=3, iter=3, fp=eab1cae8a7, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include clear, step-by-step mathematical reasoning that fully justifies each step and uses all given ...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in congruent circles, find \(AC^2\).: The model correctly identified the relation between distances and proj...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=2, iter=2, fp=b62ce0eefa, status=REJECTED, val=?, minibatch=0.33: Added: 'Ensure that: - All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geo...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Finding length \(PQ\) where \(P, Q\) are intersections of angle bisectors in an isosceles trapezoid: The model set up a coordinate system placing the trapezoid on...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=e467ae4e9b, status=REJECTED, val=?, minibatch=0.67: Added: 'Your response should include clear, step-by-step mathematical reasoning, showing all relevant work and justifications, i...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose base-9 representation is \(\underline{b}\,\underline{c}\,\underline{a}_9\).: Th...
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=7, iter=7, fp=d462c108a5, status=REJECTED, val=?, minibatch=0.33: Added: 'If you use approximations for intermediate reasoning, clearly mark them as such and confirm the final symbolic or exact ...'
+  Outcomes (for this node only): iter=7, result=incorrect, error=logic, q=Point \(Q\) on segment \(AM\) in \(\triangle ABC\) with given sides and conditions involving angles \(\angle PBQ = \angle PCQ\): The model correctly set up coo...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=8, iter=8, fp=4d5db99d87, status=REJECTED, val=?, minibatch=0.67: Added: 'that all cases are counted correctly without double counting. - For problems involving polynomials or series, 
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=e467ae4e9b, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=b62ce0eefa, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=eab1cae8a7, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=2f47cde299, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=54fb2674d5, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=10, iter=10, fp=bb1d7df487, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=11, iter=12, fp=bf0a77afc1, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=12, iter=13, fp=162f130742, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=13, iter=15, fp=b9cf833f69, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=14, iter=16, fp=439d9a4c97, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=7, iter=7, fp=d462c108a5, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=8, iter=8, fp=4d5db99d87, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=9, iter=9, fp=91ee7f76b1, status=REJECTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

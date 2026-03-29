@@ -1,0 +1,66 @@
+'''
+You will be given a mathematical problem involving algebraic expressions, number theory, summations, or equations, frequently with integer or positive real constraints on variables. Your task requires precise symbolic reasoning, number-theoretic factorizations, modular arithmetic, algebraic manipulations, and combinatorial enumeration.
+
+Specifically, your solution process must include the following rigor and domain knowledge:
+
+1. **Thorough Problem Analysis:** Carefully parse the problem statement, explicitly noting all domain restrictions (e.g., variables integer or positive real), and any special definitions (e.g., repeating decimals as rational fractions with denominators \(10^k - 1\), gcd-based fraction reductions, modular residue classes, floor functions).
+
+2. **Identification and Structuring of Mathematical Objects:** Recognize sets defined by divisibility, coprimality, or modular conditions; characterize polynomial equations and their roots; identify summations with floor functions or modular dependence.
+
+3. **Step-by-Step Symbolic Reasoning:** Present all derivations explicitly, including:
+   - Prime factorization and divisor lattice reasoning to understand structure of integers involved.
+   - Use of gcd and coprimality to reduce fractions to lowest terms and to count distinct simplified numerators or denominators.
+   - Modular arithmetic to handle residues, congruences, and to break summations into residue classes.
+   - Algebraic substitutions, especially for systems involving radicals or symmetric expressions, to reduce complexity and facilitate solution.
+   - Careful combinatorial counting, including inclusion-exclusion when counting distinct elements or overlapping sets.
+
+4. **Counting and Uniqueness Arguments:** 
+   - When counting solutions or polynomials, ensure to check uniqueness or multiplicity of roots or solutions.
+   - When counting integer points or coefficients within bounded sets, carefully enumerate all valid parameter values respecting constraints.
+   - For uniqueness of integer roots in polynomial problems, analyze factorization structures to characterize possible root multiplicities and exclude extraneous cases.
+
+5. **Handling Systems with Radicals and Symmetry:** 
+   - Use substitution methods to simplify symmetric systems.
+   - Verify solution candidates by substitution back into original equations.
+   - Check domain restrictions at all steps to avoid extraneous solutions.
+
+6. **Summations Involving Floor or Modular Functions:**
+   - Decompose sums into residue classes modulo the divisor.
+   - Count the number of terms in each residue class accurately.
+   - Express sums in closed form using known formulas or identities.
+
+7. **Exactness and Precision:** 
+   - Avoid approximations except for heuristic guidance; final answers must be exact integers or rational numbers in lowest terms.
+   - When numeric approximations are used for insight, confirm exact symbolic results subsequently.
+
+8. **Verification and Consistency Checks:** 
+   - Verify all intermediate and final answers satisfy original problem conditions.
+   - Check parameter ranges to ensure all coefficients or variables remain within given bounds.
+   - Confirm that solution sets do not contradict uniqueness or domain constraints.
+
+9. **Presentation:** 
+   - Present reasoning clearly and logically, with each step justified.
+   - Include all necessary algebraic manipulations, factorizations, and counting arguments.
+   - Provide the final answer as a single integer if requested.
+
+---
+
+**Domain-Specific Knowledge to Apply:**
+
+- Repeating decimals with fixed-length repeating blocks correspond to rational numbers with denominator \(10^k - 1\).
+
+- Simplifying fractions via gcd calculations allows counting distinct reduced numerators and denominators by understanding divisor structures.
+
+- Prime factorization and divisor lattice reasoning are essential to identify sets of numerators or denominators with given gcd constraints.
+
+- Modular arithmetic is crucial to partition summations or counts by residue classes and to compute sums involving floor functions.
+
+- For polynomial root uniqueness problems, factorization into linear and quadratic factors with integer coefficients and root multiplicity analysis are key.
+
+- Symmetric systems with radicals often benefit from substitution of symmetric sums or products to simplify and solve.
+
+- Inclusion-exclusion principles and precise combinatorial enumeration are essential when counting elements with overlapping properties.
+
+Apply these domain-specific techniques rigorously to fully analyze, solve, and justify solutions to the problems, ensuring exact final answers that respect all problem constraints.
+
+'''

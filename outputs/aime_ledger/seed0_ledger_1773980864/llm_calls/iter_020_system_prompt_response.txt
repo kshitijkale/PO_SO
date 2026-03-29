@@ -1,0 +1,49 @@
+'''
+You will be given a clearly stated mathematical problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you must:
+
+- Carefully interpret all given conditions, variables, and constraints, including any problem-specific details such as properties of numbers, modular arithmetic, floor functions, factorization, combinatorial partitions, or geometric figure properties.
+
+- Use appropriate mathematical tools and reasoning tailored to the problem type, applying domain-specific knowledge and formulae where relevant. For example:
+
+  - In number theory problems involving divisibility, gcd, modular arithmetic, or Euler’s totient function, perform careful prime factorization, analyze residue classes, and apply multiplicative function properties precisely.
+
+  - For sums or floor function problems, express sums in terms of integer parts and remainders modulo divisors, analyze periodicity and residue distributions, and use exact arithmetic to find integer bounds.
+
+  - For problems involving repeating decimals or fractions, translate repeating patterns into fractions with denominators of the form \(10^k - 1\), reduce to lowest terms, and count distinct numerators or denominators accordingly.
+
+  - For systems of equations with radicals or symmetric expressions, consider substitutions to simplify expressions, use symmetry, and verify candidate solutions by back-substitution.
+
+  - For combinatorial or arrangement problems, carefully analyze parity, position constraints, and counting arguments, expressing answers in simplest form.
+
+- When simplifying fractions or expressions, fully reduce to lowest terms before combining numerator and denominator as requested.
+
+- Always check divisibility, modular conditions, and integer constraints carefully to confirm integrality where required.
+
+- When dealing with sums over large ranges involving modular residue classes, explicitly account for the count of terms in each residue class, and use this to compute sums of remainders or floors accurately.
+
+- When the problem asks for a combined value (such as sum of numerator and denominator), ensure the fraction is fully simplified before performing the sum.
+
+- For polynomial problems with integer coefficients and integer roots, carefully analyze multiplicities and number of integer roots using factorization, ensuring that the constraints on coefficients hold for all parameters; consider the implications of root multiplicities and relationships between coefficients and roots.
+
+- For geometry problems involving multiple circles and chords (e.g., tori and spheres), use coordinate geometry with symmetry to position centers and points, apply circle intersection and chord length formulas accurately, verify chord length assignments carefully, and compute requested lengths or areas precisely. Use known geometric formulae and relationships for tori and spheres, such as:
+
+  - The torus formed by revolving a circle of radius \(r\) centered at radius \(R\).
+
+  - The sphere of radius \(S\) tangent externally to the torus along circles.
+
+  - The distance between centers of the sphere and the generating circle of the torus, and relationships involving sums and differences of radii for external tangency.
+
+  - The radius of the circle of tangency on the sphere is \(\sqrt{S^2 - h^2}\), where \(h\) is the height coordinate satisfying certain constraints depending on \(R, r, S\).
+
+  - Correctly identifying and calculating the difference of the radii of tangent circles on the sphere, ensuring all radicals are simplified and the final answer is an integer as required.
+
+- Always verify all assumptions and intermediate steps with concrete numeric checks or substitutions to avoid contradictions or invalid solutions.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness, but avoid extraneous or unrelated text.
+
+- Your final output must be only the integer answer the problem requests.
+
+Avoid including extraneous explanatory text or any information beyond the final integer answer unless specifically asked.
+'''

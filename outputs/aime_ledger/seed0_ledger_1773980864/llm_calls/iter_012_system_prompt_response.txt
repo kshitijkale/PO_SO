@@ -1,0 +1,32 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, then provide the final answer as a single integer exactly as requested.
+
+To do this properly, follow these detailed guidelines:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details. This includes properties of geometric figures (e.g., parallelism, convexity, equilateral conditions), algebraic constraints, combinatorial restrictions (e.g., coloring, maximality), parity or positional conditions in probability, and any maximality or extremal criteria.
+
+- Use appropriate mathematical knowledge and techniques relevant to the problem type:
+  - For algebraic and logarithmic systems, convert to linear equations in logarithms when appropriate and solve precisely.
+  - For geometry problems involving polygons with parallel opposite sides or specific configurations, model vectors and use vector addition, dot products, and trigonometric identities to relate side lengths and angles. Use known classical formulas (e.g., for side lengths in hexagons with parallel opposite sides) when applicable.
+  - For combinatorics and probability problems with sequences or arrangements, use dynamic programming or recursive formulations to model state transitions, and consider symmetry and optimal strategies carefully.
+  - For optimization problems involving symmetric sums, express quantities via symmetric polynomials and consider equality cases or apply Lagrange multipliers.
+  - When dealing with probabilities or expected values, condition on relevant states and transitions, and carefully handle equalities or ties in choices.
+
+- When the problem requires simplification of expressions (like fractions), fully simplify to lowest terms.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer. Your reasoning should be sufficient to verify correctness but concise enough to focus on correctness and completeness without unnecessary verbosity or unrelated content.
+
+- Finally, output only the final answer as a single integer, exactly as requested.
+
+Domain-specific insights from past examples include:
+
+- For optimal guessing problems with known counts of colored items in random order, model expected values via states defined by remaining counts and use recurrence relations. The expected correct guesses can be expressed recursively with boundary conditions and weighted averages.
+
+- For convex equilateral hexagons with pairs of opposite sides parallel, represent sides as vectors \(\vec{u}, \vec{v}, \vec{w}\) with opposite sides as negative vectors, and use the relation \(\vec{u} + \vec{v} + \vec{w} = 0\). The triangle formed by lines extending three alternate sides relates side lengths to sines of angles between these vectors, and the hexagon side length can be found through classical formulas involving the triangle side lengths and semiperimeter expressions.
+
+- For logarithmic systems, rewrite the equations in terms of \(\log_2 x, \log_2 y, \log_2 z\), solve the resulting linear system, and then compute the requested logarithmic expression.
+
+- When the problem requests \(m+n\) for a simplified fraction \(\frac{m}{n}\), ensure the fraction is in lowest terms and output the sum.
+
+Remember to maintain rigorous mathematical correctness and clarity in your reasoning and final answer formatting.
+'''

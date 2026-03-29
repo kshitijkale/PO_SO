@@ -1,0 +1,1038 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the given mathematical problem with careful, step-by-step reasoning. Begin by thoroughly understanding and explicitly restating the problem, including all given conditions and constraints. Use precise mathematical definitions, theorems, and relevant domain-specific knowledge (e.g., combinatorics, number theory, inequalities, sequences, intersecting families) to guide your approach.
+
+For each step, clearly show your logical deductions, computations, and any assumptions made. When applying known results or theorems, state them explicitly. Be especially careful with boundary cases, equality conditions, and combinatorial counts.
+
+If the problem involves maximizing or minimizing expressions under constraints, consider symmetry, extremal configurations, or piecewise constructions, and justify why these choices are optimal.
+
+After completing the reasoning, provide the final answer exactly as a single integer, simplified if necessary.
+
+Do not omit critical intermediate steps or rely on unverified shortcuts; thoroughness and correctness are paramount to avoid errors seen in previous attempts.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## Generated Outputs
+Answer: 107
+Reasoning: We are given two rectangles \(ABCD\) and \(EFGH\) with the following conditions:
+
+1. Points \(D, E, C, F\) are collinear.
+2. Points \(A, D, H, G\) lie on a circle.
+3. The side lengths are:
+   - \(BC = 16\)
+   - \(AB = 107\)
+   - \(FG = 17\)
+   - \(EF = 184\)
+
+We want to find the length \(CE\).
+
+---
+
+**Step 1: Understand the rectangles and their orientation**
+
+Since \(ABCD\) is a rectangle, the sides are:
+- \(AB = DC = 107\)
+- \(BC = AD = 16\)
+
+Similarly, for rectangle \(EFGH\):
+- \(EF = HG = 184\)
+- \(FG = EH = 17\)
+
+---
+
+**Step 2: Assign coordinates**
+
+To analyze the problem, place rectangle \(ABCD\) in the coordinate plane for convenience.
+
+Let:
+- \(A = (0,0)\)
+- \(B = (107,0)\) since \(AB=107\) along the x-axis
+- \(C = (107,16)\) since \(BC=16\) vertically up
+- \(D = (0,16)\)
+
+---
+
+**Step 3: Position rectangle \(EFGH\)**
+
+We know \(D, E, C, F\) are collinear.
+
+Points \(D = (0,16)\) and \(C = (107,16)\) lie on the horizontal line \(y=16\).
+
+Since \(D, E, C, F\) are collinear, and \(D\) and \(C\) are on \(y=16\), points \(E\) and \(F\) must also lie on the line \(y=16\).
+
+So, \(E\) and \(F\) lie somewhere on the line \(y=16\).
+
+---
+
+**Step 4: Use the rectangle \(EFGH\) properties**
+
+Rectangle \(EFGH\) has sides:
+- \(EF = 184\)
+- \(FG = 17\)
+
+Since \(EFGH\) is a rectangle, the sides are perpendicular.
+
+We know \(E\) and \(F\) lie on \(y=16\), so segment \(EF\) is horizontal.
+
+Let:
+- \(E = (x,16)\)
+- \(F = (x+184,16)\)
+
+---
+
+**Step 5: Find points \(G\) and \(H\)**
+
+Since \(EFGH\) is a rectangle, and \(EF\) is horizontal, sides \(FG\) and \(EH\) are vertical segments of length 17.
+
+Therefore:
+- \(G = (x+184, 16 - 17) = (x+184, -1)\)
+- \(H = (x, 16 - 17) = (x, -1)\)
+
+---
+
+**Step 6: Use the cyclic condition**
+
+Points \(A, D, H, G\) lie on a circle.
+
+Recall:
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x, -1)\)
+- \(G = (x+184, -1)\)
+
+We want to find \(x\) such that these four points are concyclic.
+
+---
+
+**Step 7: Equation of the circle through \(A, D, H, G\)**
+
+The four points are concyclic if the circle passing through \(A, D, H\) also passes through \(G\).
+
+---
+
+**Step 8: Find the circle through \(A, D, H\)**
+
+Let the circle have center \((h,k)\) and radius \(r\).
+
+From \(A=(0,0)\):
+\[
+(h - 0)^2 + (k - 0)^2 = r^2 \implies h^2 + k^2 = r^2
+\]
+
+From \(D=(0,16)\):
+\[
+(h - 0)^2 + (k - 16)^2 = r^2 \implies h^2 + (k - 16)^2 = r^2
+\]
+
+From \(H=(x,-1)\):
+\[
+(h - x)^2 + (k + 1)^2 = r^2
+\]
+
+---
+
+**Step 9: Use the first two equations to find relation between \(h\) and \(k\)**
+
+Subtract the first from the second:
+\[
+h^2 + (k - 16)^2 = h^2 + k^2 \implies (k - 16)^2 = k^2
+\]
+\[
+k^2 - 32k + 256 = k^2 \implies -32k + 256 = 0 \implies k = 8
+\]
+
+So the center lies on the horizontal line \(y=8\).
+
+---
+
+**Step 10: Use \(k=8\) in the first equation**
+
+\[
+h^2 + 8^2 = r^2 \implies h^2 + 64 = r^2
+\]
+
+---
+
+**Step 11: Use \(k=8\) in the third equation**
+
+\[
+(h - x)^2 + (8 + 1)^2 = r^2 \implies (h - x)^2 + 81 = r^2
+\]
+
+---
+
+**Step 12: Equate the two expressions for \(r^2\)**
+
+\[
+h^2 + 64 = (h - x)^2 + 81
+\]
+\[
+h^2 + 64 = h^2 - 2hx + x^2 + 81
+\]
+\[
+64 = -2hx + x^2 + 81
+\]
+\[
+-2hx + x^2 + 81 - 64 = 0
+\]
+\[
+x^2 - 2hx + 17 = 0
+\]
+
+---
+
+**Step 13: Use the condition that \(G = (x+184, -1)\) lies on the circle**
+
+\[
+(h - (x+184))^2 + (8 + 1)^2 = r^2
+\]
+\[
+(h - x - 184)^2 + 81 = r^2 = h^2 + 64
+\]
+\[
+(h - x - 184)^2 + 81 = h^2 + 64
+\]
+\[
+(h - x - 184)^2 = h^2 - 17
+\]
+
+Expand the left side:
+\[
+(h - x - 184)^2 = (h - x)^2 - 2 \cdot 184 (h - x) + 184^2
+\]
+\[
+= (h - x)^2 - 368(h - x) + 33856
+\]
+
+So:
+\[
+(h - x)^2 - 368(h - x) + 33856 = h^2 - 17
+\]
+
+---
+
+**Step 14: Recall from Step 12: \(x^2 - 2hx + 17 = 0\), so \(x^2 = 2hx - 17\).**
+
+Also, \((h - x)^2 = h^2 - 2hx + x^2\).
+
+Substitute \(x^2\):
+\[
+(h - x)^2 = h^2 - 2hx + (2hx - 17) = h^2 - 17
+\]
+
+Therefore:
+\[
+(h - x)^2 = h^2 - 17
+\]
+
+---
+
+**Step 15: Substitute into the equation from Step 13**
+
+\[
+(h - x)^2 - 368(h - x) + 33856 = h^2 - 17
+\]
+\[
+(h^2 - 17) - 368(h - x) + 33856 = h^2 - 17
+\]
+
+Subtract \(h^2 - 17\) from both sides:
+\[
+-368(h - x) + 33856 = 0
+\]
+\[
+368(h - x) = 33856
+\]
+\[
+h - x = \frac{33856}{368} = 92
+\]
+
+---
+
+**Step 16: Recall from Step 12:**
+
+\[
+x^2 - 2hx + 17 = 0
+\]
+
+Substitute \(h = x + 92\):
+\[
+x^2 - 2(x + 92)x + 17 = 0
+\]
+\[
+x^2 - 2x^2 - 184x + 17 = 0
+\]
+\[
+-x^2 - 184x + 17 = 0
+\]
+Multiply both sides by \(-1\):
+\[
+x^2 + 184x - 17 = 0
+\]
+
+---
+
+**Step 17: Solve quadratic for \(x\)**
+
+\[
+x = \frac{-184 \pm \sqrt{184^2 + 4 \cdot 17}}{2}
+\]
+
+Calculate discriminant:
+\[
+184^2 = 33856, \quad 4 \cdot 17 = 68
+\]
+\[
+\sqrt{33856 + 68} = \sqrt{33924}
+\]
+
+Approximate \(\sqrt{33924}\):
+
+Since \(184^2 = 33856\), \(\sqrt{33924} \approx 184.2\).
+
+So:
+\[
+x = \frac{-184 \pm 184.2}{2}
+\]
+
+Two solutions:
+- \(x = \frac{-184 + 184.2}{2} = \frac{0.2}{2} = 0.1\)
+- \(x = \frac{-184 - 184.2}{2} = \frac{-368.2}{2} = -184.1\)
+
+---
+
+**Step 18: Choose the reasonable \(x\)**
+
+Since \(E = (x,16)\) and \(F = (x+184,16)\), and \(D = (0,16)\), \(C = (107,16)\), the points \(D, E, C, F\) are collinear on \(y=16\).
+
+We want \(E\) and \(F\) to be between or near \(D\) and \(C\).
+
+- If \(x = 0.1\), then \(E = (0.1,16)\), \(F = (184.1,16)\).
+- If \(x = -184.1\), then \(E = (-184.1,16)\), \(F = (0,16)\).
+
+Since \(F\) must be on the line with \(D, E, C\), and \(F\) is to the right of \(E\), the first solution \(x=0.1\) is more reasonable.
+
+---
+
+**Step 19: Find \(CE\)**
+
+Recall:
+- \(C = (107,16)\)
+- \(E = (0.1,16)\)
+
+Distance:
+\[
+CE = |107 - 0.1| = 106.9
+\]
+
+Since the problem likely expects an exact value, let's check if the approximate value can be expressed exactly.
+
+---
+
+**Step 20: Express \(x\) exactly**
+
+Recall from Step 17:
+\[
+x = \frac{-184 + \sqrt{33924}}{2}
+\]
+
+We can write:
+\[
+CE = |107 - x| = 107 - x = 107 - \frac{-184 + \sqrt{33924}}{2} = 107 - \left(-92 + \frac{\sqrt{33924}}{2}\right) = 107 + 92 - \frac{\sqrt{33924}}{2} = 199 - \frac{\sqrt{33924}}{2}
+\]
+
+---
+
+**Step 21: Simplify \(\sqrt{33924}\)**
+
+Try to factor 33924:
+
+\[
+33924 = 4 \times 8481
+\]
+\[
+\sqrt{33924} = \sqrt{4 \times 8481} = 2 \sqrt{8481}
+\]
+
+Try to factor 8481:
+
+Check divisibility by 9:
+\[
+8 + 4 + 8 + 1 = 21, \quad 21 \text{ divisible by } 3, \text{ but not by } 9
+\]
+
+Try 3:
+\[
+8481 / 3 = 2827
+\]
+
+So:
+\[
+\sqrt{33924} = 2 \sqrt{3 \times 2827} = 2 \sqrt{3} \sqrt{2827}
+\]
+
+Check if 2827 is a perfect square or has square factors:
+
+Try dividing 2827 by primes:
+
+- 7: \(2827 / 7 \approx 404\) no
+- 13: \(2827 / 13 \approx 217.46\) no
+- 17: \(2827 / 17 \approx 166.29\) no
+- 19: \(2827 / 19 \approx 148.79\) no
+- 23: \(2827 / 23 \approx 123\) no
+- 29: \(2827 / 29 \approx 97.48\) no
+- 31: \(2827 / 31 \approx 91.19\) no
+- 37: \(2827 / 37 \approx 76.4\) no
+- 41: \(2827 / 41 \approx 68.95\) no
+- 43: \(2827 / 43 \approx 65.74\) no
+- 47: \(2827 / 47 \approx 60.15\) no
+- 53: \(2827 / 53 \approx 53.36\) no
+
+No obvious square factors.
+
+So \(\sqrt{33924} = 2 \sqrt{8481}\) and \(\sqrt{8481} = \sqrt{3 \times 2827}\).
+
+No further simplification.
+
+---
+
+**Step 22: Final expression for \(CE\)**
+
+\[
+CE = 199 - \frac{\sqrt{33924}}{2} = 199 - \frac{2 \sqrt{8481}}{2} = 199 - \sqrt{8481}
+\]
+
+---
+
+**Step 23: Approximate \(\sqrt{8481}\)**
+
+Since \(92^2 = 8464\), \(\sqrt{8481} \approx 92.05\).
+
+Therefore:
+\[
+CE \approx 199 - 92.05 = 106.95
+\]
+
+---
+
+**Step 24: Conclusion**
+
+The length \(CE\) is \(199 - \sqrt{8481}\).
+
+Since the problem likely expects an integer answer, and the approximate value is about 107, the answer is:
+
+\[
+\boxed{107}
+\]
+
+---
+
+**Note:** The problem gives integer side lengths and expects an integer answer. The approximate value \(106.95\) is very close to 107, so the length \(CE\) is 107.
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 104.
+
+
+
+# Example 2
+## Inputs
+Problem: A right square pyramid with volume $54$ has a base with side length $6.$ The five vertices of the pyramid all lie on a sphere with radius $\frac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## Generated Outputs
+Answer: 21
+Reasoning: We are given a right square pyramid with volume \(54\) and a base side length of \(6\). The five vertices of the pyramid (the four base vertices and the apex) all lie on a sphere with radius \(\frac{m}{n}\), where \(m\) and \(n\) are relatively prime positive integers. We need to find \(m+n\).
+
+**Step 1: Understand the pyramid dimensions**
+
+- The base is a square with side length \(6\).
+- The volume \(V = 54\).
+- The volume of a pyramid is given by:
+\[
+V = \frac{1}{3} \times (\text{area of base}) \times (\text{height})
+\]
+The area of the base is:
+\[
+6 \times 6 = 36
+\]
+So,
+\[
+54 = \frac{1}{3} \times 36 \times h \implies 54 = 12h \implies h = \frac{54}{12} = 4.5
+\]
+
+**Step 2: Set up coordinate system**
+
+Place the square base in the \(xy\)-plane for convenience.
+
+- Let the center of the base be at the origin \((0,0,0)\).
+- Since the base side length is 6, the vertices of the base are at:
+\[
+\left(\pm 3, \pm 3, 0\right)
+\]
+The apex is directly above the center at height \(h=4.5\):
+\[
+(0,0,4.5)
+\]
+
+**Step 3: Find the sphere passing through all five vertices**
+
+The sphere passes through the four base vertices and the apex.
+
+Let the center of the sphere be \((0,0,c)\) because the figure is symmetric about the \(z\)-axis.
+
+The radius \(R\) satisfies:
+\[
+R^2 = (3 - 0)^2 + (3 - 0)^2 + (0 - c)^2 = 9 + 9 + c^2 = 18 + c^2
+\]
+for any base vertex.
+
+For the apex:
+\[
+R^2 = (0 - 0)^2 + (0 - 0)^2 + (4.5 - c)^2 = (4.5 - c)^2
+\]
+
+Since both expressions equal \(R^2\), set them equal:
+\[
+18 + c^2 = (4.5 - c)^2
+\]
+
+Expand the right side:
+\[
+18 + c^2 = 20.25 - 9c + c^2
+\]
+
+Subtract \(c^2\) from both sides:
+\[
+18 = 20.25 - 9c
+\]
+
+Rearranged:
+\[
+9c = 20.25 - 18 = 2.25
+\]
+\[
+c = \frac{2.25}{9} = 0.25
+\]
+
+**Step 4: Calculate the radius**
+
+Using \(c=0.25\), find \(R^2\):
+\[
+R^2 = 18 + (0.25)^2 = 18 + 0.0625 = 18.0625
+\]
+
+Convert to fraction:
+\[
+18.0625 = 18 + \frac{1}{16} = \frac{288}{16} + \frac{1}{16} = \frac{289}{16}
+\]
+
+So,
+\[
+R = \sqrt{\frac{289}{16}} = \frac{17}{4}
+\]
+
+**Step 5: Find \(m+n\)**
+
+The radius is \(\frac{m}{n} = \frac{17}{4}\), with \(m=17\) and \(n=4\).
+
+Therefore,
+\[
+m + n = 17 + 4 = 21
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 21.
+
+
+
+# Example 3
+## Inputs
+Problem: Each face of two noncongruent parallelepipeds is a rhombus whose diagonals have lengths $\sqrt{21}$ and $\sqrt{31}$.
+The ratio of the volume of the larger of the two polyhedra to the volume of the smaller is $\frac{m}{n}$, where $m$ and $n$
+are relatively prime positive integers. Find $m + n$. A parallelepiped is a solid with six parallelogram faces
+such as the one shown below.
+[asy] unitsize(2cm); pair o = (0, 0), u = (1, 0), v = 0.8*dir(40), w = dir(70);  draw(o--u--(u+v)); draw(o--v--(u+v), dotted); draw(shift(w)*(o--u--(u+v)--v--cycle)); draw(o--w); draw(u--(u+w)); draw(v--(v+w), dotted); draw((u+v)--(u+v+w)); [/asy]
+
+## Generated Outputs
+Answer: 125
+Reasoning: We are given two noncongruent parallelepipeds, each with all faces rhombi having diagonals of lengths \(\sqrt{21}\) and \(\sqrt{31}\). We want to find the ratio of their volumes and then find \(m+n\) where the ratio is \(\frac{m}{n}\) in lowest terms.
+
+**Step 1: Understand the problem and given data**
+
+- Each face is a rhombus with diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+- A parallelepiped has 6 faces, each a parallelogram.
+- Here, all faces are rhombi with the same diagonals.
+- There are two noncongruent parallelepipeds with these properties.
+- We want the ratio of their volumes.
+
+**Step 2: Properties of the rhombus faces**
+
+The area of each rhombus face is:
+\[
+\text{Area} = \frac{d_1 d_2}{2} = \frac{\sqrt{21} \cdot \sqrt{31}}{2} = \frac{\sqrt{651}}{2}.
+\]
+
+Since all faces are congruent rhombi with these diagonals, each face has the same area.
+
+**Step 3: Structure of the parallelepiped**
+
+A parallelepiped is defined by three vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\) in \(\mathbb{R}^3\). The faces are parallelograms formed by pairs of these vectors:
+
+- Face 1: \(\mathbf{a}, \mathbf{b}\)
+- Face 2: \(\mathbf{b}, \mathbf{c}\)
+- Face 3: \(\mathbf{c}, \mathbf{a}\)
+
+Each face is a rhombus with the same diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+Since all faces are congruent rhombi with the same diagonals, the three pairs \((\mathbf{a}, \mathbf{b}), (\mathbf{b}, \mathbf{c}), (\mathbf{c}, \mathbf{a})\) define rhombi with the same diagonals.
+
+**Step 4: Expressing the diagonals of the rhombus faces**
+
+For a rhombus formed by vectors \(\mathbf{u}\) and \(\mathbf{v}\) of equal length \(s\), the diagonals are \(\mathbf{u} + \mathbf{v}\) and \(\mathbf{u} - \mathbf{v}\).
+
+The lengths of the diagonals are:
+\[
+|\mathbf{u} + \mathbf{v}| = d_1, \quad |\mathbf{u} - \mathbf{v}| = d_2,
+\]
+or vice versa.
+
+Since the rhombus has diagonals \(\sqrt{21}\) and \(\sqrt{31}\), the squares of the diagonals are 21 and 31.
+
+**Step 5: Set up notation**
+
+Let the three edge vectors be \(\mathbf{a}, \mathbf{b}, \mathbf{c}\), each of length \(s\) (since the faces are rhombi, the edges of each face are equal length).
+
+We want to find \(s\) and the angles between these vectors.
+
+For each pair, the diagonals satisfy:
+\[
+|\mathbf{a} + \mathbf{b}|^2 = d_1^2 = 21 \quad \text{or} \quad 31,
+\]
+\[
+|\mathbf{a} - \mathbf{b}|^2 = d_2^2 = 31 \quad \text{or} \quad 21.
+\]
+
+Since the diagonals are \(\sqrt{21}\) and \(\sqrt{31}\), the squares are 21 and 31.
+
+**Step 6: Express the diagonal lengths in terms of \(s\) and the angle**
+
+For vectors \(\mathbf{a}\) and \(\mathbf{b}\) with length \(s\) and angle \(\theta\) between them:
+\[
+|\mathbf{a} + \mathbf{b}|^2 = |\mathbf{a}|^2 + |\mathbf{b}|^2 + 2 \mathbf{a} \cdot \mathbf{b} = 2s^2 + 2s^2 \cos \theta = 2s^2(1 + \cos \theta),
+\]
+\[
+|\mathbf{a} - \mathbf{b}|^2 = 2s^2(1 - \cos \theta).
+\]
+
+The diagonals squared are 21 and 31, so:
+\[
+2s^2(1 + \cos \theta) = 31, \quad 2s^2(1 - \cos \theta) = 21,
+\]
+or the other way around:
+\[
+2s^2(1 + \cos \theta) = 21, \quad 2s^2(1 - \cos \theta) = 31.
+\]
+
+Check which is consistent.
+
+Add the two equations:
+\[
+2s^2(1 + \cos \theta) + 2s^2(1 - \cos \theta) = 31 + 21,
+\]
+\[
+2s^2(1 + \cos \theta + 1 - \cos \theta) = 52,
+\]
+\[
+2s^2 \cdot 2 = 52 \implies 4s^2 = 52 \implies s^2 = 13.
+\]
+
+So \(s = \sqrt{13}\).
+
+Now, from the first equation:
+\[
+2s^2(1 + \cos \theta) = 31 \implies 2 \cdot 13 (1 + \cos \theta) = 31 \implies 26 (1 + \cos \theta) = 31,
+\]
+\[
+1 + \cos \theta = \frac{31}{26} = 1.1923...,
+\]
+which is impossible since \(\cos \theta \leq 1\).
+
+Try the other way:
+\[
+2s^2(1 + \cos \theta) = 21 \implies 26 (1 + \cos \theta) = 21 \implies 1 + \cos \theta = \frac{21}{26} = 0.8077,
+\]
+\[
+\cos \theta = -0.1923.
+\]
+
+Similarly,
+\[
+2s^2(1 - \cos \theta) = 31 \implies 26 (1 - \cos \theta) = 31 \implies 1 - \cos \theta = \frac{31}{26} = 1.1923,
+\]
+which is impossible.
+
+So the only consistent assignment is:
+\[
+2s^2(1 + \cos \theta) = 21, \quad 2s^2(1 - \cos \theta) = 31,
+\]
+which leads to \(\cos \theta = -0.1923\).
+
+**Step 7: Summary for one pair**
+
+- Edge length \(s = \sqrt{13}\).
+- Angle \(\theta\) between the two edges satisfies \(\cos \theta = -\frac{5}{26}\) (since \(-0.1923 \approx -5/26\)).
+
+Check:
+\[
+1 + \cos \theta = 1 - \frac{5}{26} = \frac{21}{26},
+\]
+\[
+1 - \cos \theta = 1 + \frac{5}{26} = \frac{31}{26}.
+\]
+
+Perfect.
+
+**Step 8: Apply to all three pairs**
+
+We have three pairs: \((\mathbf{a}, \mathbf{b}), (\mathbf{b}, \mathbf{c}), (\mathbf{c}, \mathbf{a})\).
+
+Each pair forms a rhombus with diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+From the above, for each pair, the edge length is \(\sqrt{13}\), and the angle between the vectors is \(\theta\) with \(\cos \theta = -\frac{5}{26}\) or \(\cos \theta = \frac{5}{26}\), depending on which diagonal is assigned to which length.
+
+But the problem states there are two noncongruent parallelepipeds, so the difference must come from the arrangement of the angles.
+
+**Step 9: Determine the possible angles**
+
+For each pair, the diagonals squared are 21 and 31.
+
+From the formula:
+\[
+|\mathbf{u} + \mathbf{v}|^2 = 2s^2(1 + \cos \phi),
+\]
+\[
+|\mathbf{u} - \mathbf{v}|^2 = 2s^2(1 - \cos \phi).
+\]
+
+The diagonals are \(\sqrt{21}\) and \(\sqrt{31}\), so the two possible values for \(2s^2(1 \pm \cos \phi)\) are 21 and 31.
+
+Since \(s^2 = 13\), we have:
+\[
+2 \cdot 13 (1 + \cos \phi) = 21 \quad \text{or} \quad 31,
+\]
+\[
+2 \cdot 13 (1 - \cos \phi) = 31 \quad \text{or} \quad 21.
+\]
+
+From Step 6, the only consistent solution is:
+\[
+1 + \cos \phi = \frac{21}{26}, \quad 1 - \cos \phi = \frac{31}{26}.
+\]
+
+So \(\cos \phi = -\frac{5}{26}\).
+
+But the problem says there are two noncongruent parallelepipeds, so the difference must be in the assignment of which diagonal corresponds to which vector pair.
+
+**Step 10: Assigning diagonals to pairs**
+
+The three pairs \((\mathbf{a}, \mathbf{b}), (\mathbf{b}, \mathbf{c}), (\mathbf{c}, \mathbf{a})\) each have diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+For each pair, the diagonals squared are 21 and 31, but which diagonal corresponds to which vector sum or difference can vary.
+
+Since the parallelepiped is defined by three vectors \(\mathbf{a}, \mathbf{b}, \mathbf{c}\), each of length \(\sqrt{13}\), and the angles between them are \(\alpha, \beta, \gamma\), with \(\cos \alpha, \cos \beta, \cos \gamma\) equal to either \(\frac{5}{26}\) or \(-\frac{5}{26}\), depending on the assignment.
+
+Because the problem states there are two noncongruent parallelepipeds, the difference is in the pattern of these cosines.
+
+**Step 11: Volume of the parallelepiped**
+
+The volume is:
+\[
+V = |\mathbf{a} \cdot (\mathbf{b} \times \mathbf{c})| = s^3 \sqrt{1 + 2 \cos \alpha \cos \beta \cos \gamma - (\cos^2 \alpha + \cos^2 \beta + \cos^2 \gamma)}.
+\]
+
+We know \(s = \sqrt{13}\).
+
+We need to find the two possible sets of \(\cos \alpha, \cos \beta, \cos \gamma\) that satisfy the conditions.
+
+**Step 12: Conditions on the cosines**
+
+Each pair \((\mathbf{a}, \mathbf{b}), (\mathbf{b}, \mathbf{c}), (\mathbf{c}, \mathbf{a})\) corresponds to a rhombus with diagonals \(\sqrt{21}\) and \(\sqrt{31}\).
+
+From Step 6, for each pair:
+\[
+2 s^2 (1 + \cos \theta) = 21 \quad \text{or} \quad 31,
+\]
+\[
+2 s^2 (1 - \cos \theta) = 31 \quad \text{or} \quad 21.
+\]
+
+Since \(s^2 = 13\), this means:
+\[
+1 + \cos \theta = \frac{21}{26} \quad \Rightarrow \quad \cos \theta = -\frac{5}{26},
+\]
+or
+\[
+1 + \cos \theta = \frac{31}{26} \quad \Rightarrow \quad \cos \theta = \frac{5}{26}.
+\]
+
+But \(\cos \theta\) cannot be greater than 1, so \(\cos \theta = \frac{5}{26}\) is valid.
+
+Therefore, for each pair, \(\cos \theta\) is either \(\frac{5}{26}\) or \(-\frac{5}{26}\).
+
+**Step 13: Possible assignments**
+
+Since the parallelepiped has three pairs, and the diagonals are fixed, the three angles \(\alpha, \beta, \gamma\) satisfy:
+\[
+\cos \alpha, \cos \beta, \cos \gamma \in \left\{ \frac{5}{26}, -\frac{5}{26} \right\}.
+\]
+
+The problem states there are two noncongruent parallelepipeds, so the two possible sets of cosines are:
+
+- All three cosines equal to \(\frac{5}{26}\).
+- Exactly one cosine is \(\frac{5}{26}\), and the other two are \(-\frac{5}{26}\), or vice versa.
+
+But the parallelepiped must be realizable, so the sum of the angles must satisfy the parallelepiped conditions.
+
+**Step 14: Check the volume formula for the two cases**
+
+Recall the volume formula:
+\[
+V = s^3 \sqrt{1 + 2 \cos \alpha \cos \beta \cos \gamma - (\cos^2 \alpha + \cos^2 \beta + \cos^2 \gamma)}.
+\]
+
+Let \(c = \frac{5}{26}\).
+
+**Case 1: All cosines equal \(c\)**
+
+\[
+\cos \alpha = \cos \beta = \cos \gamma = c.
+\]
+
+Then:
+\[
+V_1 = s^3 \sqrt{1 + 2 c^3 - 3 c^2}.
+\]
+
+Calculate:
+\[
+c = \frac{5}{26}, \quad c^2 = \frac{25}{676}, \quad c^3 = \frac{125}{17576}.
+\]
+
+So:
+\[
+1 + 2 c^3 - 3 c^2 = 1 + 2 \cdot \frac{125}{17576} - 3 \cdot \frac{25}{676} = 1 + \frac{250}{17576} - \frac{75}{676}.
+\]
+
+Convert all to denominator 17576:
+\[
+\frac{75}{676} = \frac{75 \times 26}{17576} = \frac{1950}{17576}.
+\]
+
+So:
+\[
+1 = \frac{17576}{17576},
+\]
+\[
+1 + 2 c^3 - 3 c^2 = \frac{17576}{17576} + \frac{250}{17576} - \frac{1950}{17576} = \frac{17576 + 250 - 1950}{17576} = \frac{15876}{17576}.
+\]
+
+Simplify numerator and denominator by dividing numerator and denominator by 4:
+\[
+\frac{15876}{17576} = \frac{3969}{4394}.
+\]
+
+Check if 3969 and 4394 share factors:
+
+- 3969 = \(63^2\) (since \(63^2 = 3969\))
+- 4394 is even, so no common factor with 63.
+
+So:
+\[
+V_1 = s^3 \sqrt{\frac{3969}{4394}} = s^3 \frac{63}{\sqrt{4394}}.
+\]
+
+Recall \(s = \sqrt{13}\), so:
+\[
+s^3 = (\sqrt{13})^3 = 13 \sqrt{13}.
+\]
+
+Therefore:
+\[
+V_1 = 13 \sqrt{13} \cdot \frac{63}{\sqrt{4394}} = 819 \frac{\sqrt{13}}{\sqrt{4394}}.
+\]
+
+Simplify \(\frac{\sqrt{13}}{\sqrt{4394}} = \sqrt{\frac{13}{4394}}\).
+
+Note \(4394 = 2 \times 2197\), and \(2197 = 13^3\).
+
+So:
+\[
+4394 = 2 \times 13^3 = 2 \times 2197.
+\]
+
+Therefore:
+\[
+\frac{13}{4394} = \frac{13}{2 \times 13^3} = \frac{1}{2 \times 13^2} = \frac{1}{2 \times 169} = \frac{1}{338}.
+\]
+
+So:
+\[
+V_1 = 819 \sqrt{\frac{1}{338}} = \frac{819}{\sqrt{338}}.
+\]
+
+**Case 2: Two cosines equal \(c\), one equals \(-c\)**
+
+Without loss of generality, let:
+\[
+\cos \alpha = \cos \beta = c, \quad \cos \gamma = -c.
+\]
+
+Then:
+\[
+V_2 = s^3 \sqrt{1 + 2 (c)(c)(-c) - (c^2 + c^2 + (-c)^2)} = s^3 \sqrt{1 - 2 c^3 - 3 c^2}.
+\]
+
+Calculate:
+\[
+1 - 2 c^3 - 3 c^2 = 1 - 2 \cdot \frac{125}{17576} - 3 \cdot \frac{25}{676} = 1 - \frac{250}{17576} - \frac{75}{676}.
+\]
+
+Convert \(\frac{75}{676}\) to denominator 17576:
+\[
+\frac{75}{676} = \frac{1950}{17576}.
+\]
+
+So:
+\[
+1 = \frac{17576}{17576},
+\]
+\[
+1 - 2 c^3 - 3 c^2 = \frac{17576}{17576} - \frac{250}{17576} - \frac{1950}{17576} = \frac{17576 - 250 - 1950}{17576} = \frac{15376}{17576}.
+\]
+
+Divide numerator and denominator by 4:
+\[
+\frac{15376}{17576} = \frac{3844}{4394}.
+\]
+
+Check if 3844 and 4394 share factors:
+
+- 3844 = \(62^2\) (since \(62^2 = 3844\))
+- 4394 = \(2 \times 2197\), as before.
+
+No common factors with 62.
+
+So:
+\[
+V_2 = s^3 \sqrt{\frac{3844}{4394}} = s^3 \frac{62}{\sqrt{4394}} = 13 \sqrt{13} \cdot \frac{62}{\sqrt{4394}} = 806 \frac{\sqrt{13}}{\sqrt{4394}}.
+\]
+
+As before,
+\[
+\frac{\sqrt{13}}{\sqrt{4394}} = \sqrt{\frac{13}{4394}} = \frac{1}{\sqrt{338}}.
+\]
+
+So:
+\[
+V_2 = \frac{806}{\sqrt{338}}.
+\]
+
+**Step 15: Compute the ratio**
+
+The ratio of the larger volume to the smaller volume is:
+\[
+\frac{V_1}{V_2} = \frac{819 / \sqrt{338}}{806 / \sqrt{338}} = \frac{819}{806}.
+\]
+
+Simplify \(\frac{819}{806}\):
+
+- \(819 = 3 \times 273 = 3 \times 13 \times 21\).
+- \(806 = 2 \times 13 \times 31\).
+
+Common factor is 13.
+
+Divide numerator and denominator by 13:
+\[
+\frac{819}{806} = \frac{63}{62}.
+\]
+
+So the ratio is \(\frac{63}{62}\).
+
+**Step 16: Final answer**
+
+\[
+m = 63, \quad n = 62, \quad m + n = 125.
+\]
+
+**Answer:**
+\[
+\boxed{125}.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Parent prompt — node=0, iter=1, fp=38b1fe8788, status=ACCEPTED, val=0.44, minibatch=?]
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+
+[What changed to get current prompt — current=node=5, iter=5, fp=77c7510488, status=ACCEPTED, val=0.38, minibatch=0.33]
+Added: 'the given mathematical problem with careful, step-by-step reasoning. Begin by thoroughly understanding and explicitly re...'
+
+[Other attempts from same parent]
+• val=? | node=4, iter=4, fp=1842b9f811, status=ACCEPTED, val=?, minibatch=0.67: Added: 's or other optimization tools when maximizing/minimizing under constraints.    - Careful combinatorial counting with att...'
+  Outcomes (for this node only): iter=4, result=correct, error=none, q=Finding the smallest sphere radius squared \(r^2\) containing all rectangular boxes with fixed surface area and volume: The model correctly identified that the sm...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=3, iter=3, fp=bc983a4673, status=REJECTED, val=?, minibatch=0.67: Added: 'constraints. Translate the problem into appropriate mathematical or logical models using precise definitions and notatio...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in three congruent circles; find \(AC^2\) given \(AB^2=560\).: The model correctly translated the problem in...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=2, iter=2, fp=c28b9baf38, status=REJECTED, val=?, minibatch=0.67: Added: 'olynomials or algebraic identities. 3. Use domain knowledge relevant to the problem type (e.g., properties of isosceles ...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Distance between intersections of angle bisectors in an isosceles trapezoid: The model correctly set up a coordinate system, derived coordinates for all trapezoid...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=469938a091, status=REJECTED, val=?, minibatch=0.67: Added: 'When solving:  1. Carefully parse all numerical and symbolic conditions. 2. Translate word problems into algebraic or ar...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose base 9 representation is \(\underline{b}\,\underline{c}\,\underline{a}_9\).: Th...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=469938a091, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=c28b9baf38, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=bc983a4673, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, accepted, branch root=node=4, iter=4, fp=1842b9f811, status=ACCEPTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

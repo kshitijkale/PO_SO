@@ -1,0 +1,919 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem thoroughly and provide the final answer as a single integer. Your response must include a comprehensive, logically structured, step-by-step mathematical reasoning process that:
+
+- Explicitly states and carefully uses all given information and problem conditions without making unsupported assumptions.
+- Clearly defines any variables, coordinate systems, or notation introduced, and justifies their choice.
+- For geometric or algebraic problems, incorporate relevant domain-specific facts (e.g., properties of shapes, concurrency, cyclicity, lengths, angles, areas, volumes), and show how these facts inform each step.
+- When multiple cases or configurations are possible, explicitly enumerate and analyze each, ruling out inconsistent or impossible cases with clear justification.
+- For combinatorial or probabilistic problems, fully enumerate all relevant outcomes or states when feasible, and carefully derive recurrences or probabilities, ensuring no cases are omitted or double counted.
+- Perform exact symbolic manipulation and algebraic simplification as far as possible before any numerical approximation.
+- When final numeric values are derived, confirm they satisfy all problem constraints and match the required answer format (e.g., a single integer).
+- If approximations are used temporarily, clearly mark them as such, avoid relying on them for final conclusions, and verify the exact symbolic results align with approximations.
+- Summarize the reasoning at the end, confirming the correctness and consistency of the final answer.
+
+This methodical approach will minimize errors from oversight, incorrect assumptions, incomplete casework, or arithmetic mistakes, producing a rigorously justified final integer answer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Find the number of ways to place a digit in each cell of a 2x3 grid so that the sum of the two numbers formed by reading left to right is $999$, and the sum of the three numbers formed by reading top to bottom is $99$. The grid below is an example of such an arrangement because $8+991=999$ and $9+9+81=99$.
+\[\begin{array}{|c|c|c|} \hline 0 & 0 & 8 \\ \hline 9 & 9 & 1 \\ \hline \end{array}\]
+
+## Generated Outputs
+Answer: 45
+Reasoning: We have a 2x3 grid of digits:
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+a & b & c \\
+\hline
+d & e & f \\
+\hline
+\end{array}
+\]
+
+Each cell contains a digit (0 through 9).
+
+**Given conditions:**
+
+1. The sum of the two numbers formed by reading left to right (row-wise) is 999:
+\[
+(100a + 10b + c) + (100d + 10e + f) = 999
+\]
+
+2. The sum of the three numbers formed by reading top to bottom (column-wise) is 99:
+\[
+(10a + d) + (10b + e) + (10c + f) = 99
+\]
+
+---
+
+### Step 1: Write down the equations explicitly
+
+From the row sums:
+\[
+100a + 10b + c + 100d + 10e + f = 999
+\]
+
+From the column sums:
+\[
+(10a + d) + (10b + e) + (10c + f) = 99
+\]
+Simplify the column sum:
+\[
+10a + d + 10b + e + 10c + f = 99
+\]
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+
+---
+
+### Step 2: Define variables for sums
+
+Let:
+\[
+S_1 = a + b + c, \quad S_2 = d + e + f
+\]
+
+From the column sum equation:
+\[
+10 S_1 + S_2 = 99
+\]
+
+From the row sum equation:
+\[
+100a + 10b + c + 100d + 10e + f = 999
+\]
+
+Rewrite the row sum as:
+\[
+(100a + 10b + c) + (100d + 10e + f) = 999
+\]
+
+---
+
+### Step 3: Express the row sum in terms of digits
+
+We can write the row sum as:
+\[
+100a + 10b + c + 100d + 10e + f = 999
+\]
+
+Group terms:
+\[
+100(a + d) + 10(b + e) + (c + f) = 999
+\]
+
+---
+
+### Step 4: Use the column sum relation to find possible values of \(S_1\) and \(S_2\)
+
+Recall:
+\[
+10 S_1 + S_2 = 99
+\]
+
+Since \(a,b,c,d,e,f\) are digits (0 to 9), \(S_1\) and \(S_2\) are integers between 0 and 27 (max sum of three digits is 27).
+
+Try possible values of \(S_1\) from 0 to 9 (since \(10 \times 10 = 100 > 99\)):
+
+- \(S_1 = 9 \implies S_2 = 99 - 90 = 9\)
+- \(S_1 = 8 \implies S_2 = 99 - 80 = 19\)
+- \(S_1 = 7 \implies S_2 = 99 - 70 = 29\) (impossible, max sum is 27)
+- \(S_1 = 6 \implies S_2 = 99 - 60 = 39\) (impossible)
+- ...
+
+Only \(S_1 = 8, S_2 = 19\) and \(S_1 = 9, S_2 = 9\) are possible.
+
+---
+
+### Step 5: Analyze the row sum equation
+
+Recall:
+\[
+100(a + d) + 10(b + e) + (c + f) = 999
+\]
+
+Since \(a,b,c,d,e,f\) are digits 0-9, the sums \(a+d\), \(b+e\), and \(c+f\) are between 0 and 18.
+
+We want:
+\[
+100(a + d) + 10(b + e) + (c + f) = 999
+\]
+
+Try to find all triples \((x,y,z) = (a+d, b+e, c+f)\) with \(0 \leq x,y,z \leq 18\) such that:
+\[
+100x + 10y + z = 999
+\]
+
+Since 999 is close to 1000, try \(x=9\) (max sum for two digits is 18, so 9 is possible):
+
+\[
+100 \times 9 = 900
+\]
+Then:
+\[
+10y + z = 99
+\]
+
+Now, \(10y + z = 99\) with \(0 \leq y,z \leq 18\).
+
+Try \(y=9\):
+\[
+10 \times 9 = 90
+\]
+Then:
+\[
+z = 9
+\]
+
+So the only possible triple is:
+\[
+(a+d, b+e, c+f) = (9, 9, 9)
+\]
+
+---
+
+### Step 6: Summarize constraints
+
+We have:
+\[
+a + d = 9, \quad b + e = 9, \quad c + f = 9
+\]
+
+From Step 4, possible sums for top and bottom rows are:
+
+- \(S_1 = a + b + c = 8\) and \(S_2 = d + e + f = 19\), or
+- \(S_1 = 9\) and \(S_2 = 9\)
+
+But from Step 6, since \(a+d=9\), \(b+e=9\), \(c+f=9\), summing these gives:
+\[
+(a + b + c) + (d + e + f) = 9 + 9 + 9 = 27
+\]
+
+So:
+\[
+S_1 + S_2 = 27
+\]
+
+From Step 4, the only pair \((S_1, S_2)\) with \(S_1 + S_2 = 27\) and \(10 S_1 + S_2 = 99\) is:
+\[
+S_1 = 9, \quad S_2 = 18
+\]
+
+Check:
+\[
+10 \times 9 + 18 = 90 + 18 = 108 \neq 99
+\]
+
+No, this contradicts the earlier conclusion.
+
+Wait, we must re-examine Step 4.
+
+---
+
+### Step 7: Re-examine Step 4 carefully
+
+We had:
+\[
+10 S_1 + S_2 = 99
+\]
+and
+\[
+S_1 + S_2 = 27
+\]
+
+From Step 6, since \(a+d=9\), \(b+e=9\), \(c+f=9\), summing:
+\[
+(a + b + c) + (d + e + f) = 9 + 9 + 9 = 27
+\]
+So:
+\[
+S_1 + S_2 = 27
+\]
+
+From the column sum:
+\[
+10 S_1 + S_2 = 99
+\]
+
+Solve the system:
+\[
+S_1 + S_2 = 27 \\
+10 S_1 + S_2 = 99
+\]
+
+Subtract first from second:
+\[
+(10 S_1 + S_2) - (S_1 + S_2) = 99 - 27 \implies 9 S_1 = 72 \implies S_1 = 8
+\]
+
+Then:
+\[
+S_2 = 27 - 8 = 19
+\]
+
+So the only possible sums are:
+\[
+S_1 = 8, \quad S_2 = 19
+\]
+
+---
+
+### Step 8: Check if \(a+d=9\), \(b+e=9\), \(c+f=9\) is compatible with \(S_1=8\), \(S_2=19\)
+
+Recall:
+\[
+S_1 = a + b + c = 8
+\]
+\[
+S_2 = d + e + f = 19
+\]
+
+But from the pairwise sums:
+\[
+a + d = 9 \implies d = 9 - a
+\]
+\[
+b + e = 9 \implies e = 9 - b
+\]
+\[
+c + f = 9 \implies f = 9 - c
+\]
+
+Sum \(d + e + f\):
+\[
+d + e + f = (9 - a) + (9 - b) + (9 - c) = 27 - (a + b + c) = 27 - S_1
+\]
+
+Given \(S_1 = 8\), then:
+\[
+S_2 = 27 - 8 = 19
+\]
+
+This matches the previous result.
+
+---
+
+### Step 9: Verify the column sum condition
+
+Recall:
+\[
+10 S_1 + S_2 = 10 \times 8 + 19 = 80 + 19 = 99
+\]
+
+This matches the column sum condition.
+
+---
+
+### Step 10: Summary of constraints
+
+- \(a + b + c = 8\)
+- \(d = 9 - a\), \(e = 9 - b\), \(f = 9 - c\)
+- \(d + e + f = 19\)
+- \(a,b,c,d,e,f \in \{0, \ldots, 9\}\)
+
+---
+
+### Step 11: Count the number of solutions
+
+We need to count the number of triples \((a,b,c)\) of digits such that:
+\[
+a + b + c = 8
+\]
+with \(0 \leq a,b,c \leq 9\).
+
+For each such triple, the bottom row digits are:
+\[
+d = 9 - a, \quad e = 9 - b, \quad f = 9 - c
+\]
+which are guaranteed to be digits between 0 and 9 because \(a,b,c \leq 8\) (since sum is 8, no digit can exceed 8).
+
+---
+
+### Step 12: Number of solutions to \(a + b + c = 8\) with \(0 \leq a,b,c \leq 9\)
+
+Since 8 is less than 9, the upper bound constraints do not restrict the count.
+
+The number of nonnegative integer solutions to:
+\[
+a + b + c = 8
+\]
+is given by stars and bars:
+\[
+\binom{8 + 3 - 1}{3 - 1} = \binom{10}{2} = 45
+\]
+
+---
+
+### Step 13: Verify the example given in the problem
+
+The example is:
+\[
+\begin{array}{|c|c|c|}
+\hline
+0 & 0 & 8 \\
+\hline
+9 & 9 & 1 \\
+\hline
+\end{array}
+\]
+
+Check sums:
+
+- \(a + b + c = 0 + 0 + 8 = 8\)
+- \(d + e + f = 9 + 9 + 1 = 19\)
+- \(a + d = 0 + 9 = 9\), \(b + e = 0 + 9 = 9\), \(c + f = 8 + 1 = 9\)
+- Row sums: \(8 + 991 = 999\)
+- Column sums: \(9 + 9 + 81 = 99\)
+
+Matches perfectly.
+
+---
+
+### Final answer:
+
+The number of ways to fill the grid is the number of triples \((a,b,c)\) with sum 8, which is **45**.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 45.
+
+
+
+# Example 2
+## Inputs
+Problem: Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## Generated Outputs
+Answer: 104
+Reasoning: We are given two rectangles \(ABCD\) and \(EFGH\) with the following conditions:
+
+1. Points \(D, E, C, F\) are collinear.
+2. Points \(A, D, H, G\) lie on a circle.
+3. Side lengths:
+   - \(BC = 16\)
+   - \(AB = 107\)
+   - \(FG = 17\)
+   - \(EF = 184\)
+
+We want to find the length \(CE\).
+
+---
+
+**Step 1: Understand the configuration**
+
+- Since \(ABCD\) is a rectangle, \(AB \perp BC\), and opposite sides are equal:
+  \[
+  AB = DC = 107, \quad BC = AD = 16.
+  \]
+
+- Similarly, \(EFGH\) is a rectangle with:
+  \[
+  EF = GH = 184, \quad FG = EH = 17.
+  \]
+
+- Points \(D, E, C, F\) are collinear in that order (or some order along a line).
+
+- Points \(A, D, H, G\) lie on a circle.
+
+---
+
+**Step 2: Assign coordinates**
+
+To analyze the problem, place the first rectangle \(ABCD\) in the coordinate plane for convenience.
+
+Let:
+- \(A = (0,0)\)
+- \(B = (107,0)\) since \(AB=107\) along the x-axis
+- \(C = (107,16)\) since \(BC=16\) vertical
+- \(D = (0,16)\)
+
+So rectangle \(ABCD\) is placed with \(A\) at origin, \(AB\) along x-axis, \(BC\) along y-axis.
+
+---
+
+**Step 3: Position rectangle \(EFGH\)**
+
+We know \(D, E, C, F\) are collinear.
+
+Points \(D = (0,16)\) and \(C = (107,16)\) lie on the horizontal line \(y=16\).
+
+Since \(D, E, C, F\) are collinear, and \(D\) and \(C\) are on \(y=16\), the line containing \(D, E, C, F\) is likely the horizontal line \(y=16\).
+
+Therefore, \(E\) and \(F\) lie on the line \(y=16\).
+
+---
+
+**Step 4: Coordinates of \(E\) and \(F\)**
+
+Let:
+- \(E = (x_E, 16)\)
+- \(F = (x_F, 16)\)
+
+Since \(EFGH\) is a rectangle, and \(EF = 184\), the segment \(EF\) lies along the line \(y=16\), so:
+\[
+|x_F - x_E| = 184.
+\]
+
+---
+
+**Step 5: Determine the orientation of rectangle \(EFGH\)**
+
+Since \(EFGH\) is a rectangle, sides \(EF\) and \(FG\) are perpendicular.
+
+We know \(FG = 17\).
+
+If \(EF\) is horizontal (along \(y=16\)), then \(FG\) is vertical.
+
+Therefore, if \(E = (x_E,16)\) and \(F = (x_F,16)\), then:
+- \(G\) is vertically above or below \(F\) by 17 units.
+- \(H\) is vertically above or below \(E\) by 17 units.
+
+So:
+\[
+G = (x_F, 16 \pm 17), \quad H = (x_E, 16 \pm 17).
+\]
+
+---
+
+**Step 6: Use the circle condition**
+
+Points \(A, D, H, G\) lie on a circle.
+
+Recall:
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x_E, 16 \pm 17)\)
+- \(G = (x_F, 16 \pm 17)\)
+
+We need to find \(x_E\) and \(x_F\) such that \(A, D, H, G\) are concyclic.
+
+---
+
+**Step 7: Determine the vertical direction of \(H\) and \(G\)**
+
+Since \(D\) and \(C\) are at \(y=16\), and \(E, F\) lie on this line, \(H\) and \(G\) are either at \(y=16 + 17 = 33\) or \(y=16 - 17 = -1\).
+
+Try \(y=33\) first:
+
+- \(H = (x_E, 33)\)
+- \(G = (x_F, 33)\)
+
+---
+
+**Step 8: Use the circle condition**
+
+Points \(A=(0,0)\), \(D=(0,16)\), \(H=(x_E,33)\), \(G=(x_F,33)\) lie on the same circle.
+
+---
+
+**Step 9: Find the circle through \(A\) and \(D\)**
+
+The circle passes through \(A\) and \(D\).
+
+Let the circle have center \((h,k)\) and radius \(r\).
+
+From \(A\):
+\[
+(0 - h)^2 + (0 - k)^2 = r^2 \implies h^2 + k^2 = r^2.
+\]
+
+From \(D\):
+\[
+(0 - h)^2 + (16 - k)^2 = r^2 \implies h^2 + (16 - k)^2 = r^2.
+\]
+
+Subtracting the two:
+\[
+h^2 + (16 - k)^2 = h^2 + k^2 \implies (16 - k)^2 = k^2.
+\]
+
+Expanding:
+\[
+256 - 32k + k^2 = k^2 \implies 256 - 32k = 0 \implies 32k = 256 \implies k = 8.
+\]
+
+So the center lies at \(y=8\).
+
+---
+
+**Step 10: Find \(h\) and \(r\)**
+
+From \(A\):
+\[
+h^2 + 8^2 = r^2 \implies h^2 + 64 = r^2.
+\]
+
+---
+
+**Step 11: Points \(H\) and \(G\) lie on the circle**
+
+For \(H = (x_E, 33)\):
+\[
+(x_E - h)^2 + (33 - 8)^2 = r^2 \implies (x_E - h)^2 + 25^2 = r^2.
+\]
+
+Similarly for \(G = (x_F, 33)\):
+\[
+(x_F - h)^2 + 25^2 = r^2.
+\]
+
+Since both equal \(r^2\), subtracting the two:
+\[
+(x_E - h)^2 = (x_F - h)^2.
+\]
+
+This implies:
+\[
+x_E - h = \pm (x_F - h).
+\]
+
+If \(x_E - h = x_F - h\), then \(x_E = x_F\), which contradicts \(EF = 184\).
+
+Therefore:
+\[
+x_E - h = -(x_F - h) \implies x_E + x_F = 2h.
+\]
+
+---
+
+**Step 12: Use \(EF = 184\)**
+
+\[
+|x_F - x_E| = 184.
+\]
+
+From the above,
+\[
+x_F = 2h - x_E.
+\]
+
+So,
+\[
+| (2h - x_E) - x_E | = 184 \implies |2h - 2x_E| = 184 \implies |h - x_E| = 92.
+\]
+
+---
+
+**Step 13: Summarize**
+
+We have:
+\[
+x_E + x_F = 2h,
+\]
+\[
+|x_F - x_E| = 184,
+\]
+\[
+|h - x_E| = 92.
+\]
+
+---
+
+**Step 14: Find \(x_E\) and \(x_F\) in terms of \(h\)**
+
+Two cases:
+
+- Case 1: \(x_E = h - 92\), then \(x_F = 2h - x_E = 2h - (h - 92) = h + 92\).
+- Case 2: \(x_E = h + 92\), then \(x_F = h - 92\).
+
+Either way, the points are symmetric about \(x = h\).
+
+---
+
+**Step 15: Recall \(h^2 + 64 = r^2\)**
+
+From \(H\):
+\[
+(x_E - h)^2 + 25^2 = r^2.
+\]
+
+Since \(|x_E - h| = 92\), then:
+\[
+92^2 + 625 = r^2.
+\]
+
+Calculate:
+\[
+92^2 = 8464, \quad 8464 + 625 = 9089.
+\]
+
+So,
+\[
+r^2 = 9089.
+\]
+
+From Step 10:
+\[
+h^2 + 64 = 9089 \implies h^2 = 9089 - 64 = 9025.
+\]
+
+Therefore,
+\[
+h = \pm 95.
+\]
+
+---
+
+**Step 16: Choose \(h = 95\) (positive)**
+
+Then:
+\[
+x_E = 95 - 92 = 3, \quad x_F = 95 + 92 = 187.
+\]
+
+---
+
+**Step 17: Coordinates of \(E\) and \(F\)**
+
+\[
+E = (3,16), \quad F = (187,16).
+\]
+
+---
+
+**Step 18: Coordinates of \(G\) and \(H\)**
+
+\[
+G = (187,33), \quad H = (3,33).
+\]
+
+---
+
+**Step 19: Find \(CE\)**
+
+Recall:
+- \(C = (107,16)\)
+- \(E = (3,16)\)
+
+Since both lie on \(y=16\), the distance is:
+\[
+CE = |107 - 3| = 104.
+\]
+
+---
+
+**Step 20: Verify the other side lengths**
+
+- \(FG = 17\) (given)
+
+Check \(FG\):
+\[
+F = (187,16), \quad G = (187,33),
+\]
+distance:
+\[
+|33 - 16| = 17,
+\]
+matches given.
+
+- \(EF = 184\) (given)
+
+Check \(EF\):
+\[
+|187 - 3| = 184,
+\]
+matches given.
+
+---
+
+**Step 21: Conclusion**
+
+The length \(CE\) is \(\boxed{104}\).
+
+---
+
+**Summary:**
+
+By placing the first rectangle in the coordinate plane, using the collinearity of \(D, E, C, F\) on the line \(y=16\), and the cyclic condition on \(A, D, H, G\), we determined the coordinates of \(E\) and \(F\), and then computed \(CE\).
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 104.
+
+
+
+# Example 3
+## Inputs
+Problem: Find the number of rectangles that can be formed inside a fixed regular dodecagon ($12$-gon) where each side of the rectangle lies on either a side or a diagonal of the dodecagon. The diagram below shows three of those rectangles.
+[asy] unitsize(0.6 inch); for(int i=0; i<360; i+=30) { dot(dir(i), 4+black); draw(dir(i)--dir(i+30)); } draw(dir(120)--dir(330)); filldraw(dir(210)--dir(240)--dir(30)--dir(60)--cycle, mediumgray, linewidth(1.5)); draw((0,0.366)--(0.366,0), linewidth(1.5)); [/asy]
+
+## Generated Outputs
+Answer: 15
+Reasoning: We are given a regular dodecagon (12-gon) and asked to find the number of rectangles that can be formed inside it such that each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+
+**Step 1: Understanding the problem**
+
+- The polygon is regular with 12 vertices.
+- Rectangles must have their sides lying on lines determined by the polygon's sides or diagonals.
+- The sides of the rectangle must be aligned with these lines.
+- The problem shows three such rectangles in the diagram, indicating that rectangles can be formed by connecting vertices or points on the polygon such that the sides are along polygon edges or diagonals.
+
+**Step 2: Key observations**
+
+- The polygon is regular, so its vertices lie on a circle.
+- The sides and diagonals correspond to chords of the circle.
+- Rectangles inscribed in a circle are cyclic quadrilaterals with right angles.
+- A rectangle inscribed in a circle must have its vertices on the circle, and its opposite vertices are endpoints of diameters (because the rectangle's diagonals are equal and bisect each other, and the rectangle is cyclic).
+- Therefore, the vertices of the rectangle must be four points on the circle such that the quadrilateral is a rectangle.
+
+**Step 3: Rectangles inscribed in a regular polygon**
+
+- For a rectangle inscribed in a circle, the vertices must be four points such that the quadrilateral has four right angles.
+- In a regular polygon, the vertices are equally spaced on the circle.
+- The rectangle's vertices must be pairs of points that are opposite each other on the circle (i.e., endpoints of diameters).
+- Since the polygon has 12 vertices, the circle is divided into 12 equal arcs of 30° each.
+- The diameter corresponds to points 6 apart (since 12/2 = 6).
+- So, opposite vertices are pairs of vertices separated by 6 steps along the polygon.
+
+**Step 4: Finding rectangles formed by vertices**
+
+- To form a rectangle, pick two pairs of opposite vertices.
+- Each rectangle corresponds to choosing two distinct diameters (pairs of opposite vertices).
+- The rectangle's vertices are the four endpoints of these two diameters.
+- Since the polygon has 12 vertices, there are 6 diameters (pairs of opposite vertices):
+  - (0,6), (1,7), (2,8), (3,9), (4,10), (5,11)
+- Each rectangle corresponds to choosing two distinct diameters.
+- The number of rectangles formed by vertices is the number of ways to choose 2 diameters out of 6:
+  \[
+  \binom{6}{2} = 15
+  \]
+
+**Step 5: Are there other rectangles formed by sides or diagonals not just vertices?**
+
+- The problem states that each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+- The rectangle's sides must be along lines determined by the polygon's edges or diagonals.
+- Since the polygon is regular, the sides and diagonals correspond to chords between vertices.
+- The rectangle's vertices must be on the polygon's vertices (since sides lie on polygon edges or diagonals).
+- Therefore, the rectangles are exactly those formed by four vertices of the polygon that form a rectangle.
+
+**Step 6: Confirming no other rectangles**
+
+- The rectangle must have sides along polygon edges or diagonals.
+- The rectangle's vertices must be polygon vertices.
+- The rectangle must be cyclic with right angles.
+- The only rectangles inscribed in a regular polygon are those formed by pairs of opposite vertices.
+- Hence, the count is exactly the number of pairs of diameters chosen two at a time.
+
+**Step 7: Final answer**
+
+- Number of rectangles = \(\binom{6}{2} = 15\).
+
+**Summary:**
+
+- The regular dodecagon has 6 diameters (pairs of opposite vertices).
+- Each rectangle corresponds to choosing 2 diameters.
+- Number of rectangles = 15.
+
+## Feedback
+Your answer is incorrect. The correct answer is 315.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently excels at algebraic problem solving, logarithmic equations, expected value computations, and probability analyses, providing detailed, stepwise reasoning and correct final answers. However, it frequently errs in complex geometric problems and combinatorial reasoning involving subtle conditions or intricate configurations, often producing incorrect conclusions despite substantial correct intermediate work. These errors commonly stem from overlooked cases, inconsistent assumptions, or approximations that fail to converge to the correct solution.
+
+[How we got here]
+Seed (node=0, iter=1, fp=38b1fe8788, status=ACCEPTED; val=0.47) → [parent] → current
+
+[Parent prompt — node=6, iter=6, fp=cedb65cbb4, status=ACCEPTED, val=0.47, minibatch=1.00]
+Solve the problem thoroughly and provide the final answer as a single integer. Your response must include clear, step-by-step mathematical reasoning that explicitly justifies each step and carefully uses all given information and problem conditions. When the problem involves geometric or algebraic objects (e.g., polygons, polyhedra, circles, spheres), incorporate relevant domain-specific facts such as properties of shapes, coordinate assignments, relationships among angles, lengths, areas, volumes, and conditions for concurrency or cyclicity. If multiple interpretations or configurations are possible, explicitly consider and rule out inconsistent cases, explaining why.
+
+Perform exact symbolic manipulation as far as possible before approximating any quantities. When you derive a numeric answer, ensure it matches the problem’s expected format (e.g., integer), and confirm your final result is consistent with all constraints. Avoid assumptions without justification and clearly indicate any coordinate systems or variable assignments used in your approach.
+
+In summary, your solution should:
+
+- Show a comprehensive, logically structured reasoning process.
+- Use geometric and algebraic principles appropriate to the problem type.
+- Address all problem conditions and verify the consistency of intermediate results.
+- Provide the final answer as a single integer, as requested.
+
+This approach will minimize errors due to oversight, incorrect assumptions, or incomplete reasoning.
+
+
+[What changed to get current prompt — current=node=15, iter=17, fp=e59e7cc150, status=ACCEPTED, val=0.51, minibatch=1.00]
+Removed: 'indicate any coordinate systems or variable assignments used in your approach.  In summary, your solution should:  - Sho...'
+
+[Other attempts from same parent]
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=27, iter=32, fp=46ae74e13d, status=REJECTED, val=?, minibatch=0.33: Added: 'carefully check for multiple possible configurations, ruling out inconsistencies with clear reasoning.  - In number theo...'
+  Outcomes (for this node only): iter=32, result=incorrect, error=interpretation, q=Counting distinct numerators from 4-digit purely repeating decimals (denominator 9999) in lowest terms: The model correctly identified that every num...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=22, iter=25, fp=a36ca871d1, status=REJECTED, val=?, minibatch=0.33: Changed: 'When you derive a numeric answer, ensure it matches the prob...' → 'C'
+  Outcomes (for this node only): iter=25, result=incorrect, error=logic, q=Solve system involving square roots of expressions in \(x,y,z\) and find \(\left[(1-x)(1-y)(1-z)\right]^2\).: The model attempted extensive algebraic manipula...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=16, iter=19, fp=581c680a9d, status=REJECTED, val=?, minibatch=0.33: Added: 'd confirm that the final answer is exact and consistent with all constraints.  In problems involving polynomials or seri...'
+  Outcomes (for this node only): iter=19, result=incorrect, error=arithmetic, q=Find the coefficient of \(x^{2022}\) in a complicated polynomial defined as \(\frac{(x^{2310}-1)^6}{(x^{105}-1)(x^{70}-1)(x^{42}-1)(x^{30}-1)}\): The mod...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=9, iter=9, fp=91ee7f76b1, status=REJECTED, val=?, minibatch=0.33: Added: 'conditions, and any classical theorems applicable.  For problems involving number theory, combinatorics, algebraic manip...'
+  Outcomes (for this node only): iter=9, result=incorrect, error=logic, q=Counting distinct reduced numerators from 4-digit repeating decimals \(0.\overline{abcd}\): The model recognized the fraction form \(\frac{N}{9999}\) and corre...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=8, iter=8, fp=4d5db99d87, status=REJECTED, val=?, minibatch=0.67: Added: 'that all cases are counted correctly without double counting. - For problems involving polynomials or series, use factor...'
+  Outcomes (for this node only): iter=8, result=correct, error=none, q=Counting 2-colorings of a regular dodecagon’s vertices with no rectangle monochromatic: The model correctly identified all rectangles as certain quadruples of ver...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=7, iter=7, fp=d462c108a5, status=REJECTED, val=?, minibatch=0.33: Added: 'If you use approximations for intermediate reasoning, clearly mark them as such and confirm the final symbolic or exact ...'
+  Outcomes (for this node only): iter=7, result=incorrect, error=logic, q=Point \(Q\) on segment \(AM\) in \(\triangle ABC\) with given sides and conditions involving angles \(\angle PBQ = \angle PCQ\): The model correctly set up coo...
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=17, iter=20, fp=f8e7c749d3, status=REJECTED, val=?, minibatch=0.67: Added: '--- Additional notes based on domain-specific subtleties observed in past examples:  - For polygon and cyclic geometry p...'
+  Outcomes (for this node only): iter=20, result=correct, error=none, q=Finding the length \(PQ\) where \(P\) and \(Q\) are intersections of angle bisectors in an isosceles trapezoid with given sides.: The model set a coordinate syst...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=21, iter=24, fp=cb02564f3d, status=REJECTED, val=?, minibatch=0.33: Added: 'e values obtained.    5. **Consistency Checks and Verification**      - Cross-verify key derived quantities (e.g., dista...'
+  Outcomes (for this node only): iter=24, result=correct, error=none, q=Three spheres with radii 11, 13, and 19 are mutually externally tangent. A plane intersects the spheres in three congruent circles centered at A, B, and C, respe...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=25, iter=29, fp=e9f8c9e86f, status=REJECTED, val=?, minibatch=0.33: Added: 'Additional notes based on domain-specific subtleties observed:  - In geometry, leverage symmetry and coordinate placemen...'
+  Outcomes (for this node only): iter=29, result=correct, e
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=e467ae4e9b, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=b62ce0eefa, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=eab1cae8a7, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=2f47cde299, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=54fb2674d5, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=10, iter=10, fp=bb1d7df487, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=11, iter=12, fp=bf0a77afc1, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=12, iter=13, fp=162f130742, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=13, iter=15, fp=b9cf833f69, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=14, iter=16, fp=439d9a4c97, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=29, iter=35, fp=15f89358f6, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=30, iter=36, fp=f5be36fa37, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=32, iter=39, fp=4e984e8e0d, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=7, iter=7, fp=d462c108a5, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=8, iter=8, fp=4d5db99d87, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=9, iter=9, fp=91ee7f76b1, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=16, iter=19, fp=581c680a9d, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=22, iter=25, fp=a36ca871d1, statu
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

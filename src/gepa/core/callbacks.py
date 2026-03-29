@@ -31,13 +31,52 @@ Example usage:
 from __future__ import annotations
 
 import logging
+import time
+import uuid
 from collections.abc import Sequence
+from itertools import count
 from typing import TYPE_CHECKING, Any, Literal, Protocol, TypedDict, runtime_checkable
 
 if TYPE_CHECKING:
     from gepa.core.state import GEPAState, ProgramIdx
 
 logger = logging.getLogger(__name__)
+
+_CALLBACK_DISPATCH_COUNTER = count(start=1)
+_CALLBACK_STREAM_ID = uuid.uuid4().hex
+
+
+def _enrich_event_with_meta(method_name: str, event: Any) -> Any:
+    """Attach correlation metadata to callback events.
+
+    Enrichment is non-breaking: if event is not a dict-like payload, it is
+    returned unchanged. Existing `_meta` fields are preserved.
+    """
+    if not isinstance(event, dict):
+        return event
+
+    existing_meta = event.get("_meta")
+    if isinstance(existing_meta, dict) and "event_id" in existing_meta:
+        return event
+
+    iteration = event.get("iteration")
+    sequence = next(_CALLBACK_DISPATCH_COUNTER)
+    event_type = method_name[3:] if method_name.startswith("on_") else method_name
+    timestamp_ms = int(time.time() * 1000)
+    event_id = f"{_CALLBACK_STREAM_ID}-{sequence}"
+
+    enriched = dict(event)
+    meta = dict(existing_meta) if isinstance(existing_meta, dict) else {}
+    meta.setdefault("event_id", event_id)
+    meta.setdefault("event_type", event_type)
+    meta.setdefault("callback_method", method_name)
+    meta.setdefault("timestamp_ms", timestamp_ms)
+    meta.setdefault("dispatch_sequence", sequence)
+    meta.setdefault("callback_stream_id", _CALLBACK_STREAM_ID)
+    if iteration is not None:
+        meta.setdefault("iteration", iteration)
+    enriched["_meta"] = meta
+    return enriched
 
 
 # =============================================================================
@@ -221,6 +260,7 @@ class ValsetEvaluatedEvent(TypedDict):
     total_valset_size: int
     parent_ids: Sequence[ProgramIdx]
     is_best_program: bool
+    inputs_by_val_id: dict[Any, Any] | None
     outputs_by_val_id: dict[Any, Any] | None
 
 
@@ -249,48 +289,6 @@ class ErrorEvent(TypedDict):
 
 
 # =============================================================================
-# Memory Events
-# =============================================================================
-
-
-class MemoryEntryAddedEvent(TypedDict):
-    """Fired when a ReflectionMemoryEntry is added to memory."""
-
-    iteration: int
-    component_name: str
-    entry: dict[str, Any]
-    memory_size_before: int
-    memory_size_after: int
-    evicted_entry: dict[str, Any] | None
-    memory_utilization: float
-
-
-class MemoryQueriedEvent(TypedDict):
-    """Fired when memory is queried during prompt construction."""
-
-    iteration: int
-    component_name: str
-    query_n: int
-    selected_entry_ids: list[str]
-    entries_returned: list[dict[str, Any]]
-    formatted_text: str
-    formatted_text_length: int
-
-
-class MemoryStateSnapshotEvent(TypedDict):
-    """Fired at the start/end of each iteration with full memory state."""
-
-    iteration: int
-    phase: str
-    all_entries: list[dict[str, Any]]
-    total_entries: int
-    max_entries: int
-    entries_by_component: dict[str, int]
-    accepted_ratio: float
-    rejected_ratio: float
-
-
-# =============================================================================
 # Proposal Trace Event
 # =============================================================================
 
@@ -307,94 +305,42 @@ class ProposalTraceEvent(TypedDict):
     model_id: str
     latency_ms: float
     memory_was_injected: bool
-    memory_selected_entry_ids: list[str]
-    memory_selected_intents: list[str]
-    memory_selected_categories: list[str]
-    memory_reused_intents: list[str]
-    memory_reused_categories: list[str]
-    memory_reuse_detected: bool
 
 
-class LessonGeneratedEvent(TypedDict):
-    """Fired when a V2 lesson is generated (or fallback used) after optimization step."""
+class LedgerInjectedEvent(TypedDict):
+    """Fired when rejection ledger text is injected into the reflection prompt."""
 
+    type: Literal["ledger_injected"]
     iteration: int
+    parent_hash: str
     component_name: str
-    intent: str
-    lesson: str
-    categories_succeeded: list[str]
-    categories_failed: list[str]
-    score_before: float
-    score_after: float
-    accepted: bool
-    latency_ms: float
-    fallback_used: bool
-    memory_selected_entry_ids: list[str]
-    memory_reused_intents: list[str]
-    memory_reused_categories: list[str]
-    memory_reuse_detected: bool
-
-
-# =============================================================================
-# MemV0 Events
-# =============================================================================
-
-
-class OutcomeInterpreterCallEvent(TypedDict):
-    """Fired when the OutcomeInterpreter makes an LLM call."""
-
-    type: Literal["outcome_interpreter_call"]
-    iteration: int
-    node_id: int  # -1 if not applicable
-    candidate: dict[str, str]
-    oi_prompt: str  # full formatted OI prompt
-    oi_raw_response: str  # raw LLM response ("" if fallback)
-    outcomes: list[dict[str, Any]]  # serialized OutcomeDescription list
-    num_records: int
-    fallback_used: bool
-
-
-class OIEvictionSummaryEvent(TypedDict):
-    """Fired when the OutcomeInterpreter produces an eviction summary."""
-
-    type: Literal["oi_eviction_summary"]
-    iteration: int
-    node_id: int
-    summary_type: str  # "node" | "global"
-    prompt: str
-    response: str
-    existing_summary: str
-    evicted_count: int
-    new_summary: str
-
-
-class MemoryTreeUpdatedEvent(TypedDict):
-    """Fired when the MemoryTree is mutated."""
-
-    type: Literal["memory_tree_updated"]
-    iteration: int
-    operation: str  # "add_root"|"add_disconnected"|"add_child"|"add_outcomes"|"set_val_score"|"eviction"
-    node_id: int
-    parent_id: int | None
-    accepted: bool | None  # None for non-edge operations
-    rejection_reason: str
-    prompt: dict[str, str]
-    outcomes_added: list[dict[str, Any]]  # populated for "add_outcomes"
-    val_score: float | None  # populated for "set_val_score"
-    evicted_count: int  # populated for "eviction"
-    new_node_summary: str  # populated for "eviction"
-    tree_node_count: int
-
-
-class MemoryRenderedEvent(TypedDict):
-    """Fired when the TieredMemoryRenderer produces rendered text."""
-
-    type: Literal["memory_rendered"]
-    iteration: int
-    current_node_id: int
+    num_entries: int
     rendered_text: str
     char_count: int
-    was_injected: bool
+
+
+class DiaryInjectedEvent(TypedDict):
+    """Fired when optimization diary text is injected into the reflection prompt."""
+
+    type: Literal["diary_injected"]
+    iteration: int
+    component_name: str
+    rendered_text: str
+    char_count: int
+    total_entries: int
+    layer2_active: bool
+
+
+class RefinementStepEvent(TypedDict):
+    """Fired after each inner refinement step within a multi-turn proposal."""
+
+    iteration: int
+    refinement_step: int  # 1-indexed
+    total_refinement_steps: int
+    scores: list[float]
+    score_sum: float
+    parent_score_sum: float
+    is_best_so_far: bool
 
 
 @runtime_checkable
@@ -534,22 +480,6 @@ class GEPACallback(Protocol):
         ...
 
     # =========================================================================
-    # Memory Events
-    # =========================================================================
-
-    def on_memory_entry_added(self, event: MemoryEntryAddedEvent) -> None:
-        """Called when an entry is added to reflection memory."""
-        ...
-
-    def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
-        """Called when reflection memory is queried for prompt injection."""
-        ...
-
-    def on_memory_state_snapshot(self, event: MemoryStateSnapshotEvent) -> None:
-        """Called with a full snapshot of memory state."""
-        ...
-
-    # =========================================================================
     # Proposal Trace Events
     # =========================================================================
 
@@ -557,28 +487,16 @@ class GEPACallback(Protocol):
         """Called with the complete LLM interaction for a proposal."""
         ...
 
-    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
-        """Called when a V2 lesson is generated after an optimization step."""
+    def on_ledger_injected(self, event: LedgerInjectedEvent) -> None:
+        """Called when rejection ledger text is injected into the reflection prompt."""
         ...
 
-    # =========================================================================
-    # MemV0 Events
-    # =========================================================================
-
-    def on_outcome_interpreter_call(self, event: OutcomeInterpreterCallEvent) -> None:
-        """Called when the OutcomeInterpreter makes an LLM call."""
+    def on_diary_injected(self, event: DiaryInjectedEvent) -> None:
+        """Called when optimization diary text is injected into the reflection prompt."""
         ...
 
-    def on_oi_eviction_summary(self, event: OIEvictionSummaryEvent) -> None:
-        """Called when the OutcomeInterpreter produces an eviction summary."""
-        ...
-
-    def on_memory_tree_updated(self, event: MemoryTreeUpdatedEvent) -> None:
-        """Called when the MemoryTree is mutated."""
-        ...
-
-    def on_memory_rendered(self, event: MemoryRenderedEvent) -> None:
-        """Called when the TieredMemoryRenderer produces rendered text."""
+    def on_refinement_step(self, event: RefinementStepEvent) -> None:
+        """Called after each inner refinement step within a multi-turn proposal."""
         ...
 
 
@@ -640,10 +558,12 @@ class CompositeCallback:
                 if method is not None:
                     self._method_cache[method_name].append((callback, method))
 
+        enriched_event = _enrich_event_with_meta(method_name, event)
+
         # Use cached methods
         for callback, method in self._method_cache[method_name]:
             try:
-                method(event)
+                method(enriched_event)
             except Exception as e:
                 logger.warning(f"Callback {callback} failed on {method_name}: {e}")
 
@@ -715,32 +635,20 @@ class CompositeCallback:
     def on_error(self, event: ErrorEvent) -> None:
         self._notify("on_error", event)
 
-    def on_memory_entry_added(self, event: MemoryEntryAddedEvent) -> None:
-        self._notify("on_memory_entry_added", event)
-
-    def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
-        self._notify("on_memory_queried", event)
-
-    def on_memory_state_snapshot(self, event: MemoryStateSnapshotEvent) -> None:
-        self._notify("on_memory_state_snapshot", event)
-
     def on_proposal_trace(self, event: ProposalTraceEvent) -> None:
         self._notify("on_proposal_trace", event)
 
-    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
-        self._notify("on_lesson_generated", event)
-
-    def on_outcome_interpreter_call(self, event: OutcomeInterpreterCallEvent) -> None:
-        self._notify("on_outcome_interpreter_call", event)
-
-    def on_oi_eviction_summary(self, event: OIEvictionSummaryEvent) -> None:
-        self._notify("on_oi_eviction_summary", event)
-
-    def on_memory_tree_updated(self, event: MemoryTreeUpdatedEvent) -> None:
-        self._notify("on_memory_tree_updated", event)
-
     def on_memory_rendered(self, event: MemoryRenderedEvent) -> None:
         self._notify("on_memory_rendered", event)
+
+    def on_ledger_injected(self, event: LedgerInjectedEvent) -> None:
+        self._notify("on_ledger_injected", event)
+
+    def on_diary_injected(self, event: DiaryInjectedEvent) -> None:
+        self._notify("on_diary_injected", event)
+
+    def on_refinement_step(self, event: RefinementStepEvent) -> None:
+        self._notify("on_refinement_step", event)
 
 
 def notify_callbacks(
@@ -761,10 +669,12 @@ def notify_callbacks(
     if callbacks is None:
         return
 
+    enriched_event = _enrich_event_with_meta(method_name, event)
+
     for callback in callbacks:
         method = getattr(callback, method_name, None)
         if method is not None:
             try:
-                method(event)
+                method(enriched_event)
             except Exception as e:
                 logger.warning(f"Callback {callback} failed on {method_name}: {e}")

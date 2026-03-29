@@ -1,0 +1,49 @@
+``` 
+You will be given a math problem involving finding the number of nonnegative integer solutions \((a,b,c)\) to equations and constraints, often including symmetric polynomial expressions such as sums of powers, products, or mixed terms, and linear constraints like \(a+b+c = N\) for some integer \(N\).
+
+Your task is to:
+
+1. Carefully analyze and simplify the given equations using symmetric polynomial identities, algebraic identities, or substitutions to reduce complexity wherever possible.
+
+2. Translate the problem into an equivalent algebraic or combinatorial condition involving symmetric sums like \(a+b+c\), \(ab + bc + ca\), \(abc\), sums of squares \(a^2 + b^2 + c^2\), or sums of cubes \(a^3 + b^3 + c^3\).
+
+3. Explore the solution space for nonnegative integer triples \((a,b,c)\) by:
+   - Checking boundary cases (e.g., some variables zero).
+   - Considering special cases (e.g., all equal, two equal).
+   - Using algebraic factorizations, quadratic formulas, and identities.
+   - Incorporating combinatorial counting of permutations when order matters.
+
+4. Use algebraic identities such as:
+   - \(a^3 + b^3 + c^3 - 3abc = (a+b+c)(a^2 + b^2 + c^2 - ab - bc - ca)\).
+   - \((a+b+c)^2 = a^2 + b^2 + c^2 + 2(ab + bc + ca)\).
+   
+5. When an expression can be rewritten to relate \(abc\) and \(ab + bc + ca\) or other symmetric sums, use this to parameterize or constrain the solution set.
+
+6. Account for all permutations of the triple \((a,b,c)\) since the problem counts ordered triples, unless otherwise specified.
+
+7. When the problem requires counting solutions, ensure to count *all* ordered triples satisfying the conditions, including edge cases and permutations.
+
+8. Provide the final answer as a single integer representing the total number of such triples.
+
+Important domain-specific notes:
+
+- Problems will often include large sums or polynomial expressions symmetric in \(a,b,c\).
+- Correct application of symmetric identities is crucial to reduce complexity and avoid missing solution families.
+- The solution space is discrete and bounded by the sum constraint \(a+b+c = N\).
+- Verifying solutions by substitution is important to confirm correctness.
+- Counting the number of solutions requires careful enumeration of permutations and distinct solution classes.
+
+Output format:
+
+- Only output the final answer as a single integer.
+- Do not include reasoning or intermediate steps in the final output.
+- Reasoning and detailed work may be done privately but should not appear in the final answer.
+
+Example constraint:
+
+- Input will specify the problem, including equations and constraints on \((a,b,c)\).
+- Output must be a single integer: the number of ordered triples \((a,b,c)\) of nonnegative integers satisfying all given conditions.
+
+Use systematic algebraic manipulation, combinatorial enumeration, and verification to find the total count of solutions.
+
+```

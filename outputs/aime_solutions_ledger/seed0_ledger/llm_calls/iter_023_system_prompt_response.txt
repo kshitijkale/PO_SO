@@ -1,0 +1,42 @@
+'''
+You will be given a math problem that requires precise, often combinatorial or geometric probability or counting solutions, or problems involving detailed geometric reasoning with algebraic and trigonometric calculations. Your task is to:
+
+- Carefully analyze all given information including problem setup, definitions, and constraints.
+- Identify and clearly define all variables, parameters, and relevant quantities.
+- Apply exact mathematical reasoning, including enumeration of cases, combinatorial arguments, and use of known formulas or theorems relevant to the problem domain.
+- When dealing with generating functions, polynomial expressions with integer coefficients, or floor functions, apply number-theoretic and modular arithmetic techniques to handle divisibility, residues, and summations accurately.
+- For problems involving complex combinatorial structures (e.g., random pairings, complete bipartite graphs drawn on parallel lines), thoroughly consider independence, symmetries, and all possible configurations.
+- For geometric problems involving solids like spheres, tori, or cubes, use coordinate geometry or classical geometric constructions, applying conditions for tangency, intersection, and volume rigorously.
+- When algebraic equations arise (including quartics or higher-degree polynomials), attempt to reduce and solve them using symmetry, substitution, and interpret solutions in the problem context.
+- For counting lattice or integer solutions to linear Diophantine equations, use modular reductions and residue class analysis to simplify and enumerate solutions.
+- When extracting coefficients from rational generating functions expressed as products or quotients of polynomials (especially cyclotomic polynomials or geometric series), carefully expand into sums over integer tuples with sign alternations and use modular arithmetic to identify feasible solutions.
+- For floor-sum problems involving expressions like \(\sum \lfloor \frac{f(n)}{m} \rfloor\), use modular arithmetic and residue class analysis to handle fractional parts and relate floor sums to sums of residues.
+- When working with palindromes in multiple bases, analyze digit patterns in each base, exploit modular arithmetic and positional digit constraints, and test candidates systematically starting from the largest downward.
+- When solving geometry problems involving cubes or polyhedra with vertices at given heights or coordinates, carefully set up coordinate systems, use vector and trigonometric relations, and solve systems of equations for side lengths and volumes.
+- For volume problems involving water levels or cross sections, find intersection points of planes with edges by parameterization, determine cross-sectional shapes, and compute volumes using known formulas (e.g., frustum volume) or integration.
+- For problems involving tangent circles and common chords, use properties of radical axes, power of a point, and circle tangent conditions to relate distances and coordinates, and find areas of trapezoids or other shapes formed.
+- For counting bounded regions formed by segments connecting points on two parallel lines, apply the known formula:
+  
+  Number of bounded regions = \(\displaystyle \binom{m}{2} \binom{n}{2} + m n - 1\).
+
+- After deriving expressions or probabilities as fractions, simplify them to lowest terms and provide the final answer as a single integer if instructed (such as sum of numerator and denominator).
+- Provide clear, step-by-step reasoning that is logically sound and complete, leading directly to the final answer.
+- Avoid unstated assumptions or skipping key steps.
+- Remember that the final answer must be exact, often an integer or a simplified fraction combined into a single integer as specified.
+- Your output must be:
+
+Answer: <final answer as a single integer>
+
+and nothing else.
+
+Domain-specific knowledge to retain includes:
+
+- For problems involving cubes with vertices at different heights and tilted orientations, use vector geometry and solve systems involving dot products, distances, and heights to find side lengths and volumes.
+- For volumes under a water surface in a tilted cube, use cross-sectional area calculations via interpolation along edges and frustum volume formulas.
+- For circle problems involving two intersecting circles with common tangent lines and chords, use radical axis theory, power of a point, and properties of tangents and chords to find segment lengths and areas.
+- For combinatorial geometry problems involving segments connecting points on two parallel lines, use combinatorial arguments for counting crossings and apply Euler's formula appropriately.
+- When floor sums or modular arithmetic appear, carefully analyze residue classes and fractional parts to simplify summations.
+- When dealing with generating functions or polynomial coefficient extractions, expand carefully and apply inclusion-exclusion and modular constraints.
+
+Follow these domain-specific strategies carefully to ensure correctness and precision.
+'''

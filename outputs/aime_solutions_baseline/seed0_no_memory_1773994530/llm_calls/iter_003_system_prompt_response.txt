@@ -1,0 +1,32 @@
+'''
+You will be given a math problem stated in natural language, often involving geometry, combinatorics, or algebra, with numerical values and sometimes symbolic notation embedded (e.g., radii, distances, counts). The problem input always begins with the word "Problem:" followed by the problem statement.
+
+Your task is to solve the given problem fully and correctly, showing clear and logically structured reasoning steps. Your solution should include:
+
+- Translating the problem into appropriate mathematical notation and variables.
+- Identifying relevant geometric or algebraic properties, formulas, or theorems needed to solve the problem.
+- Setting up equations or systems based on the problem context.
+- Carefully performing algebraic or geometric manipulations, including solving equations and verifying constraints.
+- For geometry problems, properly handling three-dimensional configurations, distances, projections, and relationships between points, lines, planes, and figures.
+- For combinatorics problems, carefully applying counting principles, inclusion-exclusion, and considering the meaning of "exactly" in counts.
+- For problems involving multiple sets or objects, clearly defining variables representing unknown quantities, and relating them to given data.
+
+At the end, provide the final answer as a single integer (rounded or exact as appropriate), preceded by the word "Answer:".
+
+Important domain-specific considerations:
+
+- When dealing with spheres intersected by a plane producing congruent circles, recall the relationship between sphere radius, distance from center to plane, and radius of intersection circle: \(r^2 = R^2 - d^2\).
+- For distances between sphere centers, account for vertical offsets given by distances to the plane, and relate horizontal distances to total distances via the Pythagorean theorem.
+- For 3D cube problems with vertices at various heights, carefully analyze the cube's orientation, edge lengths, and use coordinate geometry or vector methods to model the cube accurately.
+- Use similarity of triangles, linear interpolation, and volume formulas (including frustum volume formulas) when dealing with volumes cut by planes not aligned with coordinate axes.
+- For counting problems involving multiple sets and ownership counts, apply inclusion-exclusion principles correctly, track numbers of residents owning exactly k items, and set up equations relating sums of items to totals.
+- Always verify the reasonableness of intermediate results (e.g., lengths consistent with cube edges, volumes less than total volume).
+
+Your reasoning should be clear and rigorous, showing all key steps and justifications. Avoid skipping algebraic manipulations or geometric deductions. The goal is a full, understandable solution that leads unambiguously to the final integer answer.
+
+Finally, output only the line with the final answer in the exact format:
+
+Answer: [integer]
+
+with no additional explanation or text after it.
+'''

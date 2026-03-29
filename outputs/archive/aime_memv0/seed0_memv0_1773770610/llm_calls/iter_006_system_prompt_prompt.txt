@@ -1,0 +1,802 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Rectangles $ABCD$ and $EFGH$ are drawn such that $D,E,C,F$ are collinear. Also, $A,D,H,G$ all lie on a circle. If $BC=16$,$AB=107$,$FG=17$, and $EF=184$, what is the length of $CE$?
+
+## Generated Outputs
+Answer: 291
+Reasoning: Let's analyze the problem step-by-step.
+
+We have two rectangles \(ABCD\) and \(EFGH\).
+
+Given:
+- \(BC = 16\)
+- \(AB = 107\)
+- \(FG = 17\)
+- \(EF = 184\)
+
+Also:
+- Points \(D, E, C, F\) are collinear.
+- Points \(A, D, H, G\) lie on a circle.
+
+We want to find the length \(CE\).
+
+---
+
+**Step 1: Understand the rectangles and their points**
+
+Since \(ABCD\) is a rectangle, the sides are:
+- \(AB = DC = 107\)
+- \(BC = AD = 16\)
+
+Similarly, for rectangle \(EFGH\):
+- \(EF = GH = 184\)
+- \(FG = EH = 17\)
+
+---
+
+**Step 2: Assign coordinates**
+
+To make the problem easier, place rectangle \(ABCD\) in the coordinate plane.
+
+Let:
+- \(A = (0,0)\)
+- \(B = (107,0)\) (since \(AB=107\))
+- \(C = (107,16)\) (since \(BC=16\))
+- \(D = (0,16)\)
+
+---
+
+**Step 3: Position rectangle \(EFGH\)**
+
+We know \(D, E, C, F\) are collinear.
+
+Points \(D = (0,16)\) and \(C = (107,16)\) lie on the line \(y=16\).
+
+Since \(D, E, C, F\) are collinear, \(E\) and \(F\) lie on the same line \(y=16\).
+
+---
+
+**Step 4: Coordinates of \(E\) and \(F\)**
+
+Since \(EFGH\) is a rectangle with sides \(EF=184\) and \(FG=17\), and \(EF\) is presumably horizontal (since \(E\) and \(F\) lie on \(y=16\)).
+
+Let:
+- \(E = (x,16)\)
+- \(F = (x + 184,16)\)
+
+---
+
+**Step 5: Coordinates of \(G\) and \(H\)**
+
+Since \(EFGH\) is a rectangle, and \(FG = 17\), the side \(FG\) is perpendicular to \(EF\).
+
+Since \(EF\) is horizontal, \(FG\) is vertical.
+
+So:
+- \(G = (x + 184, 16 - 17) = (x + 184, -1)\)
+- \(H = (x, 16 - 17) = (x, -1)\)
+
+---
+
+**Step 6: Use the circle condition**
+
+Points \(A, D, H, G\) lie on a circle.
+
+Coordinates:
+- \(A = (0,0)\)
+- \(D = (0,16)\)
+- \(H = (x, -1)\)
+- \(G = (x + 184, -1)\)
+
+---
+
+**Step 7: Find the circle passing through \(A, D, H, G\)**
+
+Since \(A, D, H, G\) lie on the same circle, the quadrilateral \(ADHG\) is cyclic.
+
+---
+
+**Step 8: Use the property of cyclic quadrilateral**
+
+For points \(A, D, H, G\) to be cyclic, the power of point or the equality of the distances from the center must hold.
+
+Alternatively, use the fact that the perpendicular bisectors of chords intersect at the center.
+
+---
+
+**Step 9: Find the center of the circle**
+
+Find the perpendicular bisector of \(AD\):
+
+- \(A = (0,0)\), \(D = (0,16)\)
+- Midpoint of \(AD\) is \((0,8)\)
+- \(AD\) is vertical, so its perpendicular bisector is horizontal line \(y=8\).
+
+---
+
+**Step 10: Find the perpendicular bisector of \(HG\)**
+
+- \(H = (x, -1)\), \(G = (x + 184, -1)\)
+- Midpoint of \(HG\) is \(\left(x + 92, -1\right)\)
+- \(HG\) is horizontal, so its perpendicular bisector is vertical line \(x = x + 92\)
+
+---
+
+**Step 11: Find the center \(O\)**
+
+The center \(O\) is the intersection of the two perpendicular bisectors:
+
+- \(y = 8\)
+- \(x = x + 92\)
+
+This is impossible unless \(92 = 0\), which is false.
+
+---
+
+**Step 12: Reconsider the orientation**
+
+Our assumption that \(EF\) is horizontal may be incorrect.
+
+Since \(D, E, C, F\) are collinear, and \(D = (0,16)\), \(C = (107,16)\), the line is \(y=16\).
+
+So \(E\) and \(F\) lie on \(y=16\).
+
+But \(EF = 184\), which is longer than \(DC = 107\).
+
+So \(E\) and \(F\) must be placed such that \(E\) is to the left of \(D\) or \(F\) is to the right of \(C\).
+
+---
+
+**Step 13: Let \(E = (e,16)\), \(F = (e + 184,16)\)**
+
+We know \(D = (0,16)\), \(C = (107,16)\).
+
+Since \(D, E, C, F\) are collinear, the order on the line is \(D, E, C, F\) or \(E, D, C, F\), etc.
+
+Try \(E < D < C < F\):
+
+- \(e < 0 < 107 < e + 184\)
+
+---
+
+**Step 14: Coordinates of \(H\) and \(G\)**
+
+Since \(EFGH\) is a rectangle, \(FG\) is perpendicular to \(EF\).
+
+If \(EF\) is horizontal, \(FG\) is vertical.
+
+So:
+- \(G = (e + 184, 16 - 17) = (e + 184, -1)\)
+- \(H = (e, -1)\)
+
+---
+
+**Step 15: Use the circle condition**
+
+Points \(A = (0,0)\), \(D = (0,16)\), \(H = (e, -1)\), \(G = (e + 184, -1)\) lie on a circle.
+
+---
+
+**Step 16: Find the center \(O = (h,k)\) and radius \(r\)**
+
+The circle passes through \(A, D, H, G\).
+
+So:
+
+\[
+(h - 0)^2 + (k - 0)^2 = r^2 \quad (1)
+\]
+\[
+(h - 0)^2 + (k - 16)^2 = r^2 \quad (2)
+\]
+\[
+(h - e)^2 + (k + 1)^2 = r^2 \quad (3)
+\]
+\[
+(h - (e + 184))^2 + (k + 1)^2 = r^2 \quad (4)
+\]
+
+---
+
+**Step 17: Subtract (1) from (2):**
+
+\[
+(h - 0)^2 + (k - 16)^2 = (h - 0)^2 + k^2
+\]
+\[
+(k - 16)^2 = k^2
+\]
+\[
+k^2 - 32k + 256 = k^2
+\]
+\[
+-32k + 256 = 0
+\]
+\[
+32k = 256 \implies k = 8
+\]
+
+---
+
+**Step 18: Subtract (3) from (4):**
+
+\[
+(h - (e + 184))^2 + (k + 1)^2 = (h - e)^2 + (k + 1)^2
+\]
+\[
+(h - (e + 184))^2 = (h - e)^2
+\]
+\[
+(h - e - 184)^2 = (h - e)^2
+\]
+
+Let \(X = h - e\):
+
+\[
+(X - 184)^2 = X^2
+\]
+\[
+X^2 - 2 \cdot 184 \cdot X + 184^2 = X^2
+\]
+\[
+-368X + 33856 = 0
+\]
+\[
+368X = 33856
+\]
+\[
+X = \frac{33856}{368} = 92
+\]
+
+So:
+\[
+h - e = 92 \implies h = e + 92
+\]
+
+---
+
+**Step 19: Use (1) and (3) to find \(e\)**
+
+From (1):
+\[
+(h)^2 + (k)^2 = r^2
+\]
+From (3):
+\[
+(h - e)^2 + (k + 1)^2 = r^2
+\]
+
+Substitute \(h = e + 92\) and \(k = 8\):
+
+\[
+(e + 92)^2 + 8^2 = (e + 92 - e)^2 + (8 + 1)^2
+\]
+\[
+(e + 92)^2 + 64 = 92^2 + 9^2
+\]
+\[
+(e + 92)^2 + 64 = 8464 + 81 = 8545
+\]
+\[
+(e + 92)^2 = 8545 - 64 = 8481
+\]
+\[
+e + 92 = \pm \sqrt{8481}
+\]
+
+Calculate \(\sqrt{8481}\):
+
+\[
+92^2 = 8464
+\]
+\[
+8481 - 8464 = 17
+\]
+
+So \(\sqrt{8481} \approx 92.2\)
+
+---
+
+**Step 20: Find \(e\)**
+
+\[
+e + 92 = \pm 92.2
+\]
+
+If \(e + 92 = 92.2\), then \(e = 0.2\)
+
+If \(e + 92 = -92.2\), then \(e = -184.2\)
+
+Recall from step 13, \(e < 0\), so \(e = -184.2\) is consistent.
+
+---
+
+**Step 21: Find \(CE\)**
+
+Recall:
+- \(C = (107,16)\)
+- \(E = (e,16) = (-184.2,16)\)
+
+Distance \(CE = |107 - (-184.2)| = 107 + 184.2 = 291.2\)
+
+Since the problem likely expects an integer, the exact value is:
+
+\[
+CE = 107 - e = 107 - (-184) = 291
+\]
+
+---
+
+**Final answer:**
+
+\[
+\boxed{291}
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 104.
+
+
+
+# Example 2
+## Inputs
+Problem: A right square pyramid with volume $54$ has a base with side length $6.$ The five vertices of the pyramid all lie on a sphere with radius $\frac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## Generated Outputs
+Answer: 21
+Reasoning: We are given a right square pyramid with volume \(54\) and base side length \(6\). The five vertices (4 base vertices + apex) lie on a sphere with radius \(\frac{m}{n}\), where \(m\) and \(n\) are relatively prime positive integers. We need to find \(m+n\).
+
+Step 1: Find the height of the pyramid.
+
+The volume \(V\) of a pyramid is given by:
+\[
+V = \frac{1}{3} \times \text{(area of base)} \times \text{height}
+\]
+
+The base is a square with side length \(6\), so its area is:
+\[
+6 \times 6 = 36
+\]
+
+Given volume \(V = 54\), we have:
+\[
+54 = \frac{1}{3} \times 36 \times h \implies 54 = 12h \implies h = \frac{54}{12} = 4.5
+\]
+
+Step 2: Set up coordinates.
+
+Place the square base in the \(xy\)-plane for convenience. Let the center of the base be at the origin \((0,0,0)\). Since the base side length is 6, the vertices of the base are at:
+\[
+(3,3,0), (3,-3,0), (-3,-3,0), (-3,3,0)
+\]
+
+The apex is directly above the center at:
+\[
+(0,0,h) = (0,0,4.5)
+\]
+
+Step 3: Find the sphere passing through all five points.
+
+The sphere passes through the four base vertices and the apex. Since the base vertices lie in the plane \(z=0\), and the apex is at \(z=4.5\), the sphere's center must lie on the vertical line through the center of the base (the \(z\)-axis), because the base vertices are symmetric about the \(z\)-axis.
+
+Let the center of the sphere be:
+\[
+(0,0,c)
+\]
+and radius \(r\).
+
+Step 4: Use the distance from the center to the base vertices.
+
+Distance from center to any base vertex (e.g., \((3,3,0)\)) is:
+\[
+r = \sqrt{3^2 + 3^2 + (0 - c)^2} = \sqrt{18 + c^2}
+\]
+
+Distance from center to apex \((0,0,4.5)\) is:
+\[
+r = |4.5 - c|
+\]
+
+Since both distances equal the radius \(r\), we have:
+\[
+\sqrt{18 + c^2} = |4.5 - c|
+\]
+
+Step 5: Solve for \(c\).
+
+Square both sides:
+\[
+18 + c^2 = (4.5 - c)^2 = 4.5^2 - 2 \times 4.5 \times c + c^2 = 20.25 - 9c + c^2
+\]
+
+Subtract \(c^2\) from both sides:
+\[
+18 = 20.25 - 9c
+\]
+
+Rearranged:
+\[
+-9c = 18 - 20.25 = -2.25 \implies c = \frac{2.25}{9} = 0.25
+\]
+
+Step 6: Find the radius \(r\).
+
+Using \(r = |4.5 - c| = |4.5 - 0.25| = 4.25\).
+
+Alternatively, check with the base vertex:
+\[
+r = \sqrt{18 + (0.25)^2} = \sqrt{18 + 0.0625} = \sqrt{18.0625} = 4.25
+\]
+
+So the radius is \(r = 4.25 = \frac{17}{4}\).
+
+Step 7: Find \(m+n\).
+
+The radius is \(\frac{17}{4}\), so \(m=17\), \(n=4\), and \(m+n=17+4=21\).
+
+## Feedback
+Your answer is correct. The correct answer is 21.
+
+
+
+# Example 3
+## Inputs
+Problem: Each face of two noncongruent parallelepipeds is a rhombus whose diagonals have lengths $\sqrt{21}$ and $\sqrt{31}$.
+The ratio of the volume of the larger of the two polyhedra to the volume of the smaller is $\frac{m}{n}$, where $m$ and $n$
+are relatively prime positive integers. Find $m + n$. A parallelepiped is a solid with six parallelogram faces
+such as the one shown below.
+[asy] unitsize(2cm); pair o = (0, 0), u = (1, 0), v = 0.8*dir(40), w = dir(70);  draw(o--u--(u+v)); draw(o--v--(u+v), dotted); draw(shift(w)*(o--u--(u+v)--v--cycle)); draw(o--w); draw(u--(u+w)); draw(v--(v+w), dotted); draw((u+v)--(u+v+w)); [/asy]
+
+## Generated Outputs
+Answer: 125
+Reasoning: We are given two noncongruent parallelepipeds, each with all faces rhombi having diagonals of lengths \(\sqrt{21}\) and \(\sqrt{31}\). We want the ratio of the volumes of the larger to the smaller.
+
+**Step 1: Understand the shape and given data**
+
+Each face is a rhombus with diagonals \(d_1 = \sqrt{21}\) and \(d_2 = \sqrt{31}\).
+
+The area of each rhombus face is:
+\[
+A = \frac{1}{2} d_1 d_2 = \frac{1}{2} \sqrt{21} \sqrt{31} = \frac{1}{2} \sqrt{651}.
+\]
+
+Since all faces are congruent rhombi with these diagonals, the parallelepiped is a rhombohedron (a parallelepiped with all edges equal and all faces congruent rhombi).
+
+**Step 2: Edge length of the parallelepiped**
+
+The edges of the parallelepiped are all equal in length \(a\). The rhombus face is formed by two adjacent edges \(\mathbf{a}\) and \(\mathbf{b}\) with angle \(\theta\) between them.
+
+The diagonals of the rhombus are:
+\[
+d_1 = 2a \cos(\theta/2), \quad d_2 = 2a \sin(\theta/2).
+\]
+
+Given:
+\[
+d_1 = \sqrt{21}, \quad d_2 = \sqrt{31}.
+\]
+
+From these,
+\[
+d_1^2 + d_2^2 = (2a)^2 (\cos^2(\theta/2) + \sin^2(\theta/2)) = 4a^2.
+\]
+
+Calculate:
+\[
+d_1^2 + d_2^2 = 21 + 31 = 52.
+\]
+So,
+\[
+4a^2 = 52 \implies a^2 = 13 \implies a = \sqrt{13}.
+\]
+
+**Step 3: Find \(\theta\)**
+
+From the diagonals,
+\[
+d_1 = 2a \cos(\theta/2) = \sqrt{21} \implies \cos(\theta/2) = \frac{\sqrt{21}}{2a} = \frac{\sqrt{21}}{2\sqrt{13}}.
+\]
+
+Similarly,
+\[
+d_2 = 2a \sin(\theta/2) = \sqrt{31} \implies \sin(\theta/2) = \frac{\sqrt{31}}{2\sqrt{13}}.
+\]
+
+Check that \(\cos^2(\theta/2) + \sin^2(\theta/2) = 1\):
+\[
+\left(\frac{\sqrt{21}}{2\sqrt{13}}\right)^2 + \left(\frac{\sqrt{31}}{2\sqrt{13}}\right)^2 = \frac{21}{4 \cdot 13} + \frac{31}{4 \cdot 13} = \frac{52}{52} = 1.
+\]
+
+So this is consistent.
+
+**Step 4: Volume of the rhombohedron**
+
+A rhombohedron is determined by three equal edges \(a\) and three angles between them. Since all faces are congruent rhombi with the same diagonals, the parallelepiped is a rhombohedron with edge length \(a = \sqrt{13}\) and face angle \(\theta\).
+
+The volume of a rhombohedron is:
+\[
+V = a^3 \sqrt{1 - 3 \cos^2 \phi + 2 \cos^3 \phi},
+\]
+where \(\phi\) is the angle between edges (all equal in a rhombohedron).
+
+We know the face is a rhombus with angle \(\theta\), so \(\phi = \theta\).
+
+We have \(\theta/2\) from above, so:
+\[
+\cos(\theta/2) = \frac{\sqrt{21}}{2\sqrt{13}}.
+\]
+
+Find \(\cos \theta\) using the double angle formula:
+\[
+\cos \theta = 2 \cos^2(\theta/2) - 1 = 2 \left(\frac{\sqrt{21}}{2\sqrt{13}}\right)^2 - 1 = 2 \cdot \frac{21}{4 \cdot 13} - 1 = \frac{21}{26} - 1 = \frac{21 - 26}{26} = -\frac{5}{26}.
+\]
+
+So,
+\[
+\cos \theta = -\frac{5}{26}.
+\]
+
+**Step 5: Volume formula**
+
+Calculate:
+\[
+V = a^3 \sqrt{1 - 3 \cos^2 \theta + 2 \cos^3 \theta}.
+\]
+
+Compute each term:
+
+- \(\cos^2 \theta = \left(-\frac{5}{26}\right)^2 = \frac{25}{676}\).
+- \(\cos^3 \theta = \left(-\frac{5}{26}\right)^3 = -\frac{125}{17576}\).
+
+Plug in:
+\[
+1 - 3 \cdot \frac{25}{676} + 2 \cdot \left(-\frac{125}{17576}\right) = 1 - \frac{75}{676} - \frac{250}{17576}.
+\]
+
+Find common denominator \(17576 = 676 \times 26\):
+
+Convert terms:
+\[
+1 = \frac{17576}{17576}, \quad \frac{75}{676} = \frac{75 \times 26}{17576} = \frac{1950}{17576}.
+\]
+
+So,
+\[
+1 - \frac{75}{676} - \frac{250}{17576} = \frac{17576}{17576} - \frac{1950}{17576} - \frac{250}{17576} = \frac{17576 - 1950 - 250}{17576} = \frac{17576 - 2200}{17576} = \frac{15376}{17576}.
+\]
+
+Simplify numerator and denominator by dividing numerator and denominator by 4:
+\[
+\frac{15376}{17576} = \frac{3844}{4394}.
+\]
+
+Divide numerator and denominator by 2:
+\[
+\frac{3844}{4394} = \frac{1922}{2197}.
+\]
+
+Check if 1922 and 2197 share factors:
+
+- \(2197 = 13^3\) (since \(13^3 = 2197\)).
+- \(1922 = 2 \times 961\), and \(961 = 31^2\).
+
+So,
+\[
+\frac{1922}{2197} = \frac{2 \times 31^2}{13^3}.
+\]
+
+Therefore,
+\[
+V = a^3 \sqrt{\frac{1922}{2197}} = (\sqrt{13})^3 \sqrt{\frac{1922}{2197}} = 13^{3/2} \sqrt{\frac{1922}{2197}}.
+\]
+
+Rewrite:
+\[
+V = 13^{3/2} \cdot \frac{\sqrt{1922}}{\sqrt{2197}}.
+\]
+
+Since \(2197 = 13^3\), \(\sqrt{2197} = 13^{3/2}\), so:
+\[
+V = 13^{3/2} \cdot \frac{\sqrt{1922}}{13^{3/2}} = \sqrt{1922}.
+\]
+
+This is a key simplification: the volume depends only on \(\sqrt{1922}\).
+
+**Step 6: Two noncongruent parallelepipeds**
+
+The problem states there are two noncongruent parallelepipeds with the same face diagonals. The difference comes from the angle \(\theta\) between edges.
+
+Since the diagonals are fixed, the angle \(\theta\) satisfies:
+\[
+d_1 = 2a \cos(\theta/2), \quad d_2 = 2a \sin(\theta/2).
+\]
+
+But \(\theta/2\) can be either \(\alpha\) or \(\pi - \alpha\), giving two different angles \(\theta = 2\alpha\) or \(\theta = 2(\pi - \alpha) = 2\pi - 2\alpha\).
+
+Since \(\cos \theta\) is an even function about \(\pi\), the two possible \(\cos \theta\) values are:
+\[
+\cos \theta = -\frac{5}{26} \quad \text{and} \quad \cos \theta' = \cos(2\pi - 2\alpha) = \cos(2\alpha) = \cos \theta.
+\]
+
+But the volume formula depends on \(\cos \theta\), so the two volumes correspond to \(\theta\) and \(\pi - \theta\).
+
+Check the volume for \(\theta' = \pi - \theta\):
+
+\[
+\cos(\pi - \theta) = -\cos \theta = \frac{5}{26}.
+\]
+
+Calculate volume for \(\cos \theta = \frac{5}{26}\):
+
+\[
+V' = a^3 \sqrt{1 - 3 \left(\frac{5}{26}\right)^2 + 2 \left(\frac{5}{26}\right)^3}.
+\]
+
+Calculate terms:
+
+- \(\cos^2 \theta = \left(\frac{5}{26}\right)^2 = \frac{25}{676}\).
+- \(\cos^3 \theta = \left(\frac{5}{26}\right)^3 = \frac{125}{17576}\).
+
+Plug in:
+\[
+1 - 3 \cdot \frac{25}{676} + 2 \cdot \frac{125}{17576} = 1 - \frac{75}{676} + \frac{250}{17576}.
+\]
+
+Convert to common denominator \(17576\):
+\[
+1 = \frac{17576}{17576}, \quad \frac{75}{676} = \frac{1950}{17576}.
+\]
+
+So,
+\[
+\frac{17576}{17576} - \frac{1950}{17576} + \frac{250}{17576} = \frac{17576 - 1950 + 250}{17576} = \frac{17576 - 1700}{17576} = \frac{15876}{17576}.
+\]
+
+Simplify numerator and denominator by dividing by 4:
+\[
+\frac{15876}{17576} = \frac{3969}{4394}.
+\]
+
+Check factors:
+
+- \(3969 = 63^2\) (since \(63^2 = 3969\)).
+- \(4394 = 2 \times 2197 = 2 \times 13^3\).
+
+So,
+\[
+V' = a^3 \sqrt{\frac{3969}{4394}} = 13^{3/2} \cdot \frac{63}{\sqrt{2 \cdot 13^3}} = 13^{3/2} \cdot \frac{63}{13^{3/2} \sqrt{2}} = \frac{63}{\sqrt{2}}.
+\]
+
+Wait, this is inconsistent with the previous simplification. Let's be more precise.
+
+Recall:
+\[
+V' = a^3 \sqrt{1 - 3 \cos^2 \theta + 2 \cos^3 \theta} = 13^{3/2} \sqrt{\frac{15876}{17576}}.
+\]
+
+Since \(17576 = 26^3\) (because \(26^3 = 26 \times 26 \times 26 = 17576\)).
+
+Similarly, \(15876\) can be factored:
+
+Try to factor numerator and denominator:
+
+- \(15876 = 4 \times 3969\).
+- \(17576 = 8 \times 2197\).
+
+So,
+\[
+\frac{15876}{17576} = \frac{4 \times 3969}{8 \times 2197} = \frac{3969}{2 \times 2197}.
+\]
+
+Recall \(2197 = 13^3\), so:
+\[
+V' = 13^{3/2} \sqrt{\frac{3969}{2 \times 13^3}} = 13^{3/2} \cdot \frac{63}{\sqrt{2} \cdot 13^{3/2}} = \frac{63}{\sqrt{2}}.
+\]
+
+So,
+\[
+V' = \frac{63}{\sqrt{2}}.
+\]
+
+Similarly, for the first volume \(V\), we had:
+\[
+V = \sqrt{1922}.
+\]
+
+Let's approximate \(\sqrt{1922}\) and \(\frac{63}{\sqrt{2}}\) to check which is larger.
+
+- \(\sqrt{1922} \approx \sqrt{44 \times 43.68} \approx 43.84\).
+- \(\frac{63}{\sqrt{2}} = 63 \times \frac{\sqrt{2}}{2} \approx 63 \times 0.7071 = 44.55\).
+
+So \(V' > V\).
+
+**Step 7: Find the ratio \(\frac{V'}{V}\)**
+
+\[
+\frac{V'}{V} = \frac{\frac{63}{\sqrt{2}}}{\sqrt{1922}} = \frac{63}{\sqrt{2} \sqrt{1922}} = \frac{63}{\sqrt{2 \times 1922}} = \frac{63}{\sqrt{3844}}.
+\]
+
+Note that \(3844 = 62^2\) (since \(62^2 = 3844\)).
+
+So,
+\[
+\frac{V'}{V} = \frac{63}{62}.
+\]
+
+Therefore, the ratio of the volumes of the larger to the smaller is \(\frac{63}{62}\).
+
+**Step 8: Final answer**
+
+The problem asks for \(m + n\) where the ratio is \(\frac{m}{n} = \frac{63}{62}\).
+
+Thus,
+\[
+m + n = 63 + 62 = 125.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 125.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=8a060958dd, status=REJECTED, val=?, minibatch=0.67: Added: 'problem conditions into precise mathematical equations or logical statements. 3. Apply relevant mathematical identities,...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit positive integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose representation in base nine is \(\underline{b}\,\underline{c}\,\underl...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=2, iter=2, fp=53246ec7ce, status=REJECTED, val=?, minibatch=0.67: Added: 'the given math problem step-by-step with clear, detailed reasoning that includes all relevant domain-specific facts and ...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Length \(PQ\) between intersections of angle bisectors in an isosceles trapezoid: The model correctly set up coordinates for the trapezoid, used distance formulas...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=3, iter=3, fp=087caa8f95, status=REJECTED, val=?, minibatch=0.67: Added: 'solution. When dealing with geometric problems involving distances, projections, or spatial reasoning, explicitly relate...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in three congruent circles; find \(AC^2\) given \(AB^2=560\).: The model correctly set up variables for the ...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=4, iter=4, fp=cd8f9b1a0e, status=REJECTED, val=?, minibatch=0.33: Added: 'the given math problem by carefully interpreting all conditions and constraints. Provide a clear, step-by-step explanati...'
+  Outcomes (for this node only): iter=4, result=correct, error=none, q=Rectangular boxes with surface area 54 and volume 23; find \(p+q\) for \(r^2 = \frac{p}{q}\).: The model correctly identified variables and constraints, applied L...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=5, iter=5, fp=092b44bcd8, status=REJECTED, val=?, minibatch=0.33: Added: '8. Avoid premature conclusions; verify that the answer matches all problem restrictions and conditions. 9. Ensure correc...'
+  Outcomes (for this node only): iter=5, result=incorrect, error=logic, q=Number of collections of 16 distinct subsets of \(\{1,2,3,4,5\}\) such that any two subsets intersect: The model correctly identified the problem as counting m...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=8a060958dd, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=53246ec7ce, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=087caa8f95, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=cd8f9b1a0e, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=092b44bcd8, status=REJECTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

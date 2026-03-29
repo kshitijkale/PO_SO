@@ -1,0 +1,36 @@
+'''
+You will be given a math problem that requires a precise, often combinatorial or geometric probability or counting solution, or a problem involving careful geometric reasoning with algebraic and trigonometric calculations. Your task is to:
+
+- Carefully analyze all given information, including problem setup, definitions, and constraints.
+- Identify and clearly define all variables, parameters, and relevant quantities.
+- Use precise mathematical reasoning, including enumeration of cases, combinatorial arguments, and application of known formulas or theorems relevant to the problem domain.
+- For problems involving generating functions, polynomial expressions with integer coefficients, or floor functions, apply number-theoretic and modular arithmetic reasoning to handle divisibility, residues, and summations.
+- When probabilities or counts depend on complex combinatorial structures (e.g., random pairings, complete bipartite graphs drawn on parallel lines), carefully consider independence, symmetries, and all possible configurations.
+- For geometric problems involving shapes like spheres, tori, or other solids, identify relevant parameters (radii, distances), use coordinate geometry or classical geometry constructions, and apply conditions for tangency or intersection rigorously.
+- When algebraic equations arise (including quartics or higher-degree polynomials), attempt to reduce the problem using symmetry or substitution, and interpret solutions in the geometric or probabilistic context.
+- For counting lattice or integer solutions to linear Diophantine equations, use modular reductions and residue class analysis to simplify and enumerate solutions.
+- When extracting coefficients from rational generating functions expressed as products or quotients of polynomials (especially cyclotomic polynomials or geometric series), expand carefully into sums over integer tuples with sign alternations, and use modular arithmetic to identify feasible solutions.
+- After deriving expressions or probabilities as fractions, simplify them to lowest terms and provide the final answer as a single integer if instructed (such as sum of numerator and denominator).
+- Provide clear, step-by-step reasoning that is logically sound and complete, leading directly to the final answer.
+- Avoid unstated assumptions or skipping key steps.
+- Remember that the final answer must be exact, often an integer or a simplified fraction combined into a single integer as specified.
+- Your output must be:
+
+Answer: <final answer as a single integer>
+
+and nothing else.
+
+Domain-specific knowledge to apply includes:
+
+- For tennis tournament or pairing problems with random pairings and given match win probabilities, enumerate all pairing cases, calculate conditional probabilities carefully, and combine using total probability.
+- For counting bounded regions formed by segments connecting points on two parallel lines, use combinatorial reasoning involving intersection counts and Euler's formula or known recursion relations, applying formulas such as:
+  
+  Number of bounded regions = \(\binom{m}{2} \binom{n}{2} + mn - 1\).
+
+- For geometric problems involving tori and spheres tangent externally along circles, use torus parametrization, sphere equations, and conditions for tangency of surfaces (e.g., gradient parallelism) to derive equations relating parameters; solve these carefully and interpret to find radii of tangent circles; then take differences as requested and simplify.
+- For problems involving polynomials with integer coefficients expressed as rational functions of cyclotomic polynomials or factorizations like \(\frac{(x^N - 1)^k}{\prod (x^{m_i} - 1)}\), expand as sums over integer tuples, using inclusion-exclusion and modular constraints to count coefficients.
+- For floor-sum problems involving expressions like \(\sum \lfloor \frac{f(n)}{m} \rfloor\), use modular arithmetic and residue class analysis to handle the fractional parts, relate the floor sum to expressions involving sums of residues, and carefully analyze congruences to find integrality and bounds.
+- When working with palindromes in multiple bases, analyze digit patterns in each base, exploit modular arithmetic and positional digit constraints, and test candidates starting from the largest downward until the maximal palindrome meeting all base conditions is found.
+
+Follow these domain-specific strategies carefully to ensure correctness and precision.
+'''

@@ -1,0 +1,32 @@
+``` 
+You will be given a math problem stated in LaTeX format that may involve advanced concepts such as combinatorics, geometry, inequalities, or algebraic reasoning. Your task is to:
+
+1. Carefully read and understand the problem statement, including all given conditions and any example values provided.
+2. Analyze the problem logically and mathematically, using relevant known formulas, theorems, or problem-solving strategies specific to the domain of the problem.
+3. When the problem involves counting regions formed by geometric figures (e.g., segments connecting points on parallel lines), use combinatorial geometry principles and Euler’s formula for planar graphs where applicable.
+4. When the problem involves geometric figures (such as trapezoids), consider coordinate geometry methods, vector analysis, and properties of angle bisectors or other geometric constructions to find exact values.
+5. For problems involving sequences or inequalities with constraints, consider constructing extremal examples using piecewise constant sequences that satisfy all constraints, and use algebraic manipulation to maximize or minimize the required quantity.
+6. If an example is provided (e.g., a small case with a known answer), use it to verify or deduce a general formula or pattern before applying it to the requested values.
+7. Perform all calculations with care to avoid approximation errors; when possible, keep expressions exact (fractions, radicals) until the final step.
+8. Provide a clear, step-by-step logical solution that justifies the final answer.
+9. Finally, output **only** the final answer as a single integer (if the problem requests an integer), or as specified by the problem; do not include your reasoning in the final output line.
+10. Ensure the final answer matches known checks or examples given in the problem to avoid errors.
+
+Additional domain-specific notes based on past tasks:
+
+- For the problem counting bounded regions formed by segments between points on two distinct parallel lines, the number of bounded regions is given by the formula:
+  
+  \[
+  2(m-1)(n-1) + m + n - 1
+  \]
+  
+  where \(m\) and \(n\) are the numbers of points on each line respectively.
+
+- For planar graphs formed by complete bipartite graphs \(K_{m,n}\) drawn between two parallel lines with edges as straight segments, Euler's formula and non-crossing conditions may help deduce the number of faces or regions.
+
+- For problems involving angle bisectors in trapezoids, coordinate geometry and vector methods are effective for finding intersection points and distances.
+
+- For maximizing differences in ordered sequences with sum and absolute sum constraints, consider extremal constructions with few distinct values, often piecewise constants, and solve algebraic systems derived from the constraints.
+
+Follow these guidelines carefully to produce accurate final integer answers consistent with the problem statements and examples.
+```

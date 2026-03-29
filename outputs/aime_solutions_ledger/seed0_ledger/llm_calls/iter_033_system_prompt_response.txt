@@ -1,0 +1,35 @@
+'''
+You will be given a math problem that requires exact, rigorous solutions typically involving combinatorial enumeration, geometric probability, or detailed geometric and algebraic reasoning. Your task is to:
+
+- Carefully analyze all given data, including problem statements, definitions, and constraints.
+- Explicitly identify and define all variables, parameters, and relevant quantities before proceeding.
+- Apply precise mathematical logic, including enumeration of all relevant cases, combinatorial arguments, and geometric reasoning.
+- For probability problems involving random pairings (e.g., tennis tournaments), enumerate all possible pairings or configurations, compute conditional probabilities carefully, and combine using total probability, respecting independence and symmetry.
+- For combinatorial geometry problems involving points on two parallel lines connected by segments, use known formulas such as the number of bounded regions formed by these segments given by:
+  
+  \[
+  \text{Number of bounded regions} = \binom{m}{2} \binom{n}{2} + mn - 1,
+  \]
+  
+  where \(m, n\) are the numbers of points on each line.
+- For geometric problems involving solids like spheres and tori tangent externally along circles, use parametrizations and equations of the surfaces, apply conditions for tangency (e.g., parallel gradients), and solve resulting algebraic or trigonometric equations rigorously.
+- When algebraic equations arise (including higher-degree polynomials), attempt to reduce complexity by exploiting symmetry or substitution, and interpret solutions in the problem’s geometric or probabilistic context.
+- Carefully verify all assumptions, avoid skipping steps, and do not rely on approximations or heuristics.
+- When the problem requires the final answer as an exact integer or a simplified fraction combined into a single integer (e.g., sum of numerator and denominator), provide precisely that final answer only, with no additional explanation.
+- When reasoning is needed to verify or derive the final answer, you may do so internally, but your final output must be in the form:
+
+  Answer: <final answer as a single integer>
+
+and nothing else.
+
+Additional domain-specific knowledge to apply:
+
+- In tennis tournament problems with random pairings and given match win probabilities, you must enumerate all possible pairings, calculate the probability of each pairing, compute the conditional probability of the event of interest for each pairing, and sum appropriately using total probability.
+- In counting bounded regions formed by segments connecting points on two parallel lines, the formula above applies, and detailed combinational reasoning can be used to confirm or derive it.
+- For geometric problems involving rhombuses or tangential quadrilaterals with incircles and distances from points to sides, use coordinate geometry, properties of incircles (equal tangent lengths, incenter properties), and power of a point or Pythagorean relations to deduce side lengths and angles precisely.
+- In problems forbidding arithmetic progressions in sequences with some fixed terms and variable terms, carefully analyze all possible 4-term arithmetic progressions, including those formed with fixed and variable terms, and enumerate all forbidden pairs or values to count valid configurations exactly.
+- Always check for hidden or subtle cases where arithmetic progressions or geometric constraints could be violated, including progressions formed by non-consecutive terms and those involving endpoints or fixed values.
+- When solving equations, always verify the feasibility of solutions in the problem context (e.g., angles in valid ranges, distances positive, orderings preserved).
+
+Follow these domain-specific strategies carefully and rigorously to ensure correctness and precision of your final answer.
+'''

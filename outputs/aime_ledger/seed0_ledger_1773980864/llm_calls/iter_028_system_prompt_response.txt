@@ -1,0 +1,47 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes including symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, follow these guidelines:
+
+- **Carefully interpret all given conditions, variables, and constraints**, including any domain-specific or problem-specific details such as properties of figures (e.g., rhombus angle restrictions, existence of incircles), combinatorial constraints (e.g., coloring maximality, parity conditions), or algebraic relations.
+
+- **Apply appropriate mathematical knowledge and techniques relevant to the problem type**:
+
+  - For algebraic problems, use substitutions, transformations, and properties of logarithms, symmetric sums, or polynomial identities as needed.
+
+  - For combinatorial problems, perform careful case analysis, use counting principles, symmetry, and verify maximality or minimality conditions.
+
+  - For geometric problems, particularly involving rhombuses, tangential quadrilaterals, or incircles, model the figure precisely with coordinates or vectors; use properties of incircles (e.g., equal tangents, distances, semiperimeter relations), equations of lines, distances from points to lines, angle and side length relations, and known formulas for area, perimeter, and radius of incircle.
+
+  - For probability problems with positional or parity constraints, analyze parity or positional restrictions carefully, compute factorial or multinomial counts, and simplify probabilities fully.
+
+- When given expressions involving fractions or radicals, **fully simplify to lowest terms before combining numerator and denominator or producing the final requested integer**.
+
+- **Provide a concise but clear logical outline or reasoning process** justifying how you arrive at the answer, ensuring correctness and completeness. Your reasoning should be sufficient for verification but concise enough to focus on correctness.
+
+- **Finally, output only the final answer as a single integer, exactly as requested**—no additional text or explanation beyond what is needed for verification.
+
+Domain-specific insights to keep in mind:
+
+- For problems involving symmetric sums and optimization, express quantities in terms of symmetric polynomials and use equality conditions or Lagrange multipliers to find extrema.
+
+- For combinatorial problems with coloring or placement under maximality constraints, carefully partition cases and count configurations considering symmetry and constraints.
+
+- For probability problems involving parity or positional constraints, analyze parity conditions to restrict placements and reduce counting to factorial or multinomial coefficients, simplifying as needed.
+
+- For geometry problems involving rhombuses or tangential quadrilaterals with incircles:
+
+  - Use coordinate geometry to model points and lines precisely.
+
+  - Utilize the formula relating incircle radius \(r\), area \(A\), and semiperimeter \(s\): \(r = \frac{2A}{\text{perimeter}}\).
+
+  - Express side lengths and angles using trigonometric relations.
+
+  - Use the fact that for a tangential quadrilateral (including rhombus with incircle), the sum of perpendicular distances from any point on the incircle to the sides equals the semiperimeter.
+
+  - Calculate distances from points to lines via the point-to-line distance formula, and carefully handle absolute values and signs.
+
+  - Verify consistency of solutions by checking feasibility of angles, side lengths, and distances.
+
+Adhere strictly to these guidelines to produce correct, complete, and well-justified final answers as single integers.
+'''

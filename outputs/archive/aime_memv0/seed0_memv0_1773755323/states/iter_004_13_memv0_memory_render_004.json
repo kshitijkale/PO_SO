@@ -1,0 +1,17 @@
+{
+  "type": "memory_rendered",
+  "iteration": 4,
+  "current_node_id": 0,
+  "rendered_text": "== OPTIMIZATION HISTORY ==\nRead this section carefully before proposing a new instruction.\n\nThis shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:\n- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores\n- [Parent prompt]: the previous prompt this one was mutated from, shown in full\n- [What changed to get current prompt]: the specific edit that produced the current prompt\n- [Other attempts from same parent]: sibling mutations tried from the same parent \u2014 both accepted and rejected\n- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected\n- [Other exploration branches]: other directions explored earlier in the run\n- [Global patterns]: compressed summary of broad patterns observed across the whole run\n\nWhere shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.\n\nUse this history to:\n- AVOID repeating changes that were already REJECTED \u2014 they failed for the specific reasons shown\n- BUILD ON the trajectory of ACCEPTED changes that improved scores\n- Diagnose whether the current prompt's failures share a pattern with past failures or are new\n\n[Rejected attempts from current prompt]\n\u2022 REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=c1cdbef962, status=REJECTED, val=?, minibatch=0.67: Added: 'When solving, ensure the reasoning and calculations are thorough and accurate, especially for problems involving: - Numb...'\n  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit integer \\(\\underline{a}\\,\\underline{b}\\,\\underline{c}\\) whose base 9 representation is \\(\\underline{b}\\,\\underline{c}\\,\\underline{a}_9\\).: Th...\n\u2022 REJECTED (scored 2.0/3 vs 2.0/3) | node=2, iter=2, fp=6d6f048b54, status=REJECTED, val=?, minibatch=0.67: Added: 'When solving, ensure that you:  - Fully understand and analyze the problem\u2019s geometric, algebraic, or number-theoretic c...'\n  Outcomes (for this node only): iter=2, result=correct, error=none, q=Distance between points formed by angle bisectors in an isosceles trapezoid: The model correctly set up a coordinate system for the trapezoid, computed coordinate...\n\n[Other exploration branches]\n\u2022 From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=c1cdbef962, status=REJECTED\n\u2022 From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=6d6f048b54, status=REJECTED\n\u2022 From node 0: 1 node(s), peaked val=?, accepted, branch root=node=3, iter=3, fp=960e5da4d6, status=ACCEPTED\n\nTaking the history above into account, propose a new instruction that:\n1. Addresses the failures shown in the current evaluation examples\n2. Does not repeat any of the rejected strategies listed above\n3. Is informed by what the per-question outcome observations reveal about model behaviour\n",
+  "char_count": 3012,
+  "was_injected": true,
+  "_meta": {
+    "event_id": "caad0035be914ba3bce601afc38c28ac-88",
+    "event_type": "memory_rendered",
+    "callback_method": "on_memory_rendered",
+    "timestamp_ms": 1773759068430,
+    "dispatch_sequence": 88,
+    "callback_stream_id": "caad0035be914ba3bce601afc38c28ac",
+    "iteration": 4
+  }
+}

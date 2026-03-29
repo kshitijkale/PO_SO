@@ -1,0 +1,67 @@
+{
+  "type": "memory_tree_updated",
+  "iteration": 1,
+  "operation": "add_outcomes",
+  "node_id": 0,
+  "parent_id": null,
+  "accepted": null,
+  "rejection_reason": "",
+  "prompt": {
+    "system_prompt": "Solve the problem and provide the answer provide the final answer as a single integer."
+  },
+  "outcomes_added": [
+    {
+      "question_summary": "Number of bounded regions formed by segments between points on two parallel lines",
+      "result": "incorrect",
+      "observation": "The model focused on deriving a formula for the number of bounded regions formed by connecting points on two parallel lines with non-crossing segments. It repeatedly tested and rejected various formulas, finally settling on the classic formula \\((m-1)(n-1)\\). The model also attempted to use Euler\u2019s formula but inconsistently counted edges and faces. It ultimately ignored the problem\u2019s explicit example (8 regions for \\(m=3, n=2\\)) and concluded with the simple formula, producing 24 for \\(m=7, n=5\\).",
+      "error_type": "interpretation",
+      "score": 0.0,
+      "iteration": 1
+    }
+  ],
+  "val_score": null,
+  "evicted_count": 0,
+  "new_node_summary": "",
+  "tree_node_count": 1,
+  "tree_snapshot": {
+    "root_id": 0,
+    "global_summary": "",
+    "outcome_eviction_k": 10,
+    "nodes": {
+      "0": {
+        "node_id": 0,
+        "prompt": {
+          "system_prompt": "Solve the problem and provide the answer provide the final answer as a single integer."
+        },
+        "parent_id": null,
+        "children_ids": [],
+        "accepted": true,
+        "val_score": 0.0,
+        "minibatch_score": null,
+        "outcomes": [
+          {
+            "question_summary": "Number of bounded regions formed by segments between points on two parallel lines",
+            "result": "incorrect",
+            "observation": "The model focused on deriving a formula for the number of bounded regions formed by connecting points on two parallel lines with non-crossing segments. It repeatedly tested and rejected various formulas, finally settling on the classic formula \\((m-1)(n-1)\\). The model also attempted to use Euler\u2019s formula but inconsistently counted edges and faces. It ultimately ignored the problem\u2019s explicit example (8 regions for \\(m=3, n=2\\)) and concluded with the simple formula, producing 24 for \\(m=7, n=5\\).",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 1
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 1,
+        "rejection_reason": ""
+      }
+    },
+    "edges": []
+  },
+  "_meta": {
+    "event_id": "05a3d3f0308140ca81ddd809bd895a82-13",
+    "event_type": "memory_tree_updated",
+    "callback_method": "on_memory_tree_updated",
+    "timestamp_ms": 1773681715990,
+    "dispatch_sequence": 13,
+    "callback_stream_id": "05a3d3f0308140ca81ddd809bd895a82",
+    "iteration": 1
+  }
+}

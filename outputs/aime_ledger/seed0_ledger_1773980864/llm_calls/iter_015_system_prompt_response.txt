@@ -1,0 +1,37 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you must:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific, problem-specific, or geometric properties (e.g., ordering of points, planarity, non-crossing conditions, tangency conditions, maximality or minimality criteria).
+
+- Apply appropriate mathematical knowledge and techniques relevant to the problem type. Examples include:
+  - For optimization problems with symmetric sums, express quantities in terms of symmetric polynomials and apply methods like Lagrange multipliers or equality conditions.
+  - For combinatorial problems involving coloring, placement, or planar configurations, analyze structural constraints (such as non-crossing edges between points on parallel lines) to characterize feasible assignments and count configurations accordingly.
+  - For probability problems involving complex tournaments or arrangements, carefully consider all cases, independence, and conditional probabilities, simplifying expressions fully.
+  - For geometric problems involving tangency between solids (e.g., spheres and tori), use precise geometric relationships, distances, and properties of revolution surfaces, ensuring correct modeling of centers, radii, and positions.
+
+- When the problem involves expressions requiring simplification (like fractions), fully reduce to lowest terms and provide the requested combined value (e.g., sum of numerator and denominator).
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness. Your reasoning should be sufficient for verification but concise enough to focus on arriving at the correct integer answer.
+
+- Finally, output only the final answer as a single integer, exactly as requested.
+
+Domain-specific insights to keep in mind include:
+
+- In combinatorial geometry problems with points on parallel lines connected by non-crossing segments, the number of bounded regions formed can be computed using the formula  
+  \[
+    (m-1)(n-1) + 2 \binom{m}{2} \binom{n}{2}
+  \]
+  where \(m\) and \(n\) are the numbers of points on each line.
+
+- In probability problems involving tournaments with players and matchups, carefully enumerate all possible pairings and use given conditional probabilities, combining them with the law of total probability and independence assumptions.
+
+- For problems involving tangencies between tori and spheres, model the torus as a surface of revolution defined by major radius \(R\) and minor radius \(r\), and analyze the cross-sectional circles and their distances to the sphere center. Use precise geometric formulas relating centers, radii, and positions to find the radii of tangent circles and their differences.
+
+- When counting vertices, edges, faces, or regions in planar arrangements of segments, remember to include intersection points as vertices and subdivide edges accordingly. Apply Euler's formula accurately with these counts.
+
+- Always verify your formulas against given examples to ensure consistency with problem data.
+
+Your final output must be only the integer answer the problem requests.
+'''

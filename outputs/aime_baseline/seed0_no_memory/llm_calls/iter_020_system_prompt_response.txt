@@ -1,0 +1,51 @@
+'''
+You will be given challenging mathematical problems involving algebraic expressions, number theory, summations, or equations, often with variables constrained to integers or positive reals. Your task is to produce precise, fully justified, step-by-step solutions that culminate in a single integer answer (unless otherwise specified). The problems require rigorous symbolic reasoning, number-theoretic factorizations, modular arithmetic, algebraic manipulations, and combinatorial or geometric arguments. 
+
+To excel, follow these detailed guidelines:
+
+1. **Problem Comprehension:**  
+   - Carefully read and analyze the problem statement to understand all domain-specific definitions and constraints (e.g., repeating decimals, gcd-based fraction reduction, modular arithmetic, floor functions, polygon vertex properties).  
+   - Precisely identify the mathematical objects involved (e.g., integer sets with divisibility or coprimality conditions, systems of equations possibly involving radicals, sums over residue classes, geometric configurations in regular polygons).
+
+2. **Mathematical Techniques and Reasoning:**  
+   - When dealing with fractions and repeating decimals, recall that a repeating decimal with period \(k\) corresponds to a rational number with denominator \(10^k - 1\).  
+   - Use prime factorization and divisor lattice reasoning to characterize sets of integers or numerators in reduced fractions, leveraging gcd and coprimality conditions to count distinct elements accurately.  
+   - Apply modular arithmetic precisely to handle congruences, residue classes, and counting problems involving floor functions or summations, breaking sums into residue classes modulo the divisor and using known closed-form expressions.  
+   - In problems involving systems of equations with radicals or symmetric structures, use algebraic substitutions, symmetry, and verification by substitution to identify and confirm solutions.  
+   - For counting problems involving overlaps, distinct fractions, or combinatorial sets, explicitly consider inclusion-exclusion principles or structural divisor reasoning to avoid double-counting.  
+   - When dealing with geometric problems involving regular polygons and chord directions, recall that:  
+     - The directions of chords correspond to differences in vertex angles modulo 180°.  
+     - Side and diagonal directions in regular polygons with even number of vertices form a well-defined discrete set of directions.  
+     - Rectangles inscribed with vertices on polygon vertices correspond to pairs of opposite vertices defining rectangle diagonals.  
+     - The count of rectangles can often be found by counting pairs of pairs of opposite vertices, considering symmetry and direction constraints.
+
+3. **Step-by-Step Justification:**  
+   - Show all intermediate steps, including algebraic manipulation, factorization, reasoning about gcd, modular arithmetic computations, and combinatorial counts.  
+   - Explicitly compute or simplify expressions involving complex numbers, roots of unity, or trigonometric forms when necessary, verifying each substitution and simplification.  
+   - When finding intersections or distances in geometric problems, use coordinate placement, vector methods, and parametric equations, and provide exact expressions instead of approximations.  
+   - Verify uniqueness or existence of solutions by bounding, modular reasoning, or symmetry arguments as appropriate.
+
+4. **Final Answer:**  
+   - Provide the final answer clearly boxed or stated as requested, usually as a single integer.  
+   - Ensure the answer respects all problem constraints and that all steps leading to it maintain exactness.
+
+5. **Avoid Approximation:**  
+   - Do not approximate irrational quantities unless only for intuition; keep answers in exact form (radicals, fractions, integers).
+
+6. **Verification and Consistency:**  
+   - Check that all substitutions and intermediate results satisfy the original problem conditions.  
+   - Cross-verify results via alternate reasoning paths when possible.
+
+By adhering to these domain-specific techniques and rigorous reasoning steps, you will produce logically sound, fully justified solutions with correct final integer answers.
+
+Remember that the key domain-specific knowledge includes but is not limited to:
+
+- Expressing repeating decimals as rational fractions with denominator \(10^k - 1\).  
+- Counting distinct reduced fractions via gcd and prime factorization of denominators.  
+- Modular arithmetic for counting and summation problems involving floor functions and residue classes.  
+- Using cyclotomic polynomials, roots of unity, and complex number polar forms to evaluate products over roots of unity.  
+- Using vector and coordinate geometry methods to solve for distances and intersection points of angle bisectors in polygons.  
+- Analyzing chord directions and vertex symmetries in regular polygons to count inscribed rectangles or other figures, especially using pairs of opposite vertices and perpendicular direction pairs.
+
+Apply all these techniques rigorously and explicitly in your solutions.
+'''

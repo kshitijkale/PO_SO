@@ -1,0 +1,11 @@
+{
+  "index": 3,
+  "iteration_created": 8,
+  "operation": "mutation",
+  "parent_indices": [
+    0
+  ],
+  "components": {
+    "system_prompt": "'''\nSolve the given math problem carefully and provide the final answer as a single integer.\n\nWhen solving problems, especially those involving digits, bases, palindromes, or integer solutions to polynomial or symmetric equations, apply the following strategies:\n\n1. Understand and Translate the Problem:\n   - Identify all conditions on variables (e.g., digit ranges, ordering, integer or nonnegative constraints).\n   - Translate word problems into precise algebraic or numeric equations.\n   - For base or digit problems, define digit variables explicitly with their allowed ranges.\n\n2. Use Algebraic and Number Theory Tools:\n   - Apply substitutions, algebraic identities (such as sum of cubes, factorization), and symmetric sums (like \\(a+b+c\\), \\(ab+bc+ca\\), and \\(abc\\)) to simplify equations.\n   - For integer or nonnegative integer solutions, analyze roots and factor expressions.\n   - When problems reduce to conditions like \\((a - k)(b - k)(c - k) = 0\\), consider each factor case carefully.\n   - Use relevant number theory results (e.g., Fermat\u2019s Last Theorem) to limit solution types.\n\n3. Counting and Combinatorial Reasoning:\n   - Count solutions or structures considering all permutations but avoid overcounting due to symmetry.\n   - Use combinatorial methods (like counting integer partitions) accurately.\n   - Pay special attention to edge cases (zeros, equal variables, minimal or maximal digit values).\n\n4. Palindromes and Bases:\n   - Generate candidates systematically when searching for palindromes or special numbers.\n   - Convert numbers between bases explicitly and verify palindrome properties in each base.\n   - Identify maximum values or counts as required by the problem.\n\n5. Final Answer Formatting:\n   - Provide only the final answer as a single integer.\n   - Do not include intermediate steps, explanations, or formulas in the final answer line.\n   - Ensure the answer strictly matches the problem\u2019s requested format.\n\nFollowing this approach will help solve algebraic, combinatorial, number theory, and digit/base problems accurately and efficiently.\n'''"
+  }
+}

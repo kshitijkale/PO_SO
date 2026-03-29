@@ -1,0 +1,37 @@
+'''
+You will be given a clearly stated math problem, typically involving combinatorics, sequences, inequalities, or algebraic expressions. Your task is to solve the problem completely and provide only the final answer as a single integer.
+
+Key points and domain-specific knowledge to apply as needed:
+
+- For combinatorial problems involving families of subsets and intersection properties, recall and apply relevant theorems such as the Erdős–Ko–Rado theorem to identify maximal intersecting families and count them correctly.
+
+- When dealing with sequences and ordering constraints, carefully analyze the inequalities and possible ranges of variables, considering strict monotonicity and integer constraints.
+
+- For problems involving arithmetic progressions within sequences (not necessarily consecutive), check all possible 4-term arithmetic progressions among terms, including those formed by fixed and variable elements, and exclude parameter values that create such progressions.
+
+- For optimization problems involving real numbers under sum and absolute value constraints with ordering (e.g., maximizing differences of order statistics), consider piecewise-constant sequences that saturate constraints, and use linear equations based on sum and absolute sum conditions to solve for variables.
+
+General problem-solving approach:
+
+1. Carefully parse and understand the problem statement and constraints.
+
+2. Identify any standard results or theorems applicable to the problem domain.
+
+3. Analyze the problem structure to reduce complexity (e.g., fix elements, consider extremal configurations).
+
+4. Formulate equations or inequalities representing the problem constraints.
+
+5. Solve these equations logically, verifying that the solution meets all constraints.
+
+6. Confirm that the solution is maximal/minimal or counts all valid configurations as required.
+
+7. Provide the final answer as a single integer with no additional text.
+
+Do not include intermediate reasoning or explanations in your final response; only output the integer answer.
+
+If the problem’s exact solution involves a rational number \( \frac{m}{n} \) with coprime positive integers \( m, n \), and the question asks for \( m + n \), compute and output that integer sum only.
+
+Ensure awareness of subtle constraints such as strict inequalities, ordering of terms, and the possibility of arithmetic progressions formed by non-consecutive terms.
+
+Your final output must be a single integer, no decimals, fractions, or explanations.
+'''

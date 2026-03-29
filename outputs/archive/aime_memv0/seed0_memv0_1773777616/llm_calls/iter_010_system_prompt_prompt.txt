@@ -1,0 +1,842 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Two externally tangent circles $\omega_1$ and $\omega_2$ have centers $O_1$ and $O_2$, respectively. A third circle $\Omega$ passing through $O_1$ and $O_2$ intersects $\omega_1$ at $B$ and $C$ and $\omega_2$ at $A$ and $D$, as shown. Suppose that $AB = 2$, $O_1O_2 = 15$, $CD = 16$, and $ABO_1CDO_2$ is a convex hexagon. Find the area of this hexagon.
+
+## Generated Outputs
+Answer: 120
+Reasoning: We are given two externally tangent circles \( \omega_1 \) and \( \omega_2 \) with centers \( O_1 \) and \( O_2 \), respectively, and a third circle \( \Omega \) passing through \( O_1 \) and \( O_2 \). The circle \( \Omega \) intersects \( \omega_1 \) at points \( B \) and \( C \), and \( \omega_2 \) at points \( A \) and \( D \). The hexagon \( AB O_1 C D O_2 \) is convex, and we know \( AB = 2 \), \( O_1 O_2 = 15 \), and \( CD = 16 \). We want to find the area of this hexagon.
+
+**Step 1: Understand the configuration**
+- \( \omega_1 \) and \( \omega_2 \) are tangent externally at some point (not necessarily one of the given points).
+- \( O_1 O_2 = 15 \).
+- The circle \( \Omega \) passes through \( O_1 \) and \( O_2 \), so \( O_1 \) and \( O_2 \) lie on \( \Omega \).
+- \( \Omega \) intersects \( \omega_1 \) at \( B \) and \( C \), and \( \omega_2 \) at \( A \) and \( D \).
+- The hexagon is \( A B O_1 C D O_2 \) in that order.
+
+**Step 2: Key observations**
+- Since \( B, C \) lie on both \( \omega_1 \) and \( \Omega \), and \( A, D \) lie on both \( \omega_2 \) and \( \Omega \), the points \( A, B, C, D \) lie on \( \Omega \).
+- The points \( O_1 \) and \( O_2 \) also lie on \( \Omega \).
+
+Therefore, the points \( A, B, O_1, C, D, O_2 \) all lie on the circle \( \Omega \).
+
+**Step 3: Use the fact that all six points lie on \( \Omega \)**
+- The hexagon \( A B O_1 C D O_2 \) is cyclic.
+
+**Step 4: Use the given lengths**
+- \( AB = 2 \)
+- \( CD = 16 \)
+- \( O_1 O_2 = 15 \)
+
+**Step 5: Consider the chords on \( \Omega \)**
+- Chords \( AB \), \( BC \), \( CD \), \( DO_2 \), \( O_2 A \), etc., but the hexagon is \( A B O_1 C D O_2 \), so the sides are:
+  - \( AB = 2 \)
+  - \( B O_1 \)
+  - \( O_1 C \)
+  - \( C D = 16 \)
+  - \( D O_2 \)
+  - \( O_2 A = 15 \) (since \( O_1 O_2 = 15 \) and the hexagon includes \( O_2 A \))
+
+Wait, the hexagon is \( A B O_1 C D O_2 \), so the sides are:
+- \( AB = 2 \)
+- \( B O_1 \)
+- \( O_1 C \)
+- \( C D = 16 \)
+- \( D O_2 \)
+- \( O_2 A \)
+
+But \( O_1 O_2 = 15 \), not \( O_2 A \). So \( O_2 A \) is unknown.
+
+**Step 6: Use the fact that \( \omega_1 \) and \( \omega_2 \) are tangent externally**
+- The distance between centers is \( O_1 O_2 = 15 \).
+- Let the radius of \( \omega_1 \) be \( r_1 \), and the radius of \( \omega_2 \) be \( r_2 \).
+- Since they are tangent externally, \( r_1 + r_2 = 15 \).
+
+**Step 7: Points \( B, C \) lie on \( \omega_1 \), so \( B, C \) lie on circle centered at \( O_1 \) with radius \( r_1 \).
+- Similarly, \( A, D \) lie on \( \omega_2 \) with radius \( r_2 \).
+
+**Step 8: Since \( B, C \) lie on both \( \omega_1 \) and \( \Omega \), the chord \( BC \) is the intersection of \( \omega_1 \) and \( \Omega \).
+- Similarly, \( A, D \) is the chord of intersection of \( \omega_2 \) and \( \Omega \).
+
+**Step 9: Use power of point or chord length relations**
+- The chord length in a circle is related to the radius and the distance from the center to the chord.
+
+For circle \( \omega_1 \) with center \( O_1 \) and radius \( r_1 \), chord \( BC \) has length 16.
+- The distance from \( O_1 \) to chord \( BC \) is \( h_1 \), so:
+  \[ BC = 2 \sqrt{r_1^2 - h_1^2} = 16 \implies \sqrt{r_1^2 - h_1^2} = 8 \implies r_1^2 - h_1^2 = 64. \]
+
+Similarly, for \( \omega_2 \) with radius \( r_2 \), chord \( AB = 2 \), so:
+  \[ AB = 2 \sqrt{r_2^2 - h_2^2} = 2 \implies \sqrt{r_2^2 - h_2^2} = 1 \implies r_2^2 - h_2^2 = 1. \]
+
+**Step 10: Since \( \Omega \) passes through \( O_1 \) and \( O_2 \), the chords \( BC \) and \( AD \) are chords of \( \Omega \) intersecting at \( O_1 \) and \( O_2 \) respectively.
+
+**Step 11: Use the fact that \( O_1 \) and \( O_2 \) lie on \( \Omega \), so the hexagon is cyclic. We can use Brahmagupta's formula for cyclic hexagon area, but it's complicated. Instead, consider splitting the hexagon into triangles.**
+
+**Step 12: Split the hexagon into four triangles:**
+- \( \triangle A B O_1 \)
+- \( \triangle B O_1 C \)
+- \( \triangle C D O_2 \)
+- \( \triangle D O_2 A \)
+
+But the hexagon is \( A B O_1 C D O_2 \), so the polygon is formed by these points in order.
+
+**Step 13: Use the fact that \( O_1 \) and \( O_2 \) are centers of circles \( \omega_1 \) and \( \omega_2 \), and the chords \( BC \) and \( AD \) lie on \( \Omega \).**
+
+**Step 14: Use the fact that the hexagon is convex and cyclic, and the points lie on \( \Omega \). The area of the hexagon can be found by the sum of areas of triangles \( A B O_1 \), \( B O_1 C \), \( C D O_2 \), and \( D O_2 A \).**
+
+**Step 15: Use the fact that \( O_1 \) and \( O_2 \) are centers, so \( O_1 B = O_1 C = r_1 \), and \( O_2 A = O_2 D = r_2 \).**
+
+**Step 16: Use the chord lengths and the distances from centers to chords to find the heights in these triangles.**
+
+**Step 17: Calculate the area of \( \triangle B O_1 C \):**
+- Base \( BC = 16 \)
+- Height is the distance from \( O_1 \) to chord \( BC \), which is \( h_1 \).
+- Area = \( \frac{1}{2} \times 16 \times h_1 = 8 h_1 \).
+
+**Step 18: Calculate the area of \( \triangle A B O_1 \):**
+- Points \( A, B, O_1 \) lie on \( \Omega \).
+- We know \( AB = 2 \), \( O_1 B = r_1 \), and \( O_1 A \) is unknown.
+
+Similarly for \( \triangle C D O_2 \) and \( \triangle D O_2 A \).
+
+**Step 19: Since the problem is symmetric and the hexagon is cyclic, the area of the hexagon is equal to the sum of the areas of \( \triangle B O_1 C \) and \( \triangle A D O_2 \) plus the area of quadrilateral \( A B O_1 C D O_2 \) minus the overlapping parts. This is complicated.
+
+**Step 20: Use the fact that the hexagon is cyclic and the points are on \( \Omega \), and the chords \( AB = 2 \), \( CD = 16 \), and \( O_1 O_2 = 15 \). The problem is a classic one where the area of the hexagon is \( 120 \).
+
+**Final answer:**
+
+The area of the hexagon \( AB O_1 C D O_2 \) is \( \boxed{120} \).
+
+## Feedback
+Your answer is incorrect. The correct answer is 140.
+
+
+
+# Example 2
+## Inputs
+Problem: Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## Generated Outputs
+Answer: 154
+Reasoning: Let the initial total number of people at the concert be \( T \).
+The number of adults initially is \(\frac{5}{12}T\).
+
+After the bus arrives, the total number of people is \( T + 50 \).
+The number of adults remains the same (since the problem does not say any adults arrived on the bus), so the number of adults is still \(\frac{5}{12}T\).
+
+After the bus arrives, adults make up \(\frac{11}{25}\) of the crowd:
+\[
+\frac{5}{12}T = \frac{11}{25}(T + 50)
+\]
+
+Multiply both sides by 300 (the least common multiple of 12 and 25) to clear denominators:
+\[
+300 \times \frac{5}{12}T = 300 \times \frac{11}{25}(T + 50)
+\]
+\[
+25 \times 5 T = 12 \times 11 (T + 50)
+\]
+\[
+125 T = 132 (T + 50)
+\]
+\[
+125 T = 132 T + 6600
+\]
+\[
+125 T - 132 T = 6600
+\]
+\[
+-7 T = 6600
+\]
+\[
+T = -\frac{6600}{7}
+\]
+
+This is negative, which is impossible for the number of people. This suggests that the adults on the bus must be included.
+
+Let the number of adults on the bus be \( x \).
+
+Then, initially:
+- Adults: \(\frac{5}{12} T\)
+- Total: \( T \)
+
+After bus arrives:
+- Adults: \(\frac{5}{12} T + x\)
+- Total: \( T + 50 \)
+
+Given:
+\[
+\frac{\frac{5}{12} T + x}{T + 50} = \frac{11}{25}
+\]
+
+Cross-multiplied:
+\[
+25 \left(\frac{5}{12} T + x\right) = 11 (T + 50)
+\]
+\[
+25 \times \frac{5}{12} T + 25 x = 11 T + 550
+\]
+\[
+\frac{125}{12} T + 25 x = 11 T + 550
+\]
+
+Bring terms involving \( T \) to one side:
+\[
+25 x = 11 T + 550 - \frac{125}{12} T
+\]
+\[
+25 x = 11 T - \frac{125}{12} T + 550
+\]
+\[
+25 x = \left(11 - \frac{125}{12}\right) T + 550
+\]
+\[
+11 = \frac{132}{12}
+\]
+\[
+11 - \frac{125}{12} = \frac{132}{12} - \frac{125}{12} = \frac{7}{12}
+\]
+So:
+\[
+25 x = \frac{7}{12} T + 550
+\]
+\[
+x = \frac{7}{300} T + 22
+\]
+
+Since \( x \) is the number of adults on the bus, it must be an integer between 0 and 50 (since the bus carries 50 people).
+
+Also, the initial number of adults \(\frac{5}{12} T\) must be an integer (number of people).
+
+Similarly, the total number of people \( T \) must be an integer.
+
+Let’s set:
+\[
+A = \frac{5}{12} T
+\]
+where \( A \) is an integer.
+
+Then:
+\[
+T = \frac{12}{5} A
+\]
+
+Substitute into the expression for \( x \):
+\[
+x = \frac{7}{300} \times \frac{12}{5} A + 22 = \frac{7 \times 12}{300 \times 5} A + 22 = \frac{84}{1500} A + 22 = \frac{14}{250} A + 22
+\]
+
+We want \( x \) to be an integer between 0 and 50.
+
+So:
+\[
+x = \frac{14}{250} A + 22
+\]
+
+Rearranged:
+\[
+x - 22 = \frac{14}{250} A
+\]
+\[
+A = \frac{250}{14} (x - 22) = \frac{125}{7} (x - 22)
+\]
+
+Since \( A \) must be an integer, \(\frac{125}{7} (x - 22)\) must be integer.
+
+Note that 125 and 7 are coprime, so for \( A \) to be integer, \( (x - 22) \) must be divisible by 7.
+
+Let:
+\[
+x - 22 = 7 k \implies x = 22 + 7 k
+\]
+
+Since \( x \) is between 0 and 50:
+\[
+0 \leq 22 + 7 k \leq 50
+\]
+\[
+-22 \leq 7 k \leq 28
+\]
+\[
+- \frac{22}{7} \leq k \leq 4
+\]
+
+Since \( k \) is integer, \( k \in \{-3, -2, -1, 0, 1, 2, 3, 4\} \).
+
+Calculate \( A \) for these values:
+
+\[
+A = \frac{125}{7} \times 7 k = 125 k
+\]
+
+Because:
+\[
+A = \frac{125}{7} (x - 22) = \frac{125}{7} \times 7 k = 125 k
+\]
+
+So \( A = 125 k \).
+
+Since \( A \) is the number of adults initially, it must be positive.
+
+Check values of \( k \):
+
+- For \( k = -3 \), \( A = -375 \) (invalid)
+- For \( k = -2 \), \( A = -250 \) (invalid)
+- For \( k = -1 \), \( A = -125 \) (invalid)
+- For \( k = 0 \), \( A = 0 \) (no adults, invalid)
+- For \( k = 1 \), \( A = 125 \)
+- For \( k = 2 \), \( A = 250 \)
+- For \( k = 3 \), \( A = 375 \)
+- For \( k = 4 \), \( A = 500 \)
+
+Now, calculate \( T \) for these \( A \):
+\[
+T = \frac{12}{5} A = \frac{12}{5} \times 125 k = 300 k
+\]
+
+Calculate \( x \):
+\[
+x = 22 + 7 k
+\]
+
+Check \( x \leq 50 \):
+
+- \( k=1 \): \( x=29 \), valid
+- \( k=2 \): \( x=36 \), valid
+- \( k=3 \): \( x=43 \), valid
+- \( k=4 \): \( x=50 \), valid
+
+Now, the number of adults after the bus arrives is:
+\[
+A + x = 125 k + (22 + 7 k) = 125 k + 22 + 7 k = 132 k + 22
+\]
+
+We want the minimum number of adults after the bus arrives, so pick the smallest valid \( k \), which is \( k=1 \):
+
+\[
+\text{Adults after bus} = 132 \times 1 + 22 = 154
+\]
+
+Therefore, the minimum number of adults after the bus arrived is 154.
+
+## Feedback
+Your answer is correct. The correct answer is 154.
+
+
+
+# Example 3
+## Inputs
+Problem: Find the number of cubic polynomials $p(x) = x^3 + ax^2 + bx + c,$ where $a, b,$ and $c$ are integers in $\{-20,-19,-18,\ldots,18,19,20\},$ such that there is a unique integer $m \not= 2$ with $p(m) = p(2).$
+
+## Generated Outputs
+Answer: 328
+Reasoning: We are given a cubic polynomial 
+\[ p(x) = x^3 + a x^2 + b x + c \]
+with integer coefficients \(a,b,c \in \{-20, \ldots, 20\}\).
+
+We want to find the number of such polynomials for which there exists a unique integer \(m \neq 2\) such that 
+\[ p(m) = p(2). \]
+
+---
+
+**Step 1: Reformulate the problem**
+
+Define the polynomial 
+\[ q(x) = p(x) - p(2). \]
+Then \(q(2) = 0\), so \(x=2\) is a root of \(q(x)\).
+
+We want exactly one other integer root \(m \neq 2\) of \(q(x)\), and no other integer roots.
+
+Since \(p\) is cubic, \(q\) is cubic with leading coefficient 1 (same as \(p\)) and constant term adjusted so that \(q(2)=0\).
+
+---
+
+**Step 2: Factorization of \(q(x)\)**
+
+Since \(q(2) = 0\), \(x=2\) is a root, so
+\[ q(x) = (x-2)(x^2 + A x + B) \]
+for some integers \(A, B\).
+
+Expanding:
+\[
+q(x) = x^3 + A x^2 + B x - 2 x^2 - 2 A x - 2 B = x^3 + (A - 2) x^2 + (B - 2 A) x - 2 B.
+\]
+
+Comparing with \(q(x) = p(x) - p(2) = x^3 + a x^2 + b x + c - p(2)\), the coefficients of \(q\) are:
+\[
+\text{leading coefficient} = 1,
+\]
+\[
+\text{coefficient of } x^2 = a,
+\]
+\[
+\text{coefficient of } x = b,
+\]
+\[
+\text{constant term} = c - p(2).
+\]
+
+From the factorization:
+\[
+a = A - 2,
+\]
+\[
+b = B - 2 A,
+\]
+\[
+c - p(2) = -2 B.
+\]
+
+---
+
+**Step 3: Roots of \(q(x)\)**
+
+The roots of \(q(x)\) are \(2\) and the roots of the quadratic \(x^2 + A x + B\).
+
+We want exactly one integer root \(m \neq 2\) of \(q(x)\), so the quadratic must have exactly one integer root (distinct from 2), and the other root must be non-integer.
+
+---
+
+**Step 4: Conditions on the quadratic**
+
+Let the roots of \(x^2 + A x + B\) be \(r_1\) and \(r_2\).
+
+We want exactly one integer root \(m \neq 2\), so:
+
+- Exactly one of \(r_1, r_2\) is an integer \(m \neq 2\).
+- The other root is not an integer.
+- The roots satisfy:
+\[
+r_1 + r_2 = -A,
+\]
+\[
+r_1 r_2 = B.
+\]
+
+---
+
+**Step 5: Discriminant condition**
+
+The roots are:
+\[
+r = \frac{-A \pm \sqrt{A^2 - 4 B}}{2}.
+\]
+
+For roots to be real, discriminant \(D = A^2 - 4 B \geq 0\).
+
+We want exactly one integer root, so the roots are distinct (not equal), and only one is integer.
+
+---
+
+**Step 6: Characterizing the roots**
+
+Suppose \(r_1 = m \in \mathbb{Z}\), \(m \neq 2\), and \(r_2\) is not integer.
+
+Then:
+\[
+r_2 = -A - m.
+\]
+
+Since \(r_2\) is not integer, but \(-A\) and \(m\) are integers, \(r_2\) is integer. Contradiction.
+
+Wait, this suggests both roots are integers if \(A\) and \(m\) are integers.
+
+But the quadratic has integer coefficients \(A, B\), so if one root is integer, the other root is also integer (since sum and product are integers).
+
+Therefore, if one root is integer, the other root is also integer.
+
+---
+
+**Step 7: Conclusion from Step 6**
+
+If the quadratic has integer coefficients and one integer root, then the other root is also integer.
+
+Therefore, the quadratic either has:
+
+- Two integer roots (possibly equal), or
+- No integer roots.
+
+We want exactly one integer root \(m \neq 2\), so the quadratic cannot have two integer roots.
+
+Therefore, the quadratic must have a repeated root equal to \(m\), i.e., a double root at \(m\).
+
+---
+
+**Step 8: Double root case**
+
+If the quadratic has a double root at \(m\), then:
+\[
+x^2 + A x + B = (x - m)^2 = x^2 - 2 m x + m^2,
+\]
+so
+\[
+A = -2 m, \quad B = m^2.
+\]
+
+The roots are \(m\) (double root).
+
+---
+
+**Step 9: Check the roots of \(q(x)\)**
+
+The roots of \(q(x)\) are \(2\) and \(m\) (double root).
+
+So \(q(x) = (x-2)(x - m)^2\).
+
+We want \(m \neq 2\).
+
+---
+
+**Step 10: Express \(a,b,c\) in terms of \(m\)**
+
+Recall:
+\[
+a = A - 2 = -2 m - 2,
+\]
+\[
+b = B - 2 A = m^2 - 2(-2 m) = m^2 + 4 m,
+\]
+\[
+c - p(2) = -2 B = -2 m^2.
+\]
+
+---
+
+**Step 11: Express \(p(2)\) in terms of \(a,b,c\)**
+
+We know:
+\[
+p(2) = 2^3 + a \cdot 2^2 + b \cdot 2 + c = 8 + 4 a + 2 b + c.
+\]
+
+Substitute \(a,b\):
+\[
+p(2) = 8 + 4(-2 m - 2) + 2(m^2 + 4 m) + c = 8 - 8 m - 8 + 2 m^2 + 8 m + c = 2 m^2 + c.
+\]
+
+Simplify:
+\[
+p(2) = 2 m^2 + c.
+\]
+
+---
+
+**Step 12: Use the relation \(c - p(2) = -2 m^2\)**
+
+From Step 10:
+\[
+c - p(2) = -2 m^2,
+\]
+but from Step 11:
+\[
+p(2) = 2 m^2 + c,
+\]
+so
+\[
+c - (2 m^2 + c) = -2 m^2 \implies -2 m^2 = -2 m^2,
+\]
+which is consistent.
+
+---
+
+**Step 13: Determine \(c\) and \(p(2)\)**
+
+From Step 11:
+\[
+p(2) = 2 m^2 + c,
+\]
+and from Step 10:
+\[
+c - p(2) = -2 m^2 \implies c = p(2) - 2 m^2.
+\]
+
+Substitute into \(p(2) = 2 m^2 + c\):
+\[
+p(2) = 2 m^2 + p(2) - 2 m^2,
+\]
+which is an identity.
+
+Therefore, \(c\) and \(p(2)\) are related but not fixed individually.
+
+---
+
+**Step 14: Determine \(c\) and \(p(2)\) explicitly**
+
+From Step 10:
+\[
+c - p(2) = -2 m^2 \implies c = p(2) - 2 m^2.
+\]
+
+From Step 11:
+\[
+p(2) = 8 + 4 a + 2 b + c.
+\]
+
+Substitute \(a,b\):
+\[
+p(2) = 8 + 4(-2 m - 2) + 2(m^2 + 4 m) + c = 8 - 8 m - 8 + 2 m^2 + 8 m + c = 2 m^2 + c.
+\]
+
+So,
+\[
+p(2) = 2 m^2 + c.
+\]
+
+From the two expressions for \(c\):
+\[
+c = p(2) - 2 m^2,
+\]
+and
+\[
+p(2) = 2 m^2 + c.
+\]
+
+These are consistent and imply \(c\) and \(p(2)\) can be any integer satisfying these relations.
+
+---
+
+**Step 15: Summary of coefficients**
+
+We have:
+\[
+a = -2 m - 2,
+\]
+\[
+b = m^2 + 4 m,
+\]
+\[
+c = p(2) - 2 m^2,
+\]
+with \(p(2) = 2 m^2 + c\).
+
+Since \(p(2)\) depends on \(c\), and \(c\) depends on \(p(2)\), these two variables are linked but not fixed.
+
+---
+
+**Step 16: Constraints on \(a,b,c\)**
+
+Recall \(a,b,c \in \{-20, \ldots, 20\}\).
+
+We want to find all integer triples \((a,b,c)\) with \(a,b,c\) in this range, such that \(a = -2 m - 2\), \(b = m^2 + 4 m\), and \(c\) arbitrary integer in \([-20,20]\) satisfying the above relations.
+
+---
+
+**Step 17: Find all integer \(m \neq 2\) such that \(a,b\) are in \([-20,20]\)**
+
+- For \(a = -2 m - 2\):
+\[
+-20 \leq -2 m - 2 \leq 20.
+\]
+
+Multiply inequalities by -1 (reverse inequalities):
+\[
+20 \geq 2 m + 2 \geq -20,
+\]
+\[
+20 - 2 \geq 2 m \geq -20 - 2,
+\]
+\[
+18 \geq 2 m \geq -22,
+\]
+\[
+9 \geq m \geq -11.
+\]
+
+So,
+\[
+m \in \{-11, -10, \ldots, 9\}.
+\]
+
+---
+
+- For \(b = m^2 + 4 m\):
+\[
+-20 \leq m^2 + 4 m \leq 20.
+\]
+
+Check values of \(m\) in \([-11,9]\):
+
+Calculate \(b\) for each \(m\):
+
+- \(m=-11\): \(121 - 44 = 77\) (too big)
+- \(m=-10\): \(100 - 40 = 60\) (too big)
+- \(m=-9\): \(81 - 36 = 45\) (too big)
+- \(m=-8\): \(64 - 32 = 32\) (too big)
+- \(m=-7\): \(49 - 28 = 21\) (too big)
+- \(m=-6\): \(36 - 24 = 12\) (OK)
+- \(m=-5\): \(25 - 20 = 5\) (OK)
+- \(m=-4\): \(16 - 16 = 0\) (OK)
+- \(m=-3\): \(9 - 12 = -3\) (OK)
+- \(m=-2\): \(4 - 8 = -4\) (OK)
+- \(m=-1\): \(1 - 4 = -3\) (OK)
+- \(m=0\): \(0 + 0 = 0\) (OK)
+- \(m=1\): \(1 + 4 = 5\) (OK)
+- \(m=2\): \(4 + 8 = 12\) (OK, but \(m \neq 2\))
+- \(m=3\): \(9 + 12 = 21\) (too big)
+- \(m=4\): \(16 + 16 = 32\) (too big)
+- \(m=5\): \(25 + 20 = 45\) (too big)
+- \(m=6\): \(36 + 24 = 60\) (too big)
+- \(m=7\): \(49 + 28 = 77\) (too big)
+- \(m=8\): \(64 + 32 = 96\) (too big)
+- \(m=9\): \(81 + 36 = 117\) (too big)
+
+So valid \(m\) are:
+\[
+\{-6, -5, -4, -3, -2, -1, 0, 1, 2\}.
+\]
+
+But \(m \neq 2\), so exclude \(m=2\).
+
+---
+
+**Step 18: Check \(a\) for these \(m\)**
+
+Calculate \(a = -2 m - 2\):
+
+- \(m=-6\): \(a = 12 - 2 = 10\) (OK)
+- \(m=-5\): \(a = 10 - 2 = 8\) (OK)
+- \(m=-4\): \(a = 8 - 2 = 6\) (OK)
+- \(m=-3\): \(a = 6 - 2 = 4\) (OK)
+- \(m=-2\): \(a = 4 - 2 = 2\) (OK)
+- \(m=-1\): \(a = 2 - 2 = 0\) (OK)
+- \(m=0\): \(a = 0 - 2 = -2\) (OK)
+- \(m=1\): \(a = -2 - 2 = -4\) (OK)
+
+All these \(a\) are in \([-20,20]\).
+
+---
+
+**Step 19: Determine possible \(c\)**
+
+Recall:
+\[
+c = p(2) - 2 m^2,
+\]
+and
+\[
+p(2) = 8 + 4 a + 2 b + c.
+\]
+
+From Step 11:
+\[
+p(2) = 2 m^2 + c,
+\]
+so
+\[
+c = p(2) - 2 m^2,
+\]
+and
+\[
+p(2) = 2 m^2 + c.
+\]
+
+These are consistent for any \(c\).
+
+Since \(c \in [-20,20]\), \(c\) can be any integer in that range.
+
+---
+
+**Step 20: Final count**
+
+For each valid \(m\), \(a\) and \(b\) are fixed, and \(c\) can be any integer in \([-20,20]\), i.e., 41 possible values.
+
+Valid \(m\) are:
+\[
+\{-6, -5, -4, -3, -2, -1, 0, 1\},
+\]
+which is 8 values.
+
+For each \(m\), 41 possible \(c\).
+
+Total number of polynomials:
+\[
+8 \times 41 = 328.
+\]
+
+---
+
+**Step 21: Verify uniqueness of \(m\)**
+
+Since \(q(x) = (x-2)(x - m)^2\), the roots are \(2\) and \(m\) (double root).
+
+No other integer roots exist.
+
+Therefore, the polynomial \(p\) satisfies the problem condition.
+
+---
+
+**Answer:**
+
+\[
+\boxed{328}.
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 738.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently excels in algebraic manipulation, systematic case analysis, geometric coordinate setups, and careful arithmetic verification, especially in polynomial, number theory, and geometry problems. However, it tends to err in problems requiring comprehensive combinatorial enumeration or full exploration of solution spaces, occasionally prematurely concluding with incomplete logic. Overall, successes involve detailed stepwise reasoning and explicit checks, while failures arise from oversimplified assumptions or incomplete consideration of all configurations.
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=e467ae4e9b, status=REJECTED, val=?, minibatch=0.67: Added: 'Your response should include clear, step-by-step mathematical reasoning, showing all relevant work and justifications, i...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose base-9 representation is \(\underline{b}\,\underline{c}\,\underline{a}_9\).: Th...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=2, iter=2, fp=b62ce0eefa, status=REJECTED, val=?, minibatch=0.33: Added: 'Ensure that: - All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geo...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Finding length \(PQ\) where \(P, Q\) are intersections of angle bisectors in an isosceles trapezoid: The model set up a coordinate system placing the trapezoid on...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=3, iter=3, fp=eab1cae8a7, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include clear, step-by-step mathematical reasoning that fully justifies each step and uses all given ...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in congruent circles, find \(AC^2\).: The model correctly identified the relation between distances and proj...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=4, iter=4, fp=2f47cde299, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include a clear, step-by-step mathematical reasoning process that fully justifies each step and uses ...'
+  Outcomes (for this node only): iter=4, result=incorrect, error=arithmetic, q=Find \(p+q\) given \(r^2 = \frac{p}{q}\) where \(r\) is radius of smallest sphere containing boxes with given surface area and volume.: The model attempte...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=5, iter=5, fp=54fb2674d5, status=REJECTED, val=?, minibatch=0.33: Added: '..".  Ensure your reasoning explicitly addresses all problem conditions and edge cases, and justifies why alternative po...'
+  Outcomes (for this node only): iter=5, result=incorrect, error=logic, q=Counting intersecting families of size 16 from subsets of \(\{1,2,3,4,5\}\): The model correctly identified the problem as counting intersecting families, appl...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=e467ae4e9b, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=b62ce0eefa, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=eab1cae8a7, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=2f47cde299, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=54fb2674d5, status=REJECTED
+• From node 0: 2 node(s), peaked val=0.47, accepted, branch root=node=6, iter=6, fp=cedb65cbb4, status=ACCEPTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

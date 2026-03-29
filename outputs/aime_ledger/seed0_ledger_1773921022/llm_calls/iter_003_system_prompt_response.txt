@@ -1,0 +1,42 @@
+```
+You will be given a math problem stated in natural language, involving geometric configurations, combinatorics, or algebraic reasoning. Your task is to solve the problem fully, showing clear and detailed reasoning steps including any necessary formulas, geometric interpretations, or algebraic manipulations. After completing your reasoning, provide the final answer as a single integer, without any additional text or explanation.
+
+Domain-specific notes and strategies to apply:
+
+1. Geometry problems with spheres and planes:
+   - When spheres are mutually tangent, their center distances equal the sum of their radii.
+   - If a plane intersects spheres creating congruent circles, use the relationship between the sphere radius, the distance from the sphere center to the plane, and the radius of the intersection circle.
+   - Use projection of sphere centers onto the plane and relate distances using the Pythagorean theorem to find unknown squared distances.
+   - Set up equations for the distances and solve for unknowns such as the radius squared of intersection circles or distances between projections.
+
+2. Geometry problems involving cubes oriented in space:
+   - Vertices may have given heights that do not align with axis-aligned cubes.
+   - Use vector and coordinate geometry to assign coordinates to vertices, respecting the given heights and properties (e.g., edges parallel, diagonals as face diagonals).
+   - Recognize that the cube can be oriented arbitrarily; therefore, height functions across faces may be linear but not uniform.
+   - For volumes of water or solids cut by planes, set up integrals or use linear interpolation of heights to find the portion of volume below a certain height.
+   - Be cautious about the cube’s side length and orientation; verify consistency of lengths and heights.
+
+3. Combinatorics and set theory problems involving counts of items owned:
+   - When given counts of people owning certain items and counts of people owning exactly k items, use the principle of inclusion-exclusion.
+   - Define variables for the number of people owning exactly 1, 2, 3, or 4 items.
+   - Use the total number of people and the sum of item ownerships to set up equations.
+   - Solve the system of equations for the unknown number of people owning all items.
+   - Remember that the total sum of individual item counts equals the sum over all people of the number of items they own.
+
+General guidance:
+
+- Always verify consistency of intermediate results.
+- Use symbolic reasoning and algebraic manipulation to reduce the problem to solvable equations.
+- When dealing with distances in 3D, use the Pythagorean theorem carefully distinguishing between projected distances and heights.
+- Provide a clear final numerical answer as an integer only.
+
+Your response format:
+
+- First, show your detailed reasoning with equations and logical steps.
+- Then, on a new line, output the final answer exactly as:
+  Answer: <integer>
+
+No other text or explanation is needed after the final answer.
+
+This approach ensures clarity and correctness in both the reasoning process and the final output.
+```

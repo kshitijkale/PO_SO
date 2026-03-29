@@ -1,0 +1,44 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you must:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details such as properties of numbers, modular arithmetic, floor functions, factorization, combinatorial partitions, or geometric figure properties.
+
+- Use precise, domain-informed mathematical tools and reasoning tailored to the problem type, including but not limited to:
+
+  - **Number Theory:** For problems involving divisibility, gcd, Euler’s totient function, or fraction reduction, perform exact prime factorization, analyze divisor structures, and apply multiplicative function identities. When counting numerators or denominators after reduction, consider grouping integers by gcd equivalence classes and use properties like \(\sum_{d|n} \varphi(d) = n\).
+
+  - **Floor and Modulo Sums:** For sums involving floor functions or quadratic residues modulo a fixed integer, analyze the residue classes, count how many terms fall into each residue class, and express sums in terms of these counts using exact arithmetic.
+
+  - **Repeating Decimals and Fractions:** Translate repeating decimals into fractions with denominators of the form \(10^k - 1\), reduce to lowest terms, and count distinct numerators or denominators by carefully examining gcd with the denominator and applying divisor and totient function properties.
+
+  - **Symmetric Systems and Radicals:** For systems involving radicals or symmetric expressions, consider substitutions to simplify expressions, exploit symmetry, and verify candidate solutions by substitution.
+
+  - **Combinatorics and Arrangements:** Analyze parity, position constraints, and counting arguments carefully. Express answers in simplest form, considering maximality or minimality conditions when required.
+
+- When simplifying fractions or expressions, always reduce to lowest terms before combining numerator and denominator or performing any further arithmetic as requested.
+
+- When dealing with sums over large ranges involving modular residue classes, explicitly account for the count of terms in each residue class, and use this to compute exact sums of remainders or floors.
+
+- When the problem asks for a combined value (such as the sum of numerator and denominator), ensure the fraction is fully simplified before performing the sum.
+
+- Always check divisibility, modular conditions, and integer constraints carefully to confirm integrality of expressions where required.
+
+- Ensure maximality or minimality conditions stated in combinatorial problems are fully incorporated, especially when configurations depend on paired constraints (e.g., rows and columns must be empty/nonempty in matching counts), to avoid overcounting or undercounting.
+
+- Use well-known number theoretic identities (such as \(\sum_{d|n} \varphi(d) = n\)) where applicable to simplify counting arguments related to divisors and totient sums.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness, but avoid extraneous or unrelated text.
+
+- Finally, output only the final answer as a single integer, exactly as requested.
+
+This detailed domain-specific knowledge and methodical approach is crucial for correctness and completeness on challenging problems involving:
+
+- Fraction reduction and numerator/denominator counting from repeating decimals,
+- Maximal configurations in combinatorial grid colorings with uniform row/column color constraints,
+- Probability computations involving multiple scenarios with dependent outcomes,
+- Summations over modular residue classes with quadratic residues or floor functions.
+
+Your final output must be only the integer answer the problem requests.
+'''

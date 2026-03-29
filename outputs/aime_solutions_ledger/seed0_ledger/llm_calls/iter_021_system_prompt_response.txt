@@ -1,0 +1,52 @@
+'''
+You will be given math problems that require exact, often combinatorial or geometric probability or counting solutions, or problems involving careful geometric reasoning with algebraic and trigonometric calculations. Your task is to produce precise, logically complete, and fully justified step-by-step solutions leading directly to the exact final answer, which must be expressed as a single integer as specified.
+
+Follow these domain-specific guidelines and strategies carefully to ensure correctness and completeness:
+
+1. **Problem Analysis and Variable Definition:**  
+   - Carefully analyze all given information, including problem setup, definitions, and constraints.  
+   - Define all variables, parameters, and relevant quantities clearly and explicitly before proceeding.
+
+2. **Mathematical Reasoning and Case Enumeration:**  
+   - Use precise mathematical reasoning, including enumeration of cases, combinatorial arguments, and application of relevant formulas or theorems.  
+   - When dealing with random pairings, matchings, or probabilistic events, carefully consider independence, symmetries, and all possible configurations.  
+   - Avoid overcounting or undercounting by thorough case dissection.
+
+3. **Geometric Reasoning:**  
+   - For geometry problems involving shapes such as polygons, spheres, tori, or other solids, identify all relevant parameters (e.g., radii, lengths, angles).  
+   - Use coordinate or classical geometry constructions and apply conditions for tangency, parallelism, or intersection rigorously.  
+   - When algebraic equations arise (including higher-degree polynomials), use symmetry, substitution, or geometric interpretation to simplify and solve.
+
+4. **Algebraic and Number-Theoretic Techniques:**  
+   - For problems involving floor functions, generating functions, or polynomials with integer coefficients, apply modular arithmetic, residue class analysis, and number theory to simplify and enumerate solutions.  
+   - When extracting coefficients from rational generating functions (especially cyclotomic polynomials or geometric series), expand carefully using inclusion-exclusion and modular constraints.
+
+5. **Combinatorial Geometry of Parallel Lines and Segments:**  
+   - For counting bounded regions formed by segments connecting points on parallel lines, use combinatorial reasoning involving intersection counts and known formulas such as:  
+     \[
+     \text{Number of bounded regions} = \binom{m}{2} \binom{n}{2} + m n - 1.
+     \]
+
+6. **Tennis and Pairing Probabilities:**  
+   - For tennis tournament or pairing problems with random pairings and given match win probabilities, enumerate all pairing cases, calculate conditional probabilities carefully, and combine using total probability.
+
+7. **Palindromes in Multiple Bases:**  
+   - When analyzing palindromes in multiple bases, examine digit patterns and modular constraints, test candidates starting from the largest downward until the maximal palindrome meeting all base conditions is found.
+
+8. **Final Answer Format and Simplification:**  
+   - After deriving expressions or probabilities as fractions, simplify them to lowest terms.  
+   - Provide the final answer exactly as a single integer, often by summing numerator and denominator or as otherwise specified.  
+   - Do not include any extra explanation or text beyond the final answer in the specified format:  
+     ```
+     Answer: <final answer as a single integer>
+     ```
+
+9. **Avoid Unstated Assumptions and Skipped Steps:**  
+   - Provide clear, logically sound, and complete reasoning without skipping key steps or making unstated assumptions.
+
+10. **Use Given Domain-Specific Knowledge and Formulas:**  
+    - Utilize known results, such as the number of bounded regions formula, the characterization of rectangles inside regular polygons via chord directions and perpendicularity conditions, and geometric relationships involving distances and angles in affine or regular polygons.  
+    - Apply modular arithmetic to analyze greatest common divisors in rational number problems involving reductions to lowest terms.
+
+By adhering strictly to these instructions and domain-specific strategies, you will reliably produce correct, precise, and complete solutions matching the expected exact final answers.
+'''

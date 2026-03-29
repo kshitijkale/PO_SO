@@ -1,0 +1,177 @@
+{
+  "type": "memory_tree_updated",
+  "iteration": 2,
+  "operation": "add_child",
+  "node_id": 2,
+  "parent_id": 0,
+  "accepted": false,
+  "rejection_reason": "scored 1.0/3 vs 2.0/3",
+  "prompt": {
+    "system_prompt": "Solve the given math problem by providing a detailed, step-by-step solution with clear and precise mathematical reasoning. Show all relevant calculations, derivations, and justifications needed to reach the final answer. Use appropriate notation and definitions, and carefully verify each intermediate step for accuracy. After completing the reasoning, provide the final answer as a single integer, clearly boxed or stated.\n\nEnsure that:\n- All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geometric definitions, or algebraic identities) are explicitly stated or applied correctly.\n- When dealing with geometric configurations (e.g., polygons, trapezoids), include precise coordinate setups or geometric arguments as needed.\n- When dealing with algebraic expressions or products over roots of unity, use polynomial factorization, resultants, or symmetry arguments rigorously.\n- Count combinatorial objects carefully, considering all valid cases and avoiding oversimplifications.\n- Approximate numerical values only when necessary, clearly indicating approximations, and confirm that the final integer answer is consistent with the reasoning.\n\nDo not omit critical domain-specific reasoning or rely on assumptions without justification. The final boxed integer must be supported by the detailed solution steps."
+  },
+  "outcomes_added": [],
+  "val_score": null,
+  "evicted_count": 0,
+  "new_node_summary": "",
+  "tree_node_count": 3,
+  "tree_snapshot": {
+    "root_id": 0,
+    "global_summary": "",
+    "outcome_eviction_k": 10,
+    "nodes": {
+      "0": {
+        "node_id": 0,
+        "prompt": {
+          "system_prompt": "Solve the problem and provide the answer provide the final answer as a single integer."
+        },
+        "parent_id": null,
+        "children_ids": [
+          1,
+          2
+        ],
+        "accepted": true,
+        "val_score": 0.4666666666666667,
+        "minibatch_score": null,
+        "outcomes": [
+          {
+            "question_summary": "Find the three-digit positive integer whose base-9 representation is a permutation of its digits.",
+            "result": "correct",
+            "observation": "The model correctly set up the equation equating the decimal number to its base-9 representation with rearranged digits, derived a Diophantine equation, and tested integer digit values systematically to find a valid solution. The reasoning was explicit, stepwise, and arithmetic details were carefully checked.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Find the greatest integer less than 1000 that is a palindrome in both base 10 and base 8.",
+            "result": "correct",
+            "observation": "The model generated decimal palindromes and systematically converted each to base 8, checking for palindromicity. It started from the largest palindromes and worked downward until it found the largest number satisfying both conditions. Detailed base conversions and palindrome checks were carefully done.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Find the number of triples \\((a,b,c)\\) of nonnegative integers satisfying \\(a+b+c=300\\) and a given cubic symmetric equation.",
+            "result": "incorrect",
+            "observation": "The model algebraically manipulated the given symmetric expression, applied known identities, and reduced the problem to an equation involving symmetric sums. It explored cases (one variable zero, all equal), solved quadratic and cubic equations for those cases, and enumerated permutations of solutions found. However, it stopped after finding a small finite set of solutions and concluded the answer was 7 without considering the full solution space or more general integer solutions.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Find length \\(PQ\\) where \\(P, Q\\) are intersections of angle bisectors in an isosceles trapezoid with given sides.",
+            "result": "correct",
+            "observation": "The model carefully set coordinates for the trapezoid, computed the height and horizontal shift, derived vectors for angle bisectors at vertices \\(A, D, B, C\\), found parametric forms for the bisectors, solved for intersections \\(P, Q\\), and computed the distance \\(PQ\\). All calculations proceeded step-by-step with approximate arithmetic.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 2
+          },
+          {
+            "question_summary": "Compute remainder modulo 1000 of \\(\\prod_{k=0}^{12}(2 - 2\\omega^k + \\omega^{2k})\\) where \\(\\omega\\) is a 13th root of unity not equal to 1.",
+            "result": "correct",
+            "observation": "The model recognized the product as \\(\\prod P(\\omega^k)\\) for polynomial \\(P(x) = x^2 - 2x + 2\\), transformed the problem into computing a resultant, found roots of \\(P\\), evaluated \\(x^{13} -1\\) at those roots, multiplied the results, and reduced modulo 1000. Complex number arithmetic and trigonometric simplifications were done carefully to find the final numeric value.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 2
+          },
+          {
+            "question_summary": "Count rectangles formed inside a regular dodecagon whose sides lie on sides or diagonals of the polygon.",
+            "result": "incorrect",
+            "observation": "The model reasoned that rectangles correspond to pairs of diameters in the 12-gon, counted the number of diameters (6), and computed combinations \\(\\binom{6}{2} = 15\\) as the number of rectangles. The model identified rectangles as quadrilaterals with vertices at opposite pairs of points but did not account for all rectangles formed by all possible diagonals, missing additional configurations.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 2
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 1,
+        "rejection_reason": ""
+      },
+      "1": {
+        "node_id": 1,
+        "prompt": {
+          "system_prompt": "You will be given a mathematical problem stated in natural language. Your task is to solve the problem completely and provide the final answer as a single integer. \n\nYour response should include clear, step-by-step mathematical reasoning, showing all relevant work and justifications, including any algebraic manipulations, logical deductions, or computational steps that lead to the solution. Use standard mathematical notation where appropriate (e.g., algebraic expressions, equations, base conversions).\n\nDomain-specific knowledge that may be required includes but is not limited to:\n- Understanding of number bases and conversions between bases.\n- Properties and characterization of palindromes in different bases.\n- Algebraic manipulation of equations involving digits of numbers.\n- Use of symmetric sums and algebraic identities (e.g., sums of cubes, symmetric polynomials).\n- Techniques for solving Diophantine equations and counting integer solutions under constraints.\n- Systematic search or testing of integer values when necessary.\n  \nWhen handling problems involving digits or base representations, carefully translate the problem conditions into algebraic equations relating the digits and use logical reasoning or enumeration to find valid digit assignments.\n\nWhen asked for counting the number of integer solutions to an equation with constraints, consider all possible cases (e.g., zeros among variables, equal variables, permutations) and apply algebraic identities or combinatorial arguments as needed.\n\nAlways verify that your proposed solutions satisfy all given problem conditions, and consider symmetry and permutations to count distinct solutions correctly.\n\nFinally, provide the answer as a single integer, clearly labeled as \"Answer: <integer>\", after the reasoning.\n\nIf the problem involves large or complex computations, explain your approach clearly and justify any assumptions or approximations made.\n\nDo not omit reasoning steps, as a thorough explanation is essential to validate the final integer answer."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "Find the three-digit integer \\(\\underline{a}\\,\\underline{b}\\,\\underline{c}\\) whose base-9 representation is \\(\\underline{b}\\,\\underline{c}\\,\\underline{a}_9\\).",
+            "result": "correct",
+            "observation": "The model correctly translated the problem into an algebraic equation relating \\(a,b,c\\), systematically searched values of \\(a\\) to find integer solutions under digit constraints, found the unique valid solution \\((a,b,c) = (2,2,7)\\), and verified it.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Find the greatest integer less than 1000 that is a palindrome in both base 10 and base 8.",
+            "result": "correct",
+            "observation": "The model carefully enumerated decimal palindromes in descending order, converted each to base 8, checked for octal palindrome property, and identified 585 as the largest number meeting both conditions. The approach was thorough and included verification steps.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Count the number of nonnegative integer triples \\((a,b,c)\\) with \\(a+b+c=300\\) satisfying \\(a^2b + a^2c + b^2a + b^2c + c^2a + c^2b = 6,000,000\\).",
+            "result": "incorrect",
+            "observation": "The model transformed the given expression into a symmetric polynomial identity, reduced the problem to solving \\(100(ab+bc+ca) - abc = 2,000,000\\), and explored cases including zeros, equal variables, and a few distinct triples by testing candidate values. The model identified three solution types and counted a total of 13 solutions from permutations and found roots of related cubic. However, it repeatedly retried the same candidate solution \\((50,100,150)\\) and did not explore the full solution space rigorously. The model gave a final answer of 13, which was marked incorrect.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 1
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 1,
+        "rejection_reason": "scored 2.0/3 vs 2.0/3"
+      },
+      "2": {
+        "node_id": 2,
+        "prompt": {
+          "system_prompt": "Solve the given math problem by providing a detailed, step-by-step solution with clear and precise mathematical reasoning. Show all relevant calculations, derivations, and justifications needed to reach the final answer. Use appropriate notation and definitions, and carefully verify each intermediate step for accuracy. After completing the reasoning, provide the final answer as a single integer, clearly boxed or stated.\n\nEnsure that:\n- All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geometric definitions, or algebraic identities) are explicitly stated or applied correctly.\n- When dealing with geometric configurations (e.g., polygons, trapezoids), include precise coordinate setups or geometric arguments as needed.\n- When dealing with algebraic expressions or products over roots of unity, use polynomial factorization, resultants, or symmetry arguments rigorously.\n- Count combinatorial objects carefully, considering all valid cases and avoiding oversimplifications.\n- Approximate numerical values only when necessary, clearly indicating approximations, and confirm that the final integer answer is consistent with the reasoning.\n\nDo not omit critical domain-specific reasoning or rely on assumptions without justification. The final boxed integer must be supported by the detailed solution steps."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [],
+        "outcome_summary": "",
+        "iteration_created": 2,
+        "rejection_reason": "scored 1.0/3 vs 2.0/3"
+      }
+    },
+    "edges": [
+      {
+        "parent_id": 0,
+        "child_id": 1,
+        "minibatch_ids": [
+          "1",
+          "27",
+          "35"
+        ],
+        "iteration": 1
+      },
+      {
+        "parent_id": 0,
+        "child_id": 2,
+        "minibatch_ids": [
+          "0",
+          "23",
+          "37"
+        ],
+        "iteration": 2
+      }
+    ]
+  },
+  "_meta": {
+    "event_id": "f46134f08e334522995f32f012ce18bb-45",
+    "event_type": "memory_tree_updated",
+    "callback_method": "on_memory_tree_updated",
+    "timestamp_ms": 1773778195705,
+    "dispatch_sequence": 45,
+    "callback_stream_id": "f46134f08e334522995f32f012ce18bb",
+    "iteration": 2
+  }
+}

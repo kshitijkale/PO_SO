@@ -1,0 +1,19 @@
+# Optimization Diary — iter 5, component: system_prompt
+# entries: 4  chars: 1200
+# layer2_active: True
+
+== OPTIMIZATION CONTEXT ==
+Progress: 4 iterations | 3 accepted (75%) | Best batch: 3/3
+Prompt: 86 chars (start) → 1558 chars (now) — 18.1x growth
+Efficiency: each +100 chars has yielded ~0.068 score gain
+
+Edits that improved scores:
+  • iter 2: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously justifi...'" → +1.0 score, 86→1729 chars
+  • iter 3: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously defines...'" → +1.0 score, 86→2022 chars
+  • iter 4: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously defines...'" → +1.0 score, 86→1558 chars
+
+Recent failed edits:
+  • iter 1: "Added: 'Your solution should include clear, step-by-step reasoning that rigorously defin...'" — scored 2/3, needed >2/3, 86→2403 chars
+
+Strategy patterns:
+  Detailed, concise clarifications enhancing reasoning clarity have improved acceptance despite increased length. Overly broad, large expansions lead to rejection and overwhelm quality thresholds. Prompt length is growing significantly; avoid major additions. Next, prioritize precise, minimal refinements that boost clarity without substantially increasing prompt length.

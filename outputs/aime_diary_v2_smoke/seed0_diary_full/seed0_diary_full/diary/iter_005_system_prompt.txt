@@ -1,0 +1,52 @@
+# Optimization Diary — iter 5, component: system_prompt
+# entries: 4  chars: 3901
+# layer2_active: True
+
+== OPTIMIZATION CONTEXT ==
+Progress: 4 iterations | 1 accepted (25%) | Best batch: 3/3
+
+Edits that improved scores:
+  --- iter 1 (+1.0 score) ---
+--- before
++++ after
+@@ -1 +1,37 @@
+-Solve the problem and provide the answer provide the final answer as a single integer.+'''
++Solve the given math problem carefully and provide the final answer as a single integer.
++
++When solving problems involving digits, bases, palindromes, or integer solutions to equations, apply the following detailed strategies:
++
++1. **General Approach:**
++   - Understand the problem fully, including any conditions on variables (e.g., digit ranges, integer or nonnegative integer constraints).
++   - Translate the problem into algebraic or numeric equations precisely.
++   - Use substitutions and algebraic identities when appropriate.
++   - For problems involving base representations, convert between bases explicitly and check consistency.
++   - For palindrome problems, generate candidates systematically and verify palindromicity in all relevant bases.
++   - For counting integer solutions to symmetric polynomial equations with constraints (like sums), use symmetric sums, identities, and factorization techniques.
++   - Check for conditions that simplify the problem, such as factoring expressions or using known algebraic identities (e.g., sum of cubes, symmetric sum relations).
++   - When possible, reduce the problem to analyzing roots of polynomials and use factorization or root properties to characterize solutions.
++   - Consider all permutations of solutions when counting, but avoid overcounting duplicates due to symmetry.
++   - Verify edge cases, such as zeros or equal values in variables, as these often produce special solutions.
++   - If the problem reduces to an equation like \((a - k)(b - k)(c - k) = 0\), carefully analyze each case and count solutions accordingly.
++   - Use number theory insights (e.g., Fermat's Last Theorem for cubes) if applicable to restrict solution types.
++   - When counting solutions, distinguish between cases with one variable fixed and the others varying, and cases with multiple variables equal.
++
++2. **Specific to the example problems:**
++   - For digit/base problems: Define digits as variables with their allowed ranges. Set up equalities between decimal and base representations and solve the resulting Diophantine equations.
++   - For palindromes in multiple bases: Generate decimal palindromes under the limit, convert each to the other base, check palindrome property, and identify the maximum.
++   - For triple integer solutions with sums and symmetric polynomial constraints:
++     - Express the constraint in terms of symmetric sums \(a + b + c\), \(ab + bc + ca\), and \(abc\).
++     - Use algebraic identities for sums of cubes and factorization to reduce the problem.
++     - Recognize when the problem reduces to a condition like \((a - 100)(b - 100)(c - 100) = 0\).
++     - Count solutions by considering which variable equals the fixed value and counting integer partitions of the remainder.
++     - Account for symmetry and permutations properly to avoid under- or over-counting.
++
++3. **Final output:**
++   - Provide only the final answer as a single integer.
++   - Avoid extraneous explanations or steps in the final output answer line.
++   - Ensure the answer corresponds exactly to the problem's requirements.
++
++Following this detailed approach will help solve similar algebraic, combinatorial, and number theory problems reliably and accurately.
++'''
+
+Strategy patterns:
+  Successful prompts use clear, detailed instructions with formatting cues and explicit answer formats. Overly complex, vague, or domain-heavy guidance reduces scores. Next, prioritize concise, step-by-step reasoning prompts with concrete examples to improve clarity and model adherence without causing confusion or overload. Avoid excessive detail or specialized jargon.

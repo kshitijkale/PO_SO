@@ -32,16 +32,14 @@ from gepa.core.callbacks import (
     CandidateAcceptedEvent,
     CandidateRejectedEvent,
     CandidateSelectedEvent,
+    DiaryInjectedEvent,
     ErrorEvent,
     EvaluationEndEvent,
     EvaluationSkippedEvent,
     EvaluationStartEvent,
     IterationEndEvent,
     IterationStartEvent,
-    LessonGeneratedEvent,
-    MemoryEntryAddedEvent,
-    MemoryQueriedEvent,
-    MemoryStateSnapshotEvent,
+    LedgerInjectedEvent,
     MergeAcceptedEvent,
     MergeAttemptedEvent,
     MergeRejectedEvent,
@@ -114,20 +112,81 @@ class ResearchLogger:
         self._iteration_index: list[dict[str, Any]] = []
 
         # Create directory structure
-        for subdir in ["iterations", "candidates", "memory", "memory/prompts_with_memory", "llm_calls"]:
+        for subdir in ["iterations", "candidates", "llm_calls"]:
             os.makedirs(os.path.join(output_dir, subdir), exist_ok=True)
 
         # Open persistent log files
         self._log_jsonl = open(os.path.join(output_dir, "log.jsonl"), "a")
         self._summary_jsonl = open(os.path.join(output_dir, "summary.jsonl"), "a")
         self._pareto_jsonl = open(os.path.join(output_dir, "pareto_timeline.jsonl"), "a")
-        self._memory_events_jsonl = open(os.path.join(output_dir, "memory", "memory_events.jsonl"), "a")
+        self._event_correlation_index = open(os.path.join(output_dir, "event_correlation_index.jsonl"), "a")
+
+    def _record_event_artifact(
+        self,
+        *,
+        event: dict[str, Any],
+        artifact_path: str,
+        source: str,
+        details: dict[str, Any] | None = None,
+    ) -> None:
+        meta = event.get("_meta") if isinstance(event, dict) else None
+        if not isinstance(meta, dict):
+            return
+
+        event_id = meta.get("event_id")
+        if not event_id:
+            return
+
+        record: dict[str, Any] = {
+            "timestamp": _timestamp(),
+            "event_id": str(event_id),
+            "event_type": str(meta.get("event_type", "")),
+            "callback_method": str(meta.get("callback_method", "")),
+            "iteration": meta.get("iteration", event.get("iteration") if isinstance(event, dict) else None),
+            "source": source,
+            "artifact_path": artifact_path,
+        }
+        if details:
+            record["details"] = details
+
+        self._event_correlation_index.write(json.dumps(_safe_json(record), default=str) + "\n")
+        self._event_correlation_index.flush()
 
     def _log_event(self, event_type: str, data: dict[str, Any]) -> None:
         """Write one JSON line to the event log."""
         record = {"timestamp": _timestamp(), "event_type": event_type, **data}
         self._log_jsonl.write(json.dumps(_safe_json(record), default=str) + "\n")
         self._log_jsonl.flush()
+
+        self._record_event_artifact(
+            event=data,
+            artifact_path="log.jsonl",
+            source="research_logger_event_log",
+            details={"logged_event_type": event_type},
+        )
+
+        meta = data.get("_meta") if isinstance(data, dict) else None
+        if not isinstance(meta, dict):
+            return
+
+        event_id = meta.get("event_id")
+        if not event_id:
+            return
+
+        iteration = meta.get("iteration", data.get("iteration"))
+        if not isinstance(iteration, int):
+            return
+
+        if self._iter_buf.get("iteration") != iteration:
+            return
+
+        self._iter_buf.setdefault("event_refs", []).append({
+            "event_id": str(event_id),
+            "event_type": str(meta.get("event_type", event_type)),
+            "callback_method": str(meta.get("callback_method", "")),
+            "dispatch_sequence": meta.get("dispatch_sequence"),
+            "timestamp_ms": meta.get("timestamp_ms"),
+        })
 
     def _elapsed(self) -> str:
         secs = time.monotonic() - self._start_time
@@ -215,7 +274,12 @@ class ResearchLogger:
         self._write_index()
 
         # Close file handles
-        for fh in [self._log_jsonl, self._summary_jsonl, self._pareto_jsonl, self._memory_events_jsonl]:
+        for fh in [
+            self._log_jsonl,
+            self._summary_jsonl,
+            self._pareto_jsonl,
+            self._event_correlation_index,
+        ]:
             fh.close()
 
     # =========================================================================
@@ -229,6 +293,7 @@ class ResearchLogger:
             "timestamp": _timestamp(),
             "num_candidates": len(event["state"].program_candidates),
             "total_evals": event["state"].total_num_evals,
+            "event_refs": [],
         }
         self._log_event(
             "iteration_start",
@@ -430,12 +495,6 @@ class ResearchLogger:
             "model_id": event["model_id"],
             "latency_ms": event["latency_ms"],
             "memory_was_injected": event["memory_was_injected"],
-            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
-            "memory_selected_intents": event["memory_selected_intents"],
-            "memory_selected_categories": event["memory_selected_categories"],
-            "memory_reused_intents": event["memory_reused_intents"],
-            "memory_reused_categories": event["memory_reused_categories"],
-            "memory_reuse_detected": event["memory_reuse_detected"],
         }
         # Log FULL prompt and response to JSONL (no truncation)
         self._log_event("proposal_trace", {
@@ -444,12 +503,6 @@ class ResearchLogger:
             "model_id": event["model_id"],
             "latency_ms": round(event["latency_ms"], 1),
             "memory_was_injected": event["memory_was_injected"],
-            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
-            "memory_selected_intents": event["memory_selected_intents"],
-            "memory_selected_categories": event["memory_selected_categories"],
-            "memory_reused_intents": event["memory_reused_intents"],
-            "memory_reused_categories": event["memory_reused_categories"],
-            "memory_reuse_detected": event["memory_reuse_detected"],
             "prompt_template": event["prompt_template"],
             "rendered_prompt": event["rendered_prompt"],
             "raw_response": event["raw_response"],
@@ -467,6 +520,48 @@ class ResearchLogger:
             f.write(event["rendered_prompt"])
         with open(os.path.join(base, f"iter_{iteration:03d}_{comp}_response.txt"), "w") as f:
             f.write(event["raw_response"])
+
+    def on_ledger_injected(self, event: LedgerInjectedEvent) -> None:
+        comp = event["component_name"]
+        self._iter_buf.setdefault("ledger_injections", {})[comp] = {
+            "num_entries": event["num_entries"],
+            "char_count": event["char_count"],
+            "parent_hash": event["parent_hash"],
+            "ledger_file": f"ledger/iter_{event['iteration']:03d}_{comp}.txt",
+        }
+        self._log_event("ledger_injected", {
+            "iteration": event["iteration"],
+            "component_name": comp,
+            "num_entries": event["num_entries"],
+            "char_count": event["char_count"],
+            "parent_hash": event["parent_hash"],
+        })
+
+    def on_diary_injected(self, event: DiaryInjectedEvent) -> None:
+        comp = event["component_name"]
+        self._iter_buf.setdefault("diary_injections", {})[comp] = {
+            "total_entries": event["total_entries"],
+            "char_count": event["char_count"],
+            "layer2_active": event["layer2_active"],
+            "diary_file": f"diary/iter_{event['iteration']:03d}_{comp}.txt",
+        }
+        self._log_event("diary_injected", {
+            "iteration": event["iteration"],
+            "component_name": comp,
+            "total_entries": event["total_entries"],
+            "char_count": event["char_count"],
+            "layer2_active": event["layer2_active"],
+        })
+        # Write diary text file
+        diary_dir = os.path.join(self.output_dir, "diary")
+        os.makedirs(diary_dir, exist_ok=True)
+        fname = f"iter_{event['iteration']:03d}_{comp}.txt"
+        fpath = os.path.join(diary_dir, fname)
+        with open(fpath, "w") as f:
+            f.write(f"# Optimization Diary — iter {event['iteration']}, component: {comp}\n")
+            f.write(f"# entries: {event['total_entries']}  chars: {event['char_count']}\n")
+            f.write(f"# layer2_active: {event['layer2_active']}\n\n")
+            f.write(event["rendered_text"])
 
     # =========================================================================
     # Acceptance/Rejection Events
@@ -585,134 +680,6 @@ class ResearchLogger:
         })
 
     # =========================================================================
-    # Memory Events
-    # =========================================================================
-
-    def on_memory_entry_added(self, event: MemoryEntryAddedEvent) -> None:
-        self._iter_buf.setdefault("memory_updates", []).append({
-            "component": event["component_name"],
-            "entry": event["entry"],
-            "evicted": event["evicted_entry"],
-            "size_after": event["memory_size_after"],
-            "utilization": event["memory_utilization"],
-        })
-        self._log_event("memory_entry_added", _safe_json(dict(event)))
-
-        # Write to dedicated memory events log
-        record = {
-            "timestamp": _timestamp(),
-            "event": "add",
-            "iteration": event["iteration"],
-            "component": event["component_name"],
-            "entry_id": event["entry"].get("entry_id"),
-            "entry": _safe_json(event["entry"]),
-            "accepted": event["entry"].get("accepted"),
-            "score_delta": (event["entry"].get("score_after", 0) or 0) - (event["entry"].get("score_before", 0) or 0),
-            "evicted": _safe_json(event["evicted_entry"]) if event["evicted_entry"] else None,
-            "size_after": event["memory_size_after"],
-        }
-        self._memory_events_jsonl.write(json.dumps(record) + "\n")
-        self._memory_events_jsonl.flush()
-
-    def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
-        self._iter_buf.setdefault("memory_queries", []).append({
-            "component": event["component_name"],
-            "selected_entry_ids": event["selected_entry_ids"],
-            "entries_returned": event["entries_returned"],
-            "formatted_text": event["formatted_text"],
-            "formatted_text_length": event["formatted_text_length"],
-        })
-        # Log full query including all returned entries and formatted text
-        self._log_event("memory_queried", {
-            "iteration": event["iteration"],
-            "component": event["component_name"],
-            "query_n": event["query_n"],
-            "selected_entry_ids": event["selected_entry_ids"],
-            "entries_returned": _safe_json(event["entries_returned"]),
-            "formatted_text": event["formatted_text"],
-            "formatted_text_length": event["formatted_text_length"],
-        })
-
-        # Write memory-injected prompt to file
-        if event["formatted_text"]:
-            path = os.path.join(
-                self.output_dir,
-                "memory",
-                "prompts_with_memory",
-                f"iter_{event['iteration']:03d}_{event['component_name']}.txt",
-            )
-            with open(path, "w") as f:
-                f.write(event["formatted_text"])
-
-        # Write to memory events log
-        record = {
-            "timestamp": _timestamp(),
-            "event": "query",
-            "iteration": event["iteration"],
-            "component": event["component_name"],
-            "query_n": event["query_n"],
-            "selected_entry_ids": event["selected_entry_ids"],
-            "entries_returned": _safe_json(event["entries_returned"]),
-            "formatted_text": event["formatted_text"],
-            # Keep both keys for backward compatibility with older analysis scripts.
-            "formatted_length": event["formatted_text_length"],
-            "formatted_text_length": event["formatted_text_length"],
-        }
-        self._memory_events_jsonl.write(json.dumps(record) + "\n")
-        self._memory_events_jsonl.flush()
-
-    def on_memory_state_snapshot(self, event: MemoryStateSnapshotEvent) -> None:
-        self._iter_buf.setdefault("memory_snapshots", []).append({
-            "phase": event["phase"],
-            "total_entries": event["total_entries"],
-            "max_entries": event["max_entries"],
-            "entries_by_component": event["entries_by_component"],
-            "accepted_ratio": event["accepted_ratio"],
-            "rejected_ratio": event["rejected_ratio"],
-            "all_entries": event["all_entries"],
-        })
-        self._log_event("memory_state_snapshot", {
-            "iteration": event["iteration"],
-            "phase": event["phase"],
-            "total_entries": event["total_entries"],
-            "max_entries": event["max_entries"],
-            "accepted_ratio": round(event["accepted_ratio"], 3),
-            "rejected_ratio": round(event["rejected_ratio"], 3),
-            "entries_by_component": event["entries_by_component"],
-            "all_entries": _safe_json(event["all_entries"]),
-        })
-
-        # Write full snapshot to file
-        snapshot_path = os.path.join(
-            self.output_dir, "memory", f"memory_state_iter_{event['iteration']:03d}_{event['phase']}.json"
-        )
-        with open(snapshot_path, "w") as f:
-            json.dump(_safe_json(dict(event)), f, indent=2, default=str)
-
-    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
-        self._iter_buf.setdefault("lessons", []).append({
-            "component_name": event["component_name"],
-            "intent": event["intent"],
-            "lesson": event["lesson"],
-            "categories_succeeded": event["categories_succeeded"],
-            "categories_failed": event["categories_failed"],
-            "score_before": event["score_before"],
-            "score_after": event["score_after"],
-            "accepted": event["accepted"],
-            "latency_ms": event["latency_ms"],
-            "fallback_used": event["fallback_used"],
-            "memory_selected_entry_ids": event["memory_selected_entry_ids"],
-            "memory_reused_intents": event["memory_reused_intents"],
-            "memory_reused_categories": event["memory_reused_categories"],
-            "memory_reuse_detected": event["memory_reuse_detected"],
-        })
-        self._log_event("lesson_generated", _safe_json(dict(event)))
-        # Write to dedicated lesson events log
-        lesson_path = os.path.join(self.output_dir, "memory", "lesson_events.jsonl")
-        with open(lesson_path, "a") as f:
-            f.write(json.dumps(_safe_json(dict(event))) + "\n")
-
-    # =========================================================================
     # Helper: Save candidate
     # =========================================================================
 
@@ -822,16 +789,7 @@ class ResearchLogger:
         else:
             lines.append("- **What changed:** N/A")
 
-        lessons = buf.get("lessons", [])
-        if lessons:
-            lines.append("- **Why the model says it changed:**")
-            for lesson in lessons:
-                intent = lesson.get("intent") or "(no intent)"
-                text = lesson.get("lesson") or "(fallback: no V2 lesson text)"
-                lines.append(f"  - `{lesson['component_name']}` intent: {intent}")
-                lines.append(f"  - `{lesson['component_name']}` lesson: {text}")
-        else:
-            lines.append("- **Why the model says it changed:** N/A")
+        lines.append("- **Why the model says it changed:** N/A")
 
         old_sum = self._sum_scores(buf.get("eval_current"))
         new_sum = self._sum_scores(buf.get("eval_proposed"))
@@ -892,17 +850,16 @@ class ResearchLogger:
         lines.append("")
         toc_sections = [
             ("research-verdict", "Research Verdict"),
+            ("event-traceability", "Event Traceability"),
             ("candidate-selection", "Candidate Selection"),
             ("minibatch", "Minibatch"),
             ("current-candidate-evaluation-pre-mutation", "Current Candidate Evaluation (pre-mutation)"),
             ("reflective-dataset", "Reflective Dataset"),
-            ("reflection-memory", "Reflection Memory"),
             ("llm-reflection-calls", "LLM Reflection Calls"),
             ("full-candidate-texts", "Full Candidate Texts"),
             ("beforeafter-diff", "Before/After Diff"),
             ("proposed-candidate-evaluation-post-mutation", "Proposed Candidate Evaluation (post-mutation)"),
             ("acceptance-decision", "Acceptance Decision"),
-            ("lesson-generated", "Lesson Generated"),
             ("pareto-front-update", "Pareto Front Update"),
             ("validation-set-evaluation", "Validation Set Evaluation"),
             ("merge", "Merge"),
@@ -911,6 +868,25 @@ class ResearchLogger:
         for anchor, title in toc_sections:
             lines.append(f"- [{title}](#{anchor})")
         lines.append("")
+
+        # =================================================================
+        # Event Traceability
+        # =================================================================
+        event_refs = buf.get("event_refs", [])
+        if event_refs:
+            lines.append("## Event Traceability")
+            lines.append("")
+            lines.append("Use these IDs to correlate entries across `log.jsonl` and `states/`.")
+            lines.append("")
+            lines.append("| Seq | Event | Callback | Event ID |")
+            lines.append("|-----|-------|----------|----------|")
+            for ref in event_refs:
+                seq = ref.get("dispatch_sequence", "")
+                event_name = ref.get("event_type", "")
+                callback_method = ref.get("callback_method", "")
+                event_id = ref.get("event_id", "")
+                lines.append(f"| {seq} | {event_name} | {callback_method} | `{event_id}` |")
+            lines.append("")
 
         # =================================================================
         # Candidate Selection — full text of selected candidate
@@ -932,6 +908,21 @@ class ResearchLogger:
                     lines.append(comp_text)
                     lines.append("```")
                     lines.append("")
+
+        # =================================================================
+        # Rejection Ledger
+        # =================================================================
+        if buf.get("ledger_injections"):
+            lines.append("## Rejection Ledger")
+            lines.append("")
+            for comp_name, ledger_info in buf["ledger_injections"].items():
+                lines.append(f"### Component: `{comp_name}`")
+                lines.append("")
+                lines.append(f"- **Entries injected:** {ledger_info['num_entries']}")
+                lines.append(f"- **Char count:** {ledger_info['char_count']}")
+                lines.append(f"- **Parent hash:** `{ledger_info['parent_hash']}`")
+                lines.append(f"- **Ledger file:** `{ledger_info['ledger_file']}`")
+                lines.append("")
 
         # =================================================================
         # Minibatch
@@ -1031,160 +1022,6 @@ class ResearchLogger:
                     lines.append("")
 
         # =================================================================
-        # Memory State — show ALL entries, mark which were SELECTED
-        # =================================================================
-        memory_snapshots = buf.get("memory_snapshots", [])
-        memory_queries = buf.get("memory_queries", [])
-        memory_updates = buf.get("memory_updates", [])
-
-        if memory_snapshots or memory_queries or memory_updates:
-            lines.append("## Reflection Memory")
-            lines.append("")
-
-            # Build set of selected entry IDs for highlighting
-            selected_entry_ids: set[str] = set()
-            for mq in memory_queries:
-                selected_entry_ids.update(str(eid) for eid in mq.get("selected_entry_ids", []))
-
-            # Show before-proposal snapshot with ALL entries
-            before_snapshots = [s for s in memory_snapshots if s["phase"] == "before_proposal"]
-            if before_snapshots:
-                snap = before_snapshots[0]
-                util_pct = snap["total_entries"] / snap["max_entries"] * 100 if snap["max_entries"] > 0 else 0
-                lines.append(f"### Memory State Before Proposal ({snap['total_entries']}/{snap['max_entries']} entries, {util_pct:.0f}% utilization)")
-                lines.append("")
-                lines.append(f"- **Accepted ratio:** {snap['accepted_ratio']:.1%}")
-                lines.append(f"- **Rejected ratio:** {snap['rejected_ratio']:.1%}")
-                lines.append(f"- **Entries by component:** {snap['entries_by_component']}")
-                lines.append("")
-
-                if snap["all_entries"]:
-                    lines.append("| # | Selected? | Entry ID | Iter | Component | Status | Score | Intent | Lesson | Categories Succeeded | Categories Failed | Change Summary |")
-                    lines.append("|---|-----------|----------|------|-----------|--------|-------|--------|--------|---------------------|-------------------|----------------|")
-                    for i, entry in enumerate(snap["all_entries"], 1):
-                        status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                        entry_id = str(entry.get("entry_id") or "")
-                        was_selected = bool(entry_id and entry_id in selected_entry_ids)
-                        selected_mark = "**YES**" if was_selected else ""
-                        score_before = entry.get("score_before", 0)
-                        score_after = entry.get("score_after", 0)
-                        intent = entry.get("intent", "")
-                        lesson = entry.get("lesson", "")
-                        cats_ok = ", ".join(entry.get("categories_succeeded", []))
-                        cats_fail = ", ".join(entry.get("categories_failed", []))
-                        change = entry.get("change_summary", "")
-                        lines.append(
-                            f"| {i} | {selected_mark} | {entry_id or 'N/A'} | {entry.get('iteration', '?')} | {entry.get('component_name', '?')} "
-                            f"| {status} | {score_before:.2f}->{score_after:.2f} | {intent} | {lesson} | {cats_ok} | {cats_fail} | {change} |"
-                        )
-                    lines.append("")
-
-                    # Detailed view of each entry (full failure_modes, etc.)
-                    lines.append("#### Full Memory Entry Details")
-                    lines.append("")
-                    for i, entry in enumerate(snap["all_entries"], 1):
-                        entry_id = str(entry.get("entry_id") or "")
-                        was_selected = bool(entry_id and entry_id in selected_entry_ids)
-                        tag = " **(SELECTED FOR INJECTION)**" if was_selected else ""
-                        lines.append("<details>")
-                        lines.append(
-                            f"<summary>Entry {i} — {entry_id or 'N/A'}, Iter {entry.get('iteration', '?')}, {entry.get('component_name', '?')}{tag}</summary>"
-                        )
-                        lines.append("")
-                        lines.append("```json")
-                        lines.append(json.dumps(_safe_json(entry), indent=2, default=str))
-                        lines.append("```")
-                        lines.append("")
-                        lines.append("</details>")
-                        lines.append("")
-                else:
-                    lines.append("*Memory is empty*")
-                    lines.append("")
-
-            # Show the exact text injected into prompts
-            for mq in memory_queries:
-                lines.append(f"### Memory Injected into Prompt for `{mq['component']}`")
-                lines.append("")
-                n_returned = len(mq.get("entries_returned", []))
-                lines.append(f"**Entries selected:** {n_returned}")
-                if mq.get("selected_entry_ids"):
-                    lines.append(f"**Selected entry IDs:** {mq['selected_entry_ids']}")
-                lines.append(f"**Text length:** {mq['formatted_text_length']} chars")
-                lines.append("")
-                if mq["formatted_text"]:
-                    lines.append("Full injected text:")
-                    lines.append("")
-                    lines.append("```")
-                    lines.append(mq["formatted_text"])
-                    lines.append("```")
-                    lines.append("")
-
-                    # Also list exactly which entries were selected
-                    if mq.get("entries_returned"):
-                        lines.append("**Selected entries (in order):**")
-                        lines.append("")
-                        for idx, entry in enumerate(mq["entries_returned"], 1):
-                            status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                            entry_id = entry.get("entry_id", "N/A")
-                            lines.append(
-                                f"{idx}. {entry_id} | Iter {entry.get('iteration', '?')} [{status}] "
-                                f"— {entry.get('intent') or entry.get('change_summary', '')}"
-                            )
-                        lines.append("")
-                else:
-                    lines.append("*No memory entries matched this component*")
-                    lines.append("")
-
-            # Show updates made this iteration
-            if memory_updates:
-                lines.append("### Memory Updates This Iteration")
-                lines.append("")
-                for mu in memory_updates:
-                    entry = mu["entry"]
-                    status = "ACCEPTED" if entry.get("accepted") else "REJECTED"
-                    lines.append(f"#### New Entry: `{mu['component']}` [{status}]")
-                    lines.append("")
-                    lines.append(f"- **Entry ID:** {entry.get('entry_id', 'N/A')}")
-                    lines.append(f"- **Iteration:** {entry.get('iteration')}")
-                    lines.append(f"- **Score:** {entry.get('score_before', 0):.2f} -> {entry.get('score_after', 0):.2f}")
-                    lines.append(f"- **Intent:** {entry.get('intent', '')}")
-                    lines.append(f"- **Lesson:** {entry.get('lesson', '')}")
-                    lines.append(f"- **Categories succeeded:** {entry.get('categories_succeeded', [])}")
-                    lines.append(f"- **Categories failed:** {entry.get('categories_failed', [])}")
-                    lines.append(f"- **Referenced memory IDs:** {entry.get('referenced_memory_entry_ids', [])}")
-                    lines.append(f"- **Reused memory intents:** {entry.get('reused_memory_intents', [])}")
-                    lines.append(f"- **Reused memory categories:** {entry.get('reused_memory_categories', [])}")
-                    lines.append(f"- **Change summary:** {entry.get('change_summary', '')}")
-                    lines.append("- **Failure modes:**")
-                    for fm in entry.get("failure_modes", []):
-                        lines.append(f"  - {fm}")
-                    lines.append(f"- **Memory utilization:** {mu['size_after']} entries ({mu['utilization']:.0%})")
-                    if mu["evicted"]:
-                        evicted = mu["evicted"]
-                        lines.append(f"- **Evicted entry:** iter={evicted.get('iteration')}, component={evicted.get('component_name')}")
-                        lines.append("")
-                        lines.append("  <details>")
-                        lines.append("  <summary>Evicted entry details</summary>")
-                        lines.append("")
-                        lines.append("  ```json")
-                        lines.append("  " + json.dumps(_safe_json(evicted), indent=2, default=str).replace("\n", "\n  "))
-                        lines.append("  ```")
-                        lines.append("")
-                        lines.append("  </details>")
-                    lines.append("")
-
-            # Show after-proposal snapshot
-            after_snapshots = [s for s in memory_snapshots if s["phase"] == "after_proposal"]
-            if after_snapshots:
-                snap = after_snapshots[0]
-                util_pct = snap["total_entries"] / snap["max_entries"] * 100 if snap["max_entries"] > 0 else 0
-                lines.append(f"### Memory State After Proposal ({snap['total_entries']}/{snap['max_entries']} entries, {util_pct:.0f}% utilization)")
-                lines.append("")
-                lines.append(f"- **Accepted ratio:** {snap['accepted_ratio']:.1%}")
-                lines.append(f"- **Rejected ratio:** {snap['rejected_ratio']:.1%}")
-                lines.append("")
-
-        # =================================================================
         # LLM Proposal — full prompts and responses, zero truncation
         # =================================================================
         if "proposal_traces" in buf:
@@ -1196,10 +1033,6 @@ class ResearchLogger:
                 lines.append(f"- **Model:** {trace['model_id']}")
                 lines.append(f"- **Latency:** {trace['latency_ms']:.0f}ms")
                 lines.append(f"- **Memory injected:** {trace['memory_was_injected']}")
-                lines.append(f"- **Memory selected entry IDs:** {trace.get('memory_selected_entry_ids', [])}")
-                lines.append(f"- **Memory reused intents:** {trace.get('memory_reused_intents', [])}")
-                lines.append(f"- **Memory reused categories:** {trace.get('memory_reused_categories', [])}")
-                lines.append(f"- **Memory reuse detected:** {trace.get('memory_reuse_detected', False)}")
                 lines.append(f"- **Prompt length:** {len(trace['rendered_prompt'])} chars")
                 lines.append(f"- **Response length:** {len(trace['raw_response'])} chars")
                 lines.append("")
@@ -1342,35 +1175,6 @@ class ResearchLogger:
             if dec.get("delta") is not None:
                 lines.append(f"- **Delta:** {dec.get('delta'):+.4f}")
             lines.append("")
-
-        # =================================================================
-        # Lesson Generated
-        # =================================================================
-        lessons = buf.get("lessons", [])
-        if lessons:
-            lines.append("## Lesson Generated")
-            lines.append("")
-            for ls in lessons:
-                delta = ls["score_after"] - ls["score_before"]
-                status = "ACCEPTED" if ls["accepted"] else "REJECTED"
-                fallback = " (V1 fallback)" if ls["fallback_used"] else " (V2 LLM)"
-                lines.append(f"### Component: `{ls['component_name']}` [{status}, delta: {delta:+.2f}]{fallback}")
-                lines.append("")
-                lines.append(f"- **Score:** {ls['score_before']:.2f} -> {ls['score_after']:.2f}")
-                lines.append(f"- **Latency:** {ls['latency_ms']:.0f}ms")
-                if ls["intent"]:
-                    lines.append(f"- **Intent:** {ls['intent']}")
-                if ls["lesson"]:
-                    lines.append(f"- **Lesson:** {ls['lesson']}")
-                if ls["categories_succeeded"]:
-                    lines.append(f"- **Categories succeeded:** {', '.join(ls['categories_succeeded'])}")
-                if ls["categories_failed"]:
-                    lines.append(f"- **Categories failed:** {', '.join(ls['categories_failed'])}")
-                lines.append(f"- **Referenced memory entry IDs:** {ls.get('memory_selected_entry_ids', [])}")
-                lines.append(f"- **Reused memory intents:** {ls.get('memory_reused_intents', [])}")
-                lines.append(f"- **Reused memory categories:** {ls.get('memory_reused_categories', [])}")
-                lines.append(f"- **Memory reuse detected:** {ls.get('memory_reuse_detected', False)}")
-                lines.append("")
 
         # =================================================================
         # Pareto front

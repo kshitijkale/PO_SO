@@ -1,0 +1,1802 @@
+I provided an assistant with the following instructions to perform a task for me:
+'''
+Solve the problem and provide the answer provide the final answer as a single integer.
+'''
+The following are examples of different task inputs provided to the assistant
+along with the assistant's response for each of them, and some feedback on how
+the assistant's response could be better:
+'''
+# Example 1
+## Inputs
+Problem: A cube-shaped container has vertices $A,$ $B,$ $C,$ and $D,$ where $\overline{AB}$ and $\overline{CD}$ are parallel edges of the cube, and $\overline{AC}$ and $\overline{BD}$ are diagonals of faces of the cube, as shown. Vertex $A$ of the cube is set on a horizontal plane $\mathcal{P}$ so that the plane of the rectangle $ABDC$ is perpendicular to $\mathcal{P},$ vertex $B$ is $2$ meters above $\mathcal{P},$ vertex $C$ is $8$ meters above $\mathcal{P},$ and vertex $D$ is $10$ meters above $\mathcal{P}.$ The cube contains water whose surface is parallel to $\mathcal{P}$ at a height of $7$ meters above $\mathcal{P}.$ The volume of water is $\frac{m}{n}$ cubic meters, where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## Generated Outputs
+Answer: 97
+Reasoning: We have a cube with vertices \( A, B, C, D \) such that:
+- \(\overline{AB}\) and \(\overline{CD}\) are parallel edges (so they are edges of the cube),
+- \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces,
+- The plane \(ABDC\) is a rectangle perpendicular to the horizontal plane \(\mathcal{P}\),
+- \(A\) lies on the horizontal plane \(\mathcal{P}\) (height 0),
+- \(B\) is 2 meters above \(\mathcal{P}\),
+- \(C\) is 8 meters above \(\mathcal{P}\),
+- \(D\) is 10 meters above \(\mathcal{P}\).
+
+We are told that the cube is oriented such that these height values hold:
+
+- \( \text{height}(A) = 0 \),
+- \( \text{height}(B) = 2 \),
+- \( \text{height}(C) = 8 \),
+- \( \text{height}(D) = 10 \).
+
+Since all four points are vertices of the cube, and the heights correspond to their vertical coordinates, we can find the side length of the cube.
+
+First, let's assign coordinates to the vertices relative to the plane \(\mathcal{P}\). Let’s place \( A = (0,0,0) \).
+
+We know:
+- \( B \) is on the edge \( AB \), so vector \( \overrightarrow{AB} \) has length equal to the cube's side length \( s \), but from the height of \( B \), we have \( z_B = 2 \).
+- Similarly, \( D \) is opposite \( A \) along edges \( AD \) and \( DC \), and \( z_D = 10 \).
+
+Recall the cube edges are all length \( s \), so the difference vector between vertices is along the cube edges.
+
+Because \(AB\) and \(CD\) are parallel edges, and \( A, B, D, C \) lie on a plane perpendicular to \(\mathcal{P}\), and from the heights given, we can deduce the cube's side length.
+
+Consider the rectangle \(ABDC\). The heights of points are:
+- \(A: 0\),
+- \(B: 2\),
+- \(C: 8\),
+- \(D: 10\).
+
+Since \(ABDC\) is a rectangle perpendicular to \(\mathcal{P}\), the heights correspond to the vertical components of these points lying in a rectangle:
+
+- \(\overrightarrow{AB}\) vector corresponds to a vertical edge of length 2,
+- \(\overrightarrow{AD}\) vector corresponds to another vertical edge of length 10.
+
+Because it's a cube, all edges have the same length \( s \), so the edge lengths measured by height differences must fit into a consistent edge length \( s \).
+
+From heights:
+- \( \overline{AB} = 2 \) height difference,
+- \( \overline{AD} = 10 \),
+- \( \overline{BC} = \overline{AD} \) (parallel edges, equal length),
+- \( \overline{CD} = \overline{AB} \) (parallel edges, equal length).
+
+But 2 and 10 are not equal, so this is a clue that edges may not be vertical edges, since the cube might be rotated.
+
+More correctly:
+
+- \(A, B, D, C\) are vertices of the rectangle \(ABDC\),
+- The plane \(ABDC\) is perpendicular to \(\mathcal{P}\),
+- \(AB\) and \(CD\) are parallel edges,
+- \(AC\) and \(BD\) are diagonals of faces.
+
+Let’s model the positions as vectors:
+
+Let the direction from \(A\) to \(B\) be vector \(\mathbf{u}\),
+and from \(A\) to \(D\) be vector \(\mathbf{v}\),
+both of length \(s\) because these are edges of the cube,
+with \(\mathbf{u}\) and \(\mathbf{v}\) perpendicular since \(ABDC\) is rectangle.
+
+Then:
+
+- \(B = A + \mathbf{u}\),
+- \(D = A + \mathbf{v}\),
+- \(C = A + \mathbf{u} + \mathbf{v}\).
+
+Since the plane \(ABDC\) is perpendicular to \(\mathcal{P}\) (the horizontal plane at \(z=0\)), its normal vector is horizontal.
+
+Let’s notice that since the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), its normal vector has zero vertical (z) component.
+
+The points \(A,B,C,D\) have heights (z-coordinates):
+
+- \(z_A = 0\),
+- \(z_B = 2\),
+- \(z_D = 10\),
+- \(z_C = 8\).
+
+Note that:
+
+\[
+z_C = z_A + z_B + z_D - z_A = z_B + z_D - z_A = 2 + 10 - 0 = 12,
+\]
+
+but given \(z_C = 8\), the sum is off. So our assumption that \( C = A + \mathbf{u} + \mathbf{v} \) needs correction.
+
+Wait, we can directly compute \(z_C\) from positions:
+
+Because \(C\) lies at \(A + \mathbf{u} + \mathbf{v}\), and heights are additive in the z-component.
+
+Given
+
+\[
+z(C) = z(A) + z(\mathbf{u}) + z(\mathbf{v}) = 0 + z_B + z_D = 2 + 10 = 12,
+\]
+
+which contradicts the given \(z_C = 8\).
+
+Therefore, our initial assumption that \(\mathbf{u}\) and \(\mathbf{v}\) correspond directly to vectors pointing from \(A\) to \(B\) and from \(A\) to \(D\) with vertical components is incorrect.
+
+Since the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), it means the normal vector of the plane has zero \(z\)-component; so the plane is vertical.
+
+Thus, \( z \)-coordinates of points in \(ABDC\) should lie on a vertical plane.
+
+Now, given the heights, the \(z\)-coordinate of \(A=0\), \(B=2\), \(C=8\), \(D=10\), it implies that the set \(\{0,2,8,10\}\) are the vertical components of the four vertices of this rectangle lying on a vertical plane.
+
+We can suppose the positions:
+
+- \(A = (0,0,0)\),
+- \(B = (x_B,y_B,2)\),
+- \(D = (x_D,y_D,10)\),
+- \(C = (x_C,y_C,8)\).
+
+Since \(ABDC\) is a rectangle, vectors \(\overrightarrow{AB}\) and \(\overrightarrow{AD}\) are perpendicular and have length \(s\).
+
+So:
+
+\[
+|\overrightarrow{AB}| = s,\quad |\overrightarrow{AD}| = s,
+\]
+\[
+\overrightarrow{AB} \cdot \overrightarrow{AD} = 0.
+\]
+
+The vectors:
+
+\[
+\overrightarrow{AB} = (x_B - 0, y_B - 0, 2 - 0) = (x_B, y_B, 2),
+\]
+\[
+\overrightarrow{AD} = (x_D - 0, y_D - 0, 10 - 0) = (x_D, y_D, 10).
+\]
+
+The dot product:
+
+\[
+\overrightarrow{AB} \cdot \overrightarrow{AD} = x_B x_D + y_B y_D + 20 = 0.
+\]
+
+The length conditions:
+
+\[
+x_B^2 + y_B^2 + 2^{2} = s^{2}, 
+\]
+\[
+x_D^2 + y_D^2 + 10^{2} = s^{2}.
+\]
+
+Subtracting,
+
+\[
+x_D^2 + y_D^2 + 100 = x_B^2 + y_B^2 + 4.
+\]
+\[
+x_D^2 + y_D^2 - x_B^2 - y_B^2 = -96.
+\]
+
+We also have from the rectangle condition:
+
+\[
+\overrightarrow{AB} + \overrightarrow{AD} = \overrightarrow{AC} = (x_C, y_C, 8).
+\]
+
+So,
+
+\[
+x_C = x_B + x_D, \quad y_C = y_B + y_D, \quad 8 = 2 + 10 = 12,
+\]
+
+contradiction again. But the points \(A,B,C,D\) lie on rectangle \(ABDC\). The naming indicates that the rectangle is \(ABDC\) in order.
+
+If we consider the rectangle vertices in order \(A \to B \to D \to C \to A\), then the diagonals are \(AC\) and \(BD\).
+
+So, the diagonals \(AC\) and \(BD\) are face diagonals of the cube.
+
+Since the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), and the heights are given, perhaps \(ABDC\) is a vertical face of the cube rotated so that the height of each vertex varies.
+
+Now, consider the cube edges (each length \(s\)) meeting at \(A\) as vectors \(\mathbf{u}, \mathbf{v}, \mathbf{w}\), mutually perpendicular, with lengths \(s\).
+
+Let’s suppose:
+
+- \(\overrightarrow{AB} = \mathbf{u}\),
+- \(\overrightarrow{AD} = \mathbf{v}\),
+- \(\overrightarrow{AE} = \mathbf{w}\),
+
+where \(E\) is the vertex adjacent to \(A\) in the third direction.
+
+Given that the plane \(ABDC\) is formed by \(\mathbf{u}\) and \(\mathbf{v}\), and is perpendicular to \(\mathcal{P}\), which is the plane \(z=0\). Then the normal vector to this plane is horizontal (i.e., its \(z\) component is zero).
+
+Therefore, the cross product \(\mathbf{u} \times \mathbf{v}\), which is the normal to the plane \(ABDC\), has zero z-component:
+
+\[
+(\mathbf{u} \times \mathbf{v})_z = 0.
+\]
+
+Let \(\mathbf{u} = (x_1,y_1,z_1)\), \(\mathbf{v} = (x_2,y_2,z_2)\) with length \(s\).
+
+The z-component of \(\mathbf{u} \times \mathbf{v}\) is:
+
+\[
+(x_1 y_2 - y_1 x_2) = 0.
+\]
+
+Now, given the coordinate heights of points:
+
+\[
+A = (0,0,0),
+\quad B = \mathbf{u} = (x_1,y_1,z_1),
+\quad D = \mathbf{v} = (x_2,y_2,z_2),
+\quad C = \mathbf{u} + \mathbf{v} = (x_1 + x_2, y_1 + y_2, z_1 + z_2).
+\]
+
+From given heights:
+
+\[
+z_1 = 2, \quad z_2 = 10, \quad z_1 + z_2 = 8,
+\]
+
+But \(2 + 10 = 12 \neq 8\).
+
+Contradiction.
+
+Hence, the assumption is incorrect that the height of \(C\) is \(z_1 + z_2\). So heights do not add linearly here.
+
+This suggests the cube is not aligned with the coordinate axes.
+
+Alternatively, maybe the heights are projections due to the cube orientation, or the cube is rotated such that these heights are projections, not direct coordinates.
+
+Given that \(A\) is on \(\mathcal{P}\) (height 0), \(B\) is 2 meters above \(\mathcal{P}\), \(C\) is 8 meters above \(\mathcal{P}\), and \(D\) is 10 meters above \(\mathcal{P}\), and that \(AB\) and \(CD\) are parallel edges, and \(AC\) and \(BD\) are diagonals of the faces, and the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), deduce the cube edge length \(s\).
+
+Focus on heights relative to \(\mathcal{P}\):
+
+\[
+z_A = 0,\quad z_B = 2, \quad z_C=8, \quad z_D=10.
+\]
+
+From \(ABDC\) is rectangle perpendicular to \(\mathcal{P}\), so its normal vector is horizontal (no \(z\)-component).
+
+Therefore, vector \(\overrightarrow{AB} = (x_1,y_1,2)\), \(\overrightarrow{AD} = (x_2, y_2, 10)\), with
+
+\[
+x_1 y_2 - y_1 x_2 = 0.
+\]
+
+Edge lengths:
+
+\[
+x_1^{2} + y_1^{2} + 4 = s^{2},\quad x_2^{2} + y_2^{2} + 100 = s^{2}.
+\]
+
+Subtract,
+
+\[
+(x_2^{2} + y_2^{2}) - (x_1^{2} + y_1^{2}) = -96.
+\]
+
+Also, considering the diagonals \(AC\) and \(BD\) are length \(\sqrt{2}s\):
+
+\[
+\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD} = (x_1 + x_2, y_1 + y_2, 12),
+\]
+with height 8, but vector sum would have \(z\)-coordinate \(2+10=12\), but actual given is 8.
+
+Hence, the height of \(C\) is not the sum of the heights of \(B\) and \(D\).
+
+This suggests that the given heights correspond to projections of the vertices on the vertical axis, but the cube is skewed with respect to the vertical axis \(\mathcal{P}\).
+
+We can think of the heights as the scalar product of vertex position vectors with the vertical direction vector, given the cube is rotated.
+
+Let’s define height as the dot product of position vector with the vertical unit vector \(\mathbf{k} = (0,0,1)\).
+
+Assume that the cube edges are vectors \(\mathbf{u}, \mathbf{v}, \mathbf{w}\), all length \(s\), mutually perpendicular.
+
+We know the height of a vertex is the dot product of its position vector with \(\mathbf{k}\).
+
+The key given is the heights of the vertices \(A,B,C,D\):
+
+- \( \mathbf{0} \cdot \mathbf{k} = 0 \),
+- \( \mathbf{u} \cdot \mathbf{k} = 2 \),
+- \( \mathbf{u} + \mathbf{v} \cdot \mathbf{k} = 8 \),
+- \( \mathbf{v} \cdot \mathbf{k} = 10 \).
+
+From these:
+
+\[
+\mathbf{u} \cdot \mathbf{k} = 2,
+\]
+\[
+\mathbf{v} \cdot \mathbf{k} = 10,
+\]
+\[
+(\mathbf{u} + \mathbf{v}) \cdot \mathbf{k} = 8.
+\]
+
+But \( (\mathbf{u} + \mathbf{v}) \cdot \mathbf{k} = \mathbf{u} \cdot \mathbf{k} + \mathbf{v} \cdot \mathbf{k} = 2 + 10 = 12 \neq 8 \).
+
+Contradiction.
+
+Therefore, our assumption that the heights correspond to the dot product with \(\mathbf{k}\) fails with such a simple vertical vector.
+
+It must be that the plane \(\mathcal{P}\) is horizontal, but the vertical direction (the one measuring height) is not along \(\mathbf{k}\), or the cube is placed such that the vertical height is a different linear functional on the cube.
+
+Alternatively, since \(A\) is on \(\mathcal{P}\), with height zero, and the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), the vertical height component for each vertex is the projection onto the vertical axis.
+
+Now, perhaps the heights are function of the dot product with a vector \(\mathbf{n}\).
+
+Given that, heights:
+
+\[
+h(P) = \mathbf{P} \cdot \mathbf{n}.
+\]
+
+Given that, for vertices:
+
+\[
+h(A) = 0,
+\quad h(B) = 2,
+\quad h(D) = 10,
+\quad h(C) = 8 = h(B) + h(D) - h(A) - \alpha,
+\]
+
+No, better yet, if the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), the height values given for the points imply the shape is a cube with side length \(s\).
+
+From the \(z\)-coordinates, \(B\) is 2 units above plane \(A\), and \(D\) is 10 units above plane \(A\). These correspond to edges \(\overrightarrow{AB}\) and \(\overrightarrow{AD}\).
+
+Since we know cube's edge length is the same, the length:
+
+\[
+|\overrightarrow{AB}| = s,
+\quad |\overrightarrow{AD}| = s,
+\]
+
+but heights differ: 2 and 10.
+
+Since height difference is part of displacement, the horizontal components of vectors must adjust accordingly.
+
+So for these two vectors:
+
+\[
+|\overrightarrow{AB}|^{2} = x_1^{2} + y_1^{2} + 2^{2} = s^{2},
+\]
+\[
+|\overrightarrow{AD}|^{2} = x_2^{2} + y_2^{2} + 10^{2} = s^{2}.
+\]
+
+Subtracting,
+
+\[
+x_2^{2} + y_2^{2} + 100 = x_1^{2} + y_1^{2} + 4 \implies x_2^{2} + y_2^{2} - x_1^{2} - y_1^{2} = -96.
+\]
+
+Also, since \(ABDC\) is rectangle:
+
+\[
+\overrightarrow{AB} \cdot \overrightarrow{AD} = 0,
+\]
+so
+\[
+x_1 x_2 + y_1 y_2 + 2 \times 10 = 0 \implies x_1 x_2 + y_1 y_2 = -20.
+\]
+
+We have unknowns \(x_1, y_1, x_2, y_2\), want to find \(s\).
+
+Let's try to express in terms of \(x_1, y_1\) and \(x_2, y_2\).
+
+Set:
+
+\[
+X_1 = x_1,\, Y_1 = y_1,\, X_2 = x_2,\, Y_2 = y_2,
+\]
+then:
+
+\[
+X_1^2 + Y_1^2 = a,
+\]
+\[
+X_2^2 + Y_2^2 = b,
+\]
+with
+
+\[
+b - a = -96,
+\]
+
+and
+
+\[
+X_1 X_2 + Y_1 Y_2 = -20.
+\]
+
+Since \(s^{2} = a + 4 = b + 100 \Rightarrow s^{2} = a +4\).
+
+Now, consider the vectors \(\mathbf{u} = (X_1, Y_1)\), \(\mathbf{v} = (X_2, Y_2)\).
+
+The dot product is \(-20\), lengths \(\sqrt{a}\) and \(\sqrt{b}\) respectively.
+
+Using cosine of angle \(\theta\) between \(\mathbf{u}\) and \(\mathbf{v}\) in the horizontal plane:
+
+\[
+\cos \theta = \frac{\mathbf{u} \cdot \mathbf{v}}{|\mathbf{u}| |\mathbf{v}|} = \frac{-20}{\sqrt{a b}}.
+\]
+
+Because \(\overrightarrow{AB}\) and \(\overrightarrow{AD}\) are perpendicular in 3D, their dot product is zero:
+
+\[
+\mathbf{u} \cdot \mathbf{v} + 2 \times 10 = 0 \implies \mathbf{u} \cdot \mathbf{v} = -20.
+\]
+
+We have two equations:
+
+\[
+b = a - 96,
+\]
+and
+
+\[
+\mathbf{u} \cdot \mathbf{v} = -20.
+\]
+
+We want to find \(s^{2} = a + 4\).
+
+Also, the vectors \(\mathbf{u}\) and \(\mathbf{v}\) correspond to the edges in the horizontal plane components.
+
+From the Cauchy-Schwarz inequality:
+
+\[
+|\mathbf{u} \cdot \mathbf{v}| \leq |\mathbf{u}||\mathbf{v}| = \sqrt{a} \sqrt{b} = \sqrt{a (a - 96)}.
+\]
+
+Given \(\mathbf{u} \cdot \mathbf{v} = -20\), absolute value 20:
+
+\[
+20 \leq \sqrt{a (a - 96)}
+\implies 400 \leq a^{2} - 96 a,
+\]
+\[
+a^{2} - 96 a - 400 \geq 0.
+\]
+
+Solve quadratic:
+
+\[
+a^{2} - 96 a - 400 = 0,
+\]
+
+discriminant:
+
+\[
+\Delta = 96^{2} + 4 \times 400 = 9216 + 1600 = 10816.
+\]
+
+\[
+\sqrt{10816} = 104.
+\]
+
+So roots:
+
+\[
+a = \frac{96 \pm 104}{2}.
+\]
+
+Two roots:
+
+1. \(a = \frac{96 + 104}{2} = \frac{200}{2} = 100\),
+2. \(a = \frac{96 - 104}{2} = \frac{-8}{2} = -4\) (discard negative).
+
+So \(a \geq 100\).
+
+But \(b = a - 96\), so
+
+\[
+b = 100 - 96 = 4.
+\]
+
+Then:
+
+\[
+\cos \theta = \frac{-20}{\sqrt{100 \times 4}} = \frac{-20}{20} = -1,
+\]
+
+meaning \(\mathbf{u}\) and \(\mathbf{v}\) are antiparallel in the horizontal plane, but from the edge rectangle, edges must be perpendicular (in 3D), which is satisfied since the vertical components differ.
+
+Therefore, vectors:
+
+\[
+\mathbf{u} = (X_1, Y_1, 2), \quad \mathbf{v} = (X_2, Y_2,10),
+\]
+with
+
+\[
+\mathbf{u} \cdot \mathbf{v} = X_1 X_2 + Y_1 Y_2 + 20 = 0,
+\]
+and horizontal components:
+
+\[
+X_1 X_2 + Y_1 Y_2 = -20,
+\]
+and we have found,
+
+\[
+a = X_1^{2} + Y_1^{2} = 100,
+\quad b = X_2^{2} + Y_2^{2} = 4.
+\]
+
+Now,
+
+\[
+s^{2} = a + 4 = 100 + 4 = 104.
+\]
+
+To verify:
+
+\[
+|\mathbf{u}|^{2} = a + 2^{2} = 100 + 4 = 104,
+\]
+\[
+|\mathbf{v}|^{2} = b + 10^{2} = 4 + 100 = 104.
+\]
+
+So both edges have length \(\sqrt{104}\).
+
+The third edge \(\mathbf{w}\) is perpendicular to both \(\mathbf{u}\) and \(\mathbf{v}\), with length \(\sqrt{104}\).
+
+Now, we have the cube with edge length \(s = \sqrt{104} = 2 \sqrt{26}\).
+
+---
+
+Now, determine the volume of water in the cube.
+
+Water surface is parallel to plane \(\mathcal{P}\) at height 7.
+
+This means, water fills up the cube from \(z=0\) (height of \(A\)) up to \(z=7\).
+
+We want to find what fraction of cube’s volume is under height 7.
+
+Since the cube is skewed, height is not simply one coordinate direction.
+
+We want to find the volume of the part of the cube below the horizontal plane at height \(h=7\).
+
+Assuming the cube fills a linear space generated by edges \(\mathbf{u}, \mathbf{v}, \mathbf{w}\) from \(A=0\).
+
+Positions in the cube are:
+
+\[
+\mathbf{P}(x,y,z) = \alpha \mathbf{u} + \beta \mathbf{v} + \gamma \mathbf{w},
+\]
+for \(\alpha,\beta,\gamma \in [0,1]\).
+
+The height of \(P\) relative to \(\mathcal{P}\) is:
+
+\[
+h(P) = \mathbf{P} \cdot \mathbf{k},
+\]
+where \(\mathbf{k}\) is the vertical vector.
+
+From the heights found for \(\mathbf{u}\) and \(\mathbf{v}\):
+
+\[
+\mathbf{u} \cdot \mathbf{k} = 2,
+\quad \mathbf{v} \cdot \mathbf{k} = 10,
+\]
+
+we can deduce \(\mathbf{k}\) has dot product with \(\mathbf{w}\):
+
+Considering the cube is of side length \(s = \sqrt{104}\), so \(|\mathbf{w}| = \sqrt{104}\).
+
+Because all edges are perpendicular, the height of \(\mathbf{w}\):
+
+Let this be \(w_z = \mathbf{w} \cdot \mathbf{k} = h_w\), unknown for now.
+
+Similarly, as \(\mathbf{w}\) is unknown vector with length \(\sqrt{104}\), but we want \(h_w\).
+
+We need to find \(h_w\).
+
+Since the four vertices \(A,B,C,D\) give height values:
+
+\(A :0\),
+
+\(B = \mathbf{u} : 2\),
+
+\(D = \mathbf{v} : 10\),
+
+\(C = \mathbf{u} + \mathbf{v} : 8\).
+
+From this,
+
+\[
+h_C = h_B + h_D = 2 + 10 = 12,
+\]
+
+but given \(8\), so not additive, suggesting that the vertical height vector is not constant across the cube but height is measured as the projection onto \(\mathcal{P}\).
+
+Alternatively, the vertical height vector \(\mathbf{k}\) is such that:
+
+\[
+h(\mathbf{u} + \mathbf{v}) = 8,
+\]
+\[
+h(\mathbf{u}) + h(\mathbf{v}) = 2 + 10 = 12,
+\]
+
+which is a contradiction.
+
+This implies that the height function is not linear in the cube basis vectors. So probably the plane \(\mathcal{P}\) is horizontal, but the vertical direction (height) is such that the points have the given heights.
+
+Maybe instead the height function is a linear functional \(h(\mathbf{P}) = \mathbf{P} \cdot \mathbf{h}\) for some unit vector \(\mathbf{h}\).
+
+Since \(h(B) = \mathbf{u} \cdot \mathbf{h} = 2\), \(h(D) = \mathbf{v} \cdot \mathbf{h} = 10\), and \(h(C) = (\mathbf{u} + \mathbf{v}) \cdot \mathbf{h} = 8\).
+
+Therefore,
+
+\[
+h(\mathbf{u} + \mathbf{v}) = h(\mathbf{u}) + h(\mathbf{v}) = 8,
+\]
+
+which equals 8, so the height vector \(\mathbf{h}\) satisfies:
+
+\[
+\mathbf{u} \cdot \mathbf{h} + \mathbf{v} \cdot \mathbf{h} = 8,
+\]
+but \( \mathbf{u} \cdot \mathbf{h} = 2 \), \(\mathbf{v} \cdot \mathbf{h} = 10\), so sum is 12 ≠ 8.
+
+Contradiction.
+
+Seems I made mistake: The problem says: vertex \(C\) is 8 meters above \(\mathcal{P}\), which is less than \(D\) (10). So height at C is less than sum of heights of \(B\) and \(D\).
+
+But if \(C = A + \mathbf{u} + \mathbf{v}\), then
+
+\[
+h(C) = (\mathbf{u} + \mathbf{v}) \cdot \mathbf{h} = h(\mathbf{u}) + h(\mathbf{v}) = 2 + 10 = 12,
+\]
+
+but given height is 8.
+
+Conflict.
+
+Therefore, our assumption that \(C = A + \mathbf{u} + \mathbf{v}\) is invalid.
+
+Alternatively, the problem states that \(A, B, C, D\) are vertices of the cube, and \(AB\) and \(CD\) are parallel edges, \(AC\) and \(BD\) are face diagonals.
+
+Let's consider a new configuration.
+
+Because \(AC\) and \(BD\) are diagonals of faces, their lengths are equal:
+
+\[
+|AC| = |BD| = s\sqrt{2}.
+\]
+
+Given heights:
+
+\[
+h_A = 0,
+\quad h_B = 2,
+\quad h_C = 8,
+\quad h_D = 10.
+\]
+
+\(AB\) and \(CD\) are parallel edges of cube; so
+
+- \(\overrightarrow{AB}\) and \(\overrightarrow{CD}\) parallel and equal in length \(s\).
+
+Similarly, \(AC\) and \(BD\) are diagonals of faces; so
+
+- \(|AC| = |BD| = s\sqrt{2}\).
+
+Using the heights, \(|AB| = s\) and as
+
+\[
+|AB|^2 = (x_B - x_A)^2 + (y_B - y_A)^2 + (z_B - z_A)^2,
+\]
+
+and similarly for other edges.
+
+Set \(A = (0,0,0)\).
+
+Let’s set:
+
+- \(B = (x, y, 2)\),
+- \(D = (p, q, 10)\),
+- \(C = (r, s, 8)\).
+
+Because \(ABDC\) is a rectangle perpendicular to \(\mathcal{P}\), the plane through these points is vertical.
+
+\(AB\) and \(CD\) are parallel edges, so vectors:
+
+\[
+\overrightarrow{AB} = (x,y,2),
+\]
+\[
+\overrightarrow{DC} = (r - p, s - q, 8 - 10) = (r - p, s - q, -2),
+\]
+
+These two must be parallel:
+
+\[
+\overrightarrow{AB} = k \overrightarrow{DC}, \text{ for some scalar } k.
+\]
+
+Also, \(|AB| = |DC| = s\).
+
+Similarly, \(AC\) and \(BD\) are diagonals of faces:
+
+\[
+\overrightarrow{AC} = (r, s, 8),
+\]
+\[
+\overrightarrow{BD} = (p - x, q - y, 10 - 2) = (p - x, q - y, 8).
+\]
+
+These two must be parallel vectors with equal length:
+
+\[
+\overrightarrow{AC} = m \overrightarrow{BD}.
+\]
+
+It looks quite complicated.
+
+Alternate approach: Instead consider a parametric form of the cube.
+
+Because the vertical positions of edges \(AB\) and \(CD\) differ by 2 and -2, the lengths in vertical direction are 2.
+
+Also, \(B\) is 2 above \(A\), \(D\) is 10 above \(A\), so vertical difference between \(B\) and \(D\) is 8.
+
+Hence, the vertical distance between \(AB\) and \(CD\) edges is 8. Since this is a cube, these differences correspond to edge lengths projected onto the vertical axis.
+
+The vertical height difference between \(A\) and \(B\) is 2, and between \(A\) and \(D\) is 10.
+
+Therefore, the difference in height between \(B\) and \(D\) is 8.
+
+Similarly, the height between \(C\) and \(D\) is 2 (10 - 8), matching the height of \(AB\) edge.
+
+Thus, the edges \(AB\) and \(CD\) have vertical height differences of 2 units, and edges \(AD\) and \(BC\) (which correspond to edges \(AD\) and \(BC\) in the cube) have height differences of 10 and 8, so edges are projected with different vertical components.
+
+In summary, the height along the cube edges vary; length of edges is consistent.
+
+Previously we found cube's edge length squared is 104.
+
+Now, water surface is at height 7. We want to find the volume of the cube under the plane \(z=7\).
+
+Since the cube’s height ranges from 0 to 10 (maximum height is 10 at \(D\)), and the volume is proportional to the cube volume times fraction filled.
+
+If water was filled to height 7, in a vertically-aligned cube of height 10 and edge length \(s\), the volume below height 7 is \(\frac{7}{10} s^{3}\).
+
+However, our cube is tilted.
+
+We can model the coordinate along the height as:
+
+\[
+h(\alpha, \beta, \gamma) = \alpha h_u + \beta h_v + \gamma h_w,
+\]
+
+where \(h_u = 2, h_v = 10, h_w = h_w\) (unknown).
+
+The cube volume is \(s^3 = ( \sqrt{104} )^3 = 104 \sqrt{104}\), but fraction of volume under water is the volume of \((\alpha, \beta, \gamma) \in [0,1]^3\) with
+
+\[
+\alpha h_u + \beta h_v + \gamma h_w \leq 7.
+\]
+
+We know \(h_u=2\), \(h_v=10\), \(h_w = h_w\), unknown. Also, cube's maximum height is
+
+\[
+h_{\max} = h_u + h_v + h_w = 10.
+\]
+
+Given the problem data, vertex \(D\) is 10 units above \(\mathcal{P}\), point \(A\) is at 0, and the maximum height is 10.
+
+Moreover, \(h(1,1,0) = h_u + h_v = 2 + 10 = 12\), but vertex \(C\) only has height 8.
+
+So \(C\) corresponds to \((1,1,0)\), its height is 8. Therefore,
+
+\[
+h_u + h_v + 0 \cdot h_w = 8,
+\]
+implying
+
+\[
+2 + 10 = 8,
+\]
+
+contradiction.
+
+This suggests the cube's edge vectors are not aligned with coordinate axes \(u,v,w\) as hoped.
+
+Alternatively, switch the vectors.
+
+Try \(h_u = 2\), \(h_v = 8\), \(h_w = 10\).
+
+Then \(C = u + v = 2 + 8 = 10\), but \(C\) is at height 8.
+
+Try various permutations.
+
+Assuming the heights of \(\mathbf{u}, \mathbf{v}, \mathbf{w}\) are \(\{2,8,10\}\) in some order, with cube edges corresponding accordingly.
+
+Check which ordering matches the heights of the vertices \(A,B,C,D\):
+
+- \(A: (0,0,0)\) height 0,
+- \(B: \mathbf{u}\),
+- \(C: \mathbf{u} + \mathbf{v}\),
+- \(D: \mathbf{v}\).
+
+Heights given:
+
+- \(h(A) = 0\),
+- \(h(B) = 2\),
+- \(h(D) = 10\),
+- \(h(C) = 8\).
+
+If set \(h_u = 2\), \(h_v=10\), then
+
+\[
+h(C) = h_u + h_v = 12 \neq 8.
+\]
+
+Try \(h_u=2\), \(h_v=8\):
+
+\[
+h(C) = 10 \neq 8.
+\]
+
+Try \(h_u=8\), \(h_v=2\):
+
+\[
+h(C) = 10 \neq 8.
+\]
+
+Try \(h_u=10\), \(h_v=8\):
+
+\[
+h(C) = 18 \neq 8.
+\]
+
+Try \(h_u=8\), \(h_v=10\):
+
+\[
+h(C) = 18 \neq 8.
+\]
+
+Try \(h_u=8\), \(h_v = 0\) no.
+
+Try \(h_u=10\), \(h_v=0\) no.
+
+Only possibility: assign \(B\) and \(D\) as edges along \(\mathbf{u}\) and \(\mathbf{w}\) with heights 2 and 8 respectively, and \(C = \mathbf{u} + \mathbf{w}\) with height 10.
+
+Thus,
+
+- \(h_u = 2\),
+- \(h_w = 8\),
+then \(h(C) = 10\) matches.
+
+Then what about \(D\) at height 10? So \(D = \mathbf{w}\) at height 8, contradicts given \(D=10\).
+
+Alternatively, swap \(B\) and \(C\):
+
+- \(B = \mathbf{u}\) at height 2,
+- \(C = \mathbf{v}\) at height 8,
+- \(D = \mathbf{u} + \mathbf{v}\) at height 10,
+
+which matches:
+
+\[
+h_D = h_u + h_v = 10,
+\]
+with \(h_B=2\), \(h_C=8\), \(h_D=10\), consistent.
+
+Perfect.
+
+Thus,
+
+\[
+h_u = 2, \quad h_v=8, \quad h_w = ?,
+\]
+with \(\mathbf{w}\) corresponding to the vertical edge out of the plane.
+
+Length of each edge: \(s = \sqrt{104}\).
+
+Now, we want to find \(h_w = x\).
+
+Since
+
+\[
+|\mathbf{u}|^2 = a + (2)^2 = s^2 = 104,
+\]
+and
+
+\[
+|\mathbf{v}|^2 = b + (8)^2 = 104,
+\]
+thus
+
+\[
+a + 4 = 104 \Rightarrow a=100,
+\]
+\[
+b + 64 = 104 \Rightarrow b=40.
+\]
+
+Earlier, we had from edge dot product:
+
+\[
+\mathbf{u} \cdot \mathbf{v} + 2 \times 8 = 0,
+\]
+so
+
+\[
+\mathbf{u} \cdot \mathbf{v} = -16.
+\]
+
+The horizontal components satisfy:
+
+\[
+X_1 X_2 + Y_1 Y_2 = -16,
+\]
+
+with
+
+\[
+X_1^2 + Y_1^2 = 100,
+\]
+\[
+X_2^2 + Y_2^2 = 40.
+\]
+
+Similarly, the third edge \(\mathbf{w}\) has length squared \(s^2=104\), and its height is \(h_w=x\), unknown.
+
+We want to find the volume fraction of the water up to height 7.
+
+Express any point:
+
+\[
+P = \alpha \mathbf{u} + \beta \mathbf{v} + \gamma \mathbf{w},
+\quad \alpha,\beta,\gamma \in [0,1].
+\]
+
+The height at \(P\) is
+
+\[
+h(P) = 2 \alpha + 8 \beta + x \gamma.
+\]
+
+We want volume where
+
+\[
+2 \alpha + 8 \beta + x \gamma \leq 7,
+\quad 0 \leq \alpha,\beta,\gamma \leq 1.
+\]
+
+We need to find \(x\), the height component along \(\mathbf{w}\).
+
+Since the max height is
+
+\[
+h(\mathbf{u} + \mathbf{v} + \mathbf{w}) = 2 + 8 + x = 10,
+\]
+
+given by height of vertex \(E\) (the vertex opposite to \(A\)).
+
+Therefore,
+
+\[
+x = 10 - 2 -8 = 0.
+\]
+
+So \(h_w = 0\). The third edge vector is horizontal, with zero height.
+
+Therefore, height function simplifies to
+
+\[
+h(P) = 2 \alpha + 8 \beta,
+\quad 0 \leq \alpha,\beta,\gamma \leq 1.
+\]
+
+The cube extends in \(\gamma\) direction of length \(s\) but zero height. So the water volume is proportional to the area in \((\alpha, \beta)\) plane under \(2 \alpha + 8 \beta \leq 7\), times the length in \(\gamma\) direction (times \(s\)).
+
+Since \(\gamma\) is independent of height, the volume under height 7 is
+
+\[
+V = s \times \text{area}\{(\alpha,\beta): 0 \leq \alpha,\beta \leq 1, 2 \alpha + 8 \beta \leq 7\}.
+\]
+
+Calculate the area under the line:
+
+\[
+2 \alpha + 8 \beta \leq 7,
+\quad \alpha, \beta \in [0,1].
+\]
+
+For \(\beta=0\):
+
+\[
+2 \alpha \leq 7 \Rightarrow \alpha \leq 3.5,
+\]
+no restriction as max \(\alpha =1\).
+
+For \(\alpha=0\):
+
+\[
+8 \beta \leq 7 \Rightarrow \beta \leq \frac{7}{8} = 0.875.
+\]
+
+For \(\alpha=1\), find \(\beta\):
+
+\[
+2(1) + 8 \beta \leq 7 \Rightarrow 8 \beta \leq 5 \Rightarrow \beta \leq \frac{5}{8} = 0.625.
+\]
+
+So the region is a trapezoid in \((\alpha,\beta)\) plane bounded by:
+
+- \(\alpha=0\) to 1,
+- \(\beta = 0\) to \(\min(1, (7 - 2 \alpha)/8)\).
+
+The area:
+
+\[
+\text{Area} = \int_{0}^{1} \min\left(1, \frac{7 - 2\alpha}{8}\right) d\alpha.
+\]
+
+Since \(\frac{7 - 2\alpha}{8} \leq 1\) for \(\alpha \geq 0\), integral simplifies to
+
+\[
+\text{Area} = \int_0^1 \frac{7 - 2 \alpha}{8} d\alpha = \frac{1}{8} \int_0^1 (7 - 2 \alpha) d\alpha.
+\]
+
+Calculate the integral:
+
+\[
+\int_0^1 (7 - 2 \alpha) d\alpha = [7 \alpha - \alpha^{2}]_0^{1} = 7 \times 1 - 1^{2} = 7 - 1 = 6.
+\]
+
+Therefore,
+
+\[
+\text{Area} = \frac{6}{8} = \frac{3}{4}.
+\]
+
+Now, length in \(\gamma\) direction is
+
+\[
+|\mathbf{w}| = s = \sqrt{104}.
+\]
+
+The volume of the whole cube is \(s^{3} = ( \sqrt{104} )^{3} = 104 \sqrt{104}\).
+
+The cross section has area \(s^{2} = 104\).
+
+Therefore, the volume of water:
+
+\[
+V = \text{area} \times s = \left(\frac{3}{4} \times s^{2}\right) \times s = \frac{3}{4} s^{3} = \frac{3}{4} \cdot 104 \sqrt{104} = 78 \sqrt{104}.
+\]
+
+But since the problem wants the volume in simplest rational form (as fraction) it suggests a simpler approach.
+
+Note that the cube’s length is \(s = \sqrt{104}\), but water height is 7, max height 10.
+
+Since height depends only on \(\alpha\) and \(\beta\) variables weighted by 2 and 8 respectively, and \(\gamma\) direction contributes no height.
+
+Hence, the volume fraction filled is the fraction of the base \([0,1]^2\) under the line \(2 \alpha + 8 \beta \leq 7\), which is area \(3/4\).
+
+Then multiplied by the entire extent in \(\gamma\) direction (length 1), total volume fraction is \(3/4\).
+
+Total volume:
+
+\[
+V = s^3 = ( \sqrt{104} )^3 = 104 \sqrt{104}.
+\]
+
+Volume of water:
+
+\[
+V_{\text{water}} = \frac{3}{4} \times 104 \sqrt{104}.
+\]
+
+But the problem gives heights in meters and volume in cubic meters; suggests the cube side length is the actual length in meters.
+
+Now, \(\sqrt{104} = 2 \sqrt{26}\).
+
+Perhaps the problem wants numerical evaluation.
+
+But given the heights, let's approximate.
+
+\[
+\sqrt{104} \approx \sqrt{100 +4} = 10.198.
+\]
+
+So volume:
+
+\[
+s^{3} = 104 \times 10.198 = 1060.0,
+\]
+and volume of water:
+
+\[
+\frac{3}{4} \times 1060.0 = 795.
+\]
+
+Alternatively, the problem states volume as \(\frac{m}{n}\) cubic meters.
+
+Is there a simpler approach?
+
+Actually, the cube side length is \(s = \sqrt{104}\), surface water height at 7.
+
+Because height vector has zero component along \(\mathbf{w}\), the shape between heights 0 and 7 in height corresponds to the set:
+
+\[
+2 \alpha + 8 \beta \leq 7, \quad \alpha, \beta \in [0,1].
+\]
+
+Ratio of volume filled is the ratio of the area under line to the total square \( [0,1]^2 \):
+
+\[
+\text{Fraction} = \frac{3}{4}.
+\]
+
+Therefore, the volume of water is
+
+\[
+\text{volume} = \frac{3}{4} \times s^{3} = \frac{3}{4} \times 104 \sqrt{104}.
+\]
+
+We can multiply numerator and denominator to get rid of radicals.
+
+Recall
+
+\[
+104 = 4 \times 26,
+\]
+\[
+s^{3} = 104 \sqrt{104} = 104 \times \sqrt{104} = 104 \times \sqrt{104}.
+\]
+
+But the problem wants the volume as fraction in simplest form.
+
+Alternatively, as the problem is from AMC/AIME style, the volume ratio is \(\frac{3}{4}\), and the cube side length is \(\sqrt{104}\), so
+
+\[
+V = s^{3} \times \frac{3}{4} = \left(\sqrt{104}\right)^{3} \times \frac{3}{4} = (104 \sqrt{104}) \times \frac{3}{4} = \frac{3 \times 104 \sqrt{104}}{4}.
+\]
+
+Multiply numerator and denominator by \(\sqrt{104}\) to rationalize?
+
+No need, the problem wants \(m+n\) where volume is \(\frac{m}{n}\).
+
+Given problem's statement, volume must be rational.
+
+Given that, seems better to reinterpret.
+
+Height 7 corresponds in height units:
+
+Water surface value is 7.
+
+Height variable is:
+
+\[
+h = 2 \alpha + 8 \beta.
+\]
+
+Define \(\alpha, \beta \in [0,1]\).
+
+So the set \(S = \{ (\alpha,\beta): 2 \alpha + 8 \beta \leq 7, 0 \leq \alpha,\beta \leq 1 \}\).
+
+Calculate the area of \(S\):
+
+- At \(\beta = 0\), \(\alpha \leq 3.5\) (no restriction since max 1),
+- At \(\alpha = 0\), \(\beta \leq 7/8\),
+- At \(\alpha=1\), \(\beta \leq (7 - 2)/8 = 5/8\).
+
+Area of \(S\) is
+
+\[
+\int_0^1 \min(1, \frac{7 - 2 \alpha}{8}) d\alpha = \frac{3}{4}.
+\]
+
+This area is proportional to the cube volume base.
+
+The cube height along \(\gamma\) is of length 1.
+
+Volume then is:
+
+\[
+V = \text{area} \times s = \frac{3}{4} \times s^{3},
+\]
+
+since \(s\) is cube's side length.
+
+Substituting \(s = \sqrt{104}\),
+
+\[
+V = \frac{3}{4} \times (\sqrt{104})^3 = \frac{3}{4} \times 104 \sqrt{104} = \frac{312 \sqrt{104}}{4} = 78 \sqrt{104}.
+\]
+
+Express \(\sqrt{104}\):
+
+\[
+\sqrt{104} = \sqrt{4 \times 26} = 2 \sqrt{26}.
+\]
+
+So,
+
+\[
+V = 78 \times 2 \sqrt{26} = 156 \sqrt{26}.
+\]
+
+If we want volume numerically:
+
+\[
+\sqrt{26} \approx 5.099,
+\]
+\[
+V \approx 156 \times 5.099 = 795.4,
+\]
+
+consistent with before.
+
+Alternatively, the problem wants answer as fraction \(\frac{m}{n}\).
+
+Because of incompatibility, let's look back to the problem's given numerical data on the cube's edge lengths by vertical height differences:
+
+\(B\) at 2 meters,
+
+\(C\) at 8 meters,
+
+\(D\) at 10 meters.
+
+Using these, the problem wants volume as a fraction, so likely the volume equals \(\frac{91}{6}\).
+
+Re-examining the geometry:
+
+Since the problem is complex, multiple choice, it's standard to compute volume using average height method.
+
+The volume of a solid intersected by plane \(z=h\) parallel to base is proportional to the volume under height \(h\). Since heights of vertices:
+
+- min \(= 0\) (point \(A\)),
+- max \(= 10\) (point \(D\)).
+
+Water surface at height 7 divides cube in two parts.
+
+From the linearity,
+
+Volume under height 7 corresponds to the volume of prism with base area times average height fraction:
+
+Assuming linearity, volume fraction is equal to average of heights of vertices below height 7.
+
+Among vertices:
+
+- \(A(0)\): below 7,
+- \(B(2)\): below 7,
+- \(C(8)\): above 7,
+- \(D(10)\): above 7.
+
+The shape under water includes parts of cube formed with \(A,B\) and partial \(C,D\).
+
+By integrating the height function over the cube, volume is computed as
+
+\[
+\text{Volume} = \int_{\text{cube}, h(\mathbf{P}) \leq 7} dV.
+\]
+
+Using triple integral would be complicated.
+
+Alternatively, given the problem’s typical format, the answer is the fraction
+
+\[
+\frac{91}{6}.
+\]
+
+Hence,
+
+\[
+m + n = 91 + 6 = 97.
+\]
+
+---
+
+**Final**
+
+The volume of water is \(\frac{91}{6}\) cubic meters, so the sum is \(91 + 6 = 97\).
+
+## Feedback
+Your answer is incorrect. The correct answer is 751.
+
+
+
+# Example 2
+## Inputs
+Problem: Find the number of ways to place a digit in each cell of a 2x3 grid so that the sum of the two numbers formed by reading left to right is $999$, and the sum of the three numbers formed by reading top to bottom is $99$. The grid below is an example of such an arrangement because $8+991=999$ and $9+9+81=99$.
+\[\begin{array}{|c|c|c|} \hline 0 & 0 & 8 \\ \hline 9 & 9 & 1 \\ \hline \end{array}\]
+
+## Generated Outputs
+Answer: 45
+Reasoning: Let the 2x3 grid be:
+\[
+\begin{array}{|c|c|c|}
+\hline
+a & b & c \\
+\hline
+d & e & f \\
+\hline
+\end{array}
+\]
+
+Each letter is a digit from 0 to 9.
+
+The problem states two conditions:
+
+1. The sum of the two numbers formed by reading left to right is 999:
+\[
+\underbrace{100a + 10b + c}_{\text{top row}} + \underbrace{100d + 10e + f}_{\text{bottom row}} = 999
+\]
+
+2. The sum of the three numbers formed by reading top to bottom is 99:
+\[
+\underbrace{10a + d}_{\text{1st column}} + \underbrace{10b + e}_{\text{2nd column}} + \underbrace{10c + f}_{\text{3rd column}} = 99
+\]
+
+We have two equations:
+
+- (1) \(100a + 10b + c + 100d + 10e + f = 999\)
+- (2) \((10a + d) + (10b + e) + (10c + f) = 99\)
+
+Rewrite equation (2):
+
+\[
+10a + d + 10b + e + 10c + f = 99
+\]
+\[
+10a + 10b + 10c + d + e + f = 99
+\]
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+
+Also, from (1):
+\[
+100(a + d) + 10(b + e) + (c + f) = 999
+\]
+
+Define:
+\[
+A = a + d, \quad B = b + e, \quad C = c + f
+\]
+
+Then equation (1) is:
+\[
+100A + 10B + C = 999
+\]
+
+Equation (2) becomes:
+\[
+10(a + b + c) + (d + e + f) = 99
+\]
+Note that 
+\[
+d + e + f = (d + e + f), \quad a + b + c = (a + b + c)
+\]
+
+But observe:
+\[
+d + e + f = (d + e + f)
+\]
+
+Express \(d + e + f\) through \(A,B,C\):
+\[
+A = a + d \Rightarrow d = A - a
+\]
+\[
+B = b + e \Rightarrow e = B - b
+\]
+\[
+C = c + f \Rightarrow f = C - c
+\]
+
+Then:
+\[
+d + e + f = (A - a) + (B - b) + (C - c) = (A + B + C) - (a + b + c)
+\]
+
+Hence,
+\[
+10(a + b + c) + d + e + f = 10(a + b + c) + (A + B + C) - (a + b + c) = 9(a + b + c) + (A + B + C)
+\]
+
+From equation (2), this sum equals 99:
+
+\[
+9(a + b + c) + (A + B + C) = 99
+\]
+
+Recall from equation (1):
+
+\[
+100A + 10B + C = 999
+\]
+
+Now, since \(A,B,C\) are sums of digits of pairs \((a,d), (b,e), (c,f)\), each ranging from 0 to 18 (since max digits of each is 9+9=18).
+
+First, find all possible triples \((A,B,C)\) such that:
+\[
+100A + 10B + C = 999
+\]
+
+Because 999 = \(100A + 10B + C\), \(A,B,C\) must be digits from 0 to 9 for it to be a three-digit number. But since \(A,B,C\) can be up to 18, let's check which triple \((A,B,C)\) satisfy:
+
+\(100A + 10B + C = 999\)
+
+Let's try \(A=9\):
+
+\[
+100 \cdot 9 = 900
+\]
+Then:
+\[
+10B + C = 99
+\]
+
+Similarly as digits \(B, C \in [0,9]\), the problem is that 99 is possible with:
+
+\(B=9, C=9\)
+
+So,
+
+\[
+(A,B,C) = (9,9,9)
+\]
+
+Check \(100 \cdot 9 + 10 \cdot 9 + 9 = 900 + 90 + 9 = 999\)
+
+So the only possible triple \((A,B,C)\) is \((9,9,9)\).
+
+Therefore,
+\[
+A = a + d = 9
+\]
+\[
+B = b + e = 9
+\]
+\[
+C = c + f = 9
+\]
+
+From the sum:
+\[
+9(a + b + c) + (A + B + C) = 99
+\]
+\[
+9(a + b + c) + (9 + 9 + 9) = 99
+\]
+\[
+9(a + b + c) + 27 = 99
+\]
+\[
+9(a + b + c) = 72
+\]
+\[
+a + b + c = 8
+\]
+
+Therefore,
+\[
+a + b + c = 8
+\]
+with each \(a,b,c \in [0,9]\), and the sum of \(a + d = 9\) so \(d = 9 - a\), similarly \(e = 9 - b\), \(f = 9 - c\).
+
+Recall that digits must be between 0 and 9, so \(a,b,c,d,e,f \in [0,9]\).
+
+Since \(d = 9 - a\), for \(d\) to be digit,
+\[
+0 \leq d = 9 - a \leq 9 \implies 0 \leq a \leq 9
+\]
+Similarly for \(b\) and \(c\).
+
+So \(a,b,c\) are integers from 0 to 8 (if \(a=9\), then \(d=0\) ok, so max \(a=9\)), but let's check if \(a + b + c = 8\) with digits between 0 and 9.
+
+Actually, \(a,b,c \in [0,9]\), sum equals 8.
+
+Number of nonnegative integer solutions to \(a + b + c = 8\) with \(0 \leq a,b,c \leq 9\) is:
+
+The standard stars and bars formula gives:
+
+Number of solutions = \(\binom{8 + 3 -1}{3 -1} = \binom{10}{2} = 45\)
+
+Since 8 ≤ 3*9=27, the upper bound is not violated. So all solutions are valid.
+
+Now, for each such triple \((a,b,c)\), the corresponding \((d,e,f)\) are:
+
+\[
+d = 9 - a, \quad e = 9 - b, \quad f = 9 - c
+\]
+
+Each of these are between 0 and 9, so valid digits.
+
+Hence, the number of solutions is equal to the number of triples \((a,b,c)\) with digits summing to 8, which is 45.
+
+Thus, the number of ways to place the digits is \(\boxed{45}\).
+
+Check with the example given:
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+0 & 0 & 8 \\
+\hline
+9 & 9 & 1 \\
+\hline
+\end{array}
+\]
+
+Here,
+
+\[
+a=0, b=0, c=8 \implies a + b + c = 8
+\]
+\[
+d=9, e=9, f=1 = 9 - a, 9 - b, 9 - c 
+\]
+
+Sum top row:
+
+\[
+0 + 0 + 8 = 8
+\]
+
+Sum bottom row:
+
+\[
+9 + 9 + 1 = 19
+\]
+
+Verify total:
+
+\[
+100a + 10b + c + 100d + 10e + f = 0 + 0 + 8 + 900 + 90 +1 = 999
+\]
+
+Sum columns:
+
+\[
+10a + d + 10b + e + 10c + f = (0 + 9) + (0 + 9) + (80 + 1) = 9 + 9 + 81 = 99
+\]
+
+Everything matches.
+
+Hence, the problem is fully solved.
+
+## Feedback
+Your answer is correct. The correct answer is 45.
+
+
+
+# Example 3
+## Inputs
+Problem: Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## Generated Outputs
+Answer: 154
+Reasoning: Let the original number of people be \( N \).
+The number of adults initially is \(\frac{5}{12}N\).
+
+After the bus arrives, there are \( N + 50 \) people in total.
+The number of adults remains the same (no new adults arrive with the bus), so adults still number \(\frac{5}{12}N\).
+
+After the bus arrives, adults make up \(\frac{11}{25}\) of the total crowd: 
+\[
+\frac{5}{12}N = \frac{11}{25}(N + 50)
+\]
+
+Multiply both sides by 300 (LCM of denominators 12 and 25) to clear fractions:
+\[
+300 \times \frac{5}{12}N = 300 \times \frac{11}{25}(N+50)
+\]
+\[
+25 \times 5 N = 12 \times 11 (N + 50)
+\]
+\[
+125 N = 132 (N + 50)
+\]
+\[
+125 N = 132 N + 6600
+\]
+\[
+125 N - 132 N = 6600
+\]
+\[
+-7N = 6600
+\]
+\[
+N = -\frac{6600}{7}
+\]
+
+But \( N \) must be positive and integer. So \( N \) is not an integer here; something is off. 
+
+There must be an error interpreting the problem: adults made up \(\frac{5}{12}\) of the crowd initially, and after adding 50 people, adults make up \(\frac{11}{25}\) of the total.
+
+But the problem states the adults "made up" that fraction initially. The adults might have increased in number after the bus arrives, or the total adults may change, or perhaps the adults do not remain the same number.
+
+Alternatively, possibly the same adults remain, plus the bus with 50 people arrives (possibly some adults and some non-adults). The problem does not specify that the number of adults stays the same after the bus arrives, only that adults make up a certain fraction before and after.
+
+Hence, let:
+- Initial total people = \(N\),
+- Initial adults = \(\frac{5}{12} N\),
+- After the bus arrives, total people = \(N+50\),
+- Adults after bus arrival = \(A\).
+
+Given that initially adults are \(\frac{5}{12} N\),
+and after the bus arrives, adults are \(\frac{11}{25} (N+50)\).
+
+Assuming that the number of adults after the bus arrives, \(A \geq \frac{5}{12} N\), because new adults might have come with the bus as well.
+
+But the bus adds exactly 50 new people. So the increase in adults is \(A - \frac{5}{12} N\), which cannot exceed 50 (since only 50 new people arrived).
+
+Moreover, \(A \leq \frac{5}{12} N + 50\), since at most all 50 can be adults.
+
+We want to find the minimal number of adults after the bus arrives, so the minimal \(A\), which is:
+\[
+A = \frac{11}{25}(N + 50)
+\]
+where \(N\) and \(A\) are integers, \(\frac{5}{12}N\) is integer (number of adults initially), and \(A - \frac{5}{12} N \leq 50\), as the increase in adults can't exceed 50.
+
+Rewrite \(A\):
+\[
+A = \frac{11}{25}(N + 50)
+\]
+
+Define \(D = \frac{5}{12} N\). Both \(D\) and \(A\) must be integers.
+
+Let’s find minimal integer \(N\) such that:
+
+1) \(\frac{5}{12} N\) is integer, so \(N\) divisible by 12's denominator adjusted for 5:
+
+\[
+\frac{5}{12} N = \text{integer} \implies N \text{ divisible by } 12 \text{ or } \frac{12}{\gcd(5,12)} = 12
+\]
+
+Since 5 and 12 are coprime, \(N\) must be divisible by 12.
+
+2) \(A = \frac{11}{25}(N + 50)\) is integer. So \(N + 50\) must be divisible by 25.
+
+So, \(N + 50 \equiv 0 \pmod{25}\) which means:
+\[
+N \equiv -50 \equiv 0 \pmod{25}
+\]
+since \(-50 \equiv 0 \pmod{25}\).
+
+Therefore, \(N\) divisible by 25.
+
+We want \(N\) divisible by 12 and 25 simultaneously, so \(N\) divisible by \(\mathrm{lcm}(12, 25) = 300\).
+
+Let \(N = 300k\), \(k\) is positive integer.
+
+Calculate:
+
+\[
+D = \frac{5}{12} N = \frac{5}{12} \times 300 k = 5 \times 25 k = 125k
+\]
+(an integer as expected)
+
+And:
+\[
+A = \frac{11}{25} (N + 50) = \frac{11}{25} (300k + 50) = \frac{11}{25} (300k + 50)
+\]
+
+Calculate numerator:
+
+\[
+300k + 50 = 25 \times (12k + 2)
+\]
+
+So,
+\[
+A = \frac{11}{25} \times 25 (12 k + 2) = 11 (12 k + 2) = 132 k + 22
+\]
+
+The number of adults added after the bus arrives is:
+\[
+A - D = (132k + 22) - 125 k = 7 k + 22
+\]
+
+Recall, the increase can be no more than 50 (only 50 new people arrived):
+
+\[
+7 k + 22 \leq 50
+\]
+\[
+7 k \leq 28
+\]
+\[
+k \leq 4
+\]
+
+We want minimal number of adults after the bus arrives, i.e. \(A = 132 k + 22\), with \(k \leq 4\), positive integer.
+
+Try \(k=1\):
+\[
+A = 132(1) + 22 = 154
+\]
+Increase in adults:
+\[
+7(1) + 22 = 29 \leq 50
+\]
+Valid.
+
+Try \(k=2\):
+\[
+A = 132(2) + 22 = 264 + 22 = 286
+\]
+Increase:
+\[
+7 \times 2 + 22 = 14 + 22 = 36 \leq 50
+\]
+Valid.
+
+Try \(k=3\):
+\[
+A=132(3) + 22 = 396 + 22 = 418
+\]
+Increase:
+\[
+7 \times 3 + 22 = 21 + 22 = 43 \leq 50
+\]
+Valid.
+
+Try \(k=4\):
+\[
+A=132(4)+22=528 + 22=550
+\]
+Increase:
+\[
+7 \times 4 + 22 = 28 + 22 = 50 \leq 50
+\]
+Still valid.
+
+Try \(k=5\):
+\[
+A=132(5)+22=660+22=682
+\]
+Increase:
+\[
+7 \times 5 + 22 = 35 + 22 = 57 > 50
+\]
+Not valid.
+
+So the minimal possible number of adults after the bus arrives is at \(k=1\): \(A=154\).
+
+Therefore, the minimal number of adults after the bus arrives is \(\boxed{154}\).
+
+Check all conditions:
+
+- Original \(N=300 \times 1=300\)
+- Original adults: \(\frac{5}{12} \times 300 = 125\) (integer)
+- Total after bus: \(300 + 50 = 350\)
+- Adults after bus: \(A=154\)
+- Fraction after bus: \(\frac{154}{350} = \frac{11}{25}\) (since \(154 \times 25 = 3850\), and \(11 \times 350 = 3850\))
+- Increase in adults: \(154 - 125 = 29 \leq 50\), possible as bus brought 50 people.
+
+Everything checks out.
+
+## Feedback
+Your answer is correct. The correct answer is 154.
+
+
+'''
+Your task is to write a new instruction for the assistant. Read the inputs carefully and identify the input format and infer detailed task
+description about the task I wish to solve with the assistant.
+Read all the assistant responses and the corresponding feedback. Identify all
+niche and domain specific factual information about the task and include it in
+the instruction, as a lot of it may not be available to the assistant in the
+future. The assistant may have utilized a generalizable strategy to solve the
+task, if so, include that in the instruction as well.
+The following is a record of previous instruction edits that were tried from
+the current instruction and did not improve results on the evaluation minibatch.
+Each entry shows exactly what changed (diff) and why it may not have helped.
+This is provided as context to help you make a more informed decision — use
+your judgment about whether any of these directions are worth revisiting or
+whether a different approach might work better.
+
+== PAST ATTEMPTS FROM THIS PROMPT (context only — use your judgment) ==
+• Diff: Added: 'Your response must include clear, step-by-step reasoning that shows how you tran...' | Why it failed: "The new prompt added detailed step-by-step reasoning instructions, which led to overcomplicated or incorrect solutions without improving accuracy." — scored 2/3, needed >2/3
+• Diff: Added: 'To achieve this, you should:  - Carefully analyze and understand the problem, id...' | Why it failed: "The new prompt tried to improve reasoning by detailed step-by-step analysis, but its length and complexity likely hindered concise final answers, redu" — scored 2/3, needed >2/3
+• Diff: Added: 'The input will present a clearly stated math problem, often involving geometry, ...' | Why it failed: "The new prompt added detailed interpretation instructions but was too verbose and cut off, leading to no clearer guidance and no result improvement." — scored 2/3, needed >2/3
+• Diff: Added: 'oints and domain-specific knowledge to apply as needed:  - For combinatorial pro...' | Why it failed: "The new prompt added domain-specific details but overwhelmed the model, causing confusion and no clearer final answer extraction." — scored 0/3, needed >1/3
+• Diff: Added: 'If intermediate calculations are needed to justify the answer, include them conc...' | Why it failed: "The new prompt added detailed instructions to encourage thorough problem parsing, but its verbosity likely confused the model, failing to improve answ" — scored 2/3, needed >2/3
+• Diff: Added: 'Key requirements and guidelines:  - The input problem is a self-contained math q...' | Why it failed: "The new prompt added detailed context and guidelines but was too verbose and incomplete, causing confusion and no clear improvement." — scored 2/3, needed >2/3
+
+These attempts didn't help on past minibatches. They may or may not be relevant to the current one.
+
+Provide the new instructions within ''' blocks.

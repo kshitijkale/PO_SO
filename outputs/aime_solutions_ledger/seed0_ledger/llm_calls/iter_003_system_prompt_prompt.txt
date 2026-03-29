@@ -1,0 +1,2470 @@
+I provided an assistant with the following instructions to perform a task for me:
+'''
+'''
+Solve the given mathematical problem step-by-step, showing clear and detailed reasoning, derivations, and calculations that lead to the final result. Use appropriate algebraic manipulations, number theory, combinatorics, or other relevant mathematical techniques as required by the problem.
+
+When the problem involves digits and number bases, carefully analyze digit constraints (such as valid digit ranges in different bases) and represent numbers correctly in those bases. Translate conditions between bases precisely using place value expansions.
+
+When the problem involves symmetric sums, polynomial identities, or symmetric functions of variables, consider using known algebraic identities (e.g., expansions of sums of cubes, symmetric polynomial relationships) to simplify or transform the expressions.
+
+For counting integer solutions to equations with constraints (such as nonnegative integers summing to a number), consider parameter substitutions and use combinatorial identities or factorization techniques when appropriate.
+
+If the problem reduces to finding integer triples satisfying polynomial equations or symmetric conditions, explore factorization, root relationships, and possible substitutions (e.g., shifting variables) to simplify the problem.
+
+In your final answer, provide only the exact integer requested, without additional commentary or explanation.
+
+Ensure that your solution respects all problem constraints (such as digit ranges, nonnegativity, or domain restrictions) and verify solutions for consistency.
+
+The input format will always be a problem statement in natural language, sometimes with mathematical notation, defining the problem to solve.
+
+The output must be a single integer number representing the final answer strictly.
+
+Avoid speculative or incomplete answers; if the problem requires counting all solutions or finding all possible values, use algebraic identities and reasoning to enumerate or characterize all solutions.
+
+Use known mathematical facts and theorems when applicable (e.g., polynomial root relations, symmetry arguments, divisibility, base representation properties).
+
+In summary:  
+- Carefully parse the problem statement and constraints.  
+- Translate conditions into algebraic or numeric equations as needed.  
+- Use algebraic manipulation, identities, and combinatorial reasoning.  
+- Check all constraints and digit/base conditions.  
+- Find all solutions if counting is required, using symmetry and factorization.  
+- Provide the final answer as a single integer only.  
+- Avoid explanations in the final answer; explanations may be used internally during reasoning but should not be output with the final answer.
+
+'''
+'''
+The following are examples of different task inputs provided to the assistant
+along with the assistant's response for each of them, and some feedback on how
+the assistant's response could be better:
+'''
+# Example 1
+## Inputs
+Problem: Three spheres with radii $11$, $13$, and $19$ are mutually externally tangent. A plane intersects the spheres in three congruent circles centered at $A$, $B$, and $C$, respectively, and the centers of the spheres all lie on the same side of this plane. Suppose that $AB^2 = 560$. Find $AC^2$.
+
+## Generated Outputs
+Answer: 756
+Reasoning: We have three spheres with radii 11, 13, and 19 that are mutually externally tangent. Let's denote their centers as \( O_1, O_2, O_3 \) corresponding to radii 11, 13, and 19, respectively.
+
+Since the spheres are tangent externally:
+- \( O_1O_2 = 11 + 13 = 24 \)
+- \( O_2O_3 = 13 + 19 = 32 \)
+- \( O_3O_1 = 19 + 11 = 30 \)
+
+A plane intersects the spheres producing three congruent circles centered at \( A, B, C \) on the plane (the intersection points on the plane), with the centers of the spheres above the plane (on the same side). The plane cuts each sphere, and the circle formed by the intersection has the same radius for each sphere. Let this radius be \( r \).
+
+We know:
+
+- The distance from the center of a sphere \( O_i \) to the plane is \( h_i \).
+- The sphere radius is \( R_i \).
+- The radius of the circle formed by intersecting the plane is \( r \).
+
+These satisfy the relation:
+\[
+r^2 = R_i^2 - h_i^2
+\]
+
+Since the circles are congruent at the intersection,
+\[
+R_1^2 - h_1^2 = R_2^2 - h_2^2 = R_3^2 - h_3^2 = r^2
+\]
+
+Each \( h_i \) is the distance from \( O_i \) to the plane. Also, the centers \( O_i \) are all on the same side of the plane, so \( h_i > 0 \).
+
+Let the plane be defined as all points \( P \) with \( \vec{n} \cdot \vec{P} = d \), where \( \vec{n} \) is a unit normal vector.
+
+The distance from \( O_i \) to the plane is \( h_i = | \vec{n} \cdot \vec{O_i} - d | \).
+
+Since all centers are on the same side, the distances are \( h_i = \vec{n} \cdot \vec{O_i} - d \).
+
+Define
+\[
+z_i = \vec{n} \cdot \vec{O_i} - d = h_i,
+\]
+and
+\[
+R_i^2 - h_i^2 = r^2,
+\]
+which implies
+\[
+h_i^2 = R_i^2 - r^2.
+\]
+
+So \( h_i = \sqrt{R_i^2 - r^2} \).
+
+Because the plane normal is fixed, the quantity \( \vec{n} \cdot O_i - d = h_i \).
+
+Set \( z_i = h_i \); thus, for each \( O_i \),
+\[
+z_i = \sqrt{R_i^2 - r^2}.
+\]
+
+The points \( A, B, C \) are the circle centers on the plane, which are the intersection points between the plane and lines perpendicular from sphere centers \( O_i \) down to the plane. Since each \( A, B, C \) lies on the plane and is obtained by projecting \( O_i \) onto the plane along \( \vec{n} \), the position vector of \( A, B, C \) is
+\[
+A = O_1 - z_1 \vec{n}, \quad B = O_2 - z_2 \vec{n}, \quad C = O_3 - z_3 \vec{n}.
+\]
+
+We are told \( AB^2 = 560 \) and asked to find \( AC^2 \).
+
+We know:
+
+\[
+AB^2 = |B - A|^2 = |(O_2 - z_2 \vec{n}) - (O_1 - z_1 \vec{n})|^2 = |O_2 - O_1 - (z_2 - z_1) \vec{n}|^2.
+\]
+
+Since \( \vec{n} \) is a unit vector,
+\[
+AB^2 = |O_2 - O_1|^2 - 2(z_2 - z_1)((O_2 - O_1) \cdot \vec{n}) + (z_2 - z_1)^2.
+\]
+
+But we do not know \( (O_2 - O_1) \cdot \vec{n} \). However, we can choose a coordinate system to solve this.
+
+---
+
+**Coordinate system setup:**
+
+Place \( O_1 \) at origin: \( O_1 = (0,0,0) \).
+
+Place \( O_2 \) on the x-axis: \( O_2 = (24,0,0) \).
+
+Find coordinates of \( O_3 \):
+
+Since,
+\[
+|O_3 - O_1| = 30, \quad |O_3 - O_2| = 32,
+\]
+set \( O_3 = (x,y,0) \).
+
+From distances:
+
+\[
+x^2 + y^2 = 30^2 = 900,
+\]
+\[
+(x - 24)^2 + y^2 = 32^2 = 1024.
+\]
+
+Subtract the first from the second:
+\[
+(x - 24)^2 + y^2 - x^2 - y^2 = 1024 - 900,
+\]
+\[
+x^2 - 48x + 576 - x^2 = 124,
+\]
+\[
+-48x + 576 = 124,
+\]
+\[
+-48x = -452,
+\]
+\[
+x = \frac{452}{48} = \frac{113}{12} \approx 9.4167.
+\]
+
+Then,
+\[
+y^2 = 900 - x^2 = 900 - \left(\frac{113}{12}\right)^2.
+\]
+Calculate \( x^2 \):
+\[
+\left(\frac{113}{12}\right)^2 = \frac{113^2}{144} = \frac{12769}{144} \approx 88.64.
+\]
+
+So,
+\[
+y^2 = 900 - 88.64 = 811.36,
+\quad y = \sqrt{811.36} \approx 28.49.
+\]
+
+So
+\[
+O_3 = \left(\frac{113}{12}, \sqrt{811.36}, 0\right).
+\]
+
+---
+
+Now, let the plane's unit normal be \( \vec{n} = (n_x, n_y, n_z) \), with \( n_x^2 + n_y^2 + n_z^2 = 1 \).
+
+Distance from \( O_i \) to plane is
+\[
+h_i = \vec{n} \cdot O_i - d = z_i = \sqrt{R_i^2 - r^2}.
+\]
+
+We have three equations:
+\[
+z_1 = \vec{n} \cdot O_1 - d = -d = \sqrt{11^2 - r^2} = \sqrt{121 - r^2},
+\]
+\[
+z_2 = \vec{n} \cdot O_2 - d = 24 n_x - d = \sqrt{169 - r^2},
+\]
+\[
+z_3 = \vec{n} \cdot O_3 - d = \frac{113}{12} n_x + y n_y - d = \sqrt{361 - r^2}.
+\]
+
+Recall from \( O_1 \), 
+\[
+-d = \sqrt{121 - r^2} \implies d = -\sqrt{121 - r^2}.
+\]
+Define
+\[
+a = \sqrt{121 - r^2}, \quad b = \sqrt{169 - r^2}, \quad c = \sqrt{361 - r^2}.
+\]
+
+So,
+\[
+z_1 = a,
+\]
+\[
+z_2 = 24 n_x + a = b,
+\]
+\[
+z_3 = \frac{113}{12} n_x + y n_y + a = c.
+\]
+
+From the second,
+\[
+24 n_x = b - a,
+\]
+so
+\[
+n_x = \frac{b - a}{24}.
+\]
+
+From the third,
+\[
+\frac{113}{12} n_x + y n_y = c - a.
+\]
+
+Substitute \( n_x \):
+\[
+\frac{113}{12} \cdot \frac{b - a}{24} + y n_y = c - a,
+\]
+\[
+\frac{113}{288} (b - a) + y n_y = c - a,
+\]
+\[
+y n_y = c - a - \frac{113}{288} (b - a).
+\]
+
+---
+
+We also have the unit length condition on \( \vec{n} \):
+
+\[
+n_x^2 + n_y^2 + n_z^2 = 1.
+\]
+
+Since the centers lie on the same side of the plane, positive distances \( z_i = h_i > 0 \).
+
+We don't know \( n_z \), but it appears only in this normalization condition, so we can express
+\[
+n_y^2 = \frac{(y n_y)^2}{y^2} = \frac{(c - a - \frac{113}{288} (b - a))^2}{y^2}.
+\]
+
+Hence,
+\[
+n_y^2 = \frac{\left(c - a - \frac{113}{288}(b - a)\right)^2}{y^2}.
+\]
+
+Therefore,
+\[
+n_x^2 + n_y^2 \leq 1,
+\]
+and
+\[
+n_z = \pm \sqrt{1 - n_x^2 - n_y^2}.
+\]
+
+---
+
+---
+
+**Compute \( AB^2 \):**
+
+\[
+AB^2 = |O_2 - O_1 - (z_2 - z_1) \vec{n}|^2.
+\]
+
+\[
+O_2 - O_1 = (24,0,0),
+\]
+\[
+z_2 - z_1 = b - a,
+\]
+
+So,
+\[
+AB^2 = |(24,0,0) - (b - a)(n_x, n_y, n_z)|^2,
+\]
+\[
+= |(24 - (b - a) n_x, -(b - a) n_y, -(b - a) n_z)|^2,
+\]
+\[
+= (24 - (b - a) n_x)^2 + ((b - a) n_y)^2 + ((b - a) n_z)^2.
+\]
+
+Use:
+\[
+n_x^2 + n_y^2 + n_z^2 =1.
+\]
+
+So,
+\[
+AB^2 = (24 - (b - a) n_x)^2 + (b - a)^2 (n_y^2 + n_z^2),
+\]
+\[
+= (24 - (b - a) n_x)^2 + (b - a)^2 (1 - n_x^2),
+\]
+\[
+= (24)^2 - 2 \cdot 24 (b - a) n_x + (b - a)^2 n_x^2 + (b - a)^2 - (b - a)^2 n_x^2,
+\]
+\[
+= 576 - 48 (b - a) n_x + (b - a)^2.
+\]
+
+Because \( + (b-a)^2 n_x^2 \) and \( - (b-a)^2 n_x^2 \) cancel out.
+
+We get:
+\[
+AB^2 = 576 - 48 (b - a) n_x + (b - a)^2.
+\]
+
+Recall \( n_x = \frac{b - a}{24} \), so:
+
+\[
+AB^2 = 576 - 48 (b - a) \frac{b - a}{24} + (b - a)^2 = 576 - 2 (b - a)^2 + (b - a)^2,
+\]
+\[
+= 576 - (b - a)^2.
+\]
+
+Given in the problem:
+\[
+AB^2 = 560,
+\]
+so
+\[
+560 = 576 - (b - a)^2,
+\]
+\[
+(b - a)^2 = 576 - 560 = 16,
+\]
+\[
+b - a = 4 \quad (\text{take positive since } b > a).
+\]
+
+---
+
+Recall:
+\[
+a = \sqrt{121 - r^2}, \quad b = \sqrt{169 - r^2},\quad b - a =4,
+\]
+\[
+\sqrt{169 - r^2} - \sqrt{121 - r^2} = 4.
+\]
+
+Set \( x = r^2 \). Then:
+
+\[
+\sqrt{169 - x} - \sqrt{121 - x} = 4.
+\]
+
+Square both sides:
+
+\[
+169 - x - 2 \sqrt{(169 - x)(121 - x)} + 121 - x = 16,
+\]
+\[
+290 - 2x - 2 \sqrt{(169 - x)(121 - x)} = 16,
+\]
+\[
+- 2 \sqrt{(169 - x)(121 - x)} = 16 - 290 + 2x = -274 + 2x,
+\]
+\[
+\sqrt{(169 - x)(121 - x)} = \frac{274 - 2x}{2} = 137 - x.
+\]
+
+Square again:
+\[
+(169 - x)(121 - x) = (137 - x)^2,
+\]
+\[
+20449 - 169x - 121x + x^2 = 18769 - 2 \cdot 137 x + x^2,
+\]
+\[
+20449 - 290x = 18769 - 274x,
+\]
+\[
+20449 - 18769 = -274x + 290x,
+\]
+\[
+1680 = 16x,
+\]
+\[
+x = \frac{1680}{16} = 105.
+\]
+
+So,
+\[
+r^2 = 105.
+\]
+
+Calculate \( a, b, c \):
+\[
+a = \sqrt{121 - 105} = \sqrt{16} =4,
+\]
+\[
+b = a +4 = 8,
+\]
+\[
+c = \sqrt{361 - 105} = \sqrt{256} = 16.
+\]
+
+From earlier,
+\[
+n_x = \frac{b - a}{24} = \frac{8 - 4}{24} = \frac{4}{24} = \frac{1}{6}.
+\]
+
+Compute \( y n_y \):
+\[
+y n_y = c - a - \frac{113}{288}(b - a) = 16 - 4 - \frac{113}{288} \cdot 4 = 12 - \frac{452}{288} = 12 - \frac{113}{72}.
+\]
+
+Calculate \( \frac{113}{72} \approx 1.5694 \),
+\[
+y n_y = 12 - 1.5694 = 10.4306.
+\]
+
+Recall \( y \approx 28.49 \), so
+\[
+n_y = \frac{10.4306}{28.49} \approx 0.366.
+\]
+
+Find \( n_z \):
+\[
+n_z^2 = 1 - n_x^2 - n_y^2 = 1 - \left(\frac{1}{6}\right)^2 - (0.366)^2 = 1 - \frac{1}{36} - 0.1339 = 1 - 0.02778 - 0.1339 = 0.8383.
+\]
+
+So,
+\[
+n_z = \sqrt{0.8383} \approx 0.9156.
+\]
+
+---
+
+**Find \( AC^2 \):**
+
+\[
+AC^2 = |O_3 - O_1 - (z_3 - z_1) \vec{n}|^2 = |O_3 - (c - a) \vec{n}|^2,
+\]
+since \( O_1 = 0 \).
+
+Calculate
+\[
+|O_3|^2 = x^2 + y^2 = 900,
+\]
+\[
+z_3 - z_1 = c - a = 16 - 4 = 12.
+\]
+
+Hence,
+\[
+AC^2 = |O_3|^2 - 2 (c - a)(O_3 \cdot \vec{n}) + (c - a)^2 |\vec{n}|^2 = 900 - 2 \cdot 12 (O_3 \cdot \vec{n}) + 12^2 \cdot 1,
+\]
+since \( \vec{n} \) is a unit vector.
+
+Calculate \( O_3 \cdot \vec{n} \):
+\[
+O_3 \cdot \vec{n} = x n_x + y n_y + 0 \cdot n_z = \frac{113}{12} \cdot \frac{1}{6} + y \cdot n_y = \frac{113}{72} + 10.4306.
+\]
+
+Calculate \(\frac{113}{72} \approx 1.5694\), so
+\[
+O_3 \cdot \vec{n} = 1.5694 + 10.4306 = 12.0.
+\]
+
+Thus,
+\[
+AC^2 = 900 - 2 \cdot 12 \cdot 12 + 144 = 900 - 288 + 144 = 900 - 144 = 756.
+\]
+
+---
+
+**Final answer:**
+\[
+AC^2 = \boxed{756}.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 756.
+
+
+
+# Example 2
+## Inputs
+Problem: A cube-shaped container has vertices $A,$ $B,$ $C,$ and $D,$ where $\overline{AB}$ and $\overline{CD}$ are parallel edges of the cube, and $\overline{AC}$ and $\overline{BD}$ are diagonals of faces of the cube, as shown. Vertex $A$ of the cube is set on a horizontal plane $\mathcal{P}$ so that the plane of the rectangle $ABDC$ is perpendicular to $\mathcal{P},$ vertex $B$ is $2$ meters above $\mathcal{P},$ vertex $C$ is $8$ meters above $\mathcal{P},$ and vertex $D$ is $10$ meters above $\mathcal{P}.$ The cube contains water whose surface is parallel to $\mathcal{P}$ at a height of $7$ meters above $\mathcal{P}.$ The volume of water is $\frac{m}{n}$ cubic meters, where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## Generated Outputs
+Answer: 1212
+Reasoning: First, let us understand the problem and the given information step-by-step:
+
+- We have a cube with vertices \( A, B, C, D \).
+- \(\overline{AB}\) and \(\overline{CD}\) are parallel edges of the cube.
+- \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces of the cube.
+- Vertex \(A\) is on the horizontal plane \(\mathcal{P}\) at height 0.
+- The plane of rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\).
+- Heights of vertices are given:
+  - \(B\) is 2 m above \(\mathcal{P}\),
+  - \(C\) is 8 m above \(\mathcal{P}\),
+  - \(D\) is 10 m above \(\mathcal{P}\).
+
+Since \(ABDC\) is a rectangle and the cube is oriented so that this rectangle is vertical and perpendicular to the plane \(\mathcal{P}\), the heights given are the vertical coordinates along the direction perpendicular to \(\mathcal{P}\).
+
+We want to find the volume of water in the cube when the water surface is parallel to \(\mathcal{P}\) at height 7 m.
+
+---
+
+**Step 1: Understand the cube and find its side length**
+
+The cube has edge lengths equal, so let's find the side length.
+
+Given vertices and heights:
+
+- \(A\) at height \(0\).
+- \(B\) at height \(2\).
+- \(C\) at height \(8\).
+- \(D\) at height \(10\).
+
+Since \(AB\) and \(CD\) are parallel edges.
+
+Also, \(ABDC\) forms a rectangle perpendicular to the plane \(\mathcal{P}\).
+
+In the rectangle \(ABDC\), edges \(AB\) and \(DC\) are parallel and equal in length.
+
+Let the side length of the cube be \(s\).
+
+---
+
+**Step 2: Express coordinates for vertices**
+
+Let’s put \(A\) at the origin:
+
+\[
+A = (0,0,0)
+\]
+
+Since \(ABDC\) is a rectangle perpendicular to the plane \(\mathcal{P}\), and \(A\) is on \(\mathcal{P}\), and \(B\) is 2 m above \(\mathcal{P}\), let's place the vertical direction as the \(z\)-axis.
+
+So height corresponds to \(z\).
+
+Assume:
+
+\[
+A = (0,0,0)
+\]
+
+\[
+B = (x_B, 0, 2)
+\]
+
+The \(y\)-coordinate of \(B\) can be zero because \(AB\) is an edge, say, in the x-direction or y-direction; we can choose axes accordingly.
+
+Similarly for \(C\) and \(D\), we want to find their coordinates.
+
+Since \(ABDC\) is a rectangle, vertices are:
+
+\[
+A = (0,0,0), \quad B = (x_B, 0, 2)
+\]
+
+\[
+C = (?) \quad D = (?)
+\]
+
+Given \(C\) is at height \(8\), and \(D\) at height \(10\).
+
+Since \(ABDC\) is a rectangle and edges \(AB\) and \(DC\) are parallel, and \(BC\) and \(AD\) are also edges or sides.
+
+Also, \(\overline{AC}\) and \(\overline{BD}\) are diagonals of the faces.
+
+Since \(ABC\) and \(BCD\) are faces or at least \(ABDC\) is rectangular, let’s try to find coordinates for \(C\) and \(D\).
+
+Because \(ABDC\) is a rectangle, edges \(AB\) and \(DC\) are equal and parallel; edges \(BD\) and \(AC\) are equal and parallel.
+
+Given the heights:
+
+- \(C_z = 8\)
+- \(D_z = 10\)
+
+Since \(A_z = 0\), \(B_z = 2\).
+
+Let’s try:
+
+\[
+C = (x_C, y_C, 8), \quad D = (x_D, y_D, 10)
+\]
+
+But since \(ABDC\) is a rectangle, \(AB\) and \(DC\) are parallel and equal.
+
+Vector \(AB = (x_B - 0, 0 - 0, 2 - 0) = (x_B, 0, 2)\).
+
+Vector \(DC = (x_C - x_D, y_C - y_D, 8 - 10) = (x_C - x_D, y_C - y_D, -2)\).
+
+Since \(AB\) and \(DC\) are parallel and equal in length,
+
+\[
+(x_B, 0, 2) = k(x_C - x_D, y_C - y_D, -2)
+\]
+
+Parallel means the vectors are scalar multiples; lengths equal means \(|AB| = |DC|\).
+
+Because \(ABDC\) is a rectangle, vectors \(AB\) and \(BD\) are perpendicular.
+
+Given information that \(AC\) and \(BD\) are face diagonals.
+
+In a cube, the edges adjacent to each vertex differ in direction and length \(s\).
+
+A better approach may be to try a geometric approach using the heights given:
+
+- \(A\) at 0,
+- \(B\) at 2,
+- \(C\) at 8,
+- \(D\) at 10.
+
+Since the heights increase as we move along some edges, and the cube edge length is constant \(s\).
+
+Since \(AB\) is an edge and \(A\) is at 0 height, \(B\) at 2 means \(s \geq 2\).
+
+---
+
+**Step 3: Height differences along edges**
+
+Edges in cube have length \(s\). The vertical components (height differences) of these edges must be at most \(s\).
+
+From the given heights:
+
+- \(AB\) height difference is \(2 - 0 = 2\),
+- \(CD\) height difference is \(10 - 8 = 2\).
+
+Since \(AB\) and \(CD\) are parallel edges, the vertical height difference in each is 2.
+
+Since cube edges are equal length:
+
+\[
+|AB| = s, \quad |CD| = s
+\]
+
+The vertical component of \(AB\) is \(2\), so the other components must satisfy:
+
+\[
+s^2 = 2^2 + (\text{horizontal components})^2 \Rightarrow s \ge 2.
+\]
+
+Similarly for other edges.
+
+---
+
+**Step 4: Heights of vertices suggest direction**
+
+Vertices heights:
+
+- \(A\): \(0\)
+- \(B\): \(2\)
+- \(C\): \(8\)
+- \(D\): \(10\)
+
+Points \(A\) and \(B\) differ by 2 m in height.
+
+Points \(C\) and \(D\) differ by 2 m in height.
+
+Also, \(C\) is 6 m above \(B\) (8 - 2) and \(D\) is 2 m above \(C\).
+
+---
+
+**Step 5: Find the side length \(s\)**
+
+Opposite vertices differ by \(s\) in each direction.
+
+Considering the heights of \(A, B, C, D\) in the vertical coordinate:
+
+- \(A\) and \(D\) differ in height by 10;
+- \(A\) and \(C\) differ in height by 8;
+- \(B\) and \(C\) differ in height by 6;
+- \(B\) and \(D\) differ in height by 8.
+
+Not all edges should be vertical; they must be along coordinate axes of the cube.
+
+---
+
+**Step 6: Assign 3D coordinates**
+
+Place \(A\) at the origin: \(A = (0,0,0)\).
+
+Denote cube edges along vectors \(\overrightarrow{AB} = \vec{u}\), \(\overrightarrow{AD} = \vec{v}\), and \(\overrightarrow{AC} = \vec{w}\).
+
+Then:
+
+\[
+B = A + \vec{u}, \quad D = A + \vec{v}, \quad C = A + \vec{w}.
+\]
+
+Since \(ABDC\) forms a rectangle,
+
+Points are:
+
+\[
+A = (0,0,0)
+\]
+\[
+B = \vec{u} = (u_x, u_y, u_z)
+\]
+\[
+D = \vec{v} = (v_x, v_y, v_z)
+\]
+\[
+C = \vec{w} = \vec{u} + \vec{v} = (u_x + v_x, u_y + v_y, u_z + v_z)
+\]
+
+Given the heights:
+
+\[
+A_z = 0
+\]
+\[
+B_z = u_z = 2
+\]
+\[
+D_z = v_z = 10
+\]
+\[
+C_z = u_z + v_z = 2 + 10 = 12
+\]
+
+But this contradicts the problem stating \(C\) is 8.
+
+Therefore, the assumption \(C = A + \vec{u} + \vec{v}\) is invalid.
+
+---
+
+**Step 7: Correcting the vertices structure**
+
+Because \(ABDC\) is a rectangle, the vertices \(A, B, D, C\) should be the four corners in order.
+
+If \(AB\) and \(DC\) are parallel edges, and similarly \(AD\) and \(BC\) are parallel edges.
+
+Thus:
+
+\[
+A = (0,0,0)
+\]
+\[
+B = \vec{u} = (u_x, u_y, u_z)
+\]
+\[
+D = \vec{v} = (v_x, v_y, v_z)
+\]
+\[
+C = \vec{v} + \vec{u} = (v_x + u_x, v_y + u_y, v_z + u_z)
+\]
+
+Given the heights:
+
+\[
+A_z = 0
+\]
+\[
+B_z = u_z = 2
+\]
+\[
+D_z = v_z = 10
+\]
+\[
+C_z = v_z + u_z = 12.
+\]
+
+The problem states:
+
+- \(C_z=8\) (given),
+- \(D_z = 10\).
+
+Our found \(C_z = 12\) contradicts that.
+
+So the labeling or assumptions may be different.
+
+---
+
+**Step 8: Alternative assignment for points**
+
+Maybe \(A, B, C, D\) are arranged so that:
+
+- \(AB\) and \(CD\) parallel edges,
+- \(AC\) and \(BD\) are diagonals of faces,
+- \(ABDC\) is a rectangle perpendicular to plane \(\mathcal{P}\) (horizontal plane),
+
+Given the heights of points: \(A=0, B=2, C=8, D=10\).
+
+Suppose the heights correspond to \(z\)-coordinates as:
+
+\[
+A = (0,0,0)
+\]
+\[
+B = (0,0,2)
+\]
+\[
+C = (x_C, y_C, 8)
+\]
+\[
+D = (x_D, y_D, 10)
+\]
+
+Since \(ABDC\) is a rectangle with \(AB\) and \(DC\) parallel and equal.
+
+Since \(A\) and \(B\) have same \(x,y\), the edge \(AB\) is vertical (along \(z\)) of length 2.
+
+Similarly, edge \(CD\) should be vertical with length 2.
+
+So:
+
+\[
+x_C = x_D, \quad y_C = y_D,
+\]
+
+and
+
+\[
+D_z - C_z = 10 - 8 = 2,
+\]
+
+matching length.
+
+Hence:
+
+\[
+CD = (0, 0, 2)
+\]
+
+Since \(ABDC\) is a rectangle with edges \(AB\) and \(BD\) perpendicular,
+
+Let's check edges \(BD\) and \(AC\) which are face diagonals.
+
+---
+
+**Step 9: Find side length of cube**
+
+Edges \(AB\) and \(CD\) vertical length 2.
+
+Also,
+
+The distance \(AD\) and \(BC\) must be \(s\) (side length).
+
+Coordinates:
+
+\[
+A = (0,0,0)
+\]
+\[
+B = (0,0,2)
+\]
+\[
+C = (x_C, y_C, 8)
+\]
+\[
+D = (x_D, y_D, 10)
+\]
+
+with \(x_C = x_D, y_C = y_D\).
+
+---
+
+**Step 10: Find \(x_C, y_C\) and \(x_D, y_D\)**
+
+Now, the edges \(AD\) and \(BC\) must be equal length \(s\).
+
+Calculate:
+
+\[
+AD = \sqrt{(x_D - 0)^2 + (y_D - 0)^2 + (10 - 0)^2} = s
+\]
+
+\[
+BC = \sqrt{(x_C - 0)^2 + (y_C - 0)^2 + (8 - 2)^2} = s
+\]
+
+These lengths are equal:
+
+\[
+\sqrt{x_D^2 + y_D^2 + 100} = \sqrt{x_C^2 + y_C^2 + 36}
+\]
+
+But since \(x_C = x_D\), \(y_C = y_D\), denote \(x = x_C = x_D\) and \(y = y_C = y_D\):
+
+\[
+\sqrt{x^2 + y^2 + 100} = \sqrt{x^2 + y^2 + 36}
+\]
+
+Which cannot be possible unless:
+
+\[
+x^2 + y^2 + 100 = x^2 + y^2 + 36 \implies 100 = 36,
+\]
+
+contradiction.
+
+---
+
+**Step 11: Rethink height assignments**
+
+If \(x_C = x_D\) and \(y_C = y_D\), then heights differ by 2.
+
+Let’s check the problem statement again.
+
+The problem says:
+
+- \(A\) is on \(\mathcal{P}\),
+- The plane of rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\),
+- \(B\) is 2 meters above \(\mathcal{P}\),
+- \(C\) is 8 meters above,
+- \(D\) is 10 meters above.
+
+Vertices \(A, B, C, D\) of the cube are such that \(\overline{AB}\) and \(\overline{CD}\) are parallel edges, and \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces of the cube.
+
+Since \(AC\) and \(BD\) are face diagonals, and \(AB\) and \(CD\) are edges (parallel edges), the rectangle \(ABDC\) is formed where edges \(AB\) and \(DC\) are opposite parallel edges.
+
+So vertices \(A, B, D, C\) are in order around the rectangle.
+
+So the order is:
+
+\[
+A \to B \to D \to C \to A,
+\]
+
+or
+
+\[
+A \to B \to C \to D \to A,
+\]
+
+depending on interpretation.
+
+Try the order \(A-B-D-C\).
+
+---
+
+**Step 12: Try vertices \(A, B, D, C\) rectangle**
+
+Define:
+
+\[
+A = (0, 0, 0)
+\]
+\[
+B = (0, 0, 2)
+\]
+\[
+D= (x_D, y_D, 10)
+\]
+\[
+C = (x_D, y_D, 8)
+\]
+
+Edges:
+
+- \(AB = (0,0,2)\)
+- \(BD = (x_D, y_D, 8)\) because \(D - B = (x_D - 0, y_D - 0, 10 - 2) = (x_D, y_D, 8)\)
+- \(DC = (0,0,-2)\)
+- \(CA = (x_D, y_D, 8)\) from \(C - A\)
+
+Since \(ABDC\) is rectangle,
+
+Edges adjacent to \(B\) are \(AB\) and \(BD\), and should be perpendicular.
+
+Compute dot product:
+
+\[
+AB \cdot BD = 0 \implies (0,0,2) \cdot (x_D, y_D, 8) = 2 \times 8 = 16 \neq 0,
+\]
+
+not perpendicular.
+
+So try adjacent edges at \(A\):
+
+Edges \(AB\) and \(AC\):
+
+\[
+AB = (0,0,2)
+\]
+\[
+AC = (x_D, y_D, 8)
+\]
+
+Dot product:
+
+\[
+0 \cdot x_D + 0 \cdot y_D + 2 \cdot 8 = 16 \neq 0
+\]
+
+No perpendicularity.
+
+Try edges at \(D\):
+
+Edges \(BD\) and \(DC\):
+
+\[
+BD = (x_D, y_D, 8)
+\]
+\[
+DC = (0,0,-2)
+\]
+
+Dot product:
+
+\[
+x_D \cdot 0 + y_D \cdot 0 + 8 \cdot (-2) = -16 \neq 0
+\]
+
+No perpendicularity.
+
+At \(C\):
+
+Edges \(AC\) and \(DC\):
+
+\[
+AC = (x_D, y_D, 8)
+\]
+\[
+DC = (0,0,-2)
+\]
+
+Dot product:
+
+\[
+0 + 0 + 8 \times (-2) = -16 \neq 0
+\]
+
+No.
+
+Try at \(B\):
+
+Edges \(AB\) and \(BC\) must be perpendicular.
+
+If we take \(C = (x_C, y_C, 8)\) different from \(D\), and \(BC = C - B = (x_C, y_C, 6)\), because \(B_z=2\), \(C_z=8\).
+
+---
+
+**Step 13: Let's try assigning coordinates from the problem’s figure of the cube**
+
+In a cube with edges length \(s\), let edges be along coordinate axes.
+
+Place \(A\) at \((0,0,0)\).
+
+The cube's edges correspond to:
+
+\[
+AB = (0,0,s_z), \quad AD = (s_x, 0,0), \quad AC = (0, s_y, 0),
+\]
+
+where \(s_x, s_y, s_z > 0\).
+
+Since the cube is rotated (tilted), its edges have components along these axes.
+
+Vertices:
+
+\[
+A = (0,0,0)
+\]
+\[
+B = AB = (0,0,s_z)
+\]
+\[
+D = AD = (s_x, 0,0)
+\]
+\[
+C = AC = (0, s_y, 0)
+\]
+
+Opposite vertex \(E\):
+
+\[
+E = A + AB + AD + AC = (s_x, s_y, s_z).
+\]
+
+---
+
+**Step 14: Heights of given points**
+
+Let the height correspond to the projection of vertices on the vertical axis.
+
+Given heights:
+
+\[
+Z(A) = 0,
+\]
+\[
+Z(B) = s_z = 2,
+\]
+\[
+Z(C) = s_y \cos \alpha + s_z \sin \alpha,
+\]
+\[
+Z(D) = s_x + Z(0,0,0) = ?
+\]
+
+But the problem gives \(C_z = 8\), \(D_z = 10\).
+
+Therefore, \(s_z = 2\),
+and \(D_z = s_x = 10\).
+
+This implies
+
+\[
+s_x = 10, \quad s_z=2,
+\]
+
+and we have to find \(s_y\) such that \(C_z = 8\).
+
+If
+
+\[
+C = (0, s_y, 0),
+\]
+
+then its height along \(\mathcal{P}\) is zero, but the problem says 8.
+
+So the assumption that edges are along coordinate axes with \(z\) as vertical cannot be right.
+
+---
+
+**Step 15: Use vector approach and height function**
+
+Since the plane \(\mathcal{P}\) is horizontal, the height corresponds to vertical coordinate \(h\).
+
+Let the cube edges be equal length \(s\), edges along vectors \(\vec{u}, \vec{v}, \vec{w}\).
+
+The height function \(h(\vec{r})\) gives height of point \(\vec{r}\).
+
+We know four vertices \(A, B, C, D\) are:
+
+\[
+A = \vec{0}
+\]
+\[
+B = \vec{u}
+\]
+\[
+C = \vec{w}
+\]
+\[
+D = \vec{v}
+\]
+
+Where \(\vec{u}, \vec{v}, \vec{w}\) are unit vectors scaled by \(s\).
+
+We know:
+
+- \(AB\) and \(CD\) are parallel edges: \(\vec{u} \parallel \vec{v}\).
+- \(AC\) and \(BD\) are face diagonals, so \(\vec{w}\) not collinear with \(\vec{u}\) or \(\vec{v}\).
+
+Since \(\vec{u} \parallel \vec{v}\), denote:
+
+\[
+\vec{v} = \lambda \vec{u}, \quad \lambda > 0.
+\]
+
+The points are:
+
+\[
+A = 0,
+\]
+\[
+B = \vec{u},
+\]
+\[
+D = \vec{v} = \lambda \vec{u},
+\]
+\[
+C = \vec{w}.
+\]
+
+Given heights:
+
+\[
+h(A) = 0,
+\]
+\[
+h(B) = h(\vec{u}) = 2,
+\]
+\[
+h(C) = h(\vec{w}) = 8,
+\]
+\[
+h(D) = h(\lambda \vec{u}) = 10.
+\]
+
+Because \(h\) is a linear projection on the height axis,
+
+\[
+h(\lambda \vec u) = \lambda h(\vec u) = 10 \Rightarrow \lambda \times 2 = 10 \Rightarrow \lambda = 5.
+\]
+
+Therefore,
+
+\[
+D = 5 \vec{u}.
+\]
+
+\(C\) is \(\vec{w}\), at height 8.
+
+---
+
+**Step 16: Find the cube side length**
+
+The cube has edges \(\vec{u}\), \(\vec{v} = 5\vec{u}\), and \(\vec{w}\).
+
+Since \(|\vec{u}| = s\), so \(|\vec{v}| = 5s\), but edges of a cube must be equal length:
+
+\[
+|\vec{u}| = |\vec{v}| = s,
+\]
+
+contradicting.
+
+So initial assumption \(\vec{v} = \lambda \vec{u}\) with \(\lambda \neq 1\) is inconsistent with cube edges equal length.
+
+---
+
+**Step 17: Reconsider \(AB\) and \(CD\) are parallel edges**
+
+If \(\overline{AB}\) and \(\overline{CD}\) are parallel edges of the cube, then \(\vec{u}\) and \(\vec{w} - \vec v\) are parallel vectors of length \(s\).
+
+Recall:
+
+\[
+AB = \vec{u}
+\]
+\[
+CD = \vec{w} - \vec{v}.
+\]
+
+Edges have length \(s\), and these two edges are parallel.
+
+So:
+
+\[
+\vec{w} - \vec{v} = \vec{u},
+\]
+
+or
+
+\[
+\vec{w} = \vec{v} + \vec{u}.
+\]
+
+Hence:
+
+\[
+A = 0,
+\]
+\[
+B = \vec{u},
+\]
+\[
+D = \vec{v},
+\]
+\[
+C = \vec{v} + \vec{u}.
+\]
+
+Check heights assigned in the problem:
+
+\[
+h(A) = 0,
+\]
+\[
+h(B) = h(\vec{u}) = 2,
+\]
+\[
+h(D) = h(\vec{v}) = 10,
+\]
+\[
+h(C) = h(\vec{v} + \vec{u}) = h(\vec{v}) + h(\vec{u}) = 12,
+\]
+
+but problem says \(C=8\).
+
+Contradiction again.
+
+---
+
+**Step 18: Instead, maybe \(\overline{AB}\) and \(\overline{CD}\) are parallel edges and have the same length but in opposite directions**
+
+Set:
+
+\[
+\vec{w} - \vec{v} = - \vec{u},
+\]
+
+then
+
+\[
+\vec{w} = \vec{v} - \vec{u}.
+\]
+
+Then:
+
+\[
+h(C) = h(\vec{w}) = h(\vec{v} - \vec{u}) = h(\vec{v}) - h(\vec{u}) = 10 - 2 = 8,
+\]
+
+matches given \(C_z = 8\).
+
+Good!
+
+---
+
+**Step 19: Now check for the cube condition**
+
+We have:
+
+\[
+A = 0,
+\]
+\[
+B = \vec{u},
+\]
+\[
+D = \vec{v},
+\]
+\[
+C = \vec{v} - \vec{u}.
+\]
+
+Edges:
+
+- \(AB = \vec{u}\)
+- \(AD = \vec{v}\)
+- \(BC = \vec{v} - \vec{u} - \vec{u} = \vec{v} - 2 \vec{u}\) (this is not an edge)
+- \(BD = \vec{v} - \vec{u}\)
+- \(AC = \vec{v} - \vec{u}\)
+
+The edges of the cube are: \(\vec{u}, \vec{v},\) and \(\vec{w}\), where \(\vec{w}\) is the third edge.
+
+From the cube properties,
+
+\[
+\vec{u}, \vec{v}, \vec{w}
+\]
+
+satisfy:
+
+- \( |\vec u| = |\vec v| = |\vec w| = s\),
+- \(\vec u \cdot \vec v = \vec v \cdot \vec w = \vec w \cdot \vec u = 0\).
+
+---
+
+**Step 20: Identify \( \vec w \)**
+
+We know \(\vec{u}\), \(\vec{v}\), and the third edge \(\vec{w}\) with which relations?
+
+Vertices made from \(A\):
+
+\[
+A = 0,
+\]
+\[
+B = \vec{u},
+\]
+\[
+D = \vec{v},
+\]
+\[
+C = \vec{v} - \vec{u},
+\]
+
+Hence, \(\vec{w} = \vec{v} - \vec{u}\) is *also* an edge vector.
+
+But we need three edges from a vertex \(A\).
+
+Currently, \(\vec{u}\) and \(\vec{v}\) are edges from \(A\).
+
+\(\vec{w}\) must be a vector perpendicular to both \(\vec{u}\) and \(\vec{v}\) of length \(s\).
+
+So:
+
+\[
+|\vec{u}| = |\vec{v}| = |\vec{w}| = s,
+\]
+\[
+\vec{u} \cdot \vec{v} = \vec{v} \cdot \vec{w} = \vec{w} \cdot \vec{u} = 0.
+\]
+
+---
+
+**Step 21: Assign \(\vec{u}\), \(\vec{v}\), and determine \(s\)**
+
+Take:
+
+\[
+\vec{u} = (a,b,c), \quad \vec{v} = (d,e,f).
+\]
+
+Given height function \(h(\cdot)\) equals projection of vector onto vertical direction.
+
+Using \(h(\vec{u}) = 2\), \(h(\vec{v}) = 10\),
+
+\[
+h(\vec{u}) = u_z = 2,
+\]
+\[
+h(\vec{v}) = v_z = 10.
+\]
+
+---
+
+**Step 22: Use \(C = \vec{v} - \vec{u}\):**
+
+\[
+h(C) = v_z - u_z = 10 - 2 = 8,
+\]
+
+matches the problem.
+
+Good.
+
+Since \(ABDC\) is a rectangle perpendicular to \(\mathcal P\), the plane \(ABDC\) is spanned by \(\vec{u}\) and \(\vec{v} - \vec{u} = \vec{w}\).
+
+We already have \(\vec{w} = \vec{v} - \vec{u}\).
+
+---
+
+**Step 23: Use cube edge orthogonality and equal length**
+
+Edges from \(A\) are \(\vec{u}, \vec{v}, \vec{w}\), satisfying:
+
+\[
+|\vec{u}| = |\vec{v}| = |\vec{w}| = s,
+\]
+\[
+\vec{u} \cdot \vec{v} = \vec{v} \cdot \vec{w} = \vec{w} \cdot \vec{u} = 0.
+\]
+
+But \(\vec{w} = \vec{v} - \vec{u}\).
+
+So:
+
+\[
+|\vec{w}|^2 = |\vec{v} - \vec{u}|^2 = s^2 = |\vec{v}|^2 = |\vec{u}|^2.
+\]
+
+Since \(|\vec{u}| = s, |\vec{v}|=s\), then:
+
+\[
+|\vec{w}|^2 = s^2 = |\vec{v} - \vec{u}|^2 = |\vec{v}|^2 + |\vec{u}|^2 - 2 \vec{v} \cdot \vec{u} = 2s^2 - 2 \vec{v} \cdot \vec{u}.
+\]
+
+Therefore,
+
+\[
+s^2 = 2 s^2 - 2 \vec{v} \cdot \vec{u} \implies \vec{v} \cdot \vec{u} = \frac{s^2}{2}.
+\]
+
+---
+
+**Step 24: Orthogonality of edges**
+
+We also must have:
+
+\[
+\vec{u} \cdot \vec{v} = \frac{s^2}{2} \neq 0,
+\]
+
+so edges \(\vec{u}\) and \(\vec{v}\) are not perpendicular.
+
+But in a cube, edges from the same vertex are mutually perpendicular by definition.
+
+This is contradictory.
+
+---
+
+**Step 25: Conclusion about orientation**
+
+Thus, the cube is rotated so its edges are not orthogonal to the vertical height direction \(\mathcal{P}\). The problem says plane \(ABDC\) is perpendicular to \(\mathcal{P}\) — so the rectangle \(ABDC\) is vertical.
+
+Given this, the key is heights:
+
+\[
+A_z = 0, B_z = 2, C_z = 8, D_z = 10,
+\]
+
+and edges \(AB\) and \(CD\) parallel,
+
+with
+
+\[
+CD = ? , AB = ?
+\]
+
+Since height difference \(AB = 2\), and \(CD = 2\),
+
+we understand the cube edge length is
+
+\[
+s = \text{length of } AB = |\overline{AB}| = \sqrt{\Delta x^2 + \Delta y^2 + 2^2}
+\]
+
+Similarly, \(CD\) has vertical length 2, and horizontal components accordingly.
+
+---
+
+**Step 26: Get the horizontal distances**
+
+Set \(A =(0,0,0)\), \(B = (x_B, y_B, 2)\).
+
+Then, \(|AB|= s\):
+
+\[
+s^2 = x_B^2 + y_B^2 + 2^2 = x_B^2 + y_B^2 + 4.
+\]
+
+Similarly, \(D = (x_D, y_D, 10)\), and \(C=(x_C,y_C,8)\).
+
+Because \(ABDC\) is rectangle:
+
+- edges \(AB\) and \(DC\) are parallel and equal length,
+
+\[
+\overrightarrow{AB} = (x_B, y_B, 2),
+\]
+\[
+\overrightarrow{DC} = (x_C - x_D, y_C - y_D, 8 - 10) = (x_C - x_D, y_C - y_D, -2).
+\]
+
+Since \(AB \parallel DC\),
+
+\[
+(x_C - x_D, y_C - y_D, -2) = k(x_B, y_B, 2)
+\]
+
+and
+
+\[
+|AB| = |DC| = s,
+\]
+
+giving:
+
+\[
+(x_C - x_D)^2 + (y_C - y_D)^2 + (-2)^2 = s^2 = x_B^2 + y_B^2 + 4.
+\]
+
+---
+
+**Step 27: Also, \(ABDC\) rectangle implies adjacent edges perpendicular**
+
+Edges:
+
+\[
+\overrightarrow{BD} = (x_D - x_B, y_D - y_B, 10 - 2) = (x_D - x_B, y_D - y_B, 8),
+\]
+\[
+\overrightarrow{BC} = (x_C - x_B, y_C - y_B, 8 - 2) = (x_C - x_B, y_C - y_B, 6).
+\]
+
+Since \(ABDC\) is rectangle, \(\overrightarrow{AB} \perp \overrightarrow{BD}\).
+
+Check:
+
+\[
+\overrightarrow{AB} \cdot \overrightarrow{BD} = 0.
+\]
+
+Compute:
+
+\[
+(x_B, y_B, 2) \cdot (x_D - x_B, y_D - y_B, 8) = x_B (x_D - x_B) + y_B (y_D - y_B) + 2 \cdot 8 = 0.
+\]
+
+---
+
+**Step 28: Use simplicity by assuming \(C\) and \(D\) have same \(x,y\) coordinates**
+
+Try to put \(C\) and \(D\) at same horizontal position to obey the parallel edges condition.
+
+Set:
+
+\[
+x_C = x_D = X, \quad y_C = y_D = Y,
+\]
+
+then
+
+\[
+\overrightarrow{DC} = (0, 0, -2),
+\]
+
+parallel to
+
+\[
+\overrightarrow{AB} = (x_B, y_B, 2).
+\]
+
+To be parallel, must have:
+
+\[
+(x_B, y_B, 2) = k (0, 0, -2) \implies x_B = 0, y_B=0,
+\]
+
+contradicting positive edge length because then \(|AB|= 2\).
+
+So invalid.
+
+---
+
+**Step 29: Alternative approach is height slicing**
+
+Because the \(ABDC\) face is perpendicular to \(\mathcal P\) (horizontal plane), and the heights of these vertices are given, the cube is tilted so that the vertical heights of the vertices are not all equal steps.
+
+---
+
+**Step 30: Find the length of an edge \(s\)**
+
+Since \(A\) is on the plane \(\mathcal P\) height zero, and \(B\) is 2 meters above, and \(AB\) is an edge of the cube, with length \(s\),
+
+then length \(s\) satisfies
+
+\[
+s^2 = h_{AB}^2 + d_{AB}^2
+\]
+
+where \(h_{AB} = 2\) m (vertical height difference).
+
+Similarly, for points \(C\) and \(D\), height difference is 2 again for edge \(CD\).
+
+The difference in heights for vertical edges is 2 m.
+
+---
+
+**Step 31: Side length from \(C\) and \(B\) height difference**
+
+\(C\) is at 8 m, \(B\) is 2 m, height difference \(6\) m.
+
+If the edge length is \(s\), then the vertical distance in the edge is between 0 and \(s\).
+
+Height difference between \(B\) and \(C\) is greater than 2, so not along edge.
+
+Similarly for other distances.
+
+---
+
+**Step 32: For cube with edge length \(s\), heights of vertices of \(ABDC\) are:**
+
+\[
+A: 0
+\]
+\[
+B: 2
+\]
+\[
+C: 8
+\]
+\[
+D: 10
+\]
+
+Then edges \(\overline{AB}\) and \(\overline{CD}\) have height difference \(2\).
+
+Let horizontal distances of edges \(AB\) and \(CD\) be denoted \(h\).
+
+Edge length:
+
+\[
+s = \sqrt{h^2 + 2^2} = \sqrt{h^2 + 4}.
+\]
+
+Similarly, \(ABDC\) is rectangle, edges \(AD\) and \(BC\) are other edges:
+
+- Height difference of \(AD = 10 -0 =10\),
+- Height difference of \(BC = 8 - 2 = 6\).
+
+So the vertical heights of the water range from 0 to 10 m.
+
+---
+
+**Step 33: Water surface at height 7 m intersects the cube**
+
+Because the cube's base \(A\) is at 0 and top \(E\) at 10 m in height, the water surface at height 7 cuts the cube horizontally.
+
+We want to find volume of water up to height 7.
+
+---
+
+**Step 34: Rescale cube coordinates**
+
+Assume cube edge length is \(s\).
+
+Given vertices in \(z\)-direction with heights of \(A,B,C,D\),
+
+and the cube edge length \(s\) can be found by computing length of \(AB\):
+
+\[
+s = \sqrt{4 + h_{AB, xy}^2}.
+\]
+
+---
+
+**Step 35: Calculation using coordinates**
+
+Given vertices heights:
+
+\[
+A(0,0,0), \quad B(0,0,2), 
+\]
+\[
+C(x, y, 8), \quad D(x, y, 10).
+\]
+
+\(ABDC\) is rectangle.
+
+Since \(AB\) and \(DC\) are parallel vertical edges of length
+
+\[
+|AB| = |DC| = \sqrt{(0)^2 + (0)^2 + 2^2} = 2,
+\]
+
+but cube edges equal \(s\), so horizontal edge length:
+
+\[
+AD = s = \sqrt{x^2 + y^2 + (10 - 0)^2} = \sqrt{x^2 + y^2 + 100}
+\]
+
+Similarly,
+
+\[
+BC = \sqrt{(x - 0)^2 + (y - 0)^2 + (8-2)^2} = \sqrt{x^2 + y^2 + 36}.
+\]
+
+Because \(AD\) and \(BC\) are edges of the cube, they have equal length \(s\):
+
+Hence:
+
+\[
+\sqrt{x^2 + y^2 + 100} = \sqrt{x^2 + y^2 + 36} \implies 100 = 36,
+\]
+
+contradiction again.
+
+---
+
+**Step 36: Implication**
+
+Therefore, the cube edges are not aligned such that \(C\) and \(D\) have the same horizontal coordinates.
+
+So \(x_C \neq x_D\) or \(y_C \neq y_D\).
+
+From the problem description, the key heights are:
+
+\[
+h(A) = 0, \quad h(B) = 2, \quad h(C) = 8, \quad h(D) = 10.
+\]
+
+Edge length \(s\) satisfies (for edge \(AB\)):
+
+\[
+s^2 = (x_B - x_A)^2 + (y_B - y_A)^2 + (2)^2.
+\]
+
+Similarly for edge \(AD\):
+
+\[
+s^2 = (x_D - x_A)^2 + (y_D - y_A)^2 + (10 - 0)^2.
+\]
+
+For edge \(BC\):
+
+\[
+s^2 = (x_C - x_B)^2 + (y_C - y_B)^2 + (8 - 2)^2 = ? 
+\]
+
+For edge \(CD\):
+
+\[
+s^2 = (x_C - x_D)^2 + (y_C - y_D)^2 + (8 - 10)^2.
+\]
+
+Because \(AB\) and \(CD\) are parallel edges, their directional vectors are proportional:
+
+\[
+\overrightarrow{AB} = (x_B, y_B, 2)
+\]
+\[
+\overrightarrow{CD} = (x_C - x_D, y_C - y_D, -2),
+\]
+
+and
+
+\[
+(x_C - x_D, y_C - y_D, -2) = k (x_B, y_B, 2),
+\]
+
+for some scalar \(k\).
+
+From vertical components:
+
+\[
+-2 = 2k \implies k = -1.
+\]
+
+Thus,
+
+\[
+(x_C - x_D, y_C - y_D) = -1 (x_B, y_B) = (-x_B, -y_B).
+\]
+
+---
+
+**Step 37: Use above relation**
+
+Also, \(B\), \(C\), and \(D\) coordinates satisfy:
+
+\[
+x_C = x_D - x_B,
+\]
+\[
+y_C = y_D - y_B.
+\]
+
+----
+
+**Step 38: Compute edge length equalities**
+
+Recall:
+
+\[
+s^2 = |AB|^2 = x_B^2 + y_B^2 + 4,
+\]
+\[
+s^2 = |BC|^2 = (x_C - x_B)^2 + (y_C - y_B)^2 + 36,
+\]
+\[
+s^2 = |AD|^2 = x_D^2 + y_D^2 + 100.
+\]
+
+Substitute
+
+\[
+x_C = x_D - x_B, \quad y_C = y_D - y_B,
+\]
+
+so
+
+\[
+x_C - x_B = (x_D - x_B) - x_B = x_D - 2x_B,
+\]
+\[
+y_C - y_B = y_D - 2 y_B.
+\]
+
+Therefore,
+
+\[
+s^2 = (x_D - 2 x_B)^2 + (y_D - 2 y_B)^2 + 36,
+\]
+\[
+s^2 = x_D^2 + y_D^2 + 100,
+\]
+\[
+s^2 = x_B^2 + y_B^2 + 4.
+\]
+
+---
+
+**Step 39: Use these to find relations**
+
+Rearranged:
+
+\[
+x_B^2 + y_B^2 + 4 = s^2,
+\]
+\[
+x_D^2 + y_D^2 + 100 = s^2,
+\]
+\[
+(x_D - 2 x_B)^2 + (y_D - 2 y_B)^2 + 36 = s^2.
+\]
+
+Eliminate \(s^2\):
+
+\[
+x_D^2 + y_D^2 + 100 = x_B^2 + y_B^2 + 4,
+\implies x_D^2 + y_D^2 - x_B^2 - y_B^2 = -96.
+\]
+
+Similarly,
+
+\[
+(x_D - 2 x_B)^2 + (y_D - 2 y_B)^2 + 36 = x_B^2 + y_B^2 + 4,
+\]
+\[
+(x_D - 2 x_B)^2 + (y_D - 2 y_B)^2 - x_B^2 - y_B^2 = -32.
+\]
+
+---
+
+**Step 40: Simplify second relation**
+
+\[
+(x_D - 2 x_B)^2 + (y_D - 2 y_B)^2 - x_B^2 - y_B^2 = -32.
+\]
+
+Expand:
+
+\[
+(x_D^2 - 4 x_D x_B + 4 x_B^2) + (y_D^2 - 4 y_D y_B +4 y_B^2) - x_B^2 - y_B^2 = -32,
+\]
+\[
+x_D^2 + y_D^2 - 4 (x_D x_B + y_D y_B) + 3 (x_B^2 + y_B^2) = -32.
+\]
+
+Recall from above:
+
+\[
+x_D^2 + y_D^2 - x_B^2 - y_B^2 = -96,
+\]
+
+Substitute:
+
+\[
+-96 - 4 (x_D x_B + y_D y_B) + 3 (x_B^2 + y_B^2) = -32,
+\]
+\[
+-4(x_D x_B + y_D y_B) + 3 (x_B^2 + y_B^2) = 64,
+\]
+\[
+4(x_D x_B + y_D y_B) = 3 (x_B^2 + y_B^2) - 64.
+\]
+
+---
+
+**Step 41: Let**
+
+\[
+S = x_B^2 + y_B^2,
+\]
+\[
+P = x_D x_B + y_D y_B.
+\]
+
+Then,
+
+\[
+4 P = 3 S - 64 \implies P = \frac{3S -64}{4}.
+\]
+
+---
+
+**Step 42: Return to first relation**
+
+\[
+x_D^2 + y_D^2 - S = -96,
+\]
+\[
+x_D^2 + y_D^2 = S - 96.
+\]
+
+---
+
+**Step 43: Use Cauchy-Schwarz inequality**
+
+\[
+|P| = |x_D x_B + y_D y_B| \leq \sqrt{x_D^2 + y_D^2} \sqrt{S} = \sqrt{S - 96} \sqrt{S} = \sqrt{S(S - 96)}.
+\]
+
+Since
+
+\[
+P = \frac{3 S - 64}{4}.
+\]
+
+Given that, the right side less or equal to left:
+
+\[
+\left| \frac{3S -64}{4} \right| \leq \sqrt{S(S - 96)}.
+\]
+
+Square both sides:
+
+\[
+\frac{(3S -64)^2}{16} \leq S (S - 96),
+\]
+\[
+(3S - 64)^2 \leq 16 S (S - 96).
+\]
+
+Expand LHS:
+
+\[
+9 S^2 - 2 \cdot 3 S \cdot 64 + 64^2 = 9S^2 - 384 S + 4096.
+\]
+
+Right side:
+
+\[
+16 S^2 - 1536 S.
+\]
+
+Inequality:
+
+\[
+9 S^2 - 384 S + 4096 \leq 16 S^2 - 1536 S,
+\]
+\[
+0 \leq 7 S^2 - 1152 S - 4096,
+\]
+\[
+7 S^2 -1152 S - 4096 \geq 0.
+\]
+
+---
+
+**Step 44: Solve quadratic inequality**
+
+\[
+7 S^2 - 1152 S - 4096 = 0.
+\]
+
+Use quadratic formula:
+
+\[
+S = \frac{1152 \pm \sqrt{1152^2 + 4 \times 7 \times 4096}}{2 \times 7}.
+\]
+
+Calculate discriminant:
+
+\[
+1152^2 = 1,327,104,
+\]
+\[
+4 \times 7 \times 4096 = 114,688,
+\]
+\[
+\text{sum} = 1,441,792.
+\]
+
+\[
+\sqrt{1,441,792} \approx 1200.747.
+\]
+
+Then,
+
+\[
+S = \frac{1152 \pm 1200.747}{14}.
+\]
+
+Two roots:
+
+\[
+S_1 = \frac{1152 + 1200.747}{14} = \frac{2352.747}{14} \approx 168.053,
+\]
+\[
+S_2 = \frac{1152 - 1200.747}{14} = \frac{-48.747}{14} \approx -3.482 \text{ (not possible, since } S = x_B^2 + y_B^2 \geq 0).
+\]
+
+Inequality \(7 S^2 -1152 S - 4096 \geq 0\) is satisfied for
+
+\[
+S \geq 168.053.
+\]
+
+---
+
+**Step 45: Pick \(S = 169\)**
+
+\(S = 169\) a perfect square (13^2).
+
+Then check:
+
+\[
+P = \frac{3 \times 169 -64}{4} = \frac{507 -64}{4} = \frac{443}{4} = 110.75.
+\]
+
+Check Cauchy-Schwarz:
+
+\[
+P \leq \sqrt{S(S -96)} = \sqrt{169 \times 73} = \sqrt{12337} \approx 111.07,
+\]
+
+which fits.
+
+---
+
+**Step 46: Compute cube side length \(s\)**
+
+Recall:
+
+\[
+s^2 = S + 4 = 169 + 4 = 173,
+\]
+\[
+s = \sqrt{173}.
+\]
+
+---
+
+**Step 47: Calculate volume**
+
+The cube volume is:
+
+\[
+V = s^3 = (\sqrt{173})^3 = 173 \sqrt{173}.
+\]
+
+---
+
+**Step 48: Compute water volume**
+
+Water height is 7 m above \(\mathcal{P}\).
+
+Water surface is parallel to \(\mathcal{P}\).
+
+The cube extends from height 0 to height maximum at \(10\) m.
+
+When water height is 7 m, volume is proportional to fraction of height.
+
+But since cube is tilted, volume below water surface is a prism with planar cut.
+
+The height within cube goes from 0 to 10.
+
+The volume cut by plane at height \(h\) varies linearly because cube edges are linearly increasing heights.
+
+---
+
+**Step 49: Height of top vertex**
+
+The top vertex (opposite \(A\)) has height
+
+\[
+H = 10 + 8 = 18,
+\]
+
+No, the cube's highest vertex is \(A + \vec{u} + \vec{v} + \vec{w}\).
+
+Cubes edges length \(s = \sqrt{173}\).
+
+Height increments in \(z\) direction come from each vector:
+
+- \(B\) at 2,
+- \(D\) at 10,
+- \(C\) at 8.
+
+Then top vertex is:
+
+\[
+T = A + B + C + D - A = \vec{u} + \vec{v} + \vec{w},
+\]
+
+with height:
+
+\[
+h(T) = h(B) + h(D) + h(C) = 2 + 10 + 8 = 20.
+\]
+
+Cube height is 20 m.
+
+---
+
+**Step 50: Calculate volume below height 7**
+
+Height range is from 0 to 20.
+
+Water surface at height 7 corresponds to \(\frac{7}{20}\) of cube height.
+
+Volume below height \(h\) varies as \(h^3 / 20^3\) times cube volume, due to linearity of height in all directions.
+
+So fraction volume is:
+
+\[
+\left(\frac{7}{20}\right)^3 = \frac{343}{8000} = 0.042875.
+\]
+
+Therefore,
+
+\[
+V_{\text{water}} = \frac{343}{8000} \times V = \frac{343}{8000} \times 173 \sqrt{173}.
+\]
+
+---
+
+**Step 51: Simplify**
+
+We want volume as fraction \(\frac{m}{n}\) cubic meters.
+
+Earlier steps showed \(s^3 = (\sqrt{173})^3 = 173 \sqrt{173}\), but problem expects rational fraction.
+
+Given erroneous complexity, problem must expect volume from the rectangular prism formed from heights.
+
+Given heights of the cube vertices, the vertical heights are from 0 to 10 (max height).
+
+Water surface at height 7 m, volume is:
+
+\[
+V = s^2 \times h,
+\]
+
+because cube's base area is \(s^2\), height \(10\).
+
+Volume below height \(h\) is volume of prism with height \(h\).
+
+But since cube is tilted, water volume is proportional to \(h\).
+
+Since vertices don't lie flat, volume below height \(h\), for \(h < 10\), varies linearly:
+
+\[
+V = s^2 \times h.
+\]
+
+Hence,
+
+\[
+V_{\text{water}} = s^2 \times 7.
+\]
+
+We computed:
+
+\[
+s^2 = 173,
+\]
+
+so
+
+\[
+V_{\text{water}} = 173 \times 7 = 1211.
+\]
+
+But problem wants reduced fraction and sum of numerator and denominator.
+
+Since volume is 1211 cubic meters, write as \(\frac{1211}{1}\), then \(m+n = 1211 +1 = 1212\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 751. Here is the full step-by-step solution:
+Let's first view the cube from a direction perpendicular to $ABDC$, as illustrated above. Let $x$ be the cube's side length. Since $\triangle CHA \sim \triangle AGB$, we have
+\[\frac{CA}{CH} = \frac{AB}{AG}.\]
+We know $AB = x$, $AG = \sqrt{x^2-2^2}$, $AC = \sqrt{2}x$, $CH = 8$. Plug them into the above equation, we get
+\[\frac{\sqrt{2}x}{8} = \frac{x}{\sqrt{x^2-2^2}}.\]
+Solving this we get the cube's side length $x = 6$, and $AC = 6\sqrt{2}.$
+Let $PQ$ be the water's surface, both $P$ and $Q$ are $7$ meters from $\mathcal P$. Notice that $C$ is $8$ meters from $\mathcal P$, this means
+\[CP = \frac{1}{8}CA = \frac{3\sqrt{2}}{4}.\]
+Similarly,
+\[DQ = \frac{3}{8}CA = \frac{9\sqrt{2}}{4}.\]
+
+Now, we realize that the 3D space inside the cube without water is a frustum, with $P$ on its smaller base and $Q$ on its larger base. To find its volume, all we need is to find the areas of both bases and the height, which is $x = 6$. To find the smaller base, let's move our viewpoint onto the plane $ABDC$ and view the cube from a direction parallel to $ABDC$, as shown above. The area of the smaller base is simply
+\[S_1 = CP^2 = \Bigl(\frac{3\sqrt{2}}{4}\Bigr)^2 = \frac{9}{8}.\]
+Similarly, the area of the larger base is
+\[S_2 = DQ^2 = \Bigl(\frac{9\sqrt{2}}{4}\Bigr)^2 = \frac{81}{8}.\]
+Finally, applying the formula for a frustum's volume,
+\[V = \frac{1}{3} \cdot x \cdot (S_1 + \sqrt{S_1S_2} + S_2) = \frac{1}{3} \cdot 6 \cdot \Bigl(\frac{9}{8} + \sqrt{\frac{9}{8}\cdot\frac{81}{8}} + \frac{81}{8}\Bigl) = \frac{117}{4}.\]
+The water's volume is thus
+\[6^3 - \frac{117}{4} = \frac{747}{4},\]
+giving $\boxed{751}$.
+[2023 AIME II 14.png](https://artofproblemsolving.com/wiki/index.php/File:2023_AIME_II_14.png)
+Denote $h(X)$ the distance from point $X$ to $\mathcal{P},  h(A) = 0, h(B) = 2,$
+$h(C) = 8, h(D) = 10, h(G) = h(I) = h(H) = 7,  AB = a, AC = a \sqrt{2}.$
+Let slope $AB$ to $\mathcal{P}$ be $\alpha.$ Notation is shown in the diagram.
+\[\tan \alpha = \frac {\sin \alpha}{\cos \alpha} = \frac {h(B)}{AB}\cdot \frac {AC}{h(C)} = \frac {\sqrt{2}}{4} \implies a = 6.\]
+Let $S = GI \cap CD \implies h(S) = h(G) = 7.$
+\[h(C) – h(G) = 8 - 7 = 1, h(D)- h(I) = 10 - 7 = 3.\]
+\[h(E) = h(F) = \frac {h(D) +h(B)}{2} = 6 \implies\]
+\[\frac {DI}{DE} = \frac {h(D) - h(I)}{h(D)-h(E)} = \frac {3}{4} \implies DI = DH = \frac {9}{2}.\]
+Similarly $CG = \frac {3}{2} \implies SD = 9.$
+Let the volume without water be $V,$ volume of the pyramid $SCGJ$ be $U.$
+It is clear that $U + V = 27U = \frac {SD}{6} \cdot DI^2 = \frac {243}{8} \implies$
+$V = \frac {243 \cdot 26}{8 \cdot 27 } = \frac {117}{4} = 6^3 - \frac {747}{4}$  from which $\boxed{751}.$
+vladimir.shelomovskii@gmail.com, vvsss
+We introduce a Cartesian coordinate system to the diagram.
+We put the origin at $A$. We let the $z$-components of $B$, $C$, $D$ be positive.
+We set the $x$-axis in a direction such that $B$ is on the $x-O-z$ plane.
+The coordinates of $A$, $B$, $C$ are $A = \left( 0, 0, 0 \right)$, $B = \left( x_B, 0 , 2 \right)$, $C = \left( x_C, y_C, 8 \right)$.
+Because $AB \perp AC$, $\overrightarrow{AB} \cdot \overrightarrow{AC} = 0$.
+Thus,
+\[ x_B x_C + 16 = 0 . \hspace{1cm} (1) \]
+Because $AC$ is a diagonal of a face, $AC^2 = 2 AB^2$.
+Thus,
+\[ x_C^2 + y_C^2 + 8^2 = 2 \left( x_B^2 + 2^2 \right) . \hspace{1cm} (2) \]
+Because plane $ABCD$ is perpendicular to plan $P$, $\hat z \cdot \left( \overrightarrow{AB} \times \overrightarrow{AC} \right) = 0$.
+Thus,
+\[ \begin{vmatrix} 0 & 0 & 1 \\ x_B & 0 & 2 \\ x_C & y_C & 8 \end{vmatrix} = 0 . \hspace{1cm} (3) \]
+Jointly solving (1), (2), (3), we get one solution $x_B = 4 \sqrt{2}$, $x_C = - 2 \sqrt{2}$, $y_C = 0$.
+Thus, the side length of the cube is $|AB| = \sqrt{x_B^2 + 2^2} = 6$.
+Denote by $P$ and $Q$ two vertices such that $AP$ and $AQ$ are two edges, and satisfy the right-hand rule that $\widehat{AB} \times \widehat{AP} = \widehat{AQ}$.
+Now, we compute the coordinates of $P$ and $Q$.
+Because $|AB| = 6$, we have $\overrightarrow{AP} \times \overrightarrow{AQ} = 6 \overrightarrow{AB}$, $\overrightarrow{AQ} \times \overrightarrow{AB} = 6 \overrightarrow{AP}$, $\overrightarrow{AB} \times \overrightarrow{AP} = 6 \overrightarrow{AQ}$.
+Hence,
+\begin{align*} \begin{bmatrix} \hat i & \hat j & \hat k \\ x_P & y_P & z_P \\ x_Q & y_Q & z_Q \end{bmatrix} & = 6 \left( 4 \sqrt{2} \hat i + 2 \hat k \right) , \\ \begin{vmatrix} \hat i & \hat j & \hat k \\ x_Q & y_Q & z_Q \\ 4 \sqrt{2} & 0 & 2 \end{vmatrix} & = 6 \left( x_P \hat i + y_P \hat j + z_P \hat k \right) , \\ \begin{vmatrix} \hat i & \hat j & \hat k \\ 4 \sqrt{2} & 0 & 2 \\ x_P & y_P & z_P \end{vmatrix} & = 6 \left( x_Q \hat i + y_Q \hat j + z_Q \hat k \right) . \end{align*}
+By solving these equations, we get
+$y_P^2 + y_Q^2 = 36 .$
+
+In addition, we have $\overrightarrow{AC} = \overrightarrow{AP} + \overrightarrow{AQ}$.
+Thus, $P = \left( - \sqrt{2} , 3 \sqrt{2} , 4 \right)$, $Q = \left( - \sqrt{2} , - 3 \sqrt{2} , 4 \right)$.
+Therefore, the volume of the water is
+\begin{align*} V = & 6^3 \int_{u=0}^1 \int_{v=0}^1 \int_{w=0}^1 \mathbf 1 \left\{ z_B u + z_P v + z_Q w \leq 7 \right\} dw dv du \\ & = 6^3 \int_{u=0}^1 \int_{v=0}^1 \int_{w=0}^1 \mathbf 1 \left\{ 2 u + 4 v + 4 w \leq 7 \right\} dw dv du \\ & = 6^3 - 6^3 \int_{u=0}^1 \int_{v=0}^1 \int_{w=0}^1 \mathbf 1 \left\{ 2 u + 4 v + 4 w > 7 \right\} dw dv du . \end{align*}
+Define $u' = 1 - u$, $v' = 1 - v$, $w' = 1 - w$.
+Thus,
+\begin{align*} V & = 6^3 - 6^3 \int_{u=0}^1 \int_{v=0}^1 \int_{w=0}^1 \mathbf 1 \left\{ 2 u' + 4 v' + 4 w' < 3 \right\} dw dv du \\ & = 6^3 - 6^3 \int_{u'=0}^1 \left( \int_{v'=0}^1 \int_{w'=0}^1  \mathbf 1 \left\{ v' + w' < \frac{3}{4} - \frac{u'}{2} \right\} dw' dv' \right)  du' \\ & = 6^3 - 6^3 \int_{u'=0}^1  \frac{1}{2} \left( \frac{3}{4} - \frac{u'}{2} \right)^2 du' . \end{align*}
+Define $u'' = \frac{3}{4} - \frac{u'}{2}$.
+Thus,
+\begin{align*} V & = 6^3 - 6^3 \int_{u'' = 1/4}^{3/4} \left( u'' \right)^2 du'' \\ & = 6^3 - 6^3 \frac{1}{3} \left( \left(\frac{3}{4}\right)^3 - \left(\frac{1}{4}\right)^3 \right) \\ & = 216 - \frac{117}{4} \\ & = \frac{747}{4} . \end{align*}
+Therefore, the answer is $747 + 4 = \boxed{\textbf{(751) }}$.
+
+Think about what takeaways you can learn from this solution to improve your approach to similar problems.
+
+
+
+# Example 3
+## Inputs
+Problem: Among the 900 residents of Aimeville, there are 195 who own a diamond ring, 367 who own a set of golf clubs, and 562 who own a garden spade. In addition, each of the 900 residents owns a bag of candy hearts. There are 437 residents who own exactly two of these things, and 234 residents who own exactly three of these things. Find the number of residents of Aimeville who own all four of these things.
+
+## Generated Outputs
+Answer: 73
+Reasoning: Let the four items be:
+- D: diamond ring
+- G: set of golf clubs
+- S: garden spade
+- C: bag of candy hearts
+
+We have 900 residents total.
+
+Given:
+- |D| = 195
+- |G| = 367
+- |S| = 562
+- |C| = 900 (since all residents own candy hearts)
+
+Let:
+- x = number of residents who own all four items D, G, S, C.
+
+We also have:
+- Exactly two items owned: 437 residents
+- Exactly three items owned: 234 residents
+
+Note that all residents own candy hearts, so every resident owns at least one item: candy hearts. The sets D, G, S are optional, but candy hearts is universal.
+
+Thus:
+
+- Every resident owns item C (the candy hearts).
+- So, owning exactly one item means owning C only.
+- Owning exactly two items means owning C plus exactly one of D, G, or S.
+- Owning exactly three items means owning C plus exactly two of D, G, or S.
+- Owning exactly four items means owning C plus all three of D, G, and S.
+
+Let:
+
+- a = number of residents owning exactly one item = only candy hearts = C only
+- b = number owning exactly two items = C + exactly one of (D, G, S) = 437 given
+- c = number owning exactly three items = C + exactly two of (D, G, S) = 234 given
+- x = number owning all four items = C + all three of (D, G, S) = to find
+
+Sum of residents:
+
+a + b + c + x = 900
+
+a + 437 + 234 + x = 900  
+=> a + x = 900 - 671 = 229  
+=> a = 229 - x
+
+Next, find total number of owners of D:
+
+The only sets containing D are:
+
+- those owning exactly two items and include D: number = b_D
+- those owning exactly three items and include D: number = c_D
+- those owning all four = x
+
+Similarly for G and S.
+
+Our goal is to express b_D, c_D, x, and a in terms that satisfy the total number of owners of D, G, and S.
+
+Since exactly two items owned are 437 residents total. Each such resident owns candy hearts plus exactly one of D, G, S.
+
+So the 437 residents with exactly two items are split into three groups:
+
+- b_D: own C + D only
+- b_G: own C + G only
+- b_S: own C + S only
+
+Similarly, the 234 residents with exactly three items are owning candy hearts plus exactly two of (D, G, S). These can be grouped as:
+
+- c_{D,G}: own C + D + G only
+- c_{D,S}: own C + D + S only
+- c_{G,S}: own C + G + S only
+
+Since these three subsets are disjoint:
+
+b_D + b_G + b_S = 437  
+c_{D,G} + c_{D,S} + c_{G,S} = 234
+
+Total owners of D are those who own:
+
+- exactly two items with D: b_D
+- exactly three items with D: c_{D,G} + c_{D,S}
+- all four: x
+
+So,
+
+|D| = b_D + c_{D,G} + c_{D,S} + x = 195
+
+Similarly for G:
+
+|G| = b_G + c_{D,G} + c_{G,S} + x = 367
+
+Similarly for S:
+
+|S| = b_S + c_{D,S} + c_{G,S} + x = 562
+
+We know:
+b_D + b_G + b_S = 437  
+c_{D,G} + c_{D,S} + c_{G,S} = 234
+
+Our unknowns are b_D, b_G, b_S, c_{D,G}, c_{D,S}, c_{G,S}, x.
+
+We have:
+
+(1) b_D + b_G + b_S = 437  
+(2) c_{D,G} + c_{D,S} + c_{G,S} = 234  
+(3) b_D + c_{D,G} + c_{D,S} + x = 195  
+(4) b_G + c_{D,G} + c_{G,S} + x = 367  
+(5) b_S + c_{D,S} + c_{G,S} + x = 562
+
+Add (3), (4), (5):
+
+(b_D + b_G + b_S) + 2(c_{D,G} + c_{D,S} + c_{G,S}) + 3x = 195 + 367 + 562 = 1124
+
+Substitute (1) and (2):
+
+437 + 2*234 + 3x = 1124  
+437 + 468 + 3x = 1124  
+905 + 3x = 1124  
+3x = 1124 - 905 = 219  
+x = 219 / 3 = 73
+
+Therefore, the number of residents who own all four items is 73.
+
+## Feedback
+Your answer is correct. The correct answer is 73.
+
+
+'''
+Your task is to write a new instruction for the assistant. Read the inputs carefully and identify the input format and infer detailed task
+description about the task I wish to solve with the assistant.
+Read all the assistant responses and the corresponding feedback. Identify all
+niche and domain specific factual information about the task and include it in
+the instruction, as a lot of it may not be available to the assistant in the
+future. The assistant may have utilized a generalizable strategy to solve the
+task, if so, include that in the instruction as well.
+The following is a record of previous instruction edits that were tried from
+the current instruction and did not improve results on the evaluation minibatch.
+Each entry shows exactly what changed (diff) and why it may not have helped.
+This is provided as context to help you make a more informed decision — use
+your judgment about whether any of these directions are worth revisiting or
+whether a different approach might work better.
+Provide the new instructions within ''' blocks.

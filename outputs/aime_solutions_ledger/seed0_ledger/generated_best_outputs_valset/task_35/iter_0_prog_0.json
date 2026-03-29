@@ -1,0 +1,5 @@
+{
+    "predicted_answer": "220",
+    "correct_answer": "220",
+    "reasoning": "Let the number of apples on the first tree (the least) be \\( a \\), and the common difference be \\( d \\). There are six trees, so the apple counts are:\n\\[\na, \\quad a + d, \\quad a + 2d, \\quad a + 3d, \\quad a + 4d, \\quad a + 5d.\n\\]\n\nThe greatest number of apples is on the sixth tree:\n\\[\na + 5d.\n\\]\n\nGiven: \n\\[\na + 5d = 2a \\quad \\Rightarrow \\quad 5d = a \\quad \\Rightarrow \\quad a = 5d.\n\\]\n\nThe sum of apples on all six trees is 990:\n\\[\nS = 6 \\times \\frac{\\text{first term} + \\text{last term}}{2} = 6 \\times \\frac{a + (a + 5d)}{2} = 6 \\times \\frac{2a + 5d}{2} = 3(2a + 5d).\n\\]\n\nSubstitute \\( a = 5d \\):\n\\[\nS = 3(2 \\times 5d + 5d) = 3(10d + 5d) = 3 \\times 15d = 45d.\n\\]\n\nWe know \\( S = 990 \\), so:\n\\[\n45d = 990 \\quad \\Rightarrow \\quad d = \\frac{990}{45} = 22.\n\\]\n\nNow, the greatest number of apples is \\( a + 5d = 2a \\), and since \\( a = 5d \\), then:\n\\[\n\\text{greatest} = 2a = 2 \\times 5d = 10d = 10 \\times 22 = 220.\n\\]"
+}

@@ -1,0 +1,54 @@
+'''
+Solve the given mathematical problem and provide the final answer as a single integer.
+
+Detailed task description and guidelines:
+
+1. **Input Format**:  
+   The problem will be a mathematical question, often involving integer variables, constraints, and algebraic or number-theoretic conditions. Problems may involve:
+   - Digit manipulations and base conversions.
+   - Palindromes in various bases.
+   - Counting integer solutions to polynomial equations with constraints.
+   - Symmetric sums and identities involving multiple variables.
+   - Combinatorial counts of integer triples or tuples satisfying polynomial or arithmetic conditions.
+
+2. **Output Format**:  
+   Provide only the final answer as a single integer, without any extra text or explanation.
+
+3. **Solution Approach** (to ensure correctness and completeness):  
+   - Carefully analyze the problem statement, identify variables and constraints (e.g., digit ranges, base restrictions, non-negativity).
+   - Translate the problem into algebraic or arithmetic equations.
+   - Use algebraic identities or symmetric polynomial properties where applicable to simplify expressions.
+   - For digit/base problems, carefully consider digit constraints in all bases involved.
+   - For counting integer solutions to equations under sum constraints, consider substitutions centered around symmetric points if helpful (e.g., change variables to center around average values).
+   - Use known identities (such as symmetric sums, cubic sum identities, or polynomial root relations) to reduce complexity.
+   - For counting solutions, consider cases based on zero or equal values and use combinatorial reasoning to count permutations properly.
+   - Verify candidate solutions by plugging back into original conditions.
+   - Avoid premature conclusions from partial checks; verify that all possible solutions are accounted for.
+   - Employ systematic checking or algebraic factorization to enumerate all valid solutions when feasible.
+
+4. **Domain-Specific Knowledge and Techniques**:  
+   - Understanding of base conversions and digit restrictions in multiple bases (e.g., digits must be less than base).
+   - Familiarity with palindromes and how to check palindrome property in arbitrary bases.
+   - Use of symmetric polynomial identities, such as:
+     \[
+     a^3 + b^3 + c^3 - 3abc = (a+b+c)(a^2 + b^2 + c^2 - ab - bc - ca),
+     \]
+     and expressing sums like \(a^2 b + a^2 c + \cdots\) in terms of symmetric sums.
+   - Polynomial root relations and factorization to characterize solutions.
+   - Counting integer solutions to linear equations under constraints.
+   - Use of substitutions like \(x = a - m\), \(y = b - m\), \(z = c - m\) to simplify symmetric conditions.
+   - Careful enumeration of solution multiplicities, considering permutations of variables.
+
+5. **Common pitfalls to avoid**:
+   - Neglecting digit restrictions or base constraints.
+   - Missing multiple solution cases or failing to count permutations correctly.
+   - Overlooking symmetrical solutions or special cases (e.g., when variables are equal).
+   - Not verifying solutions satisfy all given conditions exactly.
+   - Giving partial or approximate answers instead of the complete count or value.
+
+6. **Final Deliverable**:  
+   - After completing all reasoning and calculations, output only the single integer answer as the final result.
+
+This instruction aims to guide the assistant in solving complex algebraic and combinatorial integer problems precisely and comprehensively, ensuring accurate final integer answers.
+
+'''

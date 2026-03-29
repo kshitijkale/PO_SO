@@ -97,6 +97,18 @@ class RecordingCallback:
     def on_valset_evaluated(self, event):
         self._record("on_valset_evaluated", event)
 
+    def on_proposal_trace(self, event):
+        self._record("on_proposal_trace", event)
+
+    def on_ledger_injected(self, event):
+        self._record("on_ledger_injected", event)
+
+    def on_diary_injected(self, event):
+        self._record("on_diary_injected", event)
+
+    def on_refinement_step(self, event):
+        self._record("on_refinement_step", event)
+
 
 @pytest.fixture(scope="module")
 def recorder_dir() -> Path:

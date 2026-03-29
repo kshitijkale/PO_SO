@@ -1,0 +1,58 @@
+{
+  "type": "memory_tree_updated",
+  "iteration": 2,
+  "operation": "set_val_score",
+  "node_id": 0,
+  "parent_id": null,
+  "accepted": null,
+  "rejection_reason": "",
+  "prompt": {
+    "system_prompt": "Solve the problem and provide the answer provide the final answer as a single integer."
+  },
+  "outcomes_added": [],
+  "val_score": 0.3333333333333333,
+  "evicted_count": 0,
+  "new_node_summary": "",
+  "tree_node_count": 1,
+  "tree_snapshot": {
+    "root_id": 0,
+    "global_summary": "",
+    "outcome_eviction_k": 10,
+    "nodes": {
+      "0": {
+        "node_id": 0,
+        "prompt": {
+          "system_prompt": "Solve the problem and provide the answer provide the final answer as a single integer."
+        },
+        "parent_id": null,
+        "children_ids": [],
+        "accepted": true,
+        "val_score": 0.3333333333333333,
+        "minibatch_score": null,
+        "outcomes": [
+          {
+            "question_summary": "Find the three-digit integer whose base-9 representation is a rearrangement of its digits.",
+            "result": "correct",
+            "observation": "The model correctly set up an equation equating the decimal number with its rearranged base-9 form, expressed in terms of digits \\(a,b,c\\). It systematically tested possible digit values and found the unique integer solution 227 by verifying the conditions and confirming the base-9 value.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 1,
+        "rejection_reason": ""
+      }
+    },
+    "edges": []
+  },
+  "_meta": {
+    "event_id": "e3710fabad3c49469bd5507f11e41616-23",
+    "event_type": "memory_tree_updated",
+    "callback_method": "on_memory_tree_updated",
+    "timestamp_ms": 1773689763185,
+    "dispatch_sequence": 23,
+    "callback_stream_id": "e3710fabad3c49469bd5507f11e41616",
+    "iteration": 2
+  }
+}

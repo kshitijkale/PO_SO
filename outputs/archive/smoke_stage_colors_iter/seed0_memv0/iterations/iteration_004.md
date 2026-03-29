@@ -1,0 +1,117 @@
+# Iteration 4
+
+**Timestamp:** 2026-03-16T23:57:59
+**Elapsed:** 00m 13s
+**Iteration time:** 2.82s
+**Total evals so far:** 48
+**Candidates in population:** 1
+**Best score:** 0.5111 (candidate #0)
+**Acceptance rate:** 0/4 (0.0%)
+
+## Research Verdict
+
+- **Decision:** N/A
+- **What changed:** N/A
+- **Why the model says it changed:** N/A
+- **Did score improve:** N/A
+- **Failure modes moved:** N/A
+
+## Table of Contents
+
+- [Research Verdict](#research-verdict)
+- [Event Traceability](#event-traceability)
+- [Candidate Selection](#candidate-selection)
+- [Minibatch](#minibatch)
+- [Current Candidate Evaluation (pre-mutation)](#current-candidate-evaluation-pre-mutation)
+- [Reflective Dataset](#reflective-dataset)
+- [Reflection Memory](#reflection-memory)
+- [LLM Reflection Calls](#llm-reflection-calls)
+- [Full Candidate Texts](#full-candidate-texts)
+- [Before/After Diff](#beforeafter-diff)
+- [Proposed Candidate Evaluation (post-mutation)](#proposed-candidate-evaluation-post-mutation)
+- [Acceptance Decision](#acceptance-decision)
+- [Lesson Generated](#lesson-generated)
+- [Pareto Front Update](#pareto-front-update)
+- [Validation Set Evaluation](#validation-set-evaluation)
+- [Merge](#merge)
+- [Budget](#budget)
+
+## Event Traceability
+
+Use these IDs to correlate entries across `log.jsonl`, `memory/memv0_events.jsonl`, and `states/`.
+
+| Seq | Event | Callback | Event ID |
+|-----|-------|----------|----------|
+| 43 | minibatch_sampled | on_minibatch_sampled | `72fd29a8519e4f5b9501887d7bbecd85-43` |
+| 45 | budget_updated | on_budget_updated | `72fd29a8519e4f5b9501887d7bbecd85-45` |
+| 47 | memory_tree_updated | on_memory_tree_updated | `72fd29a8519e4f5b9501887d7bbecd85-47` |
+| 48 | outcome_interpreter_call | on_outcome_interpreter_call | `72fd29a8519e4f5b9501887d7bbecd85-48` |
+| 49 | memory_tree_updated | on_memory_tree_updated | `72fd29a8519e4f5b9501887d7bbecd85-49` |
+| 50 | evaluation_skipped | on_evaluation_skipped | `72fd29a8519e4f5b9501887d7bbecd85-50` |
+
+## Candidate Selection
+
+- **Selected:** candidate #0 (score: 0.5111)
+- **Component `system_prompt`:** 86 chars
+
+### Full Candidate Text
+
+#### `system_prompt`
+
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+## Minibatch
+
+- **IDs:** [0]
+- **Size:** 1 / 45 total
+
+## Current Candidate Evaluation (pre-mutation)
+
+- **Aggregate score:** 1.0000
+- **Per-example scores:** [1.0]
+- **Failed examples:** 0/1
+
+### Per-Example Outputs
+
+#### Example 0 [PASS] (score: 1.0)
+
+```json
+{
+  "predicted_answer": "242",
+  "correct_answer": "242",
+  "reasoning": "We are given an isosceles trapezoid \\(ABCD\\) with bases \\(AB = 500\\) and \\(CD = 650\\), and legs \\(AD = BC = 333\\). The trapezoid is isosceles, so \\(AD = BC\\) and the legs are equal.\n\nWe want to find the length \\(PQ\\), where:\n- \\(P\\) is the intersection of the angle bisectors of \\(\\angle A\\) and \\(\\angle D\\).\n- \\(Q\\) is the intersection of the angle bisectors of \\(\\angle B\\) and \\(\\angle C\\).\n\n---\n\n**Step 1: Set up coordinates**\n\nPlace trapezoid \\(ABCD\\) in the coordinate plane for convenience.\n\nLet the trapezoid be oriented so that \\(AB\\) is on the x-axis.\n\n- Let \\(A = (0,0)\\).\n- Since \\(AB = 500\\), let \\(B = (500,0)\\).\n- The trapezoid is isosceles, so \\(AD = BC = 333\\).\n- The top base \\(CD = 650\\) is parallel to \\(AB\\).\n\nWe need to find coordinates of \\(C\\) and \\(D\\).\n\n---\n\n**Step 2: Find height and coordinates of \\(C\\) and \\(D\\)**\n\nLet the height of the trapezoid be \\(h\\).\n\nSince \\(AB\\) and \\(CD\\) are parallel, \\(C\\) and \\(D\\) lie on the line \\(y = h\\).\n\nLet \\(D = (x, h)\\). Then \\(C = (x + 650, h)\\) because \\(CD = 650\\).\n\n---\n\n**Step 3: Use the leg lengths**\n\nWe know:\n\n- \\(AD = 333\\), so distance from \\(A=(0,0)\\) to \\(D=(x,h)\\) is 333:\n\\[\nAD^2 = x^2 + h^2 = 333^2 = 110,889.\n\\]\n\n- \\(BC = 333\\), so distance from \\(B=(500,0)\\) to \\(C=(x+650,h)\\) is 333:\n\\[\nBC^2 = (x + 650 - 500)^2 + h^2 = (x + 150)^2 + h^2 = 110,889.\n\\]\n\n---\n\n**Step 4: Set up equations**\n\nFrom \\(AD\\):\n\\[\nx^2 + h^2 = 110,889.\n\\]\n\nFrom \\(BC\\):\n\\[\n(x + 150)^2 + h^2 = 110,889.\n\\]\n\nSubtract the first from the second:\n\\[\n(x + 150)^2 + h^2 - (x^2 + h^2) = 0 \\implies (x + 150)^2 - x^2 = 0.\n\\]\n\nExpand:\n\\[\nx^2 + 300x + 22,500 - x^2 = 0 \\implies 300x + 22,500 = 0.\n\\]\n\nSolve for \\(x\\):\n\\[\n300x = -22,500 \\implies x = -75.\n\\]\n\n---\n\n**Step 5: Find \\(h\\)**\n\nUse \\(x^2 + h^2 = 110,889\\):\n\\[\n(-75)^2 + h^2 = 110,889 \\implies 5,625 + h^2 = 110,889 \\implies h^2 = 110,889 - 5,625 = 105,264.\n\\]\n\n\\[\nh = \\sqrt{105,264} = 324.5 \\quad (\\text{approx}).\n\\]\n\n---\n\n**Step 6: Coordinates of points**\n\n- \\(A = (0,0)\\)\n- \\(B = (500,0)\\)\n- \\(D = (-75, 324.5)\\)\n- \\(C = (-75 + 650, 324.5) = (575, 324.5)\\)\n\n---\n\n**Step 7: Find angle bisectors at \\(A\\) and \\(D\\), and their intersection \\(P\\)**\n\n---\n\n**Angle bisector at \\(A\\):**\n\nAt \\(A\\), the angle is between vectors \\(AB\\) and \\(AD\\).\n\n- Vector \\(AB = B - A = (500, 0)\\).\n- Vector \\(AD = D - A = (-75, 324.5)\\).\n\nNormalize these vectors:\n\n\\[\n|AB| = 500, \\quad \\hat{u}_{AB} = (1, 0).\n\\]\n\n\\[\n|AD| = 333, \\quad \\hat{u}_{AD} = \\left(\\frac{-75}{333}, \\frac{324.5}{333}\\right) \\approx (-0.225, 0.975).\n\\]\n\nThe angle bisector direction at \\(A\\) is along the sum of the unit vectors:\n\n\\[\n\\vec{v}_A = \\hat{u}_{AB} + \\hat{u}_{AD} = (1 - 0.225, 0 + 0.975) = (0.775, 0.975).\n\\]\n\nNormalize \\(\\vec{v}_A\\):\n\n\\[\n|\\vec{v}_A| = \\sqrt{0.775^2 + 0.975^2} = \\sqrt{0.6006 + 0.9506} = \\sqrt{1.5512} \\approx 1.245.\n\\]\n\nUnit vector along angle bisector at \\(A\\):\n\n\\[\n\\hat{v}_A = \\left(\\frac{0.775}{1.245}, \\frac{0.975}{1.245}\\right) \\approx (0.622, 0.783).\n\\]\n\nParametric form of angle bisector at \\(A\\):\n\n\\[\nL_A: (x,y) = (0,0) + t(0.622, 0.783) = (0.622 t, 0.783 t).\n\\]\n\n---\n\n**Angle bisector at \\(D\\):**\n\nAt \\(D\\), the angle is between vectors \\(DC\\) and \\(DA\\).\n\n- Vector \\(DC = C - D = (575 + 75, 324.5 - 324.5) = (650, 0)\\).\n- Vector \\(DA = A - D = (0 + 75, 0 - 324.5) = (75, -324.5)\\).\n\nNormalize:\n\n\\[\n|DC| = 650, \\quad \\hat{u}_{DC} = (1, 0).\n\\]\n\n\\[\n|DA| = 333, \\quad \\hat{u}_{DA} = \\left(\\frac{75}{333}, \\frac{-324.5}{333}\\right) \\approx (0.225, -0.975).\n\\]\n\nSum:\n\n\\[\n\\vec{v}_D = \\hat{u}_{DC} + \\hat{u}_{DA} = (1 + 0.225, 0 - 0.975) = (1.225, -0.975).\n\\]\n\nNormalize:\n\n\\[\n|\\vec{v}_D| = \\sqrt{1.225^2 + (-0.975)^2} = \\sqrt{1.5006 + 0.9506} = \\sqrt{2.4512} \\approx 1.565.\n\\]\n\nUnit vector:\n\n\\[\n\\hat{v}_D = \\left(\\frac{1.225}{1.565}, \\frac{-0.975}{1.565}\\right) \\approx (0.783, -0.623).\n\\]\n\nParametric form of angle bisector at \\(D\\):\n\n\\[\nL_D: (x,y) = (-75, 324.5) + s(0.783, -0.623) = (-75 + 0.783 s, 324.5 - 0.623 s).\n\\]\n\n---\n\n**Step 8: Find intersection \\(P\\) of \\(L_A\\) and \\(L_D\\)**\n\nSet:\n\n\\[\n0.622 t = -75 + 0.783 s,\n\\]\n\\[\n0.783 t = 324.5 - 0.623 s.\n\\]\n\nFrom the first:\n\n\\[\n0.622 t - 0.783 s = -75.\n\\]\n\nFrom the second:\n\n\\[\n0.783 t + 0.623 s = 324.5.\n\\]\n\nSolve the system:\n\nMultiply first equation by 0.623:\n\n\\[\n0.622 \\times 0.623 t - 0.783 \\times 0.623 s = -75 \\times 0.623,\n\\]\n\\[\n0.3877 t - 0.4879 s = -46.725.\n\\]\n\nMultiply second equation by 0.783:\n\n\\[\n0.783 \\times 0.783 t + 0.623 \\times 0.783 s = 324.5 \\times 0.783,\n\\]\n\\[\n0.613 t + 0.4879 s = 254.1.\n\\]\n\nAdd the two equations:\n\n\\[\n(0.3877 + 0.613) t + (-0.4879 + 0.4879) s = -46.725 + 254.1,\n\\]\n\\[\n1.0007 t + 0 = 207.375,\n\\]\n\\[\nt \\approx 207.375.\n\\]\n\nPlug back into first equation:\n\n\\[\n0.622 \\times 207.375 - 0.783 s = -75,\n\\]\n\\[\n129.0 - 0.783 s = -75,\n\\]\n\\[\n-0.783 s = -204,\n\\]\n\\[\ns = \\frac{204}{0.783} \\approx 260.4.\n\\]\n\n---\n\n**Step 9: Coordinates of \\(P\\)**\n\nUsing \\(L_A\\):\n\n\\[\nP = (0.622 \\times 207.375, 0.783 \\times 207.375) \\approx (129.0, 162.3).\n\\]\n\n---\n\n**Step 10: Find angle bisectors at \\(B\\) and \\(C\\), and their intersection \\(Q\\)**\n\n---\n\n**Angle bisector at \\(B\\):**\n\nAt \\(B\\), angle between vectors \\(BA\\) and \\(BC\\).\n\n- \\(BA = A - B = (0 - 500, 0 - 0) = (-500, 0)\\).\n- \\(BC = C - B = (575 - 500, 324.5 - 0) = (75, 324.5)\\).\n\nNormalize:\n\n\\[\n|BA| = 500, \\quad \\hat{u}_{BA} = (-1, 0).\n\\]\n\n\\[\n|BC| = 333, \\quad \\hat{u}_{BC} = \\left(\\frac{75}{333}, \\frac{324.5}{333}\\right) \\approx (0.225, 0.975).\n\\]\n\nSum:\n\n\\[\n\\vec{v}_B = (-1 + 0.225, 0 + 0.975) = (-0.775, 0.975).\n\\]\n\nNormalize:\n\n\\[\n|\\vec{v}_B| = \\sqrt{(-0.775)^2 + 0.975^2} = \\sqrt{0.6006 + 0.9506} = \\sqrt{1.5512} \\approx 1.245.\n\\]\n\nUnit vector:\n\n\\[\n\\hat{v}_B = \\left(\\frac{-0.775}{1.245}, \\frac{0.975}{1.245}\\right) \\approx (-0.622, 0.783).\n\\]\n\nParametric form of angle bisector at \\(B\\):\n\n\\[\nL_B: (x,y) = (500, 0) + u(-0.622, 0.783) = (500 - 0.622 u, 0 + 0.783 u).\n\\]\n\n---\n\n**Angle bisector at \\(C\\):**\n\nAt \\(C\\), angle between vectors \\(CB\\) and \\(CD\\).\n\n- \\(CB = B - C = (500 - 575, 0 - 324.5) = (-75, -324.5)\\).\n- \\(CD = D - C = (-75 - 575, 324.5 - 324.5) = (-650, 0)\\).\n\nNormalize:\n\n\\[\n|CB| = 333, \\quad \\hat{u}_{CB} = \\left(\\frac{-75}{333}, \\frac{-324.5}{333}\\right) \\approx (-0.225, -0.975).\n\\]\n\n\\[\n|CD| = 650, \\quad \\hat{u}_{CD} = (-1, 0).\n\\]\n\nSum:\n\n\\[\n\\vec{v}_C = (-0.225 - 1, -0.975 + 0) = (-1.225, -0.975).\n\\]\n\nNormalize:\n\n\\[\n|\\vec{v}_C| = \\sqrt{1.225^2 + 0.975^2} = \\sqrt{1.5006 + 0.9506} = \\sqrt{2.4512} \\approx 1.565.\n\\]\n\nUnit vector:\n\n\\[\n\\hat{v}_C = \\left(\\frac{-1.225}{1.565}, \\frac{-0.975}{1.565}\\right) \\approx (-0.783, -0.623).\n\\]\n\nParametric form of angle bisector at \\(C\\):\n\n\\[\nL_C: (x,y) = (575, 324.5) + v(-0.783, -0.623) = (575 - 0.783 v, 324.5 - 0.623 v).\n\\]\n\n---\n\n**Step 11: Find intersection \\(Q\\) of \\(L_B\\) and \\(L_C\\)**\n\nSet:\n\n\\[\n500 - 0.622 u = 575 - 0.783 v,\n\\]\n\\[\n0.783 u = 324.5 - 0.623 v.\n\\]\n\nRewrite:\n\n\\[\n-0.622 u + 0.783 v = 75,\n\\]\n\\[\n0.783 u + 0.623 v = 324.5.\n\\]\n\nMultiply first equation by 0.623:\n\n\\[\n-0.622 \\times 0.623 u + 0.783 \\times 0.623 v = 75 \\times 0.623,\n\\]\n\\[\n-0.3877 u + 0.4879 v = 46.725.\n\\]\n\nMultiply second equation by 0.783:\n\n\\[\n0.783 \\times 0.783 u + 0.623 \\times 0.783 v = 324.5 \\times 0.783,\n\\]\n\\[\n0.613 u + 0.4879 v = 254.1.\n\\]\n\nSubtract the first from the second:\n\n\\[\n(0.613 + 0.3877) u + (0.4879 - 0.4879) v = 254.1 - 46.725,\n\\]\n\\[\n1.0007 u = 207.375,\n\\]\n\\[\nu \\approx 207.375.\n\\]\n\nPlug back into first equation:\n\n\\[\n-0.622 \\times 207.375 + 0.783 v = 75,\n\\]\n\\[\n-129.0 + 0.783 v = 75,\n\\]\n\\[\n0.783 v = 204,\n\\]\n\\[\nv = \\frac{204}{0.783} \\approx 260.4.\n\\]\n\n---\n\n**Step 12: Coordinates of \\(Q\\)**\n\nUsing \\(L_B\\):\n\n\\[\nQ = (500 - 0.622 \\times 207.375, 0 + 0.783 \\times 207.375) = (500 - 129.0, 162.3) = (371.0, 162.3).\n\\]\n\n---\n\n**Step 13: Find \\(PQ\\)**\n\n\\[\nP = (129.0, 162.3), \\quad Q = (371.0, 162.3).\n\\]\n\nDistance:\n\n\\[\nPQ = |371.0 - 129.0| = 242.0.\n\\]\n\n---\n\n**Final answer:**\n\n\\[\n\\boxed{242}.\n\\]\n\n---\n\n**Summary:**\n\n- The points \\(P\\) and \\(Q\\) lie on the same horizontal line \\(y \\approx 162.3\\).\n- The distance between them is approximately 242.\n\n---"
+}
+```
+
+### Trajectories
+
+#### Trajectory 0
+
+```json
+{
+  "problem": "In isosceles trapezoid $ABCD$, parallel bases $\\overline{AB}$ and $\\overline{CD}$ have lengths $500$ and $650$, respectively, and $AD=BC=333$. The angle bisectors of $\\angle{A}$ and $\\angle{D}$ meet at $P$, and the angle bisectors of $\\angle{B}$ and $\\angle{C}$ meet at $Q$. Find $PQ$.",
+  "correct_answer": "242",
+  "predicted_answer": "242",
+  "reasoning": "We are given an isosceles trapezoid \\(ABCD\\) with bases \\(AB = 500\\) and \\(CD = 650\\), and legs \\(AD = BC = 333\\). The trapezoid is isosceles, so \\(AD = BC\\) and the legs are equal.\n\nWe want to find the length \\(PQ\\), where:\n- \\(P\\) is the intersection of the angle bisectors of \\(\\angle A\\) and \\(\\angle D\\).\n- \\(Q\\) is the intersection of the angle bisectors of \\(\\angle B\\) and \\(\\angle C\\).\n\n---\n\n**Step 1: Set up coordinates**\n\nPlace trapezoid \\(ABCD\\) in the coordinate plane for convenience.\n\nLet the trapezoid be oriented so that \\(AB\\) is on the x-axis.\n\n- Let \\(A = (0,0)\\).\n- Since \\(AB = 500\\), let \\(B = (500,0)\\).\n- The trapezoid is isosceles, so \\(AD = BC = 333\\).\n- The top base \\(CD = 650\\) is parallel to \\(AB\\).\n\nWe need to find coordinates of \\(C\\) and \\(D\\).\n\n---\n\n**Step 2: Find height and coordinates of \\(C\\) and \\(D\\)**\n\nLet the height of the trapezoid be \\(h\\).\n\nSince \\(AB\\) and \\(CD\\) are parallel, \\(C\\) and \\(D\\) lie on the line \\(y = h\\).\n\nLet \\(D = (x, h)\\). Then \\(C = (x + 650, h)\\) because \\(CD = 650\\).\n\n---\n\n**Step 3: Use the leg lengths**\n\nWe know:\n\n- \\(AD = 333\\), so distance from \\(A=(0,0)\\) to \\(D=(x,h)\\) is 333:\n\\[\nAD^2 = x^2 + h^2 = 333^2 = 110,889.\n\\]\n\n- \\(BC = 333\\), so distance from \\(B=(500,0)\\) to \\(C=(x+650,h)\\) is 333:\n\\[\nBC^2 = (x + 650 - 500)^2 + h^2 = (x + 150)^2 + h^2 = 110,889.\n\\]\n\n---\n\n**Step 4: Set up equations**\n\nFrom \\(AD\\):\n\\[\nx^2 + h^2 = 110,889.\n\\]\n\nFrom \\(BC\\):\n\\[\n(x + 150)^2 + h^2 = 110,889.\n\\]\n\nSubtract the first from the second:\n\\[\n(x + 150)^2 + h^2 - (x^2 + h^2) = 0 \\implies (x + 150)^2 - x^2 = 0.\n\\]\n\nExpand:\n\\[\nx^2 + 300x + 22,500 - x^2 = 0 \\implies 300x + 22,500 = 0.\n\\]\n\nSolve for \\(x\\):\n\\[\n300x = -22,500 \\implies x = -75.\n\\]\n\n---\n\n**Step 5: Find \\(h\\)**\n\nUse \\(x^2 + h^2 = 110,889\\):\n\\[\n(-75)^2 + h^2 = 110,889 \\implies 5,625 + h^2 = 110,889 \\implies h^2 = 110,889 - 5,625 = 105,264.\n\\]\n\n\\[\nh = \\sqrt{105,264} = 324.5 \\quad (\\text{approx}).\n\\]\n\n---\n\n**Step 6: Coordinates of points**\n\n- \\(A = (0,0)\\)\n- \\(B = (500,0)\\)\n- \\(D = (-75, 324.5)\\)\n- \\(C = (-75 + 650, 324.5) = (575, 324.5)\\)\n\n---\n\n**Step 7: Find angle bisectors at \\(A\\) and \\(D\\), and their intersection \\(P\\)**\n\n---\n\n**Angle bisector at \\(A\\):**\n\nAt \\(A\\), the angle is between vectors \\(AB\\) and \\(AD\\).\n\n- Vector \\(AB = B - A = (500, 0)\\).\n- Vector \\(AD = D - A = (-75, 324.5)\\).\n\nNormalize these vectors:\n\n\\[\n|AB| = 500, \\quad \\hat{u}_{AB} = (1, 0).\n\\]\n\n\\[\n|AD| = 333, \\quad \\hat{u}_{AD} = \\left(\\frac{-75}{333}, \\frac{324.5}{333}\\right) \\approx (-0.225, 0.975).\n\\]\n\nThe angle bisector direction at \\(A\\) is along the sum of the unit vectors:\n\n\\[\n\\vec{v}_A = \\hat{u}_{AB} + \\hat{u}_{AD} = (1 - 0.225, 0 + 0.975) = (0.775, 0.975).\n\\]\n\nNormalize \\(\\vec{v}_A\\):\n\n\\[\n|\\vec{v}_A| = \\sqrt{0.775^2 + 0.975^2} = \\sqrt{0.6006 + 0.9506} = \\sqrt{1.5512} \\approx 1.245.\n\\]\n\nUnit vector along angle bisector at \\(A\\):\n\n\\[\n\\hat{v}_A = \\left(\\frac{0.775}{1.245}, \\frac{0.975}{1.245}\\right) \\approx (0.622, 0.783).\n\\]\n\nParametric form of angle bisector at \\(A\\):\n\n\\[\nL_A: (x,y) = (0,0) + t(0.622, 0.783) = (0.622 t, 0.783 t).\n\\]\n\n---\n\n**Angle bisector at \\(D\\):**\n\nAt \\(D\\), the angle is between vectors \\(DC\\) and \\(DA\\).\n\n- Vector \\(DC = C - D = (575 + 75, 324.5 - 324.5) = (650, 0)\\).\n- Vector \\(DA = A - D = (0 + 75, 0 - 324.5) = (75, -324.5)\\).\n\nNormalize:\n\n\\[\n|DC| = 650, \\quad \\hat{u}_{DC} = (1, 0).\n\\]\n\n\\[\n|DA| = 333, \\quad \\hat{u}_{DA} = \\left(\\frac{75}{333}, \\frac{-324.5}{333}\\right) \\approx (0.225, -0.975).\n\\]\n\nSum:\n\n\\[\n\\vec{v}_D = \\hat{u}_{DC} + \\hat{u}_{DA} = (1 + 0.225, 0 - 0.975) = (1.225, -0.975).\n\\]\n\nNormalize:\n\n\\[\n|\\vec{v}_D| = \\sqrt{1.225^2 + (-0.975)^2} = \\sqrt{1.5006 + 0.9506} = \\sqrt{2.4512} \\approx 1.565.\n\\]\n\nUnit vector:\n\n\\[\n\\hat{v}_D = \\left(\\frac{1.225}{1.565}, \\frac{-0.975}{1.565}\\right) \\approx (0.783, -0.623).\n\\]\n\nParametric form of angle bisector at \\(D\\):\n\n\\[\nL_D: (x,y) = (-75, 324.5) + s(0.783, -0.623) = (-75 + 0.783 s, 324.5 - 0.623 s).\n\\]\n\n---\n\n**Step 8: Find intersection \\(P\\) of \\(L_A\\) and \\(L_D\\)**\n\nSet:\n\n\\[\n0.622 t = -75 + 0.783 s,\n\\]\n\\[\n0.783 t = 324.5 - 0.623 s.\n\\]\n\nFrom the first:\n\n\\[\n0.622 t - 0.783 s = -75.\n\\]\n\nFrom the second:\n\n\\[\n0.783 t + 0.623 s = 324.5.\n\\]\n\nSolve the system:\n\nMultiply first equation by 0.623:\n\n\\[\n0.622 \\times 0.623 t - 0.783 \\times 0.623 s = -75 \\times 0.623,\n\\]\n\\[\n0.3877 t - 0.4879 s = -46.725.\n\\]\n\nMultiply second equation by 0.783:\n\n\\[\n0.783 \\times 0.783 t + 0.623 \\times 0.783 s = 324.5 \\times 0.783,\n\\]\n\\[\n0.613 t + 0.4879 s = 254.1.\n\\]\n\nAdd the two equations:\n\n\\[\n(0.3877 + 0.613) t + (-0.4879 + 0.4879) s = -46.725 + 254.1,\n\\]\n\\[\n1.0007 t + 0 = 207.375,\n\\]\n\\[\nt \\approx 207.375.\n\\]\n\nPlug back into first equation:\n\n\\[\n0.622 \\times 207.375 - 0.783 s = -75,\n\\]\n\\[\n129.0 - 0.783 s = -75,\n\\]\n\\[\n-0.783 s = -204,\n\\]\n\\[\ns = \\frac{204}{0.783} \\approx 260.4.\n\\]\n\n---\n\n**Step 9: Coordinates of \\(P\\)**\n\nUsing \\(L_A\\):\n\n\\[\nP = (0.622 \\times 207.375, 0.783 \\times 207.375) \\approx (129.0, 162.3).\n\\]\n\n---\n\n**Step 10: Find angle bisectors at \\(B\\) and \\(C\\), and their intersection \\(Q\\)**\n\n---\n\n**Angle bisector at \\(B\\):**\n\nAt \\(B\\), angle between vectors \\(BA\\) and \\(BC\\).\n\n- \\(BA = A - B = (0 - 500, 0 - 0) = (-500, 0)\\).\n- \\(BC = C - B = (575 - 500, 324.5 - 0) = (75, 324.5)\\).\n\nNormalize:\n\n\\[\n|BA| = 500, \\quad \\hat{u}_{BA} = (-1, 0).\n\\]\n\n\\[\n|BC| = 333, \\quad \\hat{u}_{BC} = \\left(\\frac{75}{333}, \\frac{324.5}{333}\\right) \\approx (0.225, 0.975).\n\\]\n\nSum:\n\n\\[\n\\vec{v}_B = (-1 + 0.225, 0 + 0.975) = (-0.775, 0.975).\n\\]\n\nNormalize:\n\n\\[\n|\\vec{v}_B| = \\sqrt{(-0.775)^2 + 0.975^2} = \\sqrt{0.6006 + 0.9506} = \\sqrt{1.5512} \\approx 1.245.\n\\]\n\nUnit vector:\n\n\\[\n\\hat{v}_B = \\left(\\frac{-0.775}{1.245}, \\frac{0.975}{1.245}\\right) \\approx (-0.622, 0.783).\n\\]\n\nParametric form of angle bisector at \\(B\\):\n\n\\[\nL_B: (x,y) = (500, 0) + u(-0.622, 0.783) = (500 - 0.622 u, 0 + 0.783 u).\n\\]\n\n---\n\n**Angle bisector at \\(C\\):**\n\nAt \\(C\\), angle between vectors \\(CB\\) and \\(CD\\).\n\n- \\(CB = B - C = (500 - 575, 0 - 324.5) = (-75, -324.5)\\).\n- \\(CD = D - C = (-75 - 575, 324.5 - 324.5) = (-650, 0)\\).\n\nNormalize:\n\n\\[\n|CB| = 333, \\quad \\hat{u}_{CB} = \\left(\\frac{-75}{333}, \\frac{-324.5}{333}\\right) \\approx (-0.225, -0.975).\n\\]\n\n\\[\n|CD| = 650, \\quad \\hat{u}_{CD} = (-1, 0).\n\\]\n\nSum:\n\n\\[\n\\vec{v}_C = (-0.225 - 1, -0.975 + 0) = (-1.225, -0.975).\n\\]\n\nNormalize:\n\n\\[\n|\\vec{v}_C| = \\sqrt{1.225^2 + 0.975^2} = \\sqrt{1.5006 + 0.9506} = \\sqrt{2.4512} \\approx 1.565.\n\\]\n\nUnit vector:\n\n\\[\n\\hat{v}_C = \\left(\\frac{-1.225}{1.565}, \\frac{-0.975}{1.565}\\right) \\approx (-0.783, -0.623).\n\\]\n\nParametric form of angle bisector at \\(C\\):\n\n\\[\nL_C: (x,y) = (575, 324.5) + v(-0.783, -0.623) = (575 - 0.783 v, 324.5 - 0.623 v).\n\\]\n\n---\n\n**Step 11: Find intersection \\(Q\\) of \\(L_B\\) and \\(L_C\\)**\n\nSet:\n\n\\[\n500 - 0.622 u = 575 - 0.783 v,\n\\]\n\\[\n0.783 u = 324.5 - 0.623 v.\n\\]\n\nRewrite:\n\n\\[\n-0.622 u + 0.783 v = 75,\n\\]\n\\[\n0.783 u + 0.623 v = 324.5.\n\\]\n\nMultiply first equation by 0.623:\n\n\\[\n-0.622 \\times 0.623 u + 0.783 \\times 0.623 v = 75 \\times 0.623,\n\\]\n\\[\n-0.3877 u + 0.4879 v = 46.725.\n\\]\n\nMultiply second equation by 0.783:\n\n\\[\n0.783 \\times 0.783 u + 0.623 \\times 0.783 v = 324.5 \\times 0.783,\n\\]\n\\[\n0.613 u + 0.4879 v = 254.1.\n\\]\n\nSubtract the first from the second:\n\n\\[\n(0.613 + 0.3877) u + (0.4879 - 0.4879) v = 254.1 - 46.725,\n\\]\n\\[\n1.0007 u = 207.375,\n\\]\n\\[\nu \\approx 207.375.\n\\]\n\nPlug back into first equation:\n\n\\[\n-0.622 \\times 207.375 + 0.783 v = 75,\n\\]\n\\[\n-129.0 + 0.783 v = 75,\n\\]\n\\[\n0.783 v = 204,\n\\]\n\\[\nv = \\frac{204}{0.783} \\approx 260.4.\n\\]\n\n---\n\n**Step 12: Coordinates of \\(Q\\)**\n\nUsing \\(L_B\\):\n\n\\[\nQ = (500 - 0.622 \\times 207.375, 0 + 0.783 \\times 207.375) = (500 - 129.0, 162.3) = (371.0, 162.3).\n\\]\n\n---\n\n**Step 13: Find \\(PQ\\)**\n\n\\[\nP = (129.0, 162.3), \\quad Q = (371.0, 162.3).\n\\]\n\nDistance:\n\n\\[\nPQ = |371.0 - 129.0| = 242.0.\n\\]\n\n---\n\n**Final answer:**\n\n\\[\n\\boxed{242}.\n\\]\n\n---\n\n**Summary:**\n\n- The points \\(P\\) and \\(Q\\) lie on the same horizontal line \\(y \\approx 162.3\\).\n- The distance between them is approximately 242.\n\n---",
+  "score": 1.0,
+  "feedback": "Your answer is correct. The correct answer is 242."
+}
+```
+
+## Evaluation Skipped
+
+- **Reason:** all_scores_perfect
+
+## Budget
+
+- **Metric calls used:** 49
+- **Delta this iteration:** 1
+- **Remaining:** 1
+
+---
+
+[< Previous iteration](iteration_003.md)
+[Index](../index.md)
+[Next iteration >](iteration_005.md)

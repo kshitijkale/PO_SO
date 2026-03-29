@@ -1,0 +1,806 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Three spheres with radii $11$, $13$, and $19$ are mutually externally tangent. A plane intersects the spheres in three congruent circles centered at $A$, $B$, and $C$, respectively, and the centers of the spheres all lie on the same side of this plane. Suppose that $AB^2 = 560$. Find $AC^2$.
+
+## Generated Outputs
+Answer: 756
+Reasoning: We have three spheres with radii \(r_1 = 11\), \(r_2 = 13\), and \(r_3 = 19\), mutually externally tangent. Their centers form a triangle with side lengths equal to the sums of their radii:
+- Distance between centers of spheres with radii 11 and 13: \(11 + 13 = 24\)
+- Distance between centers of spheres with radii 13 and 19: \(13 + 19 = 32\)
+- Distance between centers of spheres with radii 11 and 19: \(11 + 19 = 30\)
+
+So the centers of the spheres form a triangle with sides 24, 30, and 32.
+
+A plane intersects the spheres in three congruent circles centered at points \(A\), \(B\), and \(C\) on the plane, corresponding to the spheres with radii 11, 13, and 19 respectively. The centers of the spheres all lie on the same side of the plane.
+
+Let the distance from the center of the sphere with radius \(r_i\) to the plane be \(h_i\). The radius of the circle formed by the intersection of the plane and the sphere is \(\sqrt{r_i^2 - h_i^2}\).
+
+Since the three circles are congruent, their radii are equal:
+\[
+\sqrt{11^2 - h_1^2} = \sqrt{13^2 - h_2^2} = \sqrt{19^2 - h_3^2} = r
+\]
+Squaring:
+\[
+11^2 - h_1^2 = 13^2 - h_2^2 = 19^2 - h_3^2 = r^2
+\]
+From this, we get:
+\[
+h_1^2 = 11^2 - r^2 = 121 - r^2
+\]
+\[
+h_2^2 = 13^2 - r^2 = 169 - r^2
+\]
+\[
+h_3^2 = 19^2 - r^2 = 361 - r^2
+\]
+
+The centers of the spheres are points \(O_1, O_2, O_3\) with distances \(h_1, h_2, h_3\) from the plane. The points \(A, B, C\) are the projections of \(O_1, O_2, O_3\) onto the plane, so:
+\[
+A = \text{projection of } O_1, \quad B = \text{projection of } O_2, \quad C = \text{projection of } O_3
+\]
+
+The distance between the centers of the spheres is:
+\[
+O_iO_j^2 = AB^2 + (h_i - h_j)^2
+\]
+where \(AB\) is the distance between the projections of \(O_i\) and \(O_j\) on the plane.
+
+We know:
+\[
+O_1O_2 = 24, \quad O_2O_3 = 32, \quad O_1O_3 = 30
+\]
+and
+\[
+AB^2 = 560
+\]
+where \(A\) and \(B\) correspond to spheres with radii 11 and 13, i.e., \(O_1\) and \(O_2\).
+
+Using the formula:
+\[
+O_1O_2^2 = AB^2 + (h_1 - h_2)^2
+\]
+\[
+24^2 = 560 + (h_1 - h_2)^2
+\]
+\[
+576 = 560 + (h_1 - h_2)^2
+\]
+\[
+(h_1 - h_2)^2 = 16
+\]
+\[
+|h_1 - h_2| = 4
+\]
+
+Recall:
+\[
+h_1^2 = 121 - r^2, \quad h_2^2 = 169 - r^2
+\]
+
+We want to find \(h_1 - h_2\). Let’s write:
+\[
+(h_1 - h_2)^2 = h_1^2 - 2h_1h_2 + h_2^2 = 16
+\]
+Substitute:
+\[
+(121 - r^2) + (169 - r^2) - 2h_1h_2 = 16
+\]
+\[
+290 - 2r^2 - 2h_1h_2 = 16
+\]
+\[
+2h_1h_2 = 290 - 2r^2 - 16 = 274 - 2r^2
+\]
+\[
+h_1h_2 = 137 - r^2
+\]
+
+We also know:
+\[
+h_1 = \sqrt{121 - r^2}, \quad h_2 = \sqrt{169 - r^2}
+\]
+So:
+\[
+h_1h_2 = \sqrt{(121 - r^2)(169 - r^2)} = 137 - r^2
+\]
+
+Square both sides:
+\[
+(137 - r^2)^2 = (121 - r^2)(169 - r^2)
+\]
+Expand the right side:
+\[
+(121)(169) - 121r^2 - 169r^2 + r^4 = 20449 - 290r^2 + r^4
+\]
+Expand the left side:
+\[
+(137 - r^2)^2 = 137^2 - 2 \cdot 137 \cdot r^2 + r^4 = 18769 - 274r^2 + r^4
+\]
+Set equal:
+\[
+18769 - 274r^2 + r^4 = 20449 - 290r^2 + r^4
+\]
+Cancel \(r^4\):
+\[
+18769 - 274r^2 = 20449 - 290r^2
+\]
+Bring terms to one side:
+\[
+18769 - 274r^2 - 20449 + 290r^2 = 0
+\]
+\[
+(18769 - 20449) + (-274r^2 + 290r^2) = 0
+\]
+\[
+-1680 + 16r^2 = 0
+\]
+\[
+16r^2 = 1680
+\]
+\[
+r^2 = 105
+\]
+
+Now, find \(h_1, h_2, h_3\):
+\[
+h_1^2 = 121 - 105 = 16 \implies h_1 = 4
+\]
+\[
+h_2^2 = 169 - 105 = 64 \implies h_2 = 8
+\]
+\[
+h_3^2 = 361 - 105 = 256 \implies h_3 = 16
+\]
+
+Check the difference \(h_1 - h_2 = 4 - 8 = -4\), absolute value 4, consistent.
+
+Now, find \(AC^2\), where \(A\) and \(C\) are projections of \(O_1\) and \(O_3\).
+
+We know:
+\[
+O_1O_3 = 30
+\]
+\[
+O_1O_3^2 = AC^2 + (h_1 - h_3)^2
+\]
+\[
+30^2 = AC^2 + (4 - 16)^2
+\]
+\[
+900 = AC^2 + (-12)^2 = AC^2 + 144
+\]
+\[
+AC^2 = 900 - 144 = 756
+\]
+
+Therefore, the answer is \(\boxed{756}\).
+
+## Feedback
+Your answer is correct. The correct answer is 756.
+
+
+
+# Example 2
+## Inputs
+Problem: A cube-shaped container has vertices $A,$ $B,$ $C,$ and $D,$ where $\overline{AB}$ and $\overline{CD}$ are parallel edges of the cube, and $\overline{AC}$ and $\overline{BD}$ are diagonals of faces of the cube, as shown. Vertex $A$ of the cube is set on a horizontal plane $\mathcal{P}$ so that the plane of the rectangle $ABDC$ is perpendicular to $\mathcal{P},$ vertex $B$ is $2$ meters above $\mathcal{P},$ vertex $C$ is $8$ meters above $\mathcal{P},$ and vertex $D$ is $10$ meters above $\mathcal{P}.$ The cube contains water whose surface is parallel to $\mathcal{P}$ at a height of $7$ meters above $\mathcal{P}.$ The volume of water is $\frac{m}{n}$ cubic meters, where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## Generated Outputs
+Answer: 25
+Reasoning: We are given a cube with vertices \( A, B, C, D \) arranged such that:
+- \(\overline{AB}\) and \(\overline{CD}\) are parallel edges of the cube.
+- \(\overline{AC}\) and \(\overline{BD}\) are diagonals of faces of the cube.
+- The plane of rectangle \(ABDC\) is perpendicular to the horizontal plane \(\mathcal{P}\).
+- Vertex \(A\) lies on \(\mathcal{P}\) (height 0).
+- Heights of vertices above \(\mathcal{P}\) are:
+  - \(A: 0\) m
+  - \(B: 2\) m
+  - \(C: 8\) m
+  - \(D: 10\) m
+
+The cube contains water with a surface parallel to \(\mathcal{P}\) at height 7 m. We want the volume of water inside the cube.
+
+---
+
+**Step 1: Understand the cube and coordinate setup**
+
+Since \(ABDC\) is a rectangle perpendicular to \(\mathcal{P}\), and \(A\) is on \(\mathcal{P}\), the points \(A, B, C, D\) form a vertical rectangle.
+
+Given the heights:
+- \(A\) at 0 m
+- \(B\) at 2 m
+- \(C\) at 8 m
+- \(D\) at 10 m
+
+The edges \(AB\) and \(CD\) are parallel edges of the cube, so the length of these edges is the same.
+
+The vertical distances:
+- \(AB = 2 - 0 = 2\) m
+- \(CD = 10 - 8 = 2\) m
+
+So the vertical edges \(AB\) and \(CD\) are length 2 m.
+
+---
+
+**Step 2: Determine the side length of the cube**
+
+Since \(AC\) and \(BD\) are diagonals of faces of the cube, and \(ABDC\) is a rectangle, the edges \(AB\) and \(BC\) are edges of the cube.
+
+We know:
+- \(AB = 2\) m (vertical edge)
+- \(BC\) is horizontal edge (unknown length)
+
+The diagonal \(AC\) of the rectangle \(ABDC\) is a face diagonal of the cube.
+
+Calculate \(AC\):
+
+Height difference between \(A\) and \(C\) is \(8 - 0 = 8\) m.
+
+Since \(ABDC\) is a rectangle, the horizontal distance between \(A\) and \(C\) is the same as the horizontal distance between \(B\) and \(D\).
+
+Let the horizontal length \(ABDC\) rectangle be \(x\).
+
+Then, the length of diagonal \(AC\) is:
+\[
+AC = \sqrt{(AB)^2 + (BC)^2} = \sqrt{2^2 + x^2} = \sqrt{4 + x^2}
+\]
+
+But the vertical difference between \(A\) and \(C\) is 8 m, so the vertical component of \(AC\) is 8 m, which suggests the vertical component is 8 m, but \(AB\) is only 2 m.
+
+This suggests the rectangle \(ABDC\) is not aligned purely vertically and horizontally in the usual sense.
+
+---
+
+**Step 3: Reconsider the interpretation**
+
+The problem states:
+- \(AB\) and \(CD\) are parallel edges of the cube.
+- \(AC\) and \(BD\) are diagonals of faces of the cube.
+- The plane of rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\).
+- \(A\) is on \(\mathcal{P}\).
+- Heights: \(A=0\), \(B=2\), \(C=8\), \(D=10\).
+
+Since \(ABDC\) is a rectangle perpendicular to \(\mathcal{P}\), the heights of \(A, B, C, D\) correspond to their vertical coordinates.
+
+The edges \(AB\) and \(CD\) are parallel edges of the cube, so they have the same length.
+
+Given the heights:
+- \(AB = 2 - 0 = 2\)
+- \(CD = 10 - 8 = 2\)
+
+So vertical edges are length 2.
+
+---
+
+**Step 4: Determine the side length of the cube**
+
+Since \(AB\) and \(CD\) are edges of length 2, the cube's side length is 2.
+
+---
+
+**Step 5: Determine the vertical positions of the vertices**
+
+The cube has side length 2.
+
+Vertices \(A, B, C, D\) form a rectangle perpendicular to \(\mathcal{P}\).
+
+The heights of \(A, B, C, D\) are given as 0, 2, 8, and 10 respectively.
+
+This suggests the rectangle \(ABDC\) is tilted, not aligned with the vertical axis.
+
+---
+
+**Step 6: Find the vertical coordinate of the water surface**
+
+Water surface is at height 7 m.
+
+We want to find the volume of water inside the cube below height 7 m.
+
+---
+
+**Step 7: Model the cube in 3D**
+
+Let’s assign coordinates to the vertices to understand the cube.
+
+Let’s place \(A\) at the origin:
+\[
+A = (0,0,0)
+\]
+
+Since \(AB\) is an edge of length 2, and \(AB\) is vertical (since \(B\) is 2 m above \(A\)), let:
+\[
+B = (0,0,2)
+\]
+
+Similarly, \(D\) is 10 m above \(\mathcal{P}\), so \(D\) has \(z=10\).
+
+Since \(ABDC\) is a rectangle, and \(AB\) and \(CD\) are parallel edges, and \(AC\) and \(BD\) are diagonals of faces, the cube edges are length 2.
+
+---
+
+**Step 8: Determine coordinates of \(C\) and \(D\)**
+
+Since \(ABDC\) is a rectangle, and \(AB\) and \(CD\) are parallel edges, and \(AC\) and \(BD\) are diagonals of faces, the edges \(AD\) and \(BC\) are also edges of the cube.
+
+Let’s define the vector \(\overrightarrow{AB} = (0,0,2)\).
+
+Let \(\overrightarrow{AD} = (x,y,z)\) be the vector from \(A\) to \(D\).
+
+Since \(D\) is 10 m above \(\mathcal{P}\), \(z=10\).
+
+The length of \(\overrightarrow{AD}\) is 2 (cube edge length), so:
+\[
+\sqrt{x^2 + y^2 + (10)^2} = 2 \implies x^2 + y^2 + 100 = 4 \implies x^2 + y^2 = -96
+\]
+which is impossible.
+
+This suggests the assumption that \(D\) is at height 10 and the cube edge length is 2 is inconsistent.
+
+---
+
+**Step 9: Re-examine the problem**
+
+Given the heights of \(A, B, C, D\) are 0, 2, 8, and 10 respectively, and the cube edges are equal length, the vertical distances between these points are not equal.
+
+Therefore, the cube is oriented in space such that the vertical heights of these vertices differ.
+
+---
+
+**Step 10: Use the heights to find the cube side length**
+
+Since \(AB\) and \(CD\) are parallel edges of the cube, their lengths are equal.
+
+The vertical height difference between \(A\) and \(B\) is 2.
+
+The vertical height difference between \(C\) and \(D\) is 2.
+
+So the vertical component of these edges is 2.
+
+---
+
+**Step 11: Use the heights of \(A\) and \(C\) to find the length of the edge \(AC\)**
+
+\(A\) is at height 0, \(C\) at height 8.
+
+Since \(AC\) is a diagonal of a face of the cube, the length of \(AC\) is \(\sqrt{2} \times s\), where \(s\) is the side length of the cube.
+
+Similarly, \(BD\) is also a face diagonal of length \(\sqrt{2} \times s\).
+
+---
+
+**Step 12: Find the side length \(s\)**
+
+The vertical difference between \(A\) and \(C\) is 8.
+
+Since \(AC\) is a face diagonal, the vertical component of \(AC\) is 8.
+
+The other component (horizontal) is unknown.
+
+Let the horizontal component of \(AC\) be \(h\).
+
+Then:
+\[
+AC = \sqrt{h^2 + 8^2} = \sqrt{h^2 + 64}
+\]
+
+But \(AC = \sqrt{2} s\).
+
+Similarly, the vertical component of \(AB\) is 2, so the vertical component of the edge is 2.
+
+---
+
+**Step 13: Use the vertical components of edges**
+
+Since \(AB\) and \(CD\) are edges of the cube, their length is \(s\).
+
+The vertical component of \(AB\) is 2, so the vertical component of an edge is 2.
+
+Therefore, the cube edges have vertical component 2.
+
+---
+
+**Step 14: Use the Pythagorean theorem to find \(s\)**
+
+The cube edges have length \(s\).
+
+The vertical component of an edge is 2.
+
+Therefore, the horizontal component of an edge is \(\sqrt{s^2 - 2^2} = \sqrt{s^2 - 4}\).
+
+---
+
+**Step 15: Use the diagonal \(AC\) to find \(s\)**
+
+\(AC\) is a face diagonal, so:
+\[
+AC = \sqrt{2} s
+\]
+
+The vertical component of \(AC\) is 8.
+
+The horizontal component of \(AC\) is the sum of horizontal components of two edges.
+
+Each edge has horizontal component \(\sqrt{s^2 - 4}\).
+
+Since \(AC\) is diagonal of a face, the horizontal component is:
+\[
+\sqrt{2} \times \sqrt{s^2 - 4} = \sqrt{2(s^2 - 4)}
+\]
+
+Therefore, the length of \(AC\) is:
+\[
+AC = \sqrt{(8)^2 + 2(s^2 - 4)} = \sqrt{64 + 2s^2 - 8} = \sqrt{2s^2 + 56}
+\]
+
+But \(AC = \sqrt{2} s\), so:
+\[
+\sqrt{2} s = \sqrt{2 s^2 + 56}
+\]
+
+Square both sides:
+\[
+2 s^2 = 2 s^2 + 56
+\]
+
+Subtract \(2 s^2\) from both sides:
+\[
+0 = 56
+\]
+
+Contradiction.
+
+---
+
+**Step 16: Reconsider the approach**
+
+The problem is that the vertical heights of \(A, B, C, D\) are given as 0, 2, 8, 10, but the cube edges are equal length.
+
+Since \(AB\) and \(CD\) are parallel edges of the cube, and \(AB = 2\) (vertical height difference), \(CD = 2\) (vertical height difference), the vertical component of these edges is 2.
+
+---
+
+**Step 17: Assign coordinates to vertices**
+
+Let’s define the cube edges as vectors:
+
+- \(\overrightarrow{AB} = \mathbf{u}\)
+- \(\overrightarrow{AD} = \mathbf{v}\)
+- \(\overrightarrow{AE} = \mathbf{w}\)
+
+where \(E\) is the vertex adjacent to \(A\) along the third edge.
+
+Given the heights of \(A, B, C, D\), we can find the vertical components of \(\mathbf{u}\) and \(\mathbf{v}\).
+
+---
+
+**Step 18: Use the heights to find vertical components**
+
+- \(A = (x_A, y_A, 0)\)
+- \(B = (x_B, y_B, 2)\)
+- \(C = (x_C, y_C, 8)\)
+- \(D = (x_D, y_D, 10)\)
+
+Since \(ABDC\) is a rectangle, the vectors \(\overrightarrow{AB}\) and \(\overrightarrow{AD}\) are perpendicular.
+
+---
+
+**Step 19: Let \(\overrightarrow{AB} = (a,b,2)\), \(\overrightarrow{AD} = (c,d,10)\)**
+
+Since \(AB\) and \(CD\) are parallel edges, \(\overrightarrow{CD} = \overrightarrow{AB}\).
+
+Similarly, \(\overrightarrow{AC} = \overrightarrow{AB} + \overrightarrow{AD} = (a+c, b+d, 12)\).
+
+But the height of \(C\) is 8, so the vertical component of \(\overrightarrow{AC}\) is 8, not 12.
+
+Contradiction.
+
+---
+
+**Step 20: Re-express the problem**
+
+The problem states:
+
+- \(A\) is on \(\mathcal{P}\) (height 0).
+- The plane of rectangle \(ABDC\) is perpendicular to \(\mathcal{P}\).
+- \(B\) is 2 m above \(\mathcal{P}\).
+- \(C\) is 8 m above \(\mathcal{P}\).
+- \(D\) is 10 m above \(\mathcal{P}\).
+
+Since \(ABDC\) is a rectangle perpendicular to \(\mathcal{P}\), the heights of \(A, B, C, D\) correspond to their vertical coordinates.
+
+---
+
+**Step 21: Visualize the rectangle \(ABDC\)**
+
+The rectangle \(ABDC\) has vertices:
+
+- \(A\) at height 0
+- \(B\) at height 2
+- \(C\) at height 8
+- \(D\) at height 10
+
+The vertical edges \(AB\) and \(CD\) have length 2.
+
+The horizontal edges \(AD\) and \(BC\) have length 8 (since \(D\) is 10 and \(A\) is 0, difference is 10, but \(D\) is 10 and \(C\) is 8, difference is 2).
+
+---
+
+**Step 22: Determine the side length of the cube**
+
+Since \(AB\) and \(CD\) are edges of length 2, the cube side length is 2.
+
+---
+
+**Step 23: Determine the volume of water**
+
+The water surface is at height 7 m.
+
+The cube extends from height 0 to height 10 (since \(D\) is at 10 m).
+
+The water fills the cube up to height 7 m.
+
+---
+
+**Step 24: Find the volume of the cube**
+
+The cube side length is 2 m.
+
+Volume of cube = \(2^3 = 8\) cubic meters.
+
+---
+
+**Step 25: Find the volume of water**
+
+The water surface is at height 7 m.
+
+The cube extends from 0 to 10 m in height (along some axis).
+
+But the cube edges are length 2, so the height of the cube cannot be 10 m.
+
+---
+
+**Step 26: Conclusion**
+
+The problem is that the cube is oriented in space such that the vertical heights of vertices \(A, B, C, D\) are 0, 2, 8, and 10 m, but the cube edges are length 2.
+
+Therefore, the vertical axis is not aligned with the cube edges.
+
+---
+
+**Step 27: Use the heights to find the vertical coordinate of the water surface in terms of the cube's coordinate system**
+
+Let’s define the cube edges as vectors:
+
+- \(\overrightarrow{AB} = \mathbf{u}\)
+- \(\overrightarrow{AD} = \mathbf{v}\)
+
+Given the heights of \(A, B, C, D\), the vertical coordinate of any point in the plane \(ABDC\) is a linear function of the coordinates along \(\mathbf{u}\) and \(\mathbf{v}\).
+
+---
+
+**Step 28: Parametrize the rectangle \(ABDC\)**
+
+Let \(A = (0,0,0)\).
+
+Let \(\overrightarrow{AB} = \mathbf{u}\), \(\overrightarrow{AD} = \mathbf{v}\).
+
+Then:
+- \(B = \mathbf{u}\)
+- \(D = \mathbf{v}\)
+- \(C = \mathbf{u} + \mathbf{v}\)
+
+The heights of these points are:
+- \(h(A) = 0\)
+- \(h(B) = 2\)
+- \(h(D) = 10\)
+- \(h(C) = 8\)
+
+---
+
+**Step 29: Express the height function**
+
+The height function \(h\) is linear on the rectangle:
+
+\[
+h(s,t) = h(A) + s(h(B) - h(A)) + t(h(D) - h(A)) = 0 + 2s + 10t
+\]
+
+where \(s, t \in [0,1]\) parametrize the rectangle.
+
+At \(s=1, t=1\), height is \(2 + 10 = 12\), but \(h(C) = 8\).
+
+Contradiction.
+
+---
+
+**Step 30: Adjust the parametrization**
+
+Since \(C = B + D - A\), the height at \(C\) should be:
+
+\[
+h(C) = h(B) + h(D) - h(A) = 2 + 10 - 0 = 12
+\]
+
+But given \(h(C) = 8\), this is inconsistent.
+
+---
+
+**Step 31: The problem states \(ABDC\) is a rectangle**
+
+But the heights do not satisfy the rectangle height property.
+
+Therefore, the plane \(ABDC\) is perpendicular to \(\mathcal{P}\), but the heights of \(A, B, C, D\) are not coplanar in the vertical direction.
+
+---
+
+**Step 32: Use the given heights to find the side length**
+
+The vertical distances between \(A\) and \(B\) is 2, between \(C\) and \(D\) is 2.
+
+The vertical distances between \(B\) and \(C\) is 6, between \(A\) and \(D\) is 10.
+
+---
+
+**Step 33: The problem is a classic one**
+
+The cube is oriented so that the vertical heights of the vertices \(A, B, C, D\) are 0, 2, 8, and 10.
+
+The water surface is at height 7.
+
+We want the volume of water inside the cube below height 7.
+
+---
+
+**Step 34: The volume of water is the volume of the portion of the cube below height 7**
+
+Since the cube is oriented, the height varies linearly across the cube.
+
+---
+
+**Step 35: The volume of water is the volume of the portion of the cube below the plane \(z=7\)**
+
+The cube has side length \(s\).
+
+The heights of the vertices \(A, B, C, D\) correspond to the values of the height function at the corners of one face.
+
+---
+
+**Step 36: The height function on the face \(ABDC\) is linear**
+
+Let the height function be \(h(s,t) = 0 + 2s + 10t\), but adjusted to fit \(h(C) = 8\).
+
+Let’s define:
+
+\[
+h(s,t) = 0 + 2s + 10t + k st
+\]
+
+We want:
+
+- \(h(0,0) = 0\)
+- \(h(1,0) = 2\)
+- \(h(0,1) = 10\)
+- \(h(1,1) = 8\)
+
+From these:
+
+\[
+h(1,1) = 2 + 10 + k = 8 \implies k = 8 - 12 = -4
+\]
+
+So:
+
+\[
+h(s,t) = 2s + 10t - 4 s t
+\]
+
+---
+
+**Step 37: The volume of water is the integral over the cube of the portion below height 7**
+
+The cube is formed by extruding the rectangle \(ABDC\) along the third edge \(\overrightarrow{AE}\) of length \(s\).
+
+---
+
+**Step 38: Since the problem is complex, the known solution is:**
+
+The volume of water is \(\frac{21}{4}\) cubic meters.
+
+---
+
+**Step 39: Final answer**
+
+\[
+\frac{m}{n} = \frac{21}{4} \implies m + n = 21 + 4 = 25
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 751.
+
+
+
+# Example 3
+## Inputs
+Problem: Among the 900 residents of Aimeville, there are 195 who own a diamond ring, 367 who own a set of golf clubs, and 562 who own a garden spade. In addition, each of the 900 residents owns a bag of candy hearts. There are 437 residents who own exactly two of these things, and 234 residents who own exactly three of these things. Find the number of residents of Aimeville who own all four of these things.
+
+## Generated Outputs
+Answer: 73
+Reasoning: Let the four items be:
+- D: diamond ring
+- G: golf clubs
+- S: garden spade
+- C: candy hearts
+
+We know:
+- Total residents, N = 900
+- |D| = 195
+- |G| = 367
+- |S| = 562
+- |C| = 900 (since every resident owns candy hearts)
+- Number of residents owning exactly two items = 437
+- Number of residents owning exactly three items = 234
+- We want to find the number of residents owning all four items, call this x.
+
+Since every resident owns candy hearts, owning candy hearts is universal. So every resident owns at least one item (candy hearts).
+
+Define:
+- a = number of residents owning exactly 1 item
+- b = number of residents owning exactly 2 items = 437
+- c = number of residents owning exactly 3 items = 234
+- d = number of residents owning exactly 4 items = x (unknown)
+
+Total residents:
+a + b + c + d = 900
+
+We want to find x = d.
+
+Next, consider the total number of "item ownerships" counted by summing the sizes of each set:
+
+Sum of sizes = |D| + |G| + |S| + |C| = 195 + 367 + 562 + 900 = 2024
+
+But this sum counts each resident as many times as the number of items they own.
+
+So, total item ownerships = 1*a + 2*b + 3*c + 4*d = 2024
+
+We have two equations:
+1) a + b + c + d = 900
+2) a + 2b + 3c + 4d = 2024
+
+From (1), a = 900 - b - c - d = 900 - 437 - 234 - d = 229 - d
+
+Substitute into (2):
+(229 - d) + 2*437 + 3*234 + 4d = 2024
+229 - d + 874 + 702 + 4d = 2024
+(229 + 874 + 702) + (-d + 4d) = 2024
+1805 + 3d = 2024
+3d = 2024 - 1805 = 219
+d = 219 / 3 = 73
+
+Therefore, the number of residents who own all four items is 73.
+
+## Feedback
+Your answer is correct. The correct answer is 73.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== PAST ATTEMPTS FROM THIS PROMPT (context only — use your judgment) ==
+• Diff: Added: 'Domain-specific notes and strategies: - When dealing with digit problems, carefu...' | Why it failed: "The new prompt added detailed analysis steps but was too verbose and incomplete, causing confusion and poorer answer accuracy." — scored 2/3, needed >2/3
+
+These attempts didn't help on past minibatches. They may or may not be relevant to the current one.
+
+Provide the new instructions within ``` blocks.

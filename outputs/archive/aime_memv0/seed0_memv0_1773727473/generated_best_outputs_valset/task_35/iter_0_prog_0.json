@@ -1,0 +1,5 @@
+{
+    "predicted_answer": "220",
+    "correct_answer": "220",
+    "reasoning": "Let the number of apples on the six trees form an arithmetic sequence with first term \\(a\\) and common difference \\(d\\). The terms are:\n\\[ a, \\quad a + d, \\quad a + 2d, \\quad a + 3d, \\quad a + 4d, \\quad a + 5d. \\]\n\nThe greatest number of apples is the last term \\(a + 5d\\), and the least number is the first term \\(a\\).\n\nGiven that the greatest number is double the least:\n\\[\na + 5d = 2a \\implies 5d = a \\implies a = 5d.\n\\]\n\nThe sum of the six terms is:\n\\[\nS = 6 \\times \\text{average} = 6 \\times \\frac{a + (a + 5d)}{2} = 6 \\times \\frac{2a + 5d}{2} = 3(2a + 5d).\n\\]\n\nSubstitute \\(a = 5d\\):\n\\[\nS = 3(2 \\times 5d + 5d) = 3(10d + 5d) = 3 \\times 15d = 45d.\n\\]\n\nGiven \\(S = 990\\):\n\\[\n45d = 990 \\implies d = \\frac{990}{45} = 22.\n\\]\n\nNow find \\(a\\):\n\\[\na = 5d = 5 \\times 22 = 110.\n\\]\n\nThe greatest number of apples is:\n\\[\na + 5d = 110 + 5 \\times 22 = 110 + 110 = 220.\n\\]"
+}

@@ -1,0 +1,34 @@
+'''
+You will be given a math problem expressed in natural language, typically involving algebra, geometry, combinatorics, or probability, sometimes using symbolic notation. Your task is to solve the problem completely and correctly, and then output the final answer as a single integer exactly as requested.
+
+To achieve this reliably and accurately, follow these detailed guidelines:
+
+1. **Problem Interpretation:**  
+   Carefully analyze all given conditions, variables, and constraints. This includes understanding properties specific to the problem domain (e.g., angles in geometry, parity or maximality conditions in combinatorics, or independence in probability). Pay close attention to problem-specific structures such as tangency conditions, symmetric sums, or arrangement constraints.
+
+2. **Mathematical Techniques:**  
+   Apply appropriate problem-solving methods based on the problem type:  
+   - For optimization problems involving symmetric sums, express quantities via symmetric polynomials and use methods like Lagrange multipliers or equality conditions to identify extrema.  
+   - For combinatorial problems related to colorings, placements, or partitions with maximal or consistency constraints, carefully analyze cases, characterize feasible assignments, and count configurations using combinatorial principles.  
+   - For probability problems with positional or parity constraints, use parity arguments and factorial/multinomial counts, reducing probabilities to simplest fractional form before extracting the required integer.  
+   - For geometry problems involving incircles, tangency, or special figures (e.g., parallelograms, rhombuses, circles tangent to sides or diagonals), model the figure using coordinate geometry or vector methods. Use equal-distance conditions for tangent circles, and parameterize points carefully to derive key lengths or areas.
+
+3. **Algebraic Simplification:**  
+   When expressions involve fractions or radicals, fully simplify them to lowest terms. If the problem requests a sum of numerator and denominator or integer combination (e.g., \(m+n\) where the answer is \(m\sqrt{n}\)), provide that final integer exactly.
+
+4. **Logical Reasoning and Justification:**  
+   Provide a concise logical outline that justifies your approach and final result. The reasoning should be sufficient to verify correctness but concise enough to focus on arriving at the correct integer answer. Avoid including unrelated text or intermediate calculations without explanatory context.
+
+5. **Answer Formatting:**  
+   Output only the final answer as a single integer, exactly as requested by the problem.
+
+**Additional domain-specific notes learned from prior examples:**  
+- When a circle is tangent to three lines forming a polygon (like a parallelogram), the center lies at equal distances from those lines, and the radius can be found using vector or coordinate geometry methods involving determinants and distances to lines.  
+- Symmetric sums involving expressions like \(\sum a^2 b\) can often be rewritten in terms of known symmetric sums \(S_1, S_2, S_3\), enabling the use of Newton's identities or other symmetric polynomial relations to reduce the problem to algebraic equations.  
+- For logarithmic systems involving variables inside logs, convert to linear equations in the logarithms, then solve the linear system carefully, including checking sums or combinations to find the desired expression.  
+- For combinatorial problems involving integer solutions under polynomial constraints, analyze by symmetry and special cases (e.g., equal variables, zero variables), reduce equations via factorization or substitution, and count all possible permutations to find the total number of valid triples or tuples.
+
+By following these detailed guidelines and incorporating these domain-specific insights, you will increase accuracy and consistency in solving and finalizing answers for such math problems.
+
+Your final output must be only the integer answer requested, with no additional text.
+'''

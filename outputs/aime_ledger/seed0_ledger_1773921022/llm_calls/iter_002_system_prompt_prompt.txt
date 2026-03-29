@@ -1,0 +1,806 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: In isosceles trapezoid $ABCD$, parallel bases $\overline{AB}$ and $\overline{CD}$ have lengths $500$ and $650$, respectively, and $AD=BC=333$. The angle bisectors of $\angle{A}$ and $\angle{D}$ meet at $P$, and the angle bisectors of $\angle{B}$ and $\angle{C}$ meet at $Q$. Find $PQ$.
+
+## Generated Outputs
+Answer: 242
+Reasoning: We are given an isosceles trapezoid \(ABCD\) with bases \(AB = 500\) and \(CD = 650\), and legs \(AD = BC = 333\). The trapezoid is isosceles, so \(AD = BC\) and the legs are equal.
+
+We want to find the length \(PQ\), where:
+- \(P\) is the intersection of the angle bisectors of \(\angle A\) and \(\angle D\).
+- \(Q\) is the intersection of the angle bisectors of \(\angle B\) and \(\angle C\).
+
+---
+
+**Step 1: Set up coordinate system**
+
+Place trapezoid \(ABCD\) in the coordinate plane for easier calculation.
+
+Let the trapezoid be oriented so that \(AB\) is on the x-axis.
+
+- Let \(A = (0,0)\).
+- Since \(AB = 500\), let \(B = (500,0)\).
+
+Since \(CD\) is parallel to \(AB\), \(C\) and \(D\) lie on a line parallel to the x-axis at some height \(h\).
+
+Let the height be \(h\), and let the coordinates of \(D\) and \(C\) be:
+- \(D = (x, h)\)
+- \(C = (x + 650, h)\)
+
+We need to find \(x\) and \(h\).
+
+---
+
+**Step 2: Use the leg lengths**
+
+Given \(AD = BC = 333\).
+
+Calculate \(AD\):
+\[
+AD = \sqrt{(x - 0)^2 + (h - 0)^2} = \sqrt{x^2 + h^2} = 333
+\]
+Calculate \(BC\):
+\[
+BC = \sqrt{(x + 650 - 500)^2 + (h - 0)^2} = \sqrt{(x + 150)^2 + h^2} = 333
+\]
+
+So,
+\[
+x^2 + h^2 = 333^2 = 110,889
+\]
+\[
+(x + 150)^2 + h^2 = 110,889
+\]
+
+Subtract the first from the second:
+\[
+(x + 150)^2 + h^2 - (x^2 + h^2) = 0 \implies (x + 150)^2 - x^2 = 0
+\]
+\[
+(x + 150)^2 - x^2 = 0
+\]
+\[
+(x^2 + 300x + 22500) - x^2 = 0
+\]
+\[
+300x + 22500 = 0
+\]
+\[
+300x = -22500 \implies x = -75
+\]
+
+---
+
+**Step 3: Find \(h\)**
+
+Use \(x^2 + h^2 = 110,889\):
+\[
+(-75)^2 + h^2 = 110,889
+\]
+\[
+5625 + h^2 = 110,889
+\]
+\[
+h^2 = 110,889 - 5625 = 105,264
+\]
+\[
+h = \sqrt{105,264} = 324.5 \quad (\text{approx})
+\]
+
+---
+
+**Step 4: Coordinates of points**
+
+- \(A = (0,0)\)
+- \(B = (500,0)\)
+- \(D = (-75, 324.5)\)
+- \(C = (-75 + 650, 324.5) = (575, 324.5)\)
+
+---
+
+**Step 5: Find angle bisectors at \(A\) and \(D\), and their intersection \(P\)**
+
+---
+
+**Angle bisector at \(A\):**
+
+At vertex \(A\), the two sides are \(AB\) and \(AD\).
+
+Vectors from \(A\):
+\[
+\overrightarrow{AB} = (500, 0)
+\]
+\[
+\overrightarrow{AD} = (-75, 324.5)
+\]
+
+Normalize these vectors:
+\[
+|\overrightarrow{AB}| = 500
+\]
+\[
+|\overrightarrow{AD}| = 333
+\]
+
+Unit vectors:
+\[
+\mathbf{u}_{AB} = (1, 0)
+\]
+\[
+\mathbf{u}_{AD} = \left(\frac{-75}{333}, \frac{324.5}{333}\right) \approx (-0.225, 0.975)
+\]
+
+The angle bisector direction at \(A\) is along the sum of these unit vectors:
+\[
+\mathbf{v}_A = \mathbf{u}_{AB} + \mathbf{u}_{AD} = (1 - 0.225, 0 + 0.975) = (0.775, 0.975)
+\]
+
+Normalize \(\mathbf{v}_A\):
+\[
+|\mathbf{v}_A| = \sqrt{0.775^2 + 0.975^2} = \sqrt{0.6006 + 0.9506} = \sqrt{1.5512} \approx 1.245
+\]
+\[
+\hat{\mathbf{v}}_A = \left(\frac{0.775}{1.245}, \frac{0.975}{1.245}\right) \approx (0.622, 0.783)
+\]
+
+Parametric form of angle bisector at \(A\):
+\[
+\ell_A: (x,y) = (0,0) + t(0.622, 0.783) = (0.622 t, 0.783 t)
+\]
+
+---
+
+**Angle bisector at \(D\):**
+
+At vertex \(D\), the sides are \(DC\) and \(DA\).
+
+Vectors from \(D\):
+\[
+\overrightarrow{DC} = (575 - (-75), 324.5 - 324.5) = (650, 0)
+\]
+\[
+\overrightarrow{DA} = (0 - (-75), 0 - 324.5) = (75, -324.5)
+\]
+
+Lengths:
+\[
+|\overrightarrow{DC}| = 650
+\]
+\[
+|\overrightarrow{DA}| = 333
+\]
+
+Unit vectors:
+\[
+\mathbf{u}_{DC} = (1, 0)
+\]
+\[
+\mathbf{u}_{DA} = \left(\frac{75}{333}, \frac{-324.5}{333}\right) \approx (0.225, -0.975)
+\]
+
+Sum:
+\[
+\mathbf{v}_D = \mathbf{u}_{DC} + \mathbf{u}_{DA} = (1 + 0.225, 0 - 0.975) = (1.225, -0.975)
+\]
+
+Normalize:
+\[
+|\mathbf{v}_D| = \sqrt{1.225^2 + (-0.975)^2} = \sqrt{1.5006 + 0.9506} = \sqrt{2.4512} \approx 1.565
+\]
+\[
+\hat{\mathbf{v}}_D = \left(\frac{1.225}{1.565}, \frac{-0.975}{1.565}\right) \approx (0.783, -0.623)
+\]
+
+Parametric form of angle bisector at \(D\):
+\[
+\ell_D: (x,y) = (-75, 324.5) + s(0.783, -0.623) = (-75 + 0.783 s, 324.5 - 0.623 s)
+\]
+
+---
+
+**Step 6: Find intersection \(P\) of \(\ell_A\) and \(\ell_D\)**
+
+Set:
+\[
+0.622 t = -75 + 0.783 s
+\]
+\[
+0.783 t = 324.5 - 0.623 s
+\]
+
+From the first:
+\[
+0.622 t - 0.783 s = -75
+\]
+From the second:
+\[
+0.783 t + 0.623 s = 324.5
+\]
+
+Solve the system:
+
+Multiply first equation by 0.623:
+\[
+0.622 \times 0.623 t - 0.783 \times 0.623 s = -75 \times 0.623
+\]
+\[
+0.3877 t - 0.4879 s = -46.725
+\]
+
+Multiply second equation by 0.783:
+\[
+0.783 \times 0.783 t + 0.623 \times 0.783 s = 324.5 \times 0.783
+\]
+\[
+0.613 t + 0.4879 s = 254.1
+\]
+
+Add the two equations:
+\[
+(0.3877 + 0.613) t + (-0.4879 + 0.4879) s = -46.725 + 254.1
+\]
+\[
+1.0007 t + 0 = 207.375
+\]
+\[
+t \approx 207.375
+\]
+
+Plug back into first equation:
+\[
+0.622 \times 207.375 - 0.783 s = -75
+\]
+\[
+129.0 - 0.783 s = -75
+\]
+\[
+-0.783 s = -204
+\]
+\[
+s = \frac{204}{0.783} \approx 260.4
+\]
+
+---
+
+**Step 7: Coordinates of \(P\)**
+
+Using \(\ell_A\):
+\[
+P = (0.622 \times 207.375, 0.783 \times 207.375) \approx (129.0, 162.3)
+\]
+
+---
+
+**Step 8: Find angle bisectors at \(B\) and \(C\), and their intersection \(Q\)**
+
+---
+
+**Angle bisector at \(B\):**
+
+At vertex \(B\), sides are \(BA\) and \(BC\).
+
+Vectors from \(B\):
+\[
+\overrightarrow{BA} = (0 - 500, 0 - 0) = (-500, 0)
+\]
+\[
+\overrightarrow{BC} = (575 - 500, 324.5 - 0) = (75, 324.5)
+\]
+
+Lengths:
+\[
+|\overrightarrow{BA}| = 500
+\]
+\[
+|\overrightarrow{BC}| = 333
+\]
+
+Unit vectors:
+\[
+\mathbf{u}_{BA} = (-1, 0)
+\]
+\[
+\mathbf{u}_{BC} = \left(\frac{75}{333}, \frac{324.5}{333}\right) \approx (0.225, 0.975)
+\]
+
+Sum:
+\[
+\mathbf{v}_B = (-1 + 0.225, 0 + 0.975) = (-0.775, 0.975)
+\]
+
+Normalize:
+\[
+|\mathbf{v}_B| = \sqrt{(-0.775)^2 + 0.975^2} = \sqrt{0.6006 + 0.9506} = \sqrt{1.5512} \approx 1.245
+\]
+\[
+\hat{\mathbf{v}}_B = \left(\frac{-0.775}{1.245}, \frac{0.975}{1.245}\right) \approx (-0.622, 0.783)
+\]
+
+Parametric form of angle bisector at \(B\):
+\[
+\ell_B: (x,y) = (500, 0) + u(-0.622, 0.783) = (500 - 0.622 u, 0 + 0.783 u)
+\]
+
+---
+
+**Angle bisector at \(C\):**
+
+At vertex \(C\), sides are \(CB\) and \(CD\).
+
+Vectors from \(C\):
+\[
+\overrightarrow{CB} = (500 - 575, 0 - 324.5) = (-75, -324.5)
+\]
+\[
+\overrightarrow{CD} = (-75 - 575, 324.5 - 324.5) = (-650, 0)
+\]
+
+Lengths:
+\[
+|\overrightarrow{CB}| = 333
+\]
+\[
+|\overrightarrow{CD}| = 650
+\]
+
+Unit vectors:
+\[
+\mathbf{u}_{CB} = \left(\frac{-75}{333}, \frac{-324.5}{333}\right) \approx (-0.225, -0.975)
+\]
+\[
+\mathbf{u}_{CD} = (-1, 0)
+\]
+
+Sum:
+\[
+\mathbf{v}_C = (-0.225 - 1, -0.975 + 0) = (-1.225, -0.975)
+\]
+
+Normalize:
+\[
+|\mathbf{v}_C| = \sqrt{(-1.225)^2 + (-0.975)^2} = \sqrt{1.5006 + 0.9506} = \sqrt{2.4512} \approx 1.565
+\]
+\[
+\hat{\mathbf{v}}_C = \left(\frac{-1.225}{1.565}, \frac{-0.975}{1.565}\right) \approx (-0.783, -0.623)
+\]
+
+Parametric form of angle bisector at \(C\):
+\[
+\ell_C: (x,y) = (575, 324.5) + v(-0.783, -0.623) = (575 - 0.783 v, 324.5 - 0.623 v)
+\]
+
+---
+
+**Step 9: Find intersection \(Q\) of \(\ell_B\) and \(\ell_C\)**
+
+Set:
+\[
+500 - 0.622 u = 575 - 0.783 v
+\]
+\[
+0.783 u = 324.5 - 0.623 v
+\]
+
+Rewrite:
+\[
+-0.622 u + 0.783 v = 75
+\]
+\[
+0.783 u + 0.623 v = 324.5
+\]
+
+Multiply first equation by 0.623:
+\[
+-0.622 \times 0.623 u + 0.783 \times 0.623 v = 75 \times 0.623
+\]
+\[
+-0.3877 u + 0.4879 v = 46.725
+\]
+
+Multiply second equation by 0.783:
+\[
+0.783 \times 0.783 u + 0.623 \times 0.783 v = 324.5 \times 0.783
+\]
+\[
+0.613 u + 0.4879 v = 254.1
+\]
+
+Subtract the first from the second:
+\[
+(0.613 + 0.3877) u + (0.4879 - 0.4879) v = 254.1 - 46.725
+\]
+\[
+1.0007 u = 207.375
+\]
+\[
+u \approx 207.375
+\]
+
+Plug back into first equation:
+\[
+-0.622 \times 207.375 + 0.783 v = 75
+\]
+\[
+-129.0 + 0.783 v = 75
+\]
+\[
+0.783 v = 204
+\]
+\[
+v = \frac{204}{0.783} \approx 260.4
+\]
+
+---
+
+**Step 10: Coordinates of \(Q\)**
+
+Using \(\ell_B\):
+\[
+Q = (500 - 0.622 \times 207.375, 0 + 0.783 \times 207.375) = (500 - 129.0, 162.3) = (371.0, 162.3)
+\]
+
+---
+
+**Step 11: Find \(PQ\)**
+
+\[
+P = (129.0, 162.3), \quad Q = (371.0, 162.3)
+\]
+
+Distance:
+\[
+PQ = |371.0 - 129.0| = 242.0
+\]
+
+---
+
+**Final answer:**
+
+\[
+\boxed{242}
+\]
+
+---
+
+**Summary:**
+
+The length \(PQ\) is approximately 242.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 242.
+
+
+
+# Example 2
+## Inputs
+Problem: Let $\omega\neq 1$ be a 13th root of unity. Find the remainder when
+\[\prod_{k=0}^{12}(2-2\omega^k+\omega^{2k})\]
+is divided by 1000.
+
+## Generated Outputs
+Answer: 41
+Reasoning: We are given \(\omega \neq 1\) as a 13th root of unity, i.e., \(\omega^{13} = 1\) and \(\omega \neq 1\).
+
+We want to find the remainder when
+\[
+\prod_{k=0}^{12} (2 - 2\omega^k + \omega^{2k})
+\]
+is divided by 1000.
+
+---
+
+**Step 1: Simplify the expression inside the product**
+
+Consider the term inside the product for a fixed \(k\):
+\[
+2 - 2\omega^k + \omega^{2k}.
+\]
+
+Rewrite it as:
+\[
+\omega^{2k} - 2\omega^k + 2.
+\]
+
+Notice this looks like a quadratic in \(\omega^k\):
+\[
+(\omega^k)^2 - 2(\omega^k) + 2.
+\]
+
+---
+
+**Step 2: Define a polynomial \(P(x) = x^2 - 2x + 2\).**
+
+Then the product is:
+\[
+\prod_{k=0}^{12} P(\omega^k).
+\]
+
+Since \(\omega\) is a primitive 13th root of unity, the set \(\{\omega^k : k=0,1,\ldots,12\}\) is the set of all 13th roots of unity.
+
+---
+
+**Step 3: Use the polynomial \(x^{13} - 1\).**
+
+The 13th roots of unity are the roots of \(x^{13} - 1 = 0\).
+
+We want:
+\[
+\prod_{k=0}^{12} P(\omega^k) = \prod_{\omega^k: \omega^{13}=1} P(\omega^k).
+\]
+
+---
+
+**Step 4: Use the resultant or factorization approach**
+
+The product \(\prod_{k=0}^{12} P(\omega^k)\) is equal to the resultant of \(P(x)\) and \(x^{13} - 1\), up to a sign.
+
+Recall the resultant \(\mathrm{Res}(P, Q)\) is the product of \(P(\alpha)\) over all roots \(\alpha\) of \(Q\), multiplied by the leading coefficient of \(Q\) raised to the degree of \(P\).
+
+Since \(x^{13} - 1\) is monic, the resultant is:
+\[
+\mathrm{Res}(P, x^{13} - 1) = \prod_{k=0}^{12} P(\omega^k).
+\]
+
+So the product we want is the resultant \(\mathrm{Res}(P, x^{13} - 1)\).
+
+---
+
+**Step 5: Compute the resultant \(\mathrm{Res}(P, x^{13} - 1)\)**
+
+The resultant can also be computed by:
+\[
+\mathrm{Res}(P, x^{13} - 1) = \prod_{P(\alpha) = 0} ( \alpha^{13} - 1 )^{\deg P}.
+\]
+
+Since \(P(x) = x^2 - 2x + 2\), its roots are:
+\[
+x = \frac{2 \pm \sqrt{4 - 8}}{2} = 1 \pm i.
+\]
+
+So the roots are \(1 + i\) and \(1 - i\).
+
+---
+
+**Step 6: Evaluate \(\alpha^{13} - 1\) for \(\alpha = 1 + i\) and \(\alpha = 1 - i\)**
+
+First, find \((1 + i)^{13}\) and \((1 - i)^{13}\).
+
+---
+
+**Step 7: Express \(1 + i\) in polar form**
+
+\[
+1 + i = \sqrt{2} \left(\cos \frac{\pi}{4} + i \sin \frac{\pi}{4}\right).
+\]
+
+Then:
+\[
+(1 + i)^{13} = (\sqrt{2})^{13} \left(\cos \frac{13\pi}{4} + i \sin \frac{13\pi}{4}\right).
+\]
+
+Note:
+\[
+(\sqrt{2})^{13} = (2^{1/2})^{13} = 2^{13/2} = 2^{6.5} = 2^6 \cdot 2^{0.5} = 64 \sqrt{2}.
+\]
+
+Also,
+\[
+\frac{13\pi}{4} = 3\pi + \frac{\pi}{4} = \pi + 2\pi + \frac{\pi}{4}.
+\]
+
+Since cosine and sine are \(2\pi\)-periodic,
+\[
+\cos \frac{13\pi}{4} = \cos \left(3\pi + \frac{\pi}{4}\right) = \cos \left(\pi + 2\pi + \frac{\pi}{4}\right) = \cos \left(\pi + \frac{\pi}{4}\right).
+\]
+
+\[
+\cos(\pi + \theta) = -\cos \theta, \quad \sin(\pi + \theta) = -\sin \theta.
+\]
+
+So,
+\[
+\cos \frac{13\pi}{4} = -\cos \frac{\pi}{4} = -\frac{\sqrt{2}}{2}, \quad \sin \frac{13\pi}{4} = -\sin \frac{\pi}{4} = -\frac{\sqrt{2}}{2}.
+\]
+
+Therefore,
+\[
+(1 + i)^{13} = 64 \sqrt{2} \left(-\frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2}\right) = 64 \sqrt{2} \cdot \left(-\frac{\sqrt{2}}{2}\right) (1 + i).
+\]
+
+Since \(\sqrt{2} \cdot \frac{\sqrt{2}}{2} = 1\), this simplifies to:
+\[
+(1 + i)^{13} = 64 \cdot (-1)(1 + i) = -64 (1 + i) = -64 - 64i.
+\]
+
+---
+
+**Step 8: Similarly, for \(1 - i\)**
+
+\[
+1 - i = \sqrt{2} \left(\cos \left(-\frac{\pi}{4}\right) + i \sin \left(-\frac{\pi}{4}\right)\right).
+\]
+
+Then,
+\[
+(1 - i)^{13} = (\sqrt{2})^{13} \left(\cos \left(-\frac{13\pi}{4}\right) + i \sin \left(-\frac{13\pi}{4}\right)\right) = 64 \sqrt{2} \left(\cos \left(-\frac{13\pi}{4}\right) + i \sin \left(-\frac{13\pi}{4}\right)\right).
+\]
+
+Note:
+\[
+-\frac{13\pi}{4} = -3\pi - \frac{\pi}{4} = -\pi - 2\pi - \frac{\pi}{4}.
+\]
+
+Using periodicity,
+\[
+\cos \left(-\frac{13\pi}{4}\right) = \cos \left(-\pi - \frac{\pi}{4}\right) = \cos \left(\pi + \frac{\pi}{4}\right) = -\frac{\sqrt{2}}{2},
+\]
+and
+\[
+\sin \left(-\frac{13\pi}{4}\right) = \sin \left(-\pi - \frac{\pi}{4}\right) = \sin \left(\pi + \frac{\pi}{4}\right) = -\frac{\sqrt{2}}{2}.
+\]
+
+So,
+\[
+(1 - i)^{13} = 64 \sqrt{2} \left(-\frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2}\right) = -64 (1 + i) = -64 - 64i.
+\]
+
+Wait, this is the same as for \(1 + i\)? That can't be right because \(1 - i\) is the conjugate of \(1 + i\), so their powers should be conjugates.
+
+Let's re-express carefully:
+
+\[
+\cos(-\theta) = \cos \theta, \quad \sin(-\theta) = -\sin \theta.
+\]
+
+So,
+\[
+\cos \left(-\frac{13\pi}{4}\right) = \cos \frac{13\pi}{4} = -\frac{\sqrt{2}}{2},
+\]
+\[
+\sin \left(-\frac{13\pi}{4}\right) = -\sin \frac{13\pi}{4} = -\left(-\frac{\sqrt{2}}{2}\right) = \frac{\sqrt{2}}{2}.
+\]
+
+Therefore,
+\[
+(1 - i)^{13} = 64 \sqrt{2} \left(-\frac{\sqrt{2}}{2} + i \frac{\sqrt{2}}{2}\right) = 64 \sqrt{2} \cdot \frac{\sqrt{2}}{2} (-1 + i) = 64 (-1 + i) = -64 + 64i.
+\]
+
+---
+
+**Step 9: Compute \(\alpha^{13} - 1\) for each root**
+
+For \(\alpha = 1 + i\):
+\[
+(1 + i)^{13} - 1 = (-64 - 64i) - 1 = -65 - 64i.
+\]
+
+For \(\alpha = 1 - i\):
+\[
+(1 - i)^{13} - 1 = (-64 + 64i) - 1 = -65 + 64i.
+\]
+
+---
+
+**Step 10: Compute the resultant**
+
+Since \(\deg P = 2\), the resultant is:
+\[
+\mathrm{Res}(P, x^{13} - 1) = \prod_{\alpha: P(\alpha)=0} (\alpha^{13} - 1)^2 = \left((-65 - 64i)(-65 + 64i)\right)^2.
+\]
+
+Note:
+\[
+(-65 - 64i)(-65 + 64i) = (-65)^2 - (64)^2 i^2 = 4225 - (-4096) = 4225 + 4096 = 8321.
+\]
+
+Therefore,
+\[
+\mathrm{Res}(P, x^{13} - 1) = (8321)^2.
+\]
+
+---
+
+**Step 11: Calculate \(8321^2\)**
+
+\[
+8321^2 = ?
+\]
+
+Calculate:
+
+\[
+8321^2 = (8300 + 21)^2 = 8300^2 + 2 \cdot 8300 \cdot 21 + 21^2 = 68,890,000 + 348,600 + 441 = 69,239,041.
+\]
+
+---
+
+**Step 12: Final answer modulo 1000**
+
+We want the remainder when \(69,239,041\) is divided by 1000.
+
+Since modulo 1000, only the last three digits matter:
+
+\[
+69,239,041 \equiv 041 \equiv 41 \pmod{1000}.
+\]
+
+---
+
+**Final result:**
+
+\[
+\boxed{41}.
+\]
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 321.
+
+
+
+# Example 3
+## Inputs
+Problem: Find the number of rectangles that can be formed inside a fixed regular dodecagon ($12$-gon) where each side of the rectangle lies on either a side or a diagonal of the dodecagon. The diagram below shows three of those rectangles.
+[asy] unitsize(0.6 inch); for(int i=0; i<360; i+=30) { dot(dir(i), 4+black); draw(dir(i)--dir(i+30)); } draw(dir(120)--dir(330)); filldraw(dir(210)--dir(240)--dir(30)--dir(60)--cycle, mediumgray, linewidth(1.5)); draw((0,0.366)--(0.366,0), linewidth(1.5)); [/asy]
+
+## Generated Outputs
+Answer: 15
+Reasoning: We are given a regular dodecagon (12-gon) and want to find the number of rectangles that can be formed inside it such that each side of the rectangle lies on either a side or a diagonal of the dodecagon.
+
+Key observations:
+1. The vertices of the dodecagon are equally spaced on a circle.
+2. Any rectangle inscribed in a circle is a cyclic quadrilateral with right angles.
+3. Since the polygon is regular, the vertices lie on a circle, so any rectangle formed by vertices of the polygon must be inscribed in the circle.
+4. The sides of the rectangle must lie on sides or diagonals of the polygon, so the rectangle's vertices must be vertices of the polygon.
+5. Therefore, the problem reduces to counting the number of rectangles inscribed in a regular 12-gon whose vertices are vertices of the polygon.
+
+Properties of rectangles inscribed in a circle:
+- Opposite vertices of a rectangle are endpoints of a diameter of the circle.
+- So, the rectangle's vertices come in pairs of opposite points on the circle.
+
+Since the polygon is regular with 12 vertices, the vertices are at angles:
+0°, 30°, 60°, ..., 330°.
+
+Opposite vertices are separated by 180°, so pairs of opposite vertices are:
+(0°, 180°), (30°, 210°), (60°, 240°), (90°, 270°), (120°, 300°), (150°, 330°).
+
+There are 6 such pairs of opposite vertices.
+
+To form a rectangle, we need two pairs of opposite vertices that form the four vertices of the rectangle.
+
+Each rectangle corresponds to choosing two distinct pairs of opposite vertices.
+
+Number of ways to choose 2 pairs out of 6 = C(6, 2) = 15.
+
+Each such choice corresponds to a unique rectangle inscribed in the polygon.
+
+Therefore, the number of rectangles formed is 15.
+
+## Feedback
+Your answer is incorrect. The correct answer is 315.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== PAST ATTEMPTS FROM THIS PROMPT (context only — use your judgment) ==
+• Diff: Added: 'Domain-specific notes and strategies: - When dealing with digit problems, carefu...' | Why it failed: "The new prompt added detailed analysis steps but was too verbose and incomplete, causing confusion and poorer answer accuracy." — scored 2/3, needed >2/3
+
+These attempts didn't help on past minibatches. They may or may not be relevant to the current one.
+
+Provide the new instructions within ``` blocks.

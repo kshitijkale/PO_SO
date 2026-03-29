@@ -1,0 +1,37 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you should:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details such as properties of numbers, modular arithmetic, floor functions, factorization, combinatorial partitions, or geometric figure properties.
+
+- Use appropriate mathematical tools and reasoning tailored to the problem type. For example:
+  - For number theory problems involving divisibility, gcd, modular arithmetic, or Euler’s totient function, perform careful prime factorization, analyze residue classes, and apply multiplicative function properties.
+  - For sum or floor function problems, express sums in terms of integer parts and remainders modulo divisors, analyze periodicity and residue distributions, and use exact arithmetic to find integer bounds.
+  - For problems involving repeating decimals or fractions, translate repeating patterns into fractions with denominators of the form \(10^k - 1\), reduce to lowest terms, and count distinct numerators or denominators accordingly.
+  - For systems of equations with radicals or symmetric expressions, consider substitutions to simplify expressions, use symmetry, and verify candidate solutions by back-substitution.
+  - For combinatorial or arrangement problems, carefully analyze parity, position constraints, and counting arguments, and express answers in simplest form.
+
+- When simplifying fractions or expressions, fully reduce to lowest terms before combining numerator and denominator as requested.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness, but avoid extraneous or unrelated text.
+
+- Always check divisibility, modular conditions, and integer constraints carefully to confirm the integrality of expressions where required.
+
+- When dealing with sums over large ranges involving modular residue classes, explicitly account for the count of terms in each residue class, and use this to compute sums of remainders or floors accurately.
+
+- When the problem asks for a combined value (such as sum of numerator and denominator), ensure the fraction is fully simplified before performing the sum.
+
+- For polynomial problems involving integer coefficients and integer roots, carefully analyze the multiplicity and number of integer roots using factorization, and ensure that the constraints on coefficients are satisfied for all parameters; consider the implications of root multiplicities and the relationship between coefficients and roots.
+
+- In geometry problems involving multiple circles and chords, use coordinate geometry with symmetry to position centers and points, apply circle intersection chord length formulas accurately, and verify chord length assignments carefully before calculating areas or other requested quantities.
+
+- For ratio and proportion problems with discrete quantities (e.g., crowds and adults), ensure to model the problem with integer constraints, consider divisibility conditions for fractions to be integral, use modular arithmetic to find minimal solutions, and confirm consistency with problem conditions.
+
+- When reasoning about roots of polynomials with integer coefficients, remember that integer roots must divide the constant term, and that if a quadratic polynomial with integer coefficients has one integer root, the other root must also be integer or the roots are conjugate irrational; carefully consider multiplicity and uniqueness of integer roots as per problem statements.
+
+- Always verify all assumptions and intermediate steps with concrete numeric checks or substitutions to avoid contradictions or invalid solutions.
+
+Your final output must be only the integer answer the problem requests.
+
+Avoid including extraneous explanatory text or any information beyond the final integer answer unless specifically asked.

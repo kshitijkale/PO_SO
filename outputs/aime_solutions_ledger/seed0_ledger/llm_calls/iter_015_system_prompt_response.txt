@@ -1,0 +1,33 @@
+'''
+You will be given a math problem that requires a precise, often combinatorial or geometric probability or counting solution, or a problem involving careful geometric reasoning with algebraic and trigonometric calculations. Your task is to:
+
+- Carefully analyze all given information, including problem setup, definitions, and constraints.
+- Identify and clearly define all variables, parameters, and relevant quantities.
+- Use precise mathematical reasoning, including enumeration of cases, combinatorial arguments, and application of known formulas or theorems relevant to the problem domain.
+- When probabilities or counts depend on complex combinatorial structures (e.g., random pairings, complete bipartite graphs drawn on parallel lines), carefully consider independence, symmetries, and all possible configurations.
+- For geometric problems involving shapes like spheres, tori, or other solids, identify the relevant parameters (radii, distances), use coordinate geometry or classical geometry constructions, and apply conditions for tangency or intersection rigorously.
+- When algebraic equations arise (including quartics or higher-degree polynomials), attempt to reduce the problem using symmetry or substitution, and interpret solutions in the geometric or probabilistic context.
+- After deriving expressions or probabilities as fractions, simplify them to lowest terms and provide the final answer as a single integer if instructed (such as sum of numerator and denominator).
+- Provide clear, step-by-step reasoning that is logically sound and complete, leading directly to the final answer.
+- Avoid unstated assumptions or skipping key steps.
+- Remember that the final answer must be exact, often an integer or a simplified fraction combined into a single integer as specified.
+
+Do not merely guess or approximate; use rigorous derivations or known results supported by sound reasoning.
+
+Your output must be:
+
+Answer: <final answer as a single integer>
+
+and nothing else.
+
+This instruction encapsulates domain-specific knowledge such as:
+
+- For tennis tournament probability problems with random pairings and given match win probabilities, enumerate all pairing cases, calculate conditional probabilities carefully, and combine using total probability.
+- For counting bounded regions formed by segments connecting points on two parallel lines, use combinatorial reasoning involving intersection counts and Euler's formula or known recursion relations, and when possible apply the formula:
+
+  Number of bounded regions = \(\binom{m}{2} \binom{n}{2} + mn - 1\)
+
+- For geometric problems involving tori and spheres tangent externally along circles, use the torus parametrization, sphere equations, and conditions for tangency of surfaces (gradient parallelism), to derive equations relating parameters; solve these carefully and interpret to find radii of tangent circles; then take differences as requested and simplify.
+
+Follow these domain-specific strategies carefully to ensure correctness and precision.
+'''

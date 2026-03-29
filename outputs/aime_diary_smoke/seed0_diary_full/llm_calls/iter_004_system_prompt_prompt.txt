@@ -1,0 +1,718 @@
+I provided an assistant with the following instructions to perform a task for me:
+'''
+Solve the problem and provide the answer provide the final answer as a single integer.
+'''
+The following are examples of different task inputs provided to the assistant
+along with the assistant's response for each of them, and some feedback on how
+the assistant's response could be better:
+'''
+# Example 1
+## Inputs
+Problem: Let ABCDEF be a convex equilateral hexagon in which all pairs of opposite sides are parallel. The triangle whose sides are extensions of segments AB, CD, and EF has side lengths 200, 240, and 300. Find the side length of the hexagon.
+
+## Generated Outputs
+Answer: 198
+Reasoning: We are given a convex equilateral hexagon ABCDEF, with all pairs of opposite sides parallel. We denote the common side length of the hexagon as \( s \).
+
+Since \( ABCDEF \) is equilateral and opposite sides are parallel, the hexagon is a *parallelogon*, meaning pairs of opposite sides are parallel and equal in length (which we have from equilateral condition: all sides equal to \( s \)).
+
+The key fact about such a hexagon is that the three pairs of opposite sides are parallel, so the sides are arranged as follows:
+
+- \( AB \parallel DE \),
+- \( BC \parallel EF \),
+- \( CD \parallel FA \).
+
+Now consider the lines containing the sides \( AB, CD, EF \). These three lines form a triangle because none of them are parallel to each other (they come in opposite pairs, so AB is opposite to DE and thus parallel, not to CD or EF). 
+
+The problem states: The triangle formed by the extensions of segments \( AB \), \( CD \), and \( EF \) (i.e., by these three lines) has side lengths 200, 240, and 300.
+
+We want to find the side length \( s \) of the hexagon.
+
+---
+
+**Step 1: Direction vectors**
+
+Let’s assign vectors to the sides of the hexagon.
+
+Since it is convex and equilateral with pairs of opposite sides parallel, its sides can be represented as:
+
+\[
+\overrightarrow{AB} = \mathbf{a}
+\]
+\[
+\overrightarrow{BC} = \mathbf{b}
+\]
+\[
+\overrightarrow{CD} = \mathbf{c}
+\]
+\[
+\overrightarrow{DE} = -\mathbf{a}
+\]
+\[
+\overrightarrow{EF} = -\mathbf{b}
+\]
+\[
+\overrightarrow{FA} = -\mathbf{c}
+\]
+
+Because \( AB \parallel DE \), these vectors are opposite in direction, and similarly for the other opposite pairs.
+
+Each vector has the same length \( s \):
+\[
+|\mathbf{a}| = |\mathbf{b}| = |\mathbf{c}| = s
+\]
+
+Since the polygon is closed:
+\[
+\mathbf{a} + \mathbf{b} + \mathbf{c} + (-\mathbf{a}) + (-\mathbf{b}) + (-\mathbf{c}) = \mathbf{0}
+\]
+which is trivial.
+
+But more importantly, the shape depends on the angles between these vectors.
+
+---
+
+**Step 2: Relations between \( a, b, c \) and the triangle formed by lines \( AB, CD, EF \)**
+
+The lines \( AB, CD, EF \) have directions \( \mathbf{a}, \mathbf{c}, -\mathbf{b} \) respectively.
+
+Because the lines \( AB \), \( CD \), and \( EF \) are pairwise not parallel, their intersection forms a triangle.
+
+The problem gives the side lengths of that triangle as 200, 240, and 300.
+
+Our goal is to relate these to the directions and \( s \).
+
+---
+
+**Step 3: Analyzing the triangle formed by lines \( AB, CD, EF \) **
+
+The triangle formed by the intersection of lines \( AB, CD, EF \) is known as the triangle of the three directions.
+
+The distance between two lines \( L_1 \) and \( L_2 \) in the plane depends on the relative positioning of these lines.
+
+However, since \( ABCDEF \) is an equilateral hexagon with opposite sides parallel, the hexagon can be viewed as (uniquely) represented as the Minkowski sum of three vectors \( \mathbf{a}, \mathbf{b}, \mathbf{c} \).
+
+Now, the triangle formed by the lines \( AB, CD, EF \) has side lengths proportional to the reciprocals of the sines of the angles between these directions multiplied by \( s \).
+
+Indeed, the key formula is:
+
+\[
+\text{side length of triangle} = \frac{s}{\sin \theta}
+\]
+
+for specific angles \( \theta \).
+
+More precisely, if the directions of the lines are \( \mathbf{a}, \mathbf{c}, -\mathbf{b} \), the distances between pairs of these lines in the triangle is proportional to the length divided by the sine of the angle between those directions.
+
+---
+
+**Step 4: Identifying the triangle with side lengths 200, 240, 300**
+
+Let’s label the directions as:
+
+- Line 1: direction \( \mathbf{a} \)
+- Line 2: direction \( \mathbf{c} \)
+- Line 3: direction \( -\mathbf{b} \)
+
+The triangle formed by lines \( AB, CD, EF \) is called the triangle of the three directions.
+
+The sides of this triangle correspond to the distances between pairs of lines:
+
+- Distance between the intersection of lines with directions \( \mathbf{a} \) and \( \mathbf{c} \) is proportional to \( \frac{s}{\sin(\angle(\mathbf{a}, \mathbf{c}))} \)
+- Similarly for other pairs.
+
+Because all side lengths of the hexagon = \( s \), and distances between these lines are proportional to \( \frac{s}{\sin\theta} \), it turns out that the side lengths of the triangle formed by the three lines correspond directly to \( \frac{s}{\sin \alpha} \) for some angles \( \alpha \).
+
+Thus, the side lengths 200, 240, and 300 correspond to:
+
+\[
+200 = \frac{s}{\sin \theta_1}
+\]
+\[
+240 = \frac{s}{\sin \theta_2}
+\]
+\[
+300 = \frac{s}{\sin \theta_3}
+\]
+
+for three angles \( \theta_1, \theta_2, \theta_3 \), which sum to \( 180^\circ \) (since the three directions are in the plane).
+
+Let’s denote:
+
+\[
+s = k
+\]
+
+Then:
+
+\[
+\frac{k}{\sin \theta_1} = 200, \quad \frac{k}{\sin \theta_2} = 240, \quad \frac{k}{\sin \theta_3} = 300
+\]
+
+Therefore:
+
+\[
+\sin \theta_1 = \frac{k}{200}, \quad \sin \theta_2 = \frac{k}{240}, \quad \sin \theta_3 = \frac{k}{300}
+\]
+
+Since the angles sum to \( \pi \):
+
+\[
+\theta_1 + \theta_2 + \theta_3 = 180^\circ
+\]
+
+We want to find \( k = s \) such that the sines satisfy this condition.
+
+---
+
+**Step 5: Using law of sines and checking feasibility**
+
+Alternatively, notice that \( \theta_i \) are angles of a triangle, and the side lengths 200, 240, 300 satisfy the triangle inequality:
+
+\[
+200 + 240 > 300, \quad 200 + 300 > 240, \quad 240 + 300 > 200
+\]
+
+so valid triangle.
+
+Since:
+
+\[
+200 = \frac{k}{\sin \theta_1} \implies \sin \theta_1 = \frac{k}{200}
+\]
+\[
+240 = \frac{k}{\sin \theta_2} \implies \sin \theta_2 = \frac{k}{240}
+\]
+\[
+300 = \frac{k}{\sin \theta_3} \implies \sin \theta_3 = \frac{k}{300}
+\]
+
+Also, sum of angles:
+
+\[
+\theta_1 + \theta_2 + \theta_3 = \pi
+\]
+
+We want to find \( k \) such that numbers \( \sin \theta_i = \frac{k}{side_i} \) correspond to the sines of angles summing to 180 degrees.
+
+---
+
+**Step 6: Solve for \( k \)**
+
+We can try to find \( k \) such that:
+
+\[
+\arcsin \frac{k}{200} + \arcsin \frac{k}{240} + \arcsin \frac{k}{300} = \pi
+\]
+
+We need to find a value \( k \) less than or equal to the smallest of 200, 240, 300 so that this holds true.
+
+Note: \( \frac{k}{200} \leq 1 \Rightarrow k \leq 200 \).
+
+Similarly for others.
+
+Also, \( \arcsin x \in [0, \frac{\pi}{2}] \) for \( x \in [0,1] \).
+
+Try to find \( k \) such that sum of arcsin is exactly \( \pi \).
+
+Try \( k=120 \):
+
+\[
+\arcsin(120/200) = \arcsin(0.6) \approx 36.87^\circ
+\]
+\[
+\arcsin(120/240) = \arcsin(0.5) = 30^\circ
+\]
+\[
+\arcsin(120/300) = \arcsin(0.4) \approx 23.58^\circ
+\]
+
+Sum:
+\[
+36.87 + 30 + 23.58 = 90.45^\circ
+\]
+
+Too small (should be 180).
+
+Try \( k=170 \):
+
+\[
+\arcsin(170/200) = \arcsin(0.85) \approx 58.19^\circ
+\]
+\[
+\arcsin(170/240) = \arcsin(0.7083) \approx 45.24^\circ
+\]
+\[
+\arcsin(170/300) = \arcsin(0.5667) \approx 34.49^\circ
+\]
+
+Sum:
+\[
+58.19 + 45.24 + 34.49 = 137.92^\circ
+\]
+
+Still less than 180.
+
+Try \( k=195 \):
+
+\[
+\arcsin(195/200) = \arcsin(0.975) \approx 77.47^\circ
+\]
+\[
+\arcsin(195/240) = \arcsin(0.8125) \approx 54.11^\circ
+\]
+\[
+\arcsin(195/300) = \arcsin(0.65) \approx 40.54^\circ
+\]
+
+Sum:
+\[
+77.47 + 54.11 + 40.54 = 172.12^\circ
+\]
+
+Closer, but still less than 180.
+
+Try k slightly larger than 200 is impossible (since 200 is smallest denominator).
+
+Try \( k=200 \):
+
+\[
+\arcsin(1) = 90^\circ
+\]
+\[
+\arcsin(200/240) = \arcsin(0.8333) \approx 56^\circ
+\]
+\[
+\arcsin(200/300) = \arcsin(0.6667) \approx 41.81^\circ
+\]
+
+Sum:
+\[
+90 + 56 + 41.81 = 187.81^\circ
+\]
+
+Now sum > 180, so for \( k=200 \), sum > 180.
+
+But for \( k=195 \), sum < 180.
+
+Therefore, by Intermediate Value Theorem, there exists \( k \in (195, 200) \) such that the sum equals \( 180^\circ \).
+
+Let’s do linear interpolation.
+
+At 195 → 172.12°, at 200 → 187.81°, difference 15.69°.
+
+We want to increase from 172.12° to 180°, difference 7.88°.
+
+Fraction:
+
+\[
+\frac{7.88}{15.69} \approx 0.5
+\]
+
+So \( k \approx 195 + 0.5 \times (200-195) = 197.5 \)
+
+Let’s check \( k = 197.5 \):
+
+\[
+\arcsin(197.5 / 200) = \arcsin(0.9875) \approx 81.67^\circ
+\]
+\[
+\arcsin(197.5 / 240) = \arcsin(0.8229) \approx 55.42^\circ
+\]
+\[
+\arcsin(197.5 / 300) = \arcsin(0.6583) \approx 41.16^\circ
+\]
+
+Sum:
+
+\[
+81.67 + 55.42 + 41.16 = 178.25^\circ
+\]
+
+Not yet 180.
+
+Try \( k=198.5 \):
+
+\[
+\arcsin(198.5/200) = \arcsin(0.9925) \approx 83.04^\circ
+\]
+\[
+\arcsin(198.5/240) = \arcsin(0.8271) \approx 55.77^\circ
+\]
+\[
+\arcsin(198.5/300) = \arcsin(0.6617) \approx 41.45^\circ
+\]
+
+Sum:
+
+\[
+83.04 + 55.77 + 41.45 = 180.26^\circ
+\]
+
+Slightly over 180.
+
+Try \( k=198 \):
+
+\[
+\arcsin(198/200) = \arcsin(0.99) \approx 82.36^\circ
+\]
+\[
+\arcsin(198/240) = \arcsin(0.825) \approx 55.60^\circ
+\]
+\[
+\arcsin(198/300) = \arcsin(0.66) \approx 41.31^\circ
+\]
+
+Sum:
+
+\[
+82.36 + 55.60 + 41.31 = 179.27^\circ
+\]
+
+Between 179.27° and 180.26°, and \( k=198.4 \) should be close to 180°.
+
+Thus, the value \( k \) is approximately 198.4.
+
+---
+
+**Step 7: Final answer**
+
+Recall that \( k = s \), the length of the hexagon side.
+
+Since the problem asks for a single integer, the side length is \( \boxed{198} \).
+
+---
+
+**Summary:**
+
+- The side length \( s \) satisfies:
+
+\[
+\arcsin \left( \frac{s}{200} \right) + \arcsin \left( \frac{s}{240} \right) + \arcsin \left( \frac{s}{300} \right) = 180^\circ
+\]
+
+- Numerically approximating \( s \approx 198 \).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 80. Here is the full step-by-step solution:
+(Sorry i have zero idea how to make drawings)
+Draw a good diagram!
+Let $AB \cap DC$, $CD \cap FE$, and $BA \cap EF$ be P, Q, and R, respectively. Let $QR=200, RP=300, PQ=240$. Notice that all smaller triangles formed are all similar to the larger $(200,240,300)$ triangle. Let the side length of the hexagon be x. Triangle $\triangle BCP \sim \triangle RQP$, so $\frac{BC}{BP} =\frac{x}{BP} =\frac{200}{300} \implies BP=\frac{3x}{2}$. Triangle $\triangle AFR \sim \triangle PQR$, so $\frac{AF}{AR}=\frac{x}{AR} = \frac{240}{300} \implies AR=\frac{5x}{4}$. We know $RA+AB+BP=300$, so $\frac{5}{4}x + x + \frac{3}{2}x = 300$. Solving, we get $x=\boxed{080}$. -westwoodmonster
+Draw an accurate diagram using the allowed compass and ruler: Draw a to-scale diagram of the $(200,240,300)$ triangle (e.g. 10cm-12cm-15cm). Because of the nature of these lengths and the integer answer needed, it can be assumed that the side length of the hexagon will be divisible by 10. Therefore, a trial-and-error method can be set up, wherein line segments of length $n\cdot 10$, scaled to the same scale as the triangle, can be drawn to represent the sides of the hexagon. For instance, side $BC$ would be drawn parallel to the side of the triangle of length 300, and would have endpoints on the other sides of the triangle. Using this method, it would be evident that line segments of length 80 units, scaled proportionally (4cm using the scale above), would create a perfect equilateral hexagon when drawn parallel to the sides of the triangle. $x=\boxed{080}$. - lackolith
+
+Think about what takeaways you can learn from this solution to improve your approach to similar problems.
+
+
+
+# Example 2
+## Inputs
+Problem: Let $S$ be the set of all positive rational numbers $r$ such that when the two numbers $r$ and $55r$ are written as fractions in lowest terms, the sum of the numerator and denominator of one fraction is the same as the sum of the numerator and denominator of the other fraction. The sum of all the elements of $S$ can be expressed in the form $\frac{p}{q},$ where $p$ and $q$ are relatively prime positive integers. Find $p+q.$
+
+## Generated Outputs
+Answer: 719
+Reasoning: Let \( r = \frac{a}{b} \) be a positive rational number in lowest terms, where \(a, b\) are positive integers with \(\gcd(a,b) = 1\).
+
+We consider the two numbers:
+- \( r = \frac{a}{b} \),
+- \( 55r = \frac{55a}{b} \).
+
+We reduce each to lowest terms.
+
+1. The fraction for \(r\) is \(\frac{a}{b}\) in lowest terms.
+
+2. The fraction for \(55r = \frac{55a}{b}\) may not be in lowest terms. Let \(d = \gcd(55a, b)\).
+
+Then, the reduced form of \(55r\) is 
+\[
+\frac{55a/d}{b/d}.
+\]
+
+We need the sum of numerator and denominator of the two fractions in lowest terms to be equal. That is,
+\[
+a + b = \frac{55a}{d} + \frac{b}{d} = \frac{55a + b}{d}.
+\]
+
+Rewrite this condition:
+\[
+a + b = \frac{55a + b}{d} \implies d(a + b) = 55a + b.
+\]
+
+Note that \(d = \gcd(55a, b)\). Since \(\gcd(a,b) = 1\), let's analyze \(d = \gcd(55a, b)\).
+
+Because \(\gcd(a,b) = 1\), any common divisor of \(55a\) and \(b\) must divide both \(b\) and \(55a\), but since \(a\) is coprime with \(b\), the only factor that can appear in both is from 55. So \(d\) divides 55.
+
+Thus, possible values for \(d\) are divisors of 55, which are 1, 5, 11, 55.
+
+Write explicitly:
+\[
+d(a + b) = 55a + b \implies d a + d b = 55 a + b \implies d b - b = 55 a - d a \implies b(d -1) = a(55 - d).
+\]
+
+Since \(a, b\) are positive integers with \(\gcd(a,b)=1\), and \(d\) divides 55, consider each value of \(d\):
+
+- \(d = 1\):
+\[
+b(0) = a(54) \implies 0 = 54a \implies a=0,
+\]
+no positive solution.
+
+- \(d = 5\):
+\[
+b(4) = a(50) \implies 4b = 50 a \implies 2b = 25 a.
+\]
+
+We have that \(2b = 25 a\).
+
+We want \(\gcd(a,b) = 1\).
+
+Express \(b\):
+\[
+b = \frac{25}{2} a,
+\]
+but \(b\) must be integer. So \(a\) must be even, say \(a=2k\):
+\[
+b = \frac{25}{2} \times 2k = 25 k.
+\]
+
+So \(a=2k\), \(b=25k\).
+
+But \(\gcd(a,b) = \gcd(2k, 25k) = k \cdot \gcd(2,25) = k\). To have \(\gcd(a,b) = 1\), need \(k=1\).
+
+Thus, 
+\[
+(a,b) = (2,25).
+\]
+
+Check \(d = \gcd(55a, b) = \gcd(55 \times 2, 25) = \gcd(110, 25) = 5 = d.
+\]
+
+Fine.
+
+- \(d=11\):
+\[
+b(10) = a(44) \implies 10 b = 44 a \implies 5 b = 22 a.
+\]
+
+Similarly,
+\[
+5b = 22 a,
+\]
+so
+\[
+b = \frac{22}{5} a,
+\]
+which requires \(a\) a multiple of 5, say \(a=5m\):
+\[
+b = \frac{22}{5} \times 5m = 22 m.
+\]
+
+So \(a=5m\), \(b=22 m\).
+
+\(\gcd(a,b) = \gcd(5m, 22m) = m \cdot \gcd(5,22) = m \times 1 = m\).
+
+We want \(\gcd(a,b)=1\), so \(m=1\).
+
+Therefore,
+\[
+(a,b) = (5,22).
+\]
+
+Check \(\gcd(55a, b) = \gcd(55 \times 5, 22) = \gcd(275, 22) = 11 = d.\)
+
+Okay.
+
+- \(d=55\):
+\[
+b (54) = a (0) \implies 54 b = 0 \implies b=0,
+\]
+no positive solution.
+
+Therefore, the only possible pairs are:
+\[
+(a,b) = (2,25) \quad \text{and} \quad (5,22).
+\]
+
+Check sums for the two fractions:
+
+For \((2,25)\):
+- \(r = \frac{2}{25}\), sum numerator+denominator = 2 + 25 = 27.
+- \(55r = \frac{110}{25}\), reduce: \(\gcd(110,25) = 5\), so \(\frac{110/5}{25/5} = \frac{22}{5}\), sum = 22+5=27. Equal sums.
+
+For \((5,22)\):
+- \(r = \frac{5}{22}\), sum = 27.
+- \(55r = \frac{275}{22}\), \(\gcd(275,22)=11\), so reduced fraction is \(\frac{25}{2}\), sum = 25 + 2 = 27. Equal sums.
+
+Hence, the set \(S\) of \(r\) works for \(r = \frac{2}{25}\) or \(r = \frac{5}{22}\).
+
+No other such \(r\).
+
+Sum of all elements in \(S\) is
+\[
+\frac{2}{25} + \frac{5}{22} = \frac{2 \cdot 22}{25 \cdot 22} + \frac{5 \cdot 25}{22 \cdot 25} = \frac{44}{550} + \frac{125}{550} = \frac{169}{550}.
+\]
+
+Simplify if possible:
+
+\(169 = 13^2\), \(550 = 2 \times 5^2 \times 11\), no common factors, fraction is in lowest terms.
+
+Final answer is \(p + q = 169 + 550 = 719.\)
+
+## Feedback
+Your answer is correct. The correct answer is 719.
+
+
+
+# Example 3
+## Inputs
+Problem: A right square pyramid with volume $54$ has a base with side length $6.$ The five vertices of the pyramid all lie on a sphere with radius $\frac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## Generated Outputs
+Answer: 21
+Reasoning: We are given a right square pyramid with a base side length \(6\) and volume \(54\). The vertices of the pyramid lie on a sphere with radius \(\frac{m}{n}\), where \(m\) and \(n\) are coprime positive integers, and we want to find \(m+n\).
+
+**Step 1: Find the height of the pyramid**
+
+The volume \(V\) of a pyramid with a square base of side length \(s\) and height \(h\) is:
+\[
+V = \frac{1}{3} s^2 h
+\]
+
+Given:
+\[
+V = 54, \quad s = 6
+\]
+
+Plug in:
+\[
+54 = \frac{1}{3} \times 6^2 \times h = \frac{1}{3} \times 36 \times h = 12h \implies h = \frac{54}{12} = 4.5
+\]
+
+**Step 2: Set up coordinates**
+
+Place the pyramid so that its base lies in the \(xy\)-plane, centered at the origin for easy calculation.
+
+The base is a square with side length 6, so its vertices are at:
+\[
+\left(\pm 3, \pm 3, 0\right)
+\]
+
+The apex is on the \(z\)-axis at height \(h=4.5\):
+\[
+(0, 0, 4.5)
+\]
+
+The five vertices on the pyramid are:
+\[
+A = (3, 3, 0), \quad B = (-3, 3, 0), \quad C = (-3, -3, 0), \quad D = (3, -3, 0), \quad E = (0, 0, 4.5)
+\]
+
+**Step 3: Find the center and radius of the sphere on which all vertices lie**
+
+Let the center of the sphere be:
+\[
+O = (0, 0, z_0)
+\]
+
+Since the base is symmetric about the origin and apex at the \(z\)-axis, the center must lie on the \(z\)-axis for symmetry.
+
+Let \(R\) be the radius of the sphere.
+
+The distances from \(O\) to the base vertices and the apex satisfy:
+\[
+OA = OB = OC = OD = R
+\]
+\[
+OE = R
+\]
+
+Compute \(OA^2\):
+\[
+OA^2 = (3 - 0)^2 + (3 - 0)^2 + (0 - z_0)^2 = 9 + 9 + z_0^2 = 18 + z_0^2
+\]
+
+Compute \(OE^2\):
+\[
+OE^2 = (0-0)^2 + (0-0)^2 + (4.5 - z_0)^2 = (4.5 - z_0)^2
+\]
+
+Since distances are equal:
+\[
+OA^2 = OE^2 \implies 18 + z_0^2 = (4.5 - z_0)^2
+\]
+Expand right side:
+\[
+18 + z_0^2 = (4.5)^2 - 2 \times 4.5 \times z_0 + z_0^2
+\]
+\[
+18 + z_0^2 = 20.25 - 9z_0 + z_0^2
+\]
+
+Subtract \(z_0^2\) on both sides:
+\[
+18 = 20.25 - 9z_0
+\]
+\[
+-2.25 = -9z_0
+\]
+\[
+z_0 = \frac{2.25}{9} = 0.25
+\]
+
+**Step 4: Find the radius \(R\)**
+
+Use either \(OA^2\) or \(OE^2\) with \(z_0 = 0.25\):
+
+\[
+OA^2 = 18 + (0.25)^2 = 18 + 0.0625 = 18.0625
+\]
+
+\[
+R = \sqrt{18.0625} = \sqrt{\frac{289}{16}} = \frac{17}{4} = 4.25
+\]
+
+So the radius is \(\frac{17}{4}\).
+
+**Step 5: Find \(m+n\)**
+
+Here \(m = 17\), \(n = 4\), so
+\[
+m + n = 17 + 4 = 21
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 21.
+
+
+'''
+Your task is to write a new instruction for the assistant. Read the inputs carefully and identify the input format and infer detailed task
+description about the task I wish to solve with the assistant.
+Read all the assistant responses and the corresponding feedback. Identify all
+niche and domain specific factual information about the task and include it in
+the instruction, as a lot of it may not be available to the assistant in the
+future. The assistant may have utilized a generalizable strategy to solve the
+task, if so, include that in the instruction as well.
+The following is a record of previous instruction edits that were tried from
+the current instruction and did not improve results on the evaluation minibatch.
+Each entry shows exactly what changed (diff) and why it may not have helped.
+This is provided as context to help you make a more informed decision — use
+your judgment about whether any of these directions are worth revisiting or
+whether a different approach might work better.
+
+== OPTIMIZATION CONTEXT ==
+Progress: 3 iterations | 2 accepted (67%) | Best batch: 3/3
+Prompt: 86 chars (start) → 2022 chars (now) — 23.5x growth
+Efficiency: each +100 chars has yielded ~0.052 score gain
+
+Edits that improved scores:
+  • iter 2: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously justifi...'" → +1.0 score, 86→1729 chars
+  • iter 3: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously defines...'" → +1.0 score, 86→2022 chars
+
+Recent failed edits:
+  • iter 1: "Added: 'Your solution should include clear, step-by-step reasoning that rigorously defin...'" — scored 2/3, needed >2/3, 86→2403 chars
+
+Strategy patterns:
+  Detailed, concise clarifications improving reasoning clarity have increased acceptance despite length growth. Overly broad, lengthy expansions overwhelm scoring and fail quality thresholds. Prompt length is growing significantly; avoid large additions. Next, focus on precise, minimal refinements enhancing clarity without substantial length increase.
+
+Provide the new instructions within ''' blocks.

@@ -3,7 +3,7 @@
 
 import traceback
 from collections.abc import Sequence
-from typing import Generic
+from typing import Any, Generic
 
 from gepa.core.adapter import DataInst, GEPAAdapter, RolloutOutput, Trajectory
 from gepa.core.callbacks import (
@@ -199,6 +199,9 @@ class GEPAEngine(Generic[DataId, DataInst, Trajectory, RolloutOutput]):
 
         valset = self.valset
         assert valset is not None
+        val_ids_evaluated = list(valset_evaluation.scores_by_val_id.keys())
+        val_inputs = valset.fetch(val_ids_evaluated)
+        val_inputs_by_id = dict(zip(val_ids_evaluated, val_inputs, strict=False))
 
         notify_callbacks(
             self.callbacks,
@@ -213,6 +216,7 @@ class GEPAEngine(Generic[DataId, DataInst, Trajectory, RolloutOutput]):
                 total_valset_size=len(valset),
                 parent_ids=parent_program_idx,
                 is_best_program=is_best_program,
+                inputs_by_val_id=val_inputs_by_id,
                 outputs_by_val_id=(
                     dict(valset_evaluation.outputs_by_val_id) if valset_evaluation.outputs_by_val_id else None
                 ),
@@ -284,6 +288,23 @@ class GEPAEngine(Generic[DataId, DataInst, Trajectory, RolloutOutput]):
                 objective_scores_by_val_id=objective_scores_dict,
             )
 
+        # Notify callbacks of optimization start BEFORE seed/initial valset evaluation.
+        # This avoids a long silent period when the initial full-valset pass is expensive.
+        notify_callbacks(
+            self.callbacks,
+            "on_optimization_start",
+            OptimizationStartEvent(
+                seed_candidate=self.seed_candidate,
+                trainset_size=len(self.reflective_proposer.trainset),
+                valset_size=len(valset),
+                config={
+                    "perfect_score": self.perfect_score,
+                    "seed": self.seed,
+                    "track_best_outputs": self.track_best_outputs,
+                },
+            ),
+        )
+
         # Initialize state
         state = initialize_gepa_state(
             run_dir=self.run_dir,
@@ -312,25 +333,17 @@ class GEPAEngine(Generic[DataId, DataInst, Trajectory, RolloutOutput]):
             f"over {base_val_coverage} / {len(valset)} examples"
         )
 
-        # Notify callbacks of optimization start
-        notify_callbacks(
-            self.callbacks,
-            "on_optimization_start",
-            OptimizationStartEvent(
-                seed_candidate=self.seed_candidate,
-                trainset_size=len(self.reflective_proposer.trainset),
-                valset_size=len(valset),
-                config={
-                    "perfect_score": self.perfect_score,
-                    "seed": self.seed,
-                    "track_best_outputs": self.track_best_outputs,
-                },
-            ),
-        )
-
         # Notify callbacks of seed candidate's initial valset evaluation (iteration 0)
         # This provides the baseline performance before any optimization
         seed_scores = state.prog_candidate_val_subscores[0]
+        seed_val_ids = list(seed_scores.keys())
+        seed_val_inputs = valset.fetch(seed_val_ids)
+        seed_inputs_by_val_id = dict(zip(seed_val_ids, seed_val_inputs, strict=False))
+        seed_outputs_by_val_id: dict[Any, Any] | None = None
+        if state.evaluation_cache is not None:
+            cached, _ = state.evaluation_cache.get_batch(self.seed_candidate, seed_val_ids)
+            if len(cached) == len(seed_val_ids):
+                seed_outputs_by_val_id = {val_id: cached[val_id].output for val_id in seed_val_ids}
         notify_callbacks(
             self.callbacks,
             "on_valset_evaluated",
@@ -344,7 +357,8 @@ class GEPAEngine(Generic[DataId, DataInst, Trajectory, RolloutOutput]):
                 total_valset_size=len(valset),
                 parent_ids=[],
                 is_best_program=True,  # Seed is always best at iteration 0
-                outputs_by_val_id=None,  # Outputs not tracked at initialization unless track_best_outputs=True
+                inputs_by_val_id=seed_inputs_by_val_id,
+                outputs_by_val_id=seed_outputs_by_val_id,
             ),
         )
 

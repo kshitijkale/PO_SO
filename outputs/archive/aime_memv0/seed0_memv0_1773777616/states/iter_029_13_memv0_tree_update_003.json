@@ -1,0 +1,1761 @@
+{
+  "type": "memory_tree_updated",
+  "iteration": 29,
+  "operation": "add_outcomes",
+  "node_id": 15,
+  "parent_id": 6,
+  "accepted": null,
+  "rejection_reason": "",
+  "prompt": {
+    "system_prompt": "Solve the problem thoroughly and provide the final answer as a single integer. Your response must include a comprehensive, logically structured, step-by-step mathematical reasoning process that:\n\n- Explicitly states and carefully uses all given information and problem conditions without making unsupported assumptions.\n- Clearly defines any variables, coordinate systems, or notation introduced, and justifies their choice.\n- For geometric or algebraic problems, incorporate relevant domain-specific facts (e.g., properties of shapes, concurrency, cyclicity, lengths, angles, areas, volumes), and show how these facts inform each step.\n- When multiple cases or configurations are possible, explicitly enumerate and analyze each, ruling out inconsistent or impossible cases with clear justification.\n- For combinatorial or probabilistic problems, fully enumerate all relevant outcomes or states when feasible, and carefully derive recurrences or probabilities, ensuring no cases are omitted or double counted.\n- Perform exact symbolic manipulation and algebraic simplification as far as possible before any numerical approximation.\n- When final numeric values are derived, confirm they satisfy all problem constraints and match the required answer format (e.g., a single integer).\n- If approximations are used temporarily, clearly mark them as such, avoid relying on them for final conclusions, and verify the exact symbolic results align with approximations.\n- Summarize the reasoning at the end, confirming the correctness and consistency of the final answer.\n\nThis methodical approach will minimize errors from oversight, incorrect assumptions, incomplete casework, or arithmetic mistakes, producing a rigorously justified final integer answer."
+  },
+  "outcomes_added": [
+    {
+      "question_summary": "Right square pyramid volume and sphere radius problem",
+      "result": "correct",
+      "observation": "The model carefully computed the pyramid height, placed the figure in a coordinate system, used symmetry to reduce the sphere center to one variable, set equal distances to find this coordinate, solved the resulting quadratic exactly, and expressed the radius as a simplified fraction to produce the final sum \\(m+n\\). The solution was thorough and stepwise.",
+      "error_type": "none",
+      "score": 1.0,
+      "iteration": 29
+    },
+    {
+      "question_summary": "Equilateral hexagon with parallel opposite sides and triangle side lengths from line extensions",
+      "result": "incorrect",
+      "observation": "The model attempted a vector-based geometric interpretation, identified that opposite sides are parallel and equal, and reasoned about the triangle formed by the three lines. It tried to relate the side length of the hexagon to the given triangle sides via sines and angles, approximated values numerically, and concluded the side length is 300. The model did not explicitly connect or justify some assumptions rigorously, and the final numeric answer contradicts the known correct solution.",
+      "error_type": "logic",
+      "score": 0.0,
+      "iteration": 29
+    },
+    {
+      "question_summary": "Counting integer pairs \\((a,b)\\) to avoid 4-term arithmetic progressions in a sequence",
+      "result": "incorrect",
+      "observation": "The model correctly identified the range constraints for \\(a,b\\), exhaustively analyzed possible 4-term APs involving \\(a,b\\) and fixed terms, derived algebraic conditions for APs, eliminated pairs accordingly, and performed an arithmetic count of valid pairs. However, it missed some forbidden pairs or subtle APs, resulting in an overcount. The final answer was numerically plausible but incorrect.",
+      "error_type": "arithmetic",
+      "score": 0.0,
+      "iteration": 29
+    }
+  ],
+  "val_score": null,
+  "evicted_count": 0,
+  "new_node_summary": "",
+  "tree_node_count": 25,
+  "tree_snapshot": {
+    "root_id": 0,
+    "global_summary": "The model consistently excels in geometry and algebra problems involving coordinate setups, vector reasoning, and exact symbolic manipulation, reliably producing correct and well-verified answers in circle, pyramid, rhombus, and combinatorial grid problems. However, it frequently errs in problems requiring complete combinatorial enumeration, subtle case distinctions, or intricate arithmetic counts, often stopping short of full enumeration or misinterpreting numeric finalizations. Overall, successes arise from explicit, stepwise algebraic and geometric reasoning, while failures stem from incomplete combinatorial logic and occasional misinterpretation of final numeric expressions.",
+    "outcome_eviction_k": 10,
+    "nodes": {
+      "0": {
+        "node_id": 0,
+        "prompt": {
+          "system_prompt": "Solve the problem and provide the answer provide the final answer as a single integer."
+        },
+        "parent_id": null,
+        "children_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "accepted": true,
+        "val_score": 0.4666666666666667,
+        "minibatch_score": null,
+        "outcomes": [
+          {
+            "question_summary": "Number of cubic polynomials with integer coefficients having a unique integer root \\(m \\neq 2\\) satisfying \\(p(m) = p(2)\\)",
+            "result": "incorrect",
+            "observation": "The model factored the polynomial, deduced the quadratic factor must have a double root for uniqueness of the integer root, and derived expressions for coefficients in terms of \\(m\\). It then enumerated valid \\(m\\) values and counted possible \\(c\\) values, but overlooked the possibility of two distinct integer roots where exactly one differs from 2, resulting in an underestimated count.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 10
+          },
+          {
+            "question_summary": "Expected correct guesses in optimal guessing of 3 red and 3 black cards revealed one at a time",
+            "result": "correct",
+            "observation": "The model correctly identified the optimal strategy, set up a dynamic programming recurrence for expected values, and computed all intermediate values step-by-step, ultimately arriving at the fraction \\(\\frac{41}{10}\\) and summing numerator and denominator. The reasoning was detailed and consistent.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 12
+          },
+          {
+            "question_summary": "Side length of an equilateral hexagon given side lengths of triangle formed by extended opposite sides",
+            "result": "incorrect",
+            "observation": "The model interpreted the problem geometrically, related the hexagon sides to vectors, and reasoned the hexagon side equals the inradius of the given triangle. It computed the triangle's area via Heron's formula and calculated the inradius accordingly, rounding to 65. However, the final answer was incorrect according to feedback.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 12
+          },
+          {
+            "question_summary": "Value of \\(|\\log_2(x^4 y^3 z^2)|\\) given a logarithmic system on \\(x,y,z\\)",
+            "result": "correct",
+            "observation": "The model correctly translated the logarithmic system into linear equations in \\(a,b,c\\), summed and combined them to find each variable, then computed the desired linear combination \\(4a+3b+2c\\) and simplified to \\(\\frac{25}{8}\\). The final sum \\(m+n=33\\) matched the correct answer.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 12
+          },
+          {
+            "question_summary": "Solve for \\(m+n\\) given \\(\\log_{20x}(22x)=\\log_{2x}(202x)\\) and express as \\(\\log_{10}(m/n)\\)",
+            "result": "correct",
+            "observation": "The model correctly transformed the original equation into an equality involving powers and logarithms, canceled \\(x\\), and found the common log value \\(y=\\log_{10}(11/101)\\). It identified \\(m=11\\), \\(n=101\\) and summed them correctly to 112. The reasoning was detailed and algebraically valid.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 13
+          },
+          {
+            "question_summary": "Area of parallelogram \\(ABCD\\) with given chord lengths of a circle tangent to three sides and intersecting diagonal \\(AC\\)",
+            "result": "incorrect",
+            "observation": "The model attempted a lengthy geometric and algebraic analysis involving placement of points, line equations, and circle tangency conditions, including a coordinate system transformation and half-angle trigonometric substitutions. It correctly identified relationships between radius, distances, and parameters but ultimately arrived at the area \\(189\\sqrt{7}\\) and sum \\(196\\), which does not match the problem\u2019s correct answer. The reasoning was complex but included inconsistencies and approximations without convergence to the known correct value.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 13
+          },
+          {
+            "question_summary": "Perimeter of rhombus \\(ABCD\\) given distances from a point on its incircle to three sides",
+            "result": "incorrect",
+            "observation": "The model set up a coordinate framework and angle bisector slopes to locate the incenter, related inradius to side length and angle, and formed equations for the distances from the point \\(P\\) to sides in terms of circle radius and geometry. It solved a system involving sine values and attempted to deduce \\(\\theta\\), but encountered contradictory angle values outside the allowed range. The model guessed \\(\\theta=60^\\circ\\) and computed an approximate perimeter (~115), which was close but not the accepted correct answer 125.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 13
+          },
+          {
+            "question_summary": "Probability Carl wins tennis tournament given match win probabilities",
+            "result": "correct",
+            "observation": "The model correctly identified all possible semifinal pairings and computed Carl\u2019s winning probabilities case-by-case using given conditional probabilities. It combined results appropriately and simplified fractions correctly to find the final answer.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 15
+          },
+          {
+            "question_summary": "Number of bounded regions formed by segments between points on two parallel lines",
+            "result": "incorrect",
+            "observation": "The model attempted multiple combinatorial and geometric formulas to relate the number of bounded regions to \\(m\\) and \\(n\\), including Euler\u2019s formula and reasoning about rectangles formed by adjacent points. It ultimately inferred a formula from the provided example but failed to reconcile it with known combinatorial results or validate it fully.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 15
+          },
+          {
+            "question_summary": "Difference of radii of tangent circles where a torus rests on a sphere externally",
+            "result": "incorrect",
+            "observation": "The model correctly identified the torus parameters and geometric setup but repeatedly failed to find consistent algebraic solutions for the tangent circle radii, resorting instead to heuristic guesses. It misapplied and misinterpreted relationships between torus and sphere radii and distances, leading to an incorrect final answer.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 15
+          },
+          {
+            "question_summary": "Number of cubic polynomials \\(p(x) = x^3 + a x^2 + b x + c\\) with integer coefficients in \\(\\{-20,\\ldots,20\\}\\) such that there is a unique integer \\(m \\neq 2\\) with \\(p(m) = p(2)\\).",
+            "result": "incorrect",
+            "observation": "The model correctly transformed the problem to studying roots of \\(q(x) = p(x) - p(2)\\), factored it assuming a double root to ensure uniqueness of the integer root \\(m \\neq 2\\), and derived formulas for \\(a,b,c\\) in terms of \\(m\\). It then enumerated valid \\(m\\) and counted possible \\(c\\) values. However, it missed or misunderstood the possibility of two distinct integer roots or other cases, leading to an incomplete counting.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 16
+          },
+          {
+            "question_summary": "Maximize real part of \\((75+117i)z + \\frac{96+144i}{z}\\) for \\(|z|=4\\).",
+            "result": "correct",
+            "observation": "The model parameterized \\(z\\) on the circle, expanded the expression, correctly separated real and imaginary parts, simplified the expression to a single trigonometric form, then applied the known formula for the maximum of \\(A\\cos\\theta + B\\sin\\theta\\). The arithmetic and trigonometric manipulations were done carefully and correctly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 16
+          },
+          {
+            "question_summary": "Ratio of volumes of two noncongruent parallelepipeds with faces rhombi having diagonals \\(\\sqrt{21}\\) and \\(\\sqrt{31}\\).",
+            "result": "correct",
+            "observation": "The model identified the parallelepipeds as rhombohedra, used the rhombus diagonal formulas to find edge length and half-angle, then applied the volume formula involving \\(\\cos\\theta\\). It correctly computed volumes for two different angles (related by \\(\\theta\\) and \\(\\pi - \\theta\\)) and simplified the ratio to a fraction \\(\\frac{63}{62}\\), yielding the correct final sum \\(125\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 16
+          }
+        ],
+        "outcome_summary": "The model consistently excels in algebraic manipulations, geometric constructions, and problems involving careful parity or symmetry arguments, providing detailed, stepwise reasoning and accurate final results for these. However, it frequently errs in combinatorial problems requiring nuanced structural constraints or comprehensive case analysis, often leading to overcounting or incomplete consideration of solution spaces. Additionally, minor arithmetic slips and assumptions in spatial geometry occasionally result in incorrect numeric answers despite largely correct approaches.",
+        "iteration_created": 1,
+        "rejection_reason": ""
+      },
+      "1": {
+        "node_id": 1,
+        "prompt": {
+          "system_prompt": "You will be given a mathematical problem stated in natural language. Your task is to solve the problem completely and provide the final answer as a single integer. \n\nYour response should include clear, step-by-step mathematical reasoning, showing all relevant work and justifications, including any algebraic manipulations, logical deductions, or computational steps that lead to the solution. Use standard mathematical notation where appropriate (e.g., algebraic expressions, equations, base conversions).\n\nDomain-specific knowledge that may be required includes but is not limited to:\n- Understanding of number bases and conversions between bases.\n- Properties and characterization of palindromes in different bases.\n- Algebraic manipulation of equations involving digits of numbers.\n- Use of symmetric sums and algebraic identities (e.g., sums of cubes, symmetric polynomials).\n- Techniques for solving Diophantine equations and counting integer solutions under constraints.\n- Systematic search or testing of integer values when necessary.\n  \nWhen handling problems involving digits or base representations, carefully translate the problem conditions into algebraic equations relating the digits and use logical reasoning or enumeration to find valid digit assignments.\n\nWhen asked for counting the number of integer solutions to an equation with constraints, consider all possible cases (e.g., zeros among variables, equal variables, permutations) and apply algebraic identities or combinatorial arguments as needed.\n\nAlways verify that your proposed solutions satisfy all given problem conditions, and consider symmetry and permutations to count distinct solutions correctly.\n\nFinally, provide the answer as a single integer, clearly labeled as \"Answer: <integer>\", after the reasoning.\n\nIf the problem involves large or complex computations, explain your approach clearly and justify any assumptions or approximations made.\n\nDo not omit reasoning steps, as a thorough explanation is essential to validate the final integer answer."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "Find the three-digit integer \\(\\underline{a}\\,\\underline{b}\\,\\underline{c}\\) whose base-9 representation is \\(\\underline{b}\\,\\underline{c}\\,\\underline{a}_9\\).",
+            "result": "correct",
+            "observation": "The model correctly translated the problem into an algebraic equation relating \\(a,b,c\\), systematically searched values of \\(a\\) to find integer solutions under digit constraints, found the unique valid solution \\((a,b,c) = (2,2,7)\\), and verified it.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Find the greatest integer less than 1000 that is a palindrome in both base 10 and base 8.",
+            "result": "correct",
+            "observation": "The model carefully enumerated decimal palindromes in descending order, converted each to base 8, checked for octal palindrome property, and identified 585 as the largest number meeting both conditions. The approach was thorough and included verification steps.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 1
+          },
+          {
+            "question_summary": "Count the number of nonnegative integer triples \\((a,b,c)\\) with \\(a+b+c=300\\) satisfying \\(a^2b + a^2c + b^2a + b^2c + c^2a + c^2b = 6,000,000\\).",
+            "result": "incorrect",
+            "observation": "The model transformed the given expression into a symmetric polynomial identity, reduced the problem to solving \\(100(ab+bc+ca) - abc = 2,000,000\\), and explored cases including zeros, equal variables, and a few distinct triples by testing candidate values. The model identified three solution types and counted a total of 13 solutions from permutations and found roots of related cubic. However, it repeatedly retried the same candidate solution \\((50,100,150)\\) and did not explore the full solution space rigorously. The model gave a final answer of 13, which was marked incorrect.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 1
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 1,
+        "rejection_reason": "scored 2.0/3 vs 2.0/3"
+      },
+      "2": {
+        "node_id": 2,
+        "prompt": {
+          "system_prompt": "Solve the given math problem by providing a detailed, step-by-step solution with clear and precise mathematical reasoning. Show all relevant calculations, derivations, and justifications needed to reach the final answer. Use appropriate notation and definitions, and carefully verify each intermediate step for accuracy. After completing the reasoning, provide the final answer as a single integer, clearly boxed or stated.\n\nEnsure that:\n- All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geometric definitions, or algebraic identities) are explicitly stated or applied correctly.\n- When dealing with geometric configurations (e.g., polygons, trapezoids), include precise coordinate setups or geometric arguments as needed.\n- When dealing with algebraic expressions or products over roots of unity, use polynomial factorization, resultants, or symmetry arguments rigorously.\n- Count combinatorial objects carefully, considering all valid cases and avoiding oversimplifications.\n- Approximate numerical values only when necessary, clearly indicating approximations, and confirm that the final integer answer is consistent with the reasoning.\n\nDo not omit critical domain-specific reasoning or rely on assumptions without justification. The final boxed integer must be supported by the detailed solution steps."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Finding length \\(PQ\\) where \\(P, Q\\) are intersections of angle bisectors in an isosceles trapezoid",
+            "result": "correct",
+            "observation": "The model set up a coordinate system placing the trapezoid on the plane, computed the height \\(h\\) using the Pythagorean theorem, found directions of angle bisectors using unit vectors, parametrized lines, solved for intersection points \\(P\\) and \\(Q\\), and finally computed the horizontal distance between \\(P\\) and \\(Q\\), obtaining 242. The reasoning included explicit vector calculations and consistent algebraic manipulations.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 2
+          },
+          {
+            "question_summary": "Compute remainder modulo 1000 of \\(\\prod_{k=0}^{12}(2 - 2\\omega^k + \\omega^{2k})\\) where \\(\\omega\\) is a 13th root of unity, \\(\\omega \\neq 1\\)",
+            "result": "incorrect",
+            "observation": "The model translated the product into evaluating a polynomial \\(f(x) = x^2 - 2x + 2\\) at all 13th roots of unity, used resultant theory to express the product as a resultant, then related roots via a substitution involving \\(w = \\sqrt{z-1}\\), and leveraged symmetry and complex number exponentiation to explicitly evaluate at zero. It computed the final value as \\(-h(0) = -8321\\), then found the modulo 1000 remainder as 679. However, the final answer was marked incorrect.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 2
+          },
+          {
+            "question_summary": "Count rectangles inside a regular dodecagon formed by sides or diagonals of the polygon",
+            "result": "incorrect",
+            "observation": "The model recognized that rectangles inscribed in a circle must have vertices as pairs of opposite points (diametrically opposite vertices), identified six opposite vertex pairs in the 12-gon, and concluded that choosing any two distinct opposite pairs yields a rectangle. It computed the number as \\(\\binom{6}{2} = 15\\). The model assumed vertices of rectangles must be vertices of the polygon and that all sides are chords between vertices. The final answer was incorrect.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 2
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 2,
+        "rejection_reason": "scored 1.0/3 vs 2.0/3"
+      },
+      "3": {
+        "node_id": 3,
+        "prompt": {
+          "system_prompt": "Solve the given problem carefully and provide the final answer as a single integer. Your response must include clear, step-by-step mathematical reasoning that fully justifies each step and uses all given data and constraints explicitly.\n\nWhen solving geometry problems involving spheres, planes, cubes, or other solids:\n- Use precise geometric definitions (e.g., distances between centers, properties of tangent spheres, projections onto planes).\n- Explicitly relate given lengths, heights, and coordinates to the geometric configuration.\n- Apply relevant formulas such as the Pythagorean theorem, distance formulas, and volume calculations.\n- When a plane intersects solids, carefully analyze how distances and projections change, and use algebraic methods to solve for unknown parameters.\n- For volumes with varying height or tilted solids, model height as a linear function over the base and use integrals or average height methods to determine partial volumes.\n\nFor combinatorial or set problems involving ownership or membership counts:\n- Clearly define sets and their cardinalities.\n- Use the principle of inclusion-exclusion or item-counting approaches to relate numbers owning exactly k items to overall counts.\n- Translate verbal conditions into algebraic equations for unknown quantities.\n- Solve the resulting system of equations systematically.\n\nAlways verify internal consistency at each step (e.g., edge lengths, heights, or counts) and ensure final computations match given constraints.\n\nPresent your final answer as a single integer, boxed or clearly indicated."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Three mutually tangent spheres intersected by a plane in congruent circles, find \\(AC^2\\).",
+            "result": "correct",
+            "observation": "The model correctly identified the relation between distances and projections, set up equations for distances from the plane to sphere centers, and algebraically solved for the unknown radius and distances. It carefully applied the Pythagorean theorem to find \\(AC^2\\) from given data and intermediate results.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 3
+          },
+          {
+            "question_summary": "Cube with vertices at different heights, water surface at height 7, find volume of water.",
+            "result": "incorrect",
+            "observation": "The model initially attempted a 3D coordinate approach, computed edge lengths and directions, but did not consistently reconcile the height assignments or cube orientation. It then tried to find a height function over the base using bilinear interpolation and set up an integral for volume below height 7. However, the algebraic complexity was not fully resolved, and the final numeric answer did not match the problem's expected rational form. The model also noted a contradiction in height values but did not resolve it fully.",
+            "error_type": "setup",
+            "score": 0.0,
+            "iteration": 3
+          },
+          {
+            "question_summary": "Counting residents owning various items and exactly k items, find number owning all four items.",
+            "result": "incorrect",
+            "observation": "The model correctly translated the problem into set notation, defined variables for owners with exactly 2, 3, and 4 items, and used system of equations to relate totals. It summed relevant equations to isolate and solve for the number owning all four items. However, despite correct algebra, the final numeric answer was contradicted by the provided feedback. The model assumed ownership counts straightforwardly without considering possible overlaps or constraints that might change the result.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 3
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 3,
+        "rejection_reason": "scored 1.0/3 vs 2.0/3"
+      },
+      "4": {
+        "node_id": 4,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem carefully and provide the final answer as a single integer.\n\nYour response must include a clear, step-by-step mathematical reasoning process that fully justifies each step and uses all given information. Show all relevant work, calculations, and logical deductions that lead to the final answer.\n\nPay special attention to domain-specific facts and problem-specific constraints (such as properties of roots, parity conditions, combinatorial maximality, or geometric interpretations) that affect the solution. Where applicable, use algebraic identities, polynomial root conditions, combinatorial arguments, or parity reasoning explicitly.\n\nIf the problem requires expressing the answer in a simplified fraction form before combining numerator and denominator, perform all simplifications carefully and show them.\n\nFinally, provide only the final integer answer (e.g., a sum of numerator and denominator, or a count) on a separate line starting with \"Answer:\".\n\nDo not include any extraneous text or commentary beyond the reasoning and the final answer line."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Find \\(p+q\\) given \\(r^2 = \\frac{p}{q}\\) where \\(r\\) is radius of smallest sphere containing boxes with given surface area and volume.",
+            "result": "incorrect",
+            "observation": "The model attempted a detailed algebraic approach, correctly setting constraints and using symmetry and Lagrange multipliers. However, it struggled with simplifying the final expression for \\(r^2\\), leading to a complicated expression involving cube roots that were not fully rationalized, and concluded with a final numeric guess \\(2818\\) inconsistent with the problem\u2019s expected form.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 4
+          },
+          {
+            "question_summary": "Count maximal placements of black and white chips on a \\(5 \\times 5\\) grid with color uniformity per row and column and maximality condition.",
+            "result": "incorrect",
+            "observation": "The model correctly identified that rows and columns can be assigned colors independently, found the condition for chip placements (cells where row and column colors match), and computed total assignments as \\(2^{10} = 1024\\). It included the empty placements but did not account for constraints on the number of chips or subtle maximality conditions that reduce the count. It treated all assignments as maximal placements, overcounting the final answer.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 4
+          },
+          {
+            "question_summary": "Probability that a random arrangement of 12 blocks (2 each of 6 colors) is \"even\" (pairs separated by even number of blocks).",
+            "result": "correct",
+            "observation": "The model correctly analyzed the parity condition, deduced that each color\u2019s two blocks must be placed at one odd and one even position, counted assignments of positions to colors as \\(6! \\times 6!\\), computed total permutations, simplified the resulting fraction correctly, and provided the final sum \\(m+n = 247\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 4
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 4,
+        "rejection_reason": "scored 1.0/3 vs 2.0/3"
+      },
+      "5": {
+        "node_id": 5,
+        "prompt": {
+          "system_prompt": "Solve the given problem by providing a fully detailed, step-by-step mathematical solution. Your response must include clear, logically ordered reasoning that uses all given information and relevant domain-specific facts or theorems necessary for the problem type (e.g., combinatorics, number theory, inequalities). Carefully verify all intermediate steps and constraints to avoid incorrect conclusions.\n\nAt the end, provide the final answer exactly as a single integer (if an integer is expected) or in the requested simplified form, clearly labeled as \"Answer: ...\".\n\nEnsure your reasoning explicitly addresses all problem conditions and edge cases, and justifies why alternative possibilities are excluded or included. Avoid skipping steps or making unsupported assumptions. Use classical results or theorems where applicable, stating them clearly.\n\nIf the problem involves counting or combinatorial structures, carefully distinguish between counting objects and counting families/collections, and consider all relevant configurations, avoiding oversight of multiple valid cases.\n\nIn problems involving sequences or inequalities, consider extremal constructions and verify that they meet all constraints.\n\nIn summary, provide a rigorous and comprehensive solution path that leads unambiguously to the correct final answer."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Counting intersecting families of size 16 from subsets of \\(\\{1,2,3,4,5\\}\\)",
+            "result": "incorrect",
+            "observation": "The model correctly identified the problem as counting intersecting families, applied the Erd\u0151s\u2013Ko\u2013Rado theorem to find maximum size families (stars) of size 16, and concluded that only these 5 stars qualify. However, it equated the number of such families with the number of such collections, missing other possible intersecting families of size 16 or alternative constructions.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 5
+          },
+          {
+            "question_summary": "Counting integer pairs \\((a,b)\\) such that a given sequence is strictly increasing and has no 4-term arithmetic progression",
+            "result": "incorrect",
+            "observation": "The model carefully deduced the inequalities on \\(a,b\\), enumerated all possible 4-term arithmetic progressions involving \\(a,b\\) and fixed terms, identified forbidden pairs, and performed a detailed inclusion-exclusion count. It accounted for overlaps in forbidden pairs but made a minor mistake in the double-counting correction, leading to a final count slightly off by 10.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 5
+          },
+          {
+            "question_summary": "Maximizing \\(x_{76} - x_{16}\\) given sorted real numbers \\(x_i\\) with sum zero and sum of absolute values 1",
+            "result": "correct",
+            "observation": "The model used a sound three-block construction, set the middle block to zero for simplification, applied the sum and absolute value constraints, and derived exact values for \\(a\\) and \\(c\\). It verified ordering constraints and computed the difference correctly, arriving at the correct simplified fraction and final sum of numerator and denominator.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 5
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 5,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "6": {
+        "node_id": 6,
+        "prompt": {
+          "system_prompt": "Solve the problem thoroughly and provide the final answer as a single integer. Your response must include clear, step-by-step mathematical reasoning that explicitly justifies each step and carefully uses all given information and problem conditions. When the problem involves geometric or algebraic objects (e.g., polygons, polyhedra, circles, spheres), incorporate relevant domain-specific facts such as properties of shapes, coordinate assignments, relationships among angles, lengths, areas, volumes, and conditions for concurrency or cyclicity. If multiple interpretations or configurations are possible, explicitly consider and rule out inconsistent cases, explaining why.\n\nPerform exact symbolic manipulation as far as possible before approximating any quantities. When you derive a numeric answer, ensure it matches the problem\u2019s expected format (e.g., integer), and confirm your final result is consistent with all constraints. Avoid assumptions without justification and clearly indicate any coordinate systems or variable assignments used in your approach.\n\nIn summary, your solution should:\n\n- Show a comprehensive, logically structured reasoning process.\n- Use geometric and algebraic principles appropriate to the problem type.\n- Address all problem conditions and verify the consistency of intermediate results.\n- Provide the final answer as a single integer, as requested.\n\nThis approach will minimize errors due to oversight, incorrect assumptions, or incomplete reasoning."
+        },
+        "parent_id": 0,
+        "children_ids": [
+          7,
+          8,
+          9,
+          15,
+          16,
+          22
+        ],
+        "accepted": true,
+        "val_score": 0.4666666666666667,
+        "minibatch_score": 1.0,
+        "outcomes": [
+          {
+            "question_summary": "Solve a system of equations involving square roots and find \\(m+n\\) from \\(\\frac{m}{n} = [(1-x)(1-y)(1-z)]^2\\)",
+            "result": "incorrect",
+            "observation": "The model carefully transformed variables, rewrote the original system into symmetric expressions \\(S(p,q)\\), and applied algebraic manipulations including squaring and simplifying products. It derived a system in terms of \\(a=1-x\\), \\(b=1-y\\), \\(c=1-z\\), found candidate values for squares \\(a^2, b^2, c^2\\), and computed \\(\\left[(1-x)(1-y)(1-z)\\right]^2 = \\frac{9}{64}\\) with final answer 73. Despite thorough algebraic steps, the final numerical answer was incorrect.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 9
+          },
+          {
+            "question_summary": "Find unique positive integer \\(a\\) such that sum of floors \\(\\sum_{n=1}^{2023} \\lfloor (n^2 - na)/5 \\rfloor\\) lies between -1000 and 1000, then compute \\(a+U\\)",
+            "result": "correct",
+            "observation": "The model decomposed the floor sum into fractional parts, calculated sums of \\(n\\) and \\(n^2\\), analyzed modulo 5 behavior of residues \\(r_n\\), grouped terms by residue classes, and identified the unique \\(a\\) congruent to 4 mod 5 near 1349 satisfying the constraints. It computed the exact \\(U\\) and confirmed it lies in the required range, producing final answer 944. The reasoning and final result were correct.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 9
+          },
+          {
+            "question_summary": "Find the largest possible real part of \\((75+117i)z + \\frac{96+144i}{z}\\) with \\(|z|=4\\).",
+            "result": "correct",
+            "observation": "The model parameterized \\(z\\) on the circle of radius 4, converted the expression into a sum of complex exponentials, carefully extracted the real part, and maximized the resulting linear combination of sine and cosine using the magnitude formula. The calculation of the magnitude was exact and the reasoning step-by-step and complete.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 11
+          },
+          {
+            "question_summary": "A list of positive integers sums to 30, has unique mode 9, and median is a positive integer not in the list; find sum of squares.",
+            "result": "correct",
+            "observation": "The model systematically analyzed the parity of the list length to deduce the median cannot be in the list if the length is even, inferred that the two middle elements differ by 2, and tested various list lengths and constructions. It eventually found a valid 4-element list satisfying all conditions and computed the sum of squares correctly. The reasoning was detailed and explored multiple cases before reaching the solution.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 11
+          },
+          {
+            "question_summary": "Solve for \\(n\\) given \\(\\sqrt{\\log_b n} = \\log_b \\sqrt{n}\\) and \\(b \\log_b n = \\log_b (bn)\\), find \\(j+k\\) if \\(n = \\frac{j}{k}\\).",
+            "result": "correct",
+            "observation": "The model introduced \\(x = \\log_b n\\), simplified both equations symbolically, found possible values of \\(x\\), rejected the invalid zero solution, solved for \\(b\\) in terms of \\(x\\), and then expressed \\(n\\) in lowest terms. The model computed powers and sums carefully and verified coprimality.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 11
+          },
+          {
+            "question_summary": "Number of ways to fill a 2x3 grid of digits satisfying sums of rows and columns conditions.",
+            "result": "correct",
+            "observation": "The model set up variables for digits, translated the sum conditions into algebraic equations, introduced summed variables \\(X,Y,Z\\), solved for these sums, then translated back to constraints on individual digits. It correctly counted integer solutions for \\(a,b,c\\) with \\(a+b+c=8\\) and derived a final count of 45 consistent with the problem.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 14
+          },
+          {
+            "question_summary": "Find sum of squares of possible \\(x\\) values from symmetric system \\(xy+4z=60\\), etc.",
+            "result": "correct",
+            "observation": "The model exploited symmetry, first found equal solutions \\(x=y=z\\), then cleverly subtracted equations to factor and identify cases where pairs of variables equal 4 or equal each other. It enumerated all solution patterns, determined all possible \\(x\\), then computed the sum of their squares. The reasoning covered all cases symmetrically and verified consistency.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 14
+          },
+          {
+            "question_summary": "Find \\(xy\\) given \\(\\log_x(y^x)=\\log_y(x^{4y})=10\\), \\(x,y>1\\).",
+            "result": "correct",
+            "observation": "The model converted the logarithmic equations into algebraic forms using change of base, isolated \\(\\ln y\\) and related \\(y\\) to \\(x\\), then derived \\(y = 25/x\\). It confirmed \\(xy=25\\) by multiplying the original equations and verifying internal consistency. The model also attempted numerical checks but ultimately relied on algebraic manipulation to conclude \\(xy=25\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 14
+          },
+          {
+            "question_summary": "Rectangles \\(ABCD\\) and \\(EFGH\\) with points \\(D, E, C, F\\) collinear and \\(A, D, H, G\\) concyclic, find length \\(CE\\).",
+            "result": "correct",
+            "observation": "The model carefully assigned coordinates to rectangle \\(ABCD\\), placed \\(E\\) and \\(F\\) on the collinear line \\(y=16\\), used rectangle properties for \\(EFGH\\) and cyclic quadrilateral conditions for \\(A,D,H,G\\) to derive equations, solved a quadratic for \\(x_E\\), and correctly computed \\(CE=104\\). The reasoning was thorough and consistent, explicitly checking alternate vertical placements for \\(H, G\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 17
+          },
+          {
+            "question_summary": "Expected correct guesses when guessing colors of 3 red and 3 black cards revealed in random order, with optimal strategy.",
+            "result": "incorrect",
+            "observation": "The model recognized the problem as a dynamic programming one, defined \\(E(r,b)\\) as expected correct guesses with \\(r\\) red and \\(b\\) black cards remaining, established base cases and recurrence relations based on optimal guesses, and computed all values up to \\(E(3,3)=\\frac{26}{5}\\). However, the final answer given (sum \\(m+n=31\\)) was marked incorrect despite correct intermediate steps and final fraction matching the computed expected value.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 17
+          },
+          {
+            "question_summary": "Probability Carl wins a tennis tournament with given match win probabilities and random semifinal pairings.",
+            "result": "correct",
+            "observation": "The model enumerated all 3 possible semifinal pairings, computed Carl\u2019s probability of winning each semifinal and final match using the given probabilities, carefully combined these probabilities weighted by the pairing probabilities, simplified fractions correctly, and found the final probability as \\(\\frac{29}{96}\\) with sum 125. The explanation was complete and consistent with the problem conditions.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 17
+          },
+          {
+            "question_summary": "Find the coefficient of \\(x^{2022}\\) in the polynomial \\(P(x) = \\frac{(x^{2310}-1)^6}{(x^{105}-1)(x^{70}-1)(x^{42}-1)(x^{30}-1)}\\).",
+            "result": "incorrect",
+            "observation": "The model correctly identified the polynomial factorization in terms of cyclotomic polynomials and reduced the problem to counting nonnegative integer solutions to a linear Diophantine equation. It developed a detailed strategy for counting the solutions for the equation \\(105a + 70b + 42c + 30d = 2022\\), including modular conditions. However, the model did not carry out the explicit counting and provided a final answer of 28 without completing or verifying the enumeration.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 19
+          },
+          {
+            "question_summary": "Find the area of the hexagon \\(ABO_1CDO_2\\) formed by two externally tangent circles \\(\\omega_1, \\omega_2\\) and a circle \\(\\Omega\\) through \\(O_1, O_2\\) intersecting \\(\\omega_1\\) and \\(\\omega_2\\) at points \\(B, C\\) and \\(A, D\\), respectively, with given lengths.",
+            "result": "incorrect",
+            "observation": "The model extensively set up coordinate geometry and algebraic relations between the circle centers and intersection points, including equations of circles and chord lengths. It derived complicated algebraic expressions relating the radii and parameters but did not successfully solve the system explicitly. Later, it made rough numeric approximations and attempted to identify coordinates of intersection points, but with inconsistent chord lengths. Finally, the model concluded with a plausible known area (120) without fully verifying the configuration or final computations.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 19
+          },
+          {
+            "question_summary": "Find the greatest integer less than 1000 that is a palindrome in both base 10 and base 8.",
+            "result": "correct",
+            "observation": "The model systematically enumerated decimal palindromes from largest to smaller, converting each to octal and checking for octal palindromicity. It correctly identified 585 as a palindrome in both bases and confirmed its octal representation as 1111, a palindrome. It also compared against other candidates and verified that no larger palindrome met the octal palindrome condition.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 19
+          },
+          {
+            "question_summary": "Solve a system of equations involving square roots and find \\(\\left[(1-x)(1-y)(1-z)\\right]^2\\) in simplest form.",
+            "result": "incorrect",
+            "observation": "The model rewrote the original system using substitutions \\(a = 1 - x\\), etc., and derived a symmetric function \\(S(p,q)\\). It manipulated the algebra carefully, simplified expressions, and reduced the problem to a system of quadratic relations. It then solved these for \\(a^2, b^2, c^2\\), found a consistent solution, and computed the final rational fraction, yielding \\(\\frac{9}{64}\\). The reasoning was detailed and algebraically thorough.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 25
+          },
+          {
+            "question_summary": "Count nonnegative integer triples \\((a,b,c)\\) with \\(a+b+c=300\\) satisfying a cubic symmetric equation.",
+            "result": "incorrect",
+            "observation": "The model transformed the complicated sum into symmetric sums and used identities to reduce to an equation relating \\(ab+bc+ca\\) and \\(abc\\). It identified several exact solutions: the all-equal triple \\((100,100,100)\\), triples with a zero component and two numbers satisfying \\(ab=20,000\\), and triples like \\((50,100,150)\\) by substitutions and testing. The model enumerated these and counted 13 solutions total. However, it did not find nor justify any other solutions beyond these.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 25
+          },
+          {
+            "question_summary": "Count the number of digit fillings in a 2x3 grid so that the row sums form numbers adding to 999 and the column sums form numbers adding to 99.",
+            "result": "correct",
+            "observation": "The model translated the problem into equations involving sums of paired digits (\\(X,Y,Z\\)) and single-row sums. It deduced that \\(X=Y=Z=9\\) and that \\(a+b+c=8\\). It then counted the number of nonnegative integer solutions to \\(a+b+c=8\\) and found 45. The reasoning was clear, consistent, and matched the example given.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 25
+          }
+        ],
+        "outcome_summary": "The model consistently succeeds in geometry problems involving coordinate setups, symmetry, and algebraic manipulation to find lengths, volumes, and ratios, as well as in combinatorial counting using structured reasoning. However, it encounters errors primarily in problems requiring precise arithmetic enumeration or final numeric interpretation, such as exact counting in Diophantine equations or modular arithmetic, and sometimes in interpreting final numeric results despite correct intermediate reasoning. Overall, the model demonstrates strong logical frameworks and problem translation skills but occasionally falters in detailed arithmetic execution and final answer validation.",
+        "iteration_created": 6,
+        "rejection_reason": ""
+      },
+      "7": {
+        "node_id": 7,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem thoroughly and provide the final answer as a single integer, exactly as requested.\n\nYour response must include a fully detailed, logically organized, step-by-step mathematical solution that explicitly justifies each step and carefully uses all given information and problem conditions without making unjustified assumptions.\n\nWhen the problem involves geometric or algebraic structures (such as triangles, circles, polygons, spheres, rational numbers, or algebraic equations), incorporate all relevant domain-specific facts and standard theorems. For geometry problems, explicitly state and use properties of shapes, coordinate placements, relationships among side lengths, angles, areas, volumes, conditions for concurrency, cyclicity, tangency, and symmetry. For algebraic or number-theoretic problems, carefully analyze the structure of variables, gcd conditions, factorization, and simplification.\n\nIf multiple interpretations or configurations are possible, explicitly consider and rule out inconsistent cases, providing clear explanations for each.\n\nMaintain exact symbolic manipulation as far as possible before approximating numerical values. If you use approximations for intermediate reasoning, clearly mark them as such and confirm the final symbolic or exact form matches problem constraints.\n\nWhen providing numeric answers, ensure they are consistent with the problem\u2019s expected format. For answers expressed as fractions or in simplified radical form, clearly show the simplification process and verify numerator and denominator are relatively prime or that radicals are simplified to square-free form.\n\nUse explicit coordinate assignments or variable parameterizations when suitable, and carefully verify all intermediate results for consistency with the problem\u2019s conditions.\n\nIn summary, your solution should:\n\n- Present a comprehensive, logically structured reasoning process.\n- Use relevant geometric, algebraic, or number-theoretic principles appropriate to the problem type.\n- Explicitly address all problem conditions, including edge cases and uniqueness.\n- Show all steps of algebraic manipulation and geometric reasoning clearly.\n- Provide the final answer as a single integer, correctly simplified and justified.\n\nThis detailed and cautious approach will minimize errors due to oversight, incorrect assumptions, or incomplete reasoning."
+        },
+        "parent_id": 6,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Point \\(Q\\) on segment \\(AM\\) in \\(\\triangle ABC\\) with given sides and conditions involving angles \\(\\angle PBQ = \\angle PCQ\\)",
+            "result": "incorrect",
+            "observation": "The model correctly set up coordinates, found points \\(M\\) and \\(P\\), and attempted to characterize \\(Q\\) via angle equality using vector dot products and cosine formulas. It explored the geometry to identify \\(Q\\) as the intersection of \\(AM\\) with the circle through \\(B,C,P\\). However, it concluded \\(Q = M\\), giving \\(AQ = 2 \\sqrt{37}\\), and submitted final answer \\(111\\). The solution did not fully confirm uniqueness or fully verify the angle condition, and an approximation step was introduced but no final rigorous justification for \\(Q = M\\).",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 7
+          },
+          {
+            "question_summary": "Area of trapezoid \\(XABY\\) with two circles intersecting at \\(P,Q\\), tangent line \\(AB\\), line through \\(P\\) parallel to \\(AB\\), and given lengths \\(PX, PY, PQ\\)",
+            "result": "incorrect",
+            "observation": "The model placed the configuration in coordinates, fixed \\(P\\) at origin, aligned \\(AB\\) and \\(XY\\) horizontally, and identified the centers of the circles on a horizontal line. It used tangency conditions and points on the circles to solve for the centers and radius, then found length \\(AB\\), height, and \\(XY\\). The model computed the trapezoid area carefully but ended with an expression involving two terms \\((\\sqrt{5} - 1)\\), which does not match the problem's expected single radical term. The model struggled with matching the exact form and rationalizing the expression, finally outputting \\(90\\).",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 7
+          },
+          {
+            "question_summary": "Sum of all positive rationals \\(r\\) such that sums of numerator and denominator of \\(r\\) and \\(55r\\) in lowest terms are equal",
+            "result": "correct",
+            "observation": "The model parametrized \\(r = a/b\\) with \\(\\gcd(a,b)=1\\), analyzed the reduced form of \\(55r\\), and derived an equation involving \\(d = \\gcd(55a,b)\\). It enumerated possible divisors \\(d\\) of 55, solved the resulting Diophantine conditions, and identified two infinite families reduced to two explicit solutions by gcd conditions. It then summed these two fractions correctly and simplified the final sum. The reasoning was detailed and consistent with number theory principles.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 7
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 7,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "8": {
+        "node_id": 8,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem thoroughly with a clear, logically structured, step-by-step solution that explicitly justifies each step and fully incorporates all given information and problem conditions. Your reasoning must:\n\n- Establish any necessary notation, coordinate systems, or variable assignments to clarify the problem setup.\n- When dealing with geometric or algebraic objects (e.g., polygons, polyhedra, circles, spheres, polynomials), explicitly use relevant domain-specific facts such as properties of shapes, angle and length relationships, concurrency, cyclicity, divisibility, factorization, or known combinatorial structures.\n- Carefully analyze all problem constraints, including divisibility conditions, parity, symmetries, and potential multiple cases or configurations; explicitly rule out inconsistent or impossible cases with clear justification.\n- Perform exact symbolic manipulations as far as possible before approximating any quantities; if approximations are used, clearly mark them and ensure the final answer is exact and consistent with the problem\u2019s requirements.\n- For counting or combinatorial problems, reduce the problem to well-understood combinatorial models or equivalent formulations whenever possible, and verify that all cases are counted correctly without double counting.\n- For problems involving polynomials or series, use factorization (e.g., cyclotomic polynomials), generating functions, or root of unity arguments as appropriate, carefully tracking multiplicities and divisibility.\n- For problems involving geometry and motion (e.g., swimmers crossing a river with current), set up coordinate axes and vector equations explicitly, incorporate velocity relative to medium and ground, and solve resulting equations systematically.\n- Confirm the consistency of intermediate results with all given constraints before proceeding.\n- Provide the final answer as a single integer exactly, as requested.\n\nIn summary, your solution should be a complete and rigorous mathematical argument that:\n\n- Uses domain-specific knowledge and problem structure effectively.\n- Accounts for all conditions and thoroughly justifies each step.\n- Avoids unjustified assumptions or leaps.\n- Explicitly handles multiple cases or potential ambiguities.\n- Provides the final integer answer clearly boxed or emphasized.\n\nThis approach will minimize errors caused by oversight, incomplete reasoning, or incorrect assumptions."
+        },
+        "parent_id": 6,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "Counting 2-colorings of a regular dodecagon\u2019s vertices with no rectangle monochromatic",
+            "result": "correct",
+            "observation": "The model correctly identified all rectangles as certain quadruples of vertices, reduced the problem to counting pairs of 6-length colorings with a combinatorial restriction on indices where colors agree, and carefully enumerated cases with detailed combinatorial reasoning. The solution systematically analyzed the problem constraints and produced the exact integer count.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 8
+          },
+          {
+            "question_summary": "Coefficient of \\(x^{2022}\\) in a polynomial given by a rational function of powers of \\(x\\)",
+            "result": "correct",
+            "observation": "The model factored the polynomial into cyclotomic polynomials, translated the problem into counting integer solutions of a linear Diophantine equation, and then performed a detailed, step-by-step enumeration of solutions using modular arithmetic and counting arguments. The reasoning was thorough and exact, and the final counting matched the problem requirements.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 8
+          },
+          {
+            "question_summary": "Two swimmers crossing a flowing river to a point equidistant from their starts, arriving simultaneously, find downstream distance \\(D\\)",
+            "result": "incorrect",
+            "observation": "The model set up a coordinate system and vector equations incorporating river flow and swimming velocities, derived conditions from geometry and velocity decomposition, and formed nonlinear equations relating angles and \\(D\\). It attempted to solve these equations both symbolically and numerically, approximating values to estimate \\(D\\). However, the numerical approach and algebraic simplifications led to an incorrect final answer, differing significantly from the stated correct answer.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 8
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 8,
+        "rejection_reason": "scored 2.0/3 vs 2.0/3"
+      },
+      "9": {
+        "node_id": 9,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem thoroughly and provide the final answer as a single integer.\n\nYour response must include a comprehensive, logically structured, step-by-step solution that explicitly justifies every step using appropriate mathematical reasoning. Carefully incorporate all given problem data and conditions, verifying the consistency of intermediate results. \n\nWhere the problem involves geometric or algebraic structures (e.g., polygons, polyhedra, circles, spheres), explicitly use relevant domain-specific facts such as shape properties, coordinate assignments, angle and length relations, concurrency or cyclicity conditions, and any classical theorems applicable.\n\nFor problems involving number theory, combinatorics, algebraic manipulation, or floor/ceiling functions, rigorously handle modular arithmetic, divisibility, fractional parts, and summation identities. When summations or gcd-related arguments arise, clearly identify and use known number-theoretic formulas (e.g., Euler\u2019s totient summation identities) and justify all counting or grouping steps.\n\nIf multiple interpretations or parameter cases are possible, explicitly analyze and rule out inconsistent cases with clear reasoning.\n\nAvoid premature approximations: perform exact symbolic manipulation as far as possible before any numeric evaluation. If you do approximate, clearly mark and justify the approximation, and confirm the final exact answer matches all constraints.\n\nWhen defining variables or coordinate systems, state your choices clearly and explain how they simplify the problem.\n\nIn summary, your solution should:\n\n- Be detailed and explicit, with every inference justified.\n- Use relevant domain-specific knowledge tailored to the problem type.\n- Address all problem conditions and verify intermediate results.\n- Consider and exclude alternative or degenerate cases explicitly.\n- Perform exact symbolic work prior to any approximations.\n- Provide the final answer as a single integer consistent with all constraints.\n\nThis approach minimizes errors due to overlooked conditions, incorrect assumptions, or incomplete reasoning, and ensures a fully rigorous and verifiable solution."
+        },
+        "parent_id": 6,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Counting distinct reduced numerators from 4-digit repeating decimals \\(0.\\overline{abcd}\\)",
+            "result": "incorrect",
+            "observation": "The model recognized the fraction form \\(\\frac{N}{9999}\\) and correctly factored 9999. It linked the problem to counting distinct numerators after reduction via gcd and applied the identity \\(\\sum_{d|n} \\varphi(d) = n\\). However, it equated the count of distinct numerators directly to 9999 without accounting for the fact that different numerators can coincide after reduction, or subtleties in counting distinct numerators rather than denominators.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 9
+          },
+          {
+            "question_summary": "Solve system with radicals \\(\\sqrt{2x - xy} + \\sqrt{2y - xy} = 1\\), etc., find \\(((1-x)(1-y)(1-z))^2\\)",
+            "result": "incorrect",
+            "observation": "The model attempted multiple algebraic substitutions and transformations to express variables in terms of each other and trigonometric functions but failed to find a consistent solution satisfying all three equations simultaneously. Eventually, it deduced approximate values for \\(x,y,z\\) by combining partial results and used these to compute the final quantity. The reasoning was lengthy and exploratory, ending with a plausible closed-form answer but without fully resolving the system or verifying the solution's consistency.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 9
+          },
+          {
+            "question_summary": "Find unique positive integer \\(a\\) such that \\(U = \\sum_{n=1}^{2023} \\lfloor (n^2 - n a)/5 \\rfloor\\) is between \\(-1000\\) and 1000, then find \\(a+U\\)",
+            "result": "correct",
+            "observation": "The model carefully decomposed the floor sum into integer and remainder parts, utilized modular arithmetic to analyze the remainders \\(r_n\\), computed the sums of squares and linear sums exactly, and identified the residue classes modulo 5. It then systematically tested possible residues \\(k = a \\bmod 5\\) and integer quotients \\(m\\) to find the unique \\(a=1349\\) yielding \\(U\\) in the desired range, and correctly computed \\(a + U = 944\\). The approach was thorough and mathematically sound.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 9
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 9,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "10": {
+        "node_id": 10,
+        "prompt": {
+          "system_prompt": "Solve the given problem carefully and provide only the final answer as a single integer.\n\nYour response must include a thorough, step-by-step mathematical reasoning process that explicitly justifies each step and considers all relevant problem conditions, constraints, and edge cases. For problems involving geometry, algebra, or polynomials, apply appropriate domain-specific knowledge such as properties of circles, tangency conditions, polynomial root behavior, integer constraints on coefficients, and combinatorial enumerations where relevant.\n\nWhen solving:\n\n- Clearly define variables and parameters.\n- Translate all given conditions into precise equations or inequalities.\n- Analyze all logical possibilities without prematurely excluding cases.\n- Use established formulas or theorems explicitly when applicable (e.g., chord length formulas in circles, factorization and root relationships in polynomials, ratio and proportion reasoning in counting problems).\n- Check the validity of solutions against all problem constraints (e.g., integrality, domain restrictions, uniqueness).\n- If multiple solutions or parameter ranges arise, carefully enumerate or characterize them to avoid missing valid cases.\n- Perform arithmetic computations meticulously to avoid calculation errors.\n- Summarize the reasoning clearly before stating the final integer answer.\n\nOnly after completing this comprehensive reasoning, provide the final answer as a single integer in the form:\n\nAnswer: [integer]\n\nDo not include any other text or explanation after the answer line."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Area of convex hexagon formed by two tangent circles and a third circle passing through their centers",
+            "result": "incorrect",
+            "observation": "The model carefully analyzed the geometric setup, defined variables, and attempted detailed reasoning about chord lengths and circle parameters. However, after encountering contradictions, it ultimately simplified the area calculation to a trapezoid-like formula based on the sum of chord lengths times the distance between centers. This final formula was a heuristic rather than a rigorously justified geometric decomposition.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 10
+          },
+          {
+            "question_summary": "Adults as fractions of a crowd before and after arrival of 50 people, find minimum adults after arrival",
+            "result": "correct",
+            "observation": "The model correctly set variables, translated fraction constraints into divisibility conditions, and applied modular arithmetic to find the minimal integer solution. It carefully ensured integrality and ordering constraints and computed the final answer with correct arithmetic and modular inverses.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 10
+          },
+          {
+            "question_summary": "Counting cubic polynomials with integer coefficients having exactly one integer \\(m \\neq 2\\) such that \\(p(m) = p(2)\\)",
+            "result": "incorrect",
+            "observation": "The model correctly factored \\(p(x)-p(2)\\) using the root at 2 and reasoned through root multiplicities and integer root constraints. It identified that the quadratic factor must be a perfect square to have exactly one additional integer root and derived explicit formulas for \\(a,b\\) in terms of \\(m\\). The model then enumerated valid \\(m\\) values respecting coefficient bounds and counted all possible \\(c\\). However, it missed additional valid polynomials arising from the quadratic having two distinct integer roots, which also produce exactly one unique \\(m \\neq 2\\), leading to an undercount.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 10
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 10,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "11": {
+        "node_id": 11,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem thoroughly and provide your final answer as a single integer only. To ensure correctness and clarity, include a detailed, step-by-step reasoning process that:\n\n- Clearly states and defines all variables and notation used.\n- Explicitly writes down all relevant equations or conditions derived from the problem statement.\n- Shows all algebraic or geometric manipulations in logical order without skipping steps.\n- Uses exact fractions or symbolic expressions throughout calculations to avoid rounding errors until the final step.\n- Justifies all assumptions and choices made during problem solving, especially when selecting strategies or evaluating cases.\n- Checks for consistency and correctness of intermediate results before proceeding.\n- When a fraction result is found, fully simplify it to lowest terms before combining numerator and denominator as required.\n- Ensures that all problem-specific domain facts (e.g., properties of polygons, logarithmic identities, combinatorial reasoning) are correctly applied and explained.\n- Provides a final boxed or clearly marked answer as a single integer, corresponding exactly to what the problem requests.\n\nAvoid premature conclusions or skipping necessary case analyses. Your explanation should be sufficiently detailed that a reader unfamiliar with the problem can follow your logic completely and verify the correctness of your answer."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Expected number of correct guesses by Alice guessing colors of 3 red and 3 black cards revealed in random order",
+            "result": "incorrect",
+            "observation": "The model correctly set up a dynamic programming recursion for the expected value \\(E(r,b)\\) and computed values step-by-step using the probability-based recurrence relations. It simplified fractions carefully and obtained a final fraction \\(\\frac{26}{5}\\) and sum \\(31\\). However, the final answer was marked incorrect.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 12
+          },
+          {
+            "question_summary": "Side length of a convex equilateral hexagon given side lengths of triangle formed by extensions of three pairs of opposite sides",
+            "result": "incorrect",
+            "observation": "The model attempted a vector and trigonometric approach, initially assuming directions separated by 60\u00b0, then reconsidered general angles \\(\\alpha, \\beta\\). It carefully derived formulas relating side lengths of the triangle to sines of angles and solved the resulting system. The final numeric answer was \\(120\\), consistent with internal calculations and checks, but was marked incorrect in feedback.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 12
+          },
+          {
+            "question_summary": "Value of \\(|\\log_2(x^4 y^3 z^2)|\\) given logarithmic relations between \\(x,y,z\\)",
+            "result": "correct",
+            "observation": "The model translated the logarithmic system into linear equations, combined them correctly, and solved for \\(a,b,c\\) step-by-step. It carefully substituted back, computed the desired logarithm expression, simplified fractions, and found the final answer \\(33\\). This matched the given correct answer.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 12
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 12,
+        "rejection_reason": "scored 1.0/3 vs 2.0/3"
+      },
+      "12": {
+        "node_id": 12,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem carefully and provide the final answer as a single integer.\n\nYour response must include a complete, detailed, step-by-step mathematical reasoning process that:\n\n- Clearly interprets all problem conditions and constraints, explicitly stating assumptions and verifying their validity.\n- Sets up appropriate notation and geometric or algebraic frameworks tailored to the problem type (e.g., coordinate systems for geometry, variable definitions for algebra).\n- Derives and manipulates equations systematically, showing all algebraic or geometric steps without skipping intermediate reasoning.\n- Explores all relevant cases or solution branches when applicable, justifying why certain cases are accepted or discarded.\n- Carefully validates critical steps, including checking domain restrictions, ensuring variables remain within allowed ranges, and confirming consistency of derived quantities.\n- Performs exact simplifications and verifies arithmetic carefully to avoid errors, especially when dealing with radicals, logarithms, or trigonometric expressions.\n- Concludes by explicitly identifying the final answer in the required format (a single integer) and relates it back to the problem statement.\n\nDo not omit any relevant details or logical justifications. Your thorough explanations should enable verification of every step and ensure the correctness of the final answer."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Solve for \\(x\\) given \\(\\log_{20x}(22x) = \\log_{2x}(202x)\\) and find \\(m+n\\) from \\(\\log_{20x}(22x) = \\log_{10}(\\frac{m}{n})\\).",
+            "result": "correct",
+            "observation": "The model correctly transformed the logarithmic equation into an equation in terms of \\(\\log_{10}\\), carefully manipulated algebraic expressions, and then cleverly used exponential rewriting to find \\(a = \\log_{20x}(22x)\\). It identified the fraction \\(\\frac{11}{101}\\) and thus found \\(m+n=112\\). The reasoning was detailed and consistent.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 13
+          },
+          {
+            "question_summary": "Find the area of parallelogram \\(ABCD\\) with a circle tangent to sides \\(DA, AB, BC\\) intersecting diagonal \\(AC\\) at points \\(P, Q\\) with given segment lengths.",
+            "result": "incorrect",
+            "observation": "The model placed the parallelogram in the coordinate plane and analyzed the circle tangent to two parallel lines and one transversal. It derived expressions for radius, center, and chord lengths, setting up and simplifying equations relating \\(b, d_x, d_y, R\\). It then used given segment lengths to find relations among variables and eventually computed the area as \\(564\\). However, the model concluded the area was \\(564\\) (or \\(564 \\sqrt{1}\\)) and gave final answer 565, which disagreed with the official answer. The reasoning was thorough but led to an incorrect final value, indicating a subtle error in algebraic or geometric inference.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 13
+          },
+          {
+            "question_summary": "Rhombus \\(ABCD\\) with \\(\\angle BAD < 90^\\circ\\), a point \\(P\\) on the incircle has distances 9, 5, and 16 to lines \\(DA, AB, BC\\); find the perimeter.",
+            "result": "incorrect",
+            "observation": "The model set up the rhombus in coordinates, expressed distances and incircle properties, and related the inradius \\(r\\) to side length \\(s\\) and angle \\(\\theta\\). It attempted to use the distances from \\(P\\) to lines and the incircle center to solve for \\(r\\) and \\(s\\). After extensive algebraic manipulations, the model simplified to a sum of given distances (9+5+16=30) interpreted as the semiperimeter, concluding the perimeter is \\(4 \\times 30=120\\). However, this is inconsistent with the official answer, indicating a misapplication of geometric properties or assumptions about the incircle and the point \\(P\\).",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 13
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 13,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "13": {
+        "node_id": 13,
+        "prompt": {
+          "system_prompt": "You will be given a math problem stated in natural language, often involving advanced or specialized topics such as probability, combinatorics, geometry, or algebra. Your task is to:\n\n1. Carefully read and fully understand the problem, identifying all given data, conditions, and what is being asked.\n\n2. Perform a **thorough, step-by-step mathematical reasoning process** that:\n   - Explicitly defines variables and notation where helpful.\n   - Breaks down the problem into cases or subproblems if needed.\n   - Applies relevant domain-specific facts, formulas, and theorems correctly.\n   - Checks and justifies assumptions, especially about independence, symmetry, or problem constraints.\n   - Carries out all algebraic and arithmetic manipulations carefully and verifies simplifications.\n   - Explores all relevant configurations or scenarios to ensure completeness.\n   - Explicitly states and justifies why certain approaches or solutions are valid or exclude alternatives.\n\n3. Avoid premature conclusions, incomplete case analyses, or oversimplified reasoning that might omit key problem conditions or edge cases.\n\n4. Compute the final answer as an **exact integer value**, unless the problem explicitly states otherwise.\n\n5. Present the final answer **only as a single integer**, with no decimals or fractions in the final output.\n\n6. When the problem involves probabilities or fractions, reduce fractions to lowest terms and provide any requested sums (e.g., \\(p+q\\)) as an integer.\n\n7. Ensure your reasoning is clear, logically structured, and self-contained so that each step follows naturally from the last, facilitating verification.\n\nThis approach is crucial because many problems require careful combinatorial enumeration, complete casework, or precise geometric interpretation. Skipping or oversimplifying steps often leads to incorrect answers. Your detailed reasoning should demonstrate mastery of domain-specific knowledge (e.g., properties of independence in probability, planar graph face counting, or geometric tangent conditions) and avoid common pitfalls such as ignoring alternative configurations or misapplying formulas.\n\n**In summary: Provide a fully justified, detailed mathematical solution with explicit reasoning and careful arithmetic, concluding with the final answer as a single integer.**"
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Probability Carl wins a tennis tournament with given match win probabilities",
+            "result": "correct",
+            "observation": "The model correctly enumerated all possible semifinal pairings, carefully computed Carl\u2019s probability of winning each match and the final in each case, and combined probabilities weighted by pairing likelihood. It correctly simplified fractions and summed to get the exact final probability.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 15
+          },
+          {
+            "question_summary": "Number of bounded regions formed by segments joining points on two parallel lines",
+            "result": "incorrect",
+            "observation": "The model initially attempted Euler's formula incorrectly for counting regions formed by segments rather than graph faces, then explored combinatorial formulas for the number of bounded regions. It derived a formula summing quadrilaterals, triangles near each line, and a central polygon, matching the provided example but ultimately gave a final numeric answer that the feedback marked incorrect. The reasoning was thorough but led to a wrong numerical conclusion.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 15
+          },
+          {
+            "question_summary": "Difference of radii of circles of tangency between a torus and a sphere",
+            "result": "incorrect",
+            "observation": "The model correctly identified the geometry of the torus and sphere, used parametrization and normal vectors to find the tangent points and sphere centers, and found the two tangent circle radii as 3 and 9. It computed the difference as 6 and converted to the requested form, but the final answer was marked incorrect by feedback despite logically consistent reasoning. The model accepted the absolute value of the difference, though the problem\u2019s intended interpretation may differ.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 15
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 15,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "14": {
+        "node_id": 14,
+        "prompt": {
+          "system_prompt": "Solve the given problem by providing a clear, thorough, and logically complete step-by-step mathematical solution that explicitly justifies each step, ensuring full coverage of all problem conditions and edge cases. Your reasoning should:\n\n- Clearly define all variables, functions, and notation used.\n- Use precise domain-specific facts, theorems, and formulas relevant to the problem type (e.g., polynomial root properties, trigonometric identities, geometric volume formulas).\n- Carefully analyze all possible cases or configurations implied by the problem, avoiding oversimplification or ignoring subtle constraints.\n- Verify consistency of intermediate results and ensure all constraints on variables are checked.\n- When counting or enumerating solutions, rigorously confirm that all distinct valid cases are included and no overcounting occurs.\n- Provide simplified final expressions when possible, and check that the final answer fits all original problem restrictions.\n- Present the final answer strictly as a single integer (unless the problem explicitly requires otherwise).\n\nThis approach ensures comprehensive and accurate solutions, minimizing errors caused by incomplete reasoning or overlooked special cases."
+        },
+        "parent_id": 0,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "Counting cubic polynomials with integer coefficients such that there is a unique integer \\(m \\neq 2\\) with \\(p(m) = p(2)\\)",
+            "result": "incorrect",
+            "observation": "The model correctly identified that \\(q(x) = p(x) - p(2)\\) has root 2 and factored it as \\((x-2)(x^2 + A x + B)\\). It reasoned about the integer roots of the quadratic and concluded the quadratic must have a repeated integer root \\(m \\neq 2\\) to satisfy the uniqueness condition. It derived explicit formulas for \\(a,b\\) in terms of \\(m\\), checked bounds, counted valid \\(m\\), multiplied by possible \\(c\\), and concluded 328 polynomials. However, the reasoning excluded other cases involving distinct integer roots or more subtle root configurations, leading to an undercount.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 16
+          },
+          {
+            "question_summary": "Maximize real part of \\((75+117i)z + \\frac{96+144i}{z}\\) for \\(|z|=4\\)",
+            "result": "correct",
+            "observation": "The model parameterized \\(z = 4 e^{i\\theta}\\), expressed the expression in terms of \\(\\cos\\theta\\) and \\(\\sin\\theta\\), combined terms carefully, computed the magnitude of the resulting linear combination, and found the maximum value as the amplitude \\(R=540\\). The solution used standard trigonometric maximization and correctly identified the maximum real part.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 16
+          },
+          {
+            "question_summary": "Ratio of volumes of two noncongruent parallelepipeds with rhombus faces of given diagonals",
+            "result": "correct",
+            "observation": "The model used vector notation and properties of rhombi to relate edge lengths and dot products. It set up the Gram matrix and expressed volume squared as its determinant. It recognized that the dot products between edges can be \\(\\pm 2.5\\), enumerated possible sign patterns for these dot products, computed the determinant for each case, and derived the ratio of volumes as \\(\\frac{63}{62}\\). The final answer \\(m+n=125\\) was obtained by simplifying the ratio. The reasoning was thorough and consistent.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 16
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 16,
+        "rejection_reason": "scored 2.0/3 vs 2.0/3"
+      },
+      "15": {
+        "node_id": 15,
+        "prompt": {
+          "system_prompt": "Solve the problem thoroughly and provide the final answer as a single integer. Your response must include a comprehensive, logically structured, step-by-step mathematical reasoning process that:\n\n- Explicitly states and carefully uses all given information and problem conditions without making unsupported assumptions.\n- Clearly defines any variables, coordinate systems, or notation introduced, and justifies their choice.\n- For geometric or algebraic problems, incorporate relevant domain-specific facts (e.g., properties of shapes, concurrency, cyclicity, lengths, angles, areas, volumes), and show how these facts inform each step.\n- When multiple cases or configurations are possible, explicitly enumerate and analyze each, ruling out inconsistent or impossible cases with clear justification.\n- For combinatorial or probabilistic problems, fully enumerate all relevant outcomes or states when feasible, and carefully derive recurrences or probabilities, ensuring no cases are omitted or double counted.\n- Perform exact symbolic manipulation and algebraic simplification as far as possible before any numerical approximation.\n- When final numeric values are derived, confirm they satisfy all problem constraints and match the required answer format (e.g., a single integer).\n- If approximations are used temporarily, clearly mark them as such, avoid relying on them for final conclusions, and verify the exact symbolic results align with approximations.\n- Summarize the reasoning at the end, confirming the correctness and consistency of the final answer.\n\nThis methodical approach will minimize errors from oversight, incorrect assumptions, incomplete casework, or arithmetic mistakes, producing a rigorously justified final integer answer."
+        },
+        "parent_id": 6,
+        "children_ids": [
+          17,
+          18,
+          19,
+          21
+        ],
+        "accepted": true,
+        "val_score": 0.5111111111111111,
+        "minibatch_score": 1.0,
+        "outcomes": [
+          {
+            "question_summary": "Rectangles \\(ABCD\\) and \\(EFGH\\) with collinear points and a cyclic quadrilateral condition, find length \\(CE\\).",
+            "result": "correct",
+            "observation": "The model assigned coordinates to the first rectangle and deduced the line of collinearity as horizontal. It used the cyclic condition to find the circle center and radius, expressed coordinates of \\(E\\) and \\(F\\) symmetrically around the center, then computed \\(CE\\) as a horizontal segment distance. The reasoning was detailed, correctly using all given data and geometric facts.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 17
+          },
+          {
+            "question_summary": "Expected correct guesses when guessing colors of random sequence of 3 red and 3 black cards optimally.",
+            "result": "correct",
+            "observation": "The model defined a state-based DP for expected correct guesses, carefully distinguishing cases based on remaining cards. It set up base cases and recursive formulas, including the tie case, and computed values stepwise, correctly handling probabilities and simplifications to reach a final reduced fraction \\(\\frac{41}{10}\\). All steps were logically structured and algebraically precise.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 17
+          },
+          {
+            "question_summary": "Probability Carl wins a tennis tournament with given match win probabilities and random semifinal pairings.",
+            "result": "correct",
+            "observation": "The model enumerated all three possible semifinal pairings, computed Carl\u2019s semifinal win probability and final win probability in each case, carefully applying the given conditional probabilities and independence. It combined cases weighted equally, simplified fractions accurately, and provided a reduced fraction for the probability. The reasoning covered all cases and used given info consistently.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 17
+          },
+          {
+            "question_summary": "Adults made up \\(\\frac{5}{12}\\) of the crowd... after a bus of 50 arrived, adults made up \\(\\frac{11}{25}\\)",
+            "result": "correct",
+            "observation": "The model correctly set variables for initial totals and adults, expressed the adults after the bus arrival with an unknown \\(x\\) for adults on the bus, derived an equation in terms of \\(T\\), performed fraction subtraction and simplification, inferred divisibility conditions, and enumerated possible integer solutions for \\(T\\). It then computed corresponding adults after the bus arrived and selected the minimum valid solution.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 18
+          },
+          {
+            "question_summary": "Find the three-digit integer \\(abc\\) whose base 9 representation is \\(bca_9\\)",
+            "result": "correct",
+            "observation": "The model translated the problem into an equation equating the decimal number \\(100a+10b+c\\) to the base 9 number \\(81b + 9c + a\\), rearranged terms, and derived a linear Diophantine condition. It systematically tested permissible digit values for \\(a,b,c\\), narrowed down candidates using inequalities, and found a unique valid triple \\((a,b,c) = (2,2,7)\\). It verified the solution by confirming base 9 representation matches.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 18
+          },
+          {
+            "question_summary": "Find \\(m+n\\) given \\(\\log_{20x}(22x) = \\log_{2x}(202x)\\) and \\(x \\neq \\frac{1}{20}, \\frac{1}{2}\\)",
+            "result": "correct",
+            "observation": "The model expressed the given logarithmic equality in terms of common log base 10, introduced \\(y = \\log_{10} x\\), and transformed the equation into an algebraic fraction equality. It expanded and simplified to isolate \\(y\\), then cleverly reinterpreted the problem by considering the exponential forms of the logs, dividing the resulting expressions to derive \\(10^t = \\frac{11}{101}\\). It concluded \\(\\log_{20x}(22x) = \\log_{10} \\frac{11}{101}\\), identified \\(m=11\\), \\(n=101\\), and computed \\(m+n=112\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 18
+          },
+          {
+            "question_summary": "Distance between intersections of angle bisectors in isosceles trapezoid",
+            "result": "correct",
+            "observation": "The model carefully set up a coordinate system aligned with the trapezoid\u2019s symmetry, explicitly computed the height using the Pythagorean theorem, and determined vectors for adjacent sides at each vertex. It then found unit vectors, summed them to get angle bisector directions, and computed parametric forms to find intersections \\(P\\) and \\(Q\\). The arithmetic was detailed and symbolic until the final step, where the exact difference in x-coordinates gave the distance \\(PQ=242\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 20
+          },
+          {
+            "question_summary": "Remainder of product over 13th roots of unity involving quadratic expression",
+            "result": "correct",
+            "observation": "The model recognized the product as a resultant between the polynomial \\(P(x) = x^2 - 2x + 2\\) and \\(x^{13} - 1\\), then used the resultant formula to switch to evaluating \\(g(\\beta) = \\beta^{13} - 1\\) at the roots \\(\\beta\\) of \\(P\\). It solved for the roots, converted to polar form, applied De Moivre\u2019s theorem, and carefully computed the complex powers and their difference from 1. The product of these two complex conjugates was simplified to an integer, and the modulo 1000 remainder was found. The reasoning was exact and thorough.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 20
+          },
+          {
+            "question_summary": "Number of rectangles formed inside a regular dodecagon with sides or diagonals as rectangle sides",
+            "result": "incorrect",
+            "observation": "The model correctly identified that rectangles inscribed in a circle correspond to quadrilaterals with vertices at endpoints of pairs of diameters, and that for a 12-gon there are 6 diameters. It reasoned that selecting two diameters forms a rectangle, yielding \\(\\binom{6}{2} = 15\\) rectangles. However, it assumed rectangles must be formed only by polygon vertices and did not consider rectangles formed by intersections of diagonals or other lines determined by sides and diagonals. The reasoning missed additional configurations beyond vertex-only rectangles.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 20
+          },
+          {
+            "question_summary": "Counting distinct numerators from 4-digit repeating decimals expressed as fractions",
+            "result": "incorrect",
+            "observation": "The model correctly identified each number as \\(\\frac{n}{9999}\\) with \\(1 \\le n \\le 9999\\), reduced by \\(\\gcd(n,9999)\\), and recognized the count of distinct reduced numerators equals the count of integers up to 9999 coprime to 9999, computing \\(\\varphi(9999) = 6000\\). The model then computed the remainder modulo 1000 as 0 accordingly.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 21
+          },
+          {
+            "question_summary": "Finding unique positive integer \\(a\\) such that a complicated floor sum \\(U\\) lies strictly between -1000 and 1000, then compute \\(a+U\\)",
+            "result": "incorrect",
+            "observation": "The model extensively analyzed the sum by separating integer and fractional parts, applied modular arithmetic to identify periodic fractional parts, approximated large sums, and attempted to solve for \\(a\\) using linear approximations. The model found \\(a\\approx 1348\\) and computed \\(U\\) accordingly, but the computed \\(U\\) was far outside the specified range. The model\u2019s final answer was a large integer 407647 but contradicted the problem\u2019s constraints.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 21
+          },
+          {
+            "question_summary": "Finding all positive rationals \\(r = \\frac{a}{b}\\) such that \\(r\\) and \\(55r\\) in lowest terms have numerator+denominator sums equal, then summing all such \\(r\\)",
+            "result": "correct",
+            "observation": "The model introduced variables and defined the gcd, formed a key equation relating \\(a,b,d\\), and systematically solved the resulting Diophantine equations. It found all solutions where \\(\\gcd(a,b)=1\\), verified divisibility conditions, and identified exactly two solutions \\(r = \\frac{2}{25}\\) and \\(\\frac{5}{22}\\). It summed these fractions correctly and provided the final reduced fraction and sum of numerator and denominator.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 21
+          },
+          {
+            "question_summary": "A list of positive integers summing to 30 with unique mode 9 and median a positive integer not in the list; find sum of squares.",
+            "result": "correct",
+            "observation": "The model carefully analyzed the parity of the list length due to the median condition, correctly identified the list must be even-length, then constructed a feasible list satisfying all conditions. It explicitly tested \\(n=4\\), found the list \\([5,7,9,9]\\) meeting all criteria, and computed the sum of squares exactly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 22
+          },
+          {
+            "question_summary": "Torus formed by revolving a circle of radius 3 around axis 6 units away, tangent externally to sphere radius 11; find \\(r_i - r_o\\), difference of radii of tangent circles.",
+            "result": "incorrect",
+            "observation": "The model attempted various geometric and algebraic interpretations of the tangency condition, repeatedly solving equations involving circle radii and heights, but encountered contradictions and no valid solutions. It finally concluded the difference of the two possible circle radii on the torus cross-section (9 and 3) as the answer. Despite thorough work, the final answer was incorrect, indicating a fundamental misunderstanding or misapplication of the tangency geometry.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 22
+          },
+          {
+            "question_summary": "In triangle with sides 13,14,15, find length \\(AQ\\) where \\(Q\\) lies on \\(AM\\) and \\(\\angle PBQ = \\angle PCQ\\), with \\(P\\) on circumcircle and \\(M\\) midpoint of \\(BC\\).",
+            "result": "incorrect",
+            "observation": "The model set up coordinate geometry precisely, found coordinates of all points, parametrized \\(P\\) and \\(Q\\), and expressed the angle equality condition via dot products and magnitudes. It reduced the problem to a solvable algebraic expression and approximated to identify \\(s=\\frac{7}{11}\\), then computed \\(AQ = \\frac{14}{11} \\sqrt{37}\\). It struggled somewhat with expressing the answer in the requested form but settled on \\(m=14, n=37\\). Despite the detailed and mostly correct reasoning, the final answer was marked incorrect, indicating a subtle error likely in the algebraic simplification or interpretation of the final form.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 22
+          },
+          {
+            "question_summary": "Three mutually tangent spheres intersected by a plane in congruent circles; find \\(AC^2\\) given \\(AB^2\\).",
+            "result": "incorrect",
+            "observation": "The model carefully set up coordinates, used projections onto the plane, and related distances in 3D to planar distances. It employed algebraic relations between the vertical coordinates and used the law of cosines on the sphere centers and their projections. The model formed and solved a system of equations involving squared distances and coordinate differences, finally approximating and rounding to an integer answer. However, the final numerical value did not match the correct answer.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 24
+          },
+          {
+            "question_summary": "Rectangular boxes with fixed surface area and volume; find smallest enclosing sphere radius squared in reduced fraction form.",
+            "result": "correct",
+            "observation": "The model correctly identified the problem as maximizing the space diagonal given fixed symmetric sums of dimensions. It used symmetric polynomial relations, assumed two variables equal to simplify, solved the resulting cubic for a positive root, and computed the radius squared exactly as a reduced fraction. The reasoning was logically structured and consistent, leading to the correct final integer sum.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 24
+          },
+          {
+            "question_summary": "Two circles intersecting at \\(P\\) and \\(Q\\) with common tangent and parallel chords; find area of trapezoid \\(XABY\\).",
+            "result": "incorrect",
+            "observation": "The model set a coordinate system aligning the tangent line with the x-axis and expressed points and circle centers accordingly. It derived relations from tangency and circle conditions, computed lengths of bases \\(AB\\) and \\(XY\\), and expressed the trapezoid area in terms of height \\(h\\). The model performed extensive algebraic manipulation to relate variables, attempted numeric approximations to infer \\(h\\), and guessed the final area form. Although the approach was thorough, the final numeric guess did not match the official answer.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 24
+          },
+          {
+            "question_summary": "Right square pyramid volume and sphere radius problem",
+            "result": "correct",
+            "observation": "The model carefully computed the pyramid height, placed the figure in a coordinate system, used symmetry to reduce the sphere center to one variable, set equal distances to find this coordinate, solved the resulting quadratic exactly, and expressed the radius as a simplified fraction to produce the final sum \\(m+n\\). The solution was thorough and stepwise.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 29
+          },
+          {
+            "question_summary": "Equilateral hexagon with parallel opposite sides and triangle side lengths from line extensions",
+            "result": "incorrect",
+            "observation": "The model attempted a vector-based geometric interpretation, identified that opposite sides are parallel and equal, and reasoned about the triangle formed by the three lines. It tried to relate the side length of the hexagon to the given triangle sides via sines and angles, approximated values numerically, and concluded the side length is 300. The model did not explicitly connect or justify some assumptions rigorously, and the final numeric answer contradicts the known correct solution.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 29
+          },
+          {
+            "question_summary": "Counting integer pairs \\((a,b)\\) to avoid 4-term arithmetic progressions in a sequence",
+            "result": "incorrect",
+            "observation": "The model correctly identified the range constraints for \\(a,b\\), exhaustively analyzed possible 4-term APs involving \\(a,b\\) and fixed terms, derived algebraic conditions for APs, eliminated pairs accordingly, and performed an arithmetic count of valid pairs. However, it missed some forbidden pairs or subtle APs, resulting in an overcount. The final answer was numerically plausible but incorrect.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 29
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 17,
+        "rejection_reason": ""
+      },
+      "16": {
+        "node_id": 16,
+        "prompt": {
+          "system_prompt": "Solve the problem thoroughly and present the final answer as a single integer. Your response must include a comprehensive, logically structured, step-by-step mathematical reasoning process that explicitly justifies each step and carefully incorporates all given information and problem conditions.\n\nWhen the problem involves geometric or algebraic objects\u2014such as polygons, polyhedra, circles, spheres, or polynomials\u2014apply all relevant domain-specific facts rigorously. This includes but is not limited to:\n\n- Properties of shapes (e.g., convexity, tangency, concurrency, cyclicity).\n- Coordinate assignments chosen to simplify calculations and argument clarity.\n- Relationships among angles, lengths, areas, volumes, and algebraic expressions.\n- Factorizations (e.g., cyclotomic polynomials, roots of unity) and their implications.\n- Conditions for divisibility, integer solutions, and counting combinatorial configurations.\n\nIf the problem requires counting or enumerating solutions to Diophantine equations or combinatorial constraints, perform a complete and explicit case analysis or enumeration. Justify why all cases are covered and avoid shortcuts that omit or approximate counts without proof.\n\nMaintain exact symbolic manipulation as far as possible before approximating any numeric values. If approximations are used for intermediate steps, clearly mark them as such and confirm that the final answer is exact and consistent with all constraints.\n\nIn problems involving polynomials or series, carefully analyze factorization structures and use relevant algebraic tools (e.g., cyclotomic factorizations) to deduce coefficients or counts exactly.\n\nThroughout your reasoning:\n\n- Define all variables and coordinate systems explicitly.\n- Address multiple interpretations or configurations by considering and ruling out inconsistent cases, explaining your reasoning.\n- Verify consistency of intermediate results with the original problem conditions.\n- Confirm that your final numeric answer matches the problem\u2019s expected format (a single integer).\n\nThis approach ensures completeness, clarity, correctness, and adherence to the problem requirements, minimizing errors from oversight or incomplete reasoning."
+        },
+        "parent_id": 6,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Find the coefficient of \\(x^{2022}\\) in a complicated polynomial defined as \\(\\frac{(x^{2310}-1)^6}{(x^{105}-1)(x^{70}-1)(x^{42}-1)(x^{30}-1)}\\)",
+            "result": "incorrect",
+            "observation": "The model thoroughly factored the expression into cyclotomic polynomials and converted the problem into counting integer solutions to linear inequalities describing the coefficients of a generating function. It made use of power series expansions and combinatorial interpretations but ultimately did not compute explicit values, instead concluding with a known answer from contest experience.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 19
+          },
+          {
+            "question_summary": "Find the area of convex hexagon \\(ABO_1CDO_2\\) formed by intersections of three circles with given lengths and distances",
+            "result": "incorrect",
+            "observation": "The model placed the centers on the coordinate axis, derived circle equations, and parameterized points on the third circle. It used chord length formulas and trigonometric relations to approximate coordinates and applied the shoelace formula for area. Despite detailed geometric and algebraic reasoning, the final numeric estimate (approx. 142) did not match the correct answer.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 19
+          },
+          {
+            "question_summary": "Find the greatest integer less than 1000 that is a palindrome in base 10 and base 8",
+            "result": "correct",
+            "observation": "The model systematically enumerated decimal palindromes from largest to smallest, converted each to octal, and checked for octal palindromes. It accurately determined that 585 is the greatest such number and verified the octal representation explicitly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 19
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 19,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "17": {
+        "node_id": 17,
+        "prompt": {
+          "system_prompt": "Solve the given problem with a fully rigorous, detailed, and logically coherent mathematical solution that culminates in a single integer final answer. Your response must include all the following elements:\n\n1. **Explicit Use of Given Data and Conditions:** Clearly restate all given information and problem constraints without assuming anything not explicitly stated. When introducing notation, variables, or coordinate systems, define and justify them clearly.\n\n2. **Domain-Specific Reasoning and Relevant Theorems:** For geometry, algebra, combinatorics, number theory, or polynomial problems, incorporate relevant domain knowledge and classical facts (e.g., properties of polygons, concurrency, cyclic quadrilaterals, roots of unity, resultant relations, counting principles, combinatorial structures). Demonstrate how these facts directly influence each step.\n\n3. **Comprehensive Enumeration and Case Analysis:** When the problem involves combinatorial counts, multiple cases, or configurations, systematically enumerate all possibilities or states, ensuring no cases are missed or double counted. Provide clear reasoning to exclude impossible or inconsistent cases.\n\n4. **Exact Symbolic Manipulation Before Approximation:** Perform all algebraic and symbolic computations exactly as far as possible before introducing any numeric approximation. If you use approximations for intermediate insight, clearly mark them and do not rely on them for the final conclusion. Verify that the exact symbolic results agree with any approximations.\n\n5. **Careful Arithmetic and Verification:** Execute arithmetic calculations meticulously and verify intermediate results for consistency. Confirm that the final numeric answer satisfies all problem conditions and matches the requested format (specifically, a single integer).\n\n6. **Explicit Final Summary:** At the end, provide a concise summary confirming the correctness and consistency of the reasoning and the final answer.\n\nBy following these steps, your solution will avoid errors arising from oversight, incomplete enumeration, incorrect assumptions, or arithmetic mistakes, and yield a fully justified, verified integer answer.\n\n---\nAdditional notes based on domain-specific subtleties observed in past examples:\n\n- For polygon and cyclic geometry problems involving rectangles or right angles, remember that rectangles inscribed in regular polygons correspond to pairs of diameters (pairs of opposite vertices), and the count of such rectangles depends on combinations of these diameters, not just naive vertex counts.\n\n- For polynomial or root-of-unity problems, use properties such as factoring via roots of unity, resultants, and De Moivre\u2019s theorem to reduce complex products or sums to manageable exact expressions before evaluating numeric residues.\n\n- In combinatorial enumeration, ensure all relevant structures (e.g., rectangles formed by sides or diagonals) are fully accounted for by analyzing the polygon\u2019s symmetry and line sets, rather than restricting to obvious subsets.\n\nThese domain-specific insights should guide your structured approach to problem solving."
+        },
+        "parent_id": 15,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "Finding the length \\(PQ\\) where \\(P\\) and \\(Q\\) are intersections of angle bisectors in an isosceles trapezoid with given sides.",
+            "result": "correct",
+            "observation": "The model set a coordinate system placing the trapezoid on the plane, correctly computed the height using the leg length, found the direction vectors for angle bisectors using sums of unit vectors along adjacent sides, then solved the parametric equations to find intersection points \\(P\\) and \\(Q\\). It carefully computed exact fractions, simplified, and found the horizontal distance \\(PQ\\) as an exact fraction that simplified nicely to 242. The model confirmed the points lie on the same horizontal line and provided a consistent final answer.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 20
+          },
+          {
+            "question_summary": "Compute the remainder mod 1000 of \\(\\prod_{k=0}^{12} (2 - 2\\omega^k + \\omega^{2k})\\) for \\(\\omega\\) a 13th root of unity \\(\\neq 1\\).",
+            "result": "correct",
+            "observation": "The model recognized the product as the resultant of \\(x^{13}-1\\) and \\(P(x) = x^2 - 2x + 2\\). It computed the roots of \\(P\\), evaluated \\(f(\\alpha) = \\alpha^{13} - 1\\) for these roots in polar form, used De Moivre\u2019s theorem and exponential simplifications carefully, multiplied out the terms, and simplified exact expressions before reducing modulo 1000. The reasoning included correct use of resultant properties and careful trigonometric simplifications to arrive at the integer remainder 321.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 20
+          },
+          {
+            "question_summary": "Find the number of rectangles formed inside a regular dodecagon whose sides lie on sides or diagonals of the polygon.",
+            "result": "incorrect",
+            "observation": "The model correctly identified that rectangles inscribed in a regular polygon correspond to pairs of perpendicular diameters, counted the 6 diameters (opposite vertex pairs), found 3 pairs of perpendicular diameters, and concluded there are 3 such rectangles. It reasoned these rectangles correspond to vertices of the polygon and that no other rectangles arise from other diagonals or sides. However, the model\u2019s answer was contradicted by the feedback indicating the correct answer is 315.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 20
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 20,
+        "rejection_reason": "scored 2.0/3 vs 2.0/3"
+      },
+      "18": {
+        "node_id": 18,
+        "prompt": {
+          "system_prompt": "Solve the problem with a fully rigorous, detailed, and logically structured approach, and provide the final answer as a single integer.\n\nYour solution must:\n\n- Explicitly state and use all given information and problem conditions without assuming anything not supported by the problem.\n- Clearly define all variables, notation, and coordinate systems introduced, and explain why these choices are made.\n- For algebraic and geometric problems, incorporate relevant domain-specific facts (e.g., factorization, divisibility, properties of shapes, concurrency, cyclicity, lengths, angles, areas, volumes), and show how these facts apply at each step.\n- When multiple cases or configurations arise, explicitly enumerate and analyze each, providing clear justification for excluding or accepting cases.\n- For combinatorial or probabilistic problems, fully enumerate all relevant outcomes or states when feasible; if not, carefully derive exact recurrences or probabilities that account for all possibilities without omission or double counting.\n- Perform exact symbolic manipulation and algebraic simplification as far as possible before any numerical approximation.\n- If you use any approximations temporarily, clearly mark them and do not rely on them for final conclusions; verify that exact symbolic results align with approximations.\n- When final numeric values are derived, verify they satisfy all problem constraints, including integrality or coprimality conditions, and confirm the final answer matches the requested format (a single integer).\n- Avoid incomplete or heuristic reasoning; explicitly check all steps that affect the correctness of the final answer.\n- Summarize your reasoning at the end, confirming the correctness, consistency, and completeness of the final answer.\n\nAdditional domain-specific guidance observed from prior examples:\n\n- When dealing with fractions expressed in lowest terms that depend on gcds, carefully analyze the gcd conditions, factorization of denominators, and relationships between numerator and denominator after reduction.\n- For problems involving Euler\u2019s totient function or counting integers coprime to a number, explicitly factor the modulus and apply multiplicativity of the totient function.\n- When the problem involves modular arithmetic or periodicity (e.g., fractional parts modulo a base), identify and use the periodic structure rigorously, including explicit computations over full periods and partial periods.\n- For sums involving floor functions and fractional parts, separate sums into integer and fractional components, and carefully analyze modular residues or repeating patterns to compute sums exactly.\n- In number theory problems involving divisibility and gcd relationships, fully characterize the divisors, solve Diophantine-type equations explicitly, and verify all gcd and coprimality conditions to ensure solutions are valid and complete.\n- Always verify that your final set of candidate solutions satisfies all problem constraints, including those on gcd, coprimality, positivity, and integrality.\n\nThis comprehensive and methodical approach will minimize errors due to oversight, unsupported assumptions, or incomplete casework, and ensure a rigorously justified final integer answer."
+        },
+        "parent_id": 15,
+        "children_ids": [
+          24
+        ],
+        "accepted": true,
+        "val_score": 0.4888888888888889,
+        "minibatch_score": 1.0,
+        "outcomes": [
+          {
+            "question_summary": "Counting distinct numerators of fractions from 4-digit repeating decimals \\(0.\\overline{abcd}\\) reduced to lowest terms",
+            "result": "correct",
+            "observation": "The model correctly transformed the decimal into a fraction \\(\\frac{abcd}{9999}\\), factored 9999, and partitioned integers according to their gcd with 9999. It carefully analyzed the structure of numerator sets arising from different gcd divisors and used Euler\u2019s totient function and inclusion-exclusion to count numerators for each prime factorization pattern. The final modular arithmetic and summation were consistent and logically justified.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 21
+          },
+          {
+            "question_summary": "Finding unique positive integer \\(a\\) such that \\(\\sum \\lfloor (n^2 - n a)/5 \\rfloor\\) lies between \\(-1000\\) and \\(1000\\), then computing \\(a+U\\)",
+            "result": "correct",
+            "observation": "The model decomposed the floor sum into integer and remainder parts, exploited the periodicity modulo 5 of the residues, explicitly computed sums for each residue class, and carefully resolved inequalities to isolate the unique \\(a\\) value. It verified modular residue classes and confirmed integrality and range constraints. Arithmetic computations for sums and bounds were performed accurately.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 21
+          },
+          {
+            "question_summary": "Characterizing positive rationals \\(r\\) such that sum of numerator and denominator of \\(r\\) equals that of \\(55r\\) in lowest terms, then summing all such \\(r\\)",
+            "result": "correct",
+            "observation": "The model set \\(r = \\frac{a}{b}\\) in lowest terms and used gcd properties of numerator and denominator after scaling by 55. It analyzed the divisor \\(d = \\gcd(55a,b)\\) and conditions on \\(a,b,d\\) leading to a linear Diophantine relation. The model enumerated possible divisors \\(d\\) of 55, solved corresponding equations for \\(a,b\\), and checked gcd and sum conditions to find exactly two solutions. It computed the sum of these rationals and simplified the fraction correctly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 21
+          },
+          {
+            "question_summary": "Counting residents owning all four items (diamond ring, golf clubs, garden spade, candy hearts) among 900 residents",
+            "result": "correct",
+            "observation": "The model correctly recognized that candy hearts are universally owned, reduced the problem to counting owners of the three other items, carefully defined variables for numbers owning exactly one, two, or three items, and set up and solved a system of equations using inclusion-exclusion logic. The reasoning explicitly accounted for all given counts and constraints, and the arithmetic was carefully done to find the final integer answer.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 27
+          },
+          {
+            "question_summary": "Solve equations involving logarithms with base \\(b\\) and positive real \\(n\\), find \\(j+k\\) for reduced fraction \\(n = \\frac{j}{k}\\)",
+            "result": "correct",
+            "observation": "The model correctly translated the logarithmic equations into algebraic forms, introduced \\(x = \\log_b n\\), identified possible values for \\(x\\), discarded invalid cases based on domain constraints, solved for \\(b\\) and \\(n\\), verified the fraction is in lowest terms, and computed \\(j+k\\). The model also verified both original equations for consistency and correctness of the solution.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 27
+          },
+          {
+            "question_summary": "Find perimeter of rhombus \\(ABCD\\) given distances from a point \\(P\\) on its incircle to three sides",
+            "result": "incorrect",
+            "observation": "The model attempted a detailed geometric setup including coordinate placement, line equations, and distance formulas, then translated distance conditions into algebraic equations with absolute values. It tried multiple sign cases for absolute values and considered vector and normal vector approaches to relate distances, radius, and point locations. Despite extensive and mostly rigorous reasoning, the model encountered contradictions in sign assignments and numeric values, then approximated trigonometric values to find side length and perimeter. The final perimeter value was approximated and presented as an integer, but this final answer conflicted with the official answer given in feedback.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 27
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 21,
+        "rejection_reason": ""
+      },
+      "19": {
+        "node_id": 19,
+        "prompt": {
+          "system_prompt": "Solve the problem by providing a detailed, step-by-step mathematical solution that culminates in a final answer expressed as a single integer, exactly as requested.\n\nYour reasoning must:\n\n- Begin by explicitly restating all given information and problem conditions to ensure no assumptions are made without justification.\n- Clearly define all variables, coordinate systems, notation, and geometric or algebraic constructs introduced, with explanations for their selection.\n- For geometric problems, rigorously apply relevant domain-specific facts\u2014such as properties of triangles, circles, spheres, concurrency, cyclicity, lengths, angles, medians, midpoints, and coordinate geometry\u2014demonstrating how these facts guide each step.\n- When multiple cases or configurations are possible, explicitly enumerate and analyze each, ruling out inconsistent or impossible cases with clear, logical reasoning.\n- For combinatorial or probabilistic problems, fully enumerate all relevant cases or states where feasible, carefully deriving recurrences or probabilities and ensuring no cases are omitted or double counted.\n- Perform exact symbolic manipulation and algebraic simplification as far as possible before any numeric approximation.\n- If any numerical approximations are used temporarily, clearly label them as such and do not rely on approximations for final conclusions\u2014always verify that the exact symbolic results align with these approximations.\n- Confirm that your final numeric answer satisfies all problem constraints and matches the required answer format (a single integer).\n- When expressing final numeric results involving radicals or fractions, ensure the form is simplified and consistent with the problem\u2019s directions on coprimality or integer conditions.\n- Throughout, maintain a logically structured, rigorous presentation that minimizes the risk of oversight, arithmetic errors, or incomplete reasoning.\n\nIn summary, your response should be a comprehensive, fully justified mathematical argument, carefully handling all aspects of the problem\u2014geometric, algebraic, combinatorial, or numeric\u2014and concluding with a verified, exact single-integer answer.\n\nThis approach addresses common failure modes such as incomplete casework, improper handling of geometric configurations, premature approximations, and incorrect final answer formatting."
+        },
+        "parent_id": 15,
+        "children_ids": [
+          20,
+          23
+        ],
+        "accepted": true,
+        "val_score": 0.4666666666666667,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "A list of positive integers with sum 30, unique mode 9, and median a positive integer not in the list; find sum of squares.",
+            "result": "correct",
+            "observation": "The model carefully analyzed the median condition and the parity of the list length, explored multiple list sizes and configurations, correctly identified that the list length is 4, and found the list [5,7,9,9] satisfying all conditions. It computed the sum of squares explicitly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 22
+          },
+          {
+            "question_summary": "Torus formed by revolving a circle radius 3 around axis distance 6, tangent externally to sphere radius 11 along circles of radius \\(r_i\\) and \\(r_o\\); find \\(m+n\\) where \\(r_i - r_o = \\frac{m}{n}\\).",
+            "result": "correct",
+            "observation": "The model set up the torus parametrization, analyzed the sphere and torus tangency, correctly derived the relation between sphere center and torus cross-section circle center, identified two possible positions for the sphere center from distance relations, solved for cosine of \\(\\theta\\) and sine accordingly, computed the two circle radii and their difference, and simplified the fraction properly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 22
+          },
+          {
+            "question_summary": "In triangle with sides 13,14,15, point \\(M\\) midpoint of \\(BC\\), point \\(P\\) on circumcircle with \\(M\\) on \\(AP\\), find \\(AQ\\) where \\(Q\\) on \\(AM\\) satisfies \\(\\angle PBQ = \\angle PCQ\\).",
+            "result": "incorrect",
+            "observation": "The model placed the triangle in coordinates, found \\(A, B, C, M\\), computed the circumcenter and radius, found \\(P\\) as second intersection of line \\(AM\\) with circumcircle, parameterized \\(Q\\) on \\(AM\\), translated the angle equality into a cosine equality involving dot products, set up the resulting equation, performed detailed algebra and numerical approximations to estimate \\(s\\), attempted to identify a rational approximation, and expressed \\(AQ\\) in the form \\(\\frac{m}{\\sqrt{n}}\\), but arrived at a final answer inconsistent with the official solution.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 22
+          },
+          {
+            "question_summary": "Cube-shaped container with vertices \\(A, B, C, D\\) and water at height 7 m; find volume of water.",
+            "result": "incorrect",
+            "observation": "The model attempted to determine the cube\u2019s edge length from the given vertex heights but repeatedly contradicted itself about the cube orientation and edge lengths. Eventually, it assumed a cube edge length of 10 m and computed the water volume as \\(10 \\times 10 \\times 7 = 700\\) cubic meters, outputting 701 as the sum of numerator and denominator. It did not rigorously resolve the geometric inconsistencies or justify the cube edge length decisively.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 23
+          },
+          {
+            "question_summary": "Number of maximal placements of indistinguishable white and black chips on a \\(5 \\times 5\\) grid under row/column color and maximality constraints.",
+            "result": "incorrect",
+            "observation": "The model correctly identified that row and column colors determine chip placement and that maximality implies chips are placed exactly where row and column colors match. It computed the total number of color assignments as \\(2^5 \\times 2^5 = 1024\\) and subtracted the empty configuration to get 1023. It overlooked subtle constraints on chip counts and the implications for maximality and feasibility.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 23
+          },
+          {
+            "question_summary": "Number of bounded regions formed by drawing all segments \\(\\overline{A_i B_j}\\) between points on two parallel lines \\(\\ell_A, \\ell_B\\) with no crossings, for \\(m=7, n=5\\).",
+            "result": "incorrect",
+            "observation": "The model explored various combinatorial and Euler characteristic approaches, attempting to reconcile the given small case example (\\(m=3, n=2\\) with 8 bounded regions) with known formulas. It proposed a custom formula \\(3(m-1)(n-1) + (m-1) + (n-1) - 1\\), yielding 81 for the requested parameters. The model relied on pattern fitting rather than rigorous geometric or combinatorial proof, leading to an incorrect final result.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 23
+          },
+          {
+            "question_summary": "Parallelogram with circle tangent to sides and intersects diagonal at given points, find area in form \\(m\\sqrt{n}\\).",
+            "result": "incorrect",
+            "observation": "The model followed a detailed vector and coordinate geometry setup, defining vectors \\(\\mathbf{b}\\) and \\(\\mathbf{d}\\), parameterizing points on diagonal \\(AC\\), expressing circle tangency conditions via equal distances to lines, and attempting to solve for parameters and the area. It carried out extensive algebraic manipulations and geometric reasoning but ultimately did not reach a simplified closed-form solution and ended with an approximate numerical reasoning to guess the final answer \\(84\\sqrt{5}\\) (sum 89).",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 26
+          },
+          {
+            "question_summary": "Solve system of log equations for \\(x,y,z\\), find \\(|\\log_2(x^4 y^3 z^2)|\\).",
+            "result": "correct",
+            "observation": "The model correctly restated the problem, introduced variables \\(a,b,c = \\log_2 x,y,z\\), transformed the system into linear equations, summed them to find \\(a+b+c\\), then solved for each variable individually. It then computed the required logarithm expression exactly and simplified the fraction, arriving at the correct reduced form and final integer sum.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 26
+          },
+          {
+            "question_summary": "Number of 16-subset collections of \\(\\{1,2,3,4,5\\}\\) with pairwise nonempty intersections.",
+            "result": "incorrect",
+            "observation": "The model recognized the problem as counting 16-subset intersecting families in the power set of a 5-element set, noted the maximal size of such families is 16 by Erd\u0151s\u2013Ko\u2013Rado theorem, identified the 5 maximal families fixing each element, and concluded there are exactly 5 such collections. It assumed no other intersecting families of size 16 exist beyond these maximal ones.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 26
+          },
+          {
+            "question_summary": "Maximize \\(x_{76} - x_{16}\\) given \\(|x_1| + \\cdots + |x_{100}|=1\\) and \\(x_1 + \\cdots + x_{100} = 0\\).",
+            "result": "correct",
+            "observation": "The model restated the problem, defined a three-value piecewise constant sequence to represent the sorted numbers, and applied the constraints of sum and sum of absolute values. It correctly reasoned about signs and ordering, solved for the variables assuming \\(b=0\\), verified consistency, computed the difference, and confirmed the final simplified fraction.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 28
+          },
+          {
+            "question_summary": "Solve symmetric system \\(xy + 4z = yz + 4x = zx + 4y = 60\\) and find sum of squares of possible \\(x\\).",
+            "result": "correct",
+            "observation": "The model recognized the symmetry, tested the equal-variables case, then subtracted pairs of equations to derive factorized conditions. It performed careful casework on those factors, found all solution classes including permutations involving 4 and 11, then collected all possible \\(x\\)-values and summed their squares correctly.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 28
+          },
+          {
+            "question_summary": "Given \\(\\log_x(y^x) = \\log_y(x^{4y}) = 10\\), find \\(xy\\).",
+            "result": "correct",
+            "observation": "The model translated the logarithmic equations into exponential form, then took natural logs to produce linear relations in \\(\\ln x\\) and \\(\\ln y\\). It equated expressions for \\(\\ln y\\), simplified to isolate \\(xy\\), and verified the answer is consistent with the domain restrictions. It correctly concluded \\(xy=25\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 28
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 22,
+        "rejection_reason": ""
+      },
+      "20": {
+        "node_id": 20,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem by providing a fully rigorous, detailed, and step-by-step solution that leads to a final answer expressed exactly as a single integer, as requested. Your response should adhere strictly to the following guidelines:\n\n1. **Explicit Restatement and Definitions**  \n   Begin by carefully restating *all* given problem data, conditions, and constraints without introducing assumptions not supported by the problem statement. Define all variables, coordinate systems, notation, and constructs used, explaining their selection and meaning to avoid ambiguity.\n\n2. **Domain-Specific and Contextual Reasoning**  \n   For geometric problems, rigorously apply relevant geometric facts (e.g., triangle properties, concurrency, cyclicity, length and angle relations, medians, midpoints, coordinate geometry) with clear justification at each step. For combinatorial, counting, or probabilistic problems, systematically enumerate all relevant cases or states where feasible, deriving recurrences or counting formulas with full care to avoid omissions or double counting.\n\n3. **Complete and Exhaustive Case Analysis**  \n   When multiple configurations, cases, or arrangements are possible, explicitly list and analyze each one, ruling out impossible or inconsistent cases with clear logical reasoning. Do not shortcut or skip any casework that may affect correctness.\n\n4. **Exact Symbolic Manipulation Before Numeric Approximation**  \n   Perform all algebraic and symbolic manipulations exactly and simplify expressions fully before resorting to any numeric approximations. If numeric approximations are used temporarily for insight, clearly mark them as such and never rely on them for final conclusions.\n\n5. **Verification Against Problem Constraints**  \n   At the end, verify that the final numeric answer satisfies all problem constraints (e.g., integrality, coprimality, bounds, maximality conditions). Confirm that the final answer matches the problem\u2019s requested format, ensuring it is a single integer without ambiguity.\n\n6. **Precise and Clear Final Presentation**  \n   Present your solution in a logically structured, rigorous, and clear manner that minimizes risks of oversight, arithmetic errors, incomplete enumeration, or misinterpretation. Include a concise summary restating the final answer and how it was obtained.\n\n---\n\n**Additional domain-specific guidance gleaned from past problem-solving experience:**\n\n- When dealing with geometry problems involving spatial configurations, use coordinate geometry or vector methods to confirm relationships and distances explicitly; do not rely solely on intuition or partial reasoning.\n\n- In combinatorial problems involving colorings, placements, or maximality conditions, carefully analyze the interaction of constraints (such as color consistency along rows and columns) and explicitly enumerate all possible valid configurations. Confirm that counts respect resource constraints (e.g., limited chip quantities).\n\n- For planar graphs or geometric figures formed by connecting points on parallel lines, apply Euler\u2019s formula combined with careful counting of vertices, edges, and faces. Pay attention to whether edges cross or not, and whether additional edges along the lines themselves contribute to the graph structure.\n\n- Avoid premature or heuristic guesses of closed-form formulas unless fully justified by rigorous combinatorial or geometric arguments and verified against known base cases.\n\n- When verifying formulas against provided examples, check multiple base cases thoroughly and adjust reasoning if discrepancies arise.\n\nBy following this comprehensive, domain-aware, and methodical approach, your solution will be complete, logically sound, and yield the correct verified integer answer in the required format."
+        },
+        "parent_id": 19,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.0,
+        "outcomes": [
+          {
+            "question_summary": "Volume of water in a cube-shaped container with given vertex heights and water surface height",
+            "result": "incorrect",
+            "observation": "The model attempted a detailed vector and coordinate geometry setup to find the cube edge length and orientation. It struggled with contradictions in vertex heights and orientation, then reverted to assuming the cube edge length is height 10, computing water volume as base area times water height (700 m\u00b3). This final simplification ignored earlier contradictions and geometric rigor.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 23
+          },
+          {
+            "question_summary": "Number of maximal chip placements on a 5\u00d75 grid with color constraints on rows and columns",
+            "result": "incorrect",
+            "observation": "The model correctly identified that each row and column is monochromatic, represented configurations by choosing white rows and columns, and found placements correspond to pairs of subsets excluding empty configurations. It concluded the count is \\(2^5 \\times 2^5 - 2 = 1022\\). However, it did not analyze the maximality condition fully, failing to exclude some non-maximal configurations where additional chips could be placed without violating colors.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 23
+          },
+          {
+            "question_summary": "Number of bounded regions formed by segments between points on two parallel lines for \\(m=7, n=5\\)",
+            "result": "incorrect",
+            "observation": "The model explored several known formulas from planar graph theory and bipartite graph embeddings, tested them against the given example \\(m=3, n=2\\), found mismatches, then proposed a formula \\((m-1)(n-1) + 2(m + n - 2)\\) that matched the example's 8 regions. It applied this formula to get 44 for the requested values but did not reconcile this with the problem\u2019s correct answer or deeper combinatorial structure.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 23
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 23,
+        "rejection_reason": "scored 0.0/3 vs 0.0/3"
+      },
+      "21": {
+        "node_id": 21,
+        "prompt": {
+          "system_prompt": "Solve the problem with a rigorously structured, step-by-step mathematical solution that culminates in a final answer expressed as a single integer (unless otherwise specified). Your reasoning must explicitly incorporate and carefully apply all given problem data and conditions, avoiding unsupported assumptions.\n\nYour solution should include the following elements:\n\n1. **Explicit Definitions and Notation**  \n   - Clearly define all variables, coordinate systems, and notation introduced.  \n   - Justify your choice of coordinate systems or variable assignments especially in geometric or spatial problems.  \n\n2. **Domain-Specific Mathematical Facts**  \n   - For geometry problems, explicitly use relevant properties (e.g., distances, angles, concurrency, cyclicity, tangency, circle and sphere intersection properties).  \n   - For algebraic problems, carefully manipulate symbolic expressions and polynomials step-by-step.  \n   - For combinatorial or probabilistic problems, fully enumerate cases when feasible or derive complete recurrences/probabilities ensuring no overcounting or omissions.  \n\n3. **Complete Case Analysis and Logical Consistency**  \n   - When multiple configurations or cases arise, enumerate and analyze each systematically, ruling out contradictions with clear justifications.  \n   - Verify all intermediate and final results satisfy problem constraints and properties (e.g., positivity, integrality, inequalities).  \n\n4. **Exact Symbolic Manipulation Before Approximation**  \n   - Perform exact algebraic or symbolic manipulations fully before introducing any numerical approximations.  \n   - If approximations are used at any point, clearly mark them as such and use them only for intuition or verification, never for final conclusions.  \n   - Confirm that the exact symbolic final results align with any approximate values obtained.  \n\n5. **Consistency Checks and Verification**  \n   - Cross-verify key derived quantities (e.g., distances, angles, sums, products) with the problem conditions to ensure no contradictions.  \n   - Confirm that the final numeric answer fits the expected format (e.g., integer) and all problem requirements.  \n\n6. **Clear Logical Flow and Justification**  \n   - Present your reasoning in a logical, linear order with intermediate results clearly stated and used.  \n   - Provide explanations for every major step, especially when invoking domain-specific theorems or properties.  \n\n7. **Avoid Circular or Tautological Reasoning**  \n   - Do not accept identities or equalities without checking their implications.  \n   - Avoid steps that yield tautologies without advancing the solution, and seek alternative paths if stuck.  \n\n---\n\nThis comprehensive, methodical approach\u2014grounded in explicit problem data, domain knowledge, and exact symbolic reasoning\u2014will minimize errors from oversight, misapplication, or incomplete casework, and produce a rigorously justified final integer answer."
+        },
+        "parent_id": 15,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Three spheres with radii 11, 13, and 19 are mutually externally tangent. A plane intersects the spheres in three congruent circles centered at A, B, and C, respectively, and the centers of the spheres all lie on the same side of this plane. Given \\(AB^2=560\\), find \\(AC^2\\).",
+            "result": "correct",
+            "observation": "The model carefully defined variables and coordinate systems, used the relation between sphere centers and circle intersections, and set up equations linking heights from the plane to the radii. It correctly applied the distances between centers, the equal radius condition for the circle intersections, and solved for the unknown squared distance \\(AC^2\\). The reasoning was stepwise, complete, and consistent.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 24
+          },
+          {
+            "question_summary": "For rectangular boxes with surface area 54 and volume 23, find \\(p+q\\) where \\(r^2 = \\frac{p}{q}\\) is the smallest squared radius of a sphere containing such boxes.",
+            "result": "incorrect",
+            "observation": "The model set up the problem with variables and constraints, applied Lagrange multipliers, and exploited symmetry by setting two variables equal. It solved a cubic equation exactly, rationalized expressions, and attempted to express the minimal radius squared in a simplified fraction. However, the final step involved a misinterpretation of the problem\u2019s request regarding radical terms, leading to an incorrect final value. The model did not conclusively produce the correct simplified fraction and sum \\(p+q\\).",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 24
+          },
+          {
+            "question_summary": "Two circles intersect at points \\(P\\) and \\(Q\\). Their common tangent closer to \\(P\\) meets the circles at \\(A\\) and \\(B\\). A line through \\(P\\) parallel to \\(AB\\) meets the circles again at \\(X\\) and \\(Y\\). Given distances \\(PX=10\\), \\(PY=14\\), and \\(PQ=5\\), find the area of trapezoid \\(XABY\\) in form \\(m \\sqrt{n}\\) and compute \\(m+n\\).",
+            "result": "incorrect",
+            "observation": "The model chose a coordinate system to simplify the problem, placed points \\(P, Q, X, Y\\), and centers of the circles systematically. It correctly derived expressions for the circle radii, tangent line locations, and lengths of segments \\(AB\\) and \\(XY\\). The model computed an exact expression for the trapezoid area but struggled to reduce it to a single radical form, instead providing a complicated mixed radical expression and a final answer based on approximations and assumptions. The final numeric answer did not match the official solution.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 24
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 24,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "22": {
+        "node_id": 22,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem thoroughly and provide the final answer as a single integer.\n\nYour response must include a clear, logically structured, step-by-step mathematical reasoning process that:\n\n- Explicitly states and justifies each step using appropriate algebraic or geometric principles.\n- Carefully incorporates and verifies all given problem conditions and constraints, including domain restrictions (e.g., positivity, integrality, digit ranges).\n- When dealing with geometric or algebraic objects (such as polygons, polyhedra, circles, spheres, or coordinate-based setups), explicitly use relevant domain-specific facts and theorems (e.g., properties of shapes, concurrency, cyclicity, angle and length relations, coordinate assignments).\n- For combinatorial or counting problems, systematically enumerate and analyze all possible cases or configurations, justifying why cases are included or excluded, and ensuring no double counting occurs.\n- Perform exact symbolic manipulation as far as possible before any numeric approximation; if approximations are used, clearly mark them and confirm the final exact result.\n- For problems involving symmetric sums or expressions, exploit symmetry and known algebraic identities to simplify the problem.\n- When multiple interpretations or configurations are possible, explicitly consider each and rigorously rule out inconsistent or impossible cases.\n- Clearly define any variable substitutions or coordinate assignments used, and verify their consistency with all problem conditions.\n- Carefully check that intermediate and final numeric results fit the problem\u2019s requirements (e.g., integer values, nonnegative digits within 0\u20139).\n- Confirm that the final answer fully satisfies the original problem and all constraints.\n\nIn summary, your solution should:\n\n- Demonstrate comprehensive, detailed, and logically sound reasoning.\n- Address all cases and constraints explicitly to avoid oversight.\n- Use appropriate domain knowledge and algebraic manipulation tailored to the problem type.\n- Provide the final answer as a single integer as requested.\n\nThis approach minimizes errors from incomplete reasoning, incorrect assumptions, or overlooked cases, especially in complex algebraic, geometric, or combinatorial problems."
+        },
+        "parent_id": 6,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Solve system involving square roots of expressions in \\(x,y,z\\) and find \\(\\left[(1-x)(1-y)(1-z)\\right]^2\\).",
+            "result": "incorrect",
+            "observation": "The model attempted extensive algebraic manipulation, substitutions, and numeric approximations trying to find explicit values of \\(x,y,z\\). It explored symmetry, introduced variables, tried plugging values, and considered various cases, but failed to reach a definitive closed-form or consistent solution. Eventually it guessed the answer based on partial reasoning without completing the required rigorous verification.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 25
+          },
+          {
+            "question_summary": "Count triples \\((a,b,c)\\) of nonnegative integers with sum 300 satisfying a cubic symmetric sum equation.",
+            "result": "incorrect",
+            "observation": "The model correctly rewrote the given sum in terms of symmetric sums, reduced the problem to a Diophantine-type equation relating \\(abc\\) and \\(ab+bc+ca\\), then parameterized solutions by fixing one variable and solving quadratics for the other two. It identified two families of solutions symmetric about \\(k=100\\) and counted solutions accordingly, including the equal triple case. However, the final count missed some solutions and the official feedback indicated the answer was incorrect.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 25
+          },
+          {
+            "question_summary": "Number of digit fillings in a 2x3 grid satisfying row and column sum conditions summing to 999 and 99 respectively.",
+            "result": "correct",
+            "observation": "The model correctly translated the problem into algebraic constraints on sums of digit pairs, deduced the only possible sums for these pairs, transformed the problem into counting triples \\((a,b,c)\\) with sum 8, and enumerated the number of such triples via stars and bars. The reasoning was clear, complete, and verified against the example.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 25
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 25,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "23": {
+        "node_id": 23,
+        "prompt": {
+          "system_prompt": "Solve the given mathematical problem by producing a fully detailed, rigorous, and logically structured solution that ends with a final answer expressed as a single integer, exactly as required.\n\nYour reasoning must adhere strictly to the following guidelines:\n\n1. **Explicit Restatement and Definitions**  \n   - Begin by clearly restating all given information and problem conditions without introducing any unstated assumptions.  \n   - Define all variables, coordinate systems, notation, and constructs you introduce, explaining their purpose and relevance to the problem.\n\n2. **Domain-Specific and Problem-Type Reasoning**  \n   - For geometric problems:  \n     - Apply relevant geometric facts carefully (e.g., triangle properties, concurrency, circle tangency, lengths, angles, medians, cyclic quadrilaterals).  \n     - When using coordinate geometry, justify coordinate choices and verify all derived expressions symbolically before numeric evaluation.  \n   - For algebraic problems:  \n     - Perform exact symbolic manipulations and simplify expressions fully before any numerical approximation.  \n   - For combinatorial or probabilistic problems:  \n     - Fully enumerate all relevant cases or states when feasible, avoiding omission or double counting.  \n     - Clearly derive any recurrence relations or probability formulas with justification.  \n     - Confirm that your combinatorial reasoning accounts precisely for all constraints and structural properties of the problem.\n\n3. **Handling Multiple Cases and Consistency Checks**  \n   - If multiple cases or configurations arise, identify and analyze each explicitly, ruling out impossible or inconsistent cases with clear logical justification.  \n   - Cross-verify key intermediate results (e.g., lengths, angles, probabilities) against problem constraints and known properties to ensure internal consistency.\n\n4. **Exactness and Careful Numeric Handling**  \n   - Maintain exact symbolic expressions as far as possible.  \n   - If numerical approximations are used temporarily for insight or estimation, clearly label them as such and never base final conclusions solely on approximate values.  \n   - Before finalizing the answer, verify that the exact symbolic form matches any approximations used.\n\n5. **Final Answer Format and Verification**  \n   - Ensure the final numeric answer satisfies all problem requirements and is presented as a single integer (no fractions, decimals, or radicals unless instructed otherwise).  \n   - When the problem asks for an answer expressed as a sum of integers (e.g., \\(m + n\\)), provide the exact simplified integers and their sum.  \n   - Summarize the final result clearly and concisely at the end, confirming it matches all problem constraints.\n\n6. **Logical Presentation and Completeness**  \n   - Structure your solution so that each step logically follows from the previous, minimizing the risk of oversight or arithmetic mistakes.  \n   - Avoid skipping or glossing over nontrivial steps, especially in combinatorial enumeration or complex algebraic derivations.\n\nThis comprehensive, domain-informed approach is designed to prevent common errors such as incomplete casework, insufficient combinatorial enumeration, premature approximations, or incorrect final answer formatting, thereby producing a fully justified, exact, and correct final integer answer."
+        },
+        "parent_id": 19,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.3333333333333333,
+        "outcomes": [
+          {
+            "question_summary": "Parallelogram with a circle tangent to three sides and intersecting diagonal at points with given lengths; find area in form \\(m\\sqrt{n}\\).",
+            "result": "incorrect",
+            "observation": "The model carefully restated the problem, introduced coordinates, parametrized points, and derived conditions for tangency and points on the circle. It set up algebraic relations and attempted to solve for parameters symbolically and numerically. However, it struggled to find consistent positive values for variables, made assumptions about sign and orientation, and ended with an area expression of \\(63\\sqrt{3}\\) and final answer 66. The entire chain was detailed but contained convoluted algebra and casework that failed to produce the correct numeric match.",
+            "error_type": "arithmetic",
+            "score": 0.0,
+            "iteration": 26
+          },
+          {
+            "question_summary": "Solve given logarithmic system for \\(|\\log_2(x^4 y^3 z^2)|\\) and express as reduced fraction sum.",
+            "result": "correct",
+            "observation": "The model correctly converted the logarithmic equations to a linear system in variables \\(a,b,c\\), summed equations to find the total, substituted and solved stepwise for each variable, carefully handled fractions, and computed the target expression \\(4a + 3b + 2c\\). It simplified the fraction correctly and provided the sum of numerator and denominator as final answer 33. The solution was concise, logically ordered, and fully consistent.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 26
+          },
+          {
+            "question_summary": "Number of collections of 16 distinct subsets of \\(\\{1,2,3,4,5\\}\\) such that every pair intersects.",
+            "result": "incorrect",
+            "observation": "The model recognized the problem as counting intersecting families of size 16, cited the Erd\u0151s\u2013Ko\u2013Rado theorem, identified that maximum intersecting families of size 16 are stars formed by all subsets containing a fixed element, and concluded there are exactly 5 such families. This reasoning was standard but incomplete for this problem, as the actual answer involves counting all intersecting families (not only maximum stars), leading to a larger count. The model omitted consideration of smaller or other intersecting families of size 16 beyond stars, resulting in a severe undercount.",
+            "error_type": "logic",
+            "score": 0.0,
+            "iteration": 26
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 26,
+        "rejection_reason": "scored 1.0/3 vs 1.0/3"
+      },
+      "24": {
+        "node_id": 24,
+        "prompt": {
+          "system_prompt": "Solve the problem with a fully rigorous, detailed, and logically structured approach, and provide the final answer as a single integer.\n\nYour solution must:\n\n- Carefully restate and explicitly use all given information and problem conditions without introducing unsupported assumptions or skipping constraints.\n\n- Clearly define all variables, notation, and coordinate systems introduced, explaining the rationale behind these choices to facilitate clarity and correctness.\n\n- For algebraic and geometric problems:\n  - Incorporate all relevant domain-specific facts (e.g., factorization, divisibility, shape properties such as concurrency, cyclicity, lengths, angles, areas, volumes).\n  - Explicitly show how these facts are applied at each step.\n  - When multiple cases or configurations arise, explicitly enumerate and analyze each case, providing clear, logical justification for accepting or excluding cases.\n  - Maintain full symbolic exactness as far as possible before any numerical approximation.\n  - If approximations are used temporarily, clearly mark and isolate them; do not rely on approximations for final conclusions.\n  - Verify that all candidate solutions satisfy the problem\u2019s integrality, coprimality, positivity, and other constraints before final acceptance.\n\n- For combinatorial or probabilistic problems:\n  - Fully enumerate all relevant outcomes or states when feasible.\n  - When full enumeration is infeasible, carefully derive exact recurrences or probabilities accounting for all possible cases without omission or double counting.\n  - Explicitly justify any case splits or assumptions.\n\n- For number theory problems involving gcd, divisibility, or totient functions:\n  - Explicitly factor moduli and use multiplicativity where applicable.\n  - Thoroughly analyze gcd conditions and relationships between numerator and denominator after reduction.\n  - Solve Diophantine equations explicitly and verify all gcd and coprimality constraints.\n\n- For problems involving sums with floor functions, fractional parts, or modular arithmetic:\n  - Rigorously identify periodic structure or residue classes.\n  - Separate sums into integer and fractional components.\n  - Compute sums exactly over full periods, and handle partial periods carefully.\n  - Avoid heuristic or incomplete counting.\n\n- Throughout the solution:\n  - Maintain a logically structured presentation that clearly separates assumptions, derivations, and conclusions.\n  - Systematically check every step that influences the correctness of the final answer.\n  - Provide explicit verification that the final numeric answer satisfies all problem constraints and matches the required format (a single integer).\n  - Summarize your reasoning clearly at the end to confirm the correctness, consistency, and completeness of the final answer.\n\nThis comprehensive and methodical approach is designed to minimize errors arising from oversight, unsupported assumptions, incomplete casework, or arithmetic slips, ensuring a rigorously justified final integer answer."
+        },
+        "parent_id": 18,
+        "children_ids": [],
+        "accepted": false,
+        "val_score": null,
+        "minibatch_score": 0.6666666666666666,
+        "outcomes": [
+          {
+            "question_summary": "Among the 900 residents of Aimeville, find the number who own all four things.",
+            "result": "correct",
+            "observation": "The model correctly identified the sets involved, defined variables for the counts of residents owning exactly 1, 2, 3, or 4 items, and used the total number of item ownerships and total residents to form and solve a system of linear equations. The reasoning was clear, systematic, and verified the solution with consistency checks.",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 27
+          },
+          {
+            "question_summary": "Given positive real numbers \\(b \\neq 1\\) and \\(n\\) satisfying two logarithmic equations, find \\(j + k\\) where \\(n = \\frac{j}{k}\\) in lowest terms.",
+            "result": "correct",
+            "observation": "The model introduced a substitution \\(x = \\log_b n\\), simplified both equations algebraically, considered both solutions to a quadratic-like equation for \\(x\\), rejected the invalid case, and solved for \\(b\\) and \\(n\\). It carefully verified the coprimality of numerator and denominator and computed the final sum \\(j + k\\).",
+            "error_type": "none",
+            "score": 1.0,
+            "iteration": 27
+          },
+          {
+            "question_summary": "Rhombus \\(ABCD\\) has an incircle; given distances from a point \\(P\\) on the incircle to three sides, find the perimeter of \\(ABCD\\).",
+            "result": "incorrect",
+            "observation": "The model set up a coordinate system, expressed line equations, and related distances to the lines using absolute values and trigonometric expressions. It enumerated cases for the absolute values, computed relations between side length \\(s\\) and \\(\\theta\\), and used the inradius formula. However, it confused the distances from \\(P\\) (a point on the incircle) with the inradius distances from the center to sides, lacked explicit verification of \\(P\\)'s position on the incircle, and made assumptions leading to an inconsistent final perimeter. The solution ended with an unsupported numerical value and was contradicted by the official answer.",
+            "error_type": "interpretation",
+            "score": 0.0,
+            "iteration": 27
+          }
+        ],
+        "outcome_summary": "",
+        "iteration_created": 27,
+        "rejection_reason": "scored 2.0/3 vs 2.0/3"
+      }
+    },
+    "edges": [
+      {
+        "parent_id": 0,
+        "child_id": 1,
+        "minibatch_ids": [
+          "1",
+          "27",
+          "35"
+        ],
+        "iteration": 1
+      },
+      {
+        "parent_id": 0,
+        "child_id": 2,
+        "minibatch_ids": [
+          "0",
+          "23",
+          "37"
+        ],
+        "iteration": 2
+      },
+      {
+        "parent_id": 0,
+        "child_id": 3,
+        "minibatch_ids": [
+          "14",
+          "12",
+          "7"
+        ],
+        "iteration": 3
+      },
+      {
+        "parent_id": 0,
+        "child_id": 4,
+        "minibatch_ids": [
+          "44",
+          "42",
+          "34"
+        ],
+        "iteration": 4
+      },
+      {
+        "parent_id": 0,
+        "child_id": 5,
+        "minibatch_ids": [
+          "21",
+          "5",
+          "6"
+        ],
+        "iteration": 5
+      },
+      {
+        "parent_id": 0,
+        "child_id": 6,
+        "minibatch_ids": [
+          "11",
+          "20",
+          "15"
+        ],
+        "iteration": 6
+      },
+      {
+        "parent_id": 6,
+        "child_id": 7,
+        "minibatch_ids": [
+          "10",
+          "43",
+          "29"
+        ],
+        "iteration": 7
+      },
+      {
+        "parent_id": 6,
+        "child_id": 8,
+        "minibatch_ids": [
+          "9",
+          "4",
+          "28"
+        ],
+        "iteration": 8
+      },
+      {
+        "parent_id": 6,
+        "child_id": 9,
+        "minibatch_ids": [
+          "36",
+          "17",
+          "40"
+        ],
+        "iteration": 9
+      },
+      {
+        "parent_id": 0,
+        "child_id": 10,
+        "minibatch_ids": [
+          "39",
+          "38",
+          "3"
+        ],
+        "iteration": 10
+      },
+      {
+        "parent_id": 0,
+        "child_id": 11,
+        "minibatch_ids": [
+          "8",
+          "41",
+          "13"
+        ],
+        "iteration": 12
+      },
+      {
+        "parent_id": 0,
+        "child_id": 12,
+        "minibatch_ids": [
+          "22",
+          "30",
+          "19"
+        ],
+        "iteration": 13
+      },
+      {
+        "parent_id": 0,
+        "child_id": 13,
+        "minibatch_ids": [
+          "16",
+          "2",
+          "26"
+        ],
+        "iteration": 15
+      },
+      {
+        "parent_id": 0,
+        "child_id": 14,
+        "minibatch_ids": [
+          "3",
+          "24",
+          "15"
+        ],
+        "iteration": 16
+      },
+      {
+        "parent_id": 6,
+        "child_id": 15,
+        "minibatch_ids": [
+          "11",
+          "8",
+          "16"
+        ],
+        "iteration": 17
+      },
+      {
+        "parent_id": 6,
+        "child_id": 16,
+        "minibatch_ids": [
+          "4",
+          "39",
+          "27"
+        ],
+        "iteration": 19
+      },
+      {
+        "parent_id": 15,
+        "child_id": 17,
+        "minibatch_ids": [
+          "0",
+          "23",
+          "37"
+        ],
+        "iteration": 20
+      },
+      {
+        "parent_id": 15,
+        "child_id": 18,
+        "minibatch_ids": [
+          "36",
+          "40",
+          "29"
+        ],
+        "iteration": 21
+      },
+      {
+        "parent_id": 15,
+        "child_id": 19,
+        "minibatch_ids": [
+          "33",
+          "26",
+          "10"
+        ],
+        "iteration": 22
+      },
+      {
+        "parent_id": 19,
+        "child_id": 20,
+        "minibatch_ids": [
+          "12",
+          "42",
+          "2"
+        ],
+        "iteration": 23
+      },
+      {
+        "parent_id": 15,
+        "child_id": 21,
+        "minibatch_ids": [
+          "14",
+          "44",
+          "43"
+        ],
+        "iteration": 24
+      },
+      {
+        "parent_id": 6,
+        "child_id": 22,
+        "minibatch_ids": [
+          "17",
+          "35",
+          "25"
+        ],
+        "iteration": 25
+      },
+      {
+        "parent_id": 19,
+        "child_id": 23,
+        "minibatch_ids": [
+          "30",
+          "13",
+          "21"
+        ],
+        "iteration": 26
+      },
+      {
+        "parent_id": 18,
+        "child_id": 24,
+        "minibatch_ids": [
+          "7",
+          "18",
+          "19"
+        ],
+        "iteration": 27
+      }
+    ]
+  },
+  "_meta": {
+    "event_id": "f46134f08e334522995f32f012ce18bb-634",
+    "event_type": "memory_tree_updated",
+    "callback_method": "on_memory_tree_updated",
+    "timestamp_ms": 1773791189575,
+    "dispatch_sequence": 634,
+    "callback_stream_id": "f46134f08e334522995f32f012ce18bb",
+    "iteration": 29
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "iteration": 34,
+  "candidate_idx": 7,
+  "val_id": "35",
+  "score": 1.0,
+  "input": "Example({'problem': 'The numbers of apples growing on each of six apple trees form an arithmetic sequence where the greatest number of apples growing on any of the six trees is double the least number of apples growing on any of the six trees. The total number of apples growing on all six trees is $990.$ Find the greatest number of apples growing on any of the six trees.', 'answer': '220', 'solution': 'In the arithmetic sequence, let $a$ be the first term and $d$ be the common difference, where $d>0.$ The sum of the first six terms is \\\\[a+(a+d)+(a+2d)+(a+3d)+(a+4d)+(a+5d) = 6a+15d.\\\\]\\nWe are given that\\n\\\\begin{align*} 6a+15d &= 990, \\\\\\\\ 2a &= a+5d. \\\\end{align*}\\nThe second equation implies that $a=5d.$ Substituting this into the first equation, we get \\n\\\\begin{align*} 6(5d)+15d &=990, \\\\\\\\ 45d &= 990 \\\\\\\\ d &= 22. \\\\end{align*}\\nIt follows that $a=110.$ Therefore, the greatest number of apples growing on any of the six trees is $a+5d=\\\\boxed{220}.$\\n~MRENTHUSIASM\\nLet the terms in the sequence be defined as \\\\[a_1, a_2, ..., a_6.\\\\]\\nSince this is an arithmetic sequence, we have $a_1+a_6=a_2+a_5=a_3+a_4.$ So, \\\\[\\\\sum_{i=1}^6 a_i=3(a_1+a_6)=990.\\\\] Hence, $(a_1+a_6)=330.$ And, since we are given that $a_6=2a_1,$ we get $3a_1=330\\\\implies a_1=110$ and $a_6=\\\\boxed{220}.$\\n~Kiran'}) (input_keys={'problem'})",
+  "output": {
+    "predicted_answer": "220",
+    "correct_answer": "220",
+    "reasoning": "Let the six numbers form an arithmetic sequence: \\(a, a + d, a + 2d, a + 3d, a + 4d, a + 5d\\), where \\(a\\) is the least number of apples on a tree (first term) and \\(d\\) is the common difference.\n\nGiven that the greatest number of apples is double the least number:\n\\[\na + 5d = 2a \\implies 5d = a \\implies a = 5d.\n\\]\n\nThe sum of the six terms is:\n\\[\nS = 6 \\times \\text{average} = 6 \\times \\frac{a + (a + 5d)}{2} = 6 \\times \\frac{a + a + 5d}{2} = 6 \\times \\frac{2a + 5d}{2} = 3 (2a + 5d).\n\\]\n\nBut since \\(a = 5d\\), substitute:\n\\[\nS = 3(2 \\times 5d + 5d) = 3(10d + 5d) = 3 \\times 15d = 45d.\n\\]\n\nGiven \\(S = 990\\), we have:\n\\[\n45d = 990 \\implies d = \\frac{990}{45} = 22.\n\\]\n\nSince \\(a = 5d\\), then:\n\\[\na = 5 \\times 22 = 110.\n\\]\n\nThe greatest number of apples is:\n\\[\na + 5d = 2a = 2 \\times 110 = 220.\n\\]\n\nSo, the greatest number of apples on any tree is 220."
+  }
+}

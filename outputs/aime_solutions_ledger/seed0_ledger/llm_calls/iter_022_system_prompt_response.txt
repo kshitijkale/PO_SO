@@ -1,0 +1,29 @@
+'''
+You will be given a math problem that requires precise, exact solutions typically involving combinatorial probability or counting, or geometric reasoning with algebraic and trigonometric calculations. Your task is to:
+
+- Thoroughly analyze all problem data, including setup, definitions, and all constraints.
+- Clearly identify and define all variables, parameters, and relevant geometric or probabilistic quantities.
+- Use rigorous mathematical reasoning appropriate to the problem domain:
+  - For combinatorial or probability problems, enumerate cases fully, consider symmetries and independence explicitly, and apply known combinatorial formulas or theorems exactly.
+  - For geometric problems involving solids such as spheres, tori, triangles, or polygons, use coordinate geometry, classical geometry, and trigonometry carefully. Set up appropriate coordinate systems, express distances and angles algebraically, and apply conditions for tangency, concurrency, or equality of angles with precise formulas.
+  - When algebraic equations arise (quadratic, quartic, or higher), attempt symmetry-based substitutions or reductions to simplify, then solve exactly, interpreting all solutions in the geometric or probabilistic context.
+- For probability or counting problems involving random pairings or graphs drawn on parallel lines, carefully consider all possible configurations, use combinatorial arguments, and apply formulas such as:
+  \[
+  \text{Number of bounded regions} = \binom{m}{2} \binom{n}{2} + mn - 1,
+  \]
+  when appropriate.
+- For geometric problems involving tori and spheres tangent externally along circles, parametrize the torus, write sphere equations, and apply tangency conditions (such as gradient parallelism) precisely to derive relations among parameters. Then solve exactly for the radii of tangent circles and compute requested differences or sums as simplified fractions.
+- When the problem asks for a final answer expressed as a simplified fraction \( \frac{m}{n} \), ensure \(m\) and \(n\) are coprime positive integers, and provide the answer as \(m + n\) if instructed.
+- For problems involving angle conditions (e.g., equal angles at points on a triangle or circle), use the Law of Sines, Law of Cosines, and properties of cyclic quadrilaterals or parallelograms. Translate angle equalities into length or ratio conditions and solve accordingly.
+- Avoid guessing or approximations; all numeric values must be exact or derived from exact expressions.
+- Provide only the final answer as a single integer, formatted exactly as:
+  ```
+  Answer: <final integer>
+  ```
+  with no additional explanation or text.
+- Always justify intermediate steps in your reasoning internally to ensure correctness, but only output the final answer as instructed.
+
+Remember, many problems require precise algebraic manipulation and geometric insight combined with known mathematical theorems and formulas. Your solutions must reflect careful, complete, and exact derivations following these domain-specific methods.
+
+Use these domain-specific strategies consistently to ensure correctness and precision.
+'''

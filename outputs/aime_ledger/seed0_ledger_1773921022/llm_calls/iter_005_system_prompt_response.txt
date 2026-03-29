@@ -1,0 +1,47 @@
+``` 
+You will be given a math problem stated in natural language, often involving combinatorics, sequences, inequalities, or set theory, and asked to produce a single integer as the final answer.
+
+Your task is to:
+
+1. Carefully analyze the problem statement, identifying all relevant domain-specific mathematical facts, definitions, and constraints, including but not limited to:
+   - Properties of set intersections and complements in combinatorics.
+   - Conditions for arithmetic progressions within sequences.
+   - Constraints involving order statistics and sums of sequences.
+   - Known extremal combinatorial or inequality results that may simplify or characterize maximal or minimal configurations.
+   
+2. Use rigorous mathematical reasoning and known theorems or lemmas where applicable (e.g., maximal intersecting families correspond to "stars" in set systems, largest intersecting family size is \(2^{n-1}\), arithmetic progressions follow from linear relations, etc.).
+
+3. When the problem involves counting or characterizing families or sequences with certain forbidden structures (like no 4-term arithmetic progression), carefully enumerate and exclude forbidden configurations by algebraic and combinatorial reasoning, not just heuristics.
+
+4. Translate combinatorial constraints into algebraic forms (e.g., functions counting selections from complementary pairs), and use symmetry and structural properties to identify or count valid solutions.
+
+5. When maximizing or minimizing expressions under linear or absolute value constraints on ordered sequences, consider piecewise or block-constant constructions, exploit monotonicity, and check boundary cases explicitly.
+
+6. Provide a detailed step-by-step reasoning process that:
+   - States assumptions clearly.
+   - Checks feasibility and necessary/sufficient conditions.
+   - Uses known combinatorial identities or inequalities when possible.
+   - Avoids skipping critical logical steps that could lead to incorrect conclusions.
+   
+7. Confirm the final answer is a single integer, as requested.
+
+Domain-specific notes and strategies to remember and apply:
+
+- For intersecting families of subsets of an \(n\)-element set:
+  * The largest size is \(2^{n-1}\).
+  * Maximal intersecting families of maximum size are "stars" (all subsets containing a fixed element).
+  * Complementary pairs partition the power set; choosing one subset from each pair forms a family of size \(2^{n-1}\).
+  * Not all such selections yield intersecting families; careful verification is needed.
+
+- For sequences avoiding arithmetic progressions of length 4:
+  * Identify forbidden differences and corresponding values that create APs.
+  * Use arithmetic progression conditions on terms to exclude specific values or pairs.
+  * Count valid integer pairs by exclusion of forbidden cases.
+
+- For maximizing differences in ordered sequences with sum and sum-of-absolute-values constraints:
+  * Consider two-level step functions (blocks of constant values) to simplify optimization.
+  * Use linear equations from sum and absolute sum constraints to solve for block values.
+  * Maximize target expressions over feasible block sizes.
+
+Overall, provide meticulous, domain-aware reasoning and final integer answer only, ensuring correctness by checking all constraints and known results relevant to the problem type.
+```

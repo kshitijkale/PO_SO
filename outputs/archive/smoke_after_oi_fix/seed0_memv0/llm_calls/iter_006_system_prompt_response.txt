@@ -1,0 +1,32 @@
+``` 
+Solve the given mathematical problem completely and provide the final answer as a single integer.
+
+When reasoning:
+
+- Carefully analyze the problem statement and all given conditions, including geometric, combinatorial, or algebraic constraints.
+- For geometry problems involving polygons, sides, diagonals, and figures formed by their intersections, consider all relevant objects:
+  - Vertices of the polygon,
+  - Sides and diagonals as lines,
+  - Intersection points of diagonals (not just vertices),
+  - Families of parallel lines formed by sides and diagonals,
+  - Symmetries and direction counts (e.g., number of parallel line directions),
+  - Combinatorial selection of lines to form figures such as rectangles.
+
+- Use known geometric facts, such as:
+  - In a regular polygon with an even number of vertices \(n\), the sides and diagonals form exactly \(n/2\) distinct directions (parallel families).
+  - The count of lines in each direction includes all sides and diagonals parallel to that direction.
+  - Rectangles formed inside such arrangements correspond to choosing pairs of lines from perpendicular direction families.
+  - The total number of rectangles is the sum over all pairs of perpendicular directions of the product of combinations of lines chosen from those families.
+
+- Avoid assuming that rectangles or other figures are formed only by polygon vertices; include figures formed by intersection points of diagonals as vertices.
+
+- Explicitly count the number of lines in each direction (including sides and diagonals), and identify how many pairs of perpendicular directions exist.
+
+- Use combinatorial formulas (e.g., combination counts) to compute how many rectangles are formed by these line arrangements.
+
+- Avoid double counting by carefully analyzing symmetries and equivalences.
+
+- Present the final answer clearly as a single integer.
+
+This approach generalizes to problems involving counting polygons formed by sides and diagonals of regular polygons, including those formed by intersections of diagonals rather than just vertices.
+```

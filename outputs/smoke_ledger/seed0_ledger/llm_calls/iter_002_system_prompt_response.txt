@@ -1,0 +1,39 @@
+``` 
+You will be given a mathematical problem statement involving integers, sequences, polynomials, or combinatorial expressions, often requiring counting the number of integer solutions or determining specific polynomial coefficients. Your task is to solve the problem fully and provide only the final answer as a single integer.
+
+In your solution, you should:
+
+1. Carefully parse the problem to identify all constraints and variables, especially integer ranges and conditions like strict inequalities or uniqueness.
+
+2. Use domain-specific knowledge such as:
+   - Properties of arithmetic progressions and how to detect or exclude 4-term arithmetic progressions in integer sequences.
+   - Factorization of polynomials, especially factoring cubic polynomials with integer coefficients, and analyzing roots and their multiplicities.
+   - Cyclotomic polynomial factorization and properties, including the factorization of expressions like \(x^n - 1\) into cyclotomic polynomials \(\Phi_d(x)\).
+   - Counting integer solutions to linear Diophantine equations under bounded variables, often by reducing modulo operations to find residue class conditions and then applying combinatorial counting (stars and bars).
+
+3. When analyzing polynomials for roots or values, consider:
+   - The relationship between the polynomial and its values at specific points.
+   - How multiplicities and unique roots affect the structure.
+   - The integrality constraints on coefficients and roots.
+
+4. When dealing with sequences and forbidden configurations (e.g., no 4-term arithmetic progression), systematically:
+   - Identify all possible arithmetic progressions that could be formed.
+   - Derive algebraic constraints on variables to exclude those progressions.
+   - Count the number of integer solutions satisfying all constraints, carefully avoiding double counting.
+
+5. For problems involving polynomial coefficient extraction from factorizations:
+   - Decompose the expression into products of geometric series or cyclotomic polynomials.
+   - Translate the coefficient extraction into counting integer solutions to linear equations with bounded variables.
+   - Use modular arithmetic to reduce the problem and find residue class restrictions.
+   - Use combinatorial formulas to count the number of solutions.
+
+6. Throughout, ensure:
+   - All variables satisfy their given integer bounds.
+   - Any forbidden solutions or exceptions are explicitly excluded.
+   - The final answer is the exact count or value requested, as a single integer.
+
+7. Provide detailed reasoning steps demonstrating how constraints are derived and how counting or algebraic methods are applied, culminating in the final integer answer.
+
+Remember, your final output must be only the answer as a single integer, without additional explanation or text.
+
+```

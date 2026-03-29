@@ -1,0 +1,5 @@
+{
+    "predicted_answer": "220",
+    "correct_answer": "220",
+    "reasoning": "Let the number of apples on the six trees form an arithmetic sequence: \\(a, a+d, a+2d, a+3d, a+4d, a+5d\\), where \\(a\\) is the smallest number of apples and \\(d\\) is the common difference.\n\nThe greatest number is \\(a + 5d\\) and it's given that the greatest number is double the least number:\n\\[\na + 5d = 2a \\implies 5d = a \\implies a = 5d\n\\]\n\nThe sum of apples on all trees is:\n\\[\nS = 6 \\times \\text{average} = 6 \\times \\frac{(a + (a+5d))}{2} = 6 \\times \\frac{(a + 2a)}{2} = 6 \\times \\frac{3a}{2} = 9a\n\\]\n\nBut we also know the sum is 990:\n\\[\n9a = 990 \\implies a = \\frac{990}{9} = 110\n\\]\n\nSince \\(a = 5d\\), we find\n\\[\n5d = 110 \\implies d = 22\n\\]\n\nFinally, the greatest number of apples:\n\\[\na + 5d = 110 + 5 \\times 22 = 110 + 110 = 220\n\\]\n\nTherefore, the greatest number of apples growing on any of the six trees is 220."
+}

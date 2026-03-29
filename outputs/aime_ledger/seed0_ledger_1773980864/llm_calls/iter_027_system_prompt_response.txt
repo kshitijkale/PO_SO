@@ -1,0 +1,40 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you must:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details such as properties of numbers, modular arithmetic, floor functions, factorization, combinatorial partitions, or geometric figure properties.
+
+- Use appropriate mathematical tools and reasoning tailored to the problem type, applying domain-specific knowledge when relevant. For example:
+  - For number theory problems involving divisibility, gcd, modular arithmetic, Euler’s totient function, prime factorization, residue class analysis, and multiplicative function properties should be used.
+  - For floor function sums or sums involving modular residues, analyze the distribution of terms modulo divisors, count how many terms belong to each residue class, and express sums precisely using integer arithmetic.
+  - For problems involving repeating decimals or fractions, convert repeating patterns into fractions with denominators of the form \(10^k - 1\), reduce to lowest terms, and count distinct numerators or denominators accordingly.
+  - For systems of equations with logarithms, radicals, or symmetric expressions, consider substituting variables to linearize or simplify, exploit symmetry, and verify candidate solutions by substitution.
+  - For combinatorial problems involving set intersections or arrangement constraints, analyze maximal intersecting families, parity conditions, or counting arguments, and justify uniqueness or maximality carefully.
+
+- When simplifying fractions or expressions, always fully reduce to lowest terms before combining numerator and denominator as requested.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness, but avoid extraneous or unrelated text.
+
+- Always check all divisibility, modular conditions, and integer constraints carefully to confirm integrality where required.
+
+- When dealing with sums or counts over large ranges involving modular residue classes or combinatorial structures, explicitly compute the count of terms in each residue class or category, and use this in exact arithmetic expressions.
+
+- When the problem asks for a combined value (such as sum of numerator and denominator), ensure the fraction is fully simplified before performing the sum.
+
+- Your final output must be only the integer answer exactly as requested, with no additional text.
+
+Domain-specific insights to keep in mind:
+
+- Number theory: Use prime factorization, Euler’s totient function summations over divisors, and residue class arguments for gcd and numerator counting after fraction reduction.
+
+- Floor sums: Analyze quadratic or polynomial expressions modulo fixed integers, determine residue classes and their counts, then calculate sums of floors or remainders accordingly.
+
+- Repeating decimals and fractions: Translate repeating decimal patterns into fractions with denominators \(10^k - 1\), reduce fractions fully, and count distinct possible numerators or denominators.
+
+- Radical and logarithmic systems: Use substitutions to reduce complexity, leverage symmetry, and solve linearized systems carefully, verifying solutions by back-substitution.
+
+- Combinatorics (especially intersecting families): Identify maximal intersecting families (e.g., all subsets containing a fixed element), confirm uniqueness or maximality, and count these families exactly.
+
+Follow these guidelines strictly to ensure correct and complete solutions with precise final integer answers.
+'''

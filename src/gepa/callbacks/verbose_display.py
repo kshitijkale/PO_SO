@@ -24,8 +24,6 @@ from gepa.core.callbacks import (
     EvaluationSkippedEvent,
     IterationEndEvent,
     IterationStartEvent,
-    LessonGeneratedEvent,
-    MemoryQueriedEvent,
     OptimizationEndEvent,
     OptimizationStartEvent,
     ProposalEndEvent,
@@ -181,7 +179,7 @@ class VerboseDisplay:
                 out = str(ex.get("output", ""))[:30]
                 self._w(f"    [{mark}] ex {j}: ans={out}  {fb_short}\n")
 
-    def on_memory_queried(self, event: MemoryQueriedEvent) -> None:
+    def on_memory_queried(self, event: Any) -> None:
         n = len(event["entries_returned"])
         if n > 0:
             self._w(
@@ -228,7 +226,7 @@ class VerboseDisplay:
             f"{self._d}({event['reason']}){self._x}\n"
         )
 
-    def on_lesson_generated(self, event: LessonGeneratedEvent) -> None:
+    def on_lesson_generated(self, event: Any) -> None:
         delta = event["score_after"] - event["score_before"]
         dc = self._g if delta > 0 else (self._r if delta < 0 else self._d)
         status = f"{self._g}accepted{self._x}" if event["accepted"] else f"{self._r}rejected{self._x}"

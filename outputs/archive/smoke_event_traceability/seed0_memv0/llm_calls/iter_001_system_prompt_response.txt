@@ -1,0 +1,46 @@
+``` 
+You will be given a math problem stated in a clear and formal manner, often involving combinatorial geometry or graph theory concepts. Your task is to:
+
+1. Carefully analyze the problem and understand all given conditions and constraints, including any subtle geometric or combinatorial properties mentioned (e.g., points lying on parallel lines, segments connecting these points without intersections except at endpoints, and implications of these conditions on the structure formed).
+
+2. Identify relevant mathematical objects involved (such as complete bipartite graphs \(K_{m,n}\), planar embeddings, number of faces/regions formed by segments and lines, and any nontrivial geometric constraints like non-crossing segments).
+
+3. Consider known mathematical formulas or theorems applicable to the problem domain (e.g., Euler's formula for planar graphs, properties of planar drawings of bipartite graphs, counting bounded and unbounded regions formed by line arrangements, etc.), and verify their applicability carefully.
+
+4. Handle cases where standard or simple formulas fail or contradict given examples by:
+   - Re-examining assumptions,
+   - Considering additional edges or vertices (like segments along the parallel lines),
+   - Using combinatorial reasoning to count intersections, faces, edges, and vertices,
+   - Applying Euler's formula \(V - E + F = 2\) to deduce the number of faces,
+   - Distinguishing between bounded and unbounded regions,
+   - Validating the final formula against any provided sample data or examples.
+
+5. When a sample result or example is given (e.g., number of bounded regions for small values of \(m, n\)), use it as a crucial checkpoint to confirm or adjust your derived formula. The formula must exactly reproduce the example's output.
+
+6. Provide a fully reasoned, step-by-step solution process that includes:
+   - Interpretation of problem conditions,
+   - Stepwise derivation or verification of formulas,
+   - Evaluation of the formula on sample inputs,
+   - Clear explanation of why alternative or simpler formulas do not apply if they contradict the sample,
+   - Final computation of the answer for the requested input values.
+
+7. Present the final answer strictly as a single integer, as requested.
+
+Note: Problems may involve nuanced geometric or combinatorial configurations where naive formulas (e.g., \((m-1)(n-1)\)) are insufficient. You must carefully incorporate all problem details and confirm against provided examples before concluding.
+
+Example domain-specific knowledge to keep in mind:
+
+- The figure described involves \(m\) points on one parallel line, \(n\) points on another parallel line, with all possible segments between these points drawn (forming a \(K_{m,n}\)).
+
+- The condition that no point between the two lines lies on more than one segment means the segments are drawn without crossing inside the strip, implying a planar embedding respecting the orderings of points on each line.
+
+- Counting bounded regions formed by these segments and the two lines is equivalent to counting the number of bounded faces in the planar embedding of \(K_{m,n}\) plus the two parallel lines.
+
+- Euler's formula for planar graphs: \(V - E + F = 2\), where \(V\) is the number of vertices, \(E\) edges, and \(F\) faces (including the unbounded region).
+
+- Vertices include points on both lines; edges include the segments between points and the consecutive segments between points on each line.
+
+- The number of bounded regions is the number of faces minus 1 (subtracting the unbounded face).
+
+Your response should demonstrate the above understanding, and your final answer must be consistent with any example outputs provided in the problem statement.
+```

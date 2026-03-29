@@ -1,0 +1,24 @@
+{
+  "iteration": 8,
+  "candidate_idx": 1,
+  "candidate": {
+    "system_prompt": "'''\nSolve the given problem completely and accurately, showing clear and detailed reasoning steps that lead to the final answer. Your final answer must be provided as a single integer.\n\nKey domain-specific guidance for these types of problems:\n\n1. Carefully analyze the problem statement and any given conditions, especially when they involve digit manipulations, number base conversions, or algebraic identities.\n\n2. For problems involving digits or number representations in different bases:\n   - Explicitly set variables for digits and write equations relating the decimal and other base representations.\n   - Use constraints on digits (e.g., digits are integers within 0\u20139, leading digits nonzero) to limit possible solutions.\n   - Verify candidate solutions by converting back and forth between bases to confirm correctness.\n\n3. For problems involving counting integer solutions to algebraic equations with constraints (e.g., sums of variables, polynomial expressions):\n   - Look for symmetries and rewrite sums in symmetric polynomial forms.\n   - Use algebraic identities (e.g., sums of cubes, symmetric sums) to simplify expressions.\n   - Consider substitutions to center variables around key values (e.g., setting variables as offsets from 100).\n   - Analyze the problem both algebraically and combinatorially to count solutions efficiently.\n   - Check for conditions implying one variable must take a special value (e.g., zero or a fixed integer).\n   - Use polynomial root interpretations and Vieta\u2019s formulas when applicable.\n   - Account for permutations of variables when counting distinct ordered triples.\n\n4. Always verify the final answer against the problem constraints and ensure counting is correct to avoid undercounting or overcounting.\n\n5. Present the reasoning logically and clearly, ending with the boxed final answer as a single integer.\n\nBy following these detailed strategies and using algebraic identities and combinatorial reasoning where appropriate, you will provide accurate and comprehensive solutions to problems like the examples given.\n'''"
+  },
+  "score": 0.4666666666666667,
+  "minibatch_ids": [
+    9,
+    4,
+    28
+  ],
+  "trainset_size": 45,
+  "minibatch_size": 3,
+  "_meta": {
+    "event_id": "e8296322b4024fa681188c295b032189-144",
+    "event_type": "minibatch_sampled",
+    "callback_method": "on_minibatch_sampled",
+    "timestamp_ms": 1774474653550,
+    "dispatch_sequence": 144,
+    "callback_stream_id": "e8296322b4024fa681188c295b032189",
+    "iteration": 8
+  }
+}

@@ -1,0 +1,54 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, number theory, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, follow these domain-specific guidelines and reasoning strategies:
+
+1. **Problem Interpretation and Constraints:**
+   - Carefully interpret all given variables, conditions, and constraints.
+   - Pay close attention to domain-specific details such as integer root conditions, divisibility, modular arithmetic, floor functions, factorization, and properties of geometric figures.
+   - Confirm the integrality of expressions and variables where required.
+   - When problems involve parameters or divisors, explicitly analyze all cases or factor structures.
+
+2. **Number Theory Problems:**
+   - Use prime factorization to analyze gcd, lcm, and divisor structures.
+   - Apply Euler’s totient function and multiplicative function properties accurately.
+   - For problems involving fractions from repeating decimals, convert repeating patterns into fractions with denominators of the form \(10^k - 1\), reduce fractions fully, and analyze numerator and denominator sets carefully.
+   - When counting distinct reduced numerators or denominators, consider the structure of all divisors and use inclusion-exclusion or set union arguments carefully.
+   - Recognize that the set of reduced numerators corresponds to unions of sets of integers coprime to various divisors.
+
+3. **Algebra and Polynomial Problems:**
+   - For polynomials with integer coefficients, remember integer roots divide the constant term.
+   - If a quadratic polynomial with integer coefficients has an integer root, the other root is either integer or irrational conjugate; verify multiplicities and uniqueness.
+   - Use substitutions and symmetric expressions to simplify systems involving radicals.
+   - Check all candidate solutions by back-substitution to avoid extraneous roots.
+
+4. **Combinatorial and Counting Problems:**
+   - Analyze parity, positions, and counting arguments carefully.
+   - When counting regions formed by segments between points on parallel lines, verify known combinatorial formulas carefully and test against given examples.
+   - Use Euler’s formula for planar graphs where appropriate, including counting vertices, edges, and faces, and distinguish bounded vs. unbounded regions.
+   - When problem examples do not match initial formulas, re-express the problem in terms of combinatorial counts such as numbers of parallelograms or other polygonal regions formed.
+   - Confirm final formula by checking against the example cases given in the problem.
+
+5. **Geometry Problems:**
+   - Use coordinate geometry with symmetry to set up points and centers precisely.
+   - Apply circle and chord length formulas exactly.
+   - Verify chord length assignments before computing areas or requested quantities.
+   - Use exact arithmetic to avoid rounding errors.
+
+6. **Velocity and Relative Motion Problems:**
+   - Model velocities as vectors, combine swimmer velocity and river flow vectorially.
+   - Use vector parallelism conditions to form equations.
+   - Apply Pythagorean theorem and trigonometric identities to solve for unknown distances or times.
+   - Confirm solution plausibility with physical constraints.
+
+7. **General Solution and Verification Approach:**
+   - Fully simplify all fractions and expressions before combining numerator and denominator or summing.
+   - Use exact arithmetic and factorization to avoid approximation errors.
+   - Always test derived formulas or counts against provided examples.
+   - If discrepancies appear, reconsider assumptions and explore alternative interpretations.
+   - Avoid extraneous explanations; provide only concise logical reasoning and the final integer answer unless otherwise requested.
+
+Your final output must be only the integer answer the problem requests.
+
+Avoid including any explanations, reasoning steps, or other text beyond the integer answer unless explicitly asked.
+'''

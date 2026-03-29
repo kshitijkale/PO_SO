@@ -21,7 +21,6 @@ from gepa.logging.experiment_tracker import create_experiment_tracker
 from gepa.logging.logger import LoggerProtocol, StdOutLogger
 from gepa.proposer.merge import MergeProposer
 from gepa.proposer.reflective_mutation.base import CandidateSelector, LanguageModel, ReflectionComponentSelector
-from gepa.proposer.reflective_mutation.memory import ReflectionMemory
 from gepa.proposer.reflective_mutation.reflective_mutation import ReflectiveMutationProposer
 from gepa.strategies.batch_sampler import BatchSampler, EpochShuffledBatchSampler
 from gepa.strategies.candidate_selector import (
@@ -78,19 +77,10 @@ def optimize(
     use_cloudpickle: bool = False,
     # Evaluation caching
     cache_evaluation: bool = False,
-    # Reflection memory
-    use_reflection_memory: bool = False,
-    reflection_memory_max_entries: int = 10,
-    lesson_lm: LanguageModel | str | None = None,
-    objective: str = "",
-    # MemV0: tree-based memory with Outcome Interpreter
-    memory_version: Literal["v2", "v0"] | None = None,
-    oi_lm: LanguageModel | str | None = None,
-    outcome_eviction_k: int = 10,
-    memory_ring1_budget: int = 6000,
-    memory_ring2_budget: int = 2000,
-    memory_ring3_budget: int = 2000,
-    memory_ring4_budget: int = 1200,
+    # Memory
+    memory_version: Literal["ledger", "diary", "diary_full"] | None = None,
+    # Multi-turn refinement
+    refinement_steps: int = 1,
     # Research observability
     research_mode: bool = False,
     verbose: bool = False,
@@ -212,6 +202,19 @@ def optimize(
     # Normalize datasets to DataLoader instances
     train_loader = ensure_loader(trainset)
     val_loader = ensure_loader(valset) if valset is not None else train_loader
+
+    # Guard: when caching is enabled, overlapping train/val IDs silently corrupt val scores.
+    # Detect this and raise early rather than returning misleading metrics.
+    if cache_evaluation and val_loader is not train_loader:
+        train_ids = set(train_loader.all_ids())
+        val_ids = set(val_loader.all_ids())
+        overlap = train_ids & val_ids
+        if overlap:
+            raise ValueError(
+                f"Train and val loaders share {len(overlap)} IDs (e.g. {sorted(overlap)[:5]}), "
+                f"which will corrupt cached evaluation scores. "
+                f"Wrap your valset in ListDataLoader(valset, offset=len(trainset)) to assign disjoint IDs."
+            )
 
     # Comprehensive stop_callback logic
     # Convert stop_callbacks to a list if it's not already
@@ -362,13 +365,22 @@ def optimize(
     # Build research mode callbacks if enabled
     active_callbacks: list[Any] = list(callbacks) if callbacks else []
     if research_mode:
-        from gepa.callbacks import LineageTracker, LiveDisplay, ResearchLogger, StateLogger
+        from gepa.callbacks import (
+            LineageTracker,
+            LiveDisplay,
+            MetricsRollupLogger,
+            ResearchLogger,
+            RunIndexLogger,
+            StateLogger,
+        )
 
         research_dir = run_dir or "./gepa_research_logs"
         active_callbacks.extend([
             ResearchLogger(output_dir=research_dir),
             StateLogger(output_dir=research_dir),
+            MetricsRollupLogger(output_dir=research_dir),
             LineageTracker(output_dir=research_dir),
+            RunIndexLogger(output_dir=research_dir),
         ])
         if not verbose:
             active_callbacks.append(LiveDisplay())
@@ -378,69 +390,23 @@ def optimize(
         active_callbacks.append(VerboseDisplay())
     effective_callbacks: list[Any] | None = active_callbacks if active_callbacks else None
 
-    # Create reflection memory if enabled
-    reflection_memory: ReflectionMemory | None = None
-    if use_reflection_memory:
-        reflection_memory = ReflectionMemory(
-            max_entries=reflection_memory_max_entries,
+    # Rejection ledger: lightweight per-parent rejection history
+    rejection_ledger = None
+    if memory_version == "ledger":
+        from gepa.proposer.reflective_mutation.rejection_ledger import RejectionLedger
+
+        rejection_ledger = RejectionLedger(max_entries_per_parent=8, max_prompt_chars=600)
+
+    # Optimization diary: global, fixed-size alternative to ledger
+    optimization_diary = None
+    if memory_version in ("diary", "diary_full"):
+        from gepa.proposer.reflective_mutation.optimization_diary import OptimizationDiary
+
+        diary_lm = reflection_lm_callable if memory_version == "diary_full" else None
+        optimization_diary = OptimizationDiary(
+            strategy_notes_lm=diary_lm,
             callbacks=effective_callbacks,
         )
-
-    # Validate memory_version vs use_reflection_memory
-    if memory_version == "v0" and use_reflection_memory:
-        raise ValueError("Cannot use both memory_version='v0' and use_reflection_memory=True. Choose one.")
-
-    # Resolve lesson_lm for V2 memory: explicit override > reflection_lm > None
-    lesson_lm_callable: LanguageModel | None = None
-    if use_reflection_memory:
-        if lesson_lm is not None:
-            if isinstance(lesson_lm, str):
-                from gepa.optimize_anything import make_litellm_lm
-
-                lesson_lm_callable = make_litellm_lm(lesson_lm)
-            else:
-                lesson_lm_callable = lesson_lm
-        else:
-            lesson_lm_callable = reflection_lm_callable
-
-    # MemV0: tree-based memory with Outcome Interpreter
-    memory_tree = None
-    outcome_interpreter = None
-    memory_renderer = None
-    if memory_version == "v0":
-        from gepa.proposer.reflective_mutation.memory_renderer import TieredMemoryRenderer
-        from gepa.proposer.reflective_mutation.memory_tree import MemoryTree
-        from gepa.proposer.reflective_mutation.outcome_interpreter import OutcomeInterpreter
-
-        # Resolve OI language model
-        if oi_lm is not None:
-            if isinstance(oi_lm, str):
-                from gepa.optimize_anything import make_litellm_lm
-
-                oi_lm_callable = make_litellm_lm(oi_lm)
-            else:
-                oi_lm_callable = oi_lm
-        else:
-            oi_lm_callable = reflection_lm_callable
-
-        if oi_lm_callable is None:
-            raise ValueError("oi_lm or reflection_lm must be provided when memory_version='v0'")
-
-        from gepa.callbacks.memv0_observer import MemV0Observer
-
-        active_callbacks.append(MemV0Observer(log_dir=run_dir, print_output=True))
-        effective_callbacks = active_callbacks if active_callbacks else None
-
-        memory_tree = MemoryTree(outcome_eviction_k=outcome_eviction_k)
-        outcome_interpreter = OutcomeInterpreter(lm=oi_lm_callable, callbacks=effective_callbacks)
-        memory_renderer = TieredMemoryRenderer(
-            ring1_char_budget=memory_ring1_budget,
-            ring2_char_budget=memory_ring2_budget,
-            ring3_char_budget=memory_ring3_budget,
-            ring4_char_budget=memory_ring4_budget,
-        )
-        # Disable V2 memory when V0 is active
-        reflection_memory = None
 
     reflective_proposer = ReflectiveMutationProposer(
         logger=logger,
@@ -456,12 +422,10 @@ def optimize(
         reflection_prompt_template=reflection_prompt_template,
         custom_candidate_proposer=custom_candidate_proposer,
         callbacks=effective_callbacks,
-        reflection_memory=reflection_memory,
-        lesson_lm=lesson_lm_callable,
-        objective=objective,
-        memory_tree=memory_tree,
-        outcome_interpreter=outcome_interpreter,
-        memory_renderer=memory_renderer,
+        rejection_ledger=rejection_ledger,
+        optimization_diary=optimization_diary,
+        summarizer_lm=reflection_lm_callable,
+        refinement_steps=refinement_steps,
     )
 
     def evaluator_fn(

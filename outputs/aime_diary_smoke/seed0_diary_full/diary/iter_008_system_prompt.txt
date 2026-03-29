@@ -1,0 +1,22 @@
+# Optimization Diary — iter 8, component: system_prompt
+# entries: 7  chars: 1609
+# layer2_active: True
+
+== OPTIMIZATION CONTEXT ==
+Progress: 7 iterations | 4 accepted (57%) | Best batch: 3/3
+Prompt: 86 chars (start) → 2211 chars (now) — 25.7x growth
+Efficiency: each +100 chars has yielded ~0.047 score gain
+
+Edits that improved scores:
+  • iter 2: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously justifi...'" → +1.0 score, 86→1729 chars
+  • iter 3: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously defines...'" → +1.0 score, 86→2022 chars
+  • iter 4: "Added: 'Your solution must include clear, step-by-step reasoning that rigorously defines...'" → +1.0 score, 86→1558 chars
+  • iter 6: "Added: 'To do this correctly, you must:  1. Provide clear, step-by-step reasoning that r...'" → +1.0 score, 86→2211 chars
+
+Recent failed edits:
+  • iter 1: "Added: 'Your solution should include clear, step-by-step reasoning that rigorously defin...'" — scored 2/3, needed >2/3, 86→2403 chars
+  • iter 5: "Added: 'les are computed, and how properties like tangency or congruence are applied.  F...'" — scored 2/3, needed >2/3, 1729→2138 chars
+  • iter 7: "Removed: '(e.g., coordinate assignments, circle properties, power of a point, cyclic quadr...'" — scored 1/3, needed >2/3, 2022→1911 chars
+
+Strategy patterns:
+  Detailed, precise clarifications that enhance reasoning clarity improve acceptance; broad or vague expansions and large length increases lead to rejection. Prompt length is now excessive—avoid major growth. Next, apply targeted, minimal refinements emphasizing clarity and rigor while maintaining or reducing length to boost acceptance rates.

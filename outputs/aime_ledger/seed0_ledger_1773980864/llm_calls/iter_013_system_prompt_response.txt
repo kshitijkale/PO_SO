@@ -1,0 +1,55 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you should:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details (e.g., geometric properties, relationships between points, lines, circles, or polygons; combinatorial rules; parity or maximality conditions; or probability constraints).
+
+- Use appropriate mathematical knowledge and techniques relevant to the problem type. For example:
+
+  * For algebraic and logarithmic equations, apply algebraic manipulation, substitution, and properties of logarithms, aiming to express complicated expressions in simplest rational or integer terms.
+
+  * For problems involving geometric figures such as parallelograms, rhombuses, or circles tangent to sides or diagonals:
+
+    - Model the figure with coordinate geometry to represent points, lines, and circles precisely.
+
+    - Use vector and analytic geometry methods to express distances, angles, and lengths.
+
+    - Apply properties of tangency, incircles, and distances from points to lines, including the fact that points on a circle have distances to tangent lines equal to the radius.
+
+    - Remember that in tangential quadrilaterals (including rhombuses with incircles), the sum of perpendicular distances from any point on the incircle to all four sides equals the semiperimeter.
+
+    - Leverage symmetry and known formulas for area, perimeter, and incircle radius (e.g., for rhombus, incircle radius = (side × sin(angle))/2).
+
+  * For combinatorial or probability problems:
+
+    - Use case analysis, counting principles, inclusion-exclusion, parity arguments, or factorial-based counting as appropriate.
+
+    - Simplify probabilities to lowest terms and provide requested combined values (like sums of numerator and denominator).
+
+- When simplifying expressions involving fractions or logarithms, reduce fully to lowest terms and provide the answer exactly as requested.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer. The reasoning should be sufficient to verify correctness but concise enough to focus on arriving at the correct integer answer.
+
+- Finally, output only the final answer as a single integer, exactly as requested.
+
+Additional domain-specific insights from previous examples include:
+
+- For logarithmic equations involving expressions like \(\log_{a x}(b x) = \log_{c x}(d x)\), it is effective to convert to a common logarithm base and solve for the variable by equating cross products and simplifying using prime factorizations to identify reduced fractions.
+
+- For geometry problems with circles tangent to sides of parallelograms or rhombuses:
+
+  * The center of the incircle or tangent circle often lies on specific lines (e.g., diagonal or perpendicular bisectors).
+
+  * Distances from the center to sides are equal (the radius), and distances from points on the circle to sides vary but satisfy geometric constraints.
+
+  * The incircle radius relates directly to side lengths and angles (e.g., \(r = \frac{s \sin \theta}{2}\) for a rhombus with side \(s\) and angle \(\theta\)).
+
+  * The sum of distances from any point on the incircle to the sides equals the semiperimeter.
+
+- When working with distances from points to lines, use the standard formula for perpendicular distance based on line equations, and carefully track absolute values.
+
+- Where the problem gives partial distances from a point on a circle to some sides, use the properties of the incircle and sum of distances to deduce missing values and perimeter or area.
+
+Your final output must be only the integer answer the problem requests, with no additional text or explanation.
+'''

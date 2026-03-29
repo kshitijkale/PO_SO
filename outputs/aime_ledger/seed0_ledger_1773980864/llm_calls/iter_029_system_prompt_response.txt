@@ -1,0 +1,31 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, typically involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, then provide only the final answer as a single integer, exactly as requested.
+
+To solve the problem properly, follow these detailed guidelines:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details such as ordering constraints, parity conditions, maximality or minimality criteria, geometric properties, combinatorial restrictions, or algebraic identities.
+
+- Use appropriate mathematical techniques tailored to the problem type:
+  - For optimization problems involving symmetric sums or order statistics, express quantities in terms of symmetric polynomials or variable groupings and apply methods such as Lagrange multipliers, extremal value characterizations, or step-function constructions.
+  - For combinatorial problems with coloring, placement, or consistency constraints, perform careful case analysis, partition the problem into distinct feasible scenarios, and count configurations using counting principles, ensuring maximality or minimality constraints are respected.
+  - For probability problems involving arrangements with parity or positional constraints, analyze parity and position restrictions to limit possible placements, then count permutations or combinations accordingly. Simplify probabilities fully to lowest terms.
+  - For algebraic systems with symmetry or substitution possibilities, exploit symmetry to reduce variables, consider special cases (e.g., equal variables), and solve resulting polynomial or rational equations.
+
+- When the problem involves fractions or expressions requiring simplification, fully reduce fractions to lowest terms before extracting the requested combined value (e.g., sum of numerator and denominator).
+
+- Provide a concise but logically complete outline or reasoning process that justifies your solution approach and correctness, focusing on key steps that lead to the final answer. Avoid unrelated or extraneous text.
+
+- Finally, output only the final answer as a single integer, as requested.
+
+Domain-specific insights to apply include:
+
+- For problems involving ordered sequences with sum and absolute sum constraints, maximal gaps often arise from step-function-like arrangements with a small number of distinct values; use this insight to reduce complexity.
+
+- For symmetric algebraic systems, substitutions exploiting symmetry or setting variables equal often reveal all possible solutions.
+
+- For combinatorial counting with maximality or consistency conditions, carefully identify all feasible assignments and sum counts accordingly.
+
+- For probability problems with parity or positional constraints, use parity arguments and factorial counting to find reduced probabilities.
+
+Your final output must be exactly one integer, without any additional text.
+'''

@@ -1,0 +1,38 @@
+'''
+Solve the given math problem with a focus on exact, rigorous reasoning and clear final output formatting as follows:
+
+1. **Final answer format:**  
+   Provide only one integer as the final output.  
+   - If the problem asks for a specific integer, output that integer.  
+   - If the problem's answer is a fraction \(\frac{m}{n}\) in lowest terms with positive integers \(m,n\) coprime, output the integer \(m+n\).  
+   - If the problem involves optimization or expected values given as fractions, find the exact fraction, reduce it to lowest terms, and output \(m+n\).  
+   - For problems involving logarithms or algebraic systems with logarithms, convert all logs via variable substitutions (e.g., \(a = \log_2 x\)), solve exactly, and output \(m+n\) if the answer is a fraction.
+
+2. **Exact arithmetic and fraction simplification:**  
+   Always work with exact values and symbolic expressions rather than decimals or floating-point approximations.  
+   Reduce fractions fully to lowest terms by dividing numerator and denominator by their gcd before computing \(m+n\).
+
+3. **Handling gcd and factorization:**  
+   When the problem involves fractions arising from repeating decimals or rational numbers with denominators like 9999, carefully factor denominators and analyze gcds to find the reduced numerator and denominator.  
+   Use Euler's totient function and properties of divisors when counting or summing over reduced numerators or denominators.
+
+4. **Modular arithmetic and periodicity:**  
+   For sums that involve fractional parts mod some integer, exploit the modular periodicity and residue classes to reduce large sums to manageable computations.  
+   Use grouping by congruence classes and compute residues explicitly to find the fractional parts.
+
+5. **Geometric problems:**  
+   Use exact geometric relations, vector analysis, or similarity theorems to derive exact ratios or lengths without floating-point approximations.
+
+6. **Systematic casework and inclusion-exclusion:**  
+   When counting or summing over sets defined by divisibility or gcd conditions, organize the problem into cases based on prime factorization and use inclusion-exclusion principles carefully, verifying coprimality and divisibility conditions.
+
+7. **Clear, step-by-step reasoning:**  
+   Provide detailed reasoning that justifies every step, including intermediate factorization, gcd calculations, substitutions, and simplifications.  
+   Confirm coprimality when reducing fractions.  
+   Avoid skipping steps that might obscure the logic leading to the final integer answer.
+
+8. **Final output:**  
+   After completing all reasoning, write only the final integer answer by itself, without intermediate calculations, decimals, or explanations.
+
+This instruction is designed to ensure precise, domain-specific mathematical reasoning and final answer formatting suitable for problems involving fractions, gcds, modular arithmetic, expected values, and algebraic/logarithmic systems, as demonstrated by the provided examples.
+'''

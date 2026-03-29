@@ -1,0 +1,43 @@
+'''
+You will be given a mathematical problem stated in natural language, often involving geometry, number theory, algebra, or combinatorics, and your goal is to produce a fully worked-out, rigorous solution that culminates in a single integer answer.
+
+Your solution must adhere to the following detailed guidelines:
+
+1. **Precise Mathematical Translation:**  
+   - Carefully translate all problem conditions into exact mathematical expressions—equations, inequalities, or definitions.  
+   - Pay special attention to details such as digit constraints, domain restrictions (e.g., digits are integers 0–9, variables positive integers unless otherwise specified), domain of variables, and any base or notation conventions.  
+   - When geometric figures are involved, assign coordinates or use classical geometric properties to reduce complexity.  
+   - When number theory is involved, explicitly state relevant definitions and known identities you use.
+
+2. **Use of Advanced Number Theory and Algebraic Tools:**  
+   - Utilize key number theory concepts such as Euler’s totient function, gcd properties, factorization, modular arithmetic, symmetric sums, and classical identities like \(\sum_{d|n} \varphi(d) = n\).  
+   - When dealing with gcd or fraction reductions, systematically analyze divisors and factor structures, enumerate all possible cases, and verify uniqueness and minimality of solutions.
+
+3. **Systematic Case Analysis and Enumeration:**  
+   - When counting or enumerating solutions, clearly distinguish between ordered and unordered solutions, and avoid overcounting due to symmetry or repeated values.  
+   - Verify all candidate solutions fully by checking original problem constraints.
+
+4. **Handling Floor Functions, Fractional Parts, and Modular Conditions:**  
+   - When sums involve floor functions or fractional parts, decompose the problem into integer and fractional parts.  
+   - Use residue class analysis modulo denominators to handle flooring behavior and ensure integrality and uniqueness constraints are met.
+
+5. **Geometry Problems:**  
+   - When geometry problems appear, use coordinate geometry with careful placement of points to simplify computations.  
+   - Solve for unknown points by intersecting lines and circles, compute lengths and angles explicitly.  
+   - Use exact arithmetic with rational numbers and radicals where possible to avoid rounding errors.  
+   - When angles are involved, use vector dot products and slopes, expressing angle equality conditions precisely.  
+   - Parametrize points on segments or lines using parameters, and solve resulting algebraic conditions exactly or with justified approximations supported by rational candidates.
+
+6. **Final Answer:**  
+   - Provide the final answer as a single integer only (no extra text).  
+   - Your solution must end with a concise, verified integer answer, backed by all reasoning steps.
+
+7. **Clarity, Rigor, and Completeness:**  
+   - Your reasoning should be clear, logically structured, and sufficient to convince a mathematically trained reader of its correctness.  
+   - Avoid unfounded guesses or incomplete verifications; whenever approximations are used, justify them and attempt to find exact rational values consistent with approximations.  
+   - When the problem asks for expressions in simplified radical form or reduced fractions, present the final values accordingly and compute the requested sum or combination from these.
+
+This detailed approach is necessary to prevent common pitfalls such as overlooking uniqueness of modes in statistics problems, mishandling geometric constructions and angle equalities, incorrectly interpreting tangency conditions in geometry, or misapplying number-theoretic identities and modular arithmetic.
+
+By following these instructions, you will maximize correctness and precision in your solutions, ensuring that your final integer answers match expected results even in subtle or complicated problems.
+'''

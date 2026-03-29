@@ -34,9 +34,9 @@ Tests use a record/replay pattern for LLM calls (see `tests/conftest.py`). By de
 - **Linter/formatter:** ruff (line length 120, double quotes, space indent)
 - **Type checking:** pyright in standard mode
 - **Python target:** 3.10+
-- **No relative imports** (enforced by ruff `ban-relative-imports = "all"`)
+- **No relative imports** in `src/` (enforced by ruff `ban-relative-imports = "all"`)
 - Follows Google Python Style Guide
-- Pre-commit hooks run ruff-check (with `--fix`) and ruff-format automatically on commit
+- Pre-commit hooks run ruff-check (with `--fix`), ruff-format, check-yaml, check-toml, check-added-large-files (3MB max), check-merge-conflict, and debug-statements
 
 ## Architecture
 
@@ -50,12 +50,15 @@ Tests use a record/replay pattern for LLM calls (see `tests/conftest.py`). By de
 - **`engine.py` — `GEPAEngine`**: Orchestrates the main optimization loop. Takes an adapter, proposers (reflective mutation + optional merge), strategies, and stop conditions. Each iteration: propose a candidate, evaluate, accept/reject, update Pareto front.
 - **`adapter.py` — `GEPAAdapter` (Protocol)**: The integration point for external systems. Implement `evaluate()` (run candidate on data, return `EvaluationBatch` with scores/traces) and `make_reflective_dataset()` (convert traces into a dataset for the reflection LLM).
 - **`state.py` — `GEPAState`**: Tracks all candidates, their scores, per-example Pareto frontiers, and evaluation cache. Frontier types: `instance`, `objective`, `hybrid`, `cartesian`.
-- **`callbacks.py`**: Event system with typed events (e.g., `IterationStartEvent`, `CandidateAcceptedEvent`, `ParetoFrontUpdatedEvent`).
+- **`callbacks.py`**: Event system with typed events (e.g., `IterationStartEvent`, `CandidateAcceptedEvent`, `ParetoFrontUpdatedEvent`). New observability should go through `notify_callbacks(...)` — do not bypass callback plumbing. Keep callback payloads serializable.
 
 ### Proposers (`src/gepa/proposer/`)
 
-- **`reflective_mutation/reflective_mutation.py` — `ReflectiveMutationProposer`**: Core proposer. Selects a candidate, evaluates on a minibatch capturing traces, builds a reflective dataset, then calls an LLM to propose an improved candidate based on failure analysis. Accepts an optional `reflection_memory: ReflectionMemory` to inject optimization history into the reflection prompt.
+- **`reflective_mutation/reflective_mutation.py` — `ReflectiveMutationProposer`**: Core proposer. Selects a candidate, evaluates on a minibatch capturing traces, builds a reflective dataset, then calls an LLM to propose an improved candidate based on failure analysis. Contains two evaluation paths that must be preserved: (1) cached non-trace path for normal mutation scoring, and (2) trace-capturing path when MemV0/OI needs reflective records.
 - **`reflective_mutation/memory.py` — `ReflectionMemory`**: Rolling episodic memory of past reflection attempts. Stores up to `max_entries` `ReflectionMemoryEntry` records (score before/after, accepted/rejected, failure modes) and formats them into prompt text so the reflection LLM avoids repeating rejected strategies. `summarize_change()` produces a heuristic one-line diff summary without LLM calls.
+- **`reflective_mutation/memory_tree.py` — `MemoryTree`** (MemV0): Structured hierarchical memory used when `memory_version="v0"`. Organizes lessons by failure mode.
+- **`reflective_mutation/outcome_interpreter.py` — `OutcomeInterpreter`** (MemV0): LLM-powered component that interprets evaluation traces and extracts structured lessons. Must never raise to callers — falls back on parse/LM failure.
+- **`reflective_mutation/memory_renderer.py` — `TieredMemoryRenderer`** (MemV0): Renders memory tree into tiered prompt text for injection into the reflection LLM.
 - **`merge.py` — `MergeProposer`**: Combines strengths of two Pareto-optimal candidates that excel on different task subsets.
 
 ### Strategies (`src/gepa/strategies/`)
@@ -70,65 +73,13 @@ Built-in adapters implementing `GEPAAdapter` for different use cases: `DefaultAd
 
 ### Research Observability (`src/gepa/callbacks/`)
 
-Callbacks that make the optimization process fully transparent. Enable via `research_mode=True` on `optimize()` / `optimize_anything()`, or register individually.
+Callbacks that make the optimization process fully transparent. Enable via `research_mode=True` on `optimize()` / `optimize_anything()`, or register individually. Key callbacks: `ResearchLogger` (per-iteration markdown reports + JSONL event stream), `StateLogger` (numbered JSON snapshots per iteration), `LineageTracker` (candidate ancestry graph), `LiveDisplay` (terminal dashboard), `VerboseDisplay` (structured console output), `MemV0Observer` (MemV0 internals tracing), `MetricsRollupLogger` (aggregate counters). See `LOGGING.md` for full documentation of events, run directory structure, redaction policy, and event correlation.
 
-**Opt-in:**
-```python
-# Single flag — registers all four callbacks automatically
-result = gepa.optimize(..., research_mode=True, run_dir="./runs/exp1")
+### Key Conventions
 
-# optimize_anything equivalent
-config = GEPAConfig(
-    engine=EngineConfig(run_dir="./runs/exp1"),
-    tracking=TrackingConfig(research_mode=True),
-)
-```
-
-**Callbacks:**
-- **`ResearchLogger`**: Exhaustive per-iteration markdown reports + JSONL event stream. Writes `iterations/iteration_NNN.md`, `candidates/`, `memory/`, `llm_calls/`, `log.jsonl`, `summary.jsonl`, `pareto_timeline.jsonl`. Each iteration report covers: candidate selection, minibatch, pre/post evaluation scores, full reflective dataset, memory state table + injected text, complete LLM prompt + response, before/after unified diff, acceptance decision, Pareto front snapshot.
-- **`StateLogger`**: 12 numbered JSON snapshots per iteration into `states/` — one file per step: `01_iteration_start`, `02_selection_and_minibatch`, `03_eval_current`, `04_reflective_dataset`, `05_memory_before/after`, `06_proposal_<component>`, `07_eval_proposed`, `08_decision`, `09_pareto`, `10_valset`, `11_merge_result`, `12_iteration_end`. Each file is self-contained.
-- **`LineageTracker`**: Candidate ancestry graph. Produces `lineage.jsonl`, `lineage_graph.json`, `lineage_tree.md` (human-readable tree of the best candidate's ancestry).
-- **`LiveDisplay`**: Live terminal dashboard after each iteration — score history, memory utilization, acceptance rate.
-- **`VerboseDisplay`** (`src/gepa/callbacks/verbose_display.py`): Structured per-iteration console output — logs candidate diffs, memory table, and acceptance decisions in plain text without writing files.
-
-**New callback events (added to `src/gepa/core/callbacks.py`):**
-- `MemoryEntryAddedEvent` — fires on every `ReflectionMemory.add()` with before/after size and evicted entry
-- `MemoryQueriedEvent` — fires on every `format_for_prompt()` with the exact injected text
-- `MemoryStateSnapshotEvent` — fires before and after proposal with full memory state
-- `ProposalTraceEvent` — fires per component with full LLM prompt, raw response, latency, and whether memory was injected
-
-**Instrumented internals:**
-- `ReflectionMemory` accepts `callbacks` and `current_iteration` fields; fires all four events automatically
-- `Signature.run_with_trace()` (in `base.py`) captures rendered prompt, raw response, and latency alongside the extracted result
-- `ReflectiveMutationProposer.propose_new_texts()` uses `run_with_trace()` and fires `ProposalTraceEvent` per component
-- Memory snapshots fired at `before_proposal` and `after_proposal` phases in `propose()`
-
-**Run directory structure produced:**
-```
-run_dir/
-├── log.jsonl                        # every event, one JSON line each
-├── summary.jsonl                    # one line per iteration (key metrics)
-├── pareto_timeline.jsonl
-├── lineage.jsonl / lineage_graph.json / lineage_tree.md
-├── iterations/iteration_NNN.md      # full narrative per iteration
-├── candidates/candidate_NNN.json
-├── memory/
-│   ├── memory_events.jsonl          # every add/query/eviction
-│   ├── memory_state_iter_NNN_<phase>.json
-│   └── prompts_with_memory/iter_NNN_<component>.txt
-├── llm_calls/
-│   ├── iter_NNN_<component>.json
-│   ├── iter_NNN_<component>_prompt.txt
-│   └── iter_NNN_<component>_response.txt
-└── states/
-    ├── iter_NNN_01_iteration_start.json
-    ├── iter_NNN_03_eval_current.json
-    └── ... (12 files per iteration)
-```
-
-### Key Type: Candidate
-
-A candidate is `dict[str, str]` — a mapping of component names to their text values. Multi-component candidates allow optimizing multiple parts of a system simultaneously.
+- **Candidate type:** `dict[str, str]` — a mapping of component names to their text values. Multi-component candidates allow optimizing multiple parts of a system simultaneously.
+- **LLM access:** External LLM calls go through LiteLLM callables (`reflection_lm`, `lesson_lm`, `oi_lm`) and adapter-specific model clients.
+- **MemV0 style:** Follow existing naming and dataclass-first style in MemV0 modules. Keep typed event payloads explicit using `TypedDict` patterns from `callbacks.py`.
 
 ## Running Experiments
 
@@ -147,15 +98,16 @@ uv run python -m experiments.aime_memory.run \
 
 # Lightweight variant for quick iteration
 uv run python -m experiments.aime_memory.run_light --seed 0 --memory
-```
 
-See `experiments/aime_memory/HOWTO_RUN.md` for all available flags and ablation configs.
+# Verbose variant (MemV0 with console tracing)
+uv run python -m experiments.aime_memory.run_verbose --seed 0 --memory
+```
 
 ## Key Reference Documents
 
 - **`GEPA_WALKTHROUGH.md`**: Deep-dive walkthrough of the full architecture — covers the engine loop, adapter contract, state machine, and proposer internals in detail. Read this before making structural changes.
-- **`ideas/REFLECTION_MEMORY_V2.md`**: High-level design for the V2 memory feature (LLM-generated lessons vs. heuristic diffs).
-- **`plans/reflection_memory_v2_impl.md`**: Low-level implementation spec for the current MemoryV2 branch work.
+- **`AGENTS.md`**: Agent-focused quick reference — code style, architecture pointers, MemV0 conventions, integration points, and security guidelines.
+- **`LOGGING.md`**: Full documentation of the logging and observability system — event types, callback behaviors, redaction policy, event correlation index, and MemV0 sink parity.
 
 ## Pyright Exclusions
 

@@ -19,7 +19,6 @@ from gepa.core.callbacks import (
     CandidateRejectedEvent,
     CandidateSelectedEvent,
     IterationEndEvent,
-    MemoryStateSnapshotEvent,
     OptimizationEndEvent,
     OptimizationStartEvent,
     ParetoFrontUpdatedEvent,
@@ -86,13 +85,6 @@ class LiveDisplay:
     def on_budget_updated(self, event: BudgetUpdatedEvent) -> None:
         self._budget_used = event["metric_calls_used"]
         self._budget_remaining = event["metric_calls_remaining"]
-
-    def on_memory_state_snapshot(self, event: MemoryStateSnapshotEvent) -> None:
-        if event["phase"] == "after_proposal":
-            self._memory_size = event["total_entries"]
-            self._memory_max = event["max_entries"]
-            self._memory_accepted = int(event["accepted_ratio"] * event["total_entries"])
-            self._memory_rejected = event["total_entries"] - self._memory_accepted
 
     def on_iteration_end(self, event: IterationEndEvent) -> None:
         self._total_iterations += 1

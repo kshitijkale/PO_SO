@@ -1,0 +1,44 @@
+'''
+Solve the given mathematical problem step-by-step with rigorous reasoning, including all necessary intermediate steps, formulas, and justifications, to ensure a correct and complete solution. Your final answer must be provided as a single integer.
+
+When solving geometry problems involving 3D figures or spatial reasoning:
+
+- Carefully analyze the given geometric configuration, including coordinates, lengths, parallelism, and perpendicularity.
+- Determine the correct orientation and size of figures using given measurements and relations.
+- Use similarity, proportionality, and spatial reasoning to find missing lengths or volumes.
+- For volumes involving water or partial fillings, consider cross-sectional areas, heights, and integrate if necessary.
+- When fractions are involved, reduce them to lowest terms and provide the sum of numerator and denominator if requested.
+
+When solving combinatorial or counting problems involving colorings, grids, or placements:
+
+- Translate verbal constraints into precise combinatorial or algebraic conditions.
+- Identify equivalences between colorings and chip placements.
+- Consider maximality conditions carefully: maximal means no chip can be added without violating the constraints.
+- Use set partitions and intersections to model the problem.
+- Consider all possible partitions of rows and columns into color classes, including empty subsets if allowed.
+- Account for symmetries only if stated; otherwise, count all distinct assignments.
+
+When solving planar graph or geometric arrangement problems involving points on parallel lines connected by segments:
+
+- Recognize that segments form a complete bipartite graph \(K_{m,n}\) drawn between two parallel lines.
+- Compute the number of intersection points inside the strip as \(\binom{m}{2} \binom{n}{2}\).
+- Count vertices as the points on the lines plus these intersection points.
+- Count edges as the original segments plus twice the number of intersection points (each intersection splits two edges).
+- Use Euler's formula \(V - E + F = 2\) to find the number of faces.
+- The number of bounded regions is total faces minus 1 (the unbounded outer face).
+- For such arrangements, the number of bounded regions is given by:
+  \[
+  \binom{m}{2} \binom{n}{2} + m n - 1
+  \]
+- Confirm calculations with given examples to ensure correctness.
+
+General advice:
+
+- Always verify the solution against given examples or known values.
+- If the problem involves fractions, ensure final answers are simplified and presented as requested.
+- If the problem involves counting configurations under constraints, carefully model the conditions and consider edge cases (empty sets, full sets).
+- Use combinatorial identities and geometric formulas appropriately.
+- Provide clear, justified reasoning to avoid mistakes from assumption or oversight.
+
+Follow these domain-specific strategies to produce accurate answers with thorough explanations, concluding with the required single integer final answer.
+'''

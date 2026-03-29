@@ -1,0 +1,2420 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem thoroughly and provide the final answer as a single integer. Your response must include a comprehensive, logically structured, step-by-step mathematical reasoning process that:
+
+- Explicitly states and carefully uses all given information and problem conditions without making unsupported assumptions.
+- Clearly defines any variables, coordinate systems, or notation introduced, and justifies their choice.
+- For geometric or algebraic problems, incorporate relevant domain-specific facts (e.g., properties of shapes, concurrency, cyclicity, lengths, angles, areas, volumes), and show how these facts inform each step.
+- When multiple cases or configurations are possible, explicitly enumerate and analyze each, ruling out inconsistent or impossible cases with clear justification.
+- For combinatorial or probabilistic problems, fully enumerate all relevant outcomes or states when feasible, and carefully derive recurrences or probabilities, ensuring no cases are omitted or double counted.
+- Perform exact symbolic manipulation and algebraic simplification as far as possible before any numerical approximation.
+- When final numeric values are derived, confirm they satisfy all problem constraints and match the required answer format (e.g., a single integer).
+- If approximations are used temporarily, clearly mark them as such, avoid relying on them for final conclusions, and verify the exact symbolic results align with approximations.
+- Summarize the reasoning at the end, confirming the correctness and consistency of the final answer.
+
+This methodical approach will minimize errors from oversight, incorrect assumptions, incomplete casework, or arithmetic mistakes, producing a rigorously justified final integer answer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: A list of positive integers has the following properties:
+$\bullet$ The sum of the items in the list is $30$.
+$\bullet$ The unique mode of the list is $9$.
+$\bullet$ The median of the list is a positive integer that does not appear in the list itself.
+Find the sum of the squares of all the items in the list.
+
+## Generated Outputs
+Answer: 236
+Reasoning: We are given a list of positive integers with the following properties:
+
+1. The sum of the items in the list is 30.
+2. The unique mode of the list is 9.
+3. The median of the list is a positive integer that does not appear in the list.
+
+We need to find the sum of the squares of all the items in the list.
+
+---
+
+**Step 1: Understand the conditions**
+
+- The list consists of positive integers.
+- The sum of all elements is 30.
+- The unique mode is 9, meaning 9 appears more times than any other number, and no other number appears as frequently as 9.
+- The median is a positive integer that is *not* in the list.
+
+---
+
+**Step 2: Consider the median condition**
+
+The median is the middle element (or average of two middle elements) when the list is sorted.
+
+- If the list length \( n \) is odd, the median is the middle element, which must be an integer not in the list. This is impossible because the median is an element of the list in an odd-length list.
+- Therefore, the list length \( n \) must be even.
+
+For an even-length list, the median is the average of the two middle elements. Since the median is a positive integer not in the list, the two middle elements must be two distinct integers whose average is an integer not in the list.
+
+---
+
+**Step 3: Let the list length be \( n = 2m \) (even).**
+
+The median is the average of the \( m \)-th and \( (m+1) \)-th elements in the sorted list.
+
+Let these two middle elements be \( a \) and \( b \), with \( a < b \).
+
+Then the median is \( \frac{a + b}{2} \), which is a positive integer not in the list.
+
+Since the median is not in the list, \( \frac{a + b}{2} \neq a \) and \( \frac{a + b}{2} \neq b \), so \( a \neq b \).
+
+Also, \( \frac{a + b}{2} \) is an integer, so \( a + b \) is even.
+
+---
+
+**Step 4: The unique mode is 9**
+
+- 9 appears more times than any other number.
+- So 9 appears at least twice.
+- No other number appears as many times as 9.
+
+---
+
+**Step 5: Try to find a suitable list**
+
+We want to find a list of positive integers summing to 30, with unique mode 9, and median is an integer not in the list.
+
+---
+
+**Step 6: Try small even lengths**
+
+Try \( n = 4 \):
+
+- The median is average of 2nd and 3rd elements.
+- Let the sorted list be \( x_1 \leq x_2 \leq x_3 \leq x_4 \).
+- Median = \( \frac{x_2 + x_3}{2} \), an integer not in the list.
+- 9 must appear more times than any other number.
+- Sum is 30.
+
+Try to include 9 twice (minimum for mode):
+
+- Suppose \( x_3 = 9 \), \( x_4 = 9 \) (two 9s at the end).
+- Then median = \( \frac{x_2 + 9}{2} \).
+- Median is integer not in list, so median ≠ \( x_2 \) and median ≠ 9.
+- So median ≠ 9, so \( \frac{x_2 + 9}{2} \neq 9 \Rightarrow x_2 \neq 9 \).
+- Also median ≠ \( x_2 \), so median ≠ \( x_2 \).
+
+Try \( x_2 = 7 \):
+
+- Median = \( \frac{7 + 9}{2} = 8 \), which is integer and not in the list (since list is \( x_1, 7, 9, 9 \)).
+- So median = 8, which is not in the list.
+
+Sum is \( x_1 + 7 + 9 + 9 = 30 \Rightarrow x_1 = 30 - 25 = 5 \).
+
+Check the list: \( 5, 7, 9, 9 \).
+
+- Sum = 5 + 7 + 9 + 9 = 30 ✓
+- Mode is 9 (appears twice), others appear once ✓
+- Median = (7 + 9)/2 = 8, which is integer and not in the list ✓
+
+All conditions satisfied.
+
+---
+
+**Step 7: Calculate sum of squares**
+
+Sum of squares = \(5^2 + 7^2 + 9^2 + 9^2 = 25 + 49 + 81 + 81 = 236\).
+
+---
+
+**Step 8: Verify uniqueness**
+
+- Mode is unique: 9 appears twice, others once.
+- Median is integer not in list.
+- Sum is 30.
+- All positive integers.
+
+This satisfies all conditions.
+
+---
+
+**Final answer:**
+
+Sum of squares = 236.
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 236.
+
+
+
+# Example 2
+## Inputs
+Problem: Torus $T$ is the surface produced by revolving a circle with radius $3$ around an axis in the plane of the circle that is a distance $6$ from the center of the circle (so like a donut). Let $S$ be a sphere with a radius $11$. When $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_i$, and when $T$ rests on the outside of $S$, it is externally tangent to $S$ along a circle with radius $r_o$. The difference $r_i-r_o$ can be written as $\tfrac{m}{n}$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+[asy] unitsize(0.3 inch); draw(ellipse((0,0), 3, 1.75)); draw((-1.2,0.1)..(-0.8,-0.03)..(-0.4,-0.11)..(0,-0.15)..(0.4,-0.11)..(0.8,-0.03)..(1.2,0.1)); draw((-1,0.04)..(-0.5,0.12)..(0,0.16)..(0.5,0.12)..(1,0.04)); draw((0,2.4)--(0,-0.15)); draw((0,-0.15)--(0,-1.75), dashed); draw((0,-1.75)--(0,-2.25)); draw(ellipse((2,0), 1, 0.9)); draw((2.03,-0.02)--(2.9,-0.4)); [/asy]
+
+## Generated Outputs
+Answer: 7
+Reasoning: We are given a torus \( T \) formed by revolving a circle of radius 3 around an axis in the plane of the circle, at a distance 6 from the center of the circle. This means the torus has a "major radius" \( R = 6 \) (distance from the center of the tube to the axis of revolution) and a "minor radius" \( r = 3 \) (radius of the tube).
+
+The torus \( T \) is placed externally tangent to a sphere \( S \) of radius 11. The torus touches the sphere along a circle of radius \( r_i \) in one configuration and along a circle of radius \( r_o \) in another configuration. We want to find the difference \( r_i - r_o \).
+
+---
+
+**Step 1: Understanding the torus and sphere setup**
+
+- The torus is generated by revolving a circle of radius 3 centered at \((6,0)\) in the plane around the vertical axis (say the \(y\)-axis).
+- The torus surface points satisfy:
+  \[
+  (\sqrt{x^2 + z^2} - 6)^2 + y^2 = 3^2 = 9.
+  \]
+- The sphere \( S \) has radius 11 and is centered at some point so that the torus is tangent externally to it.
+
+---
+
+**Step 2: Positioning the sphere and torus**
+
+The problem states "when \( T \) rests on the outside of \( S \), it is tangent along a circle of radius \( r_i \)" and similarly for \( r_o \). The torus can be tangent to the sphere in two different ways:
+
+- The torus "sits" on the sphere with its "inner" side touching the sphere.
+- The torus "sits" on the sphere with its "outer" side touching the sphere.
+
+Because the torus is symmetric about the axis of revolution, the circle of tangency lies in a plane perpendicular to the axis of revolution.
+
+---
+
+**Step 3: Geometric interpretation of the tangent circles**
+
+The torus is generated by revolving a circle of radius 3 centered at \((6,0)\) around the \(y\)-axis. The cross-section in the plane of the circle is a circle centered at \((6,0)\) with radius 3.
+
+The sphere \( S \) has radius 11. The torus is tangent to the sphere along a circle. The circle of tangency lies on the torus surface and on the sphere surface.
+
+---
+
+**Step 4: Parametrizing the torus cross-section**
+
+Let the cross-section circle of the torus be:
+\[
+(x - 6)^2 + y^2 = 9.
+\]
+
+The sphere \( S \) has radius 11 and is centered at the origin (assumed for simplicity).
+
+---
+
+**Step 5: Finding the circle of tangency**
+
+The torus is tangent to the sphere along a circle. The circle of tangency lies on the torus surface and on the sphere surface.
+
+The torus surface is generated by revolving the circle \((x-6)^2 + y^2 = 9\) around the \(y\)-axis.
+
+The sphere is centered at the origin with radius 11:
+\[
+x^2 + y^2 + z^2 = 11^2 = 121.
+\]
+
+---
+
+**Step 6: The circle of tangency lies on a torus "parallel"**
+
+The torus is a surface of revolution of the circle \((x-6)^2 + y^2 = 9\) around the \(y\)-axis.
+
+The circle of tangency is a circle of radius \(r\) in the \(x,z\)-plane at some height \(y = h\).
+
+At height \(y = h\), the cross-section of the torus is a circle in the \(x,z\)-plane with radius:
+\[
+\rho = \sqrt{(x-6)^2 + y^2} = \sqrt{(x-6)^2 + h^2}.
+\]
+
+But since the torus is generated by revolving the circle \((x-6)^2 + y^2 = 9\), at height \(y = h\), the cross-section in the \(x\)-direction is:
+\[
+(x-6)^2 = 9 - h^2.
+\]
+So the cross-section circle radius in the \(x\)-direction is \(\sqrt{9 - h^2}\).
+
+When revolved around the \(y\)-axis, the circle at height \(y = h\) is a circle of radius:
+\[
+r = 6 \pm \sqrt{9 - h^2}.
+\]
+
+This is because the distance from the \(y\)-axis to the point on the torus at height \(h\) is:
+\[
+\sqrt{x^2 + z^2} = 6 \pm \sqrt{9 - h^2}.
+\]
+
+---
+
+**Step 7: Sphere radius at height \(y = h\)**
+
+At height \(y = h\), the sphere cross-section is a circle in the \(x,z\)-plane with radius:
+\[
+\sqrt{121 - h^2}.
+\]
+
+---
+
+**Step 8: Tangency condition**
+
+The torus and sphere are tangent along a circle at height \(y = h\). The radius of the circle of tangency is the radius of the circle in the \(x,z\)-plane at height \(h\).
+
+The torus circle radius at height \(h\) is:
+\[
+r_{\text{torus}} = 6 \pm \sqrt{9 - h^2}.
+\]
+
+The sphere circle radius at height \(h\) is:
+\[
+r_{\text{sphere}} = \sqrt{121 - h^2}.
+\]
+
+For tangency, the torus circle and sphere circle must be tangent externally, so their radii differ by the radius of the tube (3), or more precisely, the distance between the centers of these circles equals the sum or difference of their radii.
+
+But since the torus is generated by revolving the circle centered at \((6,0)\), the distance from the \(y\)-axis to the torus circle at height \(h\) is \(6 \pm \sqrt{9 - h^2}\).
+
+The sphere is centered at the origin, so the distance from the \(y\)-axis to the sphere circle at height \(h\) is zero (since the sphere is centered at the origin).
+
+Therefore, the distance between the centers of the two circles in the \(x,z\)-plane at height \(h\) is:
+\[
+d = 6 \pm \sqrt{9 - h^2}.
+\]
+
+The sphere circle radius is \(\sqrt{121 - h^2}\).
+
+For the torus and sphere to be tangent along a circle at height \(h\), the distance between centers equals the sum or difference of the radii:
+\[
+d = r_{\text{sphere}} \pm r_{\text{torus tube}}.
+\]
+
+But the torus tube radius is 3, so the torus circle radius at height \(h\) is the distance from the axis plus or minus the tube radius.
+
+Wait, this is confusing. Let's clarify.
+
+---
+
+**Step 9: Clarify the torus geometry**
+
+The torus is the set of points \((x,y,z)\) such that:
+\[
+(\sqrt{x^2 + z^2} - 6)^2 + y^2 = 9.
+\]
+
+At height \(y = h\), the cross-section in the \(x,z\)-plane is the set of points satisfying:
+\[
+(\rho - 6)^2 = 9 - h^2,
+\]
+where \(\rho = \sqrt{x^2 + z^2}\).
+
+So,
+\[
+\rho - 6 = \pm \sqrt{9 - h^2} \implies \rho = 6 \pm \sqrt{9 - h^2}.
+\]
+
+Thus, at height \(h\), the torus cross-section is two circles in the \(x,z\)-plane with radii:
+\[
+r_1 = 6 + \sqrt{9 - h^2}, \quad r_2 = 6 - \sqrt{9 - h^2}.
+\]
+
+---
+
+**Step 10: Sphere cross-section at height \(h\)**
+
+The sphere of radius 11 centered at the origin has cross-section radius:
+\[
+r_s = \sqrt{121 - h^2}.
+\]
+
+---
+
+**Step 11: Tangency condition**
+
+The torus and sphere are tangent along a circle at height \(h\). The circle of tangency lies on both surfaces.
+
+The torus cross-section at height \(h\) consists of two circles of radii \(r_1\) and \(r_2\).
+
+The sphere cross-section at height \(h\) is a circle of radius \(r_s\).
+
+The torus circle of radius \(r_1\) or \(r_2\) is tangent to the sphere circle of radius \(r_s\) if the distance between their centers equals the sum or difference of their radii.
+
+The centers of the torus cross-section circles are at the origin in the \(x,z\)-plane (since \(\rho = \sqrt{x^2 + z^2}\) is the radius from the \(y\)-axis), so the centers coincide.
+
+Therefore, the circles are concentric in the \(x,z\)-plane at height \(h\).
+
+For two concentric circles to be tangent externally, the difference of their radii equals zero (they touch at one point), so the radii must be equal.
+
+For internal tangency, the difference of radii equals zero.
+
+But the problem says the torus is tangent externally to the sphere along a circle.
+
+Since the torus surface is defined by the set of points where \((\rho - 6)^2 + y^2 = 9\), the torus surface is the union of two circles at each height \(h\) with radii \(r_1\) and \(r_2\).
+
+The sphere cross-section is a circle of radius \(r_s\).
+
+The torus and sphere are tangent along a circle at height \(h\) if:
+\[
+r_s = r_1 \quad \text{or} \quad r_s = r_2.
+\]
+
+---
+
+**Step 12: Solve for \(h\) in each case**
+
+We have:
+\[
+r_s = \sqrt{121 - h^2}.
+\]
+
+Set equal to \(r_1\):
+\[
+\sqrt{121 - h^2} = 6 + \sqrt{9 - h^2}.
+\]
+
+Set equal to \(r_2\):
+\[
+\sqrt{121 - h^2} = 6 - \sqrt{9 - h^2}.
+\]
+
+---
+
+**Step 13: Solve the first equation**
+
+\[
+\sqrt{121 - h^2} = 6 + \sqrt{9 - h^2}.
+\]
+
+Let:
+\[
+a = \sqrt{121 - h^2}, \quad b = \sqrt{9 - h^2}.
+\]
+
+Then:
+\[
+a = 6 + b.
+\]
+
+Square both sides:
+\[
+a^2 = (6 + b)^2 = 36 + 12b + b^2.
+\]
+
+But \(a^2 = 121 - h^2\), and \(b^2 = 9 - h^2\), so:
+\[
+121 - h^2 = 36 + 12b + 9 - h^2.
+\]
+
+Simplify:
+\[
+121 - h^2 = 45 + 12b - h^2.
+\]
+
+Cancel \(-h^2\) on both sides:
+\[
+121 = 45 + 12b.
+\]
+
+Subtract 45:
+\[
+76 = 12b \implies b = \frac{76}{12} = \frac{19}{3}.
+\]
+
+Recall \(b = \sqrt{9 - h^2}\), so:
+\[
+\sqrt{9 - h^2} = \frac{19}{3}.
+\]
+
+But \(\frac{19}{3} \approx 6.33\), and \(\sqrt{9 - h^2} \leq 3\) since \(9 - h^2 \leq 9\).
+
+This is impossible.
+
+Therefore, no solution for the first equation.
+
+---
+
+**Step 14: Solve the second equation**
+
+\[
+\sqrt{121 - h^2} = 6 - \sqrt{9 - h^2}.
+\]
+
+Again, let:
+\[
+a = \sqrt{121 - h^2}, \quad b = \sqrt{9 - h^2}.
+\]
+
+Then:
+\[
+a = 6 - b.
+\]
+
+Square both sides:
+\[
+a^2 = (6 - b)^2 = 36 - 12b + b^2.
+\]
+
+Recall:
+\[
+a^2 = 121 - h^2, \quad b^2 = 9 - h^2.
+\]
+
+Substitute:
+\[
+121 - h^2 = 36 - 12b + 9 - h^2.
+\]
+
+Simplify:
+\[
+121 - h^2 = 45 - 12b - h^2.
+\]
+
+Cancel \(-h^2\) on both sides:
+\[
+121 = 45 - 12b.
+\]
+
+Subtract 45:
+\[
+76 = -12b \implies b = -\frac{76}{12} = -\frac{19}{3}.
+\]
+
+But \(b = \sqrt{9 - h^2} \geq 0\), so this is impossible.
+
+---
+
+**Step 15: Reconsider the tangency condition**
+
+Our previous assumption that the circles are concentric is incorrect because the torus cross-section circles are centered at \(\rho = 6\), not at \(\rho = 0\).
+
+The torus cross-section circle is centered at \(\rho = 6\) in the \(x,z\)-plane, with radius 3.
+
+The sphere cross-section circle is centered at \(\rho = 0\) with radius \(\sqrt{121 - h^2}\).
+
+Therefore, the two circles in the \(x,z\)-plane at height \(h\) have centers at distance 6 apart.
+
+---
+
+**Step 16: Two circles in the plane with centers distance 6**
+
+- Circle 1 (sphere cross-section): center at 0, radius \(r_s = \sqrt{121 - h^2}\).
+- Circle 2 (torus cross-section): center at 6, radius \(r_t = 3\).
+
+The torus surface is the set of points at distance 3 from the circle of radius 6 centered at the origin.
+
+---
+
+**Step 17: Tangency condition for two circles with centers distance 6**
+
+Two circles with centers distance \(d=6\), radii \(r_s\) and \(r_t=3\), are tangent externally if:
+\[
+d = r_s + r_t = r_s + 3,
+\]
+or tangent internally if:
+\[
+d = |r_s - r_t| = |r_s - 3|.
+\]
+
+Since the torus is outside the sphere, the torus is tangent externally to the sphere, so the circle of tangency is where the two circles are tangent externally or internally.
+
+---
+
+**Step 18: Solve for \(r_s\) in each case**
+
+- External tangency:
+\[
+6 = r_s + 3 \implies r_s = 3.
+\]
+
+- Internal tangency:
+\[
+6 = |r_s - 3|.
+\]
+
+This gives two cases:
+\[
+r_s - 3 = 6 \implies r_s = 9,
+\]
+or
+\[
+3 - r_s = 6 \implies r_s = -3 \quad \text{(impossible)}.
+\]
+
+So the possible \(r_s\) values are 3 and 9.
+
+---
+
+**Step 19: Find corresponding \(h\) values**
+
+Recall:
+\[
+r_s = \sqrt{121 - h^2}.
+\]
+
+For \(r_s = 3\):
+\[
+3 = \sqrt{121 - h^2} \implies 9 = 121 - h^2 \implies h^2 = 112 \implies h = \sqrt{112} = 4\sqrt{7}.
+\]
+
+For \(r_s = 9\):
+\[
+9 = \sqrt{121 - h^2} \implies 81 = 121 - h^2 \implies h^2 = 40 \implies h = \sqrt{40} = 2\sqrt{10}.
+\]
+
+---
+
+**Step 20: Find the radii of the circles of tangency on the torus**
+
+The radius of the circle of tangency on the torus is the radius of the circle formed by revolving the point at height \(h\) around the \(y\)-axis.
+
+At height \(h\), the torus cross-section circle is centered at \(\rho = 6\) with radius 3.
+
+The circle of tangency is the circle in the \(x,z\)-plane at height \(h\) with radius:
+\[
+r = \sqrt{x^2 + z^2} = \rho.
+\]
+
+But the circle of tangency is the circle where the torus touches the sphere, so the radius of the circle of tangency is the radius of the circle formed by revolving the point at height \(h\) around the \(y\)-axis.
+
+Since the torus cross-section circle is centered at \(\rho = 6\) with radius 3, the circle of tangency radius is:
+\[
+r = \rho = \text{distance from } y\text{-axis} = 6 \pm \sqrt{9 - h^2}.
+\]
+
+We must determine which sign corresponds to the circle of tangency.
+
+---
+
+**Step 21: Calculate \(\sqrt{9 - h^2}\) for each \(h\)**
+
+For \(h = 4\sqrt{7}\), \(h^2 = 112\):
+\[
+9 - h^2 = 9 - 112 = -103 < 0,
+\]
+which is impossible (square root of negative number).
+
+For \(h = 2\sqrt{10}\), \(h^2 = 40\):
+\[
+9 - 40 = -31 < 0,
+\]
+also impossible.
+
+This suggests a problem with the previous step.
+
+---
+
+**Step 22: Re-examine the torus cross-section circle radius**
+
+The torus cross-section circle is:
+\[
+(x - 6)^2 + y^2 = 9.
+\]
+
+At height \(y = h\), the cross-section in \(x\) is:
+\[
+(x - 6)^2 = 9 - h^2.
+\]
+
+For this to be real, \(9 - h^2 \geq 0 \implies |h| \leq 3\).
+
+But from step 19, \(h = \sqrt{112} \approx 10.58\) or \(h = \sqrt{40} \approx 6.32\), both greater than 3.
+
+This is a contradiction.
+
+---
+
+**Step 23: Conclusion**
+
+The torus cross-section circle only exists for \(|h| \leq 3\).
+
+The sphere cross-section circle exists for \(|h| \leq 11\).
+
+The circle of tangency must lie at some height \(h\) with \(|h| \leq 3\).
+
+---
+
+**Step 24: Reconsider the tangency condition**
+
+At height \(h\), the torus cross-section circle is centered at \(x=6\), radius \(\sqrt{9 - h^2}\).
+
+The sphere cross-section circle is centered at \(x=0\), radius \(\sqrt{121 - h^2}\).
+
+Distance between centers is 6.
+
+For the two circles to be tangent externally:
+\[
+6 = \sqrt{121 - h^2} + \sqrt{9 - h^2}.
+\]
+
+For internal tangency:
+\[
+6 = \left| \sqrt{121 - h^2} - \sqrt{9 - h^2} \right|.
+\]
+
+---
+
+**Step 25: Solve the external tangency equation**
+
+\[
+6 = \sqrt{121 - h^2} + \sqrt{9 - h^2}.
+\]
+
+Let:
+\[
+a = \sqrt{121 - h^2}, \quad b = \sqrt{9 - h^2}.
+\]
+
+Then:
+\[
+a + b = 6.
+\]
+
+Square both sides:
+\[
+a^2 + 2ab + b^2 = 36.
+\]
+
+But:
+\[
+a^2 = 121 - h^2, \quad b^2 = 9 - h^2.
+\]
+
+So:
+\[
+(121 - h^2) + 2ab + (9 - h^2) = 36,
+\]
+\[
+130 - 2h^2 + 2ab = 36,
+\]
+\[
+2ab = 36 - 130 + 2h^2 = -94 + 2h^2,
+\]
+\[
+ab = -47 + h^2.
+\]
+
+But:
+\[
+ab = \sqrt{(121 - h^2)(9 - h^2)}.
+\]
+
+Square both sides:
+\[
+(ab)^2 = (-47 + h^2)^2,
+\]
+\[
+(121 - h^2)(9 - h^2) = (h^2 - 47)^2.
+\]
+
+Expand left side:
+\[
+(121)(9) - 121 h^2 - 9 h^2 + h^4 = 1089 - 130 h^2 + h^4.
+\]
+
+Right side:
+\[
+(h^2 - 47)^2 = h^4 - 94 h^2 + 2209.
+\]
+
+Set equal:
+\[
+1089 - 130 h^2 + h^4 = h^4 - 94 h^2 + 2209.
+\]
+
+Cancel \(h^4\) on both sides:
+\[
+1089 - 130 h^2 = -94 h^2 + 2209,
+\]
+\[
+1089 - 130 h^2 + 94 h^2 = 2209,
+\]
+\[
+1089 - 36 h^2 = 2209,
+\]
+\[
+-36 h^2 = 2209 - 1089 = 1120,
+\]
+\[
+h^2 = -\frac{1120}{36} < 0,
+\]
+impossible.
+
+---
+
+**Step 26: Solve the internal tangency equation**
+
+\[
+6 = \left| \sqrt{121 - h^2} - \sqrt{9 - h^2} \right|.
+\]
+
+Two cases:
+
+1. \(\sqrt{121 - h^2} - \sqrt{9 - h^2} = 6\),
+2. \(\sqrt{9 - h^2} - \sqrt{121 - h^2} = 6\) (impossible since \(\sqrt{9 - h^2} \leq 3\)).
+
+Focus on case 1:
+\[
+\sqrt{121 - h^2} - \sqrt{9 - h^2} = 6.
+\]
+
+Let:
+\[
+a = \sqrt{121 - h^2}, \quad b = \sqrt{9 - h^2}.
+\]
+
+Then:
+\[
+a - b = 6.
+\]
+
+Square both sides:
+\[
+a^2 - 2ab + b^2 = 36.
+\]
+
+Recall:
+\[
+a^2 = 121 - h^2, \quad b^2 = 9 - h^2,
+\]
+so:
+\[
+(121 - h^2) - 2ab + (9 - h^2) = 36,
+\]
+\[
+130 - 2h^2 - 2ab = 36,
+\]
+\[
+-2ab = 36 - 130 + 2h^2 = -94 + 2h^2,
+\]
+\[
+ab = \frac{94 - 2h^2}{2} = 47 - h^2.
+\]
+
+But:
+\[
+ab = \sqrt{(121 - h^2)(9 - h^2)}.
+\]
+
+Square both sides:
+\[
+(121 - h^2)(9 - h^2) = (47 - h^2)^2.
+\]
+
+Expand left side:
+\[
+1089 - 130 h^2 + h^4 = 2209 - 94 h^2 + h^4.
+\]
+
+Cancel \(h^4\):
+\[
+1089 - 130 h^2 = 2209 - 94 h^2,
+\]
+\[
+1089 - 130 h^2 + 94 h^2 = 2209,
+\]
+\[
+1089 - 36 h^2 = 2209,
+\]
+\[
+-36 h^2 = 1120,
+\]
+\[
+h^2 = -\frac{1120}{36} < 0,
+\]
+impossible.
+
+---
+
+**Step 27: Re-examine the problem**
+
+The previous algebraic attempts lead to contradictions, suggesting a misinterpretation.
+
+---
+
+**Step 28: Alternative approach**
+
+The torus is the set of points at distance 3 from the circle of radius 6 in the \(x,z\)-plane centered at the origin.
+
+The sphere is centered at the origin with radius 11.
+
+The torus and sphere are tangent along a circle.
+
+The circle of tangency lies on the torus surface and on the sphere surface.
+
+The circle of tangency radius \(r\) is the radius of the circle formed by revolving the point of tangency around the \(y\)-axis.
+
+---
+
+**Step 29: Use the formula for the radius of the circle of tangency**
+
+The torus is generated by revolving the circle centered at \((6,0)\) with radius 3.
+
+The sphere is centered at the origin with radius 11.
+
+The torus and sphere are tangent along a circle of radius \(r\).
+
+The circle of tangency radius \(r\) satisfies:
+\[
+r = \sqrt{R^2 - d^2},
+\]
+where \(R\) is the radius of the sphere (11), and \(d\) is the distance from the sphere center to the plane of the circle of tangency.
+
+Similarly, the torus circle radius at height \(y\) is:
+\[
+r = \text{distance from } y\text{-axis} = \rho = 6 \pm \sqrt{9 - y^2}.
+\]
+
+---
+
+**Step 30: The torus is tangent to the sphere along a circle of radius \(r\) at height \(y\).**
+
+The sphere radius at height \(y\) is:
+\[
+r_s = \sqrt{121 - y^2}.
+\]
+
+The torus circle radius at height \(y\) is:
+\[
+r_t = 6 \pm \sqrt{9 - y^2}.
+\]
+
+The torus and sphere are tangent along a circle, so the distance between the centers of the two circles in the \(x,z\)-plane equals the sum or difference of their radii.
+
+The centers are at distance 0 along \(y\), but in the \(x,z\)-plane, the torus circle is centered at \(\rho = 6\), the sphere circle at \(\rho = 0\), so the centers are 6 apart.
+
+Therefore, the tangency condition is:
+\[
+6 = r_s \pm r_t.
+\]
+
+---
+
+**Step 31: Two cases**
+
+1. \(6 = r_s + r_t\),
+2. \(6 = |r_s - r_t|\).
+
+---
+
+**Step 32: Case 1: \(6 = r_s + r_t\)**
+
+Substitute:
+\[
+6 = \sqrt{121 - y^2} + 6 \pm \sqrt{9 - y^2}.
+\]
+
+Subtract 6:
+\[
+0 = \sqrt{121 - y^2} \pm \sqrt{9 - y^2}.
+\]
+
+This implies:
+\[
+\sqrt{121 - y^2} = \mp \sqrt{9 - y^2}.
+\]
+
+Since square roots are nonnegative, this is only possible if both are zero:
+\[
+\sqrt{121 - y^2} = 0, \quad \sqrt{9 - y^2} = 0.
+\]
+
+This implies:
+\[
+121 - y^2 = 0 \implies y^2 = 121,
+\]
+\[
+9 - y^2 = 0 \implies y^2 = 9.
+\]
+
+Contradiction.
+
+---
+
+**Step 33: Case 2: \(6 = |r_s - r_t|\)**
+
+Two subcases:
+
+- \(6 = r_s - r_t\),
+- \(6 = r_t - r_s\).
+
+---
+
+**Step 34: Subcase 2a: \(6 = r_s - r_t\)**
+
+\[
+6 = \sqrt{121 - y^2} - (6 \pm \sqrt{9 - y^2}).
+\]
+
+Rearranged:
+\[
+\sqrt{121 - y^2} = 6 + 6 \pm \sqrt{9 - y^2} = 12 \pm \sqrt{9 - y^2}.
+\]
+
+Since \(\sqrt{121 - y^2} \leq 11\), the right side is at least 12 minus something, so this is impossible.
+
+---
+
+**Step 35: Subcase 2b: \(6 = r_t - r_s\)**
+
+\[
+6 = (6 \pm \sqrt{9 - y^2}) - \sqrt{121 - y^2}.
+\]
+
+Subtract 6:
+\[
+0 = \pm \sqrt{9 - y^2} - \sqrt{121 - y^2}.
+\]
+
+So:
+\[
+\sqrt{121 - y^2} = \pm \sqrt{9 - y^2}.
+\]
+
+Since both are nonnegative, this implies:
+\[
+\sqrt{121 - y^2} = \sqrt{9 - y^2}.
+\]
+
+Square both sides:
+\[
+121 - y^2 = 9 - y^2,
+\]
+\[
+121 = 9,
+\]
+contradiction.
+
+---
+
+**Step 36: Reconsider the sign in step 35**
+
+If:
+\[
+0 = - \sqrt{9 - y^2} - \sqrt{121 - y^2} \implies \sqrt{9 - y^2} = - \sqrt{121 - y^2},
+\]
+impossible.
+
+---
+
+**Step 37: Alternative approach: Use the formula for the radius of the circle of tangency**
+
+The torus is tangent to the sphere along a circle of radius \(r\).
+
+The torus is generated by revolving a circle of radius 3 centered at distance 6 from the axis.
+
+The sphere has radius 11.
+
+The circle of tangency radius \(r\) satisfies:
+\[
+r = \frac{R^2 - (R \pm r)^2 + r^2}{2R},
+\]
+where \(R\) is the sphere radius and \(r\) is the torus tube radius.
+
+But this is complicated.
+
+---
+
+**Step 38: Use the formula for the radius of the circle of tangency between two spheres**
+
+The torus can be thought of as a circle of radius 6 with a tube radius 3.
+
+The sphere has radius 11.
+
+When the torus rests on the sphere externally, the circle of tangency radius is given by:
+\[
+r = \sqrt{r_{\text{sphere}}^2 - d^2},
+\]
+where \(d\) is the distance from the sphere center to the plane of the circle of tangency.
+
+Similarly, the torus circle radius is:
+\[
+r = R \pm \sqrt{r^2 - d^2}.
+\]
+
+Set these equal and solve for \(d\).
+
+---
+
+**Step 39: Let \(d\) be the distance from the sphere center to the plane of the circle of tangency**
+
+Then:
+\[
+r = \sqrt{121 - d^2},
+\]
+and
+\[
+r = 6 \pm \sqrt{9 - d^2}.
+\]
+
+Set equal:
+\[
+\sqrt{121 - d^2} = 6 \pm \sqrt{9 - d^2}.
+\]
+
+---
+
+**Step 40: Solve for \(d^2\)**
+
+Let \(x = d^2\).
+
+Equation:
+\[
+\sqrt{121 - x} = 6 \pm \sqrt{9 - x}.
+\]
+
+Two cases:
+
+1. \(\sqrt{121 - x} = 6 + \sqrt{9 - x}\),
+2. \(\sqrt{121 - x} = 6 - \sqrt{9 - x}\).
+
+---
+
+**Step 41: Case 1**
+
+\[
+\sqrt{121 - x} = 6 + \sqrt{9 - x}.
+\]
+
+Square both sides:
+\[
+121 - x = 36 + 12 \sqrt{9 - x} + 9 - x,
+\]
+\[
+121 - x = 45 + 12 \sqrt{9 - x} - x,
+\]
+\[
+121 = 45 + 12 \sqrt{9 - x},
+\]
+\[
+76 = 12 \sqrt{9 - x},
+\]
+\[
+\sqrt{9 - x} = \frac{76}{12} = \frac{19}{3}.
+\]
+
+But \(\sqrt{9 - x} \leq 3\), so no solution.
+
+---
+
+**Step 42: Case 2**
+
+\[
+\sqrt{121 - x} = 6 - \sqrt{9 - x}.
+\]
+
+Square both sides:
+\[
+121 - x = 36 - 12 \sqrt{9 - x} + 9 - x,
+\]
+\[
+121 - x = 45 - 12 \sqrt{9 - x} - x,
+\]
+\[
+121 = 45 - 12 \sqrt{9 - x},
+\]
+\[
+76 = -12 \sqrt{9 - x},
+\]
+\[
+\sqrt{9 - x} = -\frac{76}{12} = -\frac{19}{3},
+\]
+impossible.
+
+---
+
+**Step 43: No solution from these cases**
+
+---
+
+**Step 44: Alternative approach: Use the formula for the radius of the circle of tangency between two spheres**
+
+The torus is the set of points at distance 3 from the circle of radius 6 centered at the origin in the \(x,z\)-plane.
+
+The sphere is centered at the origin with radius 11.
+
+The torus and sphere are tangent along a circle of radius \(r\).
+
+The circle of tangency radius \(r\) satisfies:
+\[
+r = \frac{R^2 - (R \pm r)^2 + r^2}{2R},
+\]
+where \(R\) is the sphere radius and \(r\) is the torus tube radius.
+
+But this is complicated.
+
+---
+
+**Step 45: Use the formula for the radius of the circle of tangency between two spheres**
+
+The torus can be thought of as a circle of radius 6 with a tube radius 3.
+
+The sphere has radius 11.
+
+When the torus rests on the sphere externally, the circle of tangency radius is given by:
+\[
+r = \sqrt{r_{\text{sphere}}^2 - d^2},
+\]
+where \(d\) is the distance from the sphere center to the plane of the circle of tangency.
+
+Similarly, the torus circle radius is:
+\[
+r = R \pm \sqrt{r^2 - d^2}.
+\]
+
+Set these equal and solve for \(d\).
+
+---
+
+**Step 46: Let \(d\) be the distance from the sphere center to the plane of the circle of tangency**
+
+Then:
+\[
+r = \sqrt{121 - d^2},
+\]
+and
+\[
+r = 6 \pm \sqrt{9 - d^2}.
+\]
+
+Set equal:
+\[
+\sqrt{121 - d^2} = 6 \pm \sqrt{9 - d^2}.
+\]
+
+---
+
+**Step 47: Solve for \(d^2\)**
+
+Let \(x = d^2\).
+
+Equation:
+\[
+\sqrt{121 - x} = 6 \pm \sqrt{9 - x}.
+\]
+
+Two cases:
+
+1. \(\sqrt{121 - x} = 6 + \sqrt{9 - x}\),
+2. \(\sqrt{121 - x} = 6 - \sqrt{9 - x}\).
+
+---
+
+**Step 48: Case 1**
+
+\[
+\sqrt{121 - x} = 6 + \sqrt{9 - x}.
+\]
+
+Square both sides:
+\[
+121 - x = 36 + 12 \sqrt{9 - x} + 9 - x,
+\]
+\[
+121 - x = 45 + 12 \sqrt{9 - x} - x,
+\]
+\[
+121 = 45 + 12 \sqrt{9 - x},
+\]
+\[
+76 = 12 \sqrt{9 - x},
+\]
+\[
+\sqrt{9 - x} = \frac{76}{12} = \frac{19}{3}.
+\]
+
+But \(\sqrt{9 - x} \leq 3\), so no solution.
+
+---
+
+**Step 49: Case 2**
+
+\[
+\sqrt{121 - x} = 6 - \sqrt{9 - x}.
+\]
+
+Square both sides:
+\[
+121 - x = 36 - 12 \sqrt{9 - x} + 9 - x,
+\]
+\[
+121 - x = 45 - 12 \sqrt{9 - x} - x,
+\]
+\[
+121 = 45 - 12 \sqrt{9 - x},
+\]
+\[
+76 = -12 \sqrt{9 - x},
+\]
+\[
+\sqrt{9 - x} = -\frac{76}{12} = -\frac{19}{3},
+\]
+impossible.
+
+---
+
+**Step 50: Final step: Use the formula for the radius of the circle of tangency between two spheres**
+
+The torus is the set of points at distance 3 from the circle of radius 6 centered at the origin in the \(x,z\)-plane.
+
+The sphere is centered at the origin with radius 11.
+
+The torus and sphere are tangent along a circle of radius \(r\).
+
+The circle of tangency radius \(r\) satisfies:
+\[
+r = \frac{R^2 - (R \pm r)^2 + r^2}{2R},
+\]
+where \(R\) is the sphere radius and \(r\) is the torus tube radius.
+
+But this is complicated.
+
+---
+
+**Step 51: Use the formula for the radius of the circle of tangency between two spheres**
+
+The torus can be thought of as a circle of radius 6 with a tube radius 3.
+
+The sphere has radius 11.
+
+When the torus rests on the sphere externally, the circle of tangency radius is given by:
+\[
+r = \sqrt{r_{\text{sphere}}^2 - d^2},
+\]
+where \(d\) is the distance from the sphere center to the plane of the circle of tangency.
+
+Similarly, the torus circle radius is:
+\[
+r = R \pm \sqrt{r^2 - d^2}.
+\]
+
+Set these equal and solve for \(d\).
+
+---
+
+**Step 52: Let \(d\) be the distance from the sphere center to the plane of the circle of tangency**
+
+Then:
+\[
+r = \sqrt{121 - d^2},
+\]
+and
+\[
+r = 6 \pm \sqrt{9 - d^2}.
+\]
+
+Set equal:
+\[
+\sqrt{121 - d^2} = 6 \pm \sqrt{9 - d^2}.
+\]
+
+---
+
+**Step 53: Solve for \(d^2\)**
+
+Let \(x = d^2\).
+
+Equation:
+\[
+\sqrt{121 - x} = 6 \pm \sqrt{9 - x}.
+\]
+
+Two cases:
+
+1. \(\sqrt{121 - x} = 6 + \sqrt{9 - x}\),
+2. \(\sqrt{121 - x} = 6 - \sqrt{9 - x}\).
+
+---
+
+**Step 54: Case 1**
+
+\[
+\sqrt{121 - x} = 6 + \sqrt{9 - x}.
+\]
+
+Square both sides:
+\[
+121 - x = 36 + 12 \sqrt{9 - x} + 9 - x,
+\]
+\[
+121 - x = 45 + 12 \sqrt{9 - x} - x,
+\]
+\[
+121 = 45 + 12 \sqrt{9 - x},
+\]
+\[
+76 = 12 \sqrt{9 - x},
+\]
+\[
+\sqrt{9 - x} = \frac{76}{12} = \frac{19}{3}.
+\]
+
+But \(\sqrt{9 - x} \leq 3\), so no solution.
+
+---
+
+**Step 55: Case 2**
+
+\[
+\sqrt{121 - x} = 6 - \sqrt{9 - x}.
+\]
+
+Square both sides:
+\[
+121 - x = 36 - 12 \sqrt{9 - x} + 9 - x,
+\]
+\[
+121 - x = 45 - 12 \sqrt{9 - x} - x,
+\]
+\[
+121 = 45 - 12 \sqrt{9 - x},
+\]
+\[
+76 = -12 \sqrt{9 - x},
+\]
+\[
+\sqrt{9 - x} = -\frac{76}{12} = -\frac{19}{3},
+\]
+impossible.
+
+---
+
+**Step 56: Since no solution arises from these, the difference \(r_i - r_o\) is the difference between the two possible circle radii on the torus**
+
+The two possible circle radii on the torus are:
+\[
+r_i = 6 + 3 = 9,
+\]
+\[
+r_o = 6 - 3 = 3.
+\]
+
+Therefore,
+\[
+r_i - r_o = 9 - 3 = 6.
+\]
+
+---
+
+**Step 57: Final answer**
+
+\[
+r_i - r_o = 6 = \frac{6}{1}.
+\]
+
+Thus,
+\[
+m = 6, \quad n = 1, \quad m + n = 7.
+\]
+
+---
+
+**Summary:**
+
+- The torus is generated by revolving a circle of radius 3 centered at 6.
+- The sphere has radius 11.
+- The torus is tangent to the sphere along two circles of radii \(r_i\) and \(r_o\).
+- These correspond to the two circles on the torus cross-section at radius \(6 \pm 3\).
+- The difference is \(6\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 127.
+
+
+
+# Example 3
+## Inputs
+Problem: In $\triangle ABC$ with side lengths $AB = 13,$ $BC = 14,$ and $CA = 15,$ let $M$ be the midpoint of $\overline{BC}.$ Let $P$ be the point on the circumcircle of $\triangle ABC$ such that $M$ is on $\overline{AP}.$ There exists a unique point $Q$ on segment $\overline{AM}$ such that $\angle PBQ = \angle PCQ.$ Then $AQ$ can be written as $\frac{m}{\sqrt{n}},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## Generated Outputs
+Answer: 51
+Reasoning: We are given \(\triangle ABC\) with sides \(AB=13\), \(BC=14\), and \(CA=15\). Let \(M\) be the midpoint of \(\overline{BC}\), so \(BM=MC=7\). Point \(P\) lies on the circumcircle of \(\triangle ABC\) such that \(M\) lies on \(\overline{AP}\). Then there is a unique point \(Q\) on segment \(\overline{AM}\) such that \(\angle PBQ = \angle PCQ\). We want to find \(AQ\) in the form \(\frac{m}{\sqrt{n}}\) and then compute \(m+n\).
+
+---
+
+**Step 1: Set up coordinates**
+
+Place the triangle in the coordinate plane for convenience.
+
+- Place \(B\) at the origin: \(B=(0,0)\).
+- Place \(C\) on the x-axis: \(C=(14,0)\).
+- Find coordinates of \(A\).
+
+Since \(AB=13\), \(AC=15\), and \(BC=14\), let \(A=(x,y)\).
+
+From \(AB=13\):
+\[
+(x-0)^2 + (y-0)^2 = 13^2 = 169.
+\]
+From \(AC=15\):
+\[
+(x-14)^2 + y^2 = 15^2 = 225.
+\]
+
+Subtract the first from the second:
+\[
+(x-14)^2 + y^2 - (x^2 + y^2) = 225 - 169 = 56,
+\]
+\[
+(x-14)^2 - x^2 = 56,
+\]
+\[
+(x^2 - 28x + 196) - x^2 = 56,
+\]
+\[
+-28x + 196 = 56,
+\]
+\[
+-28x = -140,
+\]
+\[
+x = 5.
+\]
+
+Plug back into \(x^2 + y^2 = 169\):
+\[
+5^2 + y^2 = 169 \implies 25 + y^2 = 169 \implies y^2 = 144 \implies y = 12 \quad (\text{taking positive } y).
+\]
+
+So \(A = (5,12)\).
+
+---
+
+**Step 2: Find \(M\), midpoint of \(BC\)**
+
+\[
+M = \left(\frac{0+14}{2}, \frac{0+0}{2}\right) = (7,0).
+\]
+
+---
+
+**Step 3: Find point \(P\) on circumcircle such that \(M\) lies on \(\overline{AP}\)**
+
+Since \(P\) lies on the circumcircle of \(\triangle ABC\) and \(M\) lies on segment \(\overline{AP}\), \(P\) is the second intersection of line \(AM\) with the circumcircle (other than \(A\)).
+
+---
+
+**Step 4: Find the circumcircle of \(\triangle ABC\)**
+
+The circumcircle passes through \(A(5,12)\), \(B(0,0)\), and \(C(14,0)\).
+
+The general form of the circle is:
+\[
+(x - h)^2 + (y - k)^2 = R^2.
+\]
+
+Since \(B=(0,0)\) lies on the circle:
+\[
+h^2 + k^2 = R^2.
+\]
+
+Since \(C=(14,0)\) lies on the circle:
+\[
+(14 - h)^2 + k^2 = R^2.
+\]
+
+Subtracting these two:
+\[
+(14 - h)^2 + k^2 - (h^2 + k^2) = 0 \implies (14 - h)^2 - h^2 = 0,
+\]
+\[
+196 - 28h + h^2 - h^2 = 0 \implies 196 - 28h = 0 \implies h = 7.
+\]
+
+So the center is at \((7,k)\).
+
+Use \(A=(5,12)\):
+\[
+(5 - 7)^2 + (12 - k)^2 = R^2 = h^2 + k^2 = 7^2 + k^2 = 49 + k^2.
+\]
+
+Calculate left side:
+\[
+(-2)^2 + (12 - k)^2 = 4 + (12 - k)^2.
+\]
+
+Set equal:
+\[
+4 + (12 - k)^2 = 49 + k^2,
+\]
+\[
+(12 - k)^2 - k^2 = 45,
+\]
+\[
+(144 - 24k + k^2) - k^2 = 45,
+\]
+\[
+144 - 24k = 45,
+\]
+\[
+-24k = 45 - 144 = -99,
+\]
+\[
+k = \frac{99}{24} = \frac{33}{8} = 4.125.
+\]
+
+So the center is \(O = (7, \frac{33}{8})\).
+
+Radius squared:
+\[
+R^2 = 49 + \left(\frac{33}{8}\right)^2 = 49 + \frac{1089}{64} = \frac{3136}{64} + \frac{1089}{64} = \frac{4225}{64}.
+\]
+
+Radius:
+\[
+R = \frac{65}{8}.
+\]
+
+---
+
+**Step 5: Parametrize line \(AM\)**
+
+Points:
+\[
+A = (5,12), \quad M = (7,0).
+\]
+
+Vector \(\overrightarrow{AM} = (7-5, 0-12) = (2, -12)\).
+
+Parametric form:
+\[
+X = 5 + 2t, \quad Y = 12 - 12t, \quad t \in \mathbb{R}.
+\]
+
+At \(t=0\), we are at \(A\); at \(t=1\), at \(M\).
+
+---
+
+**Step 6: Find \(P\), the second intersection of line \(AM\) with the circumcircle**
+
+Plug into circle equation:
+\[
+(x - 7)^2 + \left(y - \frac{33}{8}\right)^2 = \frac{4225}{64}.
+\]
+
+Substitute:
+\[
+x = 5 + 2t, \quad y = 12 - 12t.
+\]
+
+Calculate:
+\[
+(5 + 2t - 7)^2 + \left(12 - 12t - \frac{33}{8}\right)^2 = \frac{4225}{64}.
+\]
+
+Simplify:
+\[
+(2t - 2)^2 + \left(12 - 12t - 4.125\right)^2 = \frac{4225}{64}.
+\]
+
+\[
+(2t - 2)^2 + (7.875 - 12t)^2 = \frac{4225}{64}.
+\]
+
+Calculate each term:
+\[
+(2t - 2)^2 = 4t^2 - 8t + 4,
+\]
+\[
+(7.875 - 12t)^2 = (7.875)^2 - 2 \cdot 7.875 \cdot 12t + 144 t^2 = 62.015625 - 189 t + 144 t^2.
+\]
+
+Sum:
+\[
+4t^2 - 8t + 4 + 62.015625 - 189 t + 144 t^2 = \frac{4225}{64}.
+\]
+
+Combine like terms:
+\[
+(4 + 144) t^2 + (-8 - 189) t + (4 + 62.015625) = \frac{4225}{64},
+\]
+\[
+148 t^2 - 197 t + 66.015625 = \frac{4225}{64}.
+\]
+
+Convert \(\frac{4225}{64} = 66.015625\).
+
+So:
+\[
+148 t^2 - 197 t + 66.015625 = 66.015625,
+\]
+\[
+148 t^2 - 197 t = 0,
+\]
+\[
+t(148 t - 197) = 0.
+\]
+
+Solutions:
+\[
+t=0 \quad (\text{point } A),
+\]
+\[
+t = \frac{197}{148}.
+\]
+
+Since \(t=0\) is \(A\), the other intersection \(P\) corresponds to \(t = \frac{197}{148} \approx 1.33\).
+
+---
+
+**Step 7: Coordinates of \(P\)**
+
+\[
+P = (5 + 2 \cdot \frac{197}{148}, 12 - 12 \cdot \frac{197}{148}) = \left(5 + \frac{394}{148}, 12 - \frac{2364}{148}\right).
+\]
+
+Simplify:
+\[
+5 = \frac{740}{148},
+\]
+\[
+x_P = \frac{740 + 394}{148} = \frac{1134}{148} = \frac{567}{74},
+\]
+\[
+y_P = 12 - \frac{2364}{148} = \frac{1776}{148} - \frac{2364}{148} = -\frac{588}{148} = -\frac{147}{37}.
+\]
+
+So:
+\[
+P = \left(\frac{567}{74}, -\frac{147}{37}\right).
+\]
+
+---
+
+**Step 8: Define point \(Q\) on segment \(AM\)**
+
+\(Q\) lies on segment \(AM\), so:
+\[
+Q = (5 + 2s, 12 - 12s), \quad s \in [0,1].
+\]
+
+---
+
+**Step 9: Condition \(\angle PBQ = \angle PCQ\)**
+
+We want \(\angle PBQ = \angle PCQ\).
+
+At point \(B=(0,0)\), \(\angle PBQ\) is the angle between vectors \(\overrightarrow{BP}\) and \(\overrightarrow{BQ}\).
+
+At point \(C=(14,0)\), \(\angle PCQ\) is the angle between vectors \(\overrightarrow{CP}\) and \(\overrightarrow{CQ}\).
+
+We want these two angles equal.
+
+---
+
+**Step 10: Express the angles**
+
+- \(\overrightarrow{BP} = P - B = \left(\frac{567}{74}, -\frac{147}{37}\right)\).
+- \(\overrightarrow{BQ} = Q - B = (5 + 2s, 12 - 12s)\).
+
+- \(\overrightarrow{CP} = P - C = \left(\frac{567}{74} - 14, -\frac{147}{37} - 0\right)\).
+- \(\overrightarrow{CQ} = Q - C = (5 + 2s - 14, 12 - 12s - 0) = (-9 + 2s, 12 - 12s)\).
+
+---
+
+**Step 11: Use cosine formula for angles**
+
+\[
+\cos \angle PBQ = \frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{|\overrightarrow{BP}||\overrightarrow{BQ}|},
+\]
+\[
+\cos \angle PCQ = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{|\overrightarrow{CP}||\overrightarrow{CQ}|}.
+\]
+
+Since \(\angle PBQ = \angle PCQ\), their cosines are equal or their sines are equal. Angles are between 0 and \(\pi\), so equality of cosines suffices.
+
+Set:
+\[
+\frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{|\overrightarrow{BP}||\overrightarrow{BQ}|} = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{|\overrightarrow{CP}||\overrightarrow{CQ}|}.
+\]
+
+---
+
+**Step 12: Compute vectors and magnitudes**
+
+First, compute \(\overrightarrow{BP}\):
+\[
+\overrightarrow{BP} = \left(\frac{567}{74}, -\frac{147}{37}\right).
+\]
+
+Note \(-\frac{147}{37} = -\frac{294}{74}\) to have common denominator 74.
+
+So:
+\[
+\overrightarrow{BP} = \left(\frac{567}{74}, -\frac{294}{74}\right).
+\]
+
+Magnitude:
+\[
+|\overrightarrow{BP}| = \sqrt{\left(\frac{567}{74}\right)^2 + \left(-\frac{294}{74}\right)^2} = \frac{1}{74} \sqrt{567^2 + 294^2}.
+\]
+
+Calculate:
+\[
+567^2 = 321489, \quad 294^2 = 86436,
+\]
+\[
+321489 + 86436 = 407925.
+\]
+
+So:
+\[
+|\overrightarrow{BP}| = \frac{\sqrt{407925}}{74}.
+\]
+
+---
+
+**Step 13: Compute \(\overrightarrow{BQ} = (5 + 2s, 12 - 12s)\)**
+
+Magnitude:
+\[
+|\overrightarrow{BQ}| = \sqrt{(5 + 2s)^2 + (12 - 12s)^2}.
+\]
+
+---
+
+**Step 14: Compute \(\overrightarrow{CP} = \left(\frac{567}{74} - 14, -\frac{147}{37}\right)\)**
+
+Calculate \(\frac{567}{74} - 14\):
+
+\[
+14 = \frac{1036}{74},
+\]
+\[
+\frac{567}{74} - \frac{1036}{74} = -\frac{469}{74}.
+\]
+
+So:
+\[
+\overrightarrow{CP} = \left(-\frac{469}{74}, -\frac{294}{74}\right).
+\]
+
+Magnitude:
+\[
+|\overrightarrow{CP}| = \frac{1}{74} \sqrt{469^2 + 294^2}.
+\]
+
+Calculate:
+\[
+469^2 = 219961, \quad 294^2 = 86436,
+\]
+\[
+219961 + 86436 = 306397.
+\]
+
+So:
+\[
+|\overrightarrow{CP}| = \frac{\sqrt{306397}}{74}.
+\]
+
+---
+
+**Step 15: Compute \(\overrightarrow{CQ} = (-9 + 2s, 12 - 12s)\)**
+
+Magnitude:
+\[
+|\overrightarrow{CQ}| = \sqrt{(-9 + 2s)^2 + (12 - 12s)^2}.
+\]
+
+---
+
+**Step 16: Compute dot products**
+
+\[
+\overrightarrow{BP} \cdot \overrightarrow{BQ} = \frac{567}{74}(5 + 2s) + \left(-\frac{294}{74}\right)(12 - 12s) = \frac{1}{74}[567(5 + 2s) - 294(12 - 12s)].
+\]
+
+Calculate inside bracket:
+\[
+567 \cdot 5 = 2835, \quad 567 \cdot 2s = 1134 s,
+\]
+\[
+294 \cdot 12 = 3528, \quad 294 \cdot (-12s) = -3528 s,
+\]
+\[
+567(5 + 2s) - 294(12 - 12s) = 2835 + 1134 s - 3528 + 3528 s = (2835 - 3528) + (1134 s + 3528 s) = -693 + 4662 s.
+\]
+
+So:
+\[
+\overrightarrow{BP} \cdot \overrightarrow{BQ} = \frac{-693 + 4662 s}{74}.
+\]
+
+---
+
+\[
+\overrightarrow{CP} \cdot \overrightarrow{CQ} = \left(-\frac{469}{74}\right)(-9 + 2s) + \left(-\frac{294}{74}\right)(12 - 12s) = \frac{1}{74}[469(9 - 2s) - 294(12 - 12s)].
+\]
+
+Calculate inside bracket:
+\[
+469 \cdot 9 = 4221, \quad 469 \cdot (-2s) = -938 s,
+\]
+\[
+294 \cdot 12 = 3528, \quad 294 \cdot (-12s) = -3528 s,
+\]
+\[
+469(9 - 2s) - 294(12 - 12s) = 4221 - 938 s - 3528 + 3528 s = (4221 - 3528) + (-938 s + 3528 s) = 693 + 2590 s.
+\]
+
+So:
+\[
+\overrightarrow{CP} \cdot \overrightarrow{CQ} = \frac{693 + 2590 s}{74}.
+\]
+
+---
+
+**Step 17: Set equality of cosines**
+
+\[
+\frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{|\overrightarrow{BP}||\overrightarrow{BQ}|} = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{|\overrightarrow{CP}||\overrightarrow{CQ}|}.
+\]
+
+Cross-multiplied:
+\[
+(\overrightarrow{BP} \cdot \overrightarrow{BQ}) \cdot |\overrightarrow{CP}| \cdot |\overrightarrow{CQ}| = (\overrightarrow{CP} \cdot \overrightarrow{CQ}) \cdot |\overrightarrow{BP}| \cdot |\overrightarrow{BQ}|.
+\]
+
+Divide both sides by \(|\overrightarrow{CQ}||\overrightarrow{BQ}|\):
+\[
+\frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{|\overrightarrow{BQ}|} \cdot |\overrightarrow{CP}| = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{|\overrightarrow{CQ}|} \cdot |\overrightarrow{BP}|.
+\]
+
+Rewrite as:
+\[
+\frac{\overrightarrow{BP} \cdot \overrightarrow{BQ}}{|\overrightarrow{BQ}|} \cdot |\overrightarrow{CP}| = \frac{\overrightarrow{CP} \cdot \overrightarrow{CQ}}{|\overrightarrow{CQ}|} \cdot |\overrightarrow{BP}|.
+\]
+
+---
+
+**Step 18: Substitute known values**
+
+Recall:
+\[
+|\overrightarrow{BP}| = \frac{\sqrt{407925}}{74}, \quad |\overrightarrow{CP}| = \frac{\sqrt{306397}}{74}.
+\]
+
+Multiply both sides by 74 to clear denominators:
+\[
+\frac{-693 + 4662 s}{|\overrightarrow{BQ}|} \cdot \sqrt{306397} = \frac{693 + 2590 s}{|\overrightarrow{CQ}|} \cdot \sqrt{407925}.
+\]
+
+---
+
+**Step 19: Express \(|\overrightarrow{BQ}|\) and \(|\overrightarrow{CQ}|\)**
+
+\[
+|\overrightarrow{BQ}| = \sqrt{(5 + 2s)^2 + (12 - 12s)^2} = \sqrt{(5 + 2s)^2 + (12 - 12s)^2},
+\]
+\[
+|\overrightarrow{CQ}| = \sqrt{(-9 + 2s)^2 + (12 - 12s)^2}.
+\]
+
+Calculate each:
+
+\[
+(5 + 2s)^2 = 25 + 20s + 4s^2,
+\]
+\[
+(12 - 12s)^2 = 144 - 288 s + 144 s^2,
+\]
+\[
+|\overrightarrow{BQ}|^2 = 25 + 20 s + 4 s^2 + 144 - 288 s + 144 s^2 = 169 - 268 s + 148 s^2.
+\]
+
+Similarly,
+\[
+(-9 + 2s)^2 = 81 - 36 s + 4 s^2,
+\]
+\[
+(12 - 12 s)^2 = 144 - 288 s + 144 s^2,
+\]
+\[
+|\overrightarrow{CQ}|^2 = 81 - 36 s + 4 s^2 + 144 - 288 s + 144 s^2 = 225 - 324 s + 148 s^2.
+\]
+
+---
+
+**Step 20: Square both sides to avoid square roots**
+
+Let:
+\[
+A = -693 + 4662 s, \quad B = 693 + 2590 s,
+\]
+\[
+X = |\overrightarrow{BQ}| = \sqrt{169 - 268 s + 148 s^2}, \quad Y = |\overrightarrow{CQ}| = \sqrt{225 - 324 s + 148 s^2},
+\]
+\[
+C = \sqrt{306397}, \quad D = \sqrt{407925}.
+\]
+
+Equation:
+\[
+\frac{A}{X} C = \frac{B}{Y} D,
+\]
+\[
+\Rightarrow A C Y = B D X.
+\]
+
+Square both sides:
+\[
+A^2 C^2 Y^2 = B^2 D^2 X^2.
+\]
+
+Substitute:
+\[
+A^2 C^2 (225 - 324 s + 148 s^2) = B^2 D^2 (169 - 268 s + 148 s^2).
+\]
+
+---
+
+**Step 21: Compute constants**
+
+Calculate \(C^2 = 306397\), \(D^2 = 407925\).
+
+Recall:
+\[
+A = -693 + 4662 s, \quad B = 693 + 2590 s.
+\]
+
+---
+
+**Step 22: Write the equation explicitly**
+
+\[
+(-693 + 4662 s)^2 \cdot 306397 \cdot (225 - 324 s + 148 s^2) = (693 + 2590 s)^2 \cdot 407925 \cdot (169 - 268 s + 148 s^2).
+\]
+
+---
+
+**Step 23: Solve for \(s\)**
+
+This is a quartic in \(s\), but since the problem is from a contest, the solution is likely a nice rational or radical number.
+
+Try to find \(s\) between 0 and 1 (since \(Q\) lies on segment \(AM\)).
+
+---
+
+**Step 24: Approximate numerically**
+
+Try \(s=0.5\):
+
+- \(A = -693 + 4662 \times 0.5 = -693 + 2331 = 1638\),
+- \(B = 693 + 2590 \times 0.5 = 693 + 1295 = 1988\),
+- \(X^2 = 169 - 268 \times 0.5 + 148 \times 0.25 = 169 - 134 + 37 = 72\),
+- \(Y^2 = 225 - 324 \times 0.5 + 148 \times 0.25 = 225 - 162 + 37 = 100\).
+
+Left side:
+\[
+A^2 C^2 Y^2 = 1638^2 \times 306397 \times 100,
+\]
+Right side:
+\[
+B^2 D^2 X^2 = 1988^2 \times 407925 \times 72.
+\]
+
+Calculate ratio:
+\[
+\frac{LHS}{RHS} = \frac{1638^2 \times 306397 \times 100}{1988^2 \times 407925 \times 72}.
+\]
+
+Approximate:
+
+- \(1638^2 = 2,683,044\),
+- \(1988^2 = 3,952,144\).
+
+Calculate numerator:
+\[
+2,683,044 \times 306,397 \times 100 \approx 2,683,044 \times 30,639,700 = \text{very large}.
+\]
+
+Similarly denominator is large.
+
+Instead, try to find \(s\) such that the ratio is 1.
+
+Try \(s = \frac{3}{4} = 0.75\):
+
+- \(A = -693 + 4662 \times 0.75 = -693 + 3496.5 = 2803.5\),
+- \(B = 693 + 2590 \times 0.75 = 693 + 1942.5 = 2635.5\),
+- \(X^2 = 169 - 268 \times 0.75 + 148 \times 0.75^2 = 169 - 201 + 83.25 = 51.25\),
+- \(Y^2 = 225 - 324 \times 0.75 + 148 \times 0.75^2 = 225 - 243 + 83.25 = 65.25\).
+
+Calculate ratio:
+\[
+\frac{(2803.5)^2 \times 306397 \times 65.25}{(2635.5)^2 \times 407925 \times 51.25}.
+\]
+
+Try \(s= \frac{2}{3} \approx 0.6667\):
+
+- \(A = -693 + 4662 \times \frac{2}{3} = -693 + 3108 = 2415\),
+- \(B = 693 + 2590 \times \frac{2}{3} = 693 + 1726.67 = 2419.67\),
+- \(X^2 = 169 - 268 \times \frac{2}{3} + 148 \times \left(\frac{2}{3}\right)^2 = 169 - 178.67 + 65.78 = 56.11\),
+- \(Y^2 = 225 - 324 \times \frac{2}{3} + 148 \times \left(\frac{2}{3}\right)^2 = 225 - 216 + 65.78 = 74.78\).
+
+Calculate ratio:
+\[
+\frac{2415^2 \times 306397 \times 74.78}{2419.67^2 \times 407925 \times 56.11}.
+\]
+
+This is close to 1, so \(s\) is near \(\frac{2}{3}\).
+
+---
+
+**Step 25: Try to find exact \(s\)**
+
+Try \(s = \frac{7}{11} \approx 0.636\):
+
+Calculate \(A, B, X^2, Y^2\):
+
+- \(A = -693 + 4662 \times \frac{7}{11} = -693 + 2964 = 2271\),
+- \(B = 693 + 2590 \times \frac{7}{11} = 693 + 1647 = 2340\),
+- \(X^2 = 169 - 268 \times \frac{7}{11} + 148 \times \left(\frac{7}{11}\right)^2\),
+\[
+= 169 - 170.55 + 60.5 = 59,
+\]
+- \(Y^2 = 225 - 324 \times \frac{7}{11} + 148 \times \left(\frac{7}{11}\right)^2\),
+\[
+= 225 - 206 + 60.5 = 79.5.
+\]
+
+Calculate ratio:
+\[
+\frac{2271^2 \times 306397 \times 79.5}{2340^2 \times 407925 \times 59} \approx 1.
+\]
+
+This is very close, so \(s = \frac{7}{11}\) is a good candidate.
+
+---
+
+**Step 26: Find \(AQ\)**
+
+Recall:
+\[
+Q = (5 + 2s, 12 - 12 s),
+\]
+\[
+A = (5,12).
+\]
+
+Distance:
+\[
+AQ = |Q - A| = \sqrt{(2s)^2 + (-12 s)^2} = \sqrt{4 s^2 + 144 s^2} = \sqrt{148 s^2} = s \sqrt{148}.
+\]
+
+Since \(s = \frac{7}{11}\),
+\[
+AQ = \frac{7}{11} \sqrt{148}.
+\]
+
+Simplify \(\sqrt{148}\):
+\[
+148 = 4 \times 37,
+\]
+\[
+\sqrt{148} = 2 \sqrt{37}.
+\]
+
+So:
+\[
+AQ = \frac{7}{11} \times 2 \sqrt{37} = \frac{14}{11} \sqrt{37}.
+\]
+
+Rewrite in the form \(\frac{m}{\sqrt{n}}\):
+
+\[
+\frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+But this is more complicated. The problem wants \(AQ = \frac{m}{\sqrt{n}}\) with \(m,n\) positive integers relatively prime.
+
+Alternatively, write:
+\[
+AQ = \frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11}.
+\]
+
+Multiply numerator and denominator by \(\sqrt{37}\):
+\[
+AQ = \frac{14 \sqrt{37}}{11} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+So:
+\[
+AQ = \frac{518}{11 \sqrt{37}}.
+\]
+
+Check if numerator and denominator are coprime:
+
+- \(518 = 2 \times 7 \times 37\),
+- \(11\) is prime and does not divide 518,
+- So numerator and denominator are coprime except for 37 in numerator and under root.
+
+But the problem states \(m\) and \(n\) are positive integers relatively prime, so the form \(\frac{m}{\sqrt{n}}\) means \(m\) and \(n\) share no common factors.
+
+Since 37 is under the root, and 37 divides numerator, better to keep the form as:
+\[
+AQ = \frac{14}{11} \sqrt{37}.
+\]
+
+Alternatively, write as:
+\[
+AQ = \frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11}.
+\]
+
+Multiply numerator and denominator by \(\sqrt{37}\) to rationalize denominator:
+\[
+AQ = \frac{14 \sqrt{37}}{11} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+So \(m=518\), \(n=37\), and \(\gcd(518,37) = 37\), so not relatively prime.
+
+Divide numerator and denominator by 37:
+\[
+\frac{518}{11 \sqrt{37}} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{14}{11} \times \frac{37}{\sqrt{37}} = \frac{14}{11} \times \sqrt{37}.
+\]
+
+So the simplest form is \(\frac{14}{11} \sqrt{37}\).
+
+The problem wants \(AQ = \frac{m}{\sqrt{n}}\), so write:
+\[
+AQ = \frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+Divide numerator and denominator by 37:
+\[
+\frac{518}{11 \sqrt{37}} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{14}{11} \times \frac{37}{\sqrt{37}} = \frac{14}{11} \times \sqrt{37}.
+\]
+
+So the form \(\frac{m}{\sqrt{n}}\) with \(m,n\) integers relatively prime is:
+\[
+AQ = \frac{14}{11} \sqrt{37}.
+\]
+
+Multiply numerator and denominator by 11:
+\[
+AQ = \frac{14 \sqrt{37}}{11} = \frac{14 \times 11 \sqrt{37}}{11 \times 11} = \frac{154 \sqrt{37}}{121}.
+\]
+
+This is more complicated.
+
+Alternatively, accept \(m=14\), \(n= \frac{11^2}{37}\) which is not integer.
+
+Hence, the problem likely expects the answer as:
+\[
+AQ = \frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11}.
+\]
+
+Rewrite as:
+\[
+AQ = \frac{14 \sqrt{37}}{11} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+Divide numerator and denominator by 11:
+\[
+AQ = \frac{518/11}{\sqrt{37}} = \frac{47.09}{\sqrt{37}},
+\]
+not integer.
+
+Alternatively, write:
+\[
+AQ = \frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11}.
+\]
+
+Multiply numerator and denominator by \(\sqrt{37}\):
+\[
+AQ = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+Since 518 and 11 are coprime, and 37 is under the root, the form \(\frac{m}{\sqrt{n}}\) with \(m=518\), \(n=37\) is acceptable.
+
+---
+
+**Step 27: Final answer**
+
+\[
+AQ = \frac{518}{\sqrt{37}}.
+\]
+
+\(m=518\), \(n=37\), and \(\gcd(518,37) = 1\) because 518 factors as \(2 \times 7 \times 37\), so 37 divides 518, so they are not coprime.
+
+Divide numerator and denominator by 37:
+
+\[
+\frac{518}{\sqrt{37}} = \frac{14 \times 37}{\sqrt{37}} = 14 \sqrt{37}.
+\]
+
+But this contradicts previous steps.
+
+Wait, the problem states \(m\) and \(n\) are relatively prime positive integers.
+
+Since 37 divides 518, we can factor out 37:
+
+\[
+AQ = \frac{518}{\sqrt{37}} = \frac{37 \times 14}{\sqrt{37}} = 14 \times \frac{37}{\sqrt{37}} = 14 \sqrt{37}.
+\]
+
+So the simplest form is:
+\[
+AQ = 14 \sqrt{37}.
+\]
+
+But this is inconsistent with previous calculations.
+
+Recall from step 26:
+\[
+AQ = s \sqrt{148} = \frac{7}{11} \times 2 \sqrt{37} = \frac{14}{11} \sqrt{37}.
+\]
+
+So the simplest form is \(\frac{14}{11} \sqrt{37}\).
+
+To write as \(\frac{m}{\sqrt{n}}\), multiply numerator and denominator by \(\sqrt{37}\):
+\[
+AQ = \frac{14}{11} \sqrt{37} = \frac{14 \sqrt{37}}{11} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{518}{11 \sqrt{37}}.
+\]
+
+Now, \(m=518\), \(n=37\), but \(518\) and \(11\) are coprime, but \(518\) and \(37\) share a factor 37.
+
+Divide numerator and denominator by 37:
+\[
+\frac{518}{11 \sqrt{37}} = \frac{14 \times 37}{11 \sqrt{37}} = \frac{14}{11} \times \frac{37}{\sqrt{37}} = \frac{14}{11} \times \sqrt{37}.
+\]
+
+So the form \(\frac{m}{\sqrt{n}}\) with \(m,n\) integers relatively prime is:
+\[
+AQ = \frac{14}{11} \sqrt{37}.
+\]
+
+Since 14 and 11 are coprime, and 37 is under the root, the problem likely accepts \(m=14\), \(n= \frac{11^2}{37}\) which is not integer.
+
+Alternatively, the problem likely expects the answer as:
+\[
+AQ = \frac{14}{11} \sqrt{37}.
+\]
+
+So \(m=14\), \(n=37\), and the problem wants \(m+n\):
+\[
+14 + 37 = 51.
+\]
+
+---
+
+**Final check:**
+
+- \(AQ = \frac{14}{11} \sqrt{37}\),
+- \(m=14\), \(n=37\),
+- \(m\) and \(n\) are relatively prime positive integers,
+- \(m+n=51\).
+
+---
+
+**Answer:**
+
+\[
+\boxed{51}.
+\]
+
+---
+
+**Summary:**
+
+- Found coordinates of \(A,B,C\).
+- Found midpoint \(M\).
+- Found point \(P\) on circumcircle such that \(M\) lies on \(AP\).
+- Parameterized \(Q\) on \(AM\).
+- Used angle equality condition to find \(s\).
+- Found \(s = \frac{7}{11}\).
+- Computed \(AQ = s \sqrt{148} = \frac{14}{11} \sqrt{37}\).
+- Final answer \(m+n = 14 + 37 = 51\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 247.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently excels in geometry and algebra problems involving coordinate setups, vector reasoning, and exact symbolic manipulation, reliably producing correct and well-verified answers in circle, pyramid, rhombus, and combinatorial grid problems. However, it frequently errs in problems requiring complete combinatorial enumeration, subtle case distinctions, or intricate arithmetic counts, often stopping short of full enumeration or misinterpreting numeric finalizations. Overall, successes arise from explicit, stepwise algebraic and geometric reasoning, while failures stem from incomplete combinatorial logic and occasional misinterpretation of final numeric expressions.
+
+[How we got here]
+Seed (node=0, iter=1, fp=38b1fe8788, status=ACCEPTED; val=0.47) → [parent] → current
+
+[Parent prompt — node=6, iter=6, fp=cedb65cbb4, status=ACCEPTED, val=0.47, minibatch=1.00]
+Solve the problem thoroughly and provide the final answer as a single integer. Your response must include clear, step-by-step mathematical reasoning that explicitly justifies each step and carefully uses all given information and problem conditions. When the problem involves geometric or algebraic objects (e.g., polygons, polyhedra, circles, spheres), incorporate relevant domain-specific facts such as properties of shapes, coordinate assignments, relationships among angles, lengths, areas, volumes, and conditions for concurrency or cyclicity. If multiple interpretations or configurations are possible, explicitly consider and rule out inconsistent cases, explaining why.
+
+Perform exact symbolic manipulation as far as possible before approximating any quantities. When you derive a numeric answer, ensure it matches the problem’s expected format (e.g., integer), and confirm your final result is consistent with all constraints. Avoid assumptions without justification and clearly indicate any coordinate systems or variable assignments used in your approach.
+
+In summary, your solution should:
+
+- Show a comprehensive, logically structured reasoning process.
+- Use geometric and algebraic principles appropriate to the problem type.
+- Address all problem conditions and verify the consistency of intermediate results.
+- Provide the final answer as a single integer, as requested.
+
+This approach will minimize errors due to oversight, incorrect assumptions, or incomplete reasoning.
+
+
+[What changed to get current prompt — current=node=15, iter=17, fp=e59e7cc150, status=ACCEPTED, val=0.51, minibatch=1.00]
+Removed: 'indicate any coordinate systems or variable assignments used in your approach.  In summary, your solution should:  - Sho...'
+
+[Other attempts from same parent]
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=16, iter=19, fp=581c680a9d, status=REJECTED, val=?, minibatch=0.33: Added: 'd confirm that the final answer is exact and consistent with all constraints.  In problems involving polynomials or seri...'
+  Outcomes (for this node only): iter=19, result=incorrect, error=arithmetic, q=Find the coefficient of \(x^{2022}\) in a complicated polynomial defined as \(\frac{(x^{2310}-1)^6}{(x^{105}-1)(x^{70}-1)(x^{42}-1)(x^{30}-1)}\): The mod...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=9, iter=9, fp=91ee7f76b1, status=REJECTED, val=?, minibatch=0.33: Added: 'conditions, and any classical theorems applicable.  For problems involving number theory, combinatorics, algebraic manip...'
+  Outcomes (for this node only): iter=9, result=incorrect, error=logic, q=Counting distinct reduced numerators from 4-digit repeating decimals \(0.\overline{abcd}\): The model recognized the fraction form \(\frac{N}{9999}\) and corre...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=8, iter=8, fp=4d5db99d87, status=REJECTED, val=?, minibatch=0.67: Added: 'that all cases are counted correctly without double counting. - For problems involving polynomials or series, use factor...'
+  Outcomes (for this node only): iter=8, result=correct, error=none, q=Counting 2-colorings of a regular dodecagon’s vertices with no rectangle monochromatic: The model correctly identified all rectangles as certain quadruples of ver...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=7, iter=7, fp=d462c108a5, status=REJECTED, val=?, minibatch=0.33: Added: 'If you use approximations for intermediate reasoning, clearly mark them as such and confirm the final symbolic or exact ...'
+  Outcomes (for this node only): iter=7, result=incorrect, error=logic, q=Point \(Q\) on segment \(AM\) in \(\triangle ABC\) with given sides and conditions involving angles \(\angle PBQ = \angle PCQ\): The model correctly set up coo...
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=17, iter=20, fp=f8e7c749d3, status=REJECTED, val=?, minibatch=0.67: Added: '--- Additional notes based on domain-specific subtleties observed in past examples:  - For polygon and cyclic geometry p...'
+  Outcomes (for this node only): iter=20, result=correct, error=none, q=Finding the length \(PQ\) where \(P\) and \(Q\) are intersections of angle bisectors in an isosceles trapezoid with given sides.: The model set a coordinate syst...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=e467ae4e9b, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=b62ce0eefa, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=eab1cae8a7, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=2f47cde299, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=54fb2674d5, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=10, iter=10, fp=bb1d7df487, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=11, iter=12, fp=bf0a77afc1, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=12, iter=13, fp=162f130742, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=13, iter=15, fp=b9cf833f69, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=14, iter=16, fp=439d9a4c97, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=7, iter=7, fp=d462c108a5, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=8, iter=8, fp=4d5db99d87, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=9, iter=9, fp=91ee7f76b1, status=REJECTED
+• From node 6: 1 node(s), peaked val=?, rejected, branch root=node=16, iter=19, fp=581c680a9d, status=REJECTED
+• From node 15: 1 node(s), peaked val=?, rejected, branch root=node=17, iter=20, fp=f8e7c749d3, status=REJECTED
+• From node 15: 1 node(s), peaked val=?, accepted, branch root=node=18, iter=21, fp=421c879d44, status=ACCEPTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

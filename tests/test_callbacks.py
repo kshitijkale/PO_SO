@@ -131,32 +131,17 @@ class RecordingCallback:
     def on_valset_evaluated(self, event):
         self._record("on_valset_evaluated", event)
 
-    def on_memory_entry_added(self, event):
-        self._record("on_memory_entry_added", event)
-
-    def on_memory_queried(self, event):
-        self._record("on_memory_queried", event)
-
-    def on_memory_state_snapshot(self, event):
-        self._record("on_memory_state_snapshot", event)
-
     def on_proposal_trace(self, event):
         self._record("on_proposal_trace", event)
 
-    def on_lesson_generated(self, event):
-        self._record("on_lesson_generated", event)
+    def on_ledger_injected(self, event):
+        self._record("on_ledger_injected", event)
 
-    def on_outcome_interpreter_call(self, event):
-        self._record("on_outcome_interpreter_call", event)
+    def on_diary_injected(self, event):
+        self._record("on_diary_injected", event)
 
-    def on_oi_eviction_summary(self, event):
-        self._record("on_oi_eviction_summary", event)
-
-    def on_memory_tree_updated(self, event):
-        self._record("on_memory_tree_updated", event)
-
-    def on_memory_rendered(self, event):
-        self._record("on_memory_rendered", event)
+    def on_refinement_step(self, event):
+        self._record("on_refinement_step", event)
 
 
 class FailingCallback:
@@ -1249,6 +1234,48 @@ class TestComposition:
             "on_optimization_start",
             OptimizationStartEvent(seed_candidate={}, trainset_size=0, valset_size=0, config={}),
         )
+
+    def test_notify_callbacks_adds_event_meta(self):
+        """Verify callback dispatch enriches events with correlation metadata."""
+        callback = RecordingCallback()
+
+        notify_callbacks(
+            [callback],
+            "on_iteration_start",
+            IterationStartEvent(
+                iteration=1,
+                state=None,
+            ),
+        )
+
+        calls = callback.get_calls("on_iteration_start")
+        assert len(calls) == 1
+        assert "_meta" in calls[0]
+        assert calls[0]["_meta"]["callback_method"] == "on_iteration_start"
+        assert calls[0]["_meta"]["event_type"] == "iteration_start"
+        assert calls[0]["_meta"]["iteration"] == 1
+        assert "event_id" in calls[0]["_meta"]
+
+    def test_composite_callback_adds_event_meta(self):
+        """Verify CompositeCallback dispatch enriches events with correlation metadata."""
+        callback = RecordingCallback()
+        composite = CompositeCallback([callback])
+
+        composite.on_candidate_selected(
+            CandidateSelectedEvent(
+                iteration=2,
+                candidate_idx=0,
+                candidate={"instructions": "x"},
+                score=0.5,
+            )
+        )
+
+        calls = callback.get_calls("on_candidate_selected")
+        assert len(calls) == 1
+        assert "_meta" in calls[0]
+        assert calls[0]["_meta"]["callback_method"] == "on_candidate_selected"
+        assert calls[0]["_meta"]["event_type"] == "candidate_selected"
+        assert calls[0]["_meta"]["iteration"] == 2
 
 
 # =============================================================================

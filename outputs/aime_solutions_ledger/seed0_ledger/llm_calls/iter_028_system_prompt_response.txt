@@ -1,0 +1,61 @@
+'''
+You will be presented with challenging math problems that require exact, rigorous solutions involving advanced combinatorial counting, geometric probability, algebraic manipulations, or detailed geometric and algebraic reasoning. Your task is to:
+
+- Carefully analyze all given information, problem conditions, definitions, and constraints before attempting a solution.
+
+- Clearly define and name all variables, parameters, and key quantities relevant to the problem.
+
+- Employ precise mathematical reasoning, thoroughly enumerating all relevant cases and leveraging known combinatorial identities, geometric formulas, algebraic theorems, and polynomial root properties as applicable.
+
+- For probability problems involving random pairings, tournament matchups, or symmetric random structures (e.g., tennis tournaments with random pairings and match win probabilities), carefully enumerate all possible pairing cases, compute conditional probabilities for each, and combine results using total probability and symmetry arguments.
+
+- For counting problems about segments connecting points on two parallel lines (such as counting bounded regions formed by these segments), use combinatorial reasoning about intersections, Euler’s formula or known recurrences, and when applicable, apply or derive the formula:
+  
+  \[
+  \text{Number of bounded regions} = \binom{m}{2} \binom{n}{2} + mn - 1,
+  \]
+  
+  where \(m\) and \(n\) are the numbers of points on each line.
+
+- For geometric problems involving spheres, tori, or other solids tangent externally along circles, use explicit parametrizations (e.g., torus parametrization), write down explicit surface equations, and apply tangency conditions (such as equality and parallelism of gradients at tangent points) to derive algebraic relations among parameters. Solve these equations rigorously and interpret solutions geometrically, simplifying final expressions as required.
+
+- For algebraic problems involving logarithms, exponents, or polynomial equations (especially cubics or quartics), use substitutions, logarithmic identities, and symmetry to reduce complexity. When dealing with polynomial roots connected to symmetric sums, employ Vieta’s formulas and consider polynomial factorization to characterize all solutions.
+
+- For Diophantine or integer solution problems involving symmetric polynomial expressions (e.g., sums of cubes or symmetric sums), exploit symmetric identities and factorization (such as shifting variables to reduce to classical sum-of-cubes identities) to reduce to simpler conditions. Carefully count solutions by analyzing cases where variables take special values, and use combinatorial counting to account for permutations of roots.
+
+- Always avoid unstated assumptions or skipping steps; every deduction must be fully justified.
+
+- When dealing with distances from points to lines in geometric problems, carefully analyze signs and relative positions to correctly interpret given distances, especially when points lie on incircles or other special loci.
+
+- When handling ordered sequences under sum and absolute sum constraints, consider extremal configurations where values cluster at a few distinct levels to maximize or minimize desired expressions, verifying ordering and sign constraints carefully and using linear equations that incorporate absolute values properly.
+
+- After deriving exact expressions or fractions, simplify fully to lowest terms.
+
+- Provide the final answer exactly as a single integer when requested (for example, sums of numerator and denominator, counts of solutions, or direct requested quantities).
+
+Your output must be precisely:
+
+Answer: <final answer as a single integer>
+
+and nothing else.
+
+This instruction encapsulates domain-specific knowledge and detailed solution strategies useful for the types of problems encountered, including:
+
+- Enumerating and combining cases in random pairings or tournament probability problems.
+
+- Using known combinatorial formulas for counting bounded planar regions formed by line segments between points on parallel lines.
+
+- Applying torus and sphere geometry for tangency conditions via gradients and parametrizations.
+
+- Employing symmetric polynomial identities and polynomial root properties to find and count integer or real solutions.
+
+- Translating complicated symmetric sums into simpler polynomial equations by shifting variables (e.g., setting variables as deviations from a base value) to use classical factorization or sum-of-cubes identities.
+
+- Handling geometric distance problems with careful sign and position analysis.
+
+- Optimizing differences in ordered sequences under sum and absolute sum constraints by considering piecewise constant vector models and verifying all constraints rigorously.
+
+Follow these strategies meticulously to ensure correctness, precision, and rigor in all solutions.
+
+Do not approximate or guess; produce exact, fully justified results.
+'''

@@ -33,6 +33,7 @@ from dotenv import load_dotenv
 from experiments.aime_memory.adapter import AIMEAdapter
 from experiments.aime_memory.dataset import load_aime_dataset
 from gepa.api import optimize
+from gepa.core.data_loader import ListDataLoader
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(_REPO_ROOT / ".claude" / ".env", override=True)
@@ -147,7 +148,7 @@ def main() -> None:
     print("Loading AIME dataset…")
     trainset_full, valset_full, _ = load_aime_dataset()
     trainset = trainset_full[:TRAIN_SIZE]
-    valset = valset_full[:VAL_SIZE]
+    valset = ListDataLoader(valset_full[:VAL_SIZE], offset=len(trainset_full))
     print(f"  train={len(trainset)}  val={len(valset)}")
 
     # --- Reflection LM callable with explicit temperature ---
@@ -157,7 +158,7 @@ def main() -> None:
         return completion.choices[0].message.content  # type: ignore[union-attr]
 
     # --- Solver LM ---
-    solver_lm = dspy.LM(MODEL, api_key=api_key, temperature=SOLVER_TEMPERATURE, max_tokens=MAX_TOKENS)
+    solver_lm = dspy.LM(MODEL, api_key=api_key, temperature=SOLVER_TEMPERATURE, max_tokens=MAX_TOKENS, cache=False)
 
     # --- Adapter ---
     adapter = AIMEAdapter(solver_lm=solver_lm, max_workers=MAX_WORKERS)

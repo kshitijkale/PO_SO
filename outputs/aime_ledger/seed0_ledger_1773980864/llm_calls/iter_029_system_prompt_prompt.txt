@@ -1,0 +1,636 @@
+I provided an assistant with the following instructions to perform a task for me:
+'''
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, and then provide the final answer as a single integer.
+
+To do this properly, you should:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details (e.g., properties of geometric figures, combinatorial constraints, parity conditions, or maximality criteria).
+
+- Use appropriate mathematical knowledge and techniques relevant to the problem type (such as symmetric sums and Lagrange multipliers for optimization problems, combinatorial case analysis and counting principles for discrete problems, or parity and position arguments for arrangement problems).
+
+- When the problem involves expressions requiring simplification (like fractions), fully simplify to lowest terms and provide the requested combined value (e.g., sum of numerator and denominator).
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness.
+
+- Finally, output only the final answer as a single integer, exactly as requested.
+
+Do not include unrelated text, intermediate calculations alone, or explanations beyond what is needed to justify your solution. Your reasoning should be sufficient to verify correctness but concise enough to focus on arriving at the correct integer answer.
+
+Remember that domain-specific insights from previous examples include:
+
+- For optimization problems with symmetric sums, express quantities in terms of symmetric polynomials and apply methods like Lagrange multipliers or equality conditions to find extrema.
+
+- For combinatorial problems involving coloring or placement with maximality or consistency constraints, carefully analyze the conditions to partition cases, characterize feasible assignments, and count configurations accordingly.
+
+- For probability problems involving arrangements with parity or positional constraints, analyze the parity conditions to restrict placements and use factorial and multinomial counting, simplifying probabilities to lowest terms.
+
+Your final output must be only the integer answer the problem requests.
+'''
+'''
+The following are examples of different task inputs provided to the assistant
+along with the assistant's response for each of them, and some feedback on how
+the assistant's response could be better:
+'''
+# Example 1
+## Inputs
+Problem: Let $x_1\leq x_2\leq \cdots\leq x_{100}$ be real numbers such that $|x_1| + |x_2| + \cdots + |x_{100}| = 1$ and $x_1 + x_2 + \cdots + x_{100} = 0$. Among all such $100$-tuples of numbers, the greatest value that $x_{76} - x_{16}$ can achieve is $\tfrac mn$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## Generated Outputs
+Answer: 697
+Reasoning: We are given an ordered 100-tuple of real numbers \( x_1 \leq x_2 \leq \cdots \leq x_{100} \) satisfying:
+\[
+|x_1| + |x_2| + \cdots + |x_{100}| = 1,
+\]
+and
+\[
+x_1 + x_2 + \cdots + x_{100} = 0.
+\]
+We want to maximize \( x_{76} - x_{16} \).
+
+---
+
+**Step 1: Understand the constraints and goal**
+
+- The vector is ordered non-decreasing: \( x_1 \leq x_2 \leq \cdots \leq x_{100} \).
+- The sum of absolute values is fixed at 1.
+- The sum of the numbers is zero.
+- We want to maximize the difference between the 76th and 16th elements: \( x_{76} - x_{16} \).
+
+---
+
+**Step 2: Intuition about the vector structure**
+
+We want to maximize the difference between \( x_{76} \) and \( x_{16} \).
+
+Since \( x_{76} \) and \( x_{16} \) are two order statistics, and the vector is sorted, \( x_{76} \) is at least as large as \( x_{16} \).
+
+If we want a large difference \( x_{76} - x_{16} \), we want \( x_{76} \) large and \( x_{16} \) small.
+
+---
+
+**Step 3: Constraints imply a "mass" distribution**
+
+Because the sum of the \(x_i\) is zero and the sum of the absolute values is 1, the vector is a signed distribution whose positive and negative parts sum to 0.
+
+Write:
+\[
+S = \sum_{i=1}^{100} |x_i| = 1, \quad \sum x_i = 0.
+\]
+
+Denote the count of negative and positive entries and their sums.
+
+Since \( x_1 \leq x_2 \leq \cdots \leq x_{100} \), the vector starts from some possibly negative values, increases, and then becomes positive.
+
+---
+
+**Step 4: Maximize the gap by a step function structure**
+
+The maximizing shape for such problems is often a step function with few distinct values (because of the ordering and constraints).
+
+Assume the vector has just three distinct values:
+
+- \( a \) for the first \( k \) terms,
+- \( b \) for the middle \( m \) terms,
+- \( c \) for the last \( 100 - k - m \) terms,
+
+with \( a \leq b \leq c \), and \( k, m \geq 0 \), \( k + m \le 100 \).
+
+We want to maximize \( x_{76} - x_{16} \). In order:
+
+- \( x_{16} \) lies in the first or second block,
+- \( x_{76} \) lies in the second or third block.
+
+Trying to maximize difference between 76th and 16th elements, we want \( x_{16} \) as small as possible and \( x_{76} \) as large as possible.
+
+To create the largest possible gap between the 16th and 76th elements, choose a step function with only two steps to keep things simple (since three steps might be complicated).
+
+---
+
+**Step 5: Try 2-step function structure**
+
+Let the first \( p \) terms be equal to \(\alpha\),
+and the last \(100 - p\) terms be equal to \(\beta\).
+
+Constraints:
+
+\[
+p \alpha + (100-p) \beta = 0, \quad p |\alpha| + (100 - p) |\beta| = 1.
+\]
+
+Because the vector is sorted, \(\alpha \leq \beta\).
+
+We want to maximize \(x_{76} - x_{16}\):
+- \( x_{16} = \alpha \) if \(16 \leq p\), else \( \beta \).
+- \( x_{76} = \alpha \) if \(76 \leq p\), else \( \beta \).
+
+We want the largest gap, so \( x_{16} = \alpha \) and \( x_{76} = \beta \), which requires
+\[
+16 \leq p < 76.
+\]
+Otherwise, both \(x_{16}\) and \(x_{76}\) would be equal or reversed.
+
+So, \( p \in [16, 75] \).
+
+---
+
+**Step 6: Express \(\alpha, \beta\) and the difference**
+
+Since the sum is zero:
+\[
+p \alpha + (100 - p) \beta = 0 \implies \beta = - \frac{p}{100 - p} \alpha.
+\]
+
+Absolute value sum:
+\[
+p |\alpha| + (100 - p) |\beta| = 1.
+\]
+
+Two cases depending on sign of \(\alpha\):
+
+- Case 1: \(\alpha \leq 0 \implies\) \(|\alpha| = -\alpha\), \(\beta = -\frac{p}{100-p}\alpha\).
+
+Since \(\beta = -\tfrac{p}{100-p}\alpha\), if \(\alpha \leq 0\), \(\beta \geq 0\).
+
+Thus,
+\[
+p(-\alpha) + (100 - p) \beta = 1.
+\]
+
+Substitute \(\beta\):
+\[
+p(-\alpha) + (100 - p) \left(- \frac{p}{100-p} \alpha \right) = 1,
+\]
+\[
+p(-\alpha) - p \alpha = 1,
+\]
+\[
+-2p \alpha = 1 \implies \alpha = -\frac{1}{2p}.
+\]
+
+Then
+\[
+\beta = -\frac{p}{100 - p} \alpha = -\frac{p}{100 - p}\left(-\frac{1}{2p}\right) = \frac{1}{2(100 - p)}.
+\]
+
+Therefore,
+\[
+x_{76} - x_{16} = \beta - \alpha = \frac{1}{2(100 - p)} - \left(-\frac{1}{2p}\right) = \frac{1}{2(100 - p)} + \frac{1}{2p} = \frac{1}{2} \left( \frac{1}{p} + \frac{1}{100 - p} \right).
+\]
+
+---
+
+**Step 7: Maximize over \(p \in [16, 75]\)**
+
+Define:
+\[
+f(p) = \frac{1}{2} \left( \frac{1}{p} + \frac{1}{100 - p} \right) = \frac{1}{2} \cdot \frac{100}{p(100 - p)} = \frac{50}{p(100 - p)}.
+\]
+
+We want to maximize \(f(p)\) on \(16 \leq p \leq 75\).
+
+Note the symmetry \(p \leftrightarrow 100 - p\).
+
+Function \(g(p) = p(100 - p) = 100p - p^2\) is a concave quadratic, maximum at \(p=50\).
+
+So \(f(p) = 50 / g(p)\) is minimized at \(p=50\) and increases towards ends of interval.
+
+On \(16 \leq p \leq 75\), the endpoints are:
+- \(p=16 \implies f(16) = \frac{50}{16 \times 84} = \frac{50}{1344} = \frac{25}{672}.\)
+- \(p=75 \implies f(75) = \frac{50}{75 \times 25} = \frac{50}{1875} = \frac{2}{75}.\)
+
+Compare \(\frac{25}{672}\) and \(\frac{2}{75}\):
+
+- Convert both to decimals approximately:
+
+\(\frac{25}{672} \approx 0.0372\).
+
+\(\frac{2}{75} \approx 0.0267\).
+
+So the maximum is at \(p=16\).
+
+---
+
+**Step 8: Verify that with \(p=16\), we get valid ordering**
+
+- First 16 terms equal \(\alpha = -\frac{1}{2 \cdot 16} = -\frac{1}{32}\).
+- Remaining 84 terms equal \(\beta = \frac{1}{2 \cdot 84} = \frac{1}{168}.\)
+- Since \(\alpha < \beta\), order is preserved.
+- \(x_{16} = \alpha = -\frac{1}{32}\).
+- \(x_{76} = \beta = \frac{1}{168}\).
+- Difference:
+\[
+x_{76} - x_{16} = \frac{1}{168} - \left(-\frac{1}{32}\right) = \frac{1}{168} + \frac{1}{32} = \frac{32}{5376} + \frac{168}{5376} = \frac{200}{5376}.
+\]
+
+Simplify:
+\[
+\gcd(200,5376) = 8,
+\]
+\[
+\frac{200}{5376} = \frac{25}{672}.
+\]
+
+So the maximum difference is \(\frac{25}{672}\).
+
+---
+
+**Step 9: Final answer**
+
+The fraction \(\frac{25}{672}\) is in lowest terms (since 25 and 672 share no common factor other than 1).
+
+The problem requests \(m+n\) where \(\frac{m}{n} = \frac{25}{672}\).
+
+\[
+m + n = 25 + 672 = 697.
+\]
+
+---
+
+**Answer:** \(697\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 841.
+
+
+
+# Example 2
+## Inputs
+Problem: Let $x,y,$ and $z$ be real numbers satisfying the system of equations
+\begin{align*} xy + 4z &= 60 \\ yz + 4x &= 60 \\ zx + 4y &= 60. \end{align*}
+Let $S$ be the set of possible values of $x.$ Find the sum of the squares of the elements of $S.$
+
+## Generated Outputs
+Answer: 273
+Reasoning: Given the system:
+\[
+\begin{cases}
+xy + 4z = 60 \\
+yz + 4x = 60 \\
+zx + 4y = 60
+\end{cases}
+\]
+with real numbers \(x, y, z\).
+
+We want to find the set \(S\) of possible values of \(x\) that satisfy this system and then compute \(\sum_{t \in S} t^2\).
+
+---
+
+**Step 1: Analyze the symmetry**
+
+The system is symmetric in \(x, y, z\) but not completely symmetric because of the constants multiplied by 4: each equation has a symmetric term (product of two variables) plus 4 times the third variable equals 60.
+
+---
+
+**Step 2: Consider the possibility that \(x = y = z\)**
+
+Assume \(x = y = z = t\).
+
+Then the equations become:
+
+\[
+t \cdot t + 4 t = 60 \implies t^2 + 4 t = 60
+\]
+\[
+t^2 + 4 t = 60
+\]
+
+This is consistent for all equations.
+
+Solve:
+\[
+t^2 + 4 t - 60 = 0
+\]
+\[
+t = \frac{-4 \pm \sqrt{16 + 240}}{2} = \frac{-4 \pm \sqrt{256}}{2} = \frac{-4 \pm 16}{2}
+\]
+
+Two solutions:
+- \(t = \frac{-4 + 16}{2} = \frac{12}{2} = 6\)
+- \(t = \frac{-4 -16}{2} = \frac{-20}{2} = -10\)
+
+So two possible values for \(x\) from the symmetric case: \(6\) and \(-10\).
+
+---
+
+**Step 3: Look for other solutions where not all variables are equal**
+
+Subtract the first two equations:
+
+\[
+xy + 4z = 60
+\]
+\[
+-(yz + 4x = 60)
+\]
+\[
+xy + 4z - yz - 4x = 0
+\]
+\[
+y(x - z) + 4(z - x) = 0
+\]
+\[
+(y - 4)(x - z) = 0
+\]
+
+Similarly, subtract the second and third:
+
+\[
+(yz + 4x) - (zx + 4y) = 0
+\]
+\[
+z(y - x) + 4(x - y) = (z - 4)(y - x) = 0
+\]
+
+And subtract the third and first:
+
+\[
+(zx + 4y) - (xy + 4z) = 0
+\]
+\[
+x(z - y) + 4(y - z) = (x - 4)(z - y) = 0
+\]
+
+From these three results, each gives a condition of the form:
+\[
+(y - 4)(x - z) = 0
+\]
+\[
+(z - 4)(y - x) = 0
+\]
+\[
+(x - 4)(z - y) = 0
+\]
+
+Thus, for all three, one of the two factors must be zero:
+
+- Either the difference between variables is zero (variables equal),
+- Or one variable equals 4.
+
+---
+
+**Step 4: Case analysis**
+
+(a) If \(x = y = z\), we already have the solutions \(6\) and \(-10\).
+
+(b) Otherwise, consider one variable is 4.
+
+Try \(x = 4\):
+
+Plug into the first equation:
+\[
+xy + 4z = 60 \implies (4) y + 4 z = 60
+\]
+
+Second equation:
+\[
+y z + 4 x = yz + 16 = 60 \implies yz = 44
+\]
+
+Third:
+\[
+z x + 4 y = 4 z + 4 y = 60 \implies 4 y + 4 z = 60 \implies y + z = 15
+\]
+
+So from first:
+\[
+4 y + 4 z = 60 \implies y + z = 15
+\]
+
+From third, same equation.
+
+From second:
+\[
+y z = 44
+\]
+
+So \(y\) and \(z\) satisfy:
+\[
+y + z = 15, \quad y z = 44
+\]
+
+They are roots of:
+\[
+t^2 - 15 t + 44 = 0
+\]
+
+\[
+t = \frac{15 \pm \sqrt{225 - 176}}{2} = \frac{15 \pm \sqrt{49}}{2} = \frac{15 \pm 7}{2}
+\]
+
+Roots:
+- \(\frac{15 + 7}{2} = 11\)
+- \(\frac{15 - 7}{2} = 4\)
+
+So \(y\) and \(z\) are \(11\) and \(4\) in some order.
+
+But if \(y=4\), then \(y=4\) and \(x=4\), so check original equations.
+
+Check the equation for \(x=4,y=4,z=11\):
+
+- First:
+\[
+xy + 4 z = 4 \cdot 4 + 4 \cdot 11 = 16 + 44 = 60
+\]
+- Second:
+\[
+y z + 4 x = 4 \cdot 11 + 4 \cdot 4 = 44 + 16 = 60
+\]
+- Third:
+\[
+z x + 4 y = 11 \cdot 4 + 4 \cdot 4 = 44 + 16 = 60
+\]
+
+Consistent.
+
+Similarly for \(y=11, z=4\), same result.
+
+So \(x=4\) is a solution.
+
+---
+
+(c) Try \(y=4\):
+
+By symmetry, this will yield \(x,z\) solving similarly, leading to \(x=11\) or \(10\) or so? Let's verify.
+
+Plug \(y=4\) into system.
+
+First:
+\[
+x y + 4 z = 60 \implies 4 x + 4 z = 60 \implies x + z = 15
+\]
+
+Second:
+\[
+y z + 4 x = 4 z + 4 x = 60 \implies 4 z + 4 x = 60 \implies x + z = 15
+\]
+
+Third:
+\[
+z x + 4 y = zx + 16 = 60 \implies zx = 44
+\]
+
+So same as before: \(x + z = 15\), and \(x z = 44\).
+
+The quadratic: \(t^2 - 15 t + 44 = 0\), roots are \(11\) and 4.
+
+But \(y =4\), so \(x\) and \(z\) are as above: \(4\) and \(11\).
+
+Therefore, if \(y=4\), \(x=4\) or \(x=11\).
+
+Similarly for \(z=4\):
+
+First:
+\[
+x y + 4 z = 60 \implies x y + 16 = 60 \implies x y = 44
+\]
+
+Second:
+\[
+y z + 4 x = y \cdot 4 + 4 x = 4 y + 4 x = 60 \implies x + y = 15
+\]
+
+Third:
+\[
+z x + 4 y = 4 x + 4 y = 60 \implies x + y = 15
+\]
+
+Again the same system:
+\[
+x + y = 15, \quad x y = 44
+\]
+so \(x,y = 11,4\).
+
+---
+
+**Step 5: Collect all possible \(x\) from these cases**
+
+- From \(x=y=z\): \(x = 6\) or \(-10\)
+- From case where one variable is 4:
+  - \(x=4\)
+  - If \(y=4\), \(x = 11\) or \(4\), so \(x=4\) or \(11\)
+  - If \(z=4\), \(x=11\) or \(4\)
+
+So the possible \(x\) values are:
+
+\[
+S = \{ -10, 4, 6, 11 \}
+\]
+
+---
+
+**Step 6: Compute sum of squares of elements in \(S\)**
+
+\[
+(-10)^2 + 4^2 + 6^2 + 11^2 = 100 + 16 + 36 + 121 = 273
+\]
+
+---
+
+**Final answer:**
+\[
+\boxed{273}
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 273.
+
+
+
+# Example 3
+## Inputs
+Problem: There exist real numbers $x$ and $y$, both greater than 1, such that $\log_x\left(y^x\right)=\log_y\left(x^{4y}\right)=10$. Find $xy$.
+
+## Generated Outputs
+Answer: 25
+Reasoning: We are given that \(x, y > 1\) and
+\[
+\log_x(y^x) = 10 \quad \text{and} \quad \log_y(x^{4y}) = 10.
+\]
+
+Rewrite the logarithms using the properties of logs:
+\[
+\log_x(y^x) = x \log_x y = 10,
+\]
+and
+\[
+\log_y(x^{4y}) = 4y \log_y x = 10.
+\]
+
+Recall that \(\log_a b = \frac{\ln b}{\ln a}\), so:
+\[
+x \frac{\ln y}{\ln x} = 10,
+\]
+\[
+4y \frac{\ln x}{\ln y} = 10.
+\]
+
+Let \(A = \ln x > 0\) and \(B = \ln y > 0\) since \(x, y > 1 \implies \ln x, \ln y > 0\).
+
+The system becomes:
+\[
+x \frac{B}{A} = 10,
+\]
+\[
+4 y \frac{A}{B} = 10.
+\]
+
+From the first:
+\[
+x \frac{B}{A} = 10 \implies x = \frac{10 A}{B}.
+\]
+
+From the second:
+\[
+4 y \frac{A}{B} = 10 \implies y = \frac{10 B}{4 A} = \frac{5 B}{2 A}.
+\]
+
+Recall that \(x = e^{A}\), \(y = e^{B}\). Substitute these expressions for \(x, y\):
+\[
+e^A = \frac{10 A}{B}, \quad e^B = \frac{5 B}{2 A}.
+\]
+
+We want to find \(xy = e^{A + B}\).
+
+Write:
+\[
+xy = e^{A + B} = (e^A)(e^B) = \left(\frac{10 A}{B}\right)\left(\frac{5 B}{2 A}\right) = \frac{10 \times 5 A B}{B \times 2 A} = \frac{50 AB}{2 AB} = 25.
+\]
+
+The \(A\) and \(B\) cancel out; the product \(xy\) is 25.
+
+## Feedback
+Your answer is correct. The correct answer is 25.
+
+
+'''
+Your task is to write a new instruction for the assistant. Read the inputs carefully and identify the input format and infer detailed task
+description about the task I wish to solve with the assistant.
+Read all the assistant responses and the corresponding feedback. Identify all
+niche and domain specific factual information about the task and include it in
+the instruction, as a lot of it may not be available to the assistant in the
+future. The assistant may have utilized a generalizable strategy to solve the
+task, if so, include that in the instruction as well.
+The following is a record of previous instruction edits that were tried from
+the current instruction and did not improve results on the evaluation minibatch.
+Each entry shows exactly what changed (diff) and why it may not have helped.
+This is provided as context to help you make a more informed decision — use
+your judgment about whether any of these directions are worth revisiting or
+whether a different approach might work better.
+
+== PAST ATTEMPTS FROM THIS PROMPT (context only — use your judgment) ==
+• Diff: Added: 'or exact values.  - For problems involving rhombus faces or parallelepipeds, use...' | Why it failed: "The new prompt tried to streamline instructions but truncated key guidance, reducing clarity and leading to incomplete reasoning." — scored 2/3, needed >2/3
+• Diff: Added: 'final answer as a single integer, exactly as requested.  Domain-specific insight...' | Why it failed: "The new prompt emphasized exact answer formatting but truncated instructions, reducing clarity and failing to improve solution accuracy." — scored 1/3, needed >1/3
+• Diff: Added: 'recursively with boundary conditions and weighted averages.  - For convex equila...' | Why it failed: "The new prompt added verbosity and explicit formatting demands, which likely caused confusion or rigidity, failing to improve accuracy." — scored 2/3, needed >2/3
+• Diff: Added: 'rhombuses, or circles tangent to sides or diagonals:      - Model the figure wit...' | Why it failed: "The new prompt tried to retain the original instructions but lacked explicit emphasis on precise reasoning steps, failing to address subtle problem nu" — scored 0/3, needed >1/3
+• Diff: Added: ', combining them with the law of total probability and independence assumptions....' | Why it failed: "The new prompt tightened wording without adding clarity or guidance, failing to improve reasoning or answer accuracy." — scored 1/3, needed >1/3
+• Diff: Added: 'mbinations or by applying counting formulas.    - Verify maximality or minimalit...' | Why it failed: "The new prompt added detailed guidelines aiming for thoroughness but failed because increased verbosity confused the model, reducing answer accuracy." — scored 0/3, needed >2/3
+• Diff: Added: 'ngential quadrilaterals with incircles:    - Use coordinate geometry to model po...' | Why it failed: "The new prompt added formatting and guideline wording but failed to clarify reasoning steps, so it didn't enhance problem-solving accuracy." — scored 1/3, needed >1/3
+
+These attempts didn't help on past minibatches. They may or may not be relevant to the current one.
+
+Provide the new instructions within ''' blocks.

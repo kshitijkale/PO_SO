@@ -1,0 +1,1361 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the given math problem by carefully analyzing the problem statement and conditions. Provide a thorough, step-by-step solution with clear and detailed mathematical reasoning that includes all relevant domain-specific facts, formulas, and identities necessary to understand and verify your approach.
+
+When dealing with number theory problems involving fractions, gcd, Euler’s totient function, or modular arithmetic, explicitly factor and analyze divisors and residues. For problems involving sums with floor functions, carefully separate integer and fractional parts and examine periodicity and modular patterns to determine integrality and value ranges.
+
+In geometry or algebra problems involving symmetric equations or radicals, attempt substitutions that reduce the problem to known identities or parametric forms. Verify consistency of assumptions across all equations, and if approximate numerical checks are used, confirm their validity and seek exact expressions wherever possible.
+
+Always:
+
+- Express final answers exactly and as requested (e.g., a single integer, or sum of numerator and denominator in lowest terms).
+- Avoid premature conclusions; verify that your final answer matches all given constraints and is consistent with all parts of the problem.
+- Show all key steps and justifications, including prime factorizations, modular computations, known formula applications, and algebraic simplifications.
+- When dealing with sums over ranges, identify and leverage periodic structures or divisor sums identities to simplify counting.
+- Refrain from skipping over subtle domain-specific details such as gcd divisors or fractional part behavior that impact the final count or value.
+
+Provide the final answer exactly as requested (for example, a single integer or a sum of integers), ensuring clarity and correctness.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Two externally tangent circles $\omega_1$ and $\omega_2$ have centers $O_1$ and $O_2$, respectively. A third circle $\Omega$ passing through $O_1$ and $O_2$ intersects $\omega_1$ at $B$ and $C$ and $\omega_2$ at $A$ and $D$, as shown. Suppose that $AB = 2$, $O_1O_2 = 15$, $CD = 16$, and $ABO_1CDO_2$ is a convex hexagon. Find the area of this hexagon.
+
+## Generated Outputs
+Answer: 135
+Reasoning: We are given two externally tangent circles \(\omega_1\) and \(\omega_2\) with centers \(O_1\) and \(O_2\), respectively, and a third circle \(\Omega\) passing through \(O_1\) and \(O_2\). The circle \(\Omega\) intersects \(\omega_1\) at points \(B\) and \(C\), and \(\omega_2\) at points \(A\) and \(D\). The hexagon \(ABO_1CDO_2\) is convex, with given lengths:
+- \(AB = 2\)
+- \(O_1O_2 = 15\)
+- \(CD = 16\)
+
+We want to find the area of hexagon \(ABO_1CDO_2\).
+
+---
+
+**Step 1: Understand the configuration**
+
+- \(\omega_1\) and \(\omega_2\) are tangent externally at some point \(T\).
+- \(O_1O_2 = 15\).
+- Circle \(\Omega\) passes through \(O_1\) and \(O_2\).
+- \(\Omega\) intersects \(\omega_1\) at \(B\) and \(C\).
+- \(\Omega\) intersects \(\omega_2\) at \(A\) and \(D\).
+- The hexagon is \(A-B-O_1-C-D-O_2\) in order.
+
+---
+
+**Step 2: Key observations**
+
+- Since \(\Omega\) passes through \(O_1\) and \(O_2\), these two points lie on \(\Omega\).
+- Points \(B\) and \(C\) lie on both \(\omega_1\) and \(\Omega\).
+- Points \(A\) and \(D\) lie on both \(\omega_2\) and \(\Omega\).
+- The hexagon is formed by points \(A, B, O_1, C, D, O_2\) in that order.
+
+---
+
+**Step 3: Use power of a point and chord lengths**
+
+Since \(B\) and \(C\) lie on \(\omega_1\) and \(\Omega\), and \(A\) and \(D\) lie on \(\omega_2\) and \(\Omega\), the chords \(BC\) and \(AD\) lie on \(\omega_1\) and \(\omega_2\), respectively.
+
+Given \(AB = 2\) and \(CD = 16\), and the order of points on \(\Omega\) is \(A-B-O_1-C-D-O_2\), the points \(A, B, O_1, C, D, O_2\) lie on \(\Omega\) in that order.
+
+---
+
+**Step 4: Assign variables and coordinate setup**
+
+Place \(O_1\) at the origin \((0,0)\) and \(O_2\) at \((15,0)\) on the x-axis (since \(O_1O_2=15\)).
+
+Let the radius of \(\omega_1\) be \(r_1\), and the radius of \(\omega_2\) be \(r_2\).
+
+Since \(\omega_1\) and \(\omega_2\) are tangent externally, the distance between centers equals the sum of radii:
+
+\[
+r_1 + r_2 = 15.
+\]
+
+---
+
+**Step 5: Coordinates of points on \(\omega_1\) and \(\omega_2\)**
+
+- Points \(B\) and \(C\) lie on \(\omega_1\) centered at \((0,0)\) with radius \(r_1\).
+- Points \(A\) and \(D\) lie on \(\omega_2\) centered at \((15,0)\) with radius \(r_2\).
+
+---
+
+**Step 6: Circle \(\Omega\) passes through \(O_1\) and \(O_2\), and points \(A,B,C,D\) lie on it**
+
+Since \(A,B,O_1,C,D,O_2\) lie on \(\Omega\), the points are cyclic on \(\Omega\).
+
+---
+
+**Step 7: Use the chord lengths on \(\Omega\)**
+
+On \(\Omega\), the points are in order \(A-B-O_1-C-D-O_2\).
+
+Given \(AB=2\) and \(CD=16\).
+
+---
+
+**Step 8: Use the fact that \(B\) and \(C\) lie on \(\omega_1\), so \(B\) and \(C\) satisfy \(x^2 + y^2 = r_1^2\).
+
+Similarly, \(A\) and \(D\) satisfy \((x-15)^2 + y^2 = r_2^2\).
+
+---
+
+**Step 9: Parametrize points on \(\Omega\)**
+
+Let the circle \(\Omega\) have center \(O = (h,k)\) and radius \(R\).
+
+Since \(O_1 = (0,0)\) and \(O_2 = (15,0)\) lie on \(\Omega\), we have:
+
+\[
+(0 - h)^2 + (0 - k)^2 = R^2,
+\]
+\[
+(15 - h)^2 + (0 - k)^2 = R^2.
+\]
+
+Subtracting these two equations:
+
+\[
+(15 - h)^2 + k^2 = h^2 + k^2 \implies (15 - h)^2 = h^2.
+\]
+
+Expanding:
+
+\[
+225 - 30h + h^2 = h^2 \implies 225 - 30h = 0 \implies h = \frac{225}{30} = 7.5.
+\]
+
+So the center of \(\Omega\) lies on the vertical line \(x=7.5\).
+
+Then,
+
+\[
+R^2 = (0 - 7.5)^2 + k^2 = 56.25 + k^2.
+\]
+
+---
+
+**Step 10: Parametrize points \(A,B,C,D\) on \(\Omega\)**
+
+Since \(A,B,O_1,C,D,O_2\) lie on \(\Omega\) in that order, the points \(A,B,C,D\) lie on \(\Omega\) with \(O_1\) and \(O_2\) between them.
+
+Let’s parametrize the circle \(\Omega\) as:
+
+\[
+x = 7.5 + R \cos \theta, \quad y = k + R \sin \theta.
+\]
+
+We can assign parameters \(\theta\) to points:
+
+- \(O_1 = (0,0)\) corresponds to some \(\theta = \theta_1\).
+- \(O_2 = (15,0)\) corresponds to \(\theta = \theta_2\).
+
+From the parametrization:
+
+\[
+0 = 7.5 + R \cos \theta_1, \quad 0 = k + R \sin \theta_1,
+\]
+\[
+15 = 7.5 + R \cos \theta_2, \quad 0 = k + R \sin \theta_2.
+\]
+
+From the y-coordinates:
+
+\[
+k + R \sin \theta_1 = 0, \quad k + R \sin \theta_2 = 0 \implies \sin \theta_1 = \sin \theta_2 = -\frac{k}{R}.
+\]
+
+Since \(\sin \theta_1 = \sin \theta_2\), \(\theta_2 = \pi - \theta_1\) or \(\theta_2 = \theta_1\).
+
+But from the x-coordinates:
+
+\[
+0 = 7.5 + R \cos \theta_1 \implies \cos \theta_1 = -\frac{7.5}{R},
+\]
+\[
+15 = 7.5 + R \cos \theta_2 \implies \cos \theta_2 = \frac{7.5}{R}.
+\]
+
+Since \(\cos \theta_2 = -\cos \theta_1\), and \(\sin \theta_2 = \sin \theta_1\), this matches \(\theta_2 = \pi - \theta_1\).
+
+---
+
+**Step 11: Points \(A,B,C,D\) lie on \(\Omega\) between \(\theta_1\) and \(\theta_2\)**
+
+The order on \(\Omega\) is \(A-B-O_1-C-D-O_2\), so the points correspond to angles:
+
+\[
+\theta_A < \theta_B < \theta_1 < \theta_C < \theta_D < \theta_2,
+\]
+
+or the reverse order depending on orientation.
+
+---
+
+**Step 12: Use the fact that \(B\) and \(C\) lie on \(\omega_1\), so their distances from \(O_1\) are \(r_1\):
+
+\[
+|B - O_1| = r_1, \quad |C - O_1| = r_1.
+\]
+
+Similarly, \(A\) and \(D\) lie on \(\omega_2\), so
+
+\[
+|A - O_2| = r_2, \quad |D - O_2| = r_2.
+\]
+
+---
+
+**Step 13: Express \(B\) and \(C\) in terms of \(\theta_B\) and \(\theta_C\):
+
+\[
+B = (7.5 + R \cos \theta_B, k + R \sin \theta_B),
+\]
+\[
+C = (7.5 + R \cos \theta_C, k + R \sin \theta_C).
+\]
+
+Then,
+
+\[
+|B - O_1|^2 = (7.5 + R \cos \theta_B)^2 + (k + R \sin \theta_B)^2 = r_1^2,
+\]
+\[
+|C - O_1|^2 = (7.5 + R \cos \theta_C)^2 + (k + R \sin \theta_C)^2 = r_1^2.
+\]
+
+Similarly for \(A\) and \(D\):
+
+\[
+|A - O_2|^2 = (7.5 + R \cos \theta_A - 15)^2 + (k + R \sin \theta_A)^2 = r_2^2,
+\]
+\[
+|D - O_2|^2 = (7.5 + R \cos \theta_D - 15)^2 + (k + R \sin \theta_D)^2 = r_2^2.
+\]
+
+---
+
+**Step 14: Use chord lengths \(AB=2\) and \(CD=16\)**
+
+The chord length between two points on \(\Omega\) is:
+
+\[
+\text{Chord length} = 2R \sin \frac{\Delta \theta}{2},
+\]
+
+where \(\Delta \theta\) is the difference in their parameters.
+
+So,
+
+\[
+AB = 2 = 2R \sin \frac{\theta_B - \theta_A}{2} \implies \sin \frac{\theta_B - \theta_A}{2} = \frac{1}{R}.
+\]
+
+Similarly,
+
+\[
+CD = 16 = 2R \sin \frac{\theta_D - \theta_C}{2} \implies \sin \frac{\theta_D - \theta_C}{2} = \frac{8}{R}.
+\]
+
+Since \(\sin\) cannot exceed 1, \(R \geq 8\).
+
+---
+
+**Step 15: Use the fact that \(O_1\) and \(O_2\) correspond to \(\theta_1\) and \(\theta_2 = \pi - \theta_1\).**
+
+We can set \(\theta_1 = \alpha\), so \(\theta_2 = \pi - \alpha\).
+
+Then,
+
+\[
+\cos \alpha = -\frac{7.5}{R}, \quad \sin \alpha = -\frac{k}{R}.
+\]
+
+---
+
+**Step 16: Use the order of points on \(\Omega\):**
+
+\[
+\theta_A < \theta_B < \alpha < \theta_C < \theta_D < \pi - \alpha.
+\]
+
+---
+
+**Step 17: Use the distances from centers**
+
+From Step 13, the distances squared from \(O_1\) to \(B\) and \(C\) are equal to \(r_1^2\):
+
+\[
+|B - O_1|^2 = r_1^2,
+\]
+\[
+|C - O_1|^2 = r_1^2.
+\]
+
+Similarly for \(A\) and \(D\) with respect to \(O_2\).
+
+---
+
+**Step 18: Use the fact that \(B\) and \(C\) lie on \(\omega_1\), so their distances from \(O_1\) are equal:
+
+\[
+|B - O_1|^2 = |C - O_1|^2 = r_1^2.
+\]
+
+Similarly for \(A\) and \(D\) with respect to \(O_2\).
+
+---
+
+**Step 19: Use the chord length formula on \(\omega_1\) for chord \(BC\)**
+
+The chord \(BC\) lies on \(\omega_1\), so its length is:
+
+\[
+BC = 2 r_1 \sin \frac{\angle B O_1 C}{2}.
+\]
+
+Similarly, chord \(AD\) lies on \(\omega_2\), so
+
+\[
+AD = 2 r_2 \sin \frac{\angle A O_2 D}{2}.
+\]
+
+---
+
+**Step 20: Use the fact that \(B\) and \(C\) lie on \(\Omega\) and \(\omega_1\), so the arcs \(B-C\) on \(\Omega\) and \(\omega_1\) correspond to chords \(BC\) of lengths related to \(r_1\) and \(R\).
+
+Similarly for \(A\) and \(D\).
+
+---
+
+**Step 21: Use the fact that \(ABO_1CDO_2\) is convex**
+
+The hexagon is formed by points \(A, B, O_1, C, D, O_2\).
+
+---
+
+**Step 22: Use the fact that the hexagon can be split into triangles**
+
+We can split the hexagon into four triangles:
+
+- \(\triangle ABO_1\)
+- \(\triangle BO_1C\)
+- \(\triangle CO_1D\)
+- \(\triangle DO_2O_1\)
+
+But this is complicated.
+
+---
+
+**Step 23: Alternative approach: Use the fact that \(ABO_1CDO_2\) is cyclic on \(\Omega\) and the points \(O_1\) and \(O_2\) are fixed.
+
+---
+
+**Step 24: Use the fact that the hexagon is formed by points on two circles and the third circle \(\Omega\).
+
+---
+
+**Step 25: Use the fact that the hexagon \(ABO_1CDO_2\) can be decomposed into trapezoids or triangles whose areas can be computed from given lengths.
+
+---
+
+**Step 26: Use the fact that the hexagon is convex and the points are on the plane.
+
+---
+
+**Step 27: Use the fact that the hexagon \(ABO_1CDO_2\) can be split into two quadrilaterals \(ABO_1C\) and \(CDO_2\), or other combinations.
+
+---
+
+**Step 28: Use the fact that the hexagon is formed by points on \(\Omega\) and the two circles.
+
+---
+
+**Step 29: Use the fact that the hexagon is symmetric with respect to the line \(O_1O_2\).
+
+---
+
+**Step 30: Use the fact that the hexagon area can be computed by coordinate geometry**
+
+Since \(O_1 = (0,0)\), \(O_2 = (15,0)\), and the points \(A,B,C,D\) lie on \(\Omega\), we can find their coordinates and then compute the area using the shoelace formula.
+
+---
+
+**Step 31: Find \(k\) and \(R\)**
+
+Recall from Step 9:
+
+\[
+R^2 = 56.25 + k^2,
+\]
+and
+\[
+\cos \alpha = -\frac{7.5}{R}, \quad \sin \alpha = -\frac{k}{R}.
+\]
+
+---
+
+**Step 32: Use the chord length conditions**
+
+From Step 14:
+
+\[
+\sin \frac{\theta_B - \theta_A}{2} = \frac{1}{R},
+\]
+\[
+\sin \frac{\theta_D - \theta_C}{2} = \frac{8}{R}.
+\]
+
+---
+
+**Step 33: Use the fact that \(B\) and \(C\) lie on \(\omega_1\), so their distances from \(O_1\) are \(r_1\).
+
+Similarly for \(A\) and \(D\) with respect to \(O_2\).
+
+---
+
+**Step 34: Use the fact that the points \(B\) and \(C\) are symmetric with respect to the line \(O_1O_2\) (the x-axis), so their y-coordinates are opposite.
+
+Similarly for \(A\) and \(D\).
+
+---
+
+**Step 35: Use the fact that \(B\) and \(C\) lie on \(\omega_1\) centered at \((0,0)\) with radius \(r_1\), so
+
+\[
+x_B^2 + y_B^2 = r_1^2,
+\]
+\[
+x_C^2 + y_C^2 = r_1^2.
+\]
+
+Similarly for \(A\) and \(D\) on \(\omega_2\).
+
+---
+
+**Step 36: Use the fact that \(B\) and \(C\) lie on \(\Omega\) with center \((7.5,k)\) and radius \(R\):
+
+\[
+(x_B - 7.5)^2 + (y_B - k)^2 = R^2,
+\]
+\[
+(x_C - 7.5)^2 + (y_C - k)^2 = R^2.
+\]
+
+---
+
+**Step 37: Subtract the two equations for \(B\) and \(C\) on \(\Omega\):
+
+\[
+(x_B - 7.5)^2 + (y_B - k)^2 = (x_C - 7.5)^2 + (y_C - k)^2.
+\]
+
+Expanding and simplifying:
+
+\[
+(x_B^2 - 2 \cdot 7.5 x_B + 7.5^2) + (y_B^2 - 2 k y_B + k^2) = (x_C^2 - 2 \cdot 7.5 x_C + 7.5^2) + (y_C^2 - 2 k y_C + k^2).
+\]
+
+Cancel terms:
+
+\[
+x_B^2 + y_B^2 - 15 x_B - 2 k y_B = x_C^2 + y_C^2 - 15 x_C - 2 k y_C.
+\]
+
+Since \(x_B^2 + y_B^2 = x_C^2 + y_C^2 = r_1^2\), this reduces to:
+
+\[
+r_1^2 - 15 x_B - 2 k y_B = r_1^2 - 15 x_C - 2 k y_C,
+\]
+\[
+-15 x_B - 2 k y_B = -15 x_C - 2 k y_C,
+\]
+\[
+15 (x_C - x_B) = 2 k (y_C - y_B).
+\]
+
+---
+
+**Step 38: Since \(B\) and \(C\) lie on \(\omega_1\), and are distinct points on \(\Omega\), and the hexagon is convex, the points \(B\) and \(C\) are distinct and \(y_C = - y_B\) (assuming symmetry about the x-axis).
+
+Similarly, \(x_C = x_B\) or not?
+
+If \(x_C = x_B\), then \(x_C - x_B = 0\), so from above:
+
+\[
+0 = 2 k (y_C - y_B).
+\]
+
+Since \(y_C = - y_B\), \(y_C - y_B = - y_B - y_B = -2 y_B\).
+
+So,
+
+\[
+0 = 2 k (-2 y_B) = -4 k y_B.
+\]
+
+For this to hold, either \(k=0\) or \(y_B=0\).
+
+If \(y_B=0\), then \(B\) and \(C\) lie on the x-axis, which is unlikely since they are distinct points on \(\omega_1\).
+
+If \(k=0\), then the center of \(\Omega\) is on the x-axis at \((7.5,0)\).
+
+---
+
+**Step 39: Assume \(k=0\)**
+
+Then,
+
+\[
+R^2 = 56.25 + 0 = 56.25,
+\]
+\[
+R = 7.5.
+\]
+
+---
+
+**Step 40: Check chord lengths with \(R=7.5\)**
+
+From Step 14:
+
+\[
+\sin \frac{\theta_B - \theta_A}{2} = \frac{1}{7.5} = \frac{2}{15} \approx 0.1333,
+\]
+\[
+\sin \frac{\theta_D - \theta_C}{2} = \frac{8}{7.5} > 1,
+\]
+
+which is impossible.
+
+So \(k=0\) is invalid.
+
+---
+
+**Step 41: Therefore, \(x_C \neq x_B\), so from Step 37:
+
+\[
+15 (x_C - x_B) = 2 k (y_C - y_B).
+\]
+
+If \(y_C = - y_B\), then
+
+\[
+15 (x_C - x_B) = 2 k (- y_B - y_B) = -4 k y_B,
+\]
+\[
+15 (x_C - x_B) = -4 k y_B.
+\]
+
+---
+
+**Step 42: Similarly, for points \(A\) and \(D\) on \(\omega_2\), we get a similar relation.
+
+---
+
+**Step 43: Use the fact that \(B\) and \(C\) lie on \(\omega_1\) and \(\Omega\), and \(A\) and \(D\) lie on \(\omega_2\) and \(\Omega\).
+
+---
+
+**Step 44: Use the fact that the hexagon \(ABO_1CDO_2\) is convex and the points are arranged on \(\Omega\).
+
+---
+
+**Step 45: Use the fact that the hexagon area can be computed by the sum of areas of triangles \(ABO_1\), \(O_1CD\), and \(DO_2A\).
+
+---
+
+**Step 46: Use the fact that \(AB = 2\), \(CD = 16\), and \(O_1O_2 = 15\).
+
+---
+
+**Step 47: Use the fact that the hexagon is formed by points on two circles tangent externally, and the third circle passing through their centers.
+
+---
+
+**Step 48: Use the fact that the hexagon \(ABO_1CDO_2\) is composed of two trapezoids \(ABO_1C\) and \(CDO_2\).
+
+---
+
+**Step 49: Use the fact that the hexagon area is:
+
+\[
+\text{Area} = \text{Area}(ABO_1) + \text{Area}(O_1CD) + \text{Area}(DO_2A).
+\]
+
+---
+
+**Step 50: Use the fact that \(AB = 2\), \(CD = 16\), and \(O_1O_2 = 15\).
+
+---
+
+**Step 51: Use the fact that the hexagon is symmetric and the area is:
+
+\[
+\text{Area} = \frac{1}{2} (AB + CD) \times O_1O_2 = \frac{1}{2} (2 + 16) \times 15 = \frac{1}{2} \times 18 \times 15 = 135.
+\]
+
+---
+
+**Step 52: Verify the reasoning**
+
+The hexagon \(ABO_1CDO_2\) can be viewed as a polygon with two bases \(AB\) and \(CD\) connected by the segment \(O_1O_2\) of length 15.
+
+If the hexagon is convex and the points are arranged so that the height between the bases is \(O_1O_2 = 15\), then the area is the average of the two bases times the height.
+
+---
+
+**Final answer:**
+
+\[
+\boxed{135}.
+\]
+
+---
+
+**Summary:**
+
+The area of the hexagon \(ABO_1CDO_2\) is \(\frac{1}{2} (AB + CD) \times O_1O_2 = \frac{1}{2} (2 + 16) \times 15 = 135.\)
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 140.
+
+
+
+# Example 2
+## Inputs
+Problem: Adults made up $\frac5{12}$ of the crowd of people at a concert. After a bus carrying $50$ more people arrived, adults made up $\frac{11}{25}$ of the people at the concert. Find the minimum number of adults who could have been at the concert after the bus arrived.
+
+## Generated Outputs
+Answer: 154
+Reasoning: Let the initial total number of people at the concert be \( N \), and the number of adults initially be \( A \).
+
+Given:
+\[
+\frac{A}{N} = \frac{5}{12}
+\]
+So,
+\[
+A = \frac{5}{12} N
+\]
+
+After a bus carrying 50 more people arrives, the total number of people becomes:
+\[
+N + 50
+\]
+
+Let the number of adults after the bus arrives be \( A' \). We know:
+\[
+\frac{A'}{N + 50} = \frac{11}{25}
+\]
+
+We want to find the minimum possible number of adults after the bus arrives, \( A' \).
+
+Since adults made up \(\frac{5}{12}\) of the crowd initially, and after the bus arrives adults make up \(\frac{11}{25}\), the number of adults must have increased or stayed the same (since the fraction increased).
+
+We do not know how many adults came with the bus, but the total number of adults after the bus arrives is \( A' \).
+
+We have two equations:
+\[
+A = \frac{5}{12} N
+\]
+\[
+A' = \frac{11}{25} (N + 50)
+\]
+
+Since the number of adults cannot decrease, \( A' \geq A \).
+
+Substitute \( A = \frac{5}{12} N \):
+\[
+\frac{11}{25} (N + 50) \geq \frac{5}{12} N
+\]
+
+Multiply both sides by 300 (LCM of 12 and 25) to clear denominators:
+\[
+11 \times 12 (N + 50) \geq 5 \times 25 \times N
+\]
+\[
+132 (N + 50) \geq 125 N
+\]
+\[
+132 N + 6600 \geq 125 N
+\]
+\[
+132 N - 125 N \geq -6600
+\]
+\[
+7 N \geq -6600
+\]
+
+Since \( N \) is positive, this inequality is always true. So no restriction here.
+
+Next, since \( A = \frac{5}{12} N \), \( A \) must be an integer, so \( N \) must be divisible by 12.
+
+Similarly, \( A' = \frac{11}{25} (N + 50) \) must be an integer, so \( N + 50 \) must be divisible by 25.
+
+Let:
+\[
+N = 12k, \quad k \in \mathbb{Z}^+
+\]
+\[
+N + 50 = 25m, \quad m \in \mathbb{Z}^+
+\]
+
+Substitute \( N = 12k \):
+\[
+12k + 50 = 25m
+\]
+\[
+25m - 12k = 50
+\]
+
+We want integer solutions \( (k, m) \) to this linear Diophantine equation.
+
+Rewrite:
+\[
+25m = 12k + 50
+\]
+
+We want to find integer \( k \) such that \( 12k + 50 \) is divisible by 25.
+
+Consider modulo 25:
+\[
+12k + 50 \equiv 0 \pmod{25}
+\]
+Since \( 50 \equiv 0 \pmod{25} \), this reduces to:
+\[
+12k \equiv 0 \pmod{25}
+\]
+
+Because 12 and 25 are coprime (gcd(12,25) = 1), the only way for \( 12k \equiv 0 \pmod{25} \) is:
+\[
+k \equiv 0 \pmod{25}
+\]
+
+So \( k = 25t \) for some integer \( t \geq 1 \).
+
+Therefore:
+\[
+N = 12k = 12 \times 25 t = 300 t
+\]
+
+Then:
+\[
+N + 50 = 300 t + 50
+\]
+
+Check divisibility by 25:
+\[
+300 t + 50 = 25 (12 t + 2)
+\]
+which is divisible by 25.
+
+Now, the number of adults after the bus arrives is:
+\[
+A' = \frac{11}{25} (N + 50) = \frac{11}{25} (300 t + 50) = 11 (12 t + 2) = 132 t + 22
+\]
+
+We want the minimum positive integer \( A' \), so take \( t = 1 \):
+\[
+A' = 132 \times 1 + 22 = 154
+\]
+
+Thus, the minimum number of adults after the bus arrives is \( \boxed{154} \).
+
+Check initial adults:
+\[
+A = \frac{5}{12} N = \frac{5}{12} \times 300 = 125
+\]
+
+Check that \( A' \geq A \):
+\[
+154 \geq 125
+\]
+True.
+
+Therefore, the minimum number of adults after the bus arrives is 154.
+
+## Feedback
+Your answer is correct. The correct answer is 154.
+
+
+
+# Example 3
+## Inputs
+Problem: Find the number of cubic polynomials $p(x) = x^3 + ax^2 + bx + c,$ where $a, b,$ and $c$ are integers in $\{-20,-19,-18,\ldots,18,19,20\},$ such that there is a unique integer $m \not= 2$ with $p(m) = p(2).$
+
+## Generated Outputs
+Answer: 328
+Reasoning: We are given cubic polynomials of the form 
+\[ p(x) = x^3 + a x^2 + b x + c, \]
+where \(a, b, c \in \{-20, -19, \ldots, 19, 20\}\).
+
+We want to find the number of such polynomials for which there exists a unique integer \(m \neq 2\) such that 
+\[ p(m) = p(2). \]
+
+---
+
+**Step 1: Understanding the condition \(p(m) = p(2)\)**
+
+Define the polynomial 
+\[ q(x) = p(x) - p(2). \]
+Then \(q(2) = p(2) - p(2) = 0\), so \(x=2\) is a root of \(q(x)\).
+
+The condition \(p(m) = p(2)\) means \(q(m) = 0\).
+
+We want exactly two integer roots of \(q(x)\): \(x=2\) and exactly one other integer \(m \neq 2\).
+
+---
+
+**Step 2: Factorization of \(q(x)\)**
+
+Since \(q(2) = 0\), \(x-2\) divides \(q(x)\). Write
+\[
+q(x) = (x-2) h(x),
+\]
+where \(h(x)\) is a quadratic polynomial:
+\[
+h(x) = x^2 + A x + B,
+\]
+with \(A, B \in \mathbb{Z}\) (since \(q(x)\) has integer coefficients, and \(p(x)\) is monic, \(q(x)\) is monic cubic with integer coefficients, so \(h(x)\) is monic quadratic with integer coefficients).
+
+---
+
+**Step 3: Express \(q(x)\) in terms of \(a,b,c\)**
+
+Recall:
+\[
+p(x) = x^3 + a x^2 + b x + c,
+\]
+so
+\[
+p(2) = 8 + 4a + 2b + c.
+\]
+
+Then
+\[
+q(x) = p(x) - p(2) = (x^3 + a x^2 + b x + c) - (8 + 4a + 2b + c) = x^3 + a x^2 + b x + c - 8 - 4a - 2b - c = x^3 + a x^2 + b x - 8 - 4a - 2b.
+\]
+
+Simplify:
+\[
+q(x) = x^3 + a x^2 + b x - (8 + 4a + 2b).
+\]
+
+---
+
+**Step 4: Factor \(q(x) = (x-2)(x^2 + A x + B)\)**
+
+Multiply out:
+\[
+(x-2)(x^2 + A x + B) = x^3 + A x^2 + B x - 2 x^2 - 2 A x - 2 B = x^3 + (A - 2) x^2 + (B - 2 A) x - 2 B.
+\]
+
+Match coefficients with \(q(x)\):
+\[
+\begin{cases}
+a = A - 2, \\
+b = B - 2 A, \\
+-(8 + 4a + 2b) = -2 B.
+\end{cases}
+\]
+
+From the last equation:
+\[
+8 + 4a + 2b = 2 B \implies 4 + 2a + b = B.
+\]
+
+---
+
+**Step 5: Substitute \(B\) into the second equation**
+
+Recall:
+\[
+b = B - 2 A,
+\]
+and
+\[
+B = 4 + 2a + b.
+\]
+
+Substitute \(B\):
+\[
+b = (4 + 2a + b) - 2 A \implies b = 4 + 2a + b - 2 A \implies 0 = 4 + 2a - 2 A \implies 2 A = 4 + 2a \implies A = 2 + a.
+\]
+
+---
+
+**Step 6: Now find \(B\)**
+
+\[
+B = 4 + 2a + b.
+\]
+
+We have:
+\[
+A = 2 + a, \quad B = 4 + 2a + b.
+\]
+
+---
+
+**Step 7: Summary**
+
+Given \(a,b\), the quadratic factor is
+\[
+h(x) = x^2 + A x + B = x^2 + (2 + a) x + (4 + 2a + b).
+\]
+
+---
+
+**Step 8: Roots of \(h(x)\)**
+
+We want \(q(x) = (x-2) h(x)\) to have exactly two integer roots: \(x=2\) and exactly one other integer root \(m \neq 2\).
+
+So \(h(x)\) must have exactly one integer root (the other root is not an integer).
+
+---
+
+**Step 9: Conditions on \(h(x)\)**
+
+Let the roots of \(h(x)\) be \(r_1, r_2\).
+
+- \(r_1, r_2\) satisfy:
+\[
+r_1 + r_2 = -A = -(2 + a),
+\]
+\[
+r_1 r_2 = B = 4 + 2a + b.
+\]
+
+We want exactly one integer root among \(r_1, r_2\).
+
+---
+
+**Step 10: Discriminant of \(h(x)\)**
+
+\[
+\Delta = A^2 - 4 B = (2 + a)^2 - 4 (4 + 2a + b).
+\]
+
+For \(h(x)\) to have real roots, \(\Delta \geq 0\).
+
+---
+
+**Step 11: Integer roots condition**
+
+We want exactly one integer root of \(h(x)\).
+
+- If \(h(x)\) has two distinct integer roots, then \(q(x)\) has three integer roots, contradicting uniqueness.
+
+- If \(h(x)\) has no integer roots, then \(q(x)\) has only one integer root (2), contradicting the problem.
+
+- If \(h(x)\) has a double root (discriminant zero), then the root is integer (since coefficients are integers and root is rational), and that root is unique. So \(q(x)\) has roots \(2\) and a double root \(m\neq 2\). This counts as exactly one other integer root \(m\neq 2\).
+
+- If \(h(x)\) has two roots, exactly one integer and one irrational root, that also satisfies the condition.
+
+---
+
+**Step 12: Characterizing exactly one integer root of \(h(x)\)**
+
+Let the integer root be \(m\).
+
+Since \(m\) is a root of \(h(x)\),
+\[
+m^2 + A m + B = 0.
+\]
+
+Recall:
+\[
+A = 2 + a, \quad B = 4 + 2a + b.
+\]
+
+Rewrite:
+\[
+m^2 + (2 + a) m + (4 + 2a + b) = 0.
+\]
+
+Solve for \(b\):
+\[
+b = -m^2 - (2 + a) m - 4 - 2a.
+\]
+
+---
+
+**Step 13: Check the other root**
+
+The other root is
+\[
+r = -A - m = -(2 + a) - m = -m - a - 2.
+\]
+
+We want exactly one integer root, so \(r\) must not be an integer root of \(h(x)\).
+
+But \(r\) is an integer (sum of integers), so the other root is always integer.
+
+This contradicts the assumption that exactly one root is integer.
+
+---
+
+**Step 14: Re-examine the logic**
+
+Since \(h(x)\) is monic quadratic with integer coefficients, if one root is integer, the other root is integer if and only if the quadratic factors over integers.
+
+But the other root is integer because the sum and product are integers.
+
+Therefore, if \(h(x)\) has one integer root, it must have two integer roots.
+
+Hence, the only way to have exactly one integer root is if the two roots coincide (double root).
+
+---
+
+**Step 15: Double root condition**
+
+The double root condition is:
+\[
+\Delta = 0,
+\]
+where
+\[
+\Delta = (2 + a)^2 - 4 (4 + 2a + b) = 0.
+\]
+
+Solve for \(b\):
+\[
+(2 + a)^2 = 4 (4 + 2a + b),
+\]
+\[
+(2 + a)^2 / 4 = 4 + 2a + b,
+\]
+\[
+b = \frac{(2 + a)^2}{4} - 4 - 2a.
+\]
+
+Since \(a,b\) are integers, \(\frac{(2 + a)^2}{4}\) must be integer.
+
+---
+
+**Step 16: Condition on \(a\)**
+
+\[
+\frac{(2 + a)^2}{4} \in \mathbb{Z} \implies (2 + a)^2 \equiv 0 \pmod{4}.
+\]
+
+Squares mod 4 are 0 or 1.
+
+- If \(2 + a\) is even, then \((2 + a)^2\) is divisible by 4.
+
+- If \(2 + a\) is odd, then \((2 + a)^2 \equiv 1 \pmod{4}\), not divisible by 4.
+
+So \(2 + a\) must be even.
+
+Since \(a \in \{-20, \ldots, 20\}\), \(2 + a\) even means \(a\) even.
+
+---
+
+**Step 17: For each even \(a\), find \(b\)**
+
+\[
+b = \frac{(2 + a)^2}{4} - 4 - 2a.
+\]
+
+Check if \(b \in \{-20, \ldots, 20\}\).
+
+---
+
+**Step 18: Determine \(c\)**
+
+Recall from Step 3:
+\[
+q(x) = p(x) - p(2) = (x-2)(x^2 + A x + B),
+\]
+and
+\[
+p(2) = 8 + 4a + 2b + c.
+\]
+
+Since \(q(x) = p(x) - p(2)\), the constant term of \(q(x)\) is zero.
+
+From Step 3:
+\[
+q(x) = x^3 + a x^2 + b x + c - p(2) = x^3 + a x^2 + b x + c - (8 + 4a + 2b + c) = x^3 + a x^2 + b x - 8 - 4a - 2b.
+\]
+
+So the constant term of \(q(x)\) is \(-8 - 4a - 2b\).
+
+From factorization:
+\[
+q(x) = (x-2)(x^2 + A x + B) = x^3 + (A - 2) x^2 + (B - 2 A) x - 2 B,
+\]
+so constant term is \(-2 B\).
+
+Equate:
+\[
+-8 - 4a - 2b = -2 B \implies 8 + 4a + 2b = 2 B \implies 4 + 2a + b = B.
+\]
+
+This matches Step 4.
+
+---
+
+**Step 19: Number of possible \(c\)**
+
+Since \(p(2) = 8 + 4a + 2b + c\), and \(p(2)\) is fixed by \(a,b,c\), but the condition depends only on \(a,b\), \(c\) can be any integer in \(\{-20, \ldots, 20\}\).
+
+So for each valid pair \((a,b)\), there are 41 possible values of \(c\).
+
+---
+
+**Step 20: Summary**
+
+- \(a\) even in \([-20,20]\).
+- \(b = \frac{(2 + a)^2}{4} - 4 - 2a\), integer and in \([-20,20]\).
+- For each such \((a,b)\), \(c\) can be any integer in \([-20,20]\), so 41 choices.
+- For each such polynomial, \(q(x)\) has a double root \(m \neq 2\), so exactly one integer root \(m \neq 2\) besides 2.
+
+---
+
+**Step 21: Enumerate valid \(a,b\)**
+
+\(a\) even in \([-20,20]\):
+\[
+a \in \{-20, -18, -16, \ldots, 18, 20\}.
+\]
+There are 21 even integers in this range.
+
+For each \(a\), compute
+\[
+b = \frac{(2 + a)^2}{4} - 4 - 2a.
+\]
+
+Check if \(b \in [-20,20]\).
+
+---
+
+**Step 22: Compute \(b\) for each \(a\)**
+
+Let \(k = 2 + a\), \(k\) even.
+
+Then
+\[
+b = \frac{k^2}{4} - 4 - 2a = \frac{k^2}{4} - 4 - 2(a).
+\]
+
+But \(a = k - 2\), so
+\[
+b = \frac{k^2}{4} - 4 - 2(k - 2) = \frac{k^2}{4} - 4 - 2k + 4 = \frac{k^2}{4} - 2k.
+\]
+
+Simplify:
+\[
+b = \frac{k^2}{4} - 2k = \frac{k^2 - 8k}{4} = \frac{k(k - 8)}{4}.
+\]
+
+---
+
+**Step 23: Values of \(k\)**
+
+Since \(a \in [-20,20]\) even, \(k = 2 + a\) runs over even integers from
+\[
+2 + (-20) = -18 \quad \text{to} \quad 2 + 20 = 22,
+\]
+with step 2.
+
+So
+\[
+k \in \{-18, -16, -14, \ldots, 20, 22\}.
+\]
+
+Number of values: from -18 to 22 step 2 is \(\frac{22 - (-18)}{2} + 1 = \frac{40}{2} + 1 = 20 + 1 = 21\).
+
+---
+
+**Step 24: For each \(k\), compute \(b = \frac{k(k-8)}{4}\) and check if \(b \in [-20,20]\) and integer**
+
+Since \(k\) is even, \(k(k-8)\) is divisible by 4, so \(b\) is integer.
+
+Compute \(b\) for each \(k\):
+
+| \(k\) | \(k(k-8)\) | \(b = k(k-8)/4\) | Check if \(-20 \leq b \leq 20\) |
+|-------|------------|------------------|---------------------------------|
+| -18   | -18 * (-26) = 468 | 468/4 = 117 | No (117 > 20) |
+| -16   | -16 * (-24) = 384 | 384/4 = 96  | No |
+| -14   | -14 * (-22) = 308 | 308/4 = 77  | No |
+| -12   | -12 * (-20) = 240 | 240/4 = 60  | No |
+| -10   | -10 * (-18) = 180 | 180/4 = 45  | No |
+| -8    | -8 * (-16) = 128  | 128/4 = 32  | No |
+| -6    | -6 * (-14) = 84   | 84/4 = 21   | No (21 > 20) |
+| -4    | -4 * (-12) = 48   | 48/4 = 12   | Yes |
+| -2    | -2 * (-10) = 20   | 20/4 = 5    | Yes |
+| 0     | 0 * (-8) = 0      | 0           | Yes |
+| 2     | 2 * (-6) = -12    | -12/4 = -3  | Yes |
+| 4     | 4 * (-4) = -16    | -16/4 = -4  | Yes |
+| 6     | 6 * (-2) = -12    | -12/4 = -3  | Yes |
+| 8     | 8 * 0 = 0         | 0           | Yes |
+| 10    | 10 * 2 = 20       | 20/4 = 5    | Yes |
+| 12    | 12 * 4 = 48       | 48/4 = 12   | Yes |
+| 14    | 14 * 6 = 84       | 84/4 = 21   | No |
+| 16    | 16 * 8 = 128      | 128/4 = 32  | No |
+| 18    | 18 * 10 = 180     | 180/4 = 45  | No |
+| 20    | 20 * 12 = 240     | 240/4 = 60  | No |
+| 22    | 22 * 14 = 308     | 308/4 = 77  | No |
+
+---
+
+**Step 25: Valid \(k\) values**
+
+Valid \(k\) are:
+\[
+-4, -2, 0, 2, 4, 6, 8, 10, 12.
+\]
+
+Corresponding \(a = k - 2\):
+\[
+a = -6, -4, -2, 0, 2, 4, 6, 8, 10.
+\]
+
+---
+
+**Step 26: For each valid \(a\), \(b\) is fixed**
+
+Number of valid \((a,b)\) pairs is 9.
+
+---
+
+**Step 27: For each \((a,b)\), \(c\) can be any integer in \([-20,20]\), so 41 choices**
+
+Total number of polynomials:
+\[
+9 \times 41 = 369.
+\]
+
+---
+
+**Step 28: Check that the double root \(m \neq 2\)**
+
+The double root \(m\) is root of \(h(x)\) with discriminant zero.
+
+Double root:
+\[
+m = -\frac{A}{2} = -\frac{2 + a}{2} = -1 - \frac{a}{2}.
+\]
+
+Since \(a\) is even, \(m\) is integer.
+
+Check \(m \neq 2\):
+
+For each \(a\):
+
+| \(a\) | \(m = -1 - a/2\) | Is \(m=2\)? |
+|-------|------------------|-------------|
+| -6    | -1 - (-3) = 2    | Yes         |
+| -4    | -1 - (-2) = 1    | No          |
+| -2    | -1 - (-1) = 0    | No          |
+| 0     | -1 - 0 = -1      | No          |
+| 2     | -1 - 1 = -2      | No          |
+| 4     | -1 - 2 = -3      | No          |
+| 6     | -1 - 3 = -4      | No          |
+| 8     | -1 - 4 = -5      | No          |
+| 10    | -1 - 5 = -6      | No          |
+
+Exclude \(a = -6\) because \(m=2\) (not allowed).
+
+---
+
+**Step 29: Final count**
+
+Valid \(a\) values:
+\[
+-4, -2, 0, 2, 4, 6, 8, 10,
+\]
+8 values.
+
+For each, 41 choices of \(c\).
+
+Total:
+\[
+8 \times 41 = 328.
+\]
+
+---
+
+**Step 30: Conclusion**
+
+The number of cubic polynomials \(p(x) = x^3 + a x^2 + b x + c\) with \(a,b,c \in \{-20, \ldots, 20\}\) such that there is a unique integer \(m \neq 2\) with \(p(m) = p(2)\) is \(\boxed{328}\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 738.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently demonstrates strong algebraic manipulation, geometric reasoning, and problem translation skills, successfully solving problems involving polynomial roots, coordinate geometry, and number base conversions. However, it struggles with combinatorial geometry counting problems and complex spatial reasoning in 3D configurations, often oversimplifying or making inconsistent assumptions that lead to incorrect conclusions. Overall, the model excels in systematic equation-based approaches but shows notable weaknesses in comprehensive combinatorial enumeration and intricate geometric interpretations.
+
+[Parent prompt — node=0, iter=1, fp=38b1fe8788, status=ACCEPTED, val=0.47, minibatch=?]
+Solve the problem and provide the answer provide the final answer as a single integer.
+
+
+[What changed to get current prompt — current=node=8, iter=9, fp=cd4ef2aea2, status=ACCEPTED, val=0.47, minibatch=1.00]
+Added: 'e the given math problem by carefully analyzing the problem statement and conditions. Provide a thorough, step-by-step s...'
+
+[Other attempts from same parent]
+• val=0.49 | node=6, iter=6, fp=60e2418c1a, status=ACCEPTED, val=0.49, minibatch=1.00: Added: 'ory as applicable.  Work through the problem step-by-step, showing all reasoning and intermediate results in a clear, lo...'
+  Outcomes (for this node only): iter=8, result=correct, error=none, q=Counting 2-colorings of a regular dodecagon vertices avoiding monochromatic rectangles: The model translated the polygon problem into a 2x6 grid coloring problem,...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=5, iter=5, fp=092b44bcd8, status=REJECTED, val=?, minibatch=0.33: Added: '8. Avoid premature conclusions; verify that the answer matches all problem restrictions and conditions. 9. Ensure correc...'
+  Outcomes (for this node only): iter=5, result=incorrect, error=logic, q=Number of collections of 16 distinct subsets of \(\{1,2,3,4,5\}\) such that any two subsets intersect: The model correctly identified the problem as counting m...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=4, iter=4, fp=cd8f9b1a0e, status=REJECTED, val=?, minibatch=0.33: Added: 'the given math problem by carefully interpreting all conditions and constraints. Provide a clear, step-by-step explanati...'
+  Outcomes (for this node only): iter=4, result=correct, error=none, q=Rectangular boxes with surface area 54 and volume 23; find \(p+q\) for \(r^2 = \frac{p}{q}\).: The model correctly identified variables and constraints, applied L...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=3, iter=3, fp=087caa8f95, status=REJECTED, val=?, minibatch=0.67: Added: 'solution. When dealing with geometric problems involving distances, projections, or spatial reasoning, explicitly relate...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in three congruent circles; find \(AC^2\) given \(AB^2=560\).: The model correctly set up variables for the ...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=2, iter=2, fp=53246ec7ce, status=REJECTED, val=?, minibatch=0.67: Added: 'the given math problem step-by-step with clear, detailed reasoning that includes all relevant domain-specific facts and ...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Length \(PQ\) between intersections of angle bisectors in an isosceles trapezoid: The model correctly set up coordinates for the trapezoid, used distance formulas...
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=8a060958dd, status=REJECTED, val=?, minibatch=0.67: Added: 'problem conditions into precise mathematical equations or logical statements. 3. Apply relevant mathematical identities,...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit positive integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose representation in base nine is \(\underline{b}\,\underline{c}\,\underl...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=8a060958dd, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=53246ec7ce, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=087caa8f95, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=cd8f9b1a0e, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=092b44bcd8, status=REJECTED
+• From node 0: 2 node(s), peaked val=0.49, accepted, branch root=node=6, iter=6, fp=60e2418c1a, status=ACCEPTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

@@ -1,0 +1,1722 @@
+I provided an assistant with the following instructions to perform a task for me:
+'''
+Solve the problem and provide the answer provide the final answer as a single integer.
+'''
+The following are examples of different task inputs provided to the assistant
+along with the assistant's response for each of them, and some feedback on how
+the assistant's response could be better:
+'''
+# Example 1
+## Inputs
+Problem: There is a positive real number $x$ not equal to either $\tfrac{1}{20}$ or $\tfrac{1}{2}$ such that\[\log_{20x} (22x)=\log_{2x} (202x).\]The value $\log_{20x} (22x)$ can be written as $\log_{10} (\tfrac{m}{n})$, where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## Generated Outputs
+Answer: 112
+Reasoning: We start with the given equation:
+\[
+\log_{20x}(22x) = \log_{2x}(202x),
+\]
+where \(x > 0\) and \(x \neq \frac{1}{20}, \frac{1}{2}\).
+
+Let \(A = 20x\) and \(B = 2x\), both positive bases not equal to 1.
+
+Rewrite the logs in terms of \(\log_{10}\):
+\[
+\log_{20x}(22x) = \frac{\log_{10}(22x)}{\log_{10}(20x)} = \frac{\log_{10} 22 + \log_{10} x}{\log_{10} 20 + \log_{10} x},
+\]
+\[
+\log_{2x}(202x) = \frac{\log_{10}(202x)}{\log_{10}(2x)} = \frac{\log_{10} 202 + \log_{10} x}{\log_{10} 2 + \log_{10} x}.
+\]
+
+Set these equal:
+\[
+\frac{\log_{10} 22 + y}{\log_{10} 20 + y} = \frac{\log_{10} 202 + y}{\log_{10} 2 + y},
+\]
+where \(y = \log_{10} x\).
+
+Cross-multiplied:
+\[
+(\log_{10} 22 + y)(\log_{10} 2 + y) = (\log_{10} 202 + y)(\log_{10} 20 + y).
+\]
+
+Using \(a = \log_{10} 22\), \(b = \log_{10} 2\), \(c = \log_{10} 202\), \(d = \log_{10} 20\), we have:
+\[
+(a + y)(b + y) = (c + y)(d + y).
+\]
+
+Expand both sides:
+\[
+ab + a y + b y + y^2 = cd + c y + d y + y^2.
+\]
+
+Cancel \(y^2\):
+\[
+ab + y(a + b) = cd + y(c + d).
+\]
+
+Bring terms to one side:
+\[
+ab - cd = y(c + d - a - b).
+\]
+
+Solve for \(y\):
+\[
+y = \frac{ab - cd}{c + d - a - b}.
+\]
+
+Now calculate each log:
+
+\(\log_{10} 2 = b \approx 0.30103\),
+
+\(\log_{10} 20 = \log_{10}(2 \times 10) = b + 1 = 0.30103 + 1 = 1.30103,\)
+
+\(\log_{10} 22 = a = \log_{10}(2 \times 11) = b + \log_{10} 11.\)
+
+Since \(\log_{10} 11 \approx 1.04139\) (because \(10^{1.04139} \approx 11\)), so
+\[
+a = 0.30103 + 1.04139 = 1.34242.
+\]
+
+Similarly,
+\[
+c = \log_{10} 202 = \log_{10}(2 \times 101) = b + \log_{10} 101.
+\]
+
+\(\log_{10} 101 \approx 2.00432\) (since \(10^{2} = 100\), \(10^{2.00432} = 101\)), so
+\[
+c = 0.30103 + 2.00432 = 2.30535.
+\]
+
+Now evaluate numerator:
+\[
+ab - cd = (a b) - (c d).
+\]
+
+Calculate \(a b\):
+\[
+a b = 1.34242 \times 0.30103 \approx 0.4043.
+\]
+
+Calculate \(c d\):
+\[
+c d = 2.30535 \times 1.30103 \approx 2.9973.
+\]
+
+Numerator:
+\[
+ab - cd = 0.4043 - 2.9973 = -2.593.
+\]
+
+Denominator:
+\[
+c + d - a - b = (2.30535 + 1.30103) - (1.34242 + 0.30103) = 3.60638 - 1.64345 = 1.96293.
+\]
+
+Hence:
+\[
+y = \frac{-2.593}{1.96293} \approx -1.321.
+\]
+
+Recall:
+\[
+y = \log_{10} x = -1.321 \implies x = 10^{-1.321}.
+\]
+
+We want \(\log_{20x}(22x)\) in the form \(\log_{10} \frac{m}{n}\).
+
+But
+
+\[
+\log_{20x}(22x) = \frac{\log_{10}(22x)}{\log_{10}(20x)} = \frac{\log_{10} 22 + y}{\log_{10} 20 + y} = \frac{a + y}{d + y}.
+\]
+
+Calculate numerator:
+\[
+a + y = 1.34242 - 1.321 = 0.02142,
+\]
+denominator:
+\[
+d + y = 1.30103 - 1.321 = -0.01997.
+\]
+
+So
+\[
+\log_{20x}(22x) = \frac{0.02142}{-0.01997} = -1.0726.
+\]
+
+But the problem says this expression equals \(\log_{10} \frac{m}{n}\). So it should be negative, meaning \(\frac{m}{n} < 1\).
+
+Now let's express this more precisely.
+
+Note that
+\[
+\log_{20x}(22x) = \log_{10} \left(\frac{22x}{(20x)^{\log_{20x}(22x)}}\right)
+\]
+which is circular.
+
+Alternatively, let's find \(m/n\) directly by rewriting the original equation in terms of common bases \(10\) and \(x\).
+
+Better approach: Since \(y = \log_{10} x\), then \(x = 10^y\).
+
+Compute the numerator and denominator again symbolically.
+
+Also, using the formula:
+
+\[
+\log_{20x}(22x) = \frac{\log_{10}(22) + y}{\log_{10}(20) + y} = \log_{10}\left(\frac{m}{n}\right).
+\]
+
+Let’s write it as direct ratio:
+\[
+\log_{20x}(22x) = \frac{\log_{10}(22 x)}{\log_{10}(20 x)} = \log_{10}\left( (20x)^{\frac{\log_{10}(22 x)}{\log_{10}(20 x)} } \right) = \log_{10} C,
+\]
+where
+\[
+C = (22 x) / (20 x)^{\log_{20x}(22x)} \quad \text{(wait this is circular)}.
+\]
+
+Alternatively, note that \(\log_a b = c \implies b = a^c\).
+
+We have:
+\[
+t = \log_{20x}(22x) = \log_{2x}(202x).
+\]
+
+From
+\[
+22x = (20x)^t \implies 22x = 20^t x^t,
+\]
+\[
+202x = (2x)^t = 2^t x^t.
+\]
+
+Divide first equation by the second:
+\[
+\frac{22x}{202x} = \frac{20^t x^t}{2^t x^t} \implies \frac{22}{202} = \left(\frac{20}{2}\right)^t = 10^t.
+\]
+
+So
+\[
+10^t = \frac{22}{202} = \frac{11}{101}.
+\]
+
+Thus:
+\[
+t = \log_{10} \frac{11}{101}.
+\]
+
+Recall \(\log_{20x}(22x) = t = \log_{10} \frac{11}{101}\).
+
+Since numerator and denominator share no factors (11 and 101 are primes), they are relatively prime.
+
+Therefore,
+\[
+m = 11, \quad n = 101,
+\]
+and
+\[
+m + n = 11 + 101 = 112.
+\]
+
+This matches our previous deduction directly from the ratio result, which is a more straightforward and exact approach, thereby avoiding approximation errors.
+
+## Feedback
+Your answer is correct. The correct answer is 112.
+
+
+
+# Example 2
+## Inputs
+Problem: Let $ABCD$ be a parallelogram with $\angle BAD < 90^\circ.$ A circle tangent to sides $\overline{DA},$ $\overline{AB},$ and $\overline{BC}$ intersects diagonal $\overline{AC}$ at points $P$ and $Q$ with $AP < AQ,$ as shown. Suppose that $AP=3,$ $PQ=9,$ and $QC=16.$ Then the area of $ABCD$ can be expressed in the form $m\sqrt{n},$ where $m$ and $n$ are positive integers, and $n$ is not divisible by the square of any prime. Find $m+n.$
+
+## Generated Outputs
+Answer: 105
+Reasoning: Let's analyze the problem step-by-step.
+
+1. **Given**: Parallelogram \(ABCD\) with \(\angle BAD < 90^\circ\).
+
+2. A circle is tangent to sides \(\overline{DA}\), \(\overline{AB}\), and \(\overline{BC}\), and intersects diagonal \(\overline{AC}\) at points \(P\) and \(Q\) with \(AP < AQ\).
+
+3. The points on diagonal \(AC\) satisfy \(AP = 3\), \(PQ = 9\), and \(QC = 16\).
+
+4. We want to find the area of parallelogram \(ABCD\) in the form \(m \sqrt{n}\) where \(m,n\) are positive integers and \(n\) is square-free.
+
+---
+
+### Step 1: Setup coordinates and notation
+
+Since \(ABCD\) is a parallelogram, let’s place points to analyze.
+
+Set \(A\) at the origin \((0,0)\).
+
+Let \(\vec{AB} = \mathbf{b}\), \(\vec{AD} = \mathbf{d}\).
+
+Then \(B = \mathbf{b}\) and \(D = \mathbf{d}\), and \(C = \mathbf{b} + \mathbf{d}\).
+
+The diagonal \(AC = \mathbf{b} + \mathbf{d}\).
+
+---
+
+### Step 2: Express points \(P\) and \(Q\) on diagonal \(AC\)
+
+Since \(P\) and \(Q\) lie on \(AC\), for some parameters \(t\), \(s\) with \(0 < t < s < 1\),
+
+\[
+P = t (\mathbf{b} + \mathbf{d}), \quad Q = s (\mathbf{b} + \mathbf{d})
+\]
+
+Given lengths along \(AC\) with \(AP = 3\), \(PQ=9\), \(QC=16\), so the entire length \(AC = 3 + 9 + 16 = 28\).
+
+So,
+
+\[
+|AC| = 28
+\]
+
+and
+
+\[
+t = \frac{AP}{AC} = \frac{3}{28}, \quad s = \frac{3 + 9}{28} = \frac{12}{28} = \frac{3}{7}
+\]
+
+---
+
+### Step 3: Geometric meaning of the circle tangent to \(DA\), \(AB\), and \(BC\)
+
+The circle is tangent to three lines:
+
+- \(DA\): through points \(D\) and \(A\),
+- \(AB\): through points \(A\) and \(B\),
+- \(BC\): through points \(B\) and \(C\).
+
+This means the circle is tangent to two adjacent sides \(AB\) and \(DA\) meeting at \(A\), and also tangent to the side \(BC\) opposite the vertex \(A\).
+
+The two sides \(AB\) and \(DA\) meet at \(A\), and the circle is tangent to both at points on these sides.
+
+Thus, the circle is tangent to two lines intersecting at \(A\) and another parallel line \(BC\).
+
+---
+
+### Step 4: Characterizing the circle
+
+Because the circle is tangent to \(AB\) and \(DA\), its center lies on the angle bisector of \(\angle BAD\).
+
+Let’s write:
+
+\[
+\vec{AB} = \mathbf{b} = (b_x, b_y), \quad \vec{AD} = \mathbf{d} = (d_x, d_y)
+\]
+
+Since \(\angle BAD < 90^\circ\), \(\mathbf{b}\) and \(\mathbf{d}\) point into the first quadrant or at least form an acute angle.
+
+---
+
+The circle is tangent to lines:
+
+- \(AB\): line through \(A\) with direction \(\mathbf{b}\),
+- \(DA\): line through \(A\) with direction \(\mathbf{d}\),
+
+and to \(BC\):
+
+- \(BC\) is parallel to \(AD\) (since \(ABCD\) is a parallelogram), so the line through \(B = \mathbf{b}\) in direction \(\mathbf{d}\).
+
+---
+
+### Step 5: Parametric line equations
+
+- Line \(AB\): \(\mathbf{r} = \lambda \mathbf{b}\)
+- Line \(AD\): \(\mathbf{r} = \mu \mathbf{d}\)
+- Line \(BC\): \(\mathbf{r} = \mathbf{b} + \nu \mathbf{d}\)
+
+---
+
+### Step 6: Find the center \(O\) of the circle
+
+The circle is tangent to \(AB\) and \(AD\) at points on these sides.
+
+Because the circle is tangent to two lines intersecting at \(A\), the center lies on the angle bisector of \(\angle BAD\).
+
+Let the unit vectors along \(\mathbf{b}\) and \(\mathbf{d}\) be:
+
+\[
+\mathbf{u_b} = \frac{\mathbf{b}}{|\mathbf{b}|}, \quad \mathbf{u_d} = \frac{\mathbf{d}}{|\mathbf{d}|}
+\]
+
+The angle bisector direction vector is:
+
+\[
+\mathbf{u} = \frac{\mathbf{u_b} + \mathbf{u_d}}{|\mathbf{u_b} + \mathbf{u_d}|}
+\]
+
+The center \(O\) is at distance \(r\) from \(A\) along \(\mathbf{u}\):
+
+\[
+O = r \mathbf{u}
+\]
+
+---
+
+### Step 7: Radius \(r\) and tangent distance to \(BC\)
+
+Since circle is tangent to \(AB\) and \(AD\), radius \(r\) is distance from \(O\) to these lines.
+
+Because \(O\) lies on angle bisector equidistant from \(AB\) and \(AD\), the radius \(r\) is the perpendicular distance from \(O\) to \(AB\) (or \(AD\)).
+
+It is also tangent to line \(BC\).
+
+Distance from \(O\) to \(BC\) is also \(r\).
+
+---
+
+### Step 8: Equation for distance from \(O\) to \(BC\)
+
+The line \(BC\) passes through \(B = \mathbf{b}\) and is parallel to \(\mathbf{d}\).
+
+The distance from \(O\) to \(BC\) is:
+
+\[
+\text{dist}(O, BC) = \frac{|(\mathbf{b} - O) \times \mathbf{d}|}{|\mathbf{d}|}
+\]
+
+Here \(\times\) denotes the 2D cross product:
+
+\[
+(a,b) \times (c,d) = ad - bc
+\]
+
+Since distance from \(O\) to \(AB\) is \(r\), and from \(O\) to \(BC\) is also \(r\), these distances are equal:
+
+\[
+\text{dist}(O, AB) = \text{dist}(O, BC)
+\]
+
+---
+
+### Step 9: Compute distances explicitly
+
+- Distance from \(O\) to \(AB\):
+
+\(AB\) passes through \(A=0\) with direction \(\mathbf{b}\).
+
+Distance is:
+
+\[
+\text{dist}(O, AB) = \frac{|O \times \mathbf{b}|}{|\mathbf{b}|}
+\]
+
+Similarly, distance from \(O\) to \(AD\):
+
+\[
+\text{dist}(O, AD) = \frac{|O \times \mathbf{d}|}{|\mathbf{d}|}
+\]
+
+Since \(O\) lies on the bisector, these distances are equal:
+
+\[
+\frac{|O \times \mathbf{b}|}{|\mathbf{b}|} = \frac{|O \times \mathbf{d}|}{|\mathbf{d}|} = r
+\]
+
+Distance from \(O\) to \(BC\):
+
+\[
+\text{dist}(O, BC) = \frac{|(\mathbf{b} - O) \times \mathbf{d}|}{|\mathbf{d}|} = r
+\]
+
+---
+
+### Step 10: Use notation and reduce unknowns
+
+Set \(\mathbf{b} = (b, 0)\) along the \(x\)-axis (since angle \(BAD < 90^\circ\), we can orient coordinate system so that \(AB\) is along the \(x\)-axis).
+
+Then,
+
+\[
+A = (0,0), \quad B = (b,0)
+\]
+
+\(\mathbf{d} = (x,y)\) with \(y > 0\) (since angle is less than 90°, \(AD\) must have positive \(y\)-component).
+
+- The diagonal \(AC = \mathbf{b} + \mathbf{d} = (b + x, y)\).
+
+---
+
+### Step 11: Point positions \(P\) and \(Q\) on \(AC\)
+
+We know \(AC\) length is 28.
+
+The vector along \(AC\): \(\vec{AC} = (b + x, y)\).
+
+The length:
+
+\[
+|AC| = \sqrt{(b+x)^2 + y^2} = 28
+\]
+
+Points:
+
+\[
+P = \frac{3}{28}(b+x, y), \quad Q = \frac{12}{28}(b+x, y) = \frac{3}{7}(b+x, y)
+\]
+
+---
+
+### Step 12: Find power-of-point relation for circle touching three sides
+
+From the problem, the circle touches \(DA\), \(AB\), and \(BC\), and cuts the diagonal at \(P\) and \(Q\).
+
+Since points \(P\) and \(Q\) lie on the circle, with \(A\) inside the circle (since \(AP < AQ\)).
+
+---
+
+### Step 13: Determine the center \(O\)
+
+We have:
+
+- \(AB\) is the \(x\)-axis, so the distance from \(O=(X, Y)\) to \(AB\) is \(|Y|\).
+
+- Since the circle is tangent to \(AB\) and \(AD\), distances from \(O\) to those two lines are equal.
+
+The line \(AD\): through \(A=0\) with direction \((x,y)\).
+
+The equation of \(AD\) is:
+
+\[
+y X - x Y = 0
+\]
+
+Distance from \(O = (X,Y)\) to \(AD\) is:
+
+\[
+\frac{|y X - x Y|}{\sqrt{x^2 + y^2}} = r
+\]
+
+Distance from \(O\) to \(AB\) is \(|Y| = r\).
+
+Set:
+
+\[
+|Y| = \frac{|y X - x Y|}{\sqrt{x^2 + y^2}}
+\]
+
+Since \(Y > 0\) (otherwise \(O\) is under \(AB\), which is less likely as the circle is tangent on the interior),
+
+drop absolute values:
+
+\[
+Y = \frac{|y X - x Y|}{\sqrt{x^2 + y^2}}
+\]
+
+Cross-multiplied:
+
+\[
+Y \sqrt{x^2 + y^2} = |y X - x Y|
+\]
+
+Two cases:
+
+- Case 1: \(y X - x Y = Y \sqrt{x^2 + y^2}\)
+- Case 2: \(y X - x Y = - Y \sqrt{x^2 + y^2}\)
+
+Try Case 1:
+
+\[
+y X - x Y = Y \sqrt{x^2 + y^2} \implies y X = Y (x + \sqrt{x^2 + y^2})
+\]
+
+Try Case 2:
+
+\[
+y X - x Y = - Y \sqrt{x^2 + y^2} \implies y X = Y(x - \sqrt{x^2 + y^2})
+\]
+
+The circle's center \(O\) lies on the angle bisector line.
+
+The angle bisector of angle at A between vectors \(\mathbf{b}=(b,0)\) and \(\mathbf{d} = (x,y)\) is in direction:
+
+\[
+\mathbf{u} = \frac{\mathbf{u_b} + \mathbf{u_d}}{|\mathbf{u_b} + \mathbf{u_d}|}
+\]
+
+Unit vectors:
+
+\[
+\mathbf{u_b} = (1,0), \quad \mathbf{u_d} = \left(\frac{x}{\sqrt{x^2 + y^2}}, \frac{y}{\sqrt{x^2 + y^2}}\right)
+\]
+
+Sum:
+
+\[
+\mathbf{u_b} + \mathbf{u_d} = \left(1 + \frac{x}{\sqrt{x^2 + y^2}}, \frac{y}{\sqrt{x^2 + y^2}}\right)
+\]
+
+Coordinates of \(O\) lie on this line:
+
+\[
+O = t \left(1 + \frac{x}{\sqrt{x^2 + y^2}}, \frac{y}{\sqrt{x^2 + y^2}}\right)
+\]
+
+Thus,
+
+\[
+X = t \left(1 + \frac{x}{\sqrt{x^2 + y^2}}\right), \quad Y = t \frac{y}{\sqrt{x^2 + y^2}}
+\]
+
+Plug into distance equation (Case 1):
+
+\[
+y X = Y \left(x + \sqrt{x^2 + y^2}\right)
+\]
+
+Substitute:
+
+\[
+y \cdot t \left(1 + \frac{x}{\sqrt{x^2 + y^2}}\right) = t \frac{y}{\sqrt{x^2 + y^2}} \left(x + \sqrt{x^2 + y^2}\right)
+\]
+
+Cancel \(t y\) (both positive):
+
+\[
+1 + \frac{x}{\sqrt{x^2 + y^2}} = \frac{1}{\sqrt{x^2 + y^2}} \left(x + \sqrt{x^2 + y^2}\right)
+\]
+
+Left side is:
+
+\[
+1 + \frac{x}{R}
+\]
+
+Right side:
+
+\[
+\frac{x + R}{R} = \frac{x}{R} + 1
+\]
+
+Both sides match. So Case 1 is true.
+
+Meaning case 1 holds.
+
+---
+
+### Step 14: Radius \(r = Y\)
+
+Since \(Y = r\), 
+
+\[
+r = t \frac{y}{\sqrt{x^2 + y^2}}
+\]
+
+---
+
+### Step 15: Distance from \(O\) to \(BC\)
+
+Line \(BC\) passes through \(B = (b,0)\) with direction \(\mathbf{d} = (x,y)\).
+
+Distance from \(O = (X,Y)\) to \(BC\):
+
+\[
+\frac{|(b - X, 0 - Y) \times (x,y)|}{\sqrt{x^2 + y^2}} = r
+\]
+
+Compute numerator:
+
+\[
+|(b - X)(y) - (0 - Y)(x)| = |y (b - X) + x Y|
+\]
+
+Recall,
+
+\[
+r = Y
+\]
+
+Therefore:
+
+\[
+\frac{|y (b - X) + x Y|}{\sqrt{x^2 + y^2}} = Y
+\]
+
+Multiply both sides by \(\sqrt{x^2 + y^2}\):
+
+\[
+|y (b - X) + x Y| = Y \sqrt{x^2 + y^2}
+\]
+
+Substitute \(X, Y\):
+
+\[
+y (b - X) + x Y = y b - y X + x Y
+\]
+
+Plug in \(X, Y\):
+
+\[
+= y b - y \cdot t \left(1 + \frac{x}{R}\right) + x \cdot t \frac{y}{R} = y b - y t - \frac{y t x}{R} + \frac{x t y}{R}
+\]
+
+The last two terms cancel, so:
+
+\[
+= y b - y t
+\]
+
+This is positive since \(y>0\), \(b > 0\), \(t > 0\).
+
+So absolute value drops:
+
+\[
+y b - y t = Y R = t \frac{y}{R} R = t y
+\]
+
+Simplify:
+
+\[
+y b - y t = t y \quad \Rightarrow \quad y b = 2 y t \quad \Rightarrow \quad b = 2 t
+\]
+
+Recall \(t\) is the parameter on the angle bisector such that:
+
+\[
+O = t \left(1 + \frac{x}{R}, \frac{y}{R}\right)
+\]
+
+This relates \(b\) and \(t\).
+
+---
+
+### Step 16: Now summarize what we have:
+
+\[
+b = 2 t
+\]
+
+Note that the length of \(AB\) is \(b\), \(AD = \sqrt{x^2 + y^2} = R\).
+
+---
+
+### Step 17: Since diagonal length is 28
+
+Recall:
+
+\[
+|AC|^2 = (b + x)^2 + y^2 = 28^2 = 784
+\]
+
+---
+
+### Step 18: Express \(P\) and \(Q\) coordinates for the circle points
+
+The circle intersects \(AC\) at \(P, Q\):
+
+\[
+P = \frac{3}{28} (b + x, y), \quad Q = \frac{12}{28} (b + x, y)
+\]
+
+---
+
+### Step 19: Equation of circle
+
+Center \(O = (X,Y) = t \left(1 + \frac{x}{R}, \frac{y}{R}\right) \).
+
+Radius \(r = Y = t \frac{y}{R}\).
+
+Check that \(P, Q\) lie on circle:
+
+\[
+|P - O|^2 = r^2, \quad |Q - O|^2 = r^2
+\]
+
+Let's write \(\vec{AC} = (b + x, y) = (S, y)\), where \(S = b + x\).
+
+First compute \(P - O\):
+
+\[
+P - O = \left(\frac{3}{28} S - X, \frac{3}{28} y - Y\right)
+\]
+
+Similarly for \(Q - O\):
+
+\[
+Q - O = \left(\frac{12}{28} S - X, \frac{12}{28} y - Y\right)
+\]
+
+We want:
+
+\[
+|P - O|^2 = (r)^2, \quad |Q - O|^2 = (r)^2
+\]
+
+Since both lie on circle, two distances equal to \(r^2\).
+
+---
+
+### Step 20: Set and simplify
+
+Set:
+
+\[
+|P - O|^2 = |Q - O|^2
+\]
+
+Calculate difference:
+
+\[
+|Q - O|^2 - |P - O|^2 = 0
+\]
+
+Calculate difference:
+
+\[
+\left(\frac{12}{28} S - X\right)^2 - \left(\frac{3}{28} S - X\right)^2 + \left(\frac{12}{28} y - Y\right)^2 - \left(\frac{3}{28} y - Y\right)^2 = 0
+\]
+
+Use difference of squares formula:
+
+\[
+(a^2 - b^2) = (a - b)(a + b)
+\]
+
+Let \(a = \frac{12}{28} S - X\), \(b = \frac{3}{28} S - X\), then
+
+\[
+a - b = \frac{9}{28} S
+\]
+
+\[
+a + b = \frac{15}{28} S - 2X
+\]
+
+Similarly, for \(y\) terms:
+
+\[
+c = \frac{12}{28} y - Y, \quad d = \frac{3}{28} y - Y
+\]
+
+\[
+c - d = \frac{9}{28} y, \quad c + d = \frac{15}{28} y - 2 Y
+\]
+
+So difference simplifies:
+
+\[
+(a - b)(a + b) + (c - d)(c + d) = 0
+\]
+
+\[
+\Rightarrow \frac{9}{28} S \left(\frac{15}{28} S - 2 X\right) + \frac{9}{28} y \left(\frac{15}{28} y - 2 Y\right) = 0
+\]
+
+Divide both sides by \(\frac{9}{28}\):
+
+\[
+S \left(\frac{15}{28} S - 2 X\right) + y \left(\frac{15}{28} y - 2 Y\right) = 0
+\]
+
+Expanding:
+
+\[
+\frac{15}{28} S^2 - 2 S X + \frac{15}{28} y^2 - 2 y Y = 0
+\]
+
+Rearranged:
+
+\[
+\frac{15}{28}(S^2 + y^2) = 2(S X + y Y)
+\]
+
+Note that \(S^2 + y^2 = |AC|^2 = 784\).
+
+So:
+
+\[
+\frac{15}{28} \times 784 = 2(S X + y Y)
+\]
+
+Calculate left side:
+
+\[
+\frac{15}{28} \times 784 = 15 \times 28 = 420
+\]
+
+Thus:
+
+\[
+420 = 2 (S X + y Y) \implies S X + y Y = 210
+\]
+
+---
+
+### Step 21: Substitute \(X, Y\) and \(S\)
+
+Recall:
+
+\[
+S = b + x, \quad X = t \left(1 + \frac{x}{R}\right), \quad Y = t \frac{y}{R}
+\]
+
+\[
+S X + y Y = (b + x) t \left(1 + \frac{x}{R}\right) + y \cdot t \frac{y}{R} = t \left[(b + x)\left(1 + \frac{x}{R}\right) + \frac{y^2}{R}\right]
+\]
+
+Combine terms inside brackets:
+
+\[
+= t \left[(b + x) + (b + x)\frac{x}{R} + \frac{y^2}{R}\right] = t \left[(b + x) + \frac{(b + x) x + y^2}{R}\right]
+\]
+
+Recall \(R = \sqrt{x^2 + y^2}\).
+
+---
+
+### Step 22: Use \(b = 2 t\) from before
+
+We want to express everything in terms of \(x, y, t\).
+
+Substitute \(b = 2 t\):
+
+\[
+S X + y Y = t \left[(2 t + x) + \frac{(2 t + x) x + y^2}{R}\right]
+\]
+
+---
+
+### Step 23: Recall from Step 19:
+
+\(S X + y Y = 210\).
+
+So:
+
+\[
+t \left[(2 t + x) + \frac{(2 t + x) x + y^2}{R}\right] = 210
+\]
+
+---
+
+### Step 24: Next express \(R, t\) in terms of \(b,x,y\) or simplify choice of variables
+
+Since we have multiple unknowns, choose convenient values.
+
+Recall \(b=2 t\).
+
+Also, express \(t\) in terms of \(b\), then:
+
+\[
+t = \frac{b}{2}
+\]
+
+So:
+
+\[
+\frac{b}{2} \left[(b + x) + \frac{(b + x) x + y^2}{\sqrt{x^2 + y^2}}\right] = 210
+\]
+
+---
+
+### Step 25: Recall diagonal length:
+
+\[
+(b + x)^2 + y^2 = 784
+\]
+
+---
+
+### Step 26: Recall radius
+
+Radius is:
+
+\[
+r = Y = t \frac{y}{R} = \frac{b}{2} \frac{y}{R}
+\]
+
+---
+
+### Step 27: Compute area of parallelogram
+
+Area:
+
+\[
+\text{Area} = | \mathbf{b} \times \mathbf{d} | = |b \cdot y - 0 \cdot x| = b y
+\]
+
+We want \(b y\).
+
+---
+
+### Step 28: Express \(b y\) using above relations
+
+Goal: find \(b y\).
+
+---
+
+### Step 29: Solve system numerically or via substitution
+
+Equation (1) from step 24:
+
+\[
+\frac{b}{2} \left[(b + x) + \frac{(b + x) x + y^2}{\sqrt{x^2 + y^2}}\right] = 210
+\]
+
+From step 25:
+
+\[
+(b + x)^2 + y^2 = 784
+\]
+
+---
+
+### Step 30: Make substitution
+
+Let:
+
+\[
+u = b + x, \quad R = \sqrt{x^2 + y^2}
+\]
+
+Rewrite (1):
+
+\[
+\frac{b}{2} \left[u + \frac{u x + y^2}{R}\right] = 210
+\]
+
+Rewrite (2):
+
+\[
+u^2 + y^2 = 784
+\]
+
+---
+
+### Step 31: Express \(x\) in terms of \(u\) and \(b\):
+
+\[
+x = u - b
+\]
+
+So,
+
+\[
+R = \sqrt{(u - b)^2 + y^2}
+\]
+
+---
+
+### Step 32: Try an approach to isolate \(y^2\) and find expression for \(b y\)
+
+Set the term inside brackets as:
+
+\[
+u + \frac{u (u - b) + y^2}{R} = u + \frac{u^2 - b u + y^2}{R}
+\]
+
+This is:
+
+\[
+= u + \frac{u^2 - b u + y^2}{\sqrt{(u - b)^2 + y^2}}
+\]
+
+---
+
+### Step 33: Use geometry insight or guess approach:
+
+Because the problem expects a neat solution, assume \(b = 14\) (because \(b\) is plausible to be half of 28).
+
+Try \(b = 14\).
+
+---
+
+### Step 34: With \(b=14\), compute:
+
+Equation (1):
+
+\[
+\frac{14}{2} \left[u + \frac{u (u - 14) + y^2}{\sqrt{(u - 14)^2 + y^2}} \right] = 210
+\]
+
+So:
+
+\[
+7 \left[u + \frac{u^2 - 14 u + y^2}{\sqrt{(u - 14)^2 + y^2}} \right] = 210
+\]
+
+Divide by 7:
+
+\[
+u + \frac{u^2 - 14 u + y^2}{\sqrt{(u - 14)^2 + y^2}} = 30
+\]
+
+---
+
+### Step 35: Use \(u^2 + y^2 = 784\)
+
+Try \(u = 20\):
+
+\[
+y^2 = 784 - 400 = 384
+\]
+
+\[
+(u - b)^2 + y^2 = (20 - 14)^2 + 384 = 6^2 + 384 = 36 + 384 = 420
+\]
+
+Calculate:
+
+\[
+u^2 - b u + y^2 = 400 - 280 + 384 = 504
+\]
+
+Then:
+
+\[
+LHS = 20 + \frac{504}{\sqrt{420}} = 20 + \frac{504}{20.4939} = 20 + 24.58 = 44.58
+\]
+
+Too high compared to 30.
+
+Try \(u = 10\):
+
+\[
+y^2 = 784 - 100 = 684
+\]
+
+\[
+(u - b)^2 + y^2 = (10 - 14)^2 + 684 = 16 + 684 = 700
+\]
+
+\[
+u^2 - b u + y^2 = 100 - 140 + 684 = 644
+\]
+
+Compute:
+
+\[
+LHS = 10 + \frac{644}{\sqrt{700}} = 10 + \frac{644}{26.46} = 10 + 24.33 = 34.33
+\]
+
+Still high.
+
+Try \(u = 6\):
+
+\[
+y^2 = 784 - 36 = 748
+\]
+
+\[
+(u - b)^2 + y^2 = (6 - 14)^2 + 748 = 64 + 748 = 812
+\]
+
+\[
+u^2 - b u + y^2 = 36 - 84 + 748 = 700
+\]
+
+Compute:
+
+\[
+LHS = 6 + \frac{700}{\sqrt{812}} = 6 + \frac{700}{28.5} = 6 + 24.56 = 30.56
+\]
+
+Close to 30.
+
+Try \(u=5.5\):
+
+\[
+y^2 = 784 - 30.25 = 753.75
+\]
+
+\[
+(u - b)^2 + y^2 = (5.5 - 14)^2 + 753.75 = 72.25 + 753.75 = 826
+\]
+
+\[
+u^2 - b u + y^2 = 30.25 - 77 + 753.75 = 707
+\]
+
+\[
+LHS = 5.5 + \frac{707}{\sqrt{826}} = 5.5 + \frac{707}{28.74} = 5.5 + 24.61 = 30.11
+\]
+
+Try \(u=5.3\):
+
+\[
+y^2 = 784 - 28.09 = 755.91
+\]
+
+\[
+(u - b)^2 + y^2 = (5.3 - 14)^2 + 755.91 = 75.69 + 755.91 = 831.6
+\]
+
+\[
+u^2 - b u + y^2 = 28.09 - 74.2 + 755.91 = 709.8
+\]
+
+Compute:
+
+\[
+LHS = 5.3 + \frac{709.8}{\sqrt{831.6}} = 5.3 + \frac{709.8}{28.84} = 5.3 + 24.62 = 29.92
+\]
+
+Close to 30.
+
+Try \(u = 5.25\):
+
+\[
+y^2 = 784 - 27.56 = 756.44
+\]
+
+\[
+(u - b)^2 + y^2 = (5.25 - 14)^2 + 756.44 = 76.56 + 756.44 = 833
+\]
+
+\[
+u^2 - b u + y^2 = 27.56 - 73.5 + 756.44 = 710.5
+\]
+
+\[
+LHS = 5.25 + \frac{710.5}{\sqrt{833}} = 5.25 + \frac{710.5}{28.86} = 5.25 + 24.62 = 29.87
+\]
+
+Try \(u = 5.35\):
+
+\[
+y^2 = 784 - 28.62 = 755.38
+\]
+
+\[
+(u - b)^2 + y^2 = (5.35 - 14)^2 + 755.38 = 74.23 + 755.38 = 829.6
+\]
+
+\[
+u^2 - b u + y^2 = 28.62 - 74.9 + 755.38 = 709.1
+\]
+
+\[
+LHS = 5.35 + \frac{709.1}{28.81} = 5.35 + 24.62 = 29.97
+\]
+
+Try \(u = 5.4\):
+
+\[
+y^2 = 784 - 29.16 = 754.84
+\]
+
+\[
+(u - b)^2 + y^2 = (5.4 - 14)^2 + 754.84 = 73.11 + 754.84 = 827.95
+\]
+
+\[
+u^2 - b u + y^2 = 29.16 - 75.6 + 754.84 = 708.4
+\]
+
+\[
+LHS = 5.4 + \frac{708.4}{28.78} = 5.4 + 24.63 = 30.03
+\]
+
+Between \(u = 5.35\) and \(5.4\), \(LHS\) is essentially 30.
+
+We'll take \(u = 5.37\) as approximate:
+
+---
+
+### Step 36: Calculate the area \(b y\)
+
+Recall \(y^2 = 784 - u^2\).
+
+Take \(u = 5.37\):
+
+\[
+y^2 = 784 - 5.37^2 = 784 - 28.84 = 755.16
+\]
+
+So
+
+\[
+y = \sqrt{755.16} = \sqrt{4 \times 188.79} = 2 \sqrt{188.79}
+\]
+
+Calculate \(b = 14\)
+
+Area = \(b y = 14 \times 2 \sqrt{188.79} = 28 \sqrt{188.79}\)
+
+---
+
+### Step 37: Simplify \(\sqrt{188.79}\)
+
+Try to find a perfect square factor.
+
+Note \(188.79 \approx 188.8\)
+
+Try \(188.79 = \frac{755.16}{4}\), actually:
+
+\[
+188.79 = \frac{755.16}{4}
+\]
+
+Compute prime factors of 188.79 (approximate)
+
+Try to express 755.16 in terms of rational numbers:
+
+Recall \(y^2 = 755.16\), approximate.
+
+Actually from step 35:
+
+\[
+y^2 = 784 - u^2
+\]
+
+With \(u \approx 5.37\):
+
+\[
+u^2 = 28.84
+\]
+
+So \(y^2 = 784 - 28.84 = 755.16\)
+
+---
+
+### Step 38: Express \(y^2\) exactly from previous approximations
+
+Instead of approximation, recall that the length of \(AC=28\):
+
+\[
+(b + x)^2 + y^2 = 784
+\]
+
+Since \(u = b + x\), so
+
+\[
+y = \sqrt{784 - u^2}
+\]
+
+Given \(b = 14\), \(u \approx 5.37\), so \(x = u - b = 5.37 - 14 = -8.63\).
+
+---
+
+### Step 39: Final expression for area
+
+Area:
+
+\[
+= b y = 14 \times \sqrt{784 - u^2} = 14 \times \sqrt{784 - (5.37)^2} = 14 \times \sqrt{784 - 28.84} = 14 \times \sqrt{755.16}
+\]
+
+Let's express \(\sqrt{755.16}\) as an exact surd.
+
+Recall:
+
+\[
+755.16 = \frac{(b/2)^2 \times \text{expression}}{\text{something}}.
+\]
+
+Alternatively, go back to original variables and use exact rational values.
+
+---
+
+### Step 40: Wrap up
+
+From the approximate calculation:
+
+\[
+\text{Area} \approx 14 \times 27.48 = 384.7
+\]
+
+Check if \(\boxed{28 \sqrt{27}} = 28 \times 5.196 = 145.48\) too small.
+
+Try \(\boxed{28 \sqrt{24}}=28 \times 4.898 = 137\) too small.
+
+Try \(\boxed{28 \sqrt{27.5}} = 28 \times 5.244 = 146.83\), still small.
+
+Try \(\boxed{28 \sqrt{27.75}}=28 \times 5.267 = 147.48\)
+
+No match.
+
+Alternatively, try
+
+\[
+b y = 28 \sqrt{188.79}
+\]
+
+Try \(\sqrt{188.79} \approx 13.74\)
+
+\(28 \times 13.74 = 384.7\), matching better.
+
+Try \(\sqrt{189} = 13.747\)
+
+Thus area \(\approx 28 \sqrt{189}\)
+
+---
+
+### Step 41: Factor 189
+
+\[
+189 = 9 \times 21 = 3^2 \times 3 \times 7 = 3^3 \times 7
+\]
+
+Simplify:
+
+\[
+\sqrt{189} = \sqrt{9 \times 21} = 3 \sqrt{21}
+\]
+
+Therefore,
+
+\[
+\text{Area} = 28 \sqrt{189} = 28 \times 3 \sqrt{21} = 84 \sqrt{21}
+\]
+
+---
+
+### Step 42: Verify area \(= 84 \sqrt{21}\)
+
+Check numerics:
+
+\[
+\sqrt{21} \approx 4.5826, \quad 84 \times 4.5826 = 384.9
+\]
+
+Very close to the approximate we calculated.
+
+---
+
+### Final answer:
+
+\[
+\boxed{84 \sqrt{21}}
+\]
+
+So \(m = 84\), \(n = 21\), sum \(m + n = 84 + 21 = 105\).
+
+---
+
+## Feedback
+Your answer is incorrect. The correct answer is 150.
+
+
+
+# Example 3
+## Inputs
+Problem: Rhombus $ABCD$ has $\angle BAD < 90^\circ.$ There is a point $P$ on the incircle of the rhombus such that the distances from $P$ to the lines $DA,AB,$ and $BC$ are $9,$ $5,$ and $16,$ respectively. Find the perimeter of $ABCD.$
+
+## Generated Outputs
+Answer: 320
+Reasoning: Given a rhombus \(ABCD\) with \(\angle BAD < 90^\circ\) and a point \(P\) on its incircle, the distances from \(P\) to the sides \(DA, AB,\) and \(BC\) are 9, 5, and 16 respectively.
+
+### Step 1: Understanding the setup and notation
+- Since \(ABCD\) is a rhombus, all sides are equal in length.
+- The incircle is tangent to all four sides.
+- The point \(P\) lies on the incircle.
+- The distances from \(P\) to lines \(DA, AB,\) and \(BC\) are the perpendicular distances from \(P\) to those lines.
+- Note that \(AD \parallel BC\) and \(AB \parallel DC\), as opposite sides of a rhombus.
+
+### Step 2: Use properties of the rhombus and incircle
+- The incircle of a rhombus touches all four sides.
+- The incenter of the rhombus is the intersection of the angle bisectors.
+- The distance from any point \(P\) on the incircle to the sides should satisfy the tangency circle's radius conditions.
+
+### Step 3: Observing the distances to three sides
+We are given:
+\[
+d(P, DA) = 9, \quad d(P, AB) = 5, \quad d(P, BC) = 16.
+\]
+
+Let the circle have radius \(r\), the inradius of the rhombus. Since \(P\) is on the incircle and the circle is tangent to all four sides, the perpendicular distance from \(P\) to the side tangent at \(P\) equals \(r\). For the sides near \(P\), these distances correspond to chords and arcs of the incircle.
+
+### Step 4: Expressing distances in terms of \(r\)
+The circle tangent to four lines forming the rhombus imposes relationships on the distances.
+
+Denote the distances from \(P\) to the four sides as \(d_1, d_2, d_3, d_4\).
+
+If \(d_1 = 9, d_2 = 5, d_3 = 16\) correspond to the sides \(DA, AB, BC\), then the distance to the fourth side \(CD\) can be found by considering the sum of distances to opposite sides.
+
+For a rhombus with an incircle, the sum of the distances from any point inside (or on) the circle to a pair of opposite sides is constant and equal to twice the inradius \(2r\).
+
+Thus,
+\[
+d(P, DA) + d(P, BC) = 9 + 16 = 25
+\]
+and
+\[
+d(P, AB) + d(P, CD) = 5 + d(P, CD).
+\]
+
+Since \(P\) is on the incircle, which is tangent to the sides, the sums of distances to opposite sides are equal (both equal to \(2r\)). So,
+\[
+9 + 16 = 5 + d(P, CD) \implies 25 = 5 + d(P, CD) \implies d(P, CD) = 20.
+\]
+
+### Step 5: Finding the inradius \(r\)
+Since the incircle has radius \(r\), the perpendicular distance from the center \(O\) (incenter) to each side is \(r\).
+
+If we take the distances from \(P\) to pairs of opposite sides:
+\[
+d(P, DA) + d(P, BC) = 25 \quad \text{and} \quad d(P, AB) + d(P, CD) = 25.
+\]
+
+Because \(P\) lies on the incircle (of radius \(r\)), the radius to the point \(P\) on the circle is perpendicular to the tangent side. The maximum or minimum of the sum of distances from \(P\) to pairs of opposite sides is constant and equals \(2r\). 
+
+Since \(d(P, DA) + d(P, BC) = 25\), half that is \(r = \frac{25}{2} = 12.5\).
+
+### Step 6: Express the perimeter in terms of \(r\)
+For a rhombus:
+\[
+\text{Area} = \text{side} \times \text{height},
+\]
+with height equal to the altitude from a side, say \(h = a \sin \theta\), where \(a\) is the side length and \(\theta = \angle BAD\).
+
+The rhombus is tangential (has an incircle) implies the rhombus is a kite-like figure with incircle, and the inradius is:
+\[
+r = a \sin \frac{\theta}{2}.
+\]
+
+Using the formula for inradius of a rhombus:
+\[
+r = \frac{a \sin \theta}{2}.
+\]
+
+But we can relate \(r\) to \(a\) and \(\theta\) as:
+\[
+r = a \sin \frac{\theta}{2},
+\]
+or
+\[
+r = \frac{a \sin \theta}{2},
+\]
+depending on which formula we use for the inradius of a rhombus.
+
+Actually, the inradius \(r\) of a rhombus with side length \(a\) and angle \(\theta\) is:
+\[
+r = a \cdot \frac{\sin \theta}{2}.
+\]
+
+This follows from the fact that the rhombus area is \(a^2 \sin \theta\), and the semiperimeter is \(2a\), so
+\[
+r = \frac{\text{Area}}{s} = \frac{a^2 \sin \theta}{2a} = \frac{a \sin \theta}{2}.
+\]
+
+### Step 7: Using the earlier distance relations to find \(a\)
+We have found from the distance calculations that the sum of distances from \(P\) to opposite sides is 25, and the inradius \(r = 12.5\).
+
+Hence:
+\[
+r = \frac{a \sin \theta}{2} = 12.5 \implies a \sin \theta = 25.
+\]
+
+To find the perimeter, we need \(4a\).
+
+### Step 8: Use additional constraints from the distances from \(P\) to other sides
+
+Recall the distances from \(P\) to sides \(DA, AB, BC\) are \(9, 5, 16\), respectively.
+
+Let’s assign:
+- \(d(P, DA) = 9\),
+- \(d(P, AB) = 5\),
+- \(d(P, BC) = 16\),
+- \(d(P, CD) = 20\).
+
+From the rhombus geometry:
+- \(AB\) and \(DC\) are opposite sides,
+- \(AD\) and \(BC\) are opposite sides.
+
+The incircle center \(O\) is equidistant from each side by \(r=12.5\).
+
+Since \(P\) is on the incircle with radius \(12.5\), the distances from \(P\) to sides will vary according to the angle between the radius to \(P\) and the perpendiculars to the sides.
+
+To relate distances \(9,5,16,20\) to \(r, a, \theta\), note:
+
+- The distance between the pairs of opposite sides is \(a \sin \theta = 25\).
+- Let’s set up a coordinate system with the origin at \(O\), the incenter.
+
+### Step 9: Use the distances as projections of the radius vector
+
+Consider the distance from \(P\) to a side equals:
+\[
+d_i = r + r \cos \alpha_i,
+\]
+where \(\alpha_i\) is the angle between the radius to \(P\) and the perpendicular to side \(i\).
+
+We see the distances differ, with \(5 < 9 < 16 < 20\).
+
+Since the inradius is 12.5, and \(P\) lies on the circle, the maximum distance from \(P\) to a line (offset by \(r\)) can be more than \(r\).
+
+### Step 10: Find perimeter from given data
+
+From step 7: \(a \sin \theta = 25\).
+
+We also know the sum of the distances from \(P\) to sides \(AB\) and \(CD\) is 25.
+
+The rhombus perimeter is:
+\[
+4a.
+\]
+
+Since \(a \sin \theta = 25\), if we could find \(\sin \theta\), then
+\[
+a = \frac{25}{\sin \theta}.
+\]
+
+### Step 11: Use the difference of distances from \(P\) to adjacent sides to find \(\cos \frac{\theta}{2}\)
+
+Let’s use the distance difference between \(DA\) and \(AB\):
+\[
+d(P, DA) = 9,
+\]
+\[
+d(P, AB) = 5.
+\]
+
+The difference is \(4\).
+
+If \(O\) is the center and \(P\) on the incircle satisfies certain angular relations, then:
+
+The distance from \(P\) to side \(DA\) is:
+\[
+r + r \cos \alpha,
+\]
+and to side \(AB\) is:
+\[
+r + r \cos(\alpha + \beta),
+\]
+where \(\beta\) is the angle between the sides \(DA\) and \(AB\).
+
+Because the rhombus has angle \(\theta = \angle BAD\), the angle between the sides \(DA\) and \(AB\) at vertex \(A\) is \(\theta\).
+
+Thus,
+\[
+d(P, DA) = r + r \cos \phi,
+\]
+\[
+d(P, AB) = r + r \cos(\phi + \theta).
+\]
+
+Subtract:
+\[
+d(P, DA) - d(P, AB) = r(\cos \phi - \cos(\phi + \theta)) = 9 - 5 = 4.
+\]
+
+Using the cosine difference formula:
+\[
+\cos \phi - \cos(\phi + \theta) = 2 \sin \frac{\theta}{2} \sin \left(\phi + \frac{\theta}{2}\right).
+\]
+
+Thus,
+\[
+4 = r \times 2 \sin \frac{\theta}{2} \sin\left(\phi + \frac{\theta}{2}\right).
+\]
+
+Using \(r = 12.5\),
+\[
+4 = 25 \sin \frac{\theta}{2} \sin\left(\phi + \frac{\theta}{2}\right).
+\]
+
+Since \( \sin\left(\phi + \frac{\theta}{2}\right) \le 1 \),
+\[
+\sin \frac{\theta}{2} \ge \frac{4}{25} = 0.16.
+\]
+
+### Step 12: Make an educated guess to simplify
+
+Because the problem is symmetric and distances are integers, the relation simplifies more strongly if \(\sin\left(\phi + \frac{\theta}{2}\right) = 1\). Then,
+\[
+\sin \frac{\theta}{2} = \frac{4}{25} = 0.16.
+\]
+
+Using the inradius formula again,
+\[
+r = \frac{a \sin \theta}{2} = 12.5,
+\implies a \sin \theta = 25.
+\]
+
+Using the double angle formula:
+\[
+\sin \theta = 2 \sin \frac{\theta}{2} \cos \frac{\theta}{2}.
+\]
+
+If \(\sin \frac{\theta}{2} = \frac{4}{25}\), then
+\[
+\sin \theta = 2 \times \frac{4}{25} \times \cos \frac{\theta}{2} = \frac{8}{25} \cos \frac{\theta}{2}.
+\]
+
+So,
+\[
+a \times \sin \theta = 25 \implies a \times \frac{8}{25} \cos \frac{\theta}{2} = 25,
+\]
+or,
+\[
+a = \frac{25 \times 25}{8 \cos \frac{\theta}{2}} = \frac{625}{8 \cos \frac{\theta}{2}}.
+\]
+
+### Step 13: Find \(\cos \frac{\theta}{2}\)
+
+Since \(\sin^2 x + \cos^2 x = 1\),
+\[
+\cos \frac{\theta}{2} = \sqrt{1 - \sin^2 \frac{\theta}{2}} = \sqrt{1 - \left(\frac{4}{25}\right)^2} = \sqrt{1 - \frac{16}{625}} = \sqrt{\frac{609}{625}} = \frac{\sqrt{609}}{25}.
+\]
+
+Therefore,
+\[
+a = \frac{625}{8 \times \frac{\sqrt{609}}{25}} = \frac{625 \times 25}{8 \sqrt{609}} = \frac{15625}{8 \sqrt{609}}.
+\]
+
+### Step 14: Calculate the perimeter \(4a\)
+\[
+4a = \frac{62500}{8 \sqrt{609}} = \frac{7812.5}{\sqrt{609}}.
+\]
+
+Approximating \(\sqrt{609}\):
+
+Since \(24^2 = 576\), \(25^2 = 625\),
+\[
+\sqrt{609} \approx 24.68.
+\]
+
+Then,
+\[
+4a \approx \frac{7812.5}{24.68} \approx 316.5.
+\]
+
+The perimeter should be an integer. Therefore, the exact value of the perimeter is likely \( \boxed{320} \) or close to this integer.
+
+### Step 15: Verify with simpler approach
+
+Reassess sum of distances:
+
+- Sum of distances to opposite sides \(DA\) and \(BC\) is \(9 + 16 = 25\),
+- Sum to \(AB\) and \(CD\) is \(5 + 20 = 25\).
+
+Thus twice inradius \(2r = 25 \Rightarrow r = 12.5\).
+
+The inradius \(r = \frac{a \sin \theta}{2} = 12.5\).
+
+This gives \(a \sin \theta = 25\).
+
+If we assume \(\theta = 90^\circ\),
+\[
+\sin 90^\circ = 1 \Rightarrow a = 25,
+\]
+and the perimeter \(4a = 100\).
+
+But \(\angle BAD < 90^\circ\), so \(\sin \theta < 1\), thus \(a > 25\).
+
+Round to nearest multiple of 4 near 316.5 that matches the problem's integer answer is \( \boxed{320} \).
+
+### Final answer:
+\[
+\text{Perimeter} = 320.
+\]
+
+## Feedback
+Your answer is incorrect. The correct answer is 125.
+
+
+'''
+Your task is to write a new instruction for the assistant. Read the inputs carefully and identify the input format and infer detailed task
+description about the task I wish to solve with the assistant.
+Read all the assistant responses and the corresponding feedback. Identify all
+niche and domain specific factual information about the task and include it in
+the instruction, as a lot of it may not be available to the assistant in the
+future. The assistant may have utilized a generalizable strategy to solve the
+task, if so, include that in the instruction as well.
+The following is a record of previous instruction edits that were tried from
+the current instruction and did not improve results on the evaluation minibatch.
+Each entry shows exactly what changed (diff) and why it may not have helped.
+This is provided as context to help you make a more informed decision — use
+your judgment about whether any of these directions are worth revisiting or
+whether a different approach might work better.
+Provide the new instructions within ''' blocks.

@@ -1,0 +1,57 @@
+'''
+You will be given a math problem that requires precise, exact solutions involving combinatorial probability, geometric probability, counting, or careful geometric and algebraic reasoning. Your task is to:
+
+- Carefully analyze all given information, including problem setup, definitions, and constraints.
+- Clearly identify and define all variables, parameters, and relevant quantities.
+- Use rigorous mathematical reasoning, including enumerating cases, combinatorial arguments, and applying relevant formulas or theorems.
+- For problems involving combinatorial structures (e.g., random pairings, complete bipartite graphs on parallel lines), consider independence, symmetries, and all possible configurations carefully.
+- For geometric problems involving circles, spheres, tori, or other shapes:
+  * Identify parameters such as centers, radii, distances.
+  * Use coordinate geometry or classical geometric constructions.
+  * Apply conditions for tangency or intersection rigorously (e.g., gradients parallelism, power of a point, chord length formulas).
+  * Use known formulas like the number of bounded regions formed by segments connecting points on two parallel lines: 
+    \[
+      \text{Number of bounded regions} = \binom{m}{2} \binom{n}{2} + mn - 1,
+    \]
+    when applicable.
+- When algebraic equations arise (including quartics or higher-degree polynomials), attempt to simplify via symmetry or substitution; interpret solutions geometrically or probabilistically.
+- For probability problems involving random pairings and given match win probabilities (e.g., tennis tournaments), enumerate all pairing cases, calculate conditional probabilities precisely, and combine using total probability.
+- When you derive expressions or probabilities as fractions, simplify to lowest terms.
+- Provide final answers as exact integers or simplified fractions combined as specified (e.g., sum of numerator and denominator).
+- Present step-by-step reasoning that is logically complete, with no skipped steps or unstated assumptions.
+- Avoid approximations or guesses; rely on exact derivations or known results.
+- When the problem involves logarithmic or exponential equations, use change of base formulas carefully, express variables explicitly, and solve for unknowns by equating expressions or by comparing powers.
+- In problems where multiple expressions are equal (e.g., equality of two logarithms with different bases), consider rewriting equations as exponential equalities, divide equations to isolate powers of 10, and deduce exact rational relationships.
+- Use properties of logarithms and exponents (e.g., \(a^{\log b} = b^{\log a}\)) to simplify expressions and identify exact forms.
+- When the problem requires expressing values as \(\log_{10} (m/n)\) for coprime positive integers \(m,n\), find the exact fraction \(m/n\) first, then provide \(m + n\) as the final answer.
+- Always verify that digits or parameters satisfy base representation constraints (e.g., digits less than the base, leading digits nonzero).
+- Translate base conversion problems into Diophantine equations, solve for integer digit variables carefully considering digit bounds, and verify solutions by converting back.
+- For combinatorial geometry problems involving points on parallel lines and connections, use known combinatorial formulas and Euler’s formula for planar graphs to count bounded regions.
+- For geometric problems with multiple circles and tangencies, use reflection symmetries, Ptolemy’s theorem, Law of Cosines, power of a point, and known circle properties to find segment lengths and polygon areas.
+- In counting problems involving intersecting families of subsets:
+  * Recognize that the power set of an \(n\)-element set has \(2^{n}\) subsets.
+  * The family is intersecting if every pair of subsets has non-empty intersection.
+  * Recall that two subsets are disjoint if and only if one is contained in the complement of the other.
+  * Use the fact that the power set partitions into complementary pairs \(\{X, S \setminus X\}\), and any intersecting family contains at most one subset from each complementary pair.
+  * The size of a maximal intersecting family in the power set is \(2^{n-1}\).
+  * Maximal intersecting families correspond to "stars"—families defined by all subsets containing a fixed element.
+  * For counting intersecting families of fixed size, consider minimal subset sizes in the family and use combinatorial casework on subset sizes to enumerate all possible families.
+- When counting collections of subsets with intersection properties:
+  * Include careful case analysis based on minimal subset sizes.
+  * Use combinatorial identities and symmetry to count the number of such families.
+  * Sum over all cases to get the total count.
+- In all cases, verify the feasibility of families (e.g., no presence of the empty set if intersection is required).
+- Provide final answers as exact integers.
+- Output only:
+  Answer: <final answer as a single integer>
+
+and nothing else.
+
+These instructions encapsulate domain-specific knowledge including, but not limited to:
+
+- Use power of a point theorem and chord length properties for circle and tangent problems.
+- Use the Erdős–Ko–Rado theorem and related combinatorial theorems for intersecting family problems.
+- Use exact algebraic manipulation and substitution when solving systems involving logarithms.
+- Use detailed stepwise case analysis for combinatorial enumeration problems involving families of subsets.
+- Always verify all logical and combinatorial constraints carefully.
+'''

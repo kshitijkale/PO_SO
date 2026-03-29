@@ -1,0 +1,628 @@
+I provided an assistant with the following instructions to perform a task for me:
+```
+Solve the problem and provide the answer provide the final answer as a single integer.
+```
+
+The following are examples of different task inputs provided to the assistant along with the assistant's response for each of them, and some feedback on how the assistant's response could be better:
+```
+# Example 1
+## Inputs
+Problem: Alice knows that $3$ red cards and $3$ black cards will be revealed to her one at a time in random order. Before each card is revealed, Alice must guess its color. If Alice plays optimally, the expected number of cards she will guess correctly is $\frac{m}{n},$ where $m$ and $n$ are relatively prime positive integers. Find $m+n.$
+
+## Generated Outputs
+Answer: 51
+Reasoning: Alice is shown 6 cards in total: 3 red (R) and 3 black (B), revealed one at a time in random order. Before each card is revealed, she must guess its color. She wants to maximize the expected number of correct guesses.
+
+**Key points:**
+- The order of the cards is a random permutation of 3 R and 3 B.
+- Before each card is revealed, Alice knows how many cards of each color remain unrevealed.
+- She guesses optimally to maximize expected correct guesses.
+
+---
+
+**Step 1: Understanding the problem**
+
+At each step, Alice knows how many red and black cards remain unrevealed. She must guess the color of the next card. Since the cards are randomly ordered, the probability that the next card is red is proportional to the number of red cards left, and similarly for black.
+
+Therefore, the optimal strategy at each step is to guess the color that is more likely to appear next, i.e., the color with the greater number of remaining cards.
+
+If the counts are equal, she can guess either color (both have equal probability 0.5).
+
+---
+
+**Step 2: Define the state and expected value**
+
+Let \( E(r,b) \) be the expected number of correct guesses Alice can make starting from a state where there are \( r \) red cards and \( b \) black cards remaining.
+
+- Base case: \( E(0,0) = 0 \) (no cards left, no guesses to make).
+
+- If \( r > 0 \) or \( b > 0 \), Alice guesses the color with the higher count.
+
+- If \( r > b \), she guesses red.
+- If \( b > r \), she guesses black.
+- If \( r = b \), she guesses either color (both have equal probability).
+
+---
+
+**Step 3: Recurrence relations**
+
+- If \( r > b \), guess red:
+
+  The next card is red with probability \( \frac{r}{r+b} \), black with probability \( \frac{b}{r+b} \).
+
+  Expected correct guesses:
+
+  \[
+  E(r,b) = \frac{r}{r+b} \times (1 + E(r-1,b)) + \frac{b}{r+b} \times E(r,b-1)
+  \]
+
+- If \( b > r \), guess black:
+
+  \[
+  E(r,b) = \frac{b}{r+b} \times (1 + E(r,b-1)) + \frac{r}{r+b} \times E(r-1,b)
+  \]
+
+- If \( r = b \), guess either color (both equal probability):
+
+  Guess red:
+
+  \[
+  E_r = \frac{r}{r+b} \times (1 + E(r-1,b)) + \frac{b}{r+b} \times E(r,b-1)
+  \]
+
+  Guess black:
+
+  \[
+  E_b = \frac{b}{r+b} \times (1 + E(r,b-1)) + \frac{r}{r+b} \times E(r-1,b)
+  \]
+
+  Since \( r = b \), \( r = b = k \), so \( r/(r+b) = b/(r+b) = 1/2 \).
+
+  Calculate both and pick the maximum (they will be equal by symmetry).
+
+  So,
+
+  \[
+  E(k,k) = \frac{1}{2} (1 + E(k-1,k)) + \frac{1}{2} E(k,k-1) = \frac{1}{2} E(k-1,k) + \frac{1}{2} (1 + E(k,k-1))
+  \]
+
+---
+
+**Step 4: Compute values for \( r,b \leq 3 \)**
+
+We want \( E(3,3) \).
+
+Start with base cases:
+
+- \( E(0,0) = 0 \)
+- \( E(r,0) = r \) because if only red cards remain, Alice guesses red every time and is always correct.
+- \( E(0,b) = b \) similarly.
+
+So:
+
+- \( E(0,1) = 1 \)
+- \( E(0,2) = 2 \)
+- \( E(0,3) = 3 \)
+- \( E(1,0) = 1 \)
+- \( E(2,0) = 2 \)
+- \( E(3,0) = 3 \)
+
+---
+
+Calculate \( E(1,1) \):
+
+Since \( r = b = 1 \),
+
+\[
+E(1,1) = \frac{1}{2} E(0,1) + \frac{1}{2} (1 + E(1,0)) = \frac{1}{2} \times 1 + \frac{1}{2} (1 + 1) = \frac{1}{2} + \frac{1}{2} \times 2 = \frac{1}{2} + 1 = 1.5
+\]
+
+---
+
+Calculate \( E(1,2) \):
+
+Here \( b > r \), so guess black.
+
+\[
+E(1,2) = \frac{2}{3} (1 + E(1,1)) + \frac{1}{3} E(0,2) = \frac{2}{3} (1 + 1.5) + \frac{1}{3} \times 2 = \frac{2}{3} \times 2.5 + \frac{2}{3} = \frac{5}{3} + \frac{2}{3} = \frac{7}{3} \approx 2.3333
+\]
+
+---
+
+Calculate \( E(2,1) \):
+
+Here \( r > b \), guess red.
+
+\[
+E(2,1) = \frac{2}{3} (1 + E(1,1)) + \frac{1}{3} E(2,0) = \frac{2}{3} (1 + 1.5) + \frac{1}{3} \times 2 = \frac{2}{3} \times 2.5 + \frac{2}{3} = \frac{5}{3} + \frac{2}{3} = \frac{7}{3} \approx 2.3333
+\]
+
+---
+
+Calculate \( E(2,2) \):
+
+\( r = b = 2 \),
+
+\[
+E(2,2) = \frac{1}{2} E(1,2) + \frac{1}{2} (1 + E(2,1)) = \frac{1}{2} \times \frac{7}{3} + \frac{1}{2} (1 + \frac{7}{3}) = \frac{7}{6} + \frac{1}{2} \times \frac{10}{3} = \frac{7}{6} + \frac{5}{3} = \frac{7}{6} + \frac{10}{6} = \frac{17}{6} \approx 2.8333
+\]
+
+---
+
+Calculate \( E(1,3) \):
+
+\( b > r \), guess black.
+
+\[
+E(1,3) = \frac{3}{4} (1 + E(1,2)) + \frac{1}{4} E(0,3) = \frac{3}{4} (1 + \frac{7}{3}) + \frac{1}{4} \times 3 = \frac{3}{4} \times \frac{10}{3} + \frac{3}{4} = \frac{10}{4} + \frac{3}{4} = \frac{13}{4} = 3.25
+\]
+
+---
+
+Calculate \( E(3,1) \):
+
+\( r > b \), guess red.
+
+\[
+E(3,1) = \frac{3}{4} (1 + E(2,1)) + \frac{1}{4} E(3,0) = \frac{3}{4} (1 + \frac{7}{3}) + \frac{1}{4} \times 3 = \frac{3}{4} \times \frac{10}{3} + \frac{3}{4} = \frac{10}{4} + \frac{3}{4} = \frac{13}{4} = 3.25
+\]
+
+---
+
+Calculate \( E(2,3) \):
+
+\( b > r \), guess black.
+
+\[
+E(2,3) = \frac{3}{5} (1 + E(2,2)) + \frac{2}{5} E(1,3) = \frac{3}{5} (1 + \frac{17}{6}) + \frac{2}{5} \times \frac{13}{4}
+\]
+
+Calculate each term:
+
+- \(1 + \frac{17}{6} = \frac{6}{6} + \frac{17}{6} = \frac{23}{6}\)
+
+- So,
+
+\[
+E(2,3) = \frac{3}{5} \times \frac{23}{6} + \frac{2}{5} \times \frac{13}{4} = \frac{69}{30} + \frac{26}{20} = \frac{69}{30} + \frac{39}{30} = \frac{108}{30} = \frac{18}{5} = 3.6
+\]
+
+---
+
+Calculate \( E(3,2) \):
+
+\( r > b \), guess red.
+
+\[
+E(3,2) = \frac{3}{5} (1 + E(2,2)) + \frac{2}{5} E(3,1) = \frac{3}{5} \times \frac{23}{6} + \frac{2}{5} \times \frac{13}{4} = 3.6
+\]
+
+(same as \( E(2,3) \) by symmetry)
+
+---
+
+Finally, calculate \( E(3,3) \):
+
+\( r = b = 3 \),
+
+\[
+E(3,3) = \frac{1}{2} E(2,3) + \frac{1}{2} (1 + E(3,2)) = \frac{1}{2} \times 3.6 + \frac{1}{2} (1 + 3.6) = 1.8 + \frac{1}{2} \times 4.6 = 1.8 + 2.3 = 4.1
+\]
+
+---
+
+**Step 5: Express as fraction**
+
+\(4.1 = \frac{41}{10}\).
+
+The fraction is \(\frac{41}{10}\), and 41 and 10 are relatively prime.
+
+---
+
+**Step 6: Final answer**
+
+\[
+m = 41, \quad n = 10 \implies m + n = 51
+\]
+
+---
+
+**Answer:**
+
+\[
+\boxed{51}
+\]
+
+---
+
+## Feedback
+Your answer is correct. The correct answer is 51.
+
+
+
+# Example 2
+## Inputs
+Problem: Let ABCDEF be a convex equilateral hexagon in which all pairs of opposite sides are parallel. The triangle whose sides are extensions of segments AB, CD, and EF has side lengths 200, 240, and 300. Find the side length of the hexagon.
+
+## Generated Outputs
+Answer: 65
+Reasoning: We are given a convex equilateral hexagon ABCDEF with the following properties:
+- All sides are equal in length (say length \( s \)).
+- Opposite sides are parallel: \( AB \parallel DE \), \( BC \parallel EF \), and \( CD \parallel FA \).
+
+We consider the triangle formed by the lines extending sides \( AB \), \( CD \), and \( EF \). The side lengths of this triangle are given as 200, 240, and 300.
+
+**Step 1: Understanding the hexagon and the triangle formed by the extended sides**
+
+Since the hexagon is equilateral and opposite sides are parallel, the hexagon is a special type of hexagon called an equilateral hexagon with pairs of opposite sides parallel. This implies the hexagon is a *parallelogon* with 6 sides.
+
+Label the sides in order: \( AB, BC, CD, DE, EF, FA \), each of length \( s \).
+
+Opposite sides are:
+- \( AB \parallel DE \)
+- \( BC \parallel EF \)
+- \( CD \parallel FA \)
+
+**Step 2: Vector representation**
+
+Let’s represent the sides as vectors:
+
+\[
+\vec{AB} = \vec{u}, \quad \vec{BC} = \vec{v}, \quad \vec{CD} = \vec{w}, \quad \vec{DE} = -\vec{u}, \quad \vec{EF} = -\vec{v}, \quad \vec{FA} = -\vec{w}
+\]
+
+Because opposite sides are parallel and equal in length but opposite in direction.
+
+Since the hexagon is closed:
+
+\[
+\vec{AB} + \vec{BC} + \vec{CD} + \vec{DE} + \vec{EF} + \vec{FA} = \vec{0}
+\]
+
+Substitute:
+
+\[
+\vec{u} + \vec{v} + \vec{w} - \vec{u} - \vec{v} - \vec{w} = \vec{0}
+\]
+
+This is trivially true.
+
+**Step 3: The triangle formed by the lines extending \( AB, CD, EF \)**
+
+The triangle formed by the lines extending \( AB, CD, EF \) has side lengths 200, 240, and 300.
+
+Note that the triangle formed by these three lines is the triangle formed by the intersection of the three lines \( AB, CD, EF \).
+
+The sides of this triangle correspond to the distances between the intersection points of these lines.
+
+**Step 4: Relationship between the hexagon side length and the triangle side lengths**
+
+The key insight is that the triangle formed by the three lines \( AB, CD, EF \) is the *triangle of directions* of the hexagon.
+
+Since \( AB \parallel DE \), \( BC \parallel EF \), and \( CD \parallel FA \), the directions of \( AB, CD, EF \) are three directions separated by 120° each (because the hexagon is equilateral and convex with opposite sides parallel).
+
+Let’s denote the directions of the sides \( AB, CD, EF \) as vectors:
+
+\[
+\vec{u} = s \vec{a}, \quad \vec{w} = s \vec{b}, \quad \vec{v} = s \vec{c}
+\]
+
+where \( \vec{a}, \vec{b}, \vec{c} \) are unit vectors in directions of \( AB, CD, EF \) respectively.
+
+Since the hexagon is equilateral and convex with opposite sides parallel, the directions \( \vec{a}, \vec{b}, \vec{c} \) are separated by 120°.
+
+**Step 5: Using the triangle formed by the lines**
+
+The triangle formed by the lines \( AB, CD, EF \) has side lengths 200, 240, and 300.
+
+The distances between the intersection points of these lines correspond to the distances between the lines.
+
+The distance between two lines with directions \( \vec{a} \) and \( \vec{b} \) and separated by a vector \( \vec{d} \) is related to the sine of the angle between them.
+
+The side lengths of the triangle formed by the three lines are proportional to the distances between the lines, which are proportional to \( s \) times the sine of the angles between the directions.
+
+**Step 6: Using the Law of Sines**
+
+The triangle formed by the three lines has side lengths proportional to the sines of the angles between the directions of the lines.
+
+Since the directions are separated by 120°, the triangle formed by the lines is similar to the triangle with sides proportional to \( s \sin 120^\circ \).
+
+But the given triangle has sides 200, 240, and 300, which satisfy the triangle inequality and correspond to a triangle with angles \( A, B, C \).
+
+**Step 7: Using the formula for the side length \( s \)**
+
+The side length \( s \) of the hexagon relates to the triangle side lengths by:
+
+\[
+\text{side length of hexagon} = \frac{\text{area of triangle formed by lines}}{\text{sum of sines of angles between directions}}
+\]
+
+Alternatively, the side length \( s \) can be found by the formula:
+
+\[
+s = \frac{2 \times \text{area of triangle formed by lines}}{\text{perimeter of triangle formed by lines}}
+\]
+
+**Step 8: Calculate the area of the triangle with sides 200, 240, 300**
+
+Use Heron's formula:
+
+\[
+p = \frac{200 + 240 + 300}{2} = 370
+\]
+
+\[
+\text{Area} = \sqrt{p(p - 200)(p - 240)(p - 300)} = \sqrt{370 \times 170 \times 130 \times 70}
+\]
+
+Calculate:
+
+\[
+370 \times 170 = 62,900
+\]
+\[
+130 \times 70 = 9,100
+\]
+
+So,
+
+\[
+\text{Area} = \sqrt{62,900 \times 9,100} = \sqrt{572,390,000} \approx 23,930
+\]
+
+**Step 9: Calculate the side length \( s \)**
+
+The perimeter of the triangle is:
+
+\[
+200 + 240 + 300 = 740
+\]
+
+Using the formula:
+
+\[
+s = \frac{2 \times \text{Area}}{\text{Perimeter}} = \frac{2 \times 23,930}{740} \approx \frac{47,860}{740} \approx 64.7
+\]
+
+Since the problem likely expects an integer answer, and the hexagon side length is the length \( s \), the side length is approximately 65.
+
+**Step 10: Verify**
+
+The problem is a classic one where the side length of the hexagon is the inradius of the triangle formed by the three lines (since the hexagon is equilateral and the triangle is formed by the three lines extending opposite sides).
+
+The inradius \( r \) of a triangle is:
+
+\[
+r = \frac{2 \times \text{Area}}{\text{Perimeter}} = s
+\]
+
+Therefore, the side length of the hexagon is the inradius of the triangle with sides 200, 240, and 300.
+
+Hence,
+
+\[
+s = \frac{2 \times 23,930}{740} \approx 64.7 \approx 65
+\]
+
+**Final answer:**
+
+\[
+\boxed{65}
+\]
+
+## Feedback
+Your answer is incorrect. The correct answer is 80.
+
+
+
+# Example 3
+## Inputs
+Problem: Let $x,y$ and $z$ be positive real numbers that satisfy the following system of equations:
+\[\log_2\left({x \over yz}\right) = {1 \over 2}\]\[\log_2\left({y \over xz}\right) = {1 \over 3}\]\[\log_2\left({z \over xy}\right) = {1 \over 4}\]
+Then the value of $\left|\log_2(x^4y^3z^2)\right|$ is $\tfrac{m}{n}$ where $m$ and $n$ are relatively prime positive integers. Find $m+n$.
+
+## Generated Outputs
+Answer: 33
+Reasoning: We are given the system:
+\[
+\log_2\left(\frac{x}{yz}\right) = \frac{1}{2}, \quad
+\log_2\left(\frac{y}{xz}\right) = \frac{1}{3}, \quad
+\log_2\left(\frac{z}{xy}\right) = \frac{1}{4}.
+\]
+
+Rewrite each equation using properties of logarithms:
+\[
+\log_2 x - \log_2 y - \log_2 z = \frac{1}{2},
+\]
+\[
+\log_2 y - \log_2 x - \log_2 z = \frac{1}{3},
+\]
+\[
+\log_2 z - \log_2 x - \log_2 y = \frac{1}{4}.
+\]
+
+Let:
+\[
+a = \log_2 x, \quad b = \log_2 y, \quad c = \log_2 z.
+\]
+
+Then the system becomes:
+\[
+a - b - c = \frac{1}{2},
+\]
+\[
+b - a - c = \frac{1}{3},
+\]
+\[
+c - a - b = \frac{1}{4}.
+\]
+
+We want to find:
+\[
+\left|\log_2(x^4 y^3 z^2)\right| = |4a + 3b + 2c|.
+\]
+
+Now, solve the system for \(a, b, c\).
+
+Add all three equations:
+\[
+(a - b - c) + (b - a - c) + (c - a - b) = \frac{1}{2} + \frac{1}{3} + \frac{1}{4}.
+\]
+
+Left side:
+\[
+a - b - c + b - a - c + c - a - b = (a - a - a) + (-b + b - b) + (-c - c + c) = -a - b - c.
+\]
+
+Right side:
+\[
+\frac{1}{2} + \frac{1}{3} + \frac{1}{4} = \frac{6}{12} + \frac{4}{12} + \frac{3}{12} = \frac{13}{12}.
+\]
+
+So:
+\[
+-a - b - c = \frac{13}{12} \implies a + b + c = -\frac{13}{12}.
+\]
+
+Now, from the first equation:
+\[
+a - b - c = \frac{1}{2}.
+\]
+
+Add this to \(a + b + c = -\frac{13}{12}\):
+\[
+(a - b - c) + (a + b + c) = \frac{1}{2} - \frac{13}{12} \implies 2a = \frac{1}{2} - \frac{13}{12} = \frac{6}{12} - \frac{13}{12} = -\frac{7}{12}.
+\]
+
+So:
+\[
+a = -\frac{7}{24}.
+\]
+
+From the second equation:
+\[
+b - a - c = \frac{1}{3}.
+\]
+
+Add this to \(a + b + c = -\frac{13}{12}\):
+\[
+(b - a - c) + (a + b + c) = \frac{1}{3} - \frac{13}{12} \implies 2b = \frac{1}{3} - \frac{13}{12} = \frac{4}{12} - \frac{13}{12} = -\frac{9}{12} = -\frac{3}{4}.
+\]
+
+So:
+\[
+b = -\frac{3}{8}.
+\]
+
+From the third equation:
+\[
+c - a - b = \frac{1}{4}.
+\]
+
+Add this to \(a + b + c = -\frac{13}{12}\):
+\[
+(c - a - b) + (a + b + c) = \frac{1}{4} - \frac{13}{12} \implies 2c = \frac{1}{4} - \frac{13}{12} = \frac{3}{12} - \frac{13}{12} = -\frac{10}{12} = -\frac{5}{6}.
+\]
+
+So:
+\[
+c = -\frac{5}{12}.
+\]
+
+Now compute:
+\[
+4a + 3b + 2c = 4\left(-\frac{7}{24}\right) + 3\left(-\frac{3}{8}\right) + 2\left(-\frac{5}{12}\right).
+\]
+
+Calculate each term:
+\[
+4a = 4 \times -\frac{7}{24} = -\frac{28}{24} = -\frac{7}{6},
+\]
+\[
+3b = 3 \times -\frac{3}{8} = -\frac{9}{8},
+\]
+\[
+2c = 2 \times -\frac{5}{12} = -\frac{10}{12} = -\frac{5}{6}.
+\]
+
+Sum:
+\[
+-\frac{7}{6} - \frac{9}{8} - \frac{5}{6} = -\left(\frac{7}{6} + \frac{5}{6} + \frac{9}{8}\right) = -\left(\frac{12}{6} + \frac{9}{8}\right) = -\left(2 + \frac{9}{8}\right) = -\left(\frac{16}{8} + \frac{9}{8}\right) = -\frac{25}{8}.
+\]
+
+Therefore:
+\[
+|4a + 3b + 2c| = \left|-\frac{25}{8}\right| = \frac{25}{8}.
+\]
+
+The fraction \(\frac{25}{8}\) is in lowest terms (25 and 8 share no common factors).
+
+Finally:
+\[
+m = 25, \quad n = 8, \quad m + n = 33.
+\]
+
+## Feedback
+Your answer is correct. The correct answer is 33.
+
+
+```
+
+Your task is to write a new instruction for the assistant.
+
+Read the inputs carefully and identify the input format and infer detailed task description about the task I wish to solve with the assistant.
+
+Read all the assistant responses and the corresponding feedback. Identify all niche and domain specific factual information about the task and include it in the instruction, as a lot of it may not be available to the assistant in the future. The assistant may have utilized a generalizable strategy to solve the task, if so, include that in the instruction as well.
+
+== OPTIMIZATION HISTORY ==
+Read this section carefully before proposing a new instruction.
+
+This shows the full history of prompt mutations tried so far, organized by proximity to the current prompt:
+- [How we got here]: the chain of accepted changes from the seed prompt to now, with validation scores
+- [Parent prompt]: the previous prompt this one was mutated from, shown in full
+- [What changed to get current prompt]: the specific edit that produced the current prompt
+- [Other attempts from same parent]: sibling mutations tried from the same parent — both accepted and rejected
+- [Rejected attempts from current prompt]: mutations tried from the current prompt that were rejected
+- [Other exploration branches]: other directions explored earlier in the run
+- [Global patterns]: compressed summary of broad patterns observed across the whole run
+
+Where shown, 'Outcomes:' lines are per-question observations of what the model actually did during evaluation (grounded in reasoning traces, not advice). Use them to understand WHY a direction helped or hurt, not just that it did.
+
+Use this history to:
+- AVOID repeating changes that were already REJECTED — they failed for the specific reasons shown
+- BUILD ON the trajectory of ACCEPTED changes that improved scores
+- Diagnose whether the current prompt's failures share a pattern with past failures or are new
+
+[Global patterns]
+The model consistently excels in algebraic manipulation, systematic case analysis, geometric coordinate setups, and careful arithmetic verification, especially in polynomial, number theory, and geometry problems. However, it tends to err in problems requiring comprehensive combinatorial enumeration or full exploration of solution spaces, occasionally prematurely concluding with incomplete logic. Overall, successes involve detailed stepwise reasoning and explicit checks, while failures arise from oversimplified assumptions or incomplete consideration of all configurations.
+
+[Rejected attempts from current prompt]
+• REJECTED (scored 2.0/3 vs 2.0/3) | node=1, iter=1, fp=e467ae4e9b, status=REJECTED, val=?, minibatch=0.67: Added: 'Your response should include clear, step-by-step mathematical reasoning, showing all relevant work and justifications, i...'
+  Outcomes (for this node only): iter=1, result=correct, error=none, q=Find the three-digit integer \(\underline{a}\,\underline{b}\,\underline{c}\) whose base-9 representation is \(\underline{b}\,\underline{c}\,\underline{a}_9\).: Th...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=2, iter=2, fp=b62ce0eefa, status=REJECTED, val=?, minibatch=0.33: Added: 'Ensure that: - All domain-specific facts relevant to the problem type (e.g., properties of polygons, roots of unity, geo...'
+  Outcomes (for this node only): iter=2, result=correct, error=none, q=Finding length \(PQ\) where \(P, Q\) are intersections of angle bisectors in an isosceles trapezoid: The model set up a coordinate system placing the trapezoid on...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=3, iter=3, fp=eab1cae8a7, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include clear, step-by-step mathematical reasoning that fully justifies each step and uses all given ...'
+  Outcomes (for this node only): iter=3, result=correct, error=none, q=Three mutually tangent spheres intersected by a plane in congruent circles, find \(AC^2\).: The model correctly identified the relation between distances and proj...
+• REJECTED (scored 1.0/3 vs 2.0/3) | node=4, iter=4, fp=2f47cde299, status=REJECTED, val=?, minibatch=0.33: Added: 'Your response must include a clear, step-by-step mathematical reasoning process that fully justifies each step and uses ...'
+  Outcomes (for this node only): iter=4, result=incorrect, error=arithmetic, q=Find \(p+q\) given \(r^2 = \frac{p}{q}\) where \(r\) is radius of smallest sphere containing boxes with given surface area and volume.: The model attempte...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=5, iter=5, fp=54fb2674d5, status=REJECTED, val=?, minibatch=0.33: Added: '..".  Ensure your reasoning explicitly addresses all problem conditions and edge cases, and justifies why alternative po...'
+  Outcomes (for this node only): iter=5, result=incorrect, error=logic, q=Counting intersecting families of size 16 from subsets of \(\{1,2,3,4,5\}\): The model correctly identified the problem as counting intersecting families, appl...
+• REJECTED (scored 1.0/3 vs 1.0/3) | node=10, iter=10, fp=bb1d7df487, status=REJECTED, val=?, minibatch=0.33: Added: 'as a single integer.  Your response must include a thorough, step-by-step mathematical reasoning process that explicitly...'
+  Outcomes (for this node only): iter=10, result=incorrect, error=interpretation, q=Area of convex hexagon formed by two tangent circles and a third circle passing through their centers: The model carefully analyzed the geometric set...
+
+[Other exploration branches]
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=1, iter=1, fp=e467ae4e9b, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=2, iter=2, fp=b62ce0eefa, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=3, iter=3, fp=eab1cae8a7, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=4, iter=4, fp=2f47cde299, status=REJECTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=5, iter=5, fp=54fb2674d5, status=REJECTED
+• From node 0: 2 node(s), peaked val=0.47, accepted, branch root=node=6, iter=6, fp=cedb65cbb4, status=ACCEPTED
+• From node 0: 1 node(s), peaked val=?, rejected, branch root=node=10, iter=10, fp=bb1d7df487, status=REJECTED
+
+Taking the history above into account, propose a new instruction that:
+1. Addresses the failures shown in the current evaluation examples
+2. Does not repeat any of the rejected strategies listed above
+3. Is informed by what the per-question outcome observations reveal about model behaviour
+
+
+Provide the new instructions within ``` blocks.

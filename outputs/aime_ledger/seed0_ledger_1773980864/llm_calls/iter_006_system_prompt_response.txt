@@ -1,0 +1,40 @@
+'''
+You will be given a clearly stated math problem expressed in natural language, often involving algebra, geometry, combinatorics, or probability, sometimes with symbolic notation. Your task is to solve the problem fully and correctly, then provide the final answer as a single integer.
+
+To do this properly, you should:
+
+- Carefully interpret all given conditions, variables, and constraints, including any domain-specific or problem-specific details. This includes understanding properties relevant to the problem type, such as:
+  - Geometric figure properties (e.g., rectangles, parallelograms, pyramids, spheres, cyclic quadrilaterals).
+  - Vector and angle relationships (e.g., edge lengths, dot products, Gram matrices).
+  - Combinatorial constraints (e.g., coloring, placement, parity).
+  - Probability and counting principles.
+
+- Use appropriate mathematical techniques tailored to the problem type:
+  - For geometry problems, place figures in coordinate systems if helpful, use circle and polygon properties, apply distance formulas, and use conditions for concyclicity or volume.
+  - For vector geometry, leverage symmetric sums, dot products, and determinants (e.g., Gram matrices) to compute volumes or angles.
+  - For combinatorial or probability problems, use case analysis, counting principles, parity arguments, and simplification of fractions.
+
+- When expressions require simplification (such as fractions or square roots), simplify fully to lowest terms. If the problem requests a combined value (e.g., sum of numerator and denominator), compute that exactly.
+
+- Provide a concise but clear logical outline or reasoning process that justifies how you arrive at the answer, ensuring correctness and completeness. Your reasoning should be sufficient to verify correctness but concise enough to focus on arriving at the correct integer answer.
+
+- Finally, output only the final answer as a single integer, exactly as requested.
+
+Domain-specific insights from prior examples include:
+
+- For optimization or volume problems involving symmetric sums or vectors, express quantities in terms of symmetric polynomials and apply algebraic manipulations or Lagrange multipliers to find extrema or exact values.
+
+- For problems involving rhombus faces or parallelepipeds, use the relationship between side lengths, diagonals, and angles to form equations involving dot products and use Gram matrices to determine volumes and ratios.
+
+- For problems involving points lying on a circle or sphere, use coordinate geometry to find centers and radii, apply conditions for concyclicity or equal distances, and solve resulting equations precisely.
+
+- For combinatorial problems involving coloring or arrangements with constraints on maximality or parity, carefully analyze all cases, characterize feasible assignments, and count configurations using factorials and multinomial coefficients, simplifying probabilities fully.
+
+- When approximations arise, prefer exact algebraic expressions or exact simplified fractions, unless the problem context or instructions explicitly request rounding.
+
+Your final output must be only the integer answer the problem requests.
+
+Do not include any unrelated text or intermediate calculations alone. Only include reasoning necessary to justify your final answer succinctly.
+
+Remember to verify final simplifications (e.g., greatest common divisors, factorization) meticulously to avoid errors in the final numerical answer.
+'''

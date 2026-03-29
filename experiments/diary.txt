@@ -1,0 +1,167 @@
+Based on the experiment config from diff_diary.md and the previous runs:
+
+    Baseline (no memory):
+    uv run python -m experiments.aime_memory.run \
+      --seed 0 \
+      --max-calls 250 \
+      --val-size 45 \
+      --output-dir outputs/aime_diary_v2_smoke/seed0_baseline \
+      --workers 32 \
+      --minibatch-size 3 \
+      --solver-lm openai/gpt-4.1-mini \
+      --reflection-lm openai/gpt-4.1-mini \
+      --solver-temperature 0.0 \
+      --reflection-temperature 0.7 \
+      --skip-test-eval
+
+    Diary L1 (full accepted diffs only):
+    uv run python -m experiments.aime_memory.run \
+      --seed 0 \
+      --max-calls 500 \
+      --val-size 30 \
+      --memory-version diary \
+      --output-dir outputs/aime_diary_v2_smoke/seed0_diary \
+      --workers 32 \
+      --minibatch-size 3 \
+      --solver-lm openai/gpt-4.1-mini \
+      --reflection-lm openai/gpt-4.1-mini \
+      --solver-temperature 0.0 \
+      --reflection-temperature 0.7 \
+      --skip-test-eval
+
+    Diary L1+L2 (full diffs + LLM strategy notes):
+    uv run python -m experiments.aime_memory.run \
+      --seed 0 \
+      --max-calls 250 \
+      --val-size 45 \
+      --memory-version diary_full \
+      --output-dir outputs/aime_diary_v2_smoke/seed0_diary_full \
+      --workers 32 \
+      --minibatch-size 3 \
+      --solver-lm openai/gpt-4.1-mini \
+      --reflection-lm openai/gpt-4.1-mini \
+      --solver-temperature 0.0 \
+      --reflection-temperature 0.7 \
+      --skip-test-eval
+
+================================================================================
+REFINEMENT EXPERIMENT REPORT (K=3, No Diary)
+================================================================================
+
+Run: outputs/aime_refine_smoke/seed0_refine3/seed0_no_memory
+Date: 2026-03-26
+Config: seed=0, max-calls=250, minibatch=3, refinement-steps=3, no memory/diary
+Models: solver=gpt-4.1-mini (temp=0), reflection=gpt-4.1-mini (temp=0.7)
+
+1. TOP-LINE RESULTS
+-------------------
+
+                     Refine K=3     Baseline (no refine) Diary Full (no refine)
+Budget used          279            528                  252
+Iterations           9              34                   13
+Evals/iteration      12 (train)     6 (train)            6 (train)
+Accepted             3/9 (33%)      7/34 (21%)           3/13 (23%)
+Best val score       53.3%          55.6%                48.9%
+Improvement vs seed  +11.1pp        +13.4pp              +6.7pp
+Improvement/100eval  4.0pp          2.5pp                2.7pp
+
+Key finding: Refinement achieves 96% of the baseline's improvement using 53%
+of the budget. Improvement per eval is ~1.6x more efficient than baseline.
+
+
+2. BUDGET ACCOUNTING (VERIFIED)
+-------------------------------
+
+Per-iteration eval deltas confirm K=3 refinement is working:
+
+  Iteration  Delta Evals  Breakdown                       Outcome
+  1          12 + 45val   parent(3)+T1(3)+S2(3)+S3(3)    ACCEPTED
+  2          12           same                            REJECTED
+  3          12           same                            REJECTED
+  4          12           same                            REJECTED
+  5          12           same                            REJECTED
+  6          3            parent scored 3/3, SKIPPED      (skipped)
+  7          12           same                            REJECTED
+  8          12 + 45val   same                            ACCEPTED
+  9          12 + 45val   same                            ACCEPTED
+
+Each non-skipped iteration costs exactly 12 train evals = 4 evals x 3 examples
+(parent + 3 refinement steps). Matches expected budget.
+
+
+3. CANDIDATE EVOLUTION
+----------------------
+
+  #0 (seed, val=42.2%) -- "Solve the problem..."
+  |-- #1 (iter 1, val=46.7%) -- added domain strategies: digit/base, symmetric polys, Vieta's
+      |-- #2 (iter 8, val=53.3%) BEST -- added geometry, coloring, kinematics, verification
+          |-- #3 (iter 9, val=46.7%) -- restructured for number theory, floor functions, trig
+
+Prompt grew: 86 chars -> 2074 -> 4300 -> 4700. Each accepted mutation specialized
+the prompt for new problem types seen in the minibatch.
+
+
+4. PER-PROBLEM ANALYSIS: Best (#2) vs Seed (#0)
+------------------------------------------------
+
+  Change    Count  Problem IDs
+  Gained    7      55, 58, 59, 70, 74, 76, 78
+  Lost      2      72, 73
+  Net       +5     (24/45 vs 19/45)
+
+Candidate #2 has the best gain/loss ratio of all produced candidates:
+  #1: gained=7, lost=5, net=+2
+  #2: gained=7, lost=2, net=+5  <-- best
+  #3: gained=5, lost=3, net=+2
+
+
+5. ACCEPTANCE PATTERN
+---------------------
+
+Most rejected iterations show best-of-K TYING the parent, not beating it:
+
+  Iter 2: parent=2/3, best-of-K=2/3 -> tie, REJECTED
+  Iter 3: parent=2/3, best-of-K=2/3 -> tie, REJECTED
+  Iter 4: parent=2/3, best-of-K=2/3 -> tie, REJECTED
+  Iter 5: parent=1/3, best-of-K=1/3 -> tie, REJECTED
+  Iter 7: parent=1/3, best-of-K=1/3 -> tie, REJECTED
+
+With binary scores on 3 examples, score space is {0,1,2,3}. Refinement brings
+candidates up to the parent's level but can't exceed when the parent already
+solves the "solvable" problems. Ceiling effect of tiny minibatches.
+
+Accepted iterations:
+  Iter 1: parent=2/3, best-of-K=3/3 -> +1, ACCEPTED
+  Iter 8: parent=1/3, best-of-K=3/3 -> +2, ACCEPTED  (big refinement win)
+  Iter 9: parent=1/3, best-of-K=2/3 -> +1, ACCEPTED
+
+Iter 8 is strongest evidence of refinement helping: parent solved 1/3 problems,
+after 3 refinement turns the prompt solved all 3.
+
+
+6. ISSUES FOUND
+---------------
+
+6a. Refinement steps not logged to log.jsonl
+  The self.logger.log() messages go to stdout, not JSONL. The on_refinement_step
+  callback events also don't appear — ResearchLogger doesn't handle them yet.
+  Impact: Can't observe per-step score progression from logs.
+
+6b. run_log.md shows inconsistent scores
+  Shows "New prompt score: 0/3 (old: 3/3)" for iter 1, but actual decision
+  event shows old=2, new=3. ResearchLogger rendering bug.
+
+6c. Minibatch size limits refinement ceiling
+  With 3 examples and binary scores, score space is {0,1,2,3}. When parent
+  solves 2-3 problems, no room for refinement to improve. Consider minibatch=5-6
+  when using refinement.
+
+
+7. RECOMMENDATIONS
+------------------
+
+1. Fix logging: Wire on_refinement_step into ResearchLogger
+2. Fix run_log.md score rendering
+3. Increase minibatch for refinement runs (5-6 examples gives more headroom)
+4. Run diary + refinement combined (complementary: diary helps Turn 1, refinement polishes)
+5. Run baseline at 250 budget for fair comparison (current baseline used 528)
